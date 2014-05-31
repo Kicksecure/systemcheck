@@ -1,0 +1,21 @@
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+Source: whonixcheck
+Section: misc
+Priority: optional
+Maintainer: Patrick Schleizer <adrelanos@riseup.net>
+Build-Depends: debhelper (>= 8), faketime, git
+Homepage: https://www.whonix.org/wiki/whonixcheck
+Vcs-Browser: https://github.com/Whonix/whonixcheck
+Vcs-Git: https://github.com/Whonix/whonixcheck.git
+Standards-Version: 3.9.4
+
+Package: whonixcheck
+Architecture: all
+Depends: anon-gw-base-files | anon-ws-base-files, anon-base-files,
+ ${misc:Depends}
+Recommends: anon-icon-pack
+Description: Anonymity and security check
+ Checks many important aspects of Whonix.

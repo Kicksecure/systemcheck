@@ -1,0 +1,196 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+## If anyone adds a VPN or something similar to Whonix-Workstation
+## (i.e. connection scheme: Whonix-Workstation -> Tor -> VPN), he would wonder
+## why it is not detected.
+
+#set -x
+set -o pipefail
+
+#trap 'sleep 1' DEBUG
+
+NOTIFY_MSG="Checking Tor Connection, Tor Browser Version, Operating System Updates, Whonix Version, Whonix News...
+This will happen in background and will take approximately three minutes..."
+
+ICON="/usr/share/icons/anon-icon-pack/whonix.ico"
+
+SCRIPTNAME="$(basename $0)"
+IDENTIFIER="$SCRIPTNAME"
+
+## Debugging with bashdb.
+#IDENTIFIER="whonixcheck"
+
+source /usr/lib/msgcollector/error_handler
+trap "error_handler" ERR ## /usr/lib/msgcollector/error_handler
+
+source /usr/lib/anon-shared-helper-scripts/tor_enabled_check
+source /usr/lib/anon-shared-helper-scripts/pkg_manager_running_check
+
+for i in /usr/lib/whonixcheck/*; do
+   if [ -f "$i" ]; then
+      ## If the last character is a ~, ignore that file,
+      ## because it was created by some editor,
+      ## which creates backup files.
+      if [ "${i: -1}" = "~" ]; then
+         continue
+      fi
+      ## Skipping files such as .dpkg-old and .dpkg-dist.
+      if ( echo "$i" | grep -q ".dpkg-" ); then
+         true "skip $i"
+         continue
+      fi
+      source "$i"
+   fi
+done
+
+whonixcheck_main() {
+   trap "error_handler" ERR ## /usr/lib/msgcollector/error_handler
+
+   parse_cmd_options ${1+"$@"} ## parse_cmd
+   preparation ## 10_preparation
+
+   local tmp
+   tmp="$(mktemp)"
+   local progressbaridx
+   progressbaridx="${tmp##*.}"
+   progressbaridx_main="$progressbaridx"
+
+   $output ${output_opts[@]} --forget
+
+   ## Does not use the network.
+   whonixcheck_run_function uwt_tool ## help_uwt_tool
+
+   if [ "$FUNCTION" = "" ]; then
+      true
+   else
+      $FUNCTION
+      cleanup
+      return 0
+   fi
+
+   ## Does not use the network.
+   whonixcheck_run_function root_check ## root_check
+
+   ## Does not use the network.
+   whonixcheck_run_function check_virtualizer ## check_virtualizer
+
+   ## Does not use the network.
+   whonixcheck_run_function check_kvmclock ## check_kvmclock
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
+
+   ## Does not use the network.
+   whonixcheck_run_function check_whonixsetup_done ## check_whonixsetup_done
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_tor_enabled ## check_tor_enabled
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_tor_config ## check_tor_config
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_tor_pid ## check_tor_pid
+
+   ## Does not use the network.
+   whonixcheck_run_function check_package_manager_running ## check_package_manager_running
+
+   ## Only connects to Whonix-Gateway.
+   whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
+
+   ## Does not use the network.
+   whonixcheck_run_function check_whonixcheck_lastrun ## check_lastrun
+   ## Does not use the network.
+   whonixcheck_run_function check_autostart ## autostart
+
+   local MSG="$NOTIFY_MSG"
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --titlex "$TITLE" --message "$MSG" --done
+   ## The 5% indicate, that the check has begun.
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "5"
+
+   ## Does not use the network.
+   whonixcheck_run_function disclaimer ## disclaimer
+
+   ## Does not use the network.
+   whonixcheck_run_function check_logs ## check_logs
+
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "10"
+
+   ## Does not use the network.
+   whonixcheck_run_function check_hostname ## check_hostname
+
+   if [ "$MINIMAL" = "1" ]; then
+
+      ## Only for debugging using the --minimal switch.
+
+      true
+
+   elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
+      ## for Whonix-Workstation
+
+      ## Uses the network. 1
+      whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "15"
+
+      ## Uses the network. 2
+      whonixcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "30"
+
+      ## Does not use the network.
+      whonixcheck_run_function check_stream_isolation ## check_stream_isolation
+
+      ## Uses the network. 3
+      ## after checking IPs
+      ## early in list, because less likely to break
+      whonixcheck_run_function download_whonix_news ## check_news
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "45"
+
+      ## Uses the network. 4
+      whonixcheck_run_function check_operating_system ## check_operating_system
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "60"
+
+      ## Does not use the network.
+      whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "61"
+
+      ## Uses the network. 4
+      whonixcheck_run_function check_torbrowser ## check_torbrowser
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "95"
+
+   else
+      ## for Whonix-Gateway
+
+      ## Uses the network. 1
+      whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "33"
+
+      ## Uses the network. 2
+      ## after checking IP
+      ## early in list, because less likely to break
+      whonixcheck_run_function download_whonix_news ## check_news
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "66"
+
+      ## Uses the network. 3
+      whonixcheck_run_function check_operating_system ## check_operating_system
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "95"
+
+      ## Does not use the network.
+      whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "97"
+   fi
+
+   ## Does not use the network.
+   whonixcheck_run_function donate ## donate
+   ## Does not use the network.
+   whonixcheck_run_function whonixcheck_completed ## check_lastrun
+   ## Does not use the network.
+   whonixcheck_run_function cleanup ## cleanup
+}
+
+whonixcheck_main ${1+"$@"}
+
+## End of whonixcheck script.
