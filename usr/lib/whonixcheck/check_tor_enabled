@@ -14,7 +14,7 @@ check_tor_enabled() {
    if [ "$TOR_ENABLED" = "0" ]; then
       ## When Tor is not yet enabled, i.e. if "DisableNetwork 1" is in
       ## commented /etc/tor/torrc and/or
-      ## /usr/share/tor/tor-service-defaults-torrc and whonxicheck is
+      ## /usr/share/tor/tor-service-defaults-torrc and whonixcheck is
       ## manually started, show the following message and exit.
       ## Otherwise, if whonixcheck is automatically started just be quit and
       ## exit.

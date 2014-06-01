@@ -8,19 +8,53 @@ if [ -f /usr/lib/pre.bsh ]; then
    source /usr/lib/pre.bsh
 fi
 
-mkdir -p /var/lib/whonixcheck/
-chown --recursive user:user /var/lib/whonixcheck/
-chmod --recursive o+w /var/lib/whonixcheck/
-chmod --recursive g+w /var/lib/whonixcheck/
+set -e
 
-touch /var/lib/whonixcheck/write_lock
-chmod --recursive o+w /var/lib/whonixcheck/write_lock
-chmod --recursive g+w /var/lib/whonixcheck/write_lock
+true "
+####################################################################
+## INFO: Begin $DPKG_MAINTSCRIPT_NAME script $DPKG_MAINTSCRIPT_PACKAGE...
+####################################################################
+"
 
-mkdir -p /var/run/whonixcheck/
-chown --recursive user:user /var/run/whonixcheck/
-chmod --recursive o+w /var/run/whonixcheck/
-chmod --recursive g+w /var/run/whonixcheck/
+source /usr/lib/anon-shared-helper-scripts/torsocks-remove-ld-preload
+
+case "$1" in
+    configure)
+       mkdir -p /var/lib/whonixcheck/
+       chown --recursive user:user /var/lib/whonixcheck/
+       chmod --recursive o+w /var/lib/whonixcheck/
+       chmod --recursive g+w /var/lib/whonixcheck/
+
+       touch /var/lib/whonixcheck/write_lock
+       chmod --recursive o+w /var/lib/whonixcheck/write_lock
+       chmod --recursive g+w /var/lib/whonixcheck/write_lock
+
+       mkdir -p /var/run/whonixcheck/
+       chown --recursive user:user /var/run/whonixcheck/
+       chmod --recursive o+w /var/run/whonixcheck/
+       chmod --recursive g+w /var/run/whonixcheck/
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "$DPKG_MAINTSCRIPT_NAME called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+true "INFO: debhelper beginning here."
+
+#DEBHELPER#
+
+true "INFO: Done with debhelper."
+
+true "
+####################################################################
+## INFO: $DPKG_MAINTSCRIPT_NAME script $DPKG_MAINTSCRIPT_PACKAGE no error detected.
+####################################################################
+"
 
 ## Explicitly "exit 0", so eventually trapped errors can be ignored.
 exit 0
