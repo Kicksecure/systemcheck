@@ -97,22 +97,31 @@ File /var/run/controlportfilt/ownrunning does not exist. Please report this Whon
    ## sets: TOR_BOOTSTRAP_TIME_PASSED
    ## sets: tor_bootstrap_percent
    ## sets: tor_bootstrap_status
+   ## sets: tor_bootstrap_timeout_type
    source /usr/lib/connection-checker-gateway/tor_bootstrap.bsh
    check_tor_bootstrap_helper
 
    local MSG="tor_bootstrap_percent: $tor_bootstrap_percent"
    local MSG="tor_bootstrap_status: $tor_bootstrap_status"
 
+   ## `timeout` returns:
+   ## - 124 if sigterm was sufficient
+   ## - 137 if needed to use kill.
+
    if [ "$tor_bootstrap_percent" = "255" ] || [ "$tor_bootstrap_percent" = "124" ] || [ "$tor_bootstrap_percent" = "137" ]; then
+
+
       if [ "$VM" = "Whonix-Gateway" ]; then
          local MSG="Tor Bootstrap Result:
 Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
+(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
 (tor_bootstrap_status: $tor_bootstrap_status)
 (check_socks_port_open_test: $check_socks_port_open_test)
 Please report this Whonix bug!"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="Tor Bootstrap Result:
 Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
+(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
 (tor_bootstrap_status: $tor_bootstrap_status)
 (check_socks_port_open_test: $check_socks_port_open_test)
 Did you start Whonix-Gateway beforehand?
