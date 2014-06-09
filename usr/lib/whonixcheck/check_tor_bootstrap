@@ -109,8 +109,6 @@ File /var/run/controlportfilt/ownrunning does not exist. Please report this Whon
    ## - 137 if needed to use kill.
 
    if [ "$tor_bootstrap_percent" = "255" ] || [ "$tor_bootstrap_percent" = "124" ] || [ "$tor_bootstrap_percent" = "137" ]; then
-
-
       if [ "$VM" = "Whonix-Gateway" ]; then
          local MSG="Tor Bootstrap Result:
 Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
