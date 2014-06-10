@@ -4,7 +4,7 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-check_tor_bootstrap() {
+check_tor_socks_port_reachability() {
    trap "error_handler" ERR
 
    if [ "$VERIFY_TEMPDIR" = "" ]; then
@@ -51,6 +51,10 @@ check_tor_bootstrap() {
    fi
 
    ## }}
+}
+
+check_control_port_filter_running() {
+   trap "error_handler" ERR
 
    ## {{ Small check if Control Port Filter Proxy is functional.
 
@@ -89,6 +93,14 @@ File /var/run/controlportfilt/ownrunning does not exist. Please report this Whon
    fi
 
    ## }}
+}
+
+check_tor_bootstrap() {
+   trap "error_handler" ERR
+
+   check_tor_socks_port_reachability
+
+   check_control_port_filter_running
 
    ## sets: check_bootstrap_script
    ## sets: lastpid
