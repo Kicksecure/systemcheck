@@ -25,6 +25,9 @@ check_tor_bootstrap() {
    ## - 124 if sigterm was sufficient
    ## - 137 if needed to use kill.
 
+   ## check_socks_port_open_test gets set by check_tor_socks_port_reachability,
+   ## which runs earlier.
+
    if [ "$tor_bootstrap_percent" = "255" ] || [ "$tor_bootstrap_percent" = "124" ] || [ "$tor_bootstrap_percent" = "137" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
          local MSG="Tor Bootstrap Result:
