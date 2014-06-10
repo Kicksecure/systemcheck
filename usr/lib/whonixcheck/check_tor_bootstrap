@@ -182,7 +182,7 @@ Try again: Start menu -> Applications -> System -> Whonix Check
 3)
 Use arm, connection page two, to see if Tor is connected:
    Start menu -> Applications -> System -> Arm
-   or in Terminal: armwrapper"
+   or in Terminal: arm"
 
    elif [ "$VM" = "Whonix-Workstation" ]; then
 
