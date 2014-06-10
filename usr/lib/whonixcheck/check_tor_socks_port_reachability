@@ -1,0 +1,54 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_tor_socks_port_reachability() {
+   trap "error_handler" ERR
+
+   if [ "$VERIFY_TEMPDIR" = "" ]; then
+      VERIFY_TEMPDIR="$(mktemp --directory)"
+   fi
+
+   ## {{ Small check if one of Tor's SocksPorts is functional.
+
+   local SOCKS_PORT_WHONIXCHECK
+   SOCKS_PORT_WHONIXCHECK="9110"
+
+   true "FUNCNAME: CURL: $CURL"
+
+   $CURL \
+      --fail \
+      $CURL_VERBOSE \
+      --max-time 10 \
+      --output "$VERIFY_TEMPDIR/socks_port_open_file" \
+      "$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK" \
+      &
+
+   ## Example OK:
+   ## curl: (22) The requested URL returned error: 501 Tor is not an HTTP Proxy
+
+   ## Example Failure:
+   ## curl: (56) Recv failure: Connection reset by peer
+
+   lastpid="$!"
+   wait "$lastpid" || { check_socks_port_open_test="$?" ; true; };
+
+   #local curl_status_message
+   #curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_socks_port_open_test")"
+
+   ## TODO
+   if [ "$check_socks_port_open_test" = "22" ]; then
+      ## OK.
+      true
+   elif [ "$check_socks_port_open_test" = "57" ]; then
+      ## Failure.
+      true
+   else
+      ## Unexpected error.
+      true
+   fi
+
+   ## }}
+}

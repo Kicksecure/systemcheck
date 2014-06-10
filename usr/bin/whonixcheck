@@ -99,6 +99,12 @@ whonixcheck_main() {
    ## Does not use the network.
    whonixcheck_run_function check_package_manager_running ## check_package_manager_running
 
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_control_port_filter_running ## check_control_port_filter
+
+   ## Only connects to Whonix-Gateway.
+   whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
+
    ## Only connects to Whonix-Gateway.
    whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
