@@ -43,7 +43,7 @@ KVMClock Test Result:
 
 KVMClock detected! This is unsupported by Whonix developers! Whonixcheck aborted!
 
-Using KVM together with Whonix is recommended against, because KVMClock conflicts with Whonix's TimeSync design [1].
+Using KVMClock together with Whonix is recommended against, because KVMClock conflicts with Whonix's TimeSync design [1].
 
 You probably did not follow Whonix's KVM instructions. [2]
 
@@ -57,7 +57,7 @@ Recommended action:
 - Shut down.
 - Read Whonix documentation. [3]
 - Follow Whonix's KVM instructions. [2]
-- Or use Whonix with VirtualBOx.
+- Or use Whonix with VirtualBox.
 - Or use Whonix with Physical Isolation. [4]
 
 [1] https://www.whonix.org/wiki/Dev/TimeSync
