@@ -13,7 +13,6 @@ check_virtualizer() {
 
    if [ "$result" = "" ]; then
       ## Not running in a Virtual Machine (or none detected).
-      WHONIXCHECK_NO_VM_DETECTED="1"
       local MSG="Check Virtualizer Result: No Virtualizer detected, probably running on bare metal, continuing."
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
@@ -22,9 +21,7 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$result" = "virtualbox" ]; then
-      ## VirtualBox detected.
-      WHONIXCHECK_DETECTED_VIRTUALBOX="1"
+   if [ "$result" = "virtualbox" ] || [ "$result" = "kvm" ]; then
       local MSG="Check Virtualizer Result: Supported Virtualizer $result detected, continuing."
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
@@ -33,18 +30,15 @@ check_virtualizer() {
       return 0
    fi
 
-   ## Neither Physical Isolation nor VirtualBox was detected.
+   ## Neither Physical Isolation nor supported virtualizer was detected.
 
    if [ "$WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
-      WHONIXCHECK_DETECTED_VIRTUALBOX="0"
       local MSG="Check Virtualizer Result: Unsupported Virtualizer $result detected, but WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER is set, continuing."
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
    else
-      WHONIXCHECK_DETECTED_VIRTUALBOX="0"
-
       if [ "$result" = "vmware" ]; then
          local VMWARE_TEXT="VMware [6] is closed source, therefore security through obscurity [7]."
          local WIKI_LINK="[6] https://en.wikipedia.org/wiki/Security_through_obscurity"
