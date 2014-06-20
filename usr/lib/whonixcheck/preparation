@@ -24,9 +24,9 @@ get_local_whonix_version() {
    whonix_deb_package_version="Could not read Whonix Deb Version File. (Code: 1) Please report this bug!"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "whonix-gateway-files")"
+      whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "whonix-gateway-packages-dependencies")"
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-      whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "whonix-workstation-files")"
+      whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "whonix-workstation-packages-dependencies")"
    fi
 
    ## Example: whonix_deb_package_version="2:6-debpackage1"
