@@ -15,7 +15,7 @@ check_tor_bootstrap() {
    ## sets: tor_bootstrap_percent
    ## sets: tor_bootstrap_status
    ## sets: tor_bootstrap_timeout_type
-   source /usr/lib/connection-checker-gateway/tor_bootstrap.bsh
+   source /usr/lib/anon-shared-helper-scripts/tor_bootstrap_check.bsh
    check_tor_bootstrap_helper
 
    local MSG="tor_bootstrap_percent: $tor_bootstrap_percent"
