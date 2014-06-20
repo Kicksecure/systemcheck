@@ -53,7 +53,7 @@ check_stream_isolation() {
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       else
-         local MSG="Stream Isolation Test Result: Functional."
+         local MSG="<p>Stream Isolation Test Result: Functional.</p>"
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
