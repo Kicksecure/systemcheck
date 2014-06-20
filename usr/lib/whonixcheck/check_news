@@ -51,8 +51,8 @@ download_whonix_news() {
 
       if [ ! "${whonix_news_download_exit_code[$link]}" = "0" ]; then
          local curl_status_message
-         curl_status_message="$(/usr/lib/whonix/curl_exit_codes "${whonix_news_download_exit_code[$link]}")"
-         local MSG="Whonix News Result: Could not download Whonix News File "$filename". (curl return code: $curl_status_message)"
+         curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$link]}")"
+         local MSG="Whonix News Result: Could not download Whonix News File "$filename". (curl exit code: $curl_status_message)"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
          return 0
@@ -60,25 +60,25 @@ download_whonix_news() {
 
    done
 
-   verify_whonix_news
+   whonixcheck_run_function verify_whonix_news
 
    if [ ! "$whonix_news_verified_ok" = "true" ]; then
       true "$0 WARNING: whonix_news_verified_ok is not true, it is $whonix_news_verified_ok, return"
       return 0
    fi
 
-   extract_whonix_news
+   whonixcheck_run_function extract_whonix_news
 
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
       true "$0 ERROR: whonix_news_tar_exit_code is not 0, it is $whonix_news_tar_exit_code, return"
       return 0
    fi
 
-   check_whonix_debian_version
-   check_whonix_build_version
-   check_whonix_debian_news
-   check_whonix_build_news
-   check_whonix_blog
+   whonixcheck_run_function check_whonix_debian_version
+   whonixcheck_run_function check_whonix_build_version
+   whonixcheck_run_function check_whonix_debian_news
+   whonixcheck_run_function check_whonix_build_news
+   whonixcheck_run_function check_whonix_blog
 }
 
 verify_whonix_news() {

@@ -7,6 +7,17 @@
 check_torbrowser() {
    trap "error_handler" ERR
 
+   if [ -f /usr/lib/tbbversion_parser ]; then
+      source /usr/lib/tbbversion_parser
+   else
+      if [ "$verbose" = "1" ]; then
+         local MSG="Tor Browser Update Check: tb-updater packages not installed, skipped."
+         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      fi
+      return 0
+   fi
+
    ## Check if TB_LANG exists and is not empty.
    if [[ "$TB_LANG" && "${TB_LANG}" ]]; then
       MSG="Tor Browser Update Check: Tor Browser language variable is set to $TB_LANG."
@@ -45,10 +56,10 @@ check_torbrowser() {
    wait "$lastpid" || { CHECK_TORBROWSER_RESULT="$?" ; true; }
 
    local curl_status_message
-   curl_status_message="$(/usr/lib/whonix/curl_exit_codes "$CHECK_TORBROWSER_RESULT")"
+   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TORBROWSER_RESULT")"
 
    if [ ! "$CHECK_TORBROWSER_RESULT" = "0" ]; then
-      local MSG="Tor Browser Update Check Result: Tor Browser Update check failed. (curl return code: $curl_status_message) Could not download: https://check.torproject.org/RecommendedTBBVersions. Try:
+      local MSG="Tor Browser Update Check Result: Tor Browser Update check failed. (curl exit code: $curl_status_message) Could not download: https://check.torproject.org/RecommendedTBBVersions. Try:
     Start menu -> Applications -> System -> Tor Browser Updater"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
