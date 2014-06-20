@@ -10,12 +10,12 @@ check_whonix_apt_repository() {
    local temp_x_tool="Start menu -> Applications -> System -> Whonix Repository"
    local temp_cli_tool="sudo whonix_repository"
 
-   local temp_base_msg_enabled="Whonix APT Repository: Enabled.
+   local temp_base_msg_enabled="<p>Whonix APT Repository: Enabled.
 When the Whonix team releases $whonix_codename_uppercase updates, \
 they will be AUTOMATICALLY installed (when you run apt-get dist-upgrade) \
 along with updated packages from the Debian team. Please \
 read https://whonix.org/wiki/Trust to understand the risk. \
-If you want to change this, use:"
+If you want to change this, use:</p>"
 
    local temp_base_msg_disabled="Whonix APT Repository: Disabled.
 When the Whonix team releases an update, it will be NOT be installed. \
