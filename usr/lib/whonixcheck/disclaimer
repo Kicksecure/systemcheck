@@ -13,11 +13,13 @@ disclaimer() {
 
    ## Not adding disclaimer here, because the kdialog info message would contain it,
    ## which would be too much.
-   if [ "$AUTOSTARTED" = "1" ]; then
-      return 0
+   if [ "$SCRIPTNAME" = "timesync" ]; then
+      if [ "$AUTOSTARTED" = "1" ]; then
+         return 0
+      fi
    fi
 
-   local MSG="Whonix is produced independently of, with no guarantee from, The Tor Project. Whonix is experimental software. Do not rely on it for strong anonymity. $WHONIX_HOMEPAGE"
+   local MSG="Whonix is produced independently of, with no guarantee from, The Tor Project. Whonix is experimental software. Do not rely on it for strong anonymity. <a href=$WHONIX_HOMEPAGE>https://whonix.org</a>"
 
    $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
