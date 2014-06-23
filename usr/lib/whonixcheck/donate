@@ -18,8 +18,8 @@ donate() {
       TYPE="$($output ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
       ## Do not ask for donations if the user has something important to do.
       if [ "$TYPE" = "info" ]; then
-         local MSG="Please consider making a small reoccurring donation. See:
-https://www.whonix.org/wiki/Donate"
+         local MSG="<p>Please consider making a small reoccurring donation.
+         See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi

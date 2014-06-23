@@ -56,20 +56,20 @@ check_tor_pid() {
    check_tor_pid_do
 
    if [ ! "$tor_pid_exit_code" = "0" ]; then
-      local MSG="Tor Pid Check Result:
-Tor not running. (tor_pid_message: $tor_pid_message)
+      local MSG="<p>Tor Pid Check Result:
+<br></br><b>Tor not running.</b> (tor_pid_message: $tor_pid_message)
 
-You have to fix this error, before you can use Tor.
+<p>You have to fix this error, before you can use Tor.</p>
 
-Please restart Tor after fixing this error.
+<p>Please restart Tor after fixing this error.</p>
 
-    Start Menu -> Applications -> System -> Restart Tor
-    or in Terminal: sudo service tor restart
+<blockquote>    Start Menu -> Applications -> System -> Restart Tor</blockquote>
+    or in Terminal: sudo service tor restart</p>
 
-Restart whonixcheck after fixing this error.
+<p>Restart whonixcheck after fixing this error.
 
-    Start Menu -> Applications -> System -> Whonix Check
-    or in Terminal: whonixcheck
+<blockquote>   Start Menu -> Applications -> System -> Whonix Check</blockquote>
+    or in Terminal: whonixcheck</p>
 "
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
@@ -77,7 +77,7 @@ Restart whonixcheck after fixing this error.
       cleanup "1"
       return 0
    else
-      local MSG="Tor Pid Check Result: $tor_pid_message, ok."
+      local MSG="<p>Tor Pid Check Result: $tor_pid_message, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"

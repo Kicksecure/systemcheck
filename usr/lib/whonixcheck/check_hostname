@@ -97,16 +97,16 @@ a non-zero exit code.</b> This is probably a network misconfiguration. See above
 
    if [ "$hostname_discouraged_setting_detected" = "true" ]; then
       local MSG="<p>Check Hostname Result:
-Hostname settings different from Whonix defaults. (See above.)</p>
+<br></br><b>Hostname settings different from Whonix defaults.</b> (See above.)</p>
 <p>
 It is generally recommended to keep the default as per Whonix Design. [1]
 If you did not change hostname related settings, please report this Whonix bug.
 If you know what you are doing and changed this on purpose, feel free to
-disable this check. [2]
+disable this check. [2]</p>
 
-[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname>https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname</a>
+<p>[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname>https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname</a>
 <br></br>[2] Create a file /etc/whonix.d/50_whonixcheck_user and add:
-whonixcheck_skip_functions+=\" $FUNCNAME \"</p>"
+<blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
