@@ -8,8 +8,7 @@ check_kvmclock() {
    trap "error_handler" ERR
 
    if [ ! -f "/sys/devices/system/clocksource/clocksource0/current_clocksource" ]; then
-      local MSG="KVMClock Result: \
-/sys/devices/system/clocksource/clocksource0/current_clocksource does not exist, ok."
+      local MSG="<p>KVMClock Result: /sys/devices/system/clocksource/clocksource0/current_clocksource does not exist, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -21,9 +20,7 @@ check_kvmclock() {
    current_clocksource="$(cat "/sys/devices/system/clocksource/clocksource0/current_clocksource")"
 
    if [ ! "$current_clocksource" = "kvm-clock" ]; then
-      local MSG="KVMClock Result: \
-/sys/devices/system/clocksource/clocksource0/current_clocksource exist, is \
-$current_clocksource, not kvm-clock, ok."
+      local MSG="<p>KVMClock Result: /sys/devices/system/clocksource/clocksource0/current_clocksource exist, is $current_clocksource, not kvm-clock, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -32,39 +29,39 @@ $current_clocksource, not kvm-clock, ok."
    fi
 
    if [ "$WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION" = "1" ]; then
-      local MSG="KVMClock Test Result: KVMClock detected, but WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION is set, continuing."
+      local MSG="<p>KVMClock Test Result: KVMClock detected, but WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION is set, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
    else
-      local MSG="\
-KVMClock Test Result:
+      local MSG="<p>KVMClock Test Result:
 
-KVMClock detected! This is unsupported by Whonix developers! Whonixcheck aborted!
+<br></br><b>KVMClock detected! This is unsupported by Whonix developers! Whonixcheck aborted!</b>
 
-Using KVMClock together with Whonix is recommended against, because KVMClock conflicts with Whonix's TimeSync design [1].
+<p>Using KVMClock together with Whonix is recommended against, because KVMClock conflicts with Whonix's TimeSync design [1].</p>
 
-You probably did not follow Whonix's KVM instructions. [2]
+<p>You probably did not follow Whonix's KVM instructions. [2]</p>
 
-This might endanger your anonymity. Do not proceed unless you know what you are doing.
+<p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
-If you wish to ignore this warning and to continue whonixcheck anyway, you can set
-    WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION=\"1\"
-in /etc/whonix.d/30_whonixcheck_default.
+<p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
+<blockquote>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION=\"1\"</blockquote>
+in /etc/whonix.d/30_whonixcheck_default.</p>
 
-Recommended action:
-- Shut down.
-- Read Whonix documentation. [3]
-- Follow Whonix's KVM instructions. [2]
-- Or use Whonix with VirtualBox.
-- Or use Whonix with Physical Isolation. [4]
+<p>Recommended action:
+<br></br>- Shut down.
+<br></br>- Read Whonix documentation. [3]
+<br></br>- Follow Whonix's KVM instructions. [2]
+<br></br>- Or use Whonix with VirtualBox.
+<br></br>- Or use Whonix with Physical Isolation. [4]</p>
 
-[1] https://www.whonix.org/wiki/Dev/TimeSync
-[2] https://www.whonix.org/wiki/KVM
-[3] https://www.whonix.org
-[4] https://www.whonix.org/wiki/Physical_Isolation
-"
+<p>[1] <a href=https://www.whonix.org/wiki/Dev/TimeSync>https://www.whonix.org/wiki/Dev/TimeSync</a>
+<br></br>[2] <a href=https://www.whonix.org/wiki/KVM>https://www.whonix.org/wiki/KVM</a>
+<br></br>[3] <a href=https://www.whonix.org>https://www.whonix.org</a>
+<br></br>[4] <a href=https://www.whonix.org/wiki/Physical_Isolation>https://www.whonix.org/wiki/Physical_Isolation</a>
+</p>
+</p>"
 
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"

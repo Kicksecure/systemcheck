@@ -16,10 +16,8 @@ check_logs() {
    temp_file_name=~/".msgcollector/msgdispatcher-error.log"
 
    if [ -f "$temp_file_name" ]; then
-      local MSG="\
-Check Logs Result: $temp_file_name exists. \
-Please consider reporting any bugs inside this log. \
-(Be careful not to copy and paste personal information). You may delete this file now."
+      local MSG="<p>Check Logs Result: <b>$temp_file_name exists.</b> Please consider reporting any bugs inside this log.
+(Be careful not to copy and paste personal information). You may delete this file now.</p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
    else
@@ -32,10 +30,8 @@ Check Logs Result: $temp_file_name does not exist, ok."
    temp_file_name=~/".tb/torbrowser_updater_error.log"
 
    if [ -f "$temp_file_name" ]; then
-      local MSG="\
-Check Logs Result: $temp_file_name exists. \
-Please consider reporting any bugs inside this log. \
-(Be careful not to copy and paste personal information). You may delete this file now."
+      local MSG="<p>Check Logs Result: <b>$temp_file_name exists.</b> Please consider reporting any bugs inside this log.
+(Be careful not to copy and paste personal information). You may delete this file now.</p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
    else

@@ -52,7 +52,7 @@ download_whonix_news() {
       if [ ! "${whonix_news_download_exit_code[$link]}" = "0" ]; then
          local curl_status_message
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$link]}")"
-         local MSG="Whonix News Result: Could not download Whonix News File "$filename". (curl exit code: $curl_status_message)"
+         local MSG="<p>Whonix News Result: <b>Could not download Whonix News File</b> "$filename". (curl exit code: $curl_status_message)</p>"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
          return 0
@@ -138,7 +138,8 @@ verify_whonix_news() {
 
    if [ ! "$whonix_news_verify_general_exit_code" = "0" ]; then
       whonix_news_verified_ok="false"
-      local MSG="Whonix News Download Result: General Whonix News OpenPGP Verification Error. Please report this bug!"
+      local MSG="<p>Whonix News Download Result: <b>General Whonix News OpenPGP Verification Error.</b>
+<br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -228,7 +229,9 @@ verify_whonix_news() {
 
    if [ ! "$validsig" = "true" ]; then
       whonix_news_verified_ok="false"
-      local MSG="Whonix News Download Result: Could not OpenPGP verify authenticity of Whonix News $filename!!! (gpg return code: ${whonix_news_verify_check_gpg_exit_code} | validsig: $validsig) This is either a Whonix Bug or an attack on Whonix!!!"
+      local MSG="<p>Whonix News Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$filename!!!
+<br></br>(gpg return code: ${whonix_news_verify_check_gpg_exit_code} | validsig: $validsig)
+This is either a Whonix Bug or an attack on Whonix!!!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -237,7 +240,8 @@ verify_whonix_news() {
    if [ "$signed_on_unixtime" = "" ]; then
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="1000"
-      local MSG="Whonix News Check: variable signed_on_unixtime is empty. Please report this bug!"
+      local MSG="<p>Whonix News Check: <br></br><b>variable signed_on_unixtime is empty.<br></br></b>
+<br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -250,7 +254,8 @@ verify_whonix_news() {
    else
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="2000"
-      local MSG="Whonix News Check: Variable signed_on_unixtime includes a non-digit: $signed_on_unixtime Please report this bug!"
+      local MSG="<p>Whonix News Check: <br></br><b>Variable signed_on_unixtime includes a non-digit:</b> $signed_on_unixtime
+<br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -280,9 +285,10 @@ verify_whonix_news() {
    if [ "$current_unixtime" -le "$signed_on_unixtime" ]; then
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="3000"
-      local MSG="Whonix News Check: Your clock is slow. According to your system, Whonix News File was signed $difference_in_minutes minutes before current time.
-Please run Timesync: Start menu -> Applications -> System -> Whonix Timesync
-                     or in Terminal: timesync"
+      local MSG="<p>Whonix News Check: <br></br><b>Your clock is slow.</b> According to your system,
+Whonix News File was signed $difference_in_minutes minutes before current time.
+<br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Whonix Timesync</blockquote>
+or in Terminal: timesync</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -296,14 +302,14 @@ Please run Timesync: Start menu -> Applications -> System -> Whonix Timesync
    if [ "$difference_in_seconds" -ge "$maximum_age_in_seconds" ]; then
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="4000"
-      local MSG="Whonix News Check: Whonix News File is no longer valid (outdated).
-Either,
-- your clock is fast (at least $in_future_in_minutes minutes fast)
-  In that case, please run Timesync: Start menu -> Applications -> System -> Whonix Timesync
-                     or in Terminal: timesync
-- it has been forgotten to refresh Whonix's News File (invalid since $in_future_in_minutes minutes)
-- this is a Whonix Bug
-- or this is an attack on Whonix"
+      local MSG="<p>Whonix News Check: <b>Whonix News File is no longer valid (outdated).</b>
+<br></br>Either,
+<br></br>- your clock is fast (at least $in_future_in_minutes minutes fast)
+<br></br>  In that case, please run Timesync: Start menu -> Applications -> System -> Whonix Timesync
+<br></br>                     or in Terminal: timesync
+<br></br>- it has been forgotten to refresh Whonix's News File (invalid since $in_future_in_minutes minutes)
+<br></br>- this is a Whonix Bug
+<br></br>- or this is an attack on Whonix</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -351,7 +357,8 @@ extract_whonix_news() {
    ## - 137 if needed to use kill.
 
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      local MSG="Whonix News Download Result: Could not extract $filename! (tar return code: ${whonix_news_tar_exit_code}) Please report this bug!"
+      local MSG="<p>Whonix News Download Result: <b>Could not extract $filename!</b? (tar return code: ${whonix_news_tar_exit_code})
+<br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -369,7 +376,7 @@ check_whonix_debian_version() {
 
    if [ ! -f "$filename" ]; then
       ## This file should always exist.
-      local MSG="Whonix News Check: File $filename does not exist. Please report this bug!"
+      local MSG="<p>Whonix News Check: <b>File $filename does not exist.</b><br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
 $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -392,8 +399,9 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
       ## Outdated...
-      local MSG="Whonix News Download Result: Installed Whonix Debian Package $whonix_deb_package_version is outdated! You can automatically update using Whonix's internal updater. Please update using:
-    sudo apt-get update && sudo apt-get dist-upgrade"
+      local MSG="<p>Whonix News Download Result: <b>Installed Whonix Debian Package $whonix_deb_package_version is outdated!</b>
+<br></br>You can automatically update using Whonix's internal updater. Please update using:
+<blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
@@ -407,7 +415,7 @@ check_whonix_build_version() {
 
    if [ ! -f "$filename" ]; then
       ## This file should always exist.
-      local MSG="Whonix News Check: File $filename does not exist. Please report this bug!"
+      local MSG="<p>Whonix News Check: <b>File $filename does not exist.</b><br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
 $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -430,7 +438,8 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
       ## Outdated...
-      local MSG="Whonix News Download Result: Whonix Build $whonix_build_version is outdated! Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image."
+      local MSG="<p>Whonix News Download Result: <b>Whonix Build $whonix_build_version is outdated!</b>
+<br></br>Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image.</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
@@ -470,7 +479,7 @@ check_whonix_build_news() {
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
-      local MSG="Whonix News Download Result: There is no news file available for Whonix Build Version ${whonix_build_version} yet."
+      local MSG="<p>Whonix News Download Result: There is no news file available for Whonix Build Version ${whonix_build_version} yet.</p>"
    else
       local MSG
       MSG="$(cat "$filename")"
@@ -493,7 +502,7 @@ check_whonix_blog() {
    filename="$VERIFY_TEMPDIR/news/whonix_important_blog.txt"
 
    if [ ! -f "$filename" ]; then
-      local MSG="Whonix Blog Download Result: $filename does not exist."
+      local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
@@ -506,7 +515,7 @@ check_whonix_blog() {
    filename="$VERIFY_TEMPDIR/news/whonix_feature_blog.txt"
 
    if [ ! -f "$filename" ]; then
-      local MSG="Whonix Blog Download Result: $filename does not exist."
+      local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else

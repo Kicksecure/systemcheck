@@ -11,7 +11,7 @@ check_torbrowser() {
       source /usr/lib/tbbversion_parser
    else
       if [ "$verbose" = "1" ]; then
-         local MSG="Tor Browser Update Check: tb-updater packages not installed, skipped."
+         local MSG="<p>Tor Browser Update Check: tb-updater packages not installed, skipped.</p>"
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
@@ -20,9 +20,9 @@ check_torbrowser() {
 
    ## Check if TB_LANG exists and is not empty.
    if [[ "$TB_LANG" && "${TB_LANG}" ]]; then
-      MSG="Tor Browser Update Check: Tor Browser language variable is set to $TB_LANG."
+      MSG="<p>Tor Browser Update Check: Tor Browser language variable is set to $TB_LANG.</p>"
    else
-      MSG="Tor Browser Update Check: Tor Browser language set to default en-US."
+      MSG="<p>Tor Browser Update Check: Tor Browser language set to default en-US.</p>"
       TB_LANG="en-US"
    fi
    if [ "$verbose" = "1" ]; then
@@ -59,8 +59,9 @@ check_torbrowser() {
    curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TORBROWSER_RESULT")"
 
    if [ ! "$CHECK_TORBROWSER_RESULT" = "0" ]; then
-      local MSG="Tor Browser Update Check Result: Tor Browser Update check failed. (curl exit code: $curl_status_message) Could not download: https://check.torproject.org/RecommendedTBBVersions. Try:
-    Start menu -> Applications -> System -> Tor Browser Updater"
+      local MSG="<p>Tor Browser Update Check Result: <b>Tor Browser Update check failed.</b> (curl exit code: $curl_status_message)
+Could not download: https://check.torproject.org/RecommendedTBBVersions. Try:
+<blockquote>    Start menu -> Applications -> System -> Tor Browser Updater</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -104,8 +105,9 @@ check_torbrowser() {
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
       ## Outdated...
-      local MSG="Tor Browser Update Check Result: Installed Tor Browser version: $tbb_locally_installed_version. Latest recommend Tor Browser version(s): $tbb_recommended_versions_list. Please run:
-    Start menu -> Applications -> System -> Tor Browser Updater"
+      local MSG="<p>Tor Browser Update Check Result: Installed Tor Browser version: $tbb_locally_installed_version.
+Latest recommend Tor Browser version(s): $tbb_recommended_versions_list. Please run:
+<blockquote>    Start menu -> Applications -> System -> Tor Browser Updater</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
    fi

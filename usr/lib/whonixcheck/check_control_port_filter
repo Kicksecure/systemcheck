@@ -24,8 +24,9 @@ check_control_port_filter_running() {
          wait "$lastpid" || true
       done
       if [ ! -f "/var/run/controlportfilt/ownrunning" ]; then
-         local MSG="Control Port Filter Proxy Test Result:
-File /var/run/controlportfilt/ownrunning does not exist. Please report this Whonix bug!"
+         local MSG="<p>Control Port Filter Proxy Test Result:
+<br></br><b>File /var/run/controlportfilt/ownrunning does not exist.</b>
+<br></br>Please report this Whonix bug!<\p>"
          if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
             $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
          fi
@@ -35,7 +36,7 @@ File /var/run/controlportfilt/ownrunning does not exist. Please report this Whon
          cleanup "1"
          return 0
       else
-         local MSG="Control Port Filter Proxy Test Result: OK"
+         local MSG="<p>Control Port Filter Proxy Test Result: OK</p>"
          if [ "$verbose" = "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"

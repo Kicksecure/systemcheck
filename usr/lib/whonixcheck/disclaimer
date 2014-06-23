@@ -17,7 +17,8 @@ disclaimer() {
       return 0
    fi
 
-   local MSG="Whonix is produced independently of, with no guarantee from, The Tor Project. Whonix is experimental software. Do not rely on it for strong anonymity. <a href=$WHONIX_HOMEPAGE>https://whonix.org</a>"
+   local MSG="<p>Whonix is produced independently of, with no guarantee from, The Tor Project. Whonix is experimental software.
+   Do not rely on it for strong anonymity. <a href=$WHONIX_HOMEPAGE>https://whonix.org</a></p>"
 
    $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"

@@ -20,9 +20,10 @@ check_operating_system() {
    unset apt_get_update_pid
 
    if [ ! "$apt_get_exit_code" = "0" ]; then
-      local MSG="Debian Package Update Check Result: Could not check for software updates! (apt-get code: $apt_get_exit_code) Please manually check:
-(Open a terminal, Start menu -> Applications -> System -> Terminal.)
-    sudo apt-get update && sudo apt-get dist-upgrade"
+      local MSG="<p>Debian Package Update Check Result: <b>Could not check for software updates!</b> (apt-get code: $apt_get_exit_code)
+<br></br>Please manually check:
+<br></br>(Open a terminal, Start menu -> Applications -> System -> Terminal.)
+<blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -43,14 +44,16 @@ check_operating_system() {
    ## 55
 
    if [ "$number_upgraded" = "0" ]; then
-      local MSG="Debian Package Update Check Result: No updates found via apt-get."
+      local MSG="<p>Debian Package Update Check Result: No updates found via apt-get.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       return 0
    fi
 
-   local MSG="<p>Debian Package Update Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b> Please update Whonix-Gateway and Whonix-Workstation:
-(Open a terminal, Start menu -> Applications -> System -> Terminal.)<br>    sudo apt-get update && sudo apt-get dist-upgrade</br></p>"
+   local MSG="<p>Debian Package Update Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
+<br></br>Please update Whonix-Gateway and Whonix-Workstation:
+(Open a terminal, Start menu -> Applications -> System -> Terminal.)
+<blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></p>"
    $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
 }

@@ -13,7 +13,7 @@ check_virtualizer() {
 
    if [ "$result" = "" ]; then
       ## Not running in a Virtual Machine (or none detected).
-      local MSG="Check Virtualizer Result: No Virtualizer detected, probably running on bare metal, continuing."
+      local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on bare metal, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -22,7 +22,7 @@ check_virtualizer() {
    fi
 
    if [ "$result" = "virtualbox" ] || [ "$result" = "kvm" ]; then
-      local MSG="Check Virtualizer Result: Supported Virtualizer $result detected, continuing."
+      local MSG="<p>Check Virtualizer Result: Supported Virtualizer $result detected, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -33,50 +33,50 @@ check_virtualizer() {
    ## Neither Physical Isolation nor supported virtualizer was detected.
 
    if [ "$WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
-      local MSG="Check Virtualizer Result: Unsupported Virtualizer $result detected, but WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER is set, continuing."
+      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer $result detected, but WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER is set, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
    else
       if [ "$result" = "vmware" ]; then
-         local VMWARE_TEXT="VMware [6] is closed source, therefore security through obscurity [7]."
-         local WIKI_LINK="[6] https://en.wikipedia.org/wiki/Security_through_obscurity"
-         local VMWARE_LINK="[7] https://www.whonix.org/wiki/VMware"
+         local VMWARE_TEXT="<p>VMware [6] is closed source, therefore security through obscurity [7].</p>"
+         local WIKI_LINK="[6] <a href=https://en.wikipedia.org/wiki/Security_through_obscurity>https://en.wikipedia.org/wiki/Security_through_obscurity</a>"
+         local VMWARE_LINK="[7] <a href=https://www.whonix.org/wiki/VMware>https://www.whonix.org/wiki/VMware</a>"
       else
          local VMWARE_TEXT=""
          local VMWARE_LINK=""
       fi
 
       local MSG="\
-Virutalizer $result unsupported by Whonix developers! Whonixcheck aborted!
+<p>Virutalizer $result unsupported by Whonix developers! Whonixcheck aborted!<p>
 
-Using Virutalizer $result together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
-It could be made possible, but would require more Whonix contributors.
-It may already work, but is highly experimental.
+<p>Using Virutalizer $result together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
+<br></br>It could be made possible, but would require more Whonix contributors.
+<br></br>It may already work, but is highly experimental.</p>
 
 $VMWARE_TEXT
 
-This might endanger your anonymity. Do not proceed unless you know what you are doing.
+<p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
-If you wish to ignore this warning and to continue whonixcheck anyway, you can set
-    WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"
-in /etc/whonix.d/30_whonixcheck_default.
+<p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
+<blockquote>    WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote>
+in /etc/whonix.d/30_whonixcheck_default.</p>
 
-Recommended action:
-- Shut down.
-- Read Whonix documentation [4].
-- Use Whonix with either VirtualBox or Physical Isolation [5].
+<p>Recommended action:
+<br></br>- Shut down.
+<br></br>- Read Whonix documentation [4].
+<br></br>- Use Whonix with either VirtualBox or Physical Isolation [5].</p>
 
-Footnotes:
+<p>Footnotes:</p>
 
-[1] https://www.whonix.org/wiki/LeakTests
-[2] https://www.whonix.org/wiki/Test
-[3] https://www.whonix.org/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection
-[4] https://www.whonix.org/wiki/Documentation
-[5] https://www.whonix.org/wiki/Physical_Isolation
-$VMWARE_LINK
-$WIKI_LINK
+<p>[1] <a href=https://www.whonix.org/wiki/LeakTests>https://www.whonix.org/wiki/LeakTests</a>
+<br></br>[2] <a href=https://www.whonix.org/wiki/Test>https://www.whonix.org/wiki/Test</a>
+<br></br>[3] <a href=https://www.whonix.org/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection>https://www.whonix.org/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection</a>
+<br></br>[4] <a href=https://www.whonix.org/wiki/Documentation>https://www.whonix.org/wiki/Documentation</a>
+<br></br>[5] <a href=https://www.whonix.org/wiki/Physical_Isolation>https://www.whonix.org/wiki/Physical_Isolation</a>
+<br></br>$VMWARE_LINK
+<br></br>$WIKI_LINK</p>
 "
 
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"

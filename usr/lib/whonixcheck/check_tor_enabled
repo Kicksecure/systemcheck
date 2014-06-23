@@ -19,14 +19,14 @@ check_tor_enabled() {
       ## Otherwise, if whonixcheck is automatically started just be quit and
       ## exit.
 
-      local MSG="Tor Check Result:
-No network. Tor is disabled.
+      local MSG="<p>Tor Check Result:
+<b>No network. Tor is disabled.</b></p>
 
-Please close this window and enable Tor!
+<p>Please close this window and enable Tor!
 
-    Start Menu -> Applications -> System -> Connection Wizard (Whonix)
+<blockquote>    Start Menu -> Applications -> System -> Connection Wizard (Whonix)</blockquote>
 
-    or in Terminal: sudo whonixsetup"
+    or in Terminal: sudo whonixsetup</p>"
 
       if [ "$manualrun" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
@@ -38,13 +38,13 @@ Please close this window and enable Tor!
       return 0
    else
       if [ -e "/usr/share/anon-gw-base-files/gateway" ]; then
-         local MSG='Tor Check Result: "DisableNetwork 1" in /etc/tor/torrc commented out, ok.'
+         local MSG='<p>Tor Check Result: "DisableNetwork 1" in /etc/tor/torrc commented out, ok.</p>'
          if [ "$verbose" = "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
          fi
       else
-         local MSG='Tor Check Result: Not running on Whonix-Gateway, ok.'
+         local MSG='<p>Tor Check Result: Not running on Whonix-Gateway, ok.</p>'
          if [ "$verbose" = "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"

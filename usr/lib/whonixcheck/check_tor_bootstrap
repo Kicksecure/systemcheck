@@ -30,21 +30,21 @@ check_tor_bootstrap() {
 
    if [ "$tor_bootstrap_percent" = "255" ] || [ "$tor_bootstrap_percent" = "124" ] || [ "$tor_bootstrap_percent" = "137" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
-         local MSG="Tor Bootstrap Result:
-Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
-(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-(tor_bootstrap_status: $tor_bootstrap_status)
-(check_socks_port_open_test: $check_socks_port_open_test)
-Please report this Whonix bug!"
+         local MSG="<p>Tor Bootstrap Result:
+<br></br>Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
+<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
+<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
+<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
+<br></br>Please report this Whonix bug!</p?"
       elif [ "$VM" = "Whonix-Workstation" ]; then
-         local MSG="Tor Bootstrap Result:
-Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
-(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-(tor_bootstrap_status: $tor_bootstrap_status)
-(check_socks_port_open_test: $check_socks_port_open_test)
-Did you start Whonix-Gateway beforehand?
-Please run whonixcheck on Whonix-Gateway.
-Then restart whonixcheck on Whonix-Workstation"
+         local MSG="<p>Tor Bootstrap Result:
+<br></br>Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
+<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
+<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
+<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
+<br></br>Did you start Whonix-Gateway beforehand?
+<br></br>Please run whonixcheck on Whonix-Gateway.
+<br></br>Then restart whonixcheck on Whonix-Workstation</p>"
       else
          local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
       fi
@@ -59,11 +59,11 @@ Then restart whonixcheck on Whonix-Workstation"
    fi
 
    if [ "$tor_bootstrap_percent" -gt "100" ] || [ "$tor_bootstrap_percent" -lt "0" ]; then
-      local MSG="Tor Bootstrap Result:
-"$check_bootstrap_script" ERROR ($tor_bootstrap_percent).
-(tor_bootstrap_status: $tor_bootstrap_status)
-(check_socks_port_open_test: $check_socks_port_open_test)
-Please report this Whonix bug!"
+      local MSG="<p>Tor Bootstrap Result:
+<br></br>"$check_bootstrap_script" ERROR ($tor_bootstrap_percent).
+<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
+<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
+<br></br>Please report this Whonix bug!</p>"
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
          $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
@@ -80,7 +80,7 @@ Please report this Whonix bug!"
    #fi
 
    if [ "$tor_bootstrap_percent" = "100" ]; then
-      local MSG="Tor Bootstrap Result: Connected to Tor."
+      local MSG="<p>Tor Bootstrap Result: Connected to Tor.</p>"
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
          $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
@@ -111,7 +111,7 @@ Please report this Whonix bug!"
             tmp="$(mktemp)"
             local progressbaridx
             progressbaridx="${tmp##*.}"
-            local MSG="Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $wait_max seconds.)"
+            local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $wait_max seconds.)</p>"
             $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --titlex "$TITLE" --message "$MSG" --done
          fi
       fi
@@ -130,10 +130,12 @@ Please report this Whonix bug!"
 
          if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "$tor_bootstrap_percent" ]; then
             ## no progress has been made
-            local MSG="Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status"
+            local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. $tor_bootstrap_percent % done.
+            Tor reports: $tor_bootstrap_status</p>"
          else
             ## progress has been made
-            local MSG="Tor Bootstrap Result: Bootstrapping $TOR_BOOTSTRAP_TIME_PASSED seconds. Progress has been made. $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status"
+            local MSG="<p>Tor Bootstrap Result: Bootstrapping $TOR_BOOTSTRAP_TIME_PASSED seconds.
+            Progress has been made. $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status</p>"
          fi
 
          TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
@@ -156,56 +158,55 @@ Please report this Whonix bug!"
 
    if [ "$VM" = "Whonix-Gateway" ]; then
 
-      local MSG="\
-Tor Bootstrap Result:
-Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.
-Bootstrapping $tor_bootstrap_percent % done.
-Tor reports: $tor_bootstrap_status
+      local MSG="<p>Tor Bootstrap Result:
+<br></br>,b>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.</b>
+<br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status</p>
 
-Possible issues:
-- Is the host's internet connection working?
-- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
-- Do you live in a censored area?
+<p>Possible issues:
+<br></br>- Is the host's internet connection working?
+<br></br>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
+<br></br>- Do you live in a censored area?</p>
 
-Recommendations:
+<p>Recommendations:</p>
 
-1)
-Shut down Whonix and try to get the Tor Browser Bundle from https://www.torproject.org working on your host. If you can not get the Tor Browser Bundle to work, you will most certainly not get Whonix to work either.
+<p>1)
+<br></br>Shut down Whonix and try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
+working on your host. If you cannot get the Tor Browser Bundle to work, you will most certainly not get Whonix to work either.</p>
 
-The Tor Browser Bundle is great for testing if you live in a censored area. If you need bridges for the Tor Browser Bundle, you will need them for Whonix as well.
+<p>The Tor Browser Bundle is great for testing if you live in a censored area. If you need bridges for the Tor Browser Bundle,
+you will need them for Whonix as well.</p>
 
-2)
-Try again: Start menu -> Applications -> System -> Whonix Check
-           or in Terminal: whonixcheck
-           or in Terminal with debugging: bash -x whonixcheck --verbose
+<p>2)
+<br></br>Try again: Start menu -> Applications -> System -> Whonix Check
+<br></br>or in Terminal: whonixcheck
+<br></br>or in Terminal with debugging: bash -x whonixcheck --verbose</p>
 
-3)
-Use arm, connection page two, to see if Tor is connected:
-   Start menu -> Applications -> System -> Arm
-   or in Terminal: arm"
+<p>3)
+<br></br>Use arm, connection page two, to see if Tor is connected:
+<blockquote>Start menu -> Applications -> System -> Arm</blockquote>
+or in Terminal: arm</p>"
 
    elif [ "$VM" = "Whonix-Workstation" ]; then
 
-      local MSG="\
-Tor Bootstrap Result:
-Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.
-Bootstrapping $tor_bootstrap_percent % done.
-Tor reports: $tor_bootstrap_status.
+      local MSG="<p>Tor Bootstrap Result:
+<br></br>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.
+<br></br>Bootstrapping $tor_bootstrap_percent % done.
+<br></br>Tor reports: $tor_bootstrap_status.</p>
 
-Possible issues:
-- Is the host's internet connection working?
-- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
-- Did you start Whonix-Gateway beforehand?
+<p>Possible issues:
+<br></br>- Is the host's internet connection working?
+<br></br>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
+<br></br>- Did you start Whonix-Gateway beforehand?</p>
 
-Recommendations:
+<p>Recommendations:</p>
 
-1)
-Try again: Start menu -> Applications -> System -> Whonix Check
-           or in Terminal: whonixcheck
-           or in Terminal with debugging: bash -x whonixcheck --verbose
+<p>1)
+<br></br>Try again: Start menu -> Applications -> System -> Whonix Check
+<br></br>           or in Terminal: whonixcheck
+<br></br>           or in Terminal with debugging: bash -x whonixcheck --verbose</p>
 
-2)
-Run whonixcheck on Whonix-Gateway as well."
+<p>2)
+<br></br>Run whonixcheck on Whonix-Gateway as well.</p>"
 
    else
 

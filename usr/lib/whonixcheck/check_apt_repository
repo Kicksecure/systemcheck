@@ -7,22 +7,22 @@
 check_whonix_apt_repository() {
    trap "error_handler" ERR
 
-   local temp_x_tool="Start menu -> Applications -> System -> Whonix Repository"
-   local temp_cli_tool="sudo whonix_repository"
+   local temp_x_tool="<blockquote>Start menu -> Applications -> System -> Whonix Repository</blockquote>"
+   local temp_cli_tool="<blockquote>sudo whonix_repository</blockquote>"
 
    local temp_base_msg_enabled="<p>Whonix APT Repository: Enabled.
-When the Whonix team releases $whonix_codename_uppercase updates, \
-they will be AUTOMATICALLY installed (when you run apt-get dist-upgrade) \
-along with updated packages from the Debian team. Please \
-read https://whonix.org/wiki/Trust to understand the risk. \
+When the Whonix team releases $whonix_codename_uppercase updates,
+they will be AUTOMATICALLY installed (when you run apt-get dist-upgrade)
+along with updated packages from the Debian team. Please
+read <a href=https://whonix.org/wiki/Trust>https://whonix.org/wiki/Trust</a> to understand the risk.
 If you want to change this, use:</p>"
 
-   local temp_base_msg_disabled="Whonix APT Repository: Disabled.
-When the Whonix team releases an update, it will be NOT be installed. \
-Please read https://whonix.org/wiki/Trust to understand the risk. \
-You will still be notified when updated Whonix packages are released by \
-whonixcheck's Whonix News. You are free to manually update from source code. \
-If you want to change this, use:"
+   local temp_base_msg_disabled="<p>Whonix APT Repository: Disabled.
+When the Whonix team releases an update, it will be NOT be installed.
+Please read <a href=https://whonix.org/wiki/Trust>https://whonix.org/wiki/Trust</a> to understand the risk.
+You will still be notified when updated Whonix packages are released by
+whonixcheck's Whonix News. You are free to manually update from source code.
+If you want to change this, use:</p>"
 
    if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then
       local MSG="$temp_base_msg_enabled
