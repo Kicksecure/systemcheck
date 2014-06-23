@@ -8,7 +8,7 @@ check_ip_forwarding_disabled() {
    trap "error_handler" ERR
 
    if [ ! -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      local MSG="IP Forwarding Result: not running on Whonix-Gatway, skipping, ok."
+      local MSG="<p>IP Forwarding Result: not running on Whonix-Gatway, skipping, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -38,7 +38,7 @@ check_ip_forwarding_disabled() {
          ip_forwarding="$(cat "$file_name")"
 
          if [ "$ip_forwarding" = "0" ]; then
-            local MSG="IP Forwarding Result: $file_name is 0, ok."
+            local MSG="<p>IP Forwarding Result: $file_name is 0, ok.</p>"
             if [ "$verbose" = "1" ]; then
                $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
                $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -56,25 +56,19 @@ check_ip_forwarding_disabled() {
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
          continue
       else
-         local MSG="\
-IP Forwarding Result:
+         local MSG="<p>IP Forwarding Result:
 
-$temp
+$temp</p><b>IP Forwarding enabled! This is unsupported by Whonix developers! Whonixcheck aborted!</b>
 
-IP Forwarding enabled!
+<br></br>Using IP Forwarding on Whonix-Gateway is recommended against, due to risks of leaks.
 
-This is unsupported by Whonix developers! Whonixcheck aborted!
+<br></br>This might endanger your anonymity. Do not proceed unless you know what you are doing. If you wish
+to ignore this warning and to continue whonixcheck anyway, you can set
+<blockquote>WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION=\"1\"</blockquote>
+in /etc/whonix.d/30_whonixcheck_default.</p>
 
-Using IP Forwarding on Whonix-Gateway is recommended against, due to risks of leaks.
-
-This might endanger your anonymity. Do not proceed unless you know what you are doing.
-
-If you wish to ignore this warning and to continue whonixcheck anyway, you can set
-    WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION=\"1\"
-in /etc/whonix.d/30_whonixcheck_default.
-
-Recommended action:
-- Shut down.
+<p>Recommended action:
+<br></br>- Shut down.
 "
 
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"

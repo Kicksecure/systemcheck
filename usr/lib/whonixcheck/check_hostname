@@ -17,15 +17,15 @@ check_hostname() {
       hostname_exit_code_was_non_zero="true"
    fi
    if [ "$hostname_fqdn_output" = "host.localdomain" ]; then
-      local MSG="Check Hostname Result: \"hostname --fqdn\" output is \"host.localdomain\", ok."
+      local MSG="<p>Check Hostname Result: \"hostname --fqdn\" output is \"host.localdomain\", ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
    else
       hostname_discouraged_setting_detected="true"
-      local MSG="Check Hostname Result: \"hostname --fqdn\" output is not \
-\"host.localdomain\", it is \"$hostname_fqdn_output\". (hostname_exit_code: $hostname_exit_code)"
+      local MSG="<p>Check Hostname Result: \"hostname --fqdn\" output is not \
+\"host.localdomain\", it is \"$hostname_fqdn_output\". (hostname_exit_code: $hostname_exit_code)</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
@@ -36,15 +36,15 @@ check_hostname() {
       hostname_exit_code_was_non_zero="true"
    fi
    if [ "$hostname_output" = "host" ]; then
-      local MSG="Check Hostname Result: \"hostname\" output is \"host\", ok."
+      local MSG="<p>Check Hostname Result: \"hostname\" output is \"host\", ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
    else
       hostname_discouraged_setting_detected="true"
-      local MSG="Check Hostname Result: \"hostname\" output is not \"host\", \
-it is \"$hostname_output\". (hostname_exit_code: $hostname_exit_code)"
+      local MSG="<p>Check Hostname Result: <b>\"hostname\" output is not \"host\", \
+it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
@@ -55,15 +55,15 @@ it is \"$hostname_output\". (hostname_exit_code: $hostname_exit_code)"
       hostname_exit_code_was_non_zero="true"
    fi
    if [ "$hostname_ip_address_output" = "127.0.0.1" ]; then
-      local MSG="Check Hostname Result: \"hostname --ip-address\" output is \"127.0.0.1\", ok."
+      local MSG="<p>Check Hostname Result: \"hostname --ip-address\" output is \"127.0.0.1\", ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
    else
       hostname_discouraged_setting_detected="true"
-      local MSG="Check Hostname Result: \"hostname --ip-address\" is not \
-\"127.0.0.1\", it is \"$hostname_ip_address_output\". (hostname_exit_code: $hostname_exit_code)"
+      local MSG="<p>Check Hostname Result: <b>\"hostname --ip-address\" is not \
+\"127.0.0.1\"</b>, it is \"$hostname_ip_address_output\". (hostname_exit_code: $hostname_exit_code)</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
@@ -74,40 +74,39 @@ it is \"$hostname_output\". (hostname_exit_code: $hostname_exit_code)"
       hostname_exit_code_was_non_zero="true"
    fi
    if [ "$hostname_domain_output" = "localdomain" ]; then
-      local MSG="Check Hostname Result: \"hostname --ip-address\" output is \"localdomain\", ok."
+      local MSG="<p>Check Hostname Result: \"hostname --ip-address\" output is \"localdomain\", ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       fi
    else
       hostname_discouraged_setting_detected="true"
-      local MSG="Check Hostname Result: \"hostname --domain\" is not \
-\"localdomain\", it is \"$hostname_domain_output\". (hostname_exit_code: $hostname_exit_code)"
+      local MSG="<p>Check Hostname Result: <b>\"hostname --domain\" is not \
+\"localdomain\"</b>, it is \"$hostname_domain_output\". (hostname_exit_code: $hostname_exit_code)</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
 
    if [ "$hostname_exit_code_was_non_zero" = "true" ]; then
       hostname_discouraged_setting_detected="true"
-      local MSG="Check Hostname Result: \"hostname\" exited at least once with \
-a non-zero exit code. This is probably a network misconfiguration. See above."
+      local MSG="<p>Check Hostname Result: <b>\"hostname\" exited at least once with \
+a non-zero exit code.</b> This is probably a network misconfiguration. See above.</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
 
    if [ "$hostname_discouraged_setting_detected" = "true" ]; then
-      local MSG="\
-Check Hostname Result:
-Hostname settings different from Whonix defaults. (See above.)
-
+      local MSG="<p>Check Hostname Result:
+Hostname settings different from Whonix defaults. (See above.)</p>
+<p>
 It is generally recommended to keep the default as per Whonix Design. [1]
 If you did not change hostname related settings, please report this Whonix bug.
 If you know what you are doing and changed this on purpose, feel free to
 disable this check. [2]
 
-[1] https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname
-[2] Create a file /etc/whonix.d/50_whonixcheck_user and add:
-whonixcheck_skip_functions+=\" $FUNCNAME \""
+[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname>https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname</a>
+<br></br>[2] Create a file /etc/whonix.d/50_whonixcheck_user and add:
+whonixcheck_skip_functions+=\" $FUNCNAME \"</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
