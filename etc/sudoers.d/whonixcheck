@@ -8,6 +8,6 @@ ALL ALL=NOPASSWD: /usr/sbin/tor *
 
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
-ALL ALL=NOPASSWD: /usr/lib/apt-get-update
-ALL ALL=NOPASSWD: /usr/lib/apt-get-update-simulate
-ALL ALL=NOPASSWD: /usr/lib/apt-get-update-kill-helper
+ALL ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update
+ALL ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
+ALL ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
