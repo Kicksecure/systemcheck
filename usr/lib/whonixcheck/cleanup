@@ -100,7 +100,7 @@ trap "trap_sigterm" SIGTERM
 trap_sigint() {
    trap "error_handler" ERR
 
-   echo "$SCRIPTNAME: SIGTERM received. Cleaning up... Exiting..."
+   echo "$SCRIPTNAME: SIGINT received. Cleaning up... Exiting..."
    ex_funct
 }
 
