@@ -115,7 +115,7 @@ verify_whonix_news() {
 
    shopt -s nullglob dotglob
 
-   for key in "/usr/share/whonix/keys/whonix-news-keys.d/"*; do
+   for key in "/usr/share/whonix/whonix-news-keys.d/"*; do
       local key_filename
       key_filename="$(basename "$key")"
       if [ "$key_filename" = "placeholder" ]; then
