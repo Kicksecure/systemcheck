@@ -89,7 +89,8 @@ do_stop()
       process_killer_helper
    fi
 
-   killall whonixcheck 2>/dev/null
+   ## TODO: fix
+   #killall whonixcheck 2>/dev/null
 
    rm -f /var/run/whonixcheck/whonixcheck_waiting
    rm -f /var/run/whonixcheck/whonixcheck_done
