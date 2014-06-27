@@ -4,20 +4,49 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+true "$0 pid: $$"
+
 if [ -f /etc/default/whonixcheckd ]; then
    source /etc/default/whonixcheckd
 fi
+
+ex_funct() {
+   echo "$SCRIPTNAME: $SIGNAL_TYPE received. Cleaning up..."
+
+   if [ ! "$pid" = "" ]; then
+      kill -sigterm "$pid"
+   fi
+
+   echo "$SCRIPTNAME: $SIGNAL_TYPE received. Exiting."
+   exit 0
+}
+
+signal_sigint() {
+   SIGNAL_TYPE="sigint"
+   ex_funct
+}
+
+trap "signal_sigint" SIGINT
+
+signal_sigterm() {
+   SIGNAL_TYPE="sigterm"
+   ex_funct
+}
+
+trap "signal_sigterm" SIGTERM
 
 if [ "$debugging" = "true" ]; then
    set -x
    log_file="/home/user/whonixcheck.log"
    exec >  >(tee --append "$log_file")
    exec 2> >(tee --append "$log_file" >&2)
-   sudo -u user bash -x /usr/bin/whonixcheck --autostart >>"$log_file" 2>&1 &
-   wait "$!" || true
+   bash -x /usr/bin/whonixcheck --autostart >>"$log_file" 2>&1 &
+   pid="$!"
+   wait "$pid" || true
 else
-   sudo -u user /usr/bin/whonixcheck --autostart >/dev/null 2>&1 &
-   wait "$!" || true
+   /usr/bin/whonixcheck --autostart >/dev/null 2>&1 &
+   pid="$!"
+   wait "$pid" || true
 fi
 
 sleep 3600 &
@@ -26,14 +55,17 @@ wait "$!"
 while true; do
 
    if [ "$debugging" = "true" ]; then
-      sudo -u user bash -x /usr/bin/whonixcheck --daemon >>"$log_file" 2>&1 &
-      wait "$!" || true
+      bash -x /usr/bin/whonixcheck --daemon >>"$log_file" 2>&1 &
+      pid="$!"
+      wait "$pid" || true
    else
-      sudo -u user /usr/bin/whonixcheck --daemon >/dev/null 2>/dev/null &
-      wait "$!" || true
+      /usr/bin/whonixcheck --daemon >/dev/null 2>/dev/null &
+      pid="$!"
+      wait "$pid" || true
    fi
 
    sleep 3600 &
-   wait "$!"
+   pid="$!"
+   wait "$pid" || true
 
 done

@@ -26,8 +26,9 @@ DESC="whonixcheck"
 NAME=whonixcheck
 DAEMON=/usr/lib/whonixcheckdaemon
 #DAEMON_ARGS=""
-#PIDFILE=/var/run/$NAME.pid
+PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
+USER_NAME=user
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -60,11 +61,16 @@ chmod --recursive g+w /var/lib/whonix/whonixblog/
 #
 do_start()
 {
-   do_stop
+   start-stop-daemon \
+      --start \
+      --pidfile "$PIDFILE" \
+      --make-pidfile \
+      --background \
+      --chuid $USER_NAME:$USER_NAME \
+      --exec $DAEMON --
+   ret="$?"
 
-   sudo -u user $DAEMON & disown
-
-   return 0
+   return "$ret"
 }
 
 #
@@ -72,30 +78,17 @@ do_start()
 #
 do_stop()
 {
-   killall whonixcheckdaemon 2>/dev/null
+   start-stop-daemon \
+      --stop \
+      --quiet \
+      --pidfile "$PIDFILE" \
+      --signal TERM \
+      --retry 5 \
+      2> /dev/null
 
-   if [ -f /var/run/whonixcheck/whonixcheck_pid ]; then
-      whonixcheck_pid="$(cat /var/run/whonixcheck/whonixcheck_pid)"
-   fi
+   ret="$?"
 
-   source /usr/lib/whonixcheck/process_killer_helper
-
-   if [ "$whonixcheck_pid" = "" ]; then
-      true
-   else
-      ## used by process_killer_helper
-      lastpid="$whonixcheck_pid"
-      process_killer_helper
-   fi
-
-   ## TODO: fix (would kill this init script as well)
-   #killall whonixcheck 2>/dev/null
-
-   rm -f /var/run/whonixcheck/whonixcheck_waiting
-   rm -f /var/run/whonixcheck/whonixcheck_done
-   rm -f /var/run/whonixcheck/whonixcheck_running
-
-   return 0
+   return "$ret"
 }
 
 do_status()
