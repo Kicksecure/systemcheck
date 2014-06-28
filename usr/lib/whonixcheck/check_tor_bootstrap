@@ -35,7 +35,7 @@ check_tor_bootstrap() {
 <br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>Please report this Whonix bug!</p?"
+<br></br>Please report this Whonix bug!</p>"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="<p>Tor Bootstrap Result:
 <br></br>Tor's Control Port could not be reached. (Code: "$tor_bootstrap_percent")
@@ -159,7 +159,7 @@ check_tor_bootstrap() {
    if [ "$VM" = "Whonix-Gateway" ]; then
 
       local MSG="<p>Tor Bootstrap Result:
-<br></br>,b>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.</b>
+<br></br><b>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.</b>
 <br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status</p>
 
 <p>Possible issues:
