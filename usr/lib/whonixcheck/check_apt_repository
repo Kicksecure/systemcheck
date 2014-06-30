@@ -14,12 +14,12 @@ check_whonix_apt_repository() {
 When the Whonix team releases $whonix_codename_uppercase updates,
 they will be AUTOMATICALLY installed (when you run apt-get dist-upgrade)
 along with updated packages from the Debian team. Please
-read <a href=https://whonix.org/wiki/Trust>https://whonix.org/wiki/Trust</a> to understand the risk.
+read <a href=https://www.whonix.org/wiki/Trust>https://www.whonix.org/wiki/Trust</a> to understand the risk.
 If you want to change this, use:</p>"
 
    local temp_base_msg_disabled="<p>Whonix APT Repository: Disabled.
 When the Whonix team releases an update, it will be NOT be installed.
-Please read <a href=https://whonix.org/wiki/Trust>https://whonix.org/wiki/Trust</a> to understand the risk.
+Please read <a href=https://www.whonix.org/wiki/Trust>https://www.whonix.org/wiki/Trust</a> to understand the risk.
 You will still be notified when updated Whonix packages are released by
 whonixcheck's Whonix News. You are free to manually update from source code.
 If you want to change this, use:</p>"
