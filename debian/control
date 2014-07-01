@@ -14,7 +14,7 @@ Standards-Version: 3.9.4
 
 Package: whonixcheck
 Architecture: all
-Depends: anon-gw-base-files | anon-ws-base-files, anon-base-files, curl,
+Depends: anon-gw-base-files | anon-ws-base-files, anon-base-files, curl, curl-scripts,
  ca-certificates, msgcollector, virt-what, psmisc, sudo, ${misc:Depends}
 Recommends: anon-icon-pack
 Description: Anonymity and security check
