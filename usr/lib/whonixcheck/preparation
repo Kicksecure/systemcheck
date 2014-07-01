@@ -158,7 +158,7 @@ preparation() {
       whonix_codename="unknown"
 
       local i
-      while read i; do
+      while read -r i; do
          local first second third fourth
          read -r first second third fourth _ <<< "$i"
          if [ "$first" = "deb" ]; then
