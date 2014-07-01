@@ -83,7 +83,7 @@ ex_funct() {
       $output ${output_opts[@]} --progressbaridx "$progressbaridx_main" --progressx "100"
       $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
 
-      local MSG="<b>whonixcheck aborted!</b> (EXIT_TYPE: $EXIT_TYPE)"
+      local MSG="<p><b>whonixcheck aborted!</b> (EXIT_TYPE: $EXIT_TYPE)</p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
 
