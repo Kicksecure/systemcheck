@@ -65,7 +65,7 @@ to ignore this warning and to continue whonixcheck anyway, you can set
 
 <blockquote><code>WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION=\"1\"</code></blockquote>
 
-in /etc/whonix.d/30_whonixcheck_default.</p>
+in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
 
 <p>Recommended action:
 <br></br>- Shut down.</p>
