@@ -8,7 +8,7 @@ check_whonix_apt_repository() {
    trap "error_handler" ERR
 
    local temp_x_tool="<blockquote>Start menu -> Applications -> System -> Whonix Repository</blockquote>"
-   local temp_cli_tool="<blockquote>sudo whonix_repository</blockquote>"
+   local temp_cli_tool="<blockquote><code>sudo whonix_repository</code></blockquote>"
 
    local temp_base_msg_enabled="<p>Whonix APT Repository: Enabled.
 When the Whonix team releases $whonix_codename_uppercase updates,

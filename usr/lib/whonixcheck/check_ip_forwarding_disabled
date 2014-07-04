@@ -63,7 +63,7 @@ check_ip_forwarding_disabled() {
 This might endanger your anonymity. Do not proceed unless you know what you are doing. If you wish
 to ignore this warning and to continue whonixcheck anyway, you can set
 
-<blockquote>WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION=\"1\"</blockquote>
+<blockquote><code>WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION=\"1\"</code></blockquote>
 
 in /etc/whonix.d/30_whonixcheck_default.</p>
 

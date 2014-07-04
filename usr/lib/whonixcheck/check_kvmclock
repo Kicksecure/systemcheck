@@ -29,7 +29,7 @@ check_kvmclock() {
    fi
 
    if [ "$WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION" = "1" ]; then
-      local MSG="<p>KVMClock Test Result: KVMClock detected, but WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION is set, continuing.</p>"
+      local MSG="<p>KVMClock Test Result: KVMClock detected, but <code>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION</code> is set, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -46,8 +46,8 @@ check_kvmclock() {
 <p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
 <p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
-<blockquote>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION=\"1\"</blockquote>
-in /etc/whonix.d/30_whonixcheck_default.</p>
+<blockquote><code>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION=\"1\"</code></blockquote>
+in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
 
 <p>Recommended action:
 <br></br>- Shut down.

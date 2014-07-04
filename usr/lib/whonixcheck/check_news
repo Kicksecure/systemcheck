@@ -288,7 +288,7 @@ This is either a Whonix Bug or an attack on Whonix!!!</p>"
       local MSG="<p>Whonix News Check: <br></br><b>Your clock is slow.</b> According to your system,
 Whonix News File was signed $difference_in_minutes minutes before current time.
 <br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Whonix Timesync</blockquote>
-or in Terminal: timesync</p>"
+or in Terminal: <code>timesync</code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -401,7 +401,7 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
       ## Outdated...
       local MSG="<p>Whonix News Download Result: <b>Installed Whonix Debian Package $whonix_deb_package_version is outdated!</b>
 <br></br>You can automatically update using Whonix's internal updater. Please update using:
-<blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></p>"
+<blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
