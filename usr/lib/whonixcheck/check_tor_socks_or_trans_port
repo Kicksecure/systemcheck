@@ -52,15 +52,15 @@ check_tor_socks_or_trans_port() {
          if [ "$VM" = "Whonix-Gateway" ]; then
 
             local MSG="\
-<p>SocksPort Test Result: https://check.torproject.org was not reachable. (curl exit code: $curl_status_message)
-<br></br>You could check, if you can reach https://check.torproject.org via the Tor Browser Bundle.<p>"
+<p>SocksPort Test Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable. (curl exit code: $curl_status_message)
+<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.<p>"
 
          elif [ "$VM" = "Whonix-Workstation" ]; then
             local curl_status_message
             curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TOR_RESULT_SOCKS_PORT")"
             local MSG="\
-<p>SocksPort Test Result: https://check.torproject.org was not reachable. (curl exit code: $curl_status_message)
-<br></br>You could check, if you can reach https://check.torproject.org via the Tor Browser Bundle.</p>"
+<p>SocksPort Test Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable. (curl exit code: $curl_status_message)
+<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.</p>"
 
          else
 
@@ -253,7 +253,7 @@ check_tor_socks_or_trans_port() {
 <br></br>- There could be something wrong.
 <br></br>- You added a VPN.
 <br></br>- You added a transproxy.
-<br></br>- It's a false positive. https://check.torproject.org fails in some cases to detect exit nodes.</p>
+<br></br>- It's a false positive. <a href=https://check.torproject.org>https://check.torproject.org</a> fails in some cases to detect exit nodes.</p>
 
 <p>(
 <br></br> VPN/transproxy users:
@@ -279,7 +279,7 @@ check_tor_socks_or_trans_port() {
 
 <p>Possible reasons:
 <br></br>- There could be something wrong.
-<br></br>- It's a false positive. https://check.torproject.org fails in some cases to detect exit nodes.</p>
+<br></br>- It's a false positive. <a href=https://check.torproject.org>https://check.torproject.org</a> fails in some cases to detect exit nodes.</p>
 
 <p>You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
 <br></br><a href=https://metrics.torproject.org/exonerator.html>https://metrics.torproject.org/exonerator.html</a></p>"

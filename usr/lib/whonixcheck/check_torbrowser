@@ -60,7 +60,7 @@ check_torbrowser() {
 
    if [ ! "$CHECK_TORBROWSER_RESULT" = "0" ]; then
       local MSG="<p>Tor Browser Update Check Result: <b>Tor Browser Update check failed.</b> (curl exit code: $curl_status_message)
-Could not download: https://check.torproject.org/RecommendedTBBVersions. Try:
+Could not download: <a href=https://check.torproject.org/RecommendedTBBVersions>https://check.torproject.org/RecommendedTBBVersions</a>. Try:
 <blockquote>    Start menu -> Applications -> System -> Tor Browser Updater</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
