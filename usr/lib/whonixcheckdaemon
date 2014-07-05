@@ -18,19 +18,20 @@ ex_funct() {
    fi
 
    echo "$SCRIPTNAME: $SIGNAL_TYPE received. Exiting."
-   exit 0
 }
 
 signal_sigint() {
    SIGNAL_TYPE="sigint"
    ex_funct
+   exit 130
 }
 
-trap "signal_sigint" SIGINT
+trap "trap_sigint" SIGINT ## ctrl + c
 
 signal_sigterm() {
    SIGNAL_TYPE="sigterm"
    ex_funct
+   exit 143
 }
 
 trap "signal_sigterm" SIGTERM
