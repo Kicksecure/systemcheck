@@ -18,7 +18,7 @@ This will happen in background and will take approximately three minutes..."
 
 ICON="/usr/share/icons/anon-icon-pack/whonix.ico"
 
-SCRIPTNAME="$(basename $0)"
+SCRIPTNAME="$(basename $BASH_SOURCE)"
 IDENTIFIER="$SCRIPTNAME"
 
 ## Debugging with bashdb.

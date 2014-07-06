@@ -63,14 +63,14 @@ download_whonix_news() {
    whonixcheck_run_function verify_whonix_news
 
    if [ ! "$whonix_news_verified_ok" = "true" ]; then
-      true "$0 WARNING: whonix_news_verified_ok is not true, it is $whonix_news_verified_ok, return"
+      true "$BASH_SOURCE WARNING: whonix_news_verified_ok is not true, it is $whonix_news_verified_ok, return"
       return 0
    fi
 
    whonixcheck_run_function extract_whonix_news
 
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      true "$0 ERROR: whonix_news_tar_exit_code is not 0, it is $whonix_news_tar_exit_code, return"
+      true "$BASH_SOURCE ERROR: whonix_news_tar_exit_code is not 0, it is $whonix_news_tar_exit_code, return"
       return 0
    fi
 
