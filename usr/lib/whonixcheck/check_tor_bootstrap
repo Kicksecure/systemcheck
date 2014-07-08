@@ -21,11 +21,11 @@ check_tor_bootstrap() {
    source /usr/lib/anon-shared-helper-scripts/tor_bootstrap_check.bsh
    check_tor_bootstrap_helper
 
-   local MSG="tor_bootstrap_percent: $tor_bootstrap_percent"
-   local MSG="tor_bootstrap_status: $tor_bootstrap_status"
-   local MSG="tor_circuit_established: $tor_circuit_established"
-   local MSG="tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code"
-   local MSG="tor_circuit_established_word: $tor_circuit_established_word"
+   true "tor_bootstrap_percent: $tor_bootstrap_percent"
+   true "tor_bootstrap_status: $tor_bootstrap_status"
+   true "tor_circuit_established: $tor_circuit_established"
+   true "tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code"
+   true "tor_circuit_established_word: $tor_circuit_established_word"
 
    ## `timeout` returns:
    ## - 124 if sigterm was sufficient
