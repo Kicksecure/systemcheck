@@ -24,7 +24,7 @@ check_tor_bootstrap() {
    local MSG="tor_bootstrap_percent: $tor_bootstrap_percent"
    local MSG="tor_bootstrap_status: $tor_bootstrap_status"
    local MSG="tor_circuit_established: $tor_circuit_established"
-   local MSG="tor_circuit_established_check_exit_code $tor_circuit_established_check_exit_code"
+   local MSG="tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code"
    local MSG="tor_circuit_established_word: $tor_circuit_established_word"
 
    ## `timeout` returns:
