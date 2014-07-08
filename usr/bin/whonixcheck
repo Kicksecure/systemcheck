@@ -55,7 +55,7 @@ whonixcheck_main() {
    trap "error_handler" ERR ## /usr/lib/msgcollector/error_handler
 
    parse_cmd_options ${1+"$@"} ## parse_cmd
-   preparation ## 10_preparation
+   preparation ## preparation
 
    local tmp
    tmp="$(mktemp)"
