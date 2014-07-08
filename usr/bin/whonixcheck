@@ -26,8 +26,11 @@ IDENTIFIER="$SCRIPTNAME"
 
 source /usr/lib/msgcollector/error_handler
 trap "error_handler" ERR ## /usr/lib/msgcollector/error_handler
+bash -n /usr/lib/msgcollector/error_handler
 
+bash -n /usr/lib/anon-shared-helper-scripts/tor_enabled_check
 source /usr/lib/anon-shared-helper-scripts/tor_enabled_check
+bash -n /usr/lib/anon-shared-helper-scripts/pkg_manager_running_check
 source /usr/lib/anon-shared-helper-scripts/pkg_manager_running_check
 
 for i in /usr/lib/whonixcheck/*; do
