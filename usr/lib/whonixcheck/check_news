@@ -526,8 +526,10 @@ check_whonix_blog() {
    ## Let's make just one success message, not two.
    if [ "$BLOG_SUCCESS" = "2" ]; then
       local MSG="<p>Whonix Blog Download Result: Success.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      fi
       return 0
    fi
 }
