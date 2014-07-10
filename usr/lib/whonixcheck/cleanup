@@ -54,7 +54,7 @@ maybe_kill_apt_get_update() {
 ex_funct() {
    trap "error_handler" ERR
 
-   echo "$SCRIPTNAME: signal $EXIT_TYPE received. Cleaning up... Exiting..."
+   echo "$SCRIPTNAME: signal $SIGNAL_TYPE received. Cleaning up... Exiting..."
 
    ## Deactivate traps, so when pressing ctrl + c several times this won't
    ## create an endless loop.
@@ -83,14 +83,14 @@ ex_funct() {
       $output ${output_opts[@]} --progressbaridx "$progressbaridx_main" --progressx "100"
       $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
 
-      local MSG="<p><b>whonixcheck aborted!</b> (EXIT_TYPE: $EXIT_TYPE)</p>"
+      local MSG="<p><b>whonixcheck aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
 
       $output ${output_opts[@]} --messagex --done
       $output ${output_opts[@]} --messagecli --done
    else
-      local MSG="whonixcheck aborted! (EXIT_TYPE: $EXIT_TYPE)"
+      local MSG="whonixcheck aborted! (SIGNAL_TYPE: $SIGNAL_TYPE)"
       echo "$MSG"
    fi
 }
@@ -100,7 +100,7 @@ ex_funct() {
 trap_sigterm() {
    trap "error_handler" ERR
 
-   EXIT_TYPE="sigterm"
+   SIGNAL_TYPE="sigterm"
    ex_funct
    exit 143
 }
@@ -110,7 +110,7 @@ trap "trap_sigterm" SIGTERM
 trap_sigint() {
    trap "error_handler" ERR
 
-   EXIT_TYPE="sigint"
+   SIGNAL_TYPE="sigint"
    ex_funct
    exit 130
 }
