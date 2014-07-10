@@ -54,7 +54,7 @@ maybe_kill_apt_get_update() {
 ex_funct() {
    trap "error_handler" ERR
 
-   echo "$SCRIPTNAME: $EXIT_TYPE received. Cleaning up... Exiting..."
+   echo "$SCRIPTNAME: signal $EXIT_TYPE received. Cleaning up... Exiting..."
 
    ## Deactivate traps, so when pressing ctrl + c several times this won't
    ## create an endless loop.
