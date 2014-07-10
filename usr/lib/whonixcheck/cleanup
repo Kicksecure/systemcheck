@@ -100,7 +100,7 @@ ex_funct() {
 trap_sigterm() {
    trap "error_handler" ERR
 
-   SIGNAL_TYPE="sigterm"
+   SIGNAL_TYPE="SIGTERM"
    ex_funct
    exit 143
 }
@@ -110,7 +110,7 @@ trap "trap_sigterm" SIGTERM
 trap_sigint() {
    trap "error_handler" ERR
 
-   SIGNAL_TYPE="sigint"
+   SIGNAL_TYPE="SIGINT"
    ex_funct
    exit 130
 }
