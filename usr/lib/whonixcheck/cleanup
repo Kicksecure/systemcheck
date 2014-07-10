@@ -93,6 +93,12 @@ ex_funct() {
       local MSG="whonixcheck aborted! (SIGNAL_TYPE: $SIGNAL_TYPE)"
       echo "$MSG"
    fi
+
+   if [ "$EXIT_CODE" = "" ]; then
+      EXIT_CODE="1"
+   fi
+
+   exit "$EXIT_CODE"
 }
 
 ## }}
@@ -101,8 +107,8 @@ trap_sigterm() {
    trap "error_handler" ERR
 
    SIGNAL_TYPE="SIGTERM"
+   EXIT_CODE="143"
    ex_funct
-   exit 143
 }
 
 trap "trap_sigterm" SIGTERM
@@ -111,8 +117,8 @@ trap_sigint() {
    trap "error_handler" ERR
 
    SIGNAL_TYPE="SIGINT"
+   EXIT_CODE="130"
    ex_funct
-   exit 130
 }
 
 trap "trap_sigint" SIGINT ## ctrl + c
