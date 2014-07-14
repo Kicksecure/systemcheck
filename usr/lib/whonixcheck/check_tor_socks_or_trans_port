@@ -15,7 +15,7 @@ check_tor_socks_or_trans_port() {
 
    if [ "$1" = "SocksPort" ]; then
       if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
-         local MSG="<p>SocksPort Test: Not testing Tor's SocksPort, because you set WHONIXCHECK_DISABLE_SOCKS_PORT_TEST=\"1\" to deactivate this.</p>"
+         local MSG="<p>SocksPort Test: Not testing Tor's SocksPort, because you set <code>WHONIXCHECK_DISABLE_SOCKS_PORT_TEST=\"1\"</code> to deactivate this.</p>"
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
          return 0
@@ -75,7 +75,7 @@ check_tor_socks_or_trans_port() {
       fi
    elif [ "$1" = "TransPort" ]; then
       if [ "$WHONIXCHECK_DISABLE_TRANS_PORT_TEST" = "1" ]; then
-         local MSG="<p>TransPort Test: <b>Not testing Tor's TransPort, because you set WHONIXCHECK_DISABLE_TRANS_PORT_TEST=\"1\" to deactivate this.</b></p>"
+         local MSG="<p>TransPort Test: <b>Not testing Tor's TransPort, because you set <code>WHONIXCHECK_DISABLE_TRANS_PORT_TEST=\"1\"</code> to deactivate this.</b></p>"
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
          return 0
@@ -237,7 +237,7 @@ check_tor_socks_or_trans_port() {
 
       if [ "$1" = "TransPort" ]; then
          if [ "$WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE" = "1" ]; then
-            local MSG="<p>TransPort Test Result: Tor not detected, but you set WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE="1" to ignore this. IP: $ip</p>"
+            local MSG="<p>TransPort Test Result: Tor not detected, but you set <code>WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE=\"1\"</code> to ignore this. IP: $ip</p>"
             $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
             return 0
