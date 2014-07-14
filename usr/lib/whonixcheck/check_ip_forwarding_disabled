@@ -56,8 +56,8 @@ check_ip_forwarding_disabled() {
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
          continue
       else
-      #"IP Forwarding Result:$temp    ## was in MSG below
-         local MSG= "<p><b>IP Forwarding enabled! This is unsupported by Whonix developers! Whonixcheck aborted!</b></p>
+         ## "IP Forwarding Result:$temp    ## was in MSG below
+         local MSG="<p><b>IP Forwarding enabled! This is unsupported by Whonix developers! Whonixcheck aborted!</b></p>
 
 <p>Using IP Forwarding on Whonix-Gateway is recommended against, due to risks of leaks.
 This might endanger your anonymity. Do not proceed unless you know what you are doing. If you wish

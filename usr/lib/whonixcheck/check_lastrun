@@ -11,10 +11,10 @@ check_whonixcheck_lastrun() {
    ## A day has 86400 seconds.
    local MAX="86400"
 
-   ## Using "/var/lib/whonixcheck/"$SCRIPTNAME"_lastrun", because
+   ## Using "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun", because
    ## /var/run/ gets cleared on boot.
 
-   if [ -f "/var/lib/whonixcheck/"$SCRIPTNAME"_lastrun" ]; then
+   if [ -f "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun" ]; then
       local i
       i="0"
       local line
@@ -25,7 +25,7 @@ check_whonixcheck_lastrun() {
             local LASTRUN
             LASTRUN="$line"
          fi
-      done < "/var/lib/whonixcheck/"$SCRIPTNAME"_lastrun"
+      done < "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun"
    else
       ## the whonixcheck_completed function does almost the same
       LASTRUN="$MAX"
@@ -54,5 +54,5 @@ whonixcheck_completed() {
 
    local LASTRUN
    LASTRUN="$(date +%s)"
-   echo "$LASTRUN" | sudo -u user tee "/var/lib/whonixcheck/"$SCRIPTNAME"_lastrun" > /dev/null
+   echo "$LASTRUN" | sudo -u user tee "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun" > /dev/null
 }

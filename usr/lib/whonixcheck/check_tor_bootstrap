@@ -68,7 +68,7 @@ check_tor_bootstrap() {
 
    if [ "$tor_bootstrap_percent" -gt "100" ] || [ "$tor_bootstrap_percent" -lt "0" ]; then
       local MSG="<p>Tor Bootstrap Result:
-<br></br>"$check_bootstrap_script" ERROR ($tor_bootstrap_percent).
+<br></br>$check_bootstrap_script ERROR ($tor_bootstrap_percent).
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(Tor Circuit: $tor_circuit_established_word)
