@@ -1,6 +1,6 @@
 #! /bin/bash
 ### BEGIN INIT INFO
-# Provides:          whonixcheckd
+# Provides:          whonixcheck
 # Required-Start:    $remote_fs $syslog $all
 # Required-Stop:     $remote_fs $syslog
 # Should-Start:      rinetd
