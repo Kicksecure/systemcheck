@@ -18,4 +18,8 @@ Depends: anon-gw-base-files | anon-ws-base-files, anon-base-files, curl, curl-sc
  ca-certificates, msgcollector, virt-what, psmisc, sudo, ${misc:Depends}
 Recommends: anon-icon-pack
 Description: Anonymity and security check
- Checks many important aspects of Whonix.
+ Checks many important aspects of Whonix for better security.
+ .
+ Only checks things. Does not change things.
+ .
+ Safe to remove.
