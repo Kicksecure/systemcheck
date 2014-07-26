@@ -6,7 +6,7 @@ Source: whonixcheck
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 8), faketime, git
+Build-Depends: debhelper (>= 8), faketime
 Homepage: https://www.whonix.org/wiki/whonixcheck
 Vcs-Browser: https://github.com/Whonix/whonixcheck
 Vcs-Git: https://github.com/Whonix/whonixcheck.git
