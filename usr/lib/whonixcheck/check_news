@@ -290,8 +290,8 @@ verify_whonix_news() {
       whonix_news_verify_check_gpg_exit_code="3000"
       local MSG="<p>Whonix News Check: <br></br><b>Your clock is slow.</b> According to your system,
 Whonix News File was signed $difference_in_minutes minutes before current time.
-<br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Whonix Timesync</blockquote>
-or in Terminal: <code>timesync</code></p>"
+<br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
+or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -307,10 +307,9 @@ or in Terminal: <code>timesync</code></p>"
       whonix_news_verify_check_gpg_exit_code="4000"
       local MSG="<p>Whonix News Check: <b>Whonix News File is no longer valid (outdated).</b>
 <br></br>Either,
-<br></br>- your clock is fast (at least $in_future_in_minutes minutes fast)
-<br></br>  In that case, please run Timesync: Start menu -> Applications -> System -> Whonix Timesync
-<br></br>                     or in Terminal: timesync
-<br></br>- it has been forgotten to refresh Whonix's News File (invalid since $in_future_in_minutes minutes)
+<br></br>- your clock is fast (at least $in_future_in_minutes minutes fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
+                     or in Terminal: <code><blockquote>timesync</blockquote></code>
+- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $in_future_in_minutes minutes)
 <br></br>- this is a Whonix Bug
 <br></br>- or this is an attack on Whonix</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
