@@ -105,8 +105,8 @@ If you know what you are doing and changed this on purpose, feel free to
 disable this check. [2]</p>
 
 <p>[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname>https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname</a>
-<br></br>[2] Create a file /etc/whonix.d/50_whonixcheck_user and add:
-<blockquote><code>whonixcheck_skip_functions+=\" $FUNCNAME \"</code></blockquote></p>"
+<br></br>[2] Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
+<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi

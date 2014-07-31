@@ -46,7 +46,7 @@ check_kvmclock() {
 <p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
 <p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
-<blockquote><code>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION=\"1\"</code></blockquote>
+<code><blockquote>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION=\"1\"</blockquote></code>
 in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
 
 <p>Recommended action:

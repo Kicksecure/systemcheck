@@ -23,7 +23,7 @@ check_operating_system() {
       local MSG="<p>Debian Package Update Check Result: <b>Could not check for software updates!</b> (apt-get code: $apt_get_exit_code)
 <br></br>Please manually check:
 <br></br>(Open a terminal, Start menu -> Applications -> System -> Terminal.)
-<blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote></p>"
+<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -53,7 +53,7 @@ check_operating_system() {
    local MSG="<p>Debian Package Update Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
 <br></br>Please update Whonix-Gateway and Whonix-Workstation:
 (Open a terminal, Start menu -> Applications -> System -> Terminal.)
-<blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote></p>"
+<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
    $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
 }

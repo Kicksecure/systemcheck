@@ -403,7 +403,7 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
       ## Outdated...
       local MSG="<p>Whonix News Download Result: <b>Installed Whonix Debian Package $whonix_deb_package_version is outdated!</b>
 <br></br>You should update. You can automatically update using Whonix's internal updater. Please update using:
-<blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote></p>"
+<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
    fi
