@@ -35,18 +35,34 @@ check_tor_socks_port_reachability() {
    lastpid="$!"
    wait "$lastpid" || { check_socks_port_open_test="$?" ; true; };
 
-   #local curl_status_message
-   #curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_socks_port_open_test")"
-
-   ## TODO
    if [ "$check_socks_port_open_test" = "22" ]; then
       ## OK.
       true
-   elif [ "$check_socks_port_open_test" = "57" ]; then
-      ## Failure.
+      return 0
+   fi
+
+   local curl_status_message
+   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_socks_port_open_test")"
+
+   ## TODO
+   if [ "$check_socks_port_open_test" = "7" ]; then
+      true "
+      ## curl_status_message: Failed to connect to host.
+      ## Gateway likely reachable, but Tor service likely not started.
+      ## Either user has run "sudo service tor stop" or Gateway is still
+      ## booting and hasn't started Tor service yet.
+      "
+      true
+   elif [ "$check_socks_port_open_test" = "28" ]; then
+      true "
+      ## curl_status_message: Operation timeout. The specified time-out period was reached according to the conditions.
+      ## Gateway likely powered off.
+      "
       true
    else
+      true "
       ## Unexpected error.
+      "
       true
    fi
 
