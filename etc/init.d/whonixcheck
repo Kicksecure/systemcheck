@@ -3,7 +3,7 @@
 # Provides:          whonixcheck
 # Required-Start:    $remote_fs $syslog $all
 # Required-Stop:     $remote_fs $syslog
-# Should-Start:      rinetd
+# Should-Start:      rinetd tor
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Whonix Check Autostart
