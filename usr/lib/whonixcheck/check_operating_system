@@ -32,13 +32,32 @@ check_operating_system() {
    local check_os_output
    check_os_output="$(apt-get --simulate dist-upgrade 2>&1)"
 
-   local number_upgraded
-   number_upgraded="$(echo "$check_os_output" | grep -Po "^\d+ (?=upgraded)")"
+   local number_upgraded line first_char
 
-   ## Example number_upgraded:
-   ## "55 "
+   ## Can not simply use
+   ## number_upgraded="$(echo "$check_os_output" | grep -Po "^\d+ (?=upgraded)")"
+   ## because it would break for non-English languages.
 
-   number_upgraded="$(echo "$number_upgraded" | sed 's/ //g')"
+   OIFS="$IFS"
+   IFS='
+'
+
+   for line in $check_os_output; do
+      IFS="$OIFS"
+      true "line: $line"
+      first_char="${line:0:1}"
+      if [[ "$first_char" = "" ]]; then
+         continue
+      fi
+      if [[ "$first_char" != *[!0-9]* ]]; then
+         true "'$first_char' is strictly numeric."
+         read number_upgraded _ <<< "$line"
+         true "number_upgraded: $number_upgraded"
+         break
+      fi
+   done
+
+   IFS="$OIFS"
 
    ## Example number_upgraded:
    ## 55
