@@ -19,6 +19,16 @@ check_tor_enabled() {
       ## Otherwise, if whonixcheck is automatically started just be quit and
       ## exit.
 
+      local MSG="Tor Check Result:
+No network. Tor is disabled.
+Please enable Tor!
+Start Menu -> Applications -> System -> Connection Wizard (Whonix)
+or in Terminal: sudo whonixsetup"
+
+      if [ "$manualrun" = "1" ]; then
+         $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
+      fi
+
       local MSG="<p>Tor Check Result:
 <b>No network. Tor is disabled.</b></p>
 
@@ -26,11 +36,10 @@ check_tor_enabled() {
 
 <blockquote>    Start Menu -> Applications -> System -> Connection Wizard (Whonix)</blockquote>
 
-    or in Terminal: sudo whonixsetup</p>"
+    or in Terminal: <code>sudo whonixsetup</code></p>"
 
       if [ "$manualrun" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
       fi
 
       EXIT_CODE="1"
