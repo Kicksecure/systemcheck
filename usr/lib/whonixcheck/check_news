@@ -461,10 +461,10 @@ check_whonix_debian_news() {
    else
       local MSG
       MSG="$(cat "$filename")"
-
       if [ "$MSG" = "" ]; then
          return 0
       fi
+      MSG="<p>$MSG</p>"
    fi
 
    $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
@@ -485,10 +485,10 @@ check_whonix_build_news() {
    else
       local MSG
       MSG="$(cat "$filename")"
-
       if [ "$MSG" = "" ]; then
          return 0
       fi
+      MSG="<p>$MSG</p>"
    fi
 
    $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
