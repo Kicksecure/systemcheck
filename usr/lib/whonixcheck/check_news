@@ -230,7 +230,7 @@ verify_whonix_news() {
    if [ ! "$validsig" = "true" ]; then
       whonix_news_verified_ok="false"
       local MSG="<p>Whonix News Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$filename!!!
-<br></br>(gpg return code: ${whonix_news_verify_check_gpg_exit_code} | validsig: $validsig)
+<br></br>(gpg exit code: ${whonix_news_verify_check_gpg_exit_code} | validsig: $validsig)
 <br></br>This is either,
 <br></br>- a Whonix Bug,
 <br></br>- an attack on Whonix,
@@ -359,7 +359,7 @@ extract_whonix_news() {
    ## - 137 if needed to use kill.
 
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      local MSG="<p>Whonix News Download Result: <b>Could not extract $filename!</b> (tar return code: ${whonix_news_tar_exit_code})
+      local MSG="<p>Whonix News Download Result: <b>Could not extract $filename!</b> (tar exit code: ${whonix_news_tar_exit_code})
 <br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
