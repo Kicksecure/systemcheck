@@ -16,7 +16,7 @@ process_killer_helper() {
    fi
 
    ## Can not use `kill`, must use `ps`, because kill will always return a
-   ## a non-zero return code if the process is owned by a different user.
+   ## a non-zero exit code if the process is owned by a different user.
    local ps_p_exit_code
    ps_p_exit_code="0"
    ps -p "$lastpid" >/dev/null 2>/dev/null || { ps_p_exit_code="$?" ; true; };
