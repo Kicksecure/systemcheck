@@ -396,12 +396,12 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
 
    if [ "$outdated_deb" = "0" ]; then
       ## Up to date...
-      local MSG="<p>Whonix News Download Result: Installed Whonix Debian Package $whonix_deb_package_version is up to date.</p>"
+      local MSG="<p>Whonix News Download Result: Installed Whonix Debian Package <u>$whonix_deb_package_version</u> is up to date.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
       ## Outdated...
-      local MSG="<p>Whonix News Download Result: <b>Installed Whonix Debian Package $whonix_deb_package_version is outdated!</b>
+      local MSG="<p>Whonix News Download Result: <b>Installed Whonix Debian Package <u>$whonix_deb_package_version</u> is outdated!</b>
 <br></br>You should update. You can automatically update using Whonix's internal updater. Please update using:
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
@@ -435,12 +435,12 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
 
    if [ "$outdated_build" = "0" ]; then
       ## Up to date...
-      local MSG="<p>Whonix News Download Result: Installed Whonix Build $whonix_build_version is up to date.</p>"
+      local MSG="<p>Whonix News Download Result: Installed Whonix Build <u>$whonix_build_version</u> is up to date.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
       ## Outdated...
-      local MSG="<p>Whonix News Download Result: <b>Whonix Build $whonix_build_version is outdated!</b>
+      local MSG="<p>Whonix News Download Result: <b>Whonix Build <u>$whonix_build_version</u> is outdated!</b>
 <br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image.</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
