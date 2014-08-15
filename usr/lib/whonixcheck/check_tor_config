@@ -55,8 +55,7 @@ check_tor_config() {
 <p>Restart whonixcheck after fixing this error.
 
 <blockquote>    Start Menu -> Applications -> System -> Whonix Check</blockquote>
-    or in Terminal: <code>whonixcheck</code></p>
-"
+    or in Terminal: <code>whonixcheck</code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       EXIT_CODE="1"
