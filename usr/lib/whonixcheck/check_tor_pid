@@ -57,20 +57,19 @@ check_tor_pid() {
 
    if [ ! "$tor_pid_exit_code" = "0" ]; then
       local MSG="<p>Tor Pid Check Result:
-<br></br><b>Tor not running.</b> (tor_pid_message: $tor_pid_message)
+<br></br><b>Tor not running.</b> (tor_pid_message: $tor_pid_message)</p>
 
 <p>You have to fix this error, before you can use Tor.</p>
 
 <p>Please restart Tor after fixing this error.</p>
 
 <blockquote>    Start Menu -> Applications -> System -> Restart Tor</blockquote>
-    or in Terminal: sudo service tor restart</p>
+    or in Terminal: <code><blockquote>sudo service tor restart</blockquote></code></p>
 
 <p>Restart whonixcheck after fixing this error.
 
 <blockquote>   Start Menu -> Applications -> System -> Whonix Check</blockquote>
-    or in Terminal: whonixcheck</p>
-"
+    or in Terminal: <code><blockquote>whonixcheck</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       EXIT_CODE="1"
