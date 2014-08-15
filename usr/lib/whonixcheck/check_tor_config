@@ -50,12 +50,12 @@ check_tor_config() {
 <p>Please restart Tor after fixing this error.
 
 <blockquote>    Start Menu -> Applications -> System -> Restart Tor</blockquote>
-    or in Terminal: sudo service tor restart</p>
+    or in Terminal: <code>sudo service tor restart</code></p>
 
 <p>Restart whonixcheck after fixing this error.
 
 <blockquote>    Start Menu -> Applications -> System -> Whonix Check</blockquote>
-    or in Terminal: whonixcheck</p>
+    or in Terminal: <code>whonixcheck</code></p>
 "
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
