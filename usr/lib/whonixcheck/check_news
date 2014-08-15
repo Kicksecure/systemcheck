@@ -359,7 +359,7 @@ extract_whonix_news() {
    ## - 137 if needed to use kill.
 
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      local MSG="<p>Whonix News Download Result: <b>Could not extract $filename!</b? (tar return code: ${whonix_news_tar_exit_code})
+      local MSG="<p>Whonix News Download Result: <b>Could not extract $filename!</b> (tar return code: ${whonix_news_tar_exit_code})
 <br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
