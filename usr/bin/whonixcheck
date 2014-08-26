@@ -57,10 +57,8 @@ whonixcheck_main() {
    parse_cmd_options ${1+"$@"} ## parse_cmd
    preparation ## preparation
 
-   local tmp
-   tmp="$(mktemp)"
    local progressbaridx
-   progressbaridx="${tmp##*.}"
+   progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
    progressbaridx_main="$progressbaridx"
 
    $output ${output_opts[@]} --forget
