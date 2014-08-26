@@ -71,10 +71,8 @@ entering \"whonixcheck\" in a terminal emulator (such as Konsole).
 
 $NOTIFY_MSG"
 
-         local tmp
-         tmp="$(mktemp)"
          local progressbaridx
-         progressbaridx="${tmp##*.}"
+         progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
          $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --titlex "$TITLE" --message "$MSG" --done
 

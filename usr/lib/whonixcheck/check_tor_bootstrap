@@ -116,10 +116,8 @@ check_tor_bootstrap() {
             ## Not running in daemon mode.
             started_tor_bootstrap_progress_bar="1"
             ## Waited for more than 5 seconds.
-            local tmp
-            tmp="$(mktemp)"
             local progressbaridx
-            progressbaridx="${tmp##*.}"
+            progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
             local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $wait_max seconds.)</p>"
             $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --titlex "$TITLE" --message "$MSG" --done
          fi
