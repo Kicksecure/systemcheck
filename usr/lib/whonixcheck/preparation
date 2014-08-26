@@ -139,14 +139,14 @@ preparation() {
 
    user_name="user"
    WHONIX_HOMEPAGE="https://www.whonix.org"
-   VERIFY_TEMPDIR="$(mktemp --directory)"
+   TEMP_DIR="$(mktemp --directory)"
+   export TEMP_DIR
 
    ## returns: whonix_deb_package_version
    get_local_whonix_version
 
    ## Prepare temporary directory.
-   mkdir --parents "$VERIFY_TEMPDIR"
-   chmod 700 "$VERIFY_TEMPDIR"
+   chmod 700 "$TEMP_DIR"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       VM="Whonix-Gateway"

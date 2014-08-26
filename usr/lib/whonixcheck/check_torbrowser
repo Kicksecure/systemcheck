@@ -38,7 +38,7 @@ check_torbrowser() {
    SOCKS_PORT_WHONIXCHECK="9110"
 
    ## This variable gets used by tbbversion.
-   RecommendedTBBVersions="$VERIFY_TEMPDIR/RecommendedTBBVersions"
+   RecommendedTBBVersions="$TEMP_DIR/RecommendedTBBVersions"
 
    ## Getting latest version number
    $CURL \

@@ -70,8 +70,8 @@ ex_funct() {
    ## kill $lastpid (if running)
    process_killer_helper
 
-   if [ -d "$VERIFY_TEMPDIR" ]; then
-      rm --recursive "$VERIFY_TEMPDIR"
+   if [ -d "$TEMP_DIR" ]; then
+      rm --recursive "$TEMP_DIR"
    fi
 
    rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"
@@ -134,8 +134,8 @@ cleanup() {
 
    $output ${output_opts[@]} --progressbaridx "$progressbaridx_main" --progressx "100"
 
-   if [ -d "$VERIFY_TEMPDIR" ]; then
-      rm --recursive "$VERIFY_TEMPDIR"
+   if [ -d "$TEMP_DIR" ]; then
+      rm --recursive "$TEMP_DIR"
    fi
 
    rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"

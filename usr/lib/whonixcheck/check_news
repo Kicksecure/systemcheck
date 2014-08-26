@@ -12,7 +12,7 @@ download_whonix_news() {
    local MSG="Whonix News Download: Checking for Whonix news and updates..."
    $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
 
-   mkdir --parents "$VERIFY_TEMPDIR/news"
+   mkdir --parents "$TEMP_DIR/news"
 
    declare -A -g whonix_news_web_link_list
    declare -A -g whonix_news_download_exit_code
@@ -42,7 +42,7 @@ download_whonix_news() {
          --socks5-hostname "socks5h://$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS/" \
          --location \
          --max-time 180 \
-         --output "$VERIFY_TEMPDIR/news/$filename" \
+         --output "$TEMP_DIR/news/$filename" \
          "$web_link" \
          &
 
@@ -92,7 +92,7 @@ verify_whonix_news() {
    whonix_news_verified_ok="false"
 
    local whonix_news_gpg_temp_dir
-   whonix_news_gpg_temp_dir="$VERIFY_TEMPDIR/news_gpg"
+   whonix_news_gpg_temp_dir="$TEMP_DIR/news_gpg"
 
    rm --recursive --force "$whonix_news_gpg_temp_dir"
    mkdir --parents "$whonix_news_gpg_temp_dir"
@@ -160,7 +160,7 @@ verify_whonix_news() {
    #timeout_after="0.001"
    #kill_after="0.001"
 
-   gpg_fd_one_file="$VERIFY_TEMPDIR/news_gpg_fd_one"
+   gpg_fd_one_file="$TEMP_DIR/news_gpg_fd_one"
    rm --force "$gpg_fd_one_file"
 
    timeout --kill-after="$kill_after" "$timeout_after" \
@@ -168,7 +168,7 @@ verify_whonix_news() {
             --no-options \
             --status-file "$gpg_fd_one_file" \
             --homedir "$whonix_news_gpg_temp_dir" \
-            --verify "$VERIFY_TEMPDIR/news/$signature" \
+            --verify "$TEMP_DIR/news/$signature" \
             >/dev/null \
             2>/dev/null \
             &
@@ -345,8 +345,8 @@ extract_whonix_news() {
          --extract \
          --verbose \
          --xz \
-         --file="$VERIFY_TEMPDIR/news/$filename" \
-         --directory="$VERIFY_TEMPDIR/news/" \
+         --file="$TEMP_DIR/news/$filename" \
+         --directory="$TEMP_DIR/news/" \
          . \
          >/dev/null \
          &
@@ -367,14 +367,14 @@ extract_whonix_news() {
    fi
 
    ## Debugging.
-   #ls -la "$VERIFY_TEMPDIR/news/"
+   #ls -la "$TEMP_DIR/news/"
 }
 
 check_whonix_debian_version() {
    trap "error_handler" ERR
 
    local filename
-   filename="$VERIFY_TEMPDIR/news/whonix_${vm_lower_case_short}_valid_deb_versions"
+   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_valid_deb_versions"
 
    if [ ! -f "$filename" ]; then
       ## This file should always exist.
@@ -413,7 +413,7 @@ check_whonix_build_version() {
    trap "error_handler" ERR
 
    local filename
-   filename="$VERIFY_TEMPDIR/news/whonix_${vm_lower_case_short}_valid_build_versions"
+   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_valid_build_versions"
 
    if [ ! -f "$filename" ]; then
       ## This file should always exist.
@@ -451,7 +451,7 @@ check_whonix_debian_news() {
    trap "error_handler" ERR
 
    local filename
-   filename="$VERIFY_TEMPDIR/news/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
+   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
 
    if [ ! -f "$filename" ]; then
       ## This will happen:
@@ -475,7 +475,7 @@ check_whonix_build_news() {
    trap "error_handler" ERR
 
    local filename
-   filename="$VERIFY_TEMPDIR/news/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
+   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
 
    if [ ! -f "$filename" ]; then
       ## This will happen:
@@ -501,7 +501,7 @@ check_whonix_blog() {
    BLOG_SUCCESS="0"
 
    local filename
-   filename="$VERIFY_TEMPDIR/news/whonix_important_blog.txt"
+   filename="$TEMP_DIR/news/whonix_important_blog.txt"
 
    if [ ! -f "$filename" ]; then
       local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
@@ -514,7 +514,7 @@ check_whonix_blog() {
    fi
 
    local filename
-   filename="$VERIFY_TEMPDIR/news/whonix_feature_blog.txt"
+   filename="$TEMP_DIR/news/whonix_feature_blog.txt"
 
    if [ ! -f "$filename" ]; then
       local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
