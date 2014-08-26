@@ -30,10 +30,8 @@ check_package_manager_running() {
       else
          whonixcheck_package_manager_waiting="1"
 
-         local tmp
-         tmp="$(mktemp)"
          local progressbaridx
-         progressbaridx="${tmp##*.}"
+         progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
          local MSG="$package_manager_waiting_msg"
          $output ${output_opts[@]} --waitmessagecli --typecli "info" --titlex "$TITLE" --message "$MSG" --done
