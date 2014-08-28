@@ -81,7 +81,7 @@ Could not download: <a href=https://check.torproject.org/RecommendedTBBVersions>
    if [ "$tbb_locally_installed_version_detect_success" = "1" ]; then
       true "Successfully detected Tor Browser version."
    else
-      local MSG="Tor Browser Update Check Result: $tbb_locally_installed_version"
+      local MSG="<p>Tor Browser Update Check Result: $tbb_locally_installed_version</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
       return 0
