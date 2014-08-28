@@ -164,7 +164,6 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
    fi
 
    if [ "$VM" = "Whonix-Gateway" ]; then
-
       local MSG="<p>Tor Bootstrap Result:
 <br></br><b>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
@@ -193,9 +192,7 @@ you will need them for Whonix as well.</p>
 <br></br>Use arm, connection page two, to see if Tor is connected:
 <blockquote>Start menu -> Applications -> System -> Arm</blockquote>
 or in Terminal: <code>arm</code></p>"
-
    elif [ "$VM" = "Whonix-Workstation" ]; then
-
       local MSG="<p>Tor Bootstrap Result:
 <br></br>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.
 <br></br>Tor Circuit: $tor_circuit_established_word
@@ -216,11 +213,8 @@ or in Terminal: <code>arm</code></p>"
 
 <p>2)
 <br></br>Run whonixcheck on Whonix-Gateway as well.</p>"
-
    else
-
       local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
-
    fi
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
