@@ -13,7 +13,7 @@ check_virtualizer() {
 
    if [ "$result" = "" ]; then
       ## Not running in a Virtual Machine (or none detected).
-      local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on bare metal, continuing.</p>"
+      local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on <u>bare metal</u>, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -21,8 +21,33 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$result" = "virtualbox" ] || [ "$result" = "kvm" ]; then
-      local MSG="<p>Check Virtualizer Result: Supported Virtualizer $result detected, continuing.</p>"
+   if [ "$result" = "virtualbox" ]; then
+      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>VirtualBox</u> detected, continuing.
+<br></br>virt-what result: <code>$result</code></p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   if [ "$result" = "kvm" ]; then
+      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>KVM</u> detected, continuing.
+<br></br>virt-what result: <code>$result</code></p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   local qubes_expected_virt_what_result
+   qubes_expected_virt_what_result="hyperv
+xen"
+
+   if [ "$result" = "$qubes_expected_virt_what_result" ]; then
+      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
+<br></br>virt-what result: <code>$result</code></p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -33,7 +58,7 @@ check_virtualizer() {
    ## Neither Physical Isolation nor supported virtualizer was detected.
 
    if [ "$WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
-      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer $result detected, but WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER is set, continuing.</p>"
+      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer <code>$result</code> detected, but <code>WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER</code> is set, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -49,9 +74,9 @@ check_virtualizer() {
       fi
 
       local MSG="\
-<p>Virutalizer $result unsupported by Whonix developers! Whonixcheck aborted!<p>
+<p>Virtualizer <code>$result</code> unsupported by Whonix developers! Whonixcheck aborted!<p>
 
-<p>Using Virutalizer $result together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
+<p>Using Virtualizer <code>$result</code> together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
 <br></br>It could be made possible, but would require more Whonix contributors.
 <br></br>It may already work, but is highly experimental.</p>
 
