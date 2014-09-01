@@ -146,10 +146,10 @@ check_tor_socks_or_trans_port() {
    ## <img alt="Congratulations. Your browser is configured to use Tor." src="/images/tor-on.png">
    ## Congratulations. Your browser is configured to use Tor.<br>
 
-   ## Handling cases where grep returned values greater than 1 and less than 0.
+   ## Handling cases where grep exit codes greater than 1 and less than 0.
    if [ "$tor_detected" -gt "1" ] || [ "$tor_detected" -lt "0" ]; then
       ## an error occurred
-      local MSG="<p><b>tor_detected returned $tor_detected</b>. Please report this Whonix BUG!</p>"
+      local MSG="<p><b>tor_detected is $tor_detected</b>. Please report this Whonix BUG!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -163,10 +163,10 @@ check_tor_socks_or_trans_port() {
    ## example ip:
    ## Your IP address appears to be: <b>94.242.204.74</b><br>
 
-   ## Handling cases where grep returned values greater than 1 and less than 0.
+   ## Handling cases where grep exit codes greater than 1 and less than 0.
    if [ "$grep_ip_exit_code" -gt "1" ] || [ "$grep_ip_exit_code" -lt "0" ]; then
       ## an error occurred
-      local MSG="<p><b>grep_ip_exit_code returned $grep_ip_exit_code.</b> Please report this Whonix BUG!</p>"
+      local MSG="<p><b>grep_ip_exit_code: $grep_ip_exit_code.</b> Please report this Whonix BUG!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -176,10 +176,10 @@ check_tor_socks_or_trans_port() {
    #ip="Your IP address appears to be: <b>2001:0db8:85a3:0042:1000:8a2e:0370:7334 \$f(do) \`this\` ... xxx ... xxx </b><br>"
 
    if [ ! "$grep_ip_exit_code" = "0" ]; then
-      ## grep returned 1.
+      ## grep exit code: non-zero
       ip="IP not detected (2). Please report this bug!"
    else
-      ## grep returned 0.
+      ## grep exit code: 0
       ip="$(echo "$ip" | sed 's/Your IP address appears to be//g')"
       ip="$(echo "$ip" | sed 's/<br>//g')"
       ip="$(echo "$ip" | sed 's/<b>//g')"
