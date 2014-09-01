@@ -198,7 +198,7 @@ check_tor_socks_or_trans_port() {
          ip="${ip:0:$max_string_length}"
 
          local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> ($actual_string_length characters).
-         Could be a Whonix bug, check.torproject.org bug or compromise. Please report this to Whonix developers!</p>"
+         Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this to Whonix developers!</p>"
          $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
          return 0
