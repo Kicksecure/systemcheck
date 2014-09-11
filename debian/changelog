@@ -1,3 +1,9 @@
+whonixcheck (3:0.6-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Thu, 11 Sep 2014 16:56:15 +0000
+
 whonixcheck (3:0.5-1) unstable; urgency=low
 
   * New upstream version.

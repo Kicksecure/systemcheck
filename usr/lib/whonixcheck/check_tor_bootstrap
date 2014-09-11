@@ -27,6 +27,15 @@ check_tor_bootstrap() {
    true "tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code"
    true "tor_circuit_established_word: $tor_circuit_established_word"
 
+   ## Debugging.
+   ## Simulating cases where tor_bootstrap_percent is 100 while
+   ## tor_circuit_established is 0.
+   #if [ "$TOR_BOOTSTRAP_TIME_PASSED" -gt "10" ]; then
+      #true
+   #else
+      #tor_circuit_established="0"
+   #fi
+
    ## `timeout` returns:
    ## - 124 if sigterm was sufficient
    ## - 137 if needed to use kill.
@@ -133,7 +142,7 @@ check_tor_bootstrap() {
    fi
 
    if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "$wait_max" ]; then
-      if [ "$tor_bootstrap_percent" -lt "100" ]; then
+      if [ "$tor_bootstrap_percent" -lt "100" ] || [ "$tor_circuit_established" = "0" ]; then
          if [ "$PROGRESS" = "" ]; then
             PROGRESS="5"
          fi
