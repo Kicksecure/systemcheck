@@ -38,21 +38,29 @@ check_tor_bootstrap() {
       if [ "$VM" = "Whonix-Gateway" ]; then
          local MSG="<p>Tor Bootstrap Result:
 <br></br>Tor's Control Port could not be reached. (Code: $tor_bootstrap_percent)
+<br></br>
+<br></br>Please report this Whonix bug!
+<br></br>
+<br></br>(Technical information:)
 <br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>(Tor Circuit: $tor_circuit_established_word)
-<br></br>Please report this Whonix bug!</p>"
+<br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="<p>Tor Bootstrap Result:
-<br></br>Tor's Control Port could not be reached. (Code: $tor_bootstrap_percent)
+<br></br>Tor's Control Port could not be reached.
+<br></br>
+<br></br>Did you start Whonix-Gateway beforehand?
+<br></br>
+<br></br>Please run <code>whonixcheck</code> on Whonix-Gateway.
+<br></br>Then restart <code>whonixcheck</code> on Whonix-Workstation
+<br></br>
+<br></br>(Technical information:)
+<br></br>(Code: $tor_bootstrap_percent)
 <br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>(Tor Circuit: $tor_circuit_established_word)
-<br></br>Did you start Whonix-Gateway beforehand?
-<br></br>Please run <code>whonixcheck</code> on Whonix-Gateway.
-<br></br>Then restart <code>whonixcheck</code> on Whonix-Workstation</p>"
+<br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
       else
          local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
       fi
