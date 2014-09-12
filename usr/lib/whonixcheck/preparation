@@ -20,11 +20,10 @@ whonixcheck_run_function() {
 get_local_whonix_version() {
    trap "error_handler" ERR
 
-   local pkg
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      pkg="whonix-gateway-packages-dependencies"
+      whonix_deb_package_name="whonix-gateway-packages-dependencies"
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-      pkg="whonix-workstation-packages-dependencies"
+      whonix_deb_package_name="whonix-workstation-packages-dependencies"
    fi
 
    ## fallback
@@ -32,10 +31,10 @@ get_local_whonix_version() {
 
    local dpkg_query_exit_code
    dpkg_query_exit_code="0"
-   whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$pkg")" || { dpkg_query_exit_code="$?" ; true; };
+   whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$whonix_deb_package_name")" || { dpkg_query_exit_code="$?" ; true; };
 
    if [ ! "$dpkg_query_exit_code" = "0" ]; then
-      whonix_deb_package_version="Could not detect Whonix $pkg version. (Code: 2) Probably because package $pkg is not installed."
+      whonix_deb_package_version="Could not detect Whonix $whonix_deb_package_name version. (Code: 2) Probably because package $whonix_deb_package_name is not installed."
    fi
 
    ## Example: whonix_deb_package_version="2:6-debpackage1"
@@ -47,7 +46,7 @@ get_local_whonix_version() {
 
    ## fallback
    if [ "$whonix_deb_package_version" = "" ]; then
-      whonix_deb_package_version="Could not detect Whonix $pkg version. (Code: 2) Please report this bug!"
+      whonix_deb_package_version="Could not detect Whonix $whonix_deb_package_name version. (Code: 2) Please report this bug!"
    fi
 
    ## fallback
