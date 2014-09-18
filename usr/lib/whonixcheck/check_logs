@@ -21,8 +21,7 @@ check_logs() {
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
    else
-      local MSG="\
-Check Logs Result: $temp_file_name does not exist, ok."
+      local MSG="<p>Check Logs Result: $temp_file_name does not exist, ok.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    fi
@@ -35,8 +34,7 @@ Check Logs Result: $temp_file_name does not exist, ok."
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
    else
-      local MSG="\
-Check Logs Result: $temp_file_name does not exist, ok."
+      local MSG="<p>Check Logs Result: $temp_file_name does not exist, ok.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    fi

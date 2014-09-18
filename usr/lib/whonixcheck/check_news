@@ -318,7 +318,7 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
    fi
 
    whonix_news_verified_ok="true"
-   local MSG="Whonix News Check: news file valid."
+   local MSG="<p>Whonix News Check: news file valid.</p>"
    if [ "$verbose" = "1" ]; then
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"

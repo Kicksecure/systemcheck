@@ -62,7 +62,7 @@ check_tor_config() {
       cleanup "1"
       return 0
    else
-      local MSG="Tor Config Check Result: $tor_verify_config_file, ok."
+      local MSG="<p>Tor Config Check Result: $tor_verify_config_file, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
