@@ -8,7 +8,7 @@ check_kvmclock() {
    trap "error_handler" ERR
 
    if [ ! -f "/sys/devices/system/clocksource/clocksource0/current_clocksource" ]; then
-      local MSG="<p>KVMClock Result: /sys/devices/system/clocksource/clocksource0/current_clocksource does not exist, ok.</p>"
+      local MSG="<p>KVMClock Result: <code>/sys/devices/system/clocksource/clocksource0/current_clocksource</code> does not exist, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -20,7 +20,7 @@ check_kvmclock() {
    current_clocksource="$(cat "/sys/devices/system/clocksource/clocksource0/current_clocksource")"
 
    if [ ! "$current_clocksource" = "kvm-clock" ]; then
-      local MSG="<p>KVMClock Result: /sys/devices/system/clocksource/clocksource0/current_clocksource exist, is $current_clocksource, not kvm-clock, ok.</p>"
+      local MSG="<p>KVMClock Result: <code>/sys/devices/system/clocksource/clocksource0/current_clocksource</code> exist, is <code>$current_clocksource</code>, not <code>kvm-clock</code>, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
