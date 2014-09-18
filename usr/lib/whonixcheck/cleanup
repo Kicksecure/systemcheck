@@ -60,6 +60,7 @@ ex_funct() {
    ## create an endless loop.
    trap - SIGTERM
    trap - SIGINT
+   trap - SIGUSR2
 
    maybe_kill_apt_get_update
 
@@ -84,8 +85,9 @@ ex_funct() {
    command_v_output_exit_code="0"
    command -v "$output" >/dev/null || { command_v_output_exit_code="$?" ; true; };
    if [ "$command_v_output_exit_code" = "0" ]; then
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx_main" --progressx "100"
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      if [ ! "$SIGNAL_TYPE" = "SIGUSR2" ]; then
+         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      fi
 
       local MSG="<p><b>whonixcheck aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
       $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
@@ -127,12 +129,22 @@ trap_sigint() {
 
 trap "trap_sigint" SIGINT ## ctrl + c
 
+trap_sigusr2() {
+   trap "error_handler" ERR
+
+   SIGNAL_TYPE="SIGUSR2"
+   EXIT_CODE="0"
+   ex_funct
+}
+
+trap "trap_sigusr2" SIGUSR2 ## msgcollector, zenity cancel button
+
 cleanup() {
    trap "error_handler" ERR
 
    true "cleanup function..."
 
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx_main" --progressx "100"
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
 
    if [ -d "$TEMP_DIR" ]; then
       rm --recursive "$TEMP_DIR"
