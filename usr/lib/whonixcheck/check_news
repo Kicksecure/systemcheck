@@ -18,9 +18,9 @@ download_whonix_news() {
    declare -A -g whonix_news_download_exit_code
    declare -A -g whonix_news_verify_check_gpg_exit_code
 
-   ## whonix_news_web_link_list[web_link]="filename"
-   whonix_news_web_link_list[http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download]="whonix_news.tar.xz.asc"
-   whonix_news_web_link_list[http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download]="whonix_news.tar.xz"
+   ## whonix_news_web_link_list["web_link"]="filename"
+   whonix_news_web_link_list["http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download"]="whonix_news.tar.xz.asc"
+   whonix_news_web_link_list["http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download"]="whonix_news.tar.xz"
 
    ## sf.net does not support ssl.
    ## --location is required since sf.net uses redirects to mirrors.
@@ -34,7 +34,7 @@ download_whonix_news() {
       true "web_link: $web_link"
       true "filename: $filename"
 
-      whonix_news_download_exit_code[$web_link]="0"
+      whonix_news_download_exit_code["$web_link"]="0"
 
       $CURL \
          $CURL_VERBOSE \
@@ -47,7 +47,7 @@ download_whonix_news() {
          &
 
       lastpid="$!"
-      wait "$lastpid" || { whonix_news_download_exit_code[$web_link]="$?" ; true; };
+      wait "$lastpid" || { whonix_news_download_exit_code["$web_link"]="$?" ; true; };
 
       if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
          local curl_status_message
