@@ -4,6 +4,23 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+displaytime() {
+   ## Thanks to Stéphane Gimenez
+   ## http://unix.stackexchange.com/a/27014/49297
+   local T D H M S
+   T="$1"
+   D="$((T/60/60/24))"
+   H="$((T/60/60%24))"
+   M="$((T/60%60))"
+   S="$((T%60))"
+   [[ "$D" > 0 ]] && printf '%d days ' "$D"
+   [[ "$H" > 0 ]] && printf '%d hours ' "$H"
+   [[ "$M" > 0 ]] && printf '%d minutes ' "$M"
+   [[ "$D" > 0 || "$H" > 0 || "$M" > 0 ]] && printf 'and '
+   printf '%d seconds\n' "$S"
+   true
+}
+
 download_whonix_news() {
    trap "error_handler" ERR
 
