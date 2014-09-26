@@ -70,7 +70,7 @@ whonix_news_preparation() {
    declare -A -g whonix_news_download_exit_code
    declare -A -g whonix_news_verify_check_gpg_exit_code
 
-   ## whonix_news_web_link_list["web_link"]="filename"
+   ## whonix_news_web_link_list["web_link"]="file_name"
    whonix_news_web_link_list["http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download"]="whonix_news.tar.xz.asc"
    whonix_news_web_link_list["http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download"]="whonix_news.tar.xz"
 }
@@ -84,11 +84,11 @@ download_now_whonix_news() {
    local web_link
 
    for web_link in "${!whonix_news_web_link_list[@]}"; do
-      local filename
-      filename="${whonix_news_web_link_list[$web_link]}"
+      local file_name
+      file_name="${whonix_news_web_link_list[$web_link]}"
 
       true "web_link: $web_link"
-      true "filename: $filename"
+      true "file_name: $file_name"
 
       whonix_news_download_exit_code["$web_link"]="0"
 
@@ -98,7 +98,7 @@ download_now_whonix_news() {
          --socks5-hostname "socks5h://$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS/" \
          --location \
          --max-time 180 \
-         --output "$whonix_news_download_dir/$filename" \
+         --output "$whonix_news_download_dir/$file_name" \
          "$web_link" \
          &
 
@@ -108,7 +108,7 @@ download_now_whonix_news() {
       if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
          local curl_status_message
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
-         local MSG="<p>Whonix News Result: <b>Could not download Whonix News File</b> $filename. (curl exit code: $curl_status_message)</p>"
+         local MSG="<p>Whonix News Result: <b>Could not download Whonix News File</b> $file_name. (curl exit code: $curl_status_message)</p>"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
          return 0
@@ -152,9 +152,9 @@ verify_whonix_news() {
    shopt -s nullglob dotglob
 
    for key in "/usr/share/whonix/whonix-news-keys.d/"*; do
-      local key_filename
-      key_filename="$(basename "$key")"
-      if [ "$key_filename" = "placeholder" ]; then
+      local key_file_name
+      key_file_name="$(basename "$key")"
+      if [ "$key_file_name" = "placeholder" ]; then
          continue
       fi
       gpg \
@@ -185,8 +185,8 @@ verify_whonix_news() {
 
    true "d whonix_news_verify_check_gpg_exit_code: ${whonix_news_verify_check_gpg_exit_code}"
 
-   local filename signature timeout_after kill_after gpg_fd_one gpg_fd_one_file
-   filename="whonix_news.tar.xz"
+   local file_name signature timeout_after kill_after gpg_fd_one gpg_fd_one_file
+   file_name="whonix_news.tar.xz"
    signature="whonix_news.tar.xz.asc"
 
    timeout_after="10"
@@ -265,7 +265,7 @@ verify_whonix_news() {
 
    if [ ! "$validsig" = "true" ]; then
       whonix_news_verified_ok="false"
-      local MSG="<p>Whonix News Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$filename!!!
+      local MSG="<p>Whonix News Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$file_name!!!
 <br></br>(gpg exit code: ${whonix_news_verify_check_gpg_exit_code} | validsig: $validsig)
 <br></br>This is either,
 <br></br>- a Whonix Bug,
@@ -381,8 +381,8 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
 extract_whonix_news() {
    trap "error_handler" ERR
 
-   local filename timeout_after kill_after
-   filename="whonix_news.tar.xz"
+   local file_name timeout_after kill_after
+   file_name="whonix_news.tar.xz"
 
    timeout_after="10"
    kill_after="10"
@@ -398,7 +398,7 @@ extract_whonix_news() {
          --extract \
          --verbose \
          --xz \
-         --file="$whonix_news_download_dir/$filename" \
+         --file="$whonix_news_download_dir/$file_name" \
          --directory="$whonix_news_download_dir/" \
          . \
          >/dev/null \
@@ -412,7 +412,7 @@ extract_whonix_news() {
    ## - 137 if needed to use kill.
 
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      local MSG="<p>Whonix News Download Result: <b>Could not extract $filename!</b> (tar exit code: ${whonix_news_tar_exit_code})
+      local MSG="<p>Whonix News Download Result: <b>Could not extract $file_name!</b> (tar exit code: ${whonix_news_tar_exit_code})
 <br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
@@ -426,12 +426,12 @@ extract_whonix_news() {
 check_whonix_debian_version() {
    trap "error_handler" ERR
 
-   local filename
-   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
 
-   if [ ! -f "$filename" ]; then
+   if [ ! -f "$file_name" ]; then
       ## This file should always exist.
-      local MSG="<p>Whonix News Check: <b>File $filename does not exist.</b><br></br>Please report this bug!</p>"
+      local MSG="<p>Whonix News Check: <b>File $file_name does not exist.</b><br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
 $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -445,7 +445,7 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
       if [ "$whonix_deb_package_version" = "$LINE" ]; then
          outdated_deb="0"
       fi
-   done < "$filename"
+   done < "$file_name"
 
    if [ "$outdated_deb" = "0" ]; then
       ## Up to date...
@@ -465,12 +465,12 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
 check_whonix_build_version() {
    trap "error_handler" ERR
 
-   local filename
-   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_build_versions"
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_build_versions"
 
-   if [ ! -f "$filename" ]; then
+   if [ ! -f "$file_name" ]; then
       ## This file should always exist.
-      local MSG="<p>Whonix News Check: <b>File $filename does not exist.</b><br></br>Please report this bug!</p>"
+      local MSG="<p>Whonix News Check: <b>File $file_name does not exist.</b><br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
 $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
@@ -484,7 +484,7 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
       if [ "$whonix_build_version" = "$LINE" ]; then
          outdated_build="0"
       fi
-   done < "$filename"
+   done < "$file_name"
 
    if [ "$outdated_build" = "0" ]; then
       ## Up to date...
@@ -503,17 +503,17 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
 check_whonix_debian_news() {
    trap "error_handler" ERR
 
-   local filename
-   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
 
-   if [ ! -f "$filename" ]; then
+   if [ ! -f "$file_name" ]; then
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
       local MSG="<p>Whonix News Download Result: There is no news file available for $whonix_deb_package_name version <u>${whonix_deb_package_version}</u> yet.</p>"
    else
       local MSG
-      MSG="$(cat "$filename")"
+      MSG="$(cat "$file_name")"
       if [ "$MSG" = "" ]; then
          return 0
       fi
@@ -527,17 +527,17 @@ check_whonix_debian_news() {
 check_whonix_build_news() {
    trap "error_handler" ERR
 
-   local filename
-   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
 
-   if [ ! -f "$filename" ]; then
+   if [ ! -f "$file_name" ]; then
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
       local MSG="<p>Whonix News Download Result: There is no news file available for Whonix Build Version <u>${whonix_build_version}</u> yet.</p>"
    else
       local MSG
-      MSG="$(cat "$filename")"
+      MSG="$(cat "$file_name")"
       if [ "$MSG" = "" ]; then
          return 0
       fi
@@ -553,28 +553,28 @@ check_whonix_blog() {
 
    BLOG_SUCCESS="0"
 
-   local filename
-   filename="$whonix_news_download_dir/whonix_important_blog.txt"
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_important_blog.txt"
 
-   if [ ! -f "$filename" ]; then
-      local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
+   if [ ! -f "$file_name" ]; then
+      local MSG="<p>Whonix Blog Download Result: $file_name does not exist.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
-      cp "$filename" "/var/lib/whonix/whonixblog/important_blog.txt"
+      cp "$file_name" "/var/lib/whonix/whonixblog/important_blog.txt"
 
       BLOG_SUCCESS="$(( $BLOG_SUCCESS + 1 ))"
    fi
 
-   local filename
-   filename="$whonix_news_download_dir/whonix_feature_blog.txt"
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_feature_blog.txt"
 
-   if [ ! -f "$filename" ]; then
-      local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
+   if [ ! -f "$file_name" ]; then
+      local MSG="<p>Whonix Blog Download Result: $file_name does not exist.</p>"
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    else
-      cp "$filename" "/var/lib/whonix/whonixblog/feature_blog.txt"
+      cp "$file_name" "/var/lib/whonix/whonixblog/feature_blog.txt"
       BLOG_SUCCESS="$(( $BLOG_SUCCESS + 1 ))"
    fi
 
