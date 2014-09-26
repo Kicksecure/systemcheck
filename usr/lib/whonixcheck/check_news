@@ -7,12 +7,21 @@
 download_whonix_news() {
    trap "error_handler" ERR
 
+   if [ "$TEMP_DIR" = "" ]; then
+      error "Variable TEMP_DIR is empty!"
+      return 0
+   fi
+
+   whonix_news_download_dir="$TEMP_DIR/news/news_download_dir"
+   whonix_news_verify_dir="$TEMP_DIR/news_verify_dir"
+
    SOCKS_PORT_WHONIX_NEWS="9114"
 
    local MSG="Whonix News Download: Checking for Whonix news and updates..."
    $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
 
-   mkdir --parents "$TEMP_DIR/news"
+   mkdir --parents "$whonix_news_download_dir"
+   mkdir --parents "$whonix_news_verify_dir"
 
    declare -A -g whonix_news_web_link_list
    declare -A -g whonix_news_download_exit_code
@@ -42,7 +51,7 @@ download_whonix_news() {
          --socks5-hostname "socks5h://$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS/" \
          --location \
          --max-time 180 \
-         --output "$TEMP_DIR/news/$filename" \
+         --output "$whonix_news_download_dir/$filename" \
          "$web_link" \
          &
 
@@ -92,7 +101,7 @@ verify_whonix_news() {
    whonix_news_verified_ok="false"
 
    local whonix_news_gpg_temp_dir
-   whonix_news_gpg_temp_dir="$TEMP_DIR/news_gpg"
+   whonix_news_gpg_temp_dir="$whonix_news_verify_dir/news_gpg"
 
    rm --recursive --force "$whonix_news_gpg_temp_dir"
    mkdir --parents "$whonix_news_gpg_temp_dir"
@@ -160,7 +169,7 @@ verify_whonix_news() {
    #timeout_after="0.001"
    #kill_after="0.001"
 
-   gpg_fd_one_file="$TEMP_DIR/news_gpg_fd_one"
+   gpg_fd_one_file="$whonix_news_verify_dir/news_gpg_fd_one"
    rm --force "$gpg_fd_one_file"
 
    timeout --kill-after="$kill_after" "$timeout_after" \
@@ -168,7 +177,7 @@ verify_whonix_news() {
             --no-options \
             --status-file "$gpg_fd_one_file" \
             --homedir "$whonix_news_gpg_temp_dir" \
-            --verify "$TEMP_DIR/news/$signature" \
+            --verify "$whonix_news_download_dir/$signature" \
             >/dev/null \
             2>/dev/null \
             &
@@ -345,8 +354,8 @@ extract_whonix_news() {
          --extract \
          --verbose \
          --xz \
-         --file="$TEMP_DIR/news/$filename" \
-         --directory="$TEMP_DIR/news/" \
+         --file="$whonix_news_download_dir/$filename" \
+         --directory="$whonix_news_download_dir/" \
          . \
          >/dev/null \
          &
@@ -367,14 +376,14 @@ extract_whonix_news() {
    fi
 
    ## Debugging.
-   #ls -la "$TEMP_DIR/news/"
+   #ls -la "$whonix_news_download_dir/"
 }
 
 check_whonix_debian_version() {
    trap "error_handler" ERR
 
    local filename
-   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_valid_deb_versions"
+   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
 
    if [ ! -f "$filename" ]; then
       ## This file should always exist.
@@ -413,7 +422,7 @@ check_whonix_build_version() {
    trap "error_handler" ERR
 
    local filename
-   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_valid_build_versions"
+   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_build_versions"
 
    if [ ! -f "$filename" ]; then
       ## This file should always exist.
@@ -451,7 +460,7 @@ check_whonix_debian_news() {
    trap "error_handler" ERR
 
    local filename
-   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
+   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
 
    if [ ! -f "$filename" ]; then
       ## This will happen:
@@ -475,7 +484,7 @@ check_whonix_build_news() {
    trap "error_handler" ERR
 
    local filename
-   filename="$TEMP_DIR/news/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
+   filename="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
 
    if [ ! -f "$filename" ]; then
       ## This will happen:
@@ -501,7 +510,7 @@ check_whonix_blog() {
    BLOG_SUCCESS="0"
 
    local filename
-   filename="$TEMP_DIR/news/whonix_important_blog.txt"
+   filename="$whonix_news_download_dir/whonix_important_blog.txt"
 
    if [ ! -f "$filename" ]; then
       local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
@@ -514,7 +523,7 @@ check_whonix_blog() {
    fi
 
    local filename
-   filename="$TEMP_DIR/news/whonix_feature_blog.txt"
+   filename="$whonix_news_download_dir/whonix_feature_blog.txt"
 
    if [ ! -f "$filename" ]; then
       local MSG="<p>Whonix Blog Download Result: $filename does not exist.</p>"
