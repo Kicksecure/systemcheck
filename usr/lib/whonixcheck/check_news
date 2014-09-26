@@ -448,6 +448,7 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
    local outdated_deb
    outdated_deb="1"
 
+   local LINE
    while read -r LINE; do
       #true "$i: $LINE"
       if [ "$whonix_deb_package_version" = "$LINE" ]; then
@@ -487,6 +488,7 @@ $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --m
    local outdated_build
    outdated_build="1"
 
+   local LINE
    while read -r LINE; do
       #true "$i: $LINE"
       if [ "$whonix_build_version" = "$LINE" ]; then
