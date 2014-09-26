@@ -300,57 +300,74 @@ verify_whonix_news() {
       return 0
    fi
 
-   local current_unixtime
+   local current_unixtime current_time signed_on_unixtime_minus_current_unixtime signed_on_unixtime_minus_current_unixtime_output_pretty
+   local month_has_seconds maximum_age_in_seconds current_unixtime_minus_signed_on_unixtime in_future_in_seconds in_future_pretty_output
+   local maximum_age_in_seconds_pretty_output
+
+   ## One month has 2592000 seconds.
+   ## (60 [seconds] * 60 [minutes] * 24 [hours] * 30 [days])
+   month_has_seconds="2592000"
+   maximum_age_in_seconds="$month_has_seconds"
+   maximum_age_in_seconds_pretty_output="$(displaytime $maximum_age_in_seconds)"
+
    current_unixtime="$(date +%s)"
-   local current_time
    current_time="$(date)"
 
    true "signed_on_unixtime: $signed_on_unixtime"
    true "current_unixtime: $current_unixtime"
 
-   local difference_in_seconds
-   difference_in_seconds="$(( $current_unixtime - $signed_on_unixtime ))"
-   local difference_in_minutes
-   difference_in_minutes="$(( $difference_in_seconds / 60 ))"
+   signed_on_unixtime_minus_current_unixtime="$(( $signed_on_unixtime - $current_unixtime ))"
+   signed_on_unixtime_minus_current_unixtime_output_pretty="$(displaytime "$signed_on_unixtime_minus_current_unixtime")"
 
-   ## One month has 2592000 seconds.
-   ## (60 [seconds] * 60 [minutes] * 24 [hours] * 30 [days])
-   local month_has_seconds
-   month_has_seconds="2592000"
+   current_unixtime_minus_signed_on_unixtime="$(( $current_unixtime - $signed_on_unixtime ))"
+   current_unixtime_minus_signed_on_unixtime_output_pretty="$(displaytime "$current_unixtime_minus_signed_on_unixtime")"
 
-   local maximum_age_in_seconds
-   maximum_age_in_seconds="$month_has_seconds"
+   in_future_in_seconds="$(( $current_unixtime_minus_signed_on_unixtime - $maximum_age_in_seconds ))"
+   in_future_pretty_output="$(displaytime "$in_future_in_seconds")"
 
    if [ "$current_unixtime" -le "$signed_on_unixtime" ]; then
-      whonix_news_verified_ok="false"
-      whonix_news_verify_check_gpg_exit_code="3000"
-      local MSG="<p>Whonix News Check: <br></br><b>Your clock is slow.</b> According to your system,
-Whonix News File was signed $difference_in_minutes minutes before current time.
+      local lenient_up_to_minutes lenient_up_to_seconds
+      lenient_up_to_minutes="30"
+      lenient_up_to_seconds="$(( $lenient_up_to_minutes * 60 ))"
+      if [ "$signed_on_unixtime_minus_current_unixtime" -lt "$lenient_up_to_seconds" ]; then
+         local MSG="<p>Whonix News Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
+Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
+Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $lenient_up_to_minutes minutes before.)</p>"
+         if [ "$verbose" = "1" ]; then
+            $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+         fi
+      else
+         whonix_news_verified_ok="false"
+         whonix_news_verify_check_gpg_exit_code="3000"
+         local MSG="<p>Whonix News Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
+Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
 <br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
 or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
-      return 0
-   fi
-
-   local in_future_in_seconds
-   in_future_in_seconds="$(( $difference_in_seconds - $maximum_age_in_seconds ))"
-   local in_future_in_minutes
-   in_future_in_minutes="$(( $in_future_in_seconds / 60 ))"
-
-   if [ "$difference_in_seconds" -ge "$maximum_age_in_seconds" ]; then
+         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+         return 0
+      fi
+   elif [ "$current_unixtime_minus_signed_on_unixtime" -ge "$maximum_age_in_seconds" ]; then
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="4000"
       local MSG="<p>Whonix News Check: <b>Whonix News File is no longer valid (outdated).</b>
 <br></br>Either,
-<br></br>- your clock is fast (at least $in_future_in_minutes minutes fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
+<br></br>- your clock might be fast (at least $in_future_pretty_output fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
                      or in Terminal: <code><blockquote>timesync</blockquote></code>
-- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $in_future_in_minutes minutes)
+- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $in_future_pretty_output)
 <br></br>- this is a Whonix Bug
 <br></br>- or this is an attack on Whonix</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
+   else
+      local MSG="<p>Whonix News Check: According to your system clock, Whonix News File was signed $current_unixtime_minus_signed_on_unixtime_output_pretty ago. \
+(Whonix News File Signatures are valid up to $maximum_age_in_seconds_pretty_output.)</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      fi
    fi
 
    whonix_news_verified_ok="true"
