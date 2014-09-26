@@ -4,20 +4,28 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+displaytime_helper() {
+   if [ "$1" = "1" ]; then
+      echo " "
+   fi
+}
+
 displaytime() {
-   ## Thanks to Stéphane Gimenez
+   ## Thanks to Stéphane Gimenez!
    ## http://unix.stackexchange.com/a/27014/49297
-   local T D H M S
+   ## Modified by Patrick Schleizer.
+   local T D H M S X
    T="$1"
    D="$((T/60/60/24))"
    H="$((T/60/60%24))"
    M="$((T/60%60))"
    S="$((T%60))"
-   [[ "$D" -gt "0" ]] && printf '%d days ' "$D"
-   [[ "$H" -gt "0" ]] && printf '%d hours ' "$H"
-   [[ "$M" -gt "0" ]] && printf '%d minutes ' "$M"
-   [[ "$D" -gt "0" || "$H" -gt "0" || "$M" -gt "0" ]] && printf 'and '
-   printf '%d seconds\n' "$S"
+   X="0"
+   [[ "$D" -gt "0" ]] && printf "$(displaytime_helper "$X")%d days" "$D" && X="1"
+   [[ "$H" -gt "0" ]] && printf "$(displaytime_helper "$X")%d hours" "$H" && X="1"
+   [[ "$M" -gt "0" ]] && printf "$(displaytime_helper "$X")%d minutes" "$M" && X="1"
+   [[ "$S" -gt "0" ]] && printf "$(displaytime_helper "$X")%d seconds" "$S" && X="1"
+   #[[ "$D" -gt "0" || "$H" -gt "0" || "$M" -gt "0" || "$S" -gt "0" ]] && printf 'and '
    true
 }
 
