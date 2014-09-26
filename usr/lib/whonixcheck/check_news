@@ -308,7 +308,7 @@ verify_whonix_news() {
    ## (60 [seconds] * 60 [minutes] * 24 [hours] * 30 [days])
    month_has_seconds="2592000"
    maximum_age_in_seconds="$month_has_seconds"
-   maximum_age_in_seconds_pretty_output="$(displaytime $maximum_age_in_seconds)"
+   maximum_age_in_seconds_pretty_output="$(displaytime "$maximum_age_in_seconds")"
 
    current_unixtime="$(date +%s)"
    current_time="$(date)"
