@@ -83,6 +83,10 @@ This script,
 
 `whonixcheck -v`
 
+## Configuration File and Folder
+
+See /etc/whonix.d/30_whonixcheck_default
+
 ## WWW
 https://www.whonix.org/wiki/Whonixcheck
 
