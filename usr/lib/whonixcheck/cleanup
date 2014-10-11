@@ -46,6 +46,18 @@ maybe_kill_apt_get_update() {
 }
 ## }}
 
+cleanup_files() {
+   trap "error_handler" ERR
+
+   if [ -d "$TEMP_DIR" ]; then
+      rm --recursive "$TEMP_DIR"
+   fi
+
+   rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"
+   rm --force "/var/run/whonixcheck/${IDENTIFIER}_waiting"
+   #rm --force "/var/run/whonixcheck/${IDENTIFIER}_pid"
+}
+
 ## {{ ex_funct
 
 ## This function gets called by trap_sigterm (ex: zenity cancel button),
@@ -71,13 +83,7 @@ ex_funct() {
    ## kill $lastpid (if running)
    process_killer_helper
 
-   if [ -d "$TEMP_DIR" ]; then
-      rm --recursive "$TEMP_DIR"
-   fi
-
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_waiting"
-   #rm --force "/var/run/whonixcheck/${IDENTIFIER}_pid"
+   cleanup_files
 
    ## Check if $output command has been already defined. This is not the case,
    ## when the script is terminated very early.
@@ -85,18 +91,45 @@ ex_funct() {
    command_v_output_exit_code="0"
    command -v "$output" >/dev/null || { command_v_output_exit_code="$?" ; true; };
    if [ "$command_v_output_exit_code" = "0" ]; then
-      if [ ! "$SIGNAL_TYPE" = "SIGUSR2" ]; then
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      local output_status_exit_code
+      output_status_exit_code="0"
+      $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --messagecli || { output_status_exit_code="$?" ; true; };
+
+      ## The "Please feel free to press <enter> to return back to your normal prompt."
+      ## message is not necessary when manually started.
+      if [ ! "$manualrun" = "1" ]; then
+         ## Not manually started.
+         if [ "$output_status_exit_code" = "0" ]; then
+            ## We have messages to show.
+            ## Add press enter to return back to your normal prompt message below.
+            local MSG="<p>Please feel free to press enter to return back to your normal prompt.</p>"
+            $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+         elif [ "$output_status_exit_code" = "1" ]; then
+            true "No messages for --messagecli in the queue. Not adding press enter to return back to your normal prompt message below."
+         else
+            local MSG="<p><b>$output returned $output_status_exit_code.</b> Please report this bug!</p>"
+            $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
+         fi
       fi
 
-      local MSG="<p><b>whonixcheck aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
-      $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
+      local progress_bar_open
+      progress_bar_open="0"
+      $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --progressbaridx "$progressbaridx" --progressbarxrunning || { progress_bar_open="$?" ; true; };
 
+      if [ "$SIGNAL_TYPE" = "SIGUSR2" ]; then
+         true "User most likely pressed cancel button. No need to send progress 100 to close progress bar."
+      else
+         if [ "$progress_bar_open" = "0" ]; then
+            $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+         else
+            true "No progress bar open. No need to send progress 100 to close progress bar."
+         fi
+      fi
       $output ${output_opts[@]} --messagex --done
       $output ${output_opts[@]} --messagecli --done
    else
-      local MSG="whonixcheck aborted! (SIGNAL_TYPE: $SIGNAL_TYPE)"
+      local MSG="$SCRIPTNAME aborted! (SIGNAL_TYPE: $SIGNAL_TYPE)"
       echo "$MSG"
    fi
 
@@ -144,44 +177,9 @@ cleanup() {
 
    true "cleanup function..."
 
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-
-   if [ -d "$TEMP_DIR" ]; then
-      rm --recursive "$TEMP_DIR"
-   fi
-
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_waiting"
-
    touch "/var/run/whonixcheck/${IDENTIFIER}_done"
 
    sync
-
-   ## The "Please feel free to press <enter> to return back to your normal prompt."
-   ## message is not necessary when manually started.
-   if [ ! "$manualrun" = "1" ]; then
-      ## Not manually started.
-
-      local output_status_exit_code
-      output_status_exit_code="0"
-      $output ${output_opts[@]} --identifier whonixcheck --status --messagecli || { output_status_exit_code="$?" ; true; };
-
-      if [ "$output_status_exit_code" = "0" ]; then
-         ## We have messages to show.
-         ## Add press enter to return back to your normal prompt message below.
-         local MSG="<p>Please feel free to press enter to return back to your normal prompt.</p>"
-         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
-      elif [ "$output_status_exit_code" = "1" ]; then
-         true "No messages for --messagecli in the queue. Not adding press enter to return back to your normal prompt message below."
-      else
-         local MSG="$output returned $output_status_exit_code. Please report this Whonix bug!"
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      fi
-   fi
-
-   $output ${output_opts[@]} --messagex --done
-   $output ${output_opts[@]} --messagecli --done
 
    cd ..
 
@@ -190,8 +188,5 @@ cleanup() {
       EXIT_CODE="0"
    fi
 
-   if [ "$1" = "1" ]; then
-      true "END"
-      exit "$EXIT_CODE"
-   fi
+   ex_funct
 }
