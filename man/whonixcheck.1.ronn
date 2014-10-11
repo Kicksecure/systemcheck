@@ -74,6 +74,10 @@ This script,
 
 1 Error
 
+143 Signal sigterm received.
+
+130 Signal sigint received.
+
 ## EXAMPLE
 `whonixcheck`
 
