@@ -49,13 +49,17 @@ maybe_kill_apt_get_update() {
 cleanup_files() {
    trap "error_handler" ERR
 
-   if [ -d "$TEMP_DIR" ]; then
-      rm --recursive "$TEMP_DIR"
-   fi
+   if [ "$DEL_TMP" = "false" ]; then
+      echo "$SCRIPTNAME: Not deleting TEMP_DIR: $TEMP_DIR"
+   else
+      if [ -d "$TEMP_DIR" ]; then
+         rm --recursive "$TEMP_DIR"
+      fi
 
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_waiting"
-   #rm --force "/var/run/whonixcheck/${IDENTIFIER}_pid"
+      rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"
+      rm --force "/var/run/whonixcheck/${IDENTIFIER}_waiting"
+      #rm --force "/var/run/whonixcheck/${IDENTIFIER}_pid"
+   fi
 }
 
 ## {{ ex_funct

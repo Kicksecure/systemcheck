@@ -57,6 +57,11 @@ WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION="0"
 ## You should go with the built-in default, unless you know what you are doing.
 #CURL_TPO_PIN_CERT="--cacert $TPO_PIN_CERT_FILE"
 
+## Delete temporary files by whonixcheck on exit.
+## true: enabled
+## false: disabled
+#DEL_TMP="true"
+
 ## Using the whonixcheck_skip_functions variable you can blacklist one or more
 ## functions of whonixcheck. Not all combinations of selective function
 ## blacklisting are tested. Blacklisting the check_tor_bootstrap function

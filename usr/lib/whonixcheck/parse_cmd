@@ -84,6 +84,10 @@ parse_cmd_options() {
                PIN_TPO_CERT="false"
                shift
                ;;
+           --no-del-tmp)
+               DEL_TMP="false"
+               shift
+               ;;
            --)
                shift
                break
