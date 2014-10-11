@@ -1,0 +1,50 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+pin_tpo_ssl_cert() {
+   trap "error_handler" ERR
+
+   if [ "$PIN_TPO_CERT" = "true" ]; then
+      local MSG="<p>Pin torproject.org certificate: enabled.</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      fi
+      if [ -r "$TPO_PIN_CERT_FILE" ]; then
+         local MSG="<p>Pin torproject.org certificate: TPO_PIN_CERT_FILE $TPO_PIN_CERT_FILE is readable.</p>"
+         if [ "$verbose" = "1" ]; then
+           $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+           $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+         fi
+      else
+         local msg_shared="Pin torproject.org certificate: TPO_PIN_CERT_FILE <code>$TPO_PIN_CERT_FILE</code> \
+is not readable. SSL certificate verification will fail. This is expected."
+         if [ "$TPO_PIN_CERT_FILE" = "/usr/share/torbrowser-launcher/torproject.pem" ]; then
+            local MSG="<p>Pin torproject.org certificate: $msg_shared Since you are using the default \
+<code>/usr/share/torbrowser-launcher/torproject.pem</code> make sure that the <code>torbrowser-launcher</code> \
+package that provides this file is installed, still shipping that file, and that this file is readable.</p>"
+            $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+         else
+            local MSG="<p>Pin torproject.org certificate: $msg_shared Since you are not using the default \
+<code>/usr/share/torbrowser-launcher/torproject.pem</code> make sure that <code>$TPO_PIN_CERT_FILE</code> \
+is readable, and if you are using <code>apparmor-profile-whonixcheck</code>, that you added
+<code><blockquote>$TPO_PIN_CERT_FILE r,</code></blockquote> to \
+<code>/etc/apparmor.d/local/usr.bin.whonixcheck</code>.</p>"
+            $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+         fi
+      fi
+   else
+      local MSG="<p>Pin torproject.org certificate: disabled.</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      fi
+      CURL_TPO_PIN_CERT=""
+      true "CURL_TPO_PIN_CERT: $CURL_TPO_PIN_CERT"
+   fi
+}

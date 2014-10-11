@@ -48,6 +48,7 @@ check_torbrowser() {
       --tlsv1 \
       --proto =https \
       --max-time 180 \
+      $CURL_TPO_PIN_CERT \
       --output "$RecommendedTBBVersions" \
       "https://www.torproject.org/projects/torbrowser/RecommendedTBBVersions" \
       &

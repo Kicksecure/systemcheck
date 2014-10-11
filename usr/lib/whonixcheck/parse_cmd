@@ -76,6 +76,14 @@ parse_cmd_options() {
                MINIMAL="1"
                shift
                ;;
+           --pin-tpo-cert)
+               PIN_TPO_CERT="true"
+               shift
+               ;;
+           --no-pin-tpo-cert)
+               PIN_TPO_CERT="false"
+               shift
+               ;;
            --)
                shift
                break

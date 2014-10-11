@@ -195,6 +195,10 @@ preparation() {
 
    TITLE="$IDENTIFIER | $VM | $whonix_deb_package_version | $(date)"
 
+   ## https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
+   TPO_PIN_CERT_FILE="/usr/share/torbrowser-launcher/torproject.pem"
+   CURL_TPO_PIN_CERT="--cacert $TPO_PIN_CERT_FILE"
+
    for i in /etc/whonix.d/*; do
       if [ -f "$i" ]; then
          ## If the last character is a ~, ignore that file,
