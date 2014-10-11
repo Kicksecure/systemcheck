@@ -175,7 +175,7 @@ trap "trap_sigusr2" SIGUSR2 ## msgcollector, zenity cancel button
 cleanup() {
    trap "error_handler" ERR
 
-   true "cleanup function..."
+   true "$FUNCNAME..."
 
    touch "/var/run/whonixcheck/${IDENTIFIER}_done"
 
