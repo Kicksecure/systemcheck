@@ -58,6 +58,8 @@ This script,
   * -e, --debug
 
     Debug output. Enables xtrace and enables curl output.
+<span class="comment">
+https://github.com/Whonix/Whonix/issues/24
 
   * --pin-tpo-cert
 
@@ -68,6 +70,7 @@ This script,
     Disable pinning of torproject.org SSL certificate. (Default.)
     Disabled by default, because experimental and because maintenance burden too
     high. See also: https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
+</span>
 
 ## EXIT CODES
 0 Success
