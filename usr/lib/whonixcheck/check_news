@@ -52,7 +52,6 @@ download_whonix_news() {
    whonixcheck_run_function check_whonix_build_version
    whonixcheck_run_function check_whonix_debian_news
    whonixcheck_run_function check_whonix_build_news
-   whonixcheck_run_function check_whonix_blog
 }
 
 whonix_news_preparation() {
@@ -556,45 +555,4 @@ check_whonix_build_news() {
 
    $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
-}
-
-check_whonix_blog() {
-   trap "error_handler" ERR
-
-   BLOG_SUCCESS="0"
-
-   local file_name
-   file_name="$whonix_news_download_dir/whonix_important_blog.txt"
-
-   if [ ! -f "$file_name" ]; then
-      local MSG="<p>Whonix Blog Download Result: $file_name does not exist.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
-   else
-      cp "$file_name" "/var/lib/whonix/whonixblog/important_blog.txt"
-
-      BLOG_SUCCESS="$(( $BLOG_SUCCESS + 1 ))"
-   fi
-
-   local file_name
-   file_name="$whonix_news_download_dir/whonix_feature_blog.txt"
-
-   if [ ! -f "$file_name" ]; then
-      local MSG="<p>Whonix Blog Download Result: $file_name does not exist.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
-   else
-      cp "$file_name" "/var/lib/whonix/whonixblog/feature_blog.txt"
-      BLOG_SUCCESS="$(( $BLOG_SUCCESS + 1 ))"
-   fi
-
-   ## Let's make just one success message, not two.
-   if [ "$BLOG_SUCCESS" = "2" ]; then
-      local MSG="<p>Whonix Blog Download Result: Success.</p>"
-      if [ "$verbose" = "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
-      fi
-      return 0
-   fi
 }
