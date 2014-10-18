@@ -70,7 +70,9 @@ cleanup_files() {
 ex_funct() {
    trap "error_handler" ERR
 
-   echo "$SCRIPTNAME: signal $SIGNAL_TYPE received. Cleaning up... Exiting..."
+   if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
+      echo "$SCRIPTNAME: signal $SIGNAL_TYPE received. Cleaning up... Exiting..."
+   fi
 
    ## Deactivate traps, so when pressing ctrl + c several times this won't
    ## create an endless loop.
