@@ -130,11 +130,20 @@ ex_funct() {
             true "No progress bar open. No need to send progress 100 to close progress bar."
          fi
       fi
+
+      if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
+         local MSG="<p><b>$SCRIPTNAME aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
+         $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
+      fi
+
       $output ${output_opts[@]} --messagex --done
       $output ${output_opts[@]} --messagecli --done
    else
-      local MSG="$SCRIPTNAME aborted! (SIGNAL_TYPE: $SIGNAL_TYPE)"
-      echo "$MSG"
+      if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
+         local MSG="$SCRIPTNAME aborted! (SIGNAL_TYPE: $SIGNAL_TYPE)"
+         echo "$MSG"
+      fi
    fi
 
    if [ "$EXIT_CODE" = "" ]; then
@@ -184,6 +193,8 @@ cleanup() {
    touch "/var/run/whonixcheck/${IDENTIFIER}_done"
 
    sync
+
+   SIGNAL_TYPE="NONE"
 
    cd ..
 
