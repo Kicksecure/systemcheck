@@ -520,7 +520,7 @@ check_whonix_debian_news() {
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
-      local MSG="<p>Whonix News Download Result: There is no news file available for $whonix_deb_package_name version <u>${whonix_deb_package_version}</u> yet.</p>"
+      local MSG="<p>Whonix News Download Result: There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet.</p>"
    else
       local MSG
       MSG="$(cat "$file_name")"
