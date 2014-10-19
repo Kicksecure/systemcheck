@@ -457,10 +457,10 @@ check_whonix_debian_version() {
 
    if [ "$whonix_news_deb_up_to_date" = "true" ]; then
       ## Up to date...
-      whonix_news_result_output="Installed <code>$whonix_deb_package_name</code> version <u>$whonix_deb_package_version</u> is up to date."
+      whonix_news_result_output="Up to date: <code>$whonix_deb_package_name</code> <u>$whonix_deb_package_version</u>"
    else
       ## Outdated...
-      whonix_news_result_output="<b>Installed $whonix_deb_package_name version <u>$whonix_deb_package_version</u> is outdated!</b>
+      whonix_news_result_output="<b>Outdated: Installed <code>$whonix_deb_package_name</code> <u>$whonix_deb_package_version</u> is outdated!</b>
 <br></br>You should update. You can automatically update using Whonix's internal updater. Please update using:
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code>"
    fi
@@ -517,11 +517,11 @@ check_whonix_build_version() {
    if [ "$whonix_news_build_up_to_date" = "true" ]; then
       ## Up to date...
       whonix_news_result_output="${whonix_news_result_output}<br></br>
-Installed Whonix Build Version <u>$whonix_build_version</u> is up to date."
+Up to date: Whonix Build Version <u>$whonix_build_version</u>"
    else
       ## Outdated...
       whonix_news_result_output="${whonix_news_result_output}<br></br>
-Whonix News Download Result: <b>Whonix Build Version <u>$whonix_build_version</u> is outdated!</b>
+Outdated: <b>Whonix Build Version <u>$whonix_build_version</u> is outdated!</b>
 <br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image."
    fi
 }
