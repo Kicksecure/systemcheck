@@ -49,9 +49,12 @@ download_whonix_news() {
    fi
 
    whonixcheck_run_function check_whonix_debian_version
-   whonixcheck_run_function check_whonix_build_version
    whonixcheck_run_function check_whonix_debian_news
+
+   whonixcheck_run_function check_whonix_build_version
    whonixcheck_run_function check_whonix_build_news
+
+   whonixcheck_run_function check_whonix_show_news
 }
 
 whonix_news_preparation() {
@@ -438,74 +441,28 @@ check_whonix_debian_version() {
 
    if [ ! -f "$file_name" ]; then
       ## This file should always exist.
-      local MSG="<p>Whonix News Check: <b>File $file_name does not exist.</b><br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-$output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      whonix_news_result_output="<b>File $file_name does not exist.</b><br></br>Please report this bug!"
       return 0
    fi
 
-   local outdated_deb
-   outdated_deb="1"
+   whonix_news_deb_up_to_date="false"
 
    local LINE
    while read -r LINE; do
       #true "$i: $LINE"
       if [ "$whonix_deb_package_version" = "$LINE" ]; then
-         outdated_deb="0"
+         whonix_news_deb_up_to_date="true"
       fi
    done < "$file_name"
 
-   if [ "$outdated_deb" = "0" ]; then
+   if [ "$whonix_news_deb_up_to_date" = "true" ]; then
       ## Up to date...
-      local MSG="<p>Whonix News Download Result: Installed $whonix_deb_package_name version <u>$whonix_deb_package_version</u> is up to date.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      whonix_news_result_output="Installed <code>$whonix_deb_package_name</code> version <u>$whonix_deb_package_version</u> is up to date."
    else
       ## Outdated...
-      local MSG="<p>Whonix News Download Result: <b>Installed $whonix_deb_package_name version <u>$whonix_deb_package_version</u> is outdated!</b>
+      whonix_news_result_output="<b>Installed $whonix_deb_package_name version <u>$whonix_deb_package_version</u> is outdated!</b>
 <br></br>You should update. You can automatically update using Whonix's internal updater. Please update using:
-<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
-   fi
-}
-
-check_whonix_build_version() {
-   trap "error_handler" ERR
-
-   local file_name
-   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_build_versions"
-
-   if [ ! -f "$file_name" ]; then
-      ## This file should always exist.
-      local MSG="<p>Whonix News Check: <b>File $file_name does not exist.</b><br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-$output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
-      return 0
-   fi
-
-   local outdated_build
-   outdated_build="1"
-
-   local LINE
-   while read -r LINE; do
-      #true "$i: $LINE"
-      if [ "$whonix_build_version" = "$LINE" ]; then
-         outdated_build="0"
-      fi
-   done < "$file_name"
-
-   if [ "$outdated_build" = "0" ]; then
-      ## Up to date...
-      local MSG="<p>Whonix News Download Result: Installed Whonix Build Version <u>$whonix_build_version</u> is up to date.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
-   else
-      ## Outdated...
-      local MSG="<p>Whonix News Download Result: <b>Whonix Build Version <u>$whonix_build_version</u> is outdated!</b>
-<br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image.</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code>"
    fi
 }
 
@@ -519,18 +476,54 @@ check_whonix_debian_news() {
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
-      local MSG="<p>Whonix News Download Result: There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet.</p>"
+      if [ "$verbose" = "1" ]; then
+         whonix_news_result_output="${whonix_news_result_output}<br></br>
+There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet."
+      fi
    else
       local MSG
       MSG="$(cat "$file_name")"
       if [ "$MSG" = "" ]; then
          return 0
       fi
-      MSG="<p>$MSG</p>"
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+$VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> News: <code><blockquote>$MSG</blockquote></code>"
+   fi
+}
+
+check_whonix_build_version() {
+   trap "error_handler" ERR
+
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_build_versions"
+
+   if [ ! -f "$file_name" ]; then
+      ## This file should always exist.
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+<b>File $file_name does not exist.</b><br></br>Please report this bug!"
+      return 0
    fi
 
-   $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-   $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+   whonix_news_build_up_to_date="false"
+
+   local LINE
+   while read -r LINE; do
+      #true "$i: $LINE"
+      if [ "$whonix_build_version" = "$LINE" ]; then
+         whonix_news_build_up_to_date="true"
+      fi
+   done < "$file_name"
+
+   if [ "$whonix_news_build_up_to_date" = "true" ]; then
+      ## Up to date...
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+Installed Whonix Build Version <u>$whonix_build_version</u> is up to date."
+   else
+      ## Outdated...
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+Whonix News Download Result: <b>Whonix Build Version <u>$whonix_build_version</u> is outdated!</b>
+<br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image."
+   fi
 }
 
 check_whonix_build_news() {
@@ -543,16 +536,29 @@ check_whonix_build_news() {
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
-      local MSG="<p>Whonix News Download Result: There is no news file available for Whonix Build Version <u>${whonix_build_version}</u> yet.</p>"
+      if [ "$verbose" = "1" ]; then
+         whonix_news_result_output="${whonix_news_result_output}<br></br>
+There is no news file available for Whonix Build Version <u>${whonix_build_version}</u> yet."
+      fi
    else
       local MSG
       MSG="$(cat "$file_name")"
       if [ "$MSG" = "" ]; then
          return 0
       fi
-      MSG="<p>$MSG</p>"
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+$VM Build <u>${whonix_build_version}</u> News: <code><blockquote>$MSG</blockquote></code>"
    fi
+}
 
+check_whonix_show_news() {
+   trap "error_handler" ERR
+
+   ## TODO:
+   ## info / warning depending on if Debian package or build is outdated.
+
+   local MSG="<p>Whonix News Result:<br></br>
+$whonix_news_result_output</p>"
    $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
 }
