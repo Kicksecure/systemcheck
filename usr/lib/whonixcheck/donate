@@ -12,16 +12,13 @@ donate() {
       return
    fi
 
-   ## Only for whonixcheck, not for timesync.
-   if [ "$SCRIPTNAME" = "whonixcheck" ]; then
-      local TYPE
-      TYPE="$($output ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
-      ## Do not ask for donations if the user has something important to do.
-      if [ "$TYPE" = "info" ]; then
-         local MSG="<p>Please consider making a small reoccurring donation.
-         See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
-         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
-      fi
+   local TYPE
+   TYPE="$($output ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
+   ## Do not ask for donations if the user has something important to do.
+   if [ "$TYPE" = "info" ]; then
+      local MSG="<p>Please consider making a small reoccurring donation.
+      See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
+      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
    fi
 }
