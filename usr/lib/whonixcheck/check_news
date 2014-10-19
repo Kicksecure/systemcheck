@@ -49,9 +49,9 @@ download_whonix_news() {
    fi
 
    whonixcheck_run_function check_whonix_debian_version
-   whonixcheck_run_function check_whonix_debian_news
-
    whonixcheck_run_function check_whonix_build_version
+
+   whonixcheck_run_function check_whonix_debian_news
    whonixcheck_run_function check_whonix_build_news
 
    whonixcheck_run_function check_whonix_show_news
@@ -466,31 +466,6 @@ check_whonix_debian_version() {
    fi
 }
 
-check_whonix_debian_news() {
-   trap "error_handler" ERR
-
-   local file_name
-   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
-
-   if [ ! -f "$file_name" ]; then
-      ## This will happen:
-      ## - when using custom git tags / versions
-      ## - when no news file has been uploaded yet
-      if [ "$verbose" = "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}<br></br>
-There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet."
-      fi
-   else
-      local MSG
-      MSG="$(cat "$file_name")"
-      if [ "$MSG" = "" ]; then
-         return 0
-      fi
-      whonix_news_result_output="${whonix_news_result_output}<br></br>
-$VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> News: <code><blockquote>$MSG</blockquote></code>"
-   fi
-}
-
 check_whonix_build_version() {
    trap "error_handler" ERR
 
@@ -523,6 +498,31 @@ Up to date: Whonix Build Version <u>$whonix_build_version</u>"
       whonix_news_result_output="${whonix_news_result_output}<br></br>
 Outdated: <b>Whonix Build Version <u>$whonix_build_version</u> is outdated!</b>
 <br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image."
+   fi
+}
+
+check_whonix_debian_news() {
+   trap "error_handler" ERR
+
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
+
+   if [ ! -f "$file_name" ]; then
+      ## This will happen:
+      ## - when using custom git tags / versions
+      ## - when no news file has been uploaded yet
+      if [ "$verbose" = "1" ]; then
+         whonix_news_result_output="${whonix_news_result_output}<br></br>
+There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet."
+      fi
+   else
+      local MSG
+      MSG="$(cat "$file_name")"
+      if [ "$MSG" = "" ]; then
+         return 0
+      fi
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+$VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> News: <code><blockquote>$MSG</blockquote></code>"
    fi
 }
 
