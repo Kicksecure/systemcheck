@@ -65,6 +65,8 @@ whonix_news_preparation() {
       return 0
    fi
 
+   whonix_news_hyperlink="<a href=https://www.whonix.org/wiki/Whonix_News>Whonix News</a>"
+
    whonix_news_download_dir="$TEMP_DIR/news/news_download_dir"
    whonix_news_verify_dir="$TEMP_DIR/news_verify_dir"
 
@@ -118,7 +120,7 @@ download_now_whonix_news() {
       if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
          local curl_status_message
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
-         local MSG="<p>Whonix News Result: <b>Could not download Whonix News File</b> $file_name. (curl exit code: $curl_status_message)</p>"
+         local MSG="<p>$whonix_news_hyperlink Result: <b>Could not download Whonix News File</b> $file_name. (curl exit code: $curl_status_message)</p>"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
          return 0
@@ -184,7 +186,7 @@ verify_whonix_news() {
 
    if [ ! "$whonix_news_verify_general_exit_code" = "0" ]; then
       whonix_news_verified_ok="false"
-      local MSG="<p>Whonix News Download Result: <b>General Whonix News OpenPGP Verification Error.</b>
+      local MSG="<p>$whonix_news_hyperlink Download Result: <b>General Whonix News OpenPGP Verification Error.</b>
 <br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
@@ -275,7 +277,7 @@ verify_whonix_news() {
 
    if [ ! "$validsig" = "true" ]; then
       whonix_news_verified_ok="false"
-      local MSG="<p>Whonix News Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$file_name!!!
+      local MSG="<p>$whonix_news_hyperlink Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$file_name!!!
 <br></br>(gpg exit code: ${whonix_news_verify_check_gpg_exit_code} | validsig: $validsig)
 <br></br>This is either,
 <br></br>- a Whonix Bug,
@@ -289,7 +291,7 @@ verify_whonix_news() {
    if [ "$signed_on_unixtime" = "" ]; then
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="1000"
-      local MSG="<p>Whonix News Check: <br></br><b>variable signed_on_unixtime is empty.<br></br></b>
+      local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>variable signed_on_unixtime is empty.<br></br></b>
 <br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
@@ -303,7 +305,7 @@ verify_whonix_news() {
    else
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="2000"
-      local MSG="<p>Whonix News Check: <br></br><b>Variable signed_on_unixtime includes a non-digit:</b> $signed_on_unixtime
+      local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Variable signed_on_unixtime includes a non-digit:</b> $signed_on_unixtime
 <br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
@@ -340,7 +342,7 @@ verify_whonix_news() {
       lenient_up_to_minutes="30"
       lenient_up_to_seconds="$(( $lenient_up_to_minutes * 60 ))"
       if [ "$signed_on_unixtime_minus_current_unixtime" -lt "$lenient_up_to_seconds" ]; then
-         local MSG="<p>Whonix News Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
+         local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
 Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
 Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $lenient_up_to_minutes minutes before.)</p>"
          if [ "$verbose" = "1" ]; then
@@ -350,7 +352,7 @@ Ignoring this, because it still is within range. (Whonix News File Signatures ar
       else
          whonix_news_verified_ok="false"
          whonix_news_verify_check_gpg_exit_code="3000"
-         local MSG="<p>Whonix News Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
+         local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
 Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
 <br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
 or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
@@ -361,7 +363,7 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
    elif [ "$current_unixtime_minus_signed_on_unixtime" -ge "$maximum_age_in_seconds" ]; then
       whonix_news_verified_ok="false"
       whonix_news_verify_check_gpg_exit_code="4000"
-      local MSG="<p>Whonix News Check: <b>Whonix News File is no longer valid (outdated).</b>
+      local MSG="<p>$whonix_news_hyperlink Check: <b>Whonix News File is no longer valid (outdated).</b>
 <br></br>Either,
 <br></br>- your clock might be fast (at least $in_future_pretty_output fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
                      or in Terminal: <code><blockquote>timesync</blockquote></code>
@@ -372,7 +374,7 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
       return 0
    else
-      local MSG="<p>Whonix News Check: According to your system clock, Whonix News File was signed $current_unixtime_minus_signed_on_unixtime_output_pretty ago. \
+      local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $current_unixtime_minus_signed_on_unixtime_output_pretty ago. \
 (Whonix News File Signatures are valid up to $maximum_age_in_seconds_pretty_output.)</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
@@ -381,7 +383,7 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
    fi
 
    whonix_news_verified_ok="true"
-   local MSG="<p>Whonix News Check: news file valid.</p>"
+   local MSG="<p>$whonix_news_hyperlink Check: news file valid.</p>"
    if [ "$verbose" = "1" ]; then
       $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
@@ -422,7 +424,7 @@ extract_whonix_news() {
    ## - 137 if needed to use kill.
 
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      local MSG="<p>Whonix News Download Result: <b>Could not extract $file_name!</b> (tar exit code: ${whonix_news_tar_exit_code})
+      local MSG="<p>$whonix_news_hyperlink Download Result: <b>Could not extract $file_name!</b> (tar exit code: ${whonix_news_tar_exit_code})
 <br></br>Please report this bug!</p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
@@ -563,7 +565,7 @@ check_whonix_show_news() {
       type="warning"
    fi
 
-   local MSG="<p>Whonix News Result:<br></br>
+   local MSG="<p>$whonix_news_hyperlink Result:<br></br>
 $whonix_news_result_output</p>"
    $output ${output_opts[@]} --messagex --typex "$type" --titlex "$TITLE" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "$type" --titlecli "$TITLE" --message "$MSG"
