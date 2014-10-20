@@ -222,7 +222,7 @@ verify_whonix_news() {
             &
 
    lastpid="$!"
-   wait "$lastpid" || { whonix_news_verify_check_gpg_exit_code="$?" ; true; }
+   wait "$lastpid" || { whonix_news_verify_check_gpg_exit_code="$?" ; true; };
 
    ## `timeout` returns:
    ## - 124 if sigterm was sufficient
@@ -417,7 +417,7 @@ extract_whonix_news() {
          &
 
    lastpid="$!"
-   wait "$lastpid" || { whonix_news_tar_exit_code="$?" ; true; }
+   wait "$lastpid" || { whonix_news_tar_exit_code="$?" ; true; };
 
    ## `timeout` returns:
    ## - 124 if sigterm was sufficient

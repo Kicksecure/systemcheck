@@ -142,7 +142,7 @@ check_tor_socks_or_trans_port() {
    local tor_detected
    tor_detected="0"
    local grep_congratulations_result
-   grep_congratulations_result="$(grep --no-messages "Congratulations" "$TEMP_DIR/$CHECK_TOR_OUT_FILE")" || { tor_detected="$?" ; true; }
+   grep_congratulations_result="$(grep --no-messages "Congratulations" "$TEMP_DIR/$CHECK_TOR_OUT_FILE")" || { tor_detected="$?" ; true; };
 
    ## Example grep_congratulations_result:
    ## <img alt="Congratulations. Your browser is configured to use Tor." src="/images/tor-on.png">
@@ -160,7 +160,7 @@ check_tor_socks_or_trans_port() {
    local grep_ip_exit_code
    grep_ip_exit_code="0"
    local ip
-   ip="$(grep --no-messages "IP" "$TEMP_DIR/$CHECK_TOR_OUT_FILE")" || { grep_ip_exit_code="$?" ; true; }
+   ip="$(grep --no-messages "IP" "$TEMP_DIR/$CHECK_TOR_OUT_FILE")" || { grep_ip_exit_code="$?" ; true; };
 
    ## example ip:
    ## Your IP address appears to be: <b>94.242.204.74</b><br>
