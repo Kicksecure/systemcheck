@@ -57,12 +57,13 @@ check_tor_bootstrap() {
 <br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="<p>Tor Bootstrap Result:
-<br></br>Tor's Control Port could not be reached.
+<br></br>Tor's Control Port could not be reached!
 <br></br>
-<br></br>Did you start Whonix-Gateway beforehand?
-<br></br>
-<br></br>Please run <code>whonixcheck</code> on Whonix-Gateway.
-<br></br>Then restart <code>whonixcheck</code> on Whonix-Workstation
+<br></br>Troubleshooting:
+<br></br>- Confirm that Whonix-Gateway is running.
+<br></br>- Run <code>whonixcheck</code> on Whonix-Gateway and confirm success.
+<br></br>- If you’re running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=https://www.whonix.org/wiki/Multiple_Whonix-Workstations>https://www.whonix.org/wiki/Multiple_Whonix-Workstations</a>).
+<br></br>- Rerun <code>whonixcheck</code> here.
 <br></br>
 <br></br>(Technical information:)
 <br></br>(Code: $tor_bootstrap_percent)
