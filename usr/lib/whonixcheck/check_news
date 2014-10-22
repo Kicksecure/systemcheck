@@ -518,13 +518,14 @@ check_whonix_debian_news() {
 There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet."
       fi
    else
-      local MSG
-      MSG="$(cat "$file_name")"
-      if [ "$MSG" = "" ]; then
+      local message
+      message="$(cat "$file_name")"
+      message="$(/usr/lib/msgcollector/striphtml "$message")"
+      if [ "$message" = "" ]; then
          return 0
       fi
       whonix_news_result_output="${whonix_news_result_output}<br></br>
-$VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> News: <code><blockquote>$MSG</blockquote></code>"
+$VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> News: <code><blockquote>$message</blockquote></code>"
    fi
 }
 
@@ -543,13 +544,14 @@ check_whonix_build_news() {
 There is no news file available for Whonix Build Version <u>${whonix_build_version}</u> yet."
       fi
    else
-      local MSG
-      MSG="$(cat "$file_name")"
-      if [ "$MSG" = "" ]; then
+      local message
+      message="$(cat "$file_name")"
+      message="$(/usr/lib/msgcollector/striphtml "$message")"
+      if [ "$message" = "" ]; then
          return 0
       fi
       whonix_news_result_output="${whonix_news_result_output}<br></br>
-$VM Build <u>${whonix_build_version}</u> News: <code><blockquote>$MSG</blockquote></code>"
+$VM Build <u>${whonix_build_version}</u> News: <code><blockquote>$message</blockquote></code>"
    fi
 }
 
