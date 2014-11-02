@@ -199,6 +199,7 @@ preparation() {
 
    $output --icon "$ICON"
    $output --parenttty "$my_tty"
+   $output --whoami "$who_ami"
    $output --titlex "$TITLE"
    $output --titlecli "$TITLE"
 
