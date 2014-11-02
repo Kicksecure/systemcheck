@@ -127,7 +127,7 @@ preparation() {
    output_opt_4="--parenttty $my_tty"
    output_opt_5="--whoami $who_ami"
 
-   output_opts=( "$output_opt_1" "$output_opt_2" "$output_opt_3" "$output_opt_4" "$output_opt_5")
+   output_opts=( "$output_opt_1" "$output_opt_2" "$output_opt_3" "$output_opt_4" "$output_opt_5" )
 
    ## Expand output_opts.
    output_opt_extra_1="--lefttop"
