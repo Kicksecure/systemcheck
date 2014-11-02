@@ -60,7 +60,8 @@ whonixcheck_main() {
    local progressbaridx
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
-   $output ${output_opts[@]} --forget
+   ## TODO: Would delete .titlex.
+   #$output ${output_opts[@]} --forget
 
    ## Does not use the network.
    whonixcheck_run_function uwt_tool ## help_uwt_tool
@@ -118,7 +119,7 @@ whonixcheck_main() {
    whonixcheck_run_function check_autostart ## autostart
 
    local MSG="$NOTIFY_MSG"
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --titlex "$TITLE" --message "$MSG" --done
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
    ## The 5% indicate, that the check has begun.
    $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "5"
 

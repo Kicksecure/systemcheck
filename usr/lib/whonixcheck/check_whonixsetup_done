@@ -34,8 +34,8 @@ check_whonixsetup_done() {
 <p>or in Terminal: <blockquote><code>sudo whonixsetup</code></blockquote></p>"
 
       if [ "$manualrun" = "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
 
       EXIT_CODE="1"
@@ -44,8 +44,8 @@ check_whonixsetup_done() {
    else
       local MSG='<p>Check whonixsetup Result: done, ok.</p>'
       if [ "$verbose" = "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    fi
 }

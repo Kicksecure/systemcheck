@@ -73,7 +73,7 @@ whonix_news_preparation() {
    SOCKS_PORT_WHONIX_NEWS="9114"
 
    local MSG="Whonix News Download: Checking for Whonix news and updates..."
-   $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+   $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    mkdir --parents "$whonix_news_download_dir"
    mkdir --parents "$whonix_news_verify_dir"
@@ -121,8 +121,8 @@ download_now_whonix_news() {
          local curl_status_message
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
          local MSG="<p>$whonix_news_hyperlink Result: <b>Could not download Whonix News File</b> $file_name. (curl exit code: $curl_status_message)</p>"
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          return 0
       fi
 
@@ -188,8 +188,8 @@ verify_whonix_news() {
       whonix_news_verified_ok="false"
       local MSG="<p>$whonix_news_hyperlink Download Result: <b>General Whonix News OpenPGP Verification Error.</b>
 <br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -283,8 +283,8 @@ verify_whonix_news() {
 <br></br>- a Whonix Bug,
 <br></br>- an attack on Whonix,
 <br></br>- or Whonix News Keys might be outdated. Upgrading using apt-get might fix this.</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -293,8 +293,8 @@ verify_whonix_news() {
       whonix_news_verify_check_gpg_exit_code="1000"
       local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>variable signed_on_unixtime is empty.<br></br></b>
 <br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -307,8 +307,8 @@ verify_whonix_news() {
       whonix_news_verify_check_gpg_exit_code="2000"
       local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Variable signed_on_unixtime includes a non-digit:</b> $signed_on_unixtime
 <br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -346,8 +346,8 @@ verify_whonix_news() {
 Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
 Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $lenient_up_to_minutes minutes before.)</p>"
          if [ "$verbose" = "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       else
          whonix_news_verified_ok="false"
@@ -356,8 +356,8 @@ Ignoring this, because it still is within range. (Whonix News File Signatures ar
 Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
 <br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
 or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          return 0
       fi
    elif [ "$current_unixtime_minus_signed_on_unixtime" -ge "$maximum_age_in_seconds" ]; then
@@ -370,23 +370,23 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
 - it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $in_future_pretty_output)
 <br></br>- this is a Whonix Bug
 <br></br>- or this is an attack on Whonix</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    else
       local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $current_unixtime_minus_signed_on_unixtime_output_pretty ago. \
 (Whonix News File Signatures are valid up to $maximum_age_in_seconds_pretty_output.)</p>"
       if [ "$verbose" = "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    fi
 
    whonix_news_verified_ok="true"
    local MSG="<p>$whonix_news_hyperlink Check: news file valid.</p>"
    if [ "$verbose" = "1" ]; then
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 }
 
@@ -426,8 +426,8 @@ extract_whonix_news() {
    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
       local MSG="<p>$whonix_news_hyperlink Download Result: <b>Could not extract $file_name!</b> (tar exit code: ${whonix_news_tar_exit_code})
 <br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -569,6 +569,6 @@ check_whonix_show_news() {
 
    local MSG="<p>$whonix_news_hyperlink Result:<br></br>
 $whonix_news_result_output</p>"
-   $output ${output_opts[@]} --messagex --typex "$type" --titlex "$TITLE" --message "$MSG"
-   $output ${output_opts[@]} --messagecli --typecli "$type" --titlecli "$TITLE" --message "$MSG"
+   $output ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
+   $output ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
 }

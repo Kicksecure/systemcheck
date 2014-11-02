@@ -26,7 +26,7 @@ Start Menu -> Applications -> System -> Connection Wizard (Whonix)
 or in Terminal: sudo whonixsetup"
 
       if [ "$manualrun" = "1" ]; then
-         $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
 
       local MSG="<p>Tor Check Result:
@@ -39,7 +39,7 @@ or in Terminal: sudo whonixsetup"
     or in Terminal: <code>sudo whonixsetup</code></p>"
 
       if [ "$manualrun" = "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       fi
 
       EXIT_CODE="1"
@@ -49,14 +49,14 @@ or in Terminal: sudo whonixsetup"
       if [ -e "/usr/share/anon-gw-base-files/gateway" ]; then
          local MSG='<p>Tor Check Result: "DisableNetwork 1" in /etc/tor/torrc commented out, ok.</p>'
          if [ "$verbose" = "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       else
          local MSG='<p>Tor Check Result: Not running on Whonix-Gateway, ok.</p>'
          if [ "$verbose" = "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       fi
    fi

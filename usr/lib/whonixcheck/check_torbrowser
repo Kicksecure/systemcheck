@@ -12,8 +12,8 @@ check_torbrowser() {
    else
       if [ "$verbose" = "1" ]; then
          local MSG="<p>Tor Browser Update Check: tb-updater packages not installed, skipped.</p>"
-         $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -26,13 +26,13 @@ check_torbrowser() {
       TB_LANG="en-US"
    fi
    if [ "$verbose" = "1" ]; then
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    CHECK_TORBROWSER_RESULT="0"
    local MSG="Tor Browser Update Check: Checking version..."
-   $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+   $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    local SOCKS_PORT_WHONIXCHECK
    SOCKS_PORT_WHONIXCHECK="9110"
@@ -63,8 +63,8 @@ check_torbrowser() {
       local MSG="<p>Tor Browser Update Check Result: <b>Tor Browser Update check failed.</b> (curl exit code: $curl_status_message)
 Could not download: <a href=https://www.torproject.org/projects/torbrowser/RecommendedTBBVersions>https://www.torproject.org/projects/torbrowser/RecommendedTBBVersions</a>. Try:
 <blockquote>    Start menu -> Applications -> System -> Tor Browser Updater</blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -83,8 +83,8 @@ Could not download: <a href=https://www.torproject.org/projects/torbrowser/Recom
       true "Successfully detected Tor Browser version."
    else
       local MSG="<p>Tor Browser Update Check Result: $tbb_locally_installed_version</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
@@ -102,14 +102,14 @@ Could not download: <a href=https://www.torproject.org/projects/torbrowser/Recom
    if [ "$up_to_date" = "1" ]; then
       ## It is up to date...
       local MSG="<p>Tor Browser Update Check Result: Up to date.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
       ## Outdated...
       local MSG="<p>Tor Browser Update Check Result: Installed Tor Browser version: $tbb_locally_installed_version.
 Latest recommend Tor Browser version(s): $tbb_recommended_versions_list. Please run:
 <blockquote>    Start menu -> Applications -> System -> Tor Browser Updater</blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
+      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    fi
 }

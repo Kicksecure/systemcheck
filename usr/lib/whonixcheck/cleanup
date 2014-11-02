@@ -109,19 +109,21 @@ ex_funct() {
             ## We have messages to show.
             ## Add press enter to return back to your normal prompt message below.
             local MSG="<p>Please feel free to press enter to return back to your normal prompt.</p>"
-            $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          elif [ "$output_status_exit_code" = "1" ]; then
             true "No messages for --messagecli in the queue. Not adding press enter to return back to your normal prompt message below."
          else
             local MSG="<p><b>$output returned $output_status_exit_code.</b> Please report this bug!</p>"
-            $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
-            $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          fi
       fi
 
-      local progress_bar_open
-      progress_bar_open="0"
-      $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --progressbaridx "$progressbaridx" --progressbarxrunning || { progress_bar_open="$?" ; true; };
+      if [ ! "$progressbaridx" = "" ]; then
+         local progress_bar_open
+         progress_bar_open="0"
+         $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --progressbaridx "$progressbaridx" --progressbarxrunning || { progress_bar_open="$?" ; true; };
+      fi
 
       if [ "$SIGNAL_TYPE" = "SIGUSR2" ]; then
          true "User most likely pressed cancel button. No need to send progress 100 to close progress bar."
@@ -135,8 +137,8 @@ ex_funct() {
 
       if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
          local MSG="<p><b>$SCRIPTNAME aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
-         $output ${output_opts[@]} --messagex --typex "warning" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "warning" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
 
       $output ${output_opts[@]} --messagex --done

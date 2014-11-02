@@ -32,7 +32,7 @@ If you want to change this, use:</p>"
     $temp_x_tool"
    fi
 
-   $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
+   $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
    if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then
       local MSG="$temp_base_msg_enabled
@@ -42,5 +42,5 @@ If you want to change this, use:</p>"
     $temp_cli_tool"
    fi
 
-   $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+   $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }

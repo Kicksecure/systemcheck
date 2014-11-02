@@ -4,6 +4,18 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+output_func() {
+   trap "error_handler" ERR
+
+   if [ "$output_func_verbose" = "true" ]; then
+      echo "Running: bash -x $output_tool --identifier $IDENTIFIER --whoami $who_ami ${1+$@}"
+      bash -x $output_tool --identifier "$IDENTIFIER" --whoami "$who_ami" ${1+"$@"}
+   else
+      $output_tool --identifier "$IDENTIFIER" --whoami "$who_ami" ${1+"$@"}
+   fi
+   true
+}
+
 whonixcheck_run_function() {
    trap "error_handler" ERR
 
@@ -117,23 +129,6 @@ preparation() {
       my_tty="none"
    fi
 
-   output="/usr/lib/msgcollector/msgcollector"
-
-   who_ami="$(whoami)"
-
-   output_opt_1="--icon $ICON"
-   output_opt_2="--parentpid $$"
-   output_opt_3="--identifier $IDENTIFIER"
-   output_opt_4="--parenttty $my_tty"
-   output_opt_5="--whoami $who_ami"
-
-   output_opts=( "$output_opt_1" "$output_opt_2" "$output_opt_3" "$output_opt_4" "$output_opt_5" )
-
-   ## Expand output_opts.
-   output_opt_extra_1="--lefttop"
-   temp=( "$output_opt_extra_1" )
-   output_opts=( "${output_opts[@]}" "$temp" )
-
    user_name="user"
    WHONIX_HOMEPAGE="https://www.whonix.org"
    TEMP_DIR="$(mktemp --directory)"
@@ -196,6 +191,20 @@ preparation() {
    ## https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
    TPO_PIN_CERT_FILE="/usr/share/torbrowser-launcher/torproject.pem"
    CURL_TPO_PIN_CERT="--cacert $TPO_PIN_CERT_FILE"
+
+   output_tool="/usr/lib/msgcollector/msgcollector"
+   output="output_func"
+
+   who_ami="$(whoami)"
+
+   $output --icon "$ICON"
+   $output --parenttty "$my_tty"
+   $output --titlex "$TITLE"
+   $output --titlecli "$TITLE"
+
+   ## Only for whonixcheck to make it distinct from timesync.
+   ## Preventing overlapping windows.
+   $output --lefttop
 
    for i in /etc/whonix.d/*; do
       if [ -f "$i" ]; then

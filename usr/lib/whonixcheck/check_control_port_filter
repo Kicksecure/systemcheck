@@ -30,16 +30,16 @@ check_control_port_filter_running() {
          if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
             $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
          fi
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG"
+         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          return 0
       else
          local MSG="<p>Control Port Filter Proxy Test Result: OK</p>"
          if [ "$verbose" = "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --titlex "$TITLE" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --titlecli "$TITLE" --message "$MSG"
+            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       fi
    fi
