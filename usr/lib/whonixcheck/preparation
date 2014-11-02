@@ -132,7 +132,7 @@ preparation() {
    ## Expand output_opts.
    output_opt_extra_1="--lefttop"
    temp=( "$output_opt_extra_1" )
-   output_opts=( "${output_opts[@]}" "$temp")
+   output_opts=( "${output_opts[@]}" "$temp" )
 
    user_name="user"
    WHONIX_HOMEPAGE="https://www.whonix.org"
