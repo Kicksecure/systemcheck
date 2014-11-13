@@ -41,11 +41,11 @@ check_virtualizer() {
       return 0
    fi
 
-   local qubes_expected_virt_what_result
-   qubes_expected_virt_what_result="hyperv
+   local virt_what_result_expected_qubes
+   virt_what_result_expected_qubes="hyperv
 xen"
 
-   if [ "$result" = "$qubes_expected_virt_what_result" ]; then
+   if [ "$result" = "$virt_what_result_expected_qubes" ]; then
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
 <br></br>virt-what result: <code>$result</code></p>"
       if [ "$verbose" = "1" ]; then
