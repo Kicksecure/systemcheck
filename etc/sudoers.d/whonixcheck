@@ -3,11 +3,11 @@
 ## See the file COPYING for copying conditions.
 
 ## Required for whonixcheck running "tor --verify config".
-ALL ALL=NOPASSWD: /usr/bin/tor *
-ALL ALL=NOPASSWD: /usr/sbin/tor *
+sudo ALL=NOPASSWD: /usr/bin/tor *
+sudo ALL=NOPASSWD: /usr/sbin/tor *
 
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
-ALL ALL=NOPASSWD: /usr/lib/apt-get-update
-ALL ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
-ALL ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
+sudo ALL=NOPASSWD: /usr/lib/apt-get-update
+sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
+sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
