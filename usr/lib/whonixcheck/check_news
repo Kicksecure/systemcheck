@@ -131,7 +131,8 @@ download_now_whonix_news() {
          whonix_news_download_success="false"
          local curl_status_message
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
-         local MSG="<p>$whonix_news_hyperlink Result: <b>Could not download Whonix News File</b> $file_name. (curl exit code: $curl_status_message)</p>"
+         local MSG="<p>$whonix_news_hyperlink Result: Download Whonix News File failed. \
+(file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
          $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          return 0
@@ -139,9 +140,10 @@ download_now_whonix_news() {
 
       whonix_news_download_success="true"
       if [ "$verbose" = "1" ]; then
-         local MSG="<p>$whonix_news_hyperlink Result: Download of $file_name succeeded.</p>"
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         local MSG="<p>$whonix_news_hyperlink Result: Download Whonix News File succeeded. \
+(file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
 
    done
