@@ -33,7 +33,14 @@ download_whonix_news() {
    trap "error_handler" ERR
 
    whonixcheck_run_function whonix_news_preparation
+
    whonixcheck_run_function download_now_whonix_news
+
+   if [ ! "$whonix_news_download_success" = "true" ]; then
+      true "$BASH_SOURCE WARNING: whonix_news_download_success is not true, it is $whonix_news_verified_ok, return"
+      return 0
+   fi
+
    whonixcheck_run_function verify_whonix_news
 
    if [ ! "$whonix_news_verified_ok" = "true" ]; then
@@ -96,6 +103,9 @@ download_now_whonix_news() {
    local web_link
 
    for web_link in "${!whonix_news_web_link_list[@]}"; do
+      ## Fallback.
+      whonix_news_download_success="false"
+
       local file_name
       file_name="${whonix_news_web_link_list[$web_link]}"
 
@@ -118,12 +128,20 @@ download_now_whonix_news() {
       wait "$lastpid" || { whonix_news_download_exit_code["$web_link"]="$?" ; true; };
 
       if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
+         whonix_news_download_success="false"
          local curl_status_message
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
          local MSG="<p>$whonix_news_hyperlink Result: <b>Could not download Whonix News File</b> $file_name. (curl exit code: $curl_status_message)</p>"
          $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          return 0
+      fi
+
+      whonix_news_download_success="true"
+      if [ "$verbose" = "1" ]; then
+         local MSG="<p>$whonix_news_hyperlink Result: Download of $file_name succeeded.</p>"
+         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       fi
 
    done
