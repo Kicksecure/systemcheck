@@ -10,6 +10,22 @@ if [ -f /etc/default/whonixcheckd ]; then
    source /etc/default/whonixcheckd
 fi
 
+for i in /etc/default/whonixcheckd.d/*; do
+   if [ -f "$i" ]; then
+      ## If the last character is a ~, ignore that file, because it was created
+      ## by some editor, which creates backup files.
+      if [ "${i: -1}" = "~" ]; then
+         continue
+      fi
+      ## Skipping files such as .dpkg-old and .dpkg-dist.
+      if ( echo "$i" | grep -q ".dpkg-" ); then
+         true "skip $i"
+         continue
+      fi
+      source "$i"
+   fi
+done
+
 ex_funct() {
    echo "$SCRIPTNAME: $SIGNAL_TYPE received. Cleaning up..."
 
