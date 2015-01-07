@@ -40,6 +40,8 @@ check_torbrowser() {
    ## This variable gets used by tbbversion.
    RecommendedTBBVersions="$TEMP_DIR/RecommendedTBBVersions"
 
+   [ -n "$TBB_VERSIONS_FILE_LINK" ] || TBB_VERSIONS_FILE_LINK="https://www.torproject.org/projects/torbrowser/RecommendedTBBVersions"
+
    ## Getting latest version number
    $CURL \
       --fail \
@@ -50,7 +52,7 @@ check_torbrowser() {
       --max-time 180 \
       $CURL_TPO_PIN_CERT \
       --output "$RecommendedTBBVersions" \
-      "https://www.torproject.org/projects/torbrowser/RecommendedTBBVersions" \
+      "$TBB_VERSIONS_FILE_LINK" \
       &
 
    lastpid="$!"
@@ -61,7 +63,7 @@ check_torbrowser() {
 
    if [ ! "$CHECK_TORBROWSER_RESULT" = "0" ]; then
       local MSG="<p>Tor Browser Update Check Result: <b>Tor Browser Update check failed.</b> (curl exit code: $curl_status_message)
-Could not download: <a href=https://www.torproject.org/projects/torbrowser/RecommendedTBBVersions>https://www.torproject.org/projects/torbrowser/RecommendedTBBVersions</a>. Try:
+Could not download: <a href=$TBB_VERSIONS_FILE_LINK>$TBB_VERSIONS_FILE_LINK</a>. Try:
 <blockquote>    Start menu -> Applications -> System -> Tor Browser Updater</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
