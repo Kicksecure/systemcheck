@@ -74,7 +74,7 @@ Could not download: <a href=https://www.torproject.org/projects/torbrowser/Recom
    tbbversion
 
    ## Used by tbbversion_installed
-   tbb_folder="/home/$user_name/tor-browser_$TB_LANG"
+   [ -n "$tbb_folder" ] || tbb_folder="/home/$user_name/tor-browser_$TB_LANG"
 
    ## sets: tbb_locally_installed_version
    tbbversion_installed
