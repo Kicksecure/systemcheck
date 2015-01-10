@@ -33,7 +33,7 @@ check_package_manager_running() {
          local progressbaridx
          progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
-         local MSG="$package_manager_waiting_msg"
+         local MSG="$package_manager_waiting_msg_x"
          $output ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
          ## Start progress bar to show we are waiting.
          $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
