@@ -140,6 +140,8 @@ download_now_whonix_news() {
 
       whonix_news_download_success="true"
       if [ "$verbose" = "1" ]; then
+         local curl_status_message
+         curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
          local MSG="<p>$whonix_news_hyperlink Result: Download Whonix News File succeeded. \
 (file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
