@@ -184,6 +184,10 @@ verify_whonix_news() {
    shopt -s nullglob dotglob
 
    for key in "/usr/share/whonix/whonix-news-keys.d/"*; do
+      if [ ! "$whonix_news_verify_general_exit_code" = "0" ]; then
+         true "gpg test run failed!"
+         break
+      fi
       local key_file_name
       key_file_name="$(basename "$key")"
       if [ "$key_file_name" = "placeholder" ]; then
