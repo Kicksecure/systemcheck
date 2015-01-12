@@ -200,6 +200,7 @@ verify_whonix_news() {
          2>/dev/null \
          || { whonix_news_verify_general_exit_code="$?" ; true; };
       if [ ! "$whonix_news_verify_general_exit_code" = "0" ]; then
+         true "import of key $key failed!"
          break
       fi
    done
