@@ -13,6 +13,7 @@ check_logs() {
    fi
 
    local temp_file_name
+
    temp_file_name=~/".msgcollector/msgdispatcher-error.log"
 
    if [ -f "$temp_file_name" ]; then
