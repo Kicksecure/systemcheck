@@ -62,6 +62,9 @@ WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION="0"
 ## false: disabled
 #DEL_TMP="true"
 
+## How long whonixcheck should wait at maximum until Tor bootstrap finished.
+whonixcheck_tor_bootstrap_wait_max="60"
+
 ## Using the whonixcheck_skip_functions variable you can blacklist one or more
 ## functions of whonixcheck. Not all combinations of selective function
 ## blacklisting are tested. Blacklisting the check_tor_bootstrap function

@@ -124,7 +124,7 @@ check_tor_bootstrap() {
       return 0
    fi
 
-   wait_max="60"
+   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="60"
 
    if [ "$TOR_BOOTSTRAP_TIME_PASSED" -gt "1" ]; then
       if [ ! "$started_tor_bootstrap_progress_bar" = "1" ]; then
@@ -137,13 +137,13 @@ check_tor_bootstrap() {
             ## Waited for more than 5 seconds.
             local progressbaridx
             progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-            local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $wait_max seconds.)</p>"
+            local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
             $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
          fi
       fi
    fi
 
-   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "$wait_max" ]; then
+   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "$whonixcheck_tor_bootstrap_wait_max" ]; then
       if [ "$tor_bootstrap_percent" -lt "100" ] || [ "$tor_circuit_established" = "0" ]; then
          if [ "$PROGRESS" = "" ]; then
             PROGRESS="5"
