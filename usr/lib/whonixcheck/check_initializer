@@ -1,0 +1,31 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_initializer() {
+   trap "error_handler" ERR
+
+   local log_file start_file done_file done_file_compatiblity skip_file todo_file fail_file
+   log_file="/var/lib/whonix-initializer/status-files/first_run_initializer.log"
+   start_file="/var/lib/whonix-initializer/status-files/first_run_initializer.start"
+   done_file="/var/lib/whonix-initializer/status-files/first_run_initializer.done"
+   done_file_compatiblity="/root/.whonix/first_run_initializer.done"
+   skip_file="/var/lib/whonix-initializer/status-files/first_run_initializer.skip"
+   todo_file="/var/lib/whonix-initializer/status-files/first_run_initializer.todo"
+   fail_file="/var/lib/whonix-initializer/status-files/first_run_initializer.fail"
+
+   if [ -f "$fail_file" ]; then
+      local MSG="<p>Check Initializer Result: <b>$fail_file exists. Your system could be unstable!</b> Please consider reporting any bugs inside :$log_file
+(Be careful not to copy and paste personal information.)</p>"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   else
+      if [ "$verbose" = "1" ]; then
+         local MSG="<p>Check Initializer Result: $fail_file does not exist, ok.</p>"
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   fi
+}

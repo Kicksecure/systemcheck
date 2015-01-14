@@ -74,6 +74,9 @@ WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION="0"
 ## whonixcheck errors. Do not worry, such error do not result in danger, they
 ## only result in whonixcheck showing an error message.
 
+## Check Whonix first run initializer.
+#whonixcheck_skip_functions+=" check_initializer "
+
 ## Check Tor's bootstrap status.
 ## control port Uses the network. only
 #whonixcheck_skip_functions+=" check_tor_bootstrap "
