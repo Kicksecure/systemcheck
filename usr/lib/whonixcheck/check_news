@@ -214,6 +214,14 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
    esac
 
    whonix_news_verified_ok="true"
+
+   local MSG="<p>$whonix_news_hyperlink Check: gpg_bash_lib_output_freshness_msg:<br></br>
+$gpg_bash_lib_output_freshness_msg</p>"
+   if [ "$verbose" = "1" ]; then
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
    local MSG="<p>$whonix_news_hyperlink Check: news file valid.</p>"
    if [ "$verbose" = "1" ]; then
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
