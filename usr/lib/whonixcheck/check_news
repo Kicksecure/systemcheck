@@ -139,7 +139,6 @@ verify_whonix_news() {
    gpg_bash_lib_input_cleanup="false"
    gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
 
-   gpg_bash_lib_script_source_dir="/usr/lib/gpg-bash-lib/modules.d"
    source "/usr/lib/gpg-bash-lib/source_all"
 
    trap "gpg_bash_lib_f_error_handler" ERR
