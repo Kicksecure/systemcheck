@@ -201,7 +201,9 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
          fi
          ;;
       *)
+         whonix_news_verified_ok="false"
          error "gpg_bash_lib_output_freshness_detail is neither lenient, nor slow, nor outdated, nor current, it is: $gpg_bash_lib_output_freshness_detail"
+         return 0
          ;;
    esac
 
