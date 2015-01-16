@@ -145,6 +145,13 @@ verify_whonix_news() {
    gpg_bash_lib_f_main_verify
    trap "error_handler" ERR
 
+   local MSG="<p>$whonix_news_hyperlink Check: gpg_bash_lib_output_diagnostic_message:<br></br>
+$gpg_bash_lib_output_diagnostic_message</p>"
+   if [ "$verbose" = "1" ]; then
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
    if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then
       whonix_news_verified_ok="false"
       local MSG="<p>$whonix_news_hyperlink Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$file_name!!!
