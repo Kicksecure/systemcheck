@@ -9,7 +9,9 @@
 ## why it is not detected.
 
 #set -x
+set -e
 set -o pipefail
+set -o errtrace
 
 #trap 'sleep 1' DEBUG
 
@@ -24,9 +26,10 @@ IDENTIFIER="$SCRIPTNAME"
 ## Debugging with bashdb.
 #IDENTIFIER="whonixcheck"
 
+bash -n /usr/lib/msgcollector/error_handler
 source /usr/lib/msgcollector/error_handler
 trap "error_handler" ERR ## /usr/lib/msgcollector/error_handler
-bash -n /usr/lib/msgcollector/error_handler
+set +e
 
 bash -n /usr/lib/anon-shared-helper-scripts/tor_enabled_check
 source /usr/lib/anon-shared-helper-scripts/tor_enabled_check
