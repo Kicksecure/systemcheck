@@ -4,31 +4,6 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-displaytime_helper() {
-   if [ "$1" = "1" ]; then
-      echo " "
-   fi
-}
-
-displaytime() {
-   ## Thanks to Stéphane Gimenez!
-   ## http://unix.stackexchange.com/a/27014/49297
-   ## Modified by Patrick Schleizer.
-   local T D H M S X
-   T="$1"
-   D="$((T/60/60/24))"
-   H="$((T/60/60%24))"
-   M="$((T/60%60))"
-   S="$((T%60))"
-   X="0"
-   [[ "$D" -gt "0" ]] && printf "$(displaytime_helper "$X")%d days" "$D" && X="1"
-   [[ "$H" -gt "0" ]] && printf "$(displaytime_helper "$X")%d hours" "$H" && X="1"
-   [[ "$M" -gt "0" ]] && printf "$(displaytime_helper "$X")%d minutes" "$M" && X="1"
-   [[ "$S" -gt "0" ]] && printf "$(displaytime_helper "$X")%d seconds" "$S" && X="1"
-   #[[ "$D" -gt "0" || "$H" -gt "0" || "$M" -gt "0" || "$S" -gt "0" ]] && printf 'and '
-   true
-}
-
 download_whonix_news() {
    trap "error_handler" ERR
 
@@ -87,7 +62,6 @@ whonix_news_preparation() {
 
    declare -A -g whonix_news_web_link_list
    declare -A -g whonix_news_download_exit_code
-   declare -A -g whonix_news_verify_check_gpg_exit_code
 
    ## whonix_news_web_link_list["web_link"]="file_name"
    whonix_news_web_link_list["http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download"]="whonix_news.tar.xz.asc"
@@ -154,158 +128,28 @@ download_now_whonix_news() {
 verify_whonix_news() {
    trap "error_handler" ERR
 
-   ## Sanity tests.
-   command -v date >/dev/null
-   command -v gpg >/dev/null
-
    ## Fallback
    whonix_news_verified_ok="false"
 
-   local whonix_news_gpg_temp_dir
-   whonix_news_gpg_temp_dir="$whonix_news_verify_dir/news_gpg"
+   gpg_bash_lib_input_key_import_dir="/usr/share/whonix/whonix-news-keys.d"
+   gpg_bash_lib_input_temp_folder="$whonix_news_verify_dir/news_gpg"
+   gpg_bash_lib_input_data_file="$whonix_news_download_dir/whonix_news.tar.xz"
+   gpg_bash_lib_input_sig_file="$whonix_news_download_dir/whonix_news.tar.xz.asc"
+   gpg_bash_lib_input_file_name_enforce="true"
+   gpg_bash_lib_input_cleanup="false"
+   gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
 
-   rm --recursive --force "$whonix_news_gpg_temp_dir"
-   mkdir --parents "$whonix_news_gpg_temp_dir"
-   chmod --recursive 700 "$whonix_news_gpg_temp_dir"
+   gpg_bash_lib_script_source_dir="/usr/lib/gpg-bash-lib/modules.d"
+   source "/usr/lib/gpg-bash-lib/source_all"
 
-   whonix_news_verify_general_exit_code="0"
+   trap "gpg_bash_lib_f_error_handler" ERR
+   gpg_bash_lib_f_main_verify
+   trap "error_handler" ERR
 
-   true "a whonix_news_verify_general_exit_code: $whonix_news_verify_general_exit_code"
-
-   gpg \
-      --no-options \
-      --homedir "$whonix_news_gpg_temp_dir" \
-      --fingerprint \
-      >/dev/null 2>/dev/null \
-      || { whonix_news_verify_general_exit_code="$?" ; true; };
-
-   true "b whonix_news_verify_general_exit_code: $whonix_news_verify_general_exit_code"
-
-   local key
-
-   shopt -s nullglob dotglob
-
-   for key in "/usr/share/whonix/whonix-news-keys.d/"*; do
-      if [ ! "$whonix_news_verify_general_exit_code" = "0" ]; then
-         true "gpg test run failed!"
-         break
-      fi
-      local key_file_name
-      key_file_name="$(basename "$key")"
-      if [ "$key_file_name" = "placeholder" ]; then
-         continue
-      fi
-      gpg \
-         --no-options \
-         --homedir "$whonix_news_gpg_temp_dir" \
-         --import "$key" \
-         2>/dev/null \
-         || { whonix_news_verify_general_exit_code="$?" ; true; };
-      if [ ! "$whonix_news_verify_general_exit_code" = "0" ]; then
-         true "import of key $key failed!"
-         break
-      fi
-   done
-
-   shopt -u nullglob dotglob
-
-   true "c whonix_news_verify_general_exit_code: $whonix_news_verify_general_exit_code"
-
-   if [ ! "$whonix_news_verify_general_exit_code" = "0" ]; then
-      whonix_news_verified_ok="false"
-      local MSG="<p>$whonix_news_hyperlink Download Result: <b>General Whonix News OpenPGP Verification Error.</b>
-<br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      return 0
-   fi
-
-   whonix_news_verify_check_gpg_exit_code="0"
-
-   true "d whonix_news_verify_check_gpg_exit_code: ${whonix_news_verify_check_gpg_exit_code}"
-
-   local file_name signature timeout_after kill_after gpg_fd_one gpg_fd_one_file
-   file_name="whonix_news.tar.xz"
-   signature="whonix_news.tar.xz.asc"
-
-   timeout_after="10"
-   kill_after="10"
-
-   ## Debugging.
-   #timeout_after="0.001"
-   #kill_after="0.001"
-
-   gpg_fd_one_file="$whonix_news_verify_dir/news_gpg_fd_one"
-   rm --force "$gpg_fd_one_file"
-
-   timeout --kill-after="$kill_after" "$timeout_after" \
-         gpg \
-            --no-options \
-            --status-file "$gpg_fd_one_file" \
-            --homedir "$whonix_news_gpg_temp_dir" \
-            --verify "$whonix_news_download_dir/$signature" \
-            >/dev/null \
-            2>/dev/null \
-            &
-
-   lastpid="$!"
-   wait "$lastpid" || { whonix_news_verify_check_gpg_exit_code="$?" ; true; };
-
-   ## `timeout` returns:
-   ## - 124 if sigterm was sufficient
-   ## - 137 if needed to use kill.
-
-   if [ -f "$gpg_fd_one_file" ]; then
-      ## Debugging.
-      gpg_fd_one="$(cat "$gpg_fd_one_file")"
-   else
-      whonix_news_verified_ok="false"
-      local MSG="<p>$whonix_news_hyperlink Download Result: <b>gpg_fd_one_file: $gpg_fd_one_file does not exist.</b>
-<br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      return 0
-   fi
-
-   ## Example gpg_fd_one:
-   ## [GNUPG:] SIG_ID ckz4Z2Th1KU9o1sVsWMY8JXdg+A 2013-10-13 1381635738
-   ## [GNUPG:] GOODSIG 9C131AD3713AAEEF adrelanos <adrelanos@riseup.net>
-   ## [GNUPG:] VALIDSIG 9B157153925C303A42253AFB9C131AD3713AAEEF 2013-10-13 1381635738 0 4 0 1 10 00 9B157153925C303A42253AFB9C131AD3713AAEEF
-   ## [GNUPG:] TRUST_UNDEFINED
-
-   ## Another example gpg_fd_one:
-   ## [GNUPG:] ERRSIG 9C131AD3713AAEEF 1 10 00 1381635738 9
-   ## [GNUPG:] NO_PUBKEY 9C131AD3713AAEEF
-
-   true "e whonix_news_verify_check_gpg_exit_code: ${whonix_news_verify_check_gpg_exit_code}"
-
-   ## Quote Werner Koch [1]:
-   ## "there is no clear distinction between the codes and for proper error
-   ## reporting you are advised to use the --status-fd messages."
-   ## [1] http://lists.gnupg.org/pipermail/gnupg-devel/2005-December/022559.html
-   #if [ ! "${whonix_news_verify_check_gpg_exit_code}" = "0" ]; then
-      #true
-   #fi
-
-   local line validsig signed_on_unixtime
-   ## Fallback.
-   validsig="false"
-
-   while read -r -d $'\n' line; do
-      true "line: $line"
-      local one two three four five
-      read -r one two three four five _ <<< "$line"
-      true "one: $one | two: $two | three: $three | four: $four | five: $five"
-      if [ "$two" = "VALIDSIG" ]; then
-         validsig="true"
-         signed_on_unixtime="$five"
-      fi
-   done < "$gpg_fd_one_file"
-
-   if [ ! "$validsig" = "true" ]; then
+   if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then
       whonix_news_verified_ok="false"
       local MSG="<p>$whonix_news_hyperlink Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$file_name!!!
-<br></br>(gpg exit code: ${whonix_news_verify_check_gpg_exit_code} | validsig: $validsig)
+<br></br>(gpg_bash_lib_output_gpg_exit_code: $gpg_bash_lib_output_gpg_exit_code | gpg_bash_lib_output_validsig: $gpg_bash_lib_output_validsig)
 <br></br>This is either,
 <br></br>- a Whonix Bug,
 <br></br>- an attack on Whonix,
@@ -315,99 +159,51 @@ verify_whonix_news() {
       return 0
    fi
 
-   if [ "$signed_on_unixtime" = "" ]; then
-      whonix_news_verified_ok="false"
-      whonix_news_verify_check_gpg_exit_code="1000"
-      local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>variable signed_on_unixtime is empty.<br></br></b>
-<br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      return 0
-   fi
-
-   ## Thanks to:
-   ## http://mywiki.wooledge.org/BashFAQ/054
-   if [[ "$signed_on_unixtime" != *[!0-9]* ]]; then
-      true "'$signed_on_unixtime' is strictly numeric."
-   else
-      whonix_news_verified_ok="false"
-      whonix_news_verify_check_gpg_exit_code="2000"
-      local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Variable signed_on_unixtime includes a non-digit:</b> $signed_on_unixtime
-<br></br>Please report this bug!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      return 0
-   fi
-
-   local current_unixtime current_time signed_on_unixtime_minus_current_unixtime signed_on_unixtime_minus_current_unixtime_output_pretty
-   local month_has_seconds maximum_age_in_seconds current_unixtime_minus_signed_on_unixtime in_future_in_seconds in_future_pretty_output
-   local maximum_age_in_seconds_pretty_output
-
-   ## One month has 2592000 seconds.
-   ## (60 [seconds] * 60 [minutes] * 24 [hours] * 30 [days])
-   month_has_seconds="2592000"
-   maximum_age_in_seconds="$month_has_seconds"
-   maximum_age_in_seconds_pretty_output="$(displaytime "$maximum_age_in_seconds")"
-
-   current_unixtime="$(date +%s)"
-   current_time="$(date)"
-
-   true "signed_on_unixtime: $signed_on_unixtime"
-   true "current_unixtime: $current_unixtime"
-
-   signed_on_unixtime_minus_current_unixtime="$(( $signed_on_unixtime - $current_unixtime ))"
-   signed_on_unixtime_minus_current_unixtime_output_pretty="$(displaytime "$signed_on_unixtime_minus_current_unixtime")"
-
-   current_unixtime_minus_signed_on_unixtime="$(( $current_unixtime - $signed_on_unixtime ))"
-   current_unixtime_minus_signed_on_unixtime_output_pretty="$(displaytime "$current_unixtime_minus_signed_on_unixtime")"
-
-   in_future_in_seconds="$(( $current_unixtime_minus_signed_on_unixtime - $maximum_age_in_seconds ))"
-   in_future_pretty_output="$(displaytime "$in_future_in_seconds")"
-
-   if [ "$current_unixtime" -le "$signed_on_unixtime" ]; then
-      local lenient_up_to_minutes lenient_up_to_seconds
-      lenient_up_to_minutes="30"
-      lenient_up_to_seconds="$(( $lenient_up_to_minutes * 60 ))"
-      if [ "$signed_on_unixtime_minus_current_unixtime" -lt "$lenient_up_to_seconds" ]; then
+   case "$gpg_bash_lib_output_freshness_detail" in
+      "lenient")
          local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
-Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
-Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $lenient_up_to_minutes minutes before.)</p>"
+Whonix News File was signed $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
+Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output before.)</p>"
          if [ "$verbose" = "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
-      else
+         ;;
+      "slow")
          whonix_news_verified_ok="false"
-         whonix_news_verify_check_gpg_exit_code="3000"
          local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
-Whonix News File was signed $signed_on_unixtime_minus_current_unixtime_output_pretty before current time.
+Whonix News File was signed $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
 <br></br>Please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
 or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
          $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          return 0
-      fi
-   elif [ "$current_unixtime_minus_signed_on_unixtime" -ge "$maximum_age_in_seconds" ]; then
-      whonix_news_verified_ok="false"
-      whonix_news_verify_check_gpg_exit_code="4000"
-      local MSG="<p>$whonix_news_hyperlink Check: <b>Whonix News File is no longer valid (outdated).</b>
+         ;;
+      "outdated")
+         whonix_news_verified_ok="false"
+         local MSG="<p>$whonix_news_hyperlink Check: <b>Whonix News File is no longer valid (outdated).</b>
 <br></br>Either,
-<br></br>- your clock might be fast (at least $in_future_pretty_output fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
+<br></br>- your clock might be fast (at least $gpg_bash_lib_output_in_future_output_pretty fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
                      or in Terminal: <code><blockquote>timesync</blockquote></code>
-- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $in_future_pretty_output)
+- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $gpg_bash_lib_output_in_future_output_pretty)
 <br></br>- this is a Whonix Bug
 <br></br>- or this is an attack on Whonix</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      return 0
-   else
-      local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $current_unixtime_minus_signed_on_unixtime_output_pretty ago. \
-(Whonix News File Signatures are valid up to $maximum_age_in_seconds_pretty_output.)</p>"
-      if [ "$verbose" = "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-   fi
+         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         return 0
+         ;;
+      "current")
+         local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago. \
+(Whonix News File Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.)</p>"
+         if [ "$verbose" = "1" ]; then
+            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+         ;;
+      *)
+         error "gpg_bash_lib_output_freshness_detail is neither lenient, nor slow, nor outdated, nor current, it is: $gpg_bash_lib_output_freshness_detail"
+         ;;
+   esac
 
    whonix_news_verified_ok="true"
    local MSG="<p>$whonix_news_hyperlink Check: news file valid.</p>"
