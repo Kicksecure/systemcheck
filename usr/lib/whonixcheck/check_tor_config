@@ -42,24 +42,24 @@ check_tor_config() {
 
    if [ ! "$tor_verify_config_exit_code" = "0" ]; then
       local MSG="<p>Tor Config Check Result:
-<br></br><b>Your $tor_verify_config_file file contains at least one error.</b>
-<br></br>
-<br></br>(Tor exit code: $tor_verify_config_exit_code)
-<br></br>
-<br></br>Tor reports:
+<br></br><b>Your $tor_verify_config_file file contains at least one error.</b></p>
+
+<p>(Tor exit code: $tor_verify_config_exit_code)</p>
+
+<p>Tor reports:
 <br></br>$tor_verify_config_output</p>
 
-<p>You have to fix this error, before you can use Tor.</p>
+<p><b>You have to fix this error, before you can use Tor.</b></p>
 
 <p>Please restart Tor after fixing this error.
 
 <blockquote>    Start Menu -> Applications -> System -> Restart Tor</blockquote>
-    or in Terminal: <code>sudo service tor restart</code></p>
+    <br></br>or in Terminal: <code>sudo service tor restart</code></p>
 
-<p>Restart whonixcheck after fixing this error.
+<p>Restart <code>whonixcheck</code> after fixing this error.
 
 <blockquote>    Start Menu -> Applications -> System -> Whonix Check</blockquote>
-    or in Terminal: <code>whonixcheck</code></p>"
+    <br></br>or in Terminal: <code>whonixcheck</code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
