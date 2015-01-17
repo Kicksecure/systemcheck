@@ -2,7 +2,7 @@ whonixcheck (3:1.9-1) unstable; urgency=low
 
   * New upstream version.
 
- -- Patrick Schleizer <user@host.localdomain>  Mon, 22 Dec 2014 14:41:21 +0000
+ -- Patrick Schleizer <adrelanos@riseup.net>  Mon, 22 Dec 2014 14:41:21 +0000
 
 whonixcheck (3:1.8-1) unstable; urgency=low
 
