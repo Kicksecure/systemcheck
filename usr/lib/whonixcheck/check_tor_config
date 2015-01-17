@@ -43,7 +43,9 @@ check_tor_config() {
    if [ ! "$tor_verify_config_exit_code" = "0" ]; then
       local MSG="<p>Tor Config Check Result:
 <br></br><b>Your $tor_verify_config_file file contains at least one error.</b>
-(Tor exit code: $tor_verify_config_exit_code) Tor reports: $tor_verify_config_output</p>
+<br></br>(Tor exit code: $tor_verify_config_exit_code)
+<br></br>Tor reports:
+<br></br>$tor_verify_config_output</p>
 
 <p>You have to fix this error, before you can use Tor.</p>
 
