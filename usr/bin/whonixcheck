@@ -63,9 +63,6 @@ whonixcheck_main() {
    local progressbaridx
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
-   ## TODO: Would delete .titlex.
-   #$output ${output_opts[@]} --forget
-
    ## Does not use the network.
    whonixcheck_run_function uwt_tool ## help_uwt_tool
 
