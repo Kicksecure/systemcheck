@@ -7,8 +7,6 @@
 #set -x
 
 check_tor_config_do() {
-   trap "error_handler" ERR
-
    ## Fallback.
    tor_verify_config_exit_code="0"
 
@@ -35,8 +33,6 @@ check_tor_config_do() {
 }
 
 check_tor_config() {
-   trap "error_handler" ERR
-
    ## returns: tor_verify_config_exit_code, tor_verify_config_output
    check_tor_config_do
 

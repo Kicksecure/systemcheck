@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_initializer() {
-   trap "error_handler" ERR
-
    local log_file start_file done_file done_file_compatiblity skip_file todo_file fail_file
    log_file="/var/lib/whonix-initializer/status-files/first_run_initializer.log"
    start_file="/var/lib/whonix-initializer/status-files/first_run_initializer.start"

@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_hostname() {
-   trap "error_handler" ERR
-
    ## Initialize local variables and fallbacks.
    local hostname_exit_code_was_non_zero="false"
    local hostname_discouraged_setting_detected="false"

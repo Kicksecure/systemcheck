@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_package_manager_running() {
-   trap "error_handler" ERR
-
    check_package_manager_running_helper
 
    if [ "$check_apt_get_exit_code" = "0" ]; then

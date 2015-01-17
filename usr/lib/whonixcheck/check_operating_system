@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_operating_system() {
-   trap "error_handler" ERR
-
    ## Running apt-get update as user (non-root).
    ## Depends on exception set in /etc/sudoers.d/.
    ## Minimal custom script.

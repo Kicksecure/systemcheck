@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 help_cli() {
-   trap "error_handler" ERR
-
    echo "$SCRIPTNAME by Whonix
 $WHONIX_HOMEPAGE
 

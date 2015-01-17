@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_stream_isolation() {
-   trap "error_handler" ERR
-
    if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
       local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test is disabled.</b></p>"
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"

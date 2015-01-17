@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_tor_bootstrap() {
-   trap "error_handler" ERR
-
    ## sets: check_bootstrap_script
    ## sets: lastpid
    ## sets: TOR_BOOTSTRAP_TIME_START

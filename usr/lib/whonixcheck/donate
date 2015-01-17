@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 donate() {
-   trap "error_handler" ERR
-
    ## Do not ask for donations if a bug occurred. More important things have to be sorted out.
    if [ "$BUG" = "1" ]; then
       return

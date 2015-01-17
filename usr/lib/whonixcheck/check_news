@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 download_whonix_news() {
-   trap "error_handler" ERR
-
    whonixcheck_run_function whonix_news_preparation
 
    whonixcheck_run_function download_now_whonix_news
@@ -40,8 +38,6 @@ download_whonix_news() {
 }
 
 whonix_news_preparation() {
-   trap "error_handler" ERR
-
    if [ "$TEMP_DIR" = "" ]; then
       error "Variable TEMP_DIR is empty!"
       return 0
@@ -69,8 +65,6 @@ whonix_news_preparation() {
 }
 
 download_now_whonix_news() {
-   trap "error_handler" ERR
-
    ## sf.net does not support ssl.
    ## --location is required since sf.net uses redirects to mirrors.
 
@@ -126,8 +120,6 @@ download_now_whonix_news() {
 }
 
 verify_whonix_news() {
-   trap "error_handler" ERR
-
    ## Fallback
    whonix_news_verified_ok="false"
 
@@ -230,8 +222,6 @@ $gpg_bash_lib_output_freshness_msg</p>"
 }
 
 extract_whonix_news() {
-   trap "error_handler" ERR
-
    local file_name timeout_after kill_after
    file_name="whonix_news.tar.xz"
 
@@ -275,8 +265,6 @@ extract_whonix_news() {
 }
 
 check_whonix_debian_version() {
-   trap "error_handler" ERR
-
    local file_name
    file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
 
@@ -308,8 +296,6 @@ check_whonix_debian_version() {
 }
 
 check_whonix_build_version() {
-   trap "error_handler" ERR
-
    local file_name
    file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_build_versions"
 
@@ -343,8 +329,6 @@ check_whonix_build_version() {
 }
 
 check_whonix_debian_news() {
-   trap "error_handler" ERR
-
    local file_name
    file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
 
@@ -369,8 +353,6 @@ $VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> N
 }
 
 check_whonix_build_news() {
-   trap "error_handler" ERR
-
    local file_name
    file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
 
@@ -395,8 +377,6 @@ $VM Build <u>${whonix_build_version}</u> News: <code><blockquote>$message</block
 }
 
 check_whonix_show_news() {
-   trap "error_handler" ERR
-
    local type
    type="info"
    if [ ! "$whonix_news_build_up_to_date" = "true" ]; then

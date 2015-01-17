@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 uwt_tool() {
-   trap "error_handler" ERR
-
    ret="0"
    command -v curl.anondist-orig >/dev/null || { ret="$?" ; true; };
 

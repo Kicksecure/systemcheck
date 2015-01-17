@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_tor_enabled() {
-   trap "error_handler" ERR
-
    ## provided by: /usr/lib/anon-shared-helper-scripts/tor_enabled_check
    ## sets: TOR_ENABLED
    check_tor_enabled_do

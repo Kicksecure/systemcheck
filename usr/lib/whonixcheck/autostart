@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_autostart() {
-   trap "error_handler" ERR
-
    ## This script gets run by:
    ## - /etc/profile.d/
    ## - /etc/xdg/autostart/whonixcheck.desktop

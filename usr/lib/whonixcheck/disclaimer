@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 disclaimer() {
-   trap "error_handler" ERR
-
    ## Not adding disclaimer here, because the kdialog info message would contain it,
    ## which would be too much.
    if [ "$AUTOSTARTED" = "1" ]; then

@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 root_check() {
-   trap "error_handler" ERR
-
    if [ ! "$ROOT_CHECK" = "0" ]; then
       if [ "$(id -u)" != "0" ]; then
          local MSG="<p>Root Check Result: Ok, not running as root.</p>"

@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 pin_tpo_ssl_cert() {
-   trap "error_handler" ERR
-
    if [ "$PIN_TPO_CERT" = "true" ]; then
       local MSG="<p>Pin torproject.org certificate: enabled.</p>"
       if [ "$verbose" = "1" ]; then

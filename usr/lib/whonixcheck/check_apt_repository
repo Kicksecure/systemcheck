@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_whonix_apt_repository() {
-   trap "error_handler" ERR
-
    local temp_x_tool="<blockquote>Start menu -> Applications -> System -> Whonix Repository</blockquote>"
    local temp_cli_tool="<code><blockquote>sudo whonix_repository</blockquote></code>"
 

@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_whonixcheck_lastrun() {
-   trap "error_handler" ERR
-
    ## One hour has 3600 seconds.
    ## A day has 86400 seconds.
    local MAX="86400"
@@ -50,8 +48,6 @@ check_whonixcheck_lastrun() {
 }
 
 whonixcheck_completed() {
-   trap "error_handler" ERR
-
    local LASTRUN
    LASTRUN="$(date +%s)"
    echo "$LASTRUN" | sudo -u user tee "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun" > /dev/null

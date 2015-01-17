@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_tor_socks_port_reachability() {
-   trap "error_handler" ERR
-
    ## {{ Small check if one of Tor's SocksPorts is functional.
 
    local SOCKS_PORT_WHONIXCHECK

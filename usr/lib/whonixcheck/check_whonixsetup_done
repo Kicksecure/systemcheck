@@ -7,8 +7,6 @@
 #set -x
 
 check_whonixsetup_done_do() {
-   trap "error_handler" ERR
-
    ## Check if /var/lib/whonix/do_once/whonixsetup.done exists.
    if [ -f "/var/lib/whonix/do_once/whonixsetup.done" ]; then
       ## /var/lib/whonix/do_once/whonixsetup.done exists.
@@ -24,8 +22,6 @@ check_whonixsetup_done_do() {
 }
 
 check_whonixsetup_done() {
-   trap "error_handler" ERR
-
    ## sets: whonixsetup_done
    check_whonixsetup_done_do
 

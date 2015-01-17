@@ -7,8 +7,6 @@
 #set -x
 
 check_tor_pid_do() {
-   trap "error_handler" ERR
-
    ## Fallback.
    tor_pid_exit_code="1"
 
@@ -50,8 +48,6 @@ check_tor_pid_do() {
 }
 
 check_tor_pid() {
-   trap "error_handler" ERR
-
    ## returns: tor_pid_exit_code, tor_pid_message
    check_tor_pid_do
 

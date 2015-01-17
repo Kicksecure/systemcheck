@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_control_port_filter_running() {
-   trap "error_handler" ERR
-
    ## {{ Small check if Control Port Filter Proxy is functional.
 
    ## Only testing on Whonix-Gateway, because Control Port Filter Proxy only

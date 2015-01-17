@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_ip_forwarding_disabled() {
-   trap "error_handler" ERR
-
    if [ ! -f "/usr/share/anon-gw-base-files/gateway" ]; then
       local MSG="<p>IP Forwarding Result: not running on Whonix-Gatway, skipping, ok.</p>"
       if [ "$verbose" = "1" ]; then

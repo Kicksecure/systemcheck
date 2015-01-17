@@ -5,8 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_virtualizer() {
-   trap "error_handler" ERR
-
    ## This has a sudoers exception in /etc/sudoers.d/virt-what.
    local result
    result="$(sudo virt-what)"

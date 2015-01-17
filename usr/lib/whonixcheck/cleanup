@@ -47,8 +47,6 @@ maybe_kill_apt_get_update() {
 ## }}
 
 cleanup_files() {
-   trap "error_handler" ERR
-
    if [ "$DEL_TMP" = "false" ]; then
       echo "$SCRIPTNAME: Not deleting TEMP_DIR: $TEMP_DIR"
    else
@@ -68,8 +66,6 @@ cleanup_files() {
 ## trap_sigint (ex: ctrl + c) and error_handler.
 
 ex_funct() {
-   trap "error_handler" ERR
-
    if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
       echo "$SCRIPTNAME: signal $SIGNAL_TYPE received. Cleaning up... Exiting..."
    fi
@@ -160,8 +156,6 @@ ex_funct() {
 ## }}
 
 trap_sigterm() {
-   trap "error_handler" ERR
-
    SIGNAL_TYPE="SIGTERM"
    EXIT_CODE="143"
    ex_funct
@@ -170,8 +164,6 @@ trap_sigterm() {
 trap "trap_sigterm" SIGTERM
 
 trap_sigint() {
-   trap "error_handler" ERR
-
    SIGNAL_TYPE="SIGINT"
    EXIT_CODE="130"
    ex_funct
@@ -180,8 +172,6 @@ trap_sigint() {
 trap "trap_sigint" SIGINT ## ctrl + c
 
 trap_sigusr2() {
-   trap "error_handler" ERR
-
    SIGNAL_TYPE="SIGUSR2"
    EXIT_CODE="0"
    ex_funct
@@ -190,8 +180,6 @@ trap_sigusr2() {
 trap "trap_sigusr2" SIGUSR2 ## msgcollector, zenity cancel button
 
 cleanup() {
-   trap "error_handler" ERR
-
    true "$FUNCNAME..."
 
    touch "/var/run/whonixcheck/${IDENTIFIER}_done"
