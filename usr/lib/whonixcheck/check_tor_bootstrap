@@ -122,7 +122,7 @@ check_tor_bootstrap() {
       return 0
    fi
 
-   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="60"
+   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="90"
 
    if [ "$TOR_BOOTSTRAP_TIME_PASSED" -gt "1" ]; then
       if [ ! "$started_tor_bootstrap_progress_bar" = "1" ]; then
