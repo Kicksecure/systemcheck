@@ -133,8 +133,8 @@ verify_whonix_news() {
 
    source "/usr/lib/gpg-bash-lib/source_all"
 
-   trap "gpg_bash_lib_f_error_handler" ERR
-   gpg_bash_lib_f_main_verify
+   trap "gpg_bash_lib_function_error_handler" ERR
+   gpg_bash_lib_function_main_verify
    trap "error_handler" ERR
 
    local MSG="<p>$whonix_news_hyperlink Check: gpg_bash_lib_output_diagnostic_message:<br></br>
