@@ -147,7 +147,7 @@ $gpg_bash_lib_output_diagnostic_message</p>"
    if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then
       whonix_news_verified_ok="false"
       local MSG="<p>$whonix_news_hyperlink Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$file_name!!!
-<br></br>(gpg_bash_lib_output_gpg_exit_code: $gpg_bash_lib_output_gpg_exit_code | gpg_bash_lib_output_validsig: $gpg_bash_lib_output_validsig)
+<br></br>(gpg_bash_lib_output_gpg_verify_exit_code: $gpg_bash_lib_output_gpg_verify_exit_code | gpg_bash_lib_output_validsig: $gpg_bash_lib_output_validsig)
 <br></br>This is either,
 <br></br>- a Whonix Bug,
 <br></br>- an attack on Whonix,
