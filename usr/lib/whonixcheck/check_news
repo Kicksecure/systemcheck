@@ -161,7 +161,7 @@ $gpg_bash_lib_output_diagnostic_message</p>"
       "lenient")
          local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
 Whonix News File was signed $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
-Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output before.)</p>"
+Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output before.)</p>"
          if [ "$verbose" = "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -192,7 +192,7 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
          ;;
       "current")
          local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago. \
-(Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output.)</p>"
+(Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.)</p>"
          if [ "$verbose" = "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
