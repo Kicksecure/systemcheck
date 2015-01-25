@@ -191,7 +191,7 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
          return 0
          ;;
       "current")
-         local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago. \
+         local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago. \
 (Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output.)</p>"
          if [ "$verbose" = "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
