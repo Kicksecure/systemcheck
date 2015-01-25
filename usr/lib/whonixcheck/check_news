@@ -181,9 +181,9 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
          whonix_news_verified_ok="false"
          local MSG="<p>$whonix_news_hyperlink Check: <b>Whonix News File is no longer valid (outdated).</b>
 <br></br>Either,
-<br></br>- your clock might be fast (at least $gpg_bash_lib_output_in_future_output_pretty fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
+<br></br>- your clock might be fast (at least $gpg_bash_lib_output_in_future_pretty_output fast). In that case, please run Timesync: <blockquote>Start menu -> Applications -> System -> Timesync</blockquote>
                      or in Terminal: <code><blockquote>timesync</blockquote></code>
-- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $gpg_bash_lib_output_in_future_output_pretty)
+- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $gpg_bash_lib_output_in_future_pretty_output)
 <br></br>- this is a Whonix Bug
 <br></br>- or this is an attack on Whonix</p>"
          $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
