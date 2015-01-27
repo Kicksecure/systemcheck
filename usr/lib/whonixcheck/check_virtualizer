@@ -60,6 +60,16 @@ virtualbox"
       return 0
    fi
 
+   if [ "$result" = "qemu" ]; then
+      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>qemu</u> detected, continuing.
+<br></br>virt-what result: <code>$result</code></p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
    local virt_what_result_expected_qubes
    virt_what_result_expected_qubes="hyperv
 xen"
