@@ -33,7 +33,7 @@ check_tor_socks_or_trans_port() {
       $CURL \
          --fail \
          $CURL_VERBOSE \
-         --socks5-hostname "socks5h://$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK/" \
+         --proxy "socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK" \
          --tlsv1 \
          --proto =https \
          --max-time 180 \
