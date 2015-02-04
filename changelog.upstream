@@ -1,0 +1,1373 @@
+commit 0bd43c99d371984e9aee3cd5311f368cf1d08928
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 00:40:58 2015 +0000
+
+    updated makefile generic to version 1.3
+
+commit ae5a60f3ff49459f87282aebf8b15b2cbc3eaa8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 3 23:58:59 2015 +0000
+
+    Added creation of upstream changelog to debian/rules
+
+commit 472651eca505c1b5a8df0520efed57e96511e8fd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 27 01:19:44 2015 +0000
+
+    added qemu to list of supported virtualizers
+
+commit fd60ad1c09d3681fd15c1370d1fbf3a9ba854aad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 19:13:39 2015 +0000
+
+    update
+
+commit 71b4a85a95b5cf514343095e255717b165d89c98
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:50:02 2015 +0000
+
+    update
+
+commit e0393892ec5b3284981ba5b282b6bdc92de0cca2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:43:32 2015 +0000
+
+    update
+
+commit a23abcbcff9216c5ae72ed32fbb4c8dcff0e9596
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:38:18 2015 +0000
+
+    update
+
+commit 4425d479ff455973bae1e4e9e7f1e65b1cc35759
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:30:07 2015 +0000
+
+    upate
+
+commit 614f5dfabd8c4ff23b4ba0ed4ef79b41f2ffddff
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 17:28:24 2015 +0000
+
+    update
+
+commit be8aea5752d1254f4b8d0fa481c3217a39f948b9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 19 17:26:05 2015 +0000
+
+    update
+
+commit 1409bffd52403a2d683abf138d17995012382591
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 18 22:58:22 2015 +0000
+
+    increased whonixcheck_tor_bootstrap_wait_max from 60 to 90
+
+commit e3e118f22d478189bb8b5e471fd66118672c73b6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 22:57:26 2015 +0000
+
+    fixed changelog
+
+commit e2dc3308dbe875496a494a20094d8843929b3d41
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 01:36:22 2015 +0000
+
+    cleanup
+
+commit f2fcc21f4f186c53fee638aa8850418fa1c94d20
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 01:33:55 2015 +0000
+
+    refactoring, use errtrace rather than trap ERR's everywhere - https://phabricator.whonix.org/T48
+
+commit 9898266ad2ee27da032481d9662bb0334657b5d5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 01:27:07 2015 +0000
+
+    output
+
+commit 021b187ef7262f10bacaf41a3151be205efc7427
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 01:11:13 2015 +0000
+
+    output
+
+commit 7759b4c4cbe9e6209a1010c18cff68acfe29f8f0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 01:10:41 2015 +0000
+
+    output
+
+commit 7b4978174bf66f502e052b1e71b9d988bfbd766d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:38:40 2015 +0000
+
+    output
+
+commit 7d7fb67669baa78f193f620fa4cce7058f7c0b68
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:23:55 2015 +0000
+
+    output
+
+commit a5ea05fe3ec108b969a0bd72458adbdf22427c2c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:18:41 2015 +0000
+
+    update
+
+commit 9ec622fb2b31d791dfdca133d057876fec6f2c61
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:29:36 2015 +0000
+
+    refactoring
+
+commit 29be3c0fae0922067cc8f144d807b33684675588
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 04:28:27 2015 +0000
+
+    set -o errtrace, set -e until trap ERR has been set up
+
+commit 085a8c99c09c6251c9f9b94274f5dbaec6137954
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 03:44:30 2015 +0000
+
+    fix
+
+commit 15b8b9fbad2e1e69a99c3f2f7ede0e5d0012b5a9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 03:40:25 2015 +0000
+
+    added gpg-bash-lib as dependency
+
+commit 2e0bf6d63c67e32381d91d60cf88b3745ab5a220
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 03:39:33 2015 +0000
+
+    ported whonixcheck to gpg-bash-lib https://phabricator.whonix.org/T88
+
+commit 3cafb586ec1035df30b862c1bb18c3241e7360ab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 14 00:52:55 2015 +0000
+
+    warn if whonix-initializer failed
+
+commit 246159deea228a05f2c7fbd1262f2ac4bddd1d8e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 13 20:57:10 2015 +0000
+
+    minor
+
+commit f46f940ba8a971d5e3e29b5ab38783de9adbdea3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 13 12:46:24 2015 +0000
+
+    fix
+
+commit ddbb5141f13a2cf17320ac2fe3d850af71654476
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 13 12:44:28 2015 +0000
+
+    New config variable: whonixcheck_tor_bootstrap_wait_max - Default to 60. How long whonixcheck should wait at maximum until Tor bootstrap finished.
+
+commit cd59f2c02634f392d2041619cce9e0872ac33c70
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 12 04:40:18 2015 +0000
+
+    improved output of: whonixcheck --verbose --function download_whonix_news
+
+commit 0e361cf9cb841811ae94e8c61ea42ed50cfa087d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 12 04:36:10 2015 +0000
+
+    code simplification, debugging
+
+commit cb6fdc97b9256998f22938b8e914789f9760268e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 12 04:25:12 2015 +0000
+
+    output
+
+commit 2c45120979b804936d6665299c3df52ae2126aed
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 12 04:23:33 2015 +0000
+
+    even stricter exit code checking
+
+commit 4f11938c4908e8f7d0f08e5c8a18970573de6de8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 10 13:21:23 2015 +0000
+
+    output
+
+commit 80221a19350b0a5e29c9e85d82b9b741f8282479
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 7 21:57:50 2015 +0000
+
+    refactoring
+
+commit 466feadfcf935f1b5f18dde625ce7ffe6f95a8c7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 7 21:55:26 2015 +0000
+
+    made variable overruleable
+
+commit 63a3229daf9b202aee5c0553a173684ea2fbaa84
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 7 19:35:00 2015 +0000
+
+    bumped compat from 8 to 9
+
+commit bccde156507b0422b5a19b0b30d86e5b94ccded5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Dec 22 14:41:23 2014 +0000
+
+    bumped version number
+
+commit 5b091459782f5a61cd0770a9a727983ac232309d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 12 22:46:29 2014 +0000
+
+    whonixcheckdaemon, added support for .d-style drop-in configuration filers in /etc/default/whonixcheckd.d/
+
+commit f868824bf20b89158105a487099eed87d062c4c4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 12 12:36:31 2014 +0000
+
+    output
+
+commit fc512f90e489dce42f55b8580b0f3d3588207aaa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 12 12:26:37 2014 +0000
+
+    whonix news: fix, break earlier, do not bother verification if download failed
+
+commit 7cdcd2e40bedbefe77c101dde1173db28e4ee33f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 5 19:01:23 2014 +0000
+
+    updated generic makefile
+
+commit ae8ca9f19a357c21491a89b91c4777d76cfc1df9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 21 01:30:16 2014 +0000
+
+    fix
+
+commit 5804085783abcf35d184d2503b5000ffa4a4b586
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 14 19:39:17 2014 +0000
+
+    bumped version number
+
+commit a3f85d487cd2d5a252eba9ef46e924dd0915829b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 14 19:39:08 2014 +0000
+
+    more restrictive sudoers settings
+
+commit 1430b0b5a9f929318f8dbce3c545d9e4349a13de
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Nov 13 17:15:44 2014 +0000
+
+    bumped version number
+
+commit bbbb1f68494a0dd08cc311e046524deb95339760
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Nov 13 17:15:18 2014 +0000
+
+    Attempt to fix Windows hyperv VirtualBox detection bug: https://www.whonix.org/forum/index.php/topic,732.0.html
+
+commit 058fe344b1d2c10fdcfbed5f4ab35184c29de4ad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Nov 13 17:06:36 2014 +0000
+
+    refactoring
+
+commit 0f1e977c2c86944d3b188010b46b9b9713614c08
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 10 13:28:33 2014 +0000
+
+    fix
+
+commit f47a74fdcfa276619249507376d6a07b2bb3bf33
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 2 08:13:23 2014 +0000
+
+    fix
+
+commit 1718089f7b2dc91924021970353597f5f76106eb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 2 06:17:18 2014 +0000
+
+    refactoring, fewer leftover files in /var/run/msgcollector
+
+commit de048119c96a61bf78b4407e7883b50744588a6f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 2 03:56:15 2014 +0000
+
+    minor
+
+commit c0b44e660155fe6329271f1527f8bc3438864d3b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 2 03:55:55 2014 +0000
+
+    minor
+
+commit 39a6d84015ea508bf23b043e09edbec6a22b445d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 2 03:54:42 2014 +0000
+
+    code simplification
+
+commit e2b9d530566f7374f17607fd764db33e5c155e46
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 28 22:35:33 2014 +0000
+
+    makefile: refactoring, avoid using IFS
+
+commit c974fd0277af4781705768771d61ee9169276c4f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 25 01:58:54 2014 +0000
+
+    makefile:
+    - make debdist; make undebdist
+    - cleanup
+    - refactoring
+
+commit 02002aeb0427b971f67f313b3bba6ad2dd22cb86
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 23 22:43:05 2014 +0000
+
+    makefile:
+    - new target "make undist", which deletes the upstream tarball
+    - $DISTDIR variable for make (un)dist, which defaults to ".." and can be used to create upstream tarballs in arbitrary locations
+    - refactoring, all function names and global variables now start with "make_" to make the script `source`ing friendly
+    - made `source`able
+
+commit bbbbadb9faf274626ec63b854137a03efc5f3d25
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 22 18:37:18 2014 +0000
+
+    strip html from Whonix News
+
+commit 076be6d7b687b631eeabb404e7970701f08d7854
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 22 01:05:11 2014 +0000
+
+    output
+
+commit b25066a9f6902bae5f2e0c0a8a66cab1e452d802
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 21 23:26:33 2014 +0000
+
+    Improved whonixcheck warning when using multiple Whonix-Workstations on the same IP. Thanks to Jason Ayala for the suggestion (https://github.com/Whonix/Whonix/issues/352#issuecomment-60007137).
+
+commit b9892b82c3a5bc23af1ba0c2fe7a8eac8cde32db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 20 00:26:42 2014 +0000
+
+    fix
+
+commit 69a8d188c127b4422ed92bd93bec45f50991f8b1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 19 18:12:32 2014 +0000
+
+    cleanup
+
+commit f647be2ea573cfff5aa21852dbc306d5cf16cf8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 19 03:05:20 2014 +0000
+
+    bumped version number
+
+commit d27b3f9103069507f0ad6c0a24bcd1705f43f9c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 19 03:03:20 2014 +0000
+
+    work on https://github.com/Whonix/Whonix/issues/334
+
+commit 4b196407085528708b4c625981a3d6c7a8f294df
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 19 01:28:30 2014 +0000
+
+    work on https://github.com/Whonix/Whonix/issues/334
+
+commit 1104d4d797b4c2537e9b3b8de6a92e89cc188996
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 19 00:47:29 2014 +0000
+
+    work on https://github.com/Whonix/Whonix/issues/334
+
+commit c9b5b4a53ba81da6aa6609c3992ddba352ce9ece
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 19 00:44:41 2014 +0000
+
+    work on https://github.com/Whonix/Whonix/issues/334
+
+commit 0c1e82bf3e11af638e8356dabdb3bf36a7adbdf8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 19 00:27:41 2014 +0000
+
+    work on https://github.com/Whonix/Whonix/issues/334
+
+commit 11752907767cf1ca065c60fe28dc0595159b2655
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 18 23:21:00 2014 +0000
+
+    cleanup, removed deprecated function check_whonix_blog
+
+commit 272dbdc7f6946250afe0d9f295e6e6303fc192d4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 18 18:12:04 2014 +0000
+
+    output
+
+commit 9a90c4a3a7947d558742fd62342c7bdf1dfc262f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 18 01:25:15 2014 +0000
+
+    output
+
+commit 1b8b12008bfbd1d4f4d54a5f897e6fbc63f9f335
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 18 00:27:35 2014 +0000
+
+    fix, re-add warning when aborted
+
+commit 58bec20f7343402bf24b5e0e82de2f9e0fc2d6aa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 13 12:36:59 2014 +0000
+
+    readme
+
+commit 0a87beb8ee397b3f13ea15bbd81b81b4feb48efd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 11 22:00:19 2014 +0000
+
+    added --no-del-tmp / DEL_TMP="true" feature
+
+commit f8edf1e24b7d5574879ad58276d1dc8d40c7f7f8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 11 21:51:42 2014 +0000
+
+    refactoring
+
+commit 552fa30177249ef7c7d7688898e6d74179c734a1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 11 21:50:32 2014 +0000
+
+    refactoring
+
+commit 5a405cd76f195d28d302914ec14f0e2989571488
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 11 21:19:29 2014 +0000
+
+    Undocument optional torproject.org certificate pinning option because not yet functional as per https://github.com/Whonix/Whonix/issues/24.
+
+commit f1ab6fb9140c25894e47d50185bcf2333908dcb9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 11 19:06:24 2014 +0000
+
+    man page
+
+commit f28b7088affbcff8aaece8203e680fe44a79d4d0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 11 19:04:48 2014 +0000
+
+    man page
+
+commit 063f2ec4ecc543a86a0c541b00953e3cc133e0fa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 11 18:30:16 2014 +0000
+
+    whonixcheck: Optional torproject.org certificate pinning option for Socks/Trans-Port Test and Tor Browser Update Check. New --pin-tpo-cert, --no-pin-tpo-cert command line option / new PIN_TPO_CERT="true" or PIN_TPO_CERT="false" /etc/whonix.d/ configuration option. See also: https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
+
+commit c42eba13859f9810ca3ae23b9b7412d8981fe7fc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 9 23:07:20 2014 +0000
+
+    updated /usr/share/whonix/whonix-news-keys.d/patrick.asc
+
+commit 4a2b4ae7309280ebc49cf0f513a783f96f9a392c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 16:22:53 2014 +0000
+
+    local
+
+commit eee77a8503ef15b62c6d8c701afb51cfb4589aad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 16:19:08 2014 +0000
+
+    prettier displaytime output
+
+commit f18b8cc6145237c3474d2d3c7f5c80405390fa9a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 15:51:49 2014 +0000
+
+    quotes
+
+commit a687a776b7a0c48692b16e55a598487deef0b994
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 15:45:31 2014 +0000
+
+    refactoring
+
+commit fea3ec7ff2ee417c6529d2ec57687307233647a6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 15:40:33 2014 +0000
+
+    renamed variable filename to file_name
+
+commit 222579fbf4de164b5a9e36b9ac370fb0f96aa610
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 03:26:19 2014 +0000
+
+    bumped version number
+
+commit 163143a1f9a89c1848bf5015f0467cbcbabf5a10
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 03:20:51 2014 +0000
+
+    Whonix News be 30 min lenient about signed before current time, implemented https://github.com/Whonix/Whonix/issues/275; refactoring; output
+
+commit 5786dbebf31bb7e827fdfc2b462c932ad7f21460
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 03:19:38 2014 +0000
+
+    refactoring
+
+commit a4a553161c0e0f77f3fbcba3c8dc9f7ae727a119
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 03:16:48 2014 +0000
+
+    added modified function displaytime, Thanks to Stéphane Gimenez http://unix.stackexchange.com/a/27014/49297
+
+commit d96eb614d691e7e88f1c869ba573b12e67f3332b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 26 03:16:04 2014 +0000
+
+    refactoring
+
+commit a23d08f72df795e4a9f57112b646dfb2228a51bb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 25 23:09:25 2014 +0000
+
+    quotes
+
+commit 79126a48a7540f011aee551a7d16eb05a6ca48ef
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 18 18:11:51 2014 +0000
+
+    output
+
+commit 2a09cf6dc648d2628aedf2c28130b0a9fbcc49e5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 18 18:09:42 2014 +0000
+
+    output
+
+commit cb1edd188d6096c8b87cc5c494e7bc73a9412bb9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 18 16:40:09 2014 +0000
+
+    bumped version number
+
+commit 17b09b9a5c28c4c64e8488d497afb6f137e68508
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 18 16:38:49 2014 +0000
+
+    fix duplicate progresstxt files; refactoring; fix
+
+commit afe39f8dcf967118d39c3749e751b8736b8b9fe3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 12 14:32:07 2014 +0000
+
+    output
+
+commit 465e9aa3a7378fe1c79e3336db900e7d156ec133
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 11 16:56:25 2014 +0000
+
+    fix
+
+commit 38a81ef56f805132acd073a800972473907e0db2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 11 16:43:35 2014 +0000
+
+    output
+
+commit 218ad3847b16f9c070a692be1f7c2cf3b280475e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Sep 3 12:49:27 2014 +0000
+
+    update tbb version url as per https://trac.torproject.org/projects/tor/ticket/8940#comment:21 ; quotes
+
+commit b965531c2c34a4b9c4b98d35dea1f1068e215745
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 1 14:07:38 2014 +0000
+
+    output
+
+commit 066432070518abd42a0162e098f5c5816581120e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 1 14:02:57 2014 +0000
+
+    whonixcheck: refactoring, use /usr/lib/msgcollector/striphtml rather than sed in usr/lib/whonixcheck/check_tor_socks_or_trans_port
+
+commit ceaa7faba2cf218fbf47a828cf7f80496e3cde5d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 1 13:54:31 2014 +0000
+
+    output; comments
+
+commit 6bf5a08e88d83b3728ebc1dd87e5e43ef0a1871f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 31 16:58:56 2014 +0000
+
+    whonixcheck: check_virtualizer, no longer warn if Qubes (https://www.whonix.org/wiki/Qubes) is detected; improved output, improved html tags
+
+commit 8ee8ec55ae6ca75ab266738486ab7b0ea6e84e31
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 28 18:54:20 2014 +0000
+
+    output
+
+commit bc4c7fdcb4b7aa3ae5c0f8bf1923cf4c34e83586
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 28 17:37:07 2014 +0000
+
+    refactoring
+
+commit c4b4830c7209455ece9cdfbf34e448ccf9067e60
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 26 15:57:16 2014 +0000
+
+    refactoring
+
+commit 56f8cb91520f0f46120d4f6beafcbd990f366046
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 26 02:30:33 2014 +0000
+
+    refactoring
+
+commit e6b88aa085c7907aeb3a255bd41ce07167494527
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 26 02:27:20 2014 +0000
+
+    refactoring
+
+commit 43591d06a13f6c0b560973d8a91bb1b40802b45f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 26 02:26:07 2014 +0000
+
+    refactoring
+
+commit 04e196b493a55ffe17cd5df9ba88cbf627d3a414
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 25 15:35:45 2014 +0000
+
+    whonixcheck: fix, clean up temporary directory
+
+commit 06380e8204a735d62a571e9d19237cb17c8bc57d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 25 12:47:06 2014 +0000
+
+    bumped debian/changelog
+
+commit b4928dd9f1263619bddefa0dac762ddec863101a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 25 12:46:31 2014 +0000
+
+    html tags
+
+commit c9cae071f02e32cfa4c9323437fc10787362ff0d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 19 18:52:45 2014 +0000
+
+    makefile: added new feature "make deb-chl-bumpup" - Bump upstream version number in debian/changelog.
+
+commit b7d8d54b216813f856347cdcdf0dcc3afae506c9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 17 20:54:28 2014 +0000
+
+    Updated debian/changelog.
+
+commit affc837121495fadab3a54b9fe11c80ca3f9eb9c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 17 20:47:31 2014 +0000
+
+    Fixed changelog date.
+
+commit bbe1dde0d60b4e671279963fc5dcb7067a6c2745
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 17 18:03:33 2014 +0000
+
+    bump version number
+
+commit b7bf295a4cbd0a344860b19932bf9e3fe7ed2d3a
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Aug 16 21:49:32 2014 +0000
+
+    removed HTML paragraph (<p></p>) in disclaimer
+
+commit 6b4ac5091df5184df9e6d5073f9deeea245b0f86
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 23:27:08 2014 +0000
+
+    minor
+
+commit a45adcbe33103ec9dd1f1ce7ab356d8978449a6d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 23:09:17 2014 +0000
+
+    output
+
+commit ef95ad14f9a7d63473ec5752903ebd434efec84f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 22:43:31 2014 +0000
+
+    html tags
+
+commit 4952940b7fc100cc34303c57194653f3a3675e62
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 22:42:21 2014 +0000
+
+    output
+
+commit 672ca50869983a85e3673b4a9f6b782dd3a9b030
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 22:41:45 2014 +0000
+
+    comments
+
+commit 38b98ff7762be1c57f2312c25d50791387aa732c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 22:40:55 2014 +0000
+
+    comment
+
+commit c5bcaaf85402f9d2914c0f23a0e982c05b7ab915
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 22:40:10 2014 +0000
+
+    output
+
+commit 5ef2d3a6c3e9d905d4e4e82a7c214a2caf5fb552
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 22:39:35 2014 +0000
+
+    fix html tag
+
+commit ff5e8376a6b0083cdeebd6d984fae7b8de75a12a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 22:38:35 2014 +0000
+
+    There is no general "Whonix Debian Version" anymore, because Whonix has been split into multiple packages that now all have their own version number. What whonixcheck can figure out is if the whonixcheck version is up to date and if there is a Whonix news file for that whonixcheck version. There is currently no notification for packages by the Whonix team in whonixcheck for packages other than whonixcheck for users who do not use Whonix's APT repository.
+
+commit 965a6d61c2e900e98b7c6b2318127292177c7796
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 20:45:01 2014 +0000
+
+    output
+
+commit ace0f98f0d7dd49f4ea41b5f2bdc8ea4d9c6c9be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 15 20:37:40 2014 +0000
+
+    output
+
+commit 7bd54edf1d5cace78da038de5e69ce5ea89b56ea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 14 13:35:21 2014 +0000
+
+    Implemented make deb-icup: Combination of make deb-pkg, make deb-pkg-install and make deb-pkg-cleanup.
+
+commit 254f0d6bc10e7254c2d718b01e181dd5f0fbc3a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 13 21:26:33 2014 +0000
+
+    <p> tag for whonix debian/build news
+
+commit fd45e0281d055092fe86f10c023ec12f7e9093e0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 12 18:41:49 2014 +0000
+
+    output
+
+commit d264cb84d5e0bb3a49f48cda596db5cf441a177c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 5 20:52:12 2014 +0000
+
+    fixed apt-get --simulate parsing code, whonixcheck can now also report how many packages could be upgraded when using non-English languages
+
+commit 3931ea0abd9c4c1570d652a4bd8ff05cb93fb3ed
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 3 21:07:51 2014 +0000
+
+    init script waits for Tor
+
+commit e70e4702d8d8e35f84de98cfbdf5c9dd6ddcce9c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 2 15:23:06 2014 +0000
+
+    work on https://github.com/Whonix/Whonix/issues/248
+
+commit e563f1927c9a7b0cee6f9c53b9620471e5133096
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 31 17:44:58 2014 +0000
+
+    output
+
+commit e5d4a7f96974776584bb7d4fc2b48b099426e849
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 31 17:12:20 2014 +0000
+
+    output
+
+commit 80027b3bdf87ae36c50c5a4cdfef2110a3d127f7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 31 17:02:58 2014 +0000
+
+    output
+
+commit 209c8cd6d76bd6262f3301f78af9b61b1f6897b2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 31 14:57:23 2014 +0000
+
+    output
+
+commit a8ce1654b23819d4f0eb064feb4ca53c795e664a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 28 23:25:47 2014 +0000
+
+    readme
+
+commit 6f567c9083906358c4db480e1a487e207cc22f9a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 27 12:42:30 2014 +0000
+
+    packaging
+
+commit 3072cad2b45c14991a0b071cc3b0ec417dfcf888
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 27 04:01:16 2014 +0000
+
+    packaging
+
+commit 6b1670a75c0529eb284eec398977eba811c7f592
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 26 15:26:41 2014 +0000
+
+    packaging
+
+commit b70a20be024ad92740d871d9ab0b5a5d17caccd3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 26 15:16:08 2014 +0000
+
+    packaging: removed build dependency on git, since the .git folder won't be included in the upstream tarball.
+
+commit a883d8a8c46a313c6b6d5ac0d9b5df55ecf1c9f6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 25 14:56:44 2014 +0000
+
+    longer package description to fix lintian warning
+
+commit ec75acc7bdf7daee7f05fa5bb1a7d905822a94c6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 25 14:27:33 2014 +0000
+
+    fixed lintian warning
+
+commit cbb9f880f8da9a9dbedc0d8e59028a8f55f1d8ac
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 24 14:09:16 2014 +0000
+
+    init script: added "Should-Start: rinetd" to aid /usr/lib/anon-shared-helper-scripts/tor_bootstrap_check.py 127.0.0.1 9151 0
+
+commit 06ba0462bc6624873f01a475e02f1c49e2177fdf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 14 01:48:43 2014 +0000
+
+    fix
+
+commit c2656f9025e5e912f7aa6bb083c4900d4b069631
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 14 01:47:44 2014 +0000
+
+    fix
+
+commit f7b2d9471fb5e370fbcbc2960639917f679388c4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 14 01:38:19 2014 +0000
+
+    fix
+
+commit 1c4b3a7ef5f3efc08fea3650fdcc71d1240c342c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 12 17:31:49 2014 +0000
+
+    packaging
+
+commit 9b1a1247f36e233973627ff4b87e292660428cc4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 12 17:11:04 2014 +0000
+
+    packaging
+
+commit e3e2224693a728478bc888e10ca7620c51f6a081
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 12 15:34:21 2014 +0000
+
+    packaging
+
+commit 6186229850529d601862666f3fe7fc4540da6606
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 10 19:14:06 2014 +0000
+
+    output
+
+commit 8ab72af731b7f92b77d5e1be696a1ab3fafb063c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 10 15:37:52 2014 +0000
+
+    refactoring
+
+commit e0913c93b46338f0cb3f38914eeae5fdb5fed43d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 10 15:31:28 2014 +0000
+
+    output
+
+commit 666784ca6b39ffef44c9d139ba0ccd31a901d55b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 10 15:31:03 2014 +0000
+
+    refactoring
+
+commit 6a179f49bbae001ff51539e37ce9c23593aba392
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 10 14:50:36 2014 +0000
+
+    output
+
+commit e2c9274bbe24162f9a96ba0a772d79af826bd5a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 8 14:34:46 2014 +0000
+
+    comment
+
+commit f4b04ae0d05a93161b9b32e09b11c508df28647c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 8 14:32:26 2014 +0000
+
+    sanity tests
+
+commit 43cd74e759b3b656f2cc879a6c4927597e2840fa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 8 14:26:59 2014 +0000
+
+    refactoring
+
+commit 03160a619bf1892882bb71099f9a355f75868011
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 8 14:23:18 2014 +0000
+
+    whonix news blog in Tor Browser has been deprecated, only showing successful blog download message when using --verbose
+
+commit 506a2a59c8eeaa40bf35374a696a9e89fdf789fe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 8 14:16:10 2014 +0000
+
+    output
+
+commit 16fd617744fbebd4fb89cebc27b80e062f968206
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 7 14:37:01 2014 +0000
+
+    output
+
+commit fd2a3aeaad772354322c46bf9ab689daffb8e4f7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 7 14:33:31 2014 +0000
+
+    check also Tor circuit established
+
+commit 65559757344b0535b85d8936819992d9bd7b052b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 7 00:35:28 2014 +0000
+
+    refactoring
+
+commit edfdef9d4a0bddcd00f4cdd42dabec8857ae1cb5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 23:11:07 2014 +0000
+
+    support users who do not have either whonix-gateway-packages-dependencies or whonix-workstation-packages-dependencies installed; output
+
+commit 4cfb1e8b084c3f39879a5ad38ec36e41a54a27c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 21:41:46 2014 +0000
+
+    removed obsolete comment
+
+commit fc50a36d5d7387855b0ecfeef41abd6747cae238
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 21:41:27 2014 +0000
+
+    output
+
+commit 1d6e09a445fc6408d8f42300b46d2cbc53543dd8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 13:31:34 2014 +0000
+
+    quotes
+
+commit 79be5f2dad71b95c9504bdbb72b7c8893142d2c7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 13:28:12 2014 +0000
+
+    use $BASH_SOURCE instead of $0
+
+commit 2ed71194b1353416f6eda7edf476c146e84a4be0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 11:31:09 2014 +0000
+
+    sanity tests
+
+commit 561dd32a0b9c8f25a6b066abed980f5dc4a2f9a5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 5 08:11:01 2014 +0000
+
+    Bumped debian revision number to avoid lintian warning "new-package-should-close-itp-bug" so we can use lintian --fail-on-warnings as sanity test.
+
+commit 0d139abc216d6e98a6a9f64f47eaf13d730b41c1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 5 06:50:48 2014 +0000
+
+    more standard exit codes, singint exit 130, sigterm exit 143
+
+commit 293ad64bfad9e3fa98ea82521549ae5ac9acf3b9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 4 05:41:31 2014 +0000
+
+    output, added <code> tag
+
+commit 29ae0ecac4498688bfc8a4fe9d5327aba7f31ffc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 4 05:40:24 2014 +0000
+
+    output, added <code> tag
+
+commit ffe8b2b1e0b0cf0b5bb9711b54a3a2e22e27f1d1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 4 05:32:59 2014 +0000
+
+    output a href
+
+commit 1510e24176b8fbea6f9a23b846f7bc92b28f3b4f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 3 12:55:40 2014 +0000
+
+    fix html
+
+commit 0ef80dfe4af2649793e97ab71b634ab8a738cb5d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 1 17:24:46 2014 +0000
+
+    output
+
+commit 678e41e89f5204c1b51b9beeb078f8c7a01b947d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 1 16:49:53 2014 +0000
+
+    fix
+
+commit 91e27f6ea7c3601c6e0fe7c371d029a7f13b7ae5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 1 13:18:35 2014 +0000
+
+    fix, added curl-scripts to dependencies
+
+commit 6aa96d2612a2ff529d40c6cad18662dad994dc4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 30 11:30:11 2014 +0000
+
+    output
+
+commit a516c8027cf2655af1fe269ee184dedbbb5e3024
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 28 01:22:36 2014 +0000
+
+    fixed html tags
+
+commit 846e31edf0a96f6b1de46ce90dc74a1b273e7e53
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 27 18:37:03 2014 +0000
+
+    improved daemon
+
+commit a3c1b8a3a0c5bf052c55ade819f369f133e653c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 27 18:10:53 2014 +0000
+
+    output
+
+commit a9bbc6f7d036ad7917cb9af8c4057becdb7f100b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 27 18:08:06 2014 +0000
+
+    start whonixcheckd at the very end, to make sure Tor is ready
+
+commit 6f529e65ceb5525aa371e93133f1fa4f5344d2b0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 27 11:25:30 2014 +0000
+
+    add to output if whonixcheck was aborted; refactoring; output
+
+commit e22c7056cfecd1c5ada244f35bbe575ba89816f5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 27 09:58:07 2014 +0000
+
+    comment
+
+commit 42821b87bd2c65086ead265c43c3a2da228acc5f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 27 09:54:30 2014 +0000
+
+    fix and todo
+
+commit 8d1b550d2a0b517876c660970a01a4b3f6e32c76
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 24 21:09:11 2014 +0000
+
+    fix output
+
+commit 62c5e64e4159b95d9aba3fa2d3c2d916c8677843
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 24 21:07:31 2014 +0000
+
+    fixed path
+
+commit 95954380631ff848de5fad8a3bb3ffe5780580dc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 24 20:59:19 2014 +0000
+
+    fix
+
+commit e8e20c780c26e7e428f9d5c97fc3dbba262bbb6c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 24 15:45:15 2014 +0000
+
+    added debian epoch; added dotglob
+
+commit f4c6edc05240d4ea75c4e5a569701feea76a2b63
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 24 12:43:13 2014 +0000
+
+    output
+
+commit b839d99fc70cbdeb45c064be430cd02d8d6c1db0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 24 12:38:09 2014 +0000
+
+    fix path
+
+commit 320abb60794ccde10ac0b85e8b8a4194c0f13e5e
+Merge: 6bd6b56 0552235
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 23 23:14:08 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 6bd6b5672bd0fb079bff9c428c030739c8abf2ab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 23 22:46:13 2014 +0000
+
+    fix path
+
+commit 05522352d8d54c131f6b6d24ca4adfac769ffdb8
+Merge: 9d5b23d 46f93c8
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 23 21:46:57 2014 +0000
+
+    Merge remote-tracking branch 'origin'
+    
+    "rich text"
+
+commit 9d5b23de33f6954e02ee04e59562313b4b5ea3ce
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 23 21:21:01 2014 +0000
+
+    rich text
+
+commit 46f93c8bad9031608f693261c5f7eb27b5ecdc88
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 23 09:59:33 2014 +0000
+
+    fix path
+
+commit b6f538fa9943c50dd39fc0a4173c3f1ba7b7fc5e
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 23 07:37:41 2014 +0000
+
+    rich text
+
+commit 9a55b8992408cabb3963d9b04ee31f989d14ef2e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 23:46:29 2014 +0000
+
+    fix merge
+
+commit 16cd81a888b995eb58be7d65d935fe6bae9e5ef9
+Merge: 7fd38cc 6b5c890
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 23:40:03 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master' into test
+
+commit 6b5c890f98a829c6eb36082f5c46251d3d9d2625
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jun 20 22:44:43 2014 +0000
+
+    rich text
+
+commit 7fd38cc8b1c34526549d4d664ea38fdb50c62e98
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 21:04:04 2014 +0000
+
+    fixed path
+
+commit be4c472ecc72ab140be9a0bd1d1cc514cd6acb8f
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jun 20 19:51:13 2014 +0000
+
+    richtext
+
+commit f8aa281c83f3b9289d9ffbf0d3083e6278f6c257
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jun 20 21:08:42 2014 +0000
+
+    rich text
+
+commit 8608b3882c542400014bc25863d27f979ffac3b9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 19:47:51 2014 +0000
+
+    fix build_version_file parsing
+
+commit 6fe141148cc67ee5fd2a85342fa0234acbc00bfc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 16:42:18 2014 +0000
+
+    fix
+
+commit be4f15a0d58cc00e0e44e0322eb3af443c4295db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 15:40:16 2014 +0000
+
+    fix
+
+commit 91397d6018760a0d2df6a3c9c8cdf92a1a756d73
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 15:28:18 2014 +0000
+
+    fix
+
+commit b9bd88e611e334f97811a1f0f026e725b3f602e8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 20 15:26:57 2014 +0000
+
+    packaging
+
+commit 21dd38f4ba0989b07e9aa96b690c7496615cf6eb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 17 15:47:51 2014 +0000
+
+    typo
+
+commit eb620c4c48c63f6f351438fe92c1f555cc6c8fe6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 17 15:12:08 2014 +0000
+
+    whonixcheck: deactivated kvm warning; removed obsolete WHONIXCHECK_NO_VM_DETECTED, WHONIXCHECK_DETECTED_VIRTUALBOX variables
+
+commit 9cb8d410d53ee2577f87e36baf075d3856ba1150
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 12 11:30:02 2014 +0000
+
+    cleanup
+
+commit e15220ebab9abafca4b95e44c847aba316015d23
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 10 14:18:26 2014 +0000
+
+    update IP as per https://www.whonix.org/forum/index.php/topic,107.0.html
+
+commit 201983e53b61558e7bd84bf8d7784b846a1b19be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 10 11:25:25 2014 +0000
+
+    output
+
+commit d467b6452bab3f9b0cd600fbe8fc1461c6264195
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 10 11:23:51 2014 +0000
+
+    comment
+
+commit 4b02fbe0d6f1a30d003102e8e10075400511f03b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 10 11:22:15 2014 +0000
+
+    refactoring
+
+commit 4ead96b484592e74f73fc060eacbe86164f3775e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 10 11:10:36 2014 +0000
+
+    refactoring
+
+commit 1f9914c89fae8d434ada850d101b4fe9c6a12c30
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 10 11:10:24 2014 +0000
+
+    updated ip
+
+commit ad5fec88a870b752a65257e721a9594ec72c12a7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 9 13:05:35 2014 +0000
+
+    refactoring
+
+commit f6d9a070e21ba294d79b2c10cbe4f966775b0e98
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 3 18:27:39 2014 +0000
+
+    readme
+
+commit 2d05486718f17a18246e1a70093ef86f2fd3997a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 2 14:39:49 2014 +0000
+
+    added output of tor_bootstrap_timeout_type when check tor bootstrap times out
+
+commit c362f38118e5a23071c7893903ebaf1d49019884
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 2 11:10:27 2014 +0000
+
+    comment
+
+commit 8b597fc80c1e97bf73fa158407c9adec56a287b3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 1 15:38:49 2014 +0000
+
+    readme
+
+commit e0b63460d480c800112df3a16d567fa766c1bdb6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 31 14:01:00 2014 +0000
+
+    initial import from https://github.com/Whonix/Whonix
