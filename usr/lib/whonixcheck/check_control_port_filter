@@ -12,7 +12,7 @@ check_control_port_filter_running() {
    local i
    i="0"
    if [ "$VM" = "Whonix-Gateway" ]; then
-      while [ ! -f "/var/run/controlportfilt/ownrunning" ]; do
+      while [ ! -f "/var/run/control-port-filter-python/pid" ]; do
          i="$(( $i + 1 ))"
          if [ "$i" -ge "30" ]; then
             break
@@ -21,9 +21,9 @@ check_control_port_filter_running() {
          lastpid="$!"
          wait "$lastpid" || true
       done
-      if [ ! -f "/var/run/controlportfilt/ownrunning" ]; then
+      if [ ! -f "/var/run/control-port-filter-python/pid" ]; then
          local MSG="<p>Control Port Filter Proxy Test Result:
-<br></br><b>File /var/run/controlportfilt/ownrunning does not exist.</b>
+<br></br><b>File /var/run/control-port-filter-python/pid does not exist.</b>
 <br></br>Please report this Whonix bug!<\p>"
          if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
             $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
