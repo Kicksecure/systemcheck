@@ -19,8 +19,6 @@ temp_dir="$(mktemp --directory)"
 logfile="$temp_dir/apt-get_pid"
 tee_fifo="$temp_dir/tee_fifo"
 
-cleanup
-
 trap "cleanup" EXIT
 
 mkfifo "$tee_fifo"
