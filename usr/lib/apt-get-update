@@ -11,15 +11,15 @@
 
 sigterm_trap() {
    if [ "$lastpid" = "" ]; then
-      exit 0
+      exit 143
    fi
    ps -p "$lastpid"
    if [ ! "$?" = "0" ]; then
       ## Already terminated.
-      exit 0
+      exit 143
    fi
    kill -sigterm "$lastpid"
-   exit "$?"
+   exit 143
 }
 
 trap "sigterm_trap" SIGTERM
