@@ -24,7 +24,7 @@ sigterm_trap() {
 
 trap "sigterm_trap" SIGTERM
 
-apt-get update &
+/usr/lib/apt-get-wrapper update &
 lastpid="$!"
 echo "$lastpid" | sudo -u user tee "/var/run/whonixcheck/whonixcheck_apt_get_pid" > /dev/null
 wait "$lastpid"
