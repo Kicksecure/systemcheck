@@ -23,6 +23,7 @@ check_tor_config_do() {
       tor_verify_config_file="$file_name"
       ## This has a /etc/sudoers.d exception.
       tor_verify_config_output="$(sudo tor --verify-config -f "$file_name" 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
+      tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
       if [ ! "$tor_verify_config_exit_code" = "0" ]; then
          break
       fi
