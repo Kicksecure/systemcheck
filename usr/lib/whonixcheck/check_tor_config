@@ -43,7 +43,7 @@ check_tor_config() {
 
 <p>(Tor exit code: $tor_verify_config_exit_code)</p>
 
-<p>Tor reports:
+<p><u>Tor reports</u>:
 <br></br>$tor_verify_config_output</p>
 
 <p><b>You have to fix this error, before you can use Tor.</b></p>
