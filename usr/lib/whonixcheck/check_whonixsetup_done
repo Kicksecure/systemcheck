@@ -7,14 +7,14 @@
 #set -x
 
 check_whonixsetup_done_do() {
-   ## Check if /var/lib/whonix/do_once/whonixsetup.done exists.
-   if [ -f "/var/lib/whonix/do_once/whonixsetup.done" ]; then
-      ## /var/lib/whonix/do_once/whonixsetup.done exists.
+   ## Check if /var/cache/whonix-setup-wizard/status-files/whonixsetup.done exists.
+   if [ -f "/var/cache/whonix-setup-wizard/status-files/whonixsetup.done" ]; then
+      ## /var/cache/whonix-setup-wizard/status-files/whonixsetup.done exists.
       ## whonixsetup already finished earlier, exit.
       whonixsetup_done="1"
       return 0
    else
-      ## /var/lib/whonix/do_once/whonixsetup.done does not exist.
+      ## /var/cache/whonix-setup-wizard/status-files/whonixsetup.done does not exist.
       ## whonixsetup not finished yet, continue.
       whonixsetup_done="0"
       return 0
