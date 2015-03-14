@@ -34,7 +34,10 @@ check_whonixsetup_done() {
 
    if [ "$whonixsetup_done" = "0" ]; then
       local MSG="<p>Please close this window and finish whonixsetup! <blockquote>Start Menu -> Applications -> System -> Whonix Setup</blockquote></p>
-<p>or in Terminal: <blockquote><code>sudo whonixsetup</code></blockquote></p>"
+<p>or in Terminal: <blockquote><code>sudo whonixsetup</code></blockquote></p>
+
+<p>(Debugging information: Neither file <code>/var/cache/whonix-setup-wizard/status-files/whonixsetup.done</code>
+nor file <code>/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip</code> exists.)</p>"
 
       if [ "$manualrun" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
