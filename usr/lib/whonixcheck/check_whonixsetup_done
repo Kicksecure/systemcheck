@@ -13,6 +13,9 @@ check_whonixsetup_done_do() {
       ## whonixsetup already finished earlier, exit.
       whonixsetup_done="1"
       return 0
+   elif [ -f "/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip" ]; then
+      whonixsetup_done="1"
+      return 0
    ## Legacy up to build version 9.x.
    elif [ -f "/var/lib/whonix/do_once/whonixsetup.done" ]; then
       whonixsetup_done="1"
