@@ -32,7 +32,7 @@ apt-get \
    2> "$tee_fifo" \
    &
 
-apt_get_pid=$!
+apt_get_pid="$!"
 
 wait "$tee_pid"
 wait "$apt_get_pid"
