@@ -47,7 +47,7 @@ log="$(cat "$logfile")"
 while read -r -d $'\n' line; do
    line_lower_case="${line,,}"
    first_two="${line_lower_case:0:2}"
-   if [ "$first_two_lower_case" = "e:" ]; then
+   if [ "$first_two" = "e:" ]; then
       exit 125
    fi
    if [ "$first_two" = "w:" ]; then
