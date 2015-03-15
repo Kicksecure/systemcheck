@@ -24,7 +24,7 @@ trap "cleanup" EXIT
 mkfifo "$tee_fifo"
 
 tee "$logfile" < "$tee_fifo" &
-tee_pid=$!
+tee_pid="$!"
 
 apt-get \
    ${1+"$@"} \
