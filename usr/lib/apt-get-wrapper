@@ -16,7 +16,7 @@ cleanup() {
 
 temp_dir="$(mktemp --directory)"
 
-logfile="$temp_dir/apt-get_pid"
+logfile="$temp_dir/log"
 tee_fifo="$temp_dir/tee_fifo"
 
 trap "cleanup" EXIT
