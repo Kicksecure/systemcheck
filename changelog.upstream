@@ -1,3 +1,161 @@
+commit 1a2d8fd5d691fac135c3a7df6770a866971b7407
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 24 17:26:58 2015 +0000
+
+    updated makefile generic to version 1.4
+
+commit 12b77823d3df94075f447212bd279e1c578ca65d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 17 15:36:12 2015 +0000
+
+    better file name for log
+
+commit 7f8e5bf6ab14dac3b007a6e14dfb2d9484b96bc1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Mar 15 16:09:29 2015 +0000
+
+    quotes
+
+commit a30c2c0de0901423e9b1ef3f72dd749455b64032
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Mar 15 16:08:37 2015 +0000
+
+    quotes
+
+commit 99b7d0ec1b6ccfe49d48772dd8caaaa027008577
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Mar 15 16:06:48 2015 +0000
+
+    fixed "apt-get-wrapper: Broken variable reference?" - Thanks to @hartwork for the report! - https://github.com/Whonix/whonixcheck/issues/2
+
+commit 9d3d3a82f237c35445030836f097c301fc6b7dda
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Mar 14 04:46:49 2015 +0000
+
+    output
+
+commit 4c07b8813bb116553224f83cf9e7d1898e23e46a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Mar 14 04:42:57 2015 +0000
+
+    output
+
+commit 6e3258aab5d9f1621cbb6873e106dfd781d90647
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Mar 14 04:41:35 2015 +0000
+
+    added support for /var/cache/whonix-setup-wizard/status-files/whonixsetup.skip
+
+commit 143abd942d31ccbaa4a3b04494fb49bc91458d5b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 18:19:46 2015 +0000
+
+    Revert "KVM is no longer maintained, whonixcheck recommends against it therefore - https://phabricator.whonix.org/T213 - https://www.whonix.org/forum/index.php/topic,982"
+    
+    This reverts commit b0bdb4a44b6f8ada93d3b586143e68bcef4ece13.
+
+commit 534e9a2df829744f2f2b3d4f1b5841ccded80216
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 09:32:41 2015 +0000
+
+    support for legacy /var/lib/whonix/do_once/whonixsetup.done
+
+commit fb02875f069f282aafb00218760c1f800c61c8cb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 9 20:19:33 2015 +0000
+
+    instead of /var/lib/whonix/do_once/whonixsetup.done check for /var/cache/whonix-setup-wizard/status-files/whonixsetup.done - https://phabricator.whonix.org/T155
+
+commit 19b0c41bd8a2d66086194a6097468aec86c5142e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 6 19:50:13 2015 +0000
+
+    output all functions when running --function without argument
+
+commit b0bdb4a44b6f8ada93d3b586143e68bcef4ece13
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 5 23:27:15 2015 +0000
+
+    KVM is no longer maintained, whonixcheck recommends against it therefore - https://phabricator.whonix.org/T213 - https://www.whonix.org/forum/index.php/topic,982
+
+commit 9743adf9306731eae85d0365184d436096c65a4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 5 16:12:45 2015 +0000
+
+    output
+
+commit e747056589288abcf7c019a9ff8f814428452b36
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 5 16:05:52 2015 +0000
+
+    use /usr/lib/msgcollector/br_add - https://phabricator.whonix.org/T216
+
+commit f877de7121f2052a933df2e5b4af958d2b2a4d66
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 23:10:51 2015 +0000
+
+    update
+
+commit f0f356af26633ec6607ab347d7fb1ef1a4207a50
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 23 15:54:01 2015 +0000
+
+    security workaround for "apt-get update" zero exit code discrepancy for network, gpg failures
+
+commit 0d786dcb1ff482c16798f696d2e5265bfe5f9644
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 19 10:28:30 2015 +0000
+
+    do not exit 125 on minor, non-security relevant issues such as "W: You may want to run apt-get update to correct these problems" (required on CI systems)
+
+commit 75bff9ccea18cd2fbd6c2e8bc8f9e2fd4b087ac5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 18 13:54:01 2015 +0000
+
+    fix
+
+commit ad28d514d0e3f492491cb2fe9ed92cabfd62a602
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 18 13:32:46 2015 +0000
+
+    correct exit codes
+
+commit 302d3825da673618826606a70e1e96fc4219920a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 18 13:27:02 2015 +0000
+
+    Added usr/lib/apt-get-wrapper, a wrapper that exits 125, if output of apt-get update begins with "W:" or "E:". Required to workaround several issues with apt-get exit codes. https://www.whonix.org/wiki/Dev/apt-get#Bugs  https://phabricator.whonix.org/T169
+
+commit cb0d1e8b4af392c8d1dedb51263f2944b8d24467
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 10 01:40:13 2015 +0000
+
+    update for control-port-filter-python check
+
+commit 8d261d53566409694ea4f270ce4719f5f3f92064
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 6 04:29:12 2015 +0000
+
+    maintainer script output
+
+commit cfddf8cfb228ec7fb74d6798af1780a1cc822732
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 6 04:25:03 2015 +0000
+
+    maintainer script output
+
+commit 73171bc8bda784e7656e2a4809e8d7d2073a7ed5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 12:28:03 2015 +0000
+
+    instead of --socks5-hostname, use more modern --proxy + user:password@ip:port syntax for curl for better stream isolation - https://phabricator.whonix.org/T126
+
+commit 3544ecf17103956a844b90d8f335b28a751966c4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 00:56:38 2015 +0000
+
+    bumped changelog version
+
 commit 232a0bc80d9065b8b0467921e9e76abac4434c35
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 4 00:45:05 2015 +0000
