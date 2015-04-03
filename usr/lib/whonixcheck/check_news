@@ -31,6 +31,7 @@ download_whonix_news() {
    whonixcheck_run_function check_whonix_debian_version
    whonixcheck_run_function check_whonix_build_version
 
+   whonixcheck_run_function check_whonix_general_news
    whonixcheck_run_function check_whonix_debian_news
    whonixcheck_run_function check_whonix_build_news
 
@@ -330,6 +331,30 @@ check_whonix_build_version() {
       whonix_news_result_output="${whonix_news_result_output}<br></br>
 <span style=font-weight:600;color:#ff0000>✘</span> <b>Outdated: Whonix Build Version <u>$whonix_build_version</u> is outdated!</b>
 <br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image."
+   fi
+}
+
+check_whonix_general_news() {
+   local file_name
+   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_general_news"
+
+   if [ ! -f "$file_name" ]; then
+      ## This will happen:
+      ## - when using custom git tags / versions
+      ## - when no news file has been uploaded yet
+      if [ "$verbose" = "1" ]; then
+         whonix_news_result_output="${whonix_news_result_output}<br></br>
+There is no <u>general</u> news file available for <code>$VM</code> yet."
+      fi
+   else
+      local message
+      message="$(cat "$file_name")"
+      message="$(/usr/lib/msgcollector/striphtml "$message")"
+      if [ "$message" = "" ]; then
+         return 0
+      fi
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+$VM <u>general</u> News: <code><blockquote>$message</blockquote></code>"
    fi
 }
 
