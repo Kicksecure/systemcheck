@@ -56,68 +56,78 @@ whonix_news_preparation() {
 
    mkdir --parents "$whonix_news_download_dir"
    mkdir --parents "$whonix_news_verify_dir"
-
-   declare -A -g whonix_news_web_link_list
-   declare -A -g whonix_news_download_exit_code
-
-   ## whonix_news_web_link_list["web_link"]="file_name"
-   whonix_news_web_link_list["http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download"]="whonix_news.tar.xz.asc"
-   whonix_news_web_link_list["http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download"]="whonix_news.tar.xz"
 }
 
 download_now_whonix_news() {
+   download_now_whonix_news_helper "http://mirror.whonix.de/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "whonix_news.tar.xz.asc"
+   if [ "$whonix_news_download_success" = "true" ]; then
+      download_now_whonix_news_helper "http://mirror.whonix.de/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "whonix_news.tar.xz"
+   fi
+
+   if [ "$whonix_news_download_success" = "false" ]; then
+      download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download" "whonix_news.tar.xz.asc"
+      if [ "$whonix_news_download_success" = "true" ]; then
+         download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download" "whonix_news.tar.xz"
+      fi
+   fi
+
+   if [ "$whonix_news_download_success" = "false" ]; then
+      local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed.</p>"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   fi
+}
+
+download_now_whonix_news_helper() {
    ## sf.net does not support ssl.
    ## --location is required since sf.net uses redirects to mirrors.
 
-   local web_link
+   local web_link file_name
 
-   for web_link in "${!whonix_news_web_link_list[@]}"; do
-      ## Fallback.
+   web_link="$1"
+   file_name="$2"
+
+   ## Fallback.
+   whonix_news_download_success="false"
+
+   declare -A -g whonix_news_download_exit_code
+   whonix_news_download_exit_code["$web_link"]="0"
+
+   $CURL \
+      $CURL_VERBOSE \
+      --fail \
+      --proxy "socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS" \
+      --location \
+      --max-time 180 \
+      --output "$whonix_news_download_dir/$file_name" \
+      "$web_link" \
+      &
+
+   lastpid="$!"
+   wait "$lastpid" || { whonix_news_download_exit_code["$web_link"]="$?" ; true; };
+
+   if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
       whonix_news_download_success="false"
-
-      local file_name
-      file_name="${whonix_news_web_link_list[$web_link]}"
-
-      true "web_link: $web_link"
-      true "file_name: $file_name"
-
-      whonix_news_download_exit_code["$web_link"]="0"
-
-      $CURL \
-         $CURL_VERBOSE \
-         --fail \
-         --proxy "socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS" \
-         --location \
-         --max-time 180 \
-         --output "$whonix_news_download_dir/$file_name" \
-         "$web_link" \
-         &
-
-      lastpid="$!"
-      wait "$lastpid" || { whonix_news_download_exit_code["$web_link"]="$?" ; true; };
-
-      if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
-         whonix_news_download_success="false"
-         local curl_status_message
-         curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
-         local MSG="<p>$whonix_news_hyperlink Result: Download Whonix News File failed. \
+      local curl_status_message
+      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
+      local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed. \
 (file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
+      if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         return 0
       fi
+      return 0
+   fi
 
-      whonix_news_download_success="true"
-      if [ "$verbose" = "1" ]; then
-         local curl_status_message
-         curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
-         local MSG="<p>$whonix_news_hyperlink Result: Download Whonix News File succeeded. \
+   whonix_news_download_success="true"
+   if [ "$verbose" = "1" ]; then
+      local curl_status_message
+      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
+      local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File succeeded. \
 (file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-
-   done
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
 }
 
 verify_whonix_news() {
