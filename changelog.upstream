@@ -1,3 +1,51 @@
+commit a8907e768fc9bf3920767a2d11b8a4c4b88a0d52
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 4 17:15:06 2015 +0000
+
+    moved Whonix News files to mirror.whonix.de and use sourceforge as fallback - https://phabricator.whonix.org/T54
+
+commit 2603317458dc470e5710f5f94d86594dda402a34
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 3 17:28:19 2015 +0000
+
+    implemented whonixcheck general Whonix News file - https://phabricator.whonix.org/T255
+
+commit 2640cc250fb4badbbb7fc0dccd125ffc08cbd5cd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 18:41:32 2015 +0000
+
+    added genmkfile to Build-Depends
+
+commit 58e0275626b1856a9b9db007cdfdb7b0d715ed06
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 17:47:40 2015 +0000
+
+    updated debian/rules for makefile generic to version 1.5
+
+commit 50f1b487738f5b77dce27f0487ecd4ab2935fb26
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 17:24:53 2015 +0000
+
+    updated makefile generic to version 1.5
+
+commit 5515887bbb56eab52f199d5aacf9e3a0cf05b30a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 14:57:06 2015 +0000
+
+    added xz-utils to dependencies (required to extract Whonix News in Debian jessie)
+
+commit 8c9cf9a4ec155403b19f8a3905000e769de1d354
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 14:56:30 2015 +0000
+
+    refactoring
+
+commit 8c85e630c0dbad30ea1cbb9777add6ff0d5afe6a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 24 17:36:59 2015 +0000
+
+    bumped changelog version
+
 commit 1a2d8fd5d691fac135c3a7df6770a866971b7407
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 24 17:26:58 2015 +0000
