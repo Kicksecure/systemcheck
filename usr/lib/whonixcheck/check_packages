@@ -1,0 +1,52 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_packages() {
+   local package_not_installed
+   package_not_installed="none"
+   if [ "$vm_lower_case_short" = "gateway" ]; then
+      if ! dpkg-query --show "whonix-gateway" &> /dev/null ; then
+          package_not_installed="whonix-gateway"
+      fi
+   elif [ "$vm_lower_case_short" = "workstation" ]; then
+      if ! dpkg-query --show "whonix-workstation" &> /dev/null ; then
+          package_not_installed="whonix-workstation"
+      fi
+   else
+      package_not_installed="unknown"
+   fi
+
+   local if_you_know_what_you_are_doing_msg see_also_link
+
+   if_you_know_what_you_are_doing_msg="\
+If you know what you are doing, feel free to disable this check.
+Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
+<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code>"
+
+   see_also_link="<a href=https://www.whonix.org/wiki/Whonix_Debian_Packages>https://www.whonix.org/wiki/Whonix_Debian_Packages</a>"
+
+   if [ "$package_not_installed" = "none" ]; then
+      local MSG="<p>Whonix Meta Packages Test Result: $package_not_installed missing. (See also: $see_also_link)</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   elif [ "$package_not_installed" = "unknown" ]; then
+      local MSG="<p>Whonix Meta Packages Test Result: Neither Whonix-Gateway nor Whonix-Workstation detected.
+Therefore unchecked, if either the <code>whonix-gateway</code> or <code>whonix-workstation</code> meta packages is installed.
+<br />See also: $see_also_link
+<br />$if_you_know_what_you_are_doing_msg</p>"
+   else
+      local MSG="<p>Whonix Meta Packages Test Result: $VM detected, but the meta package <code>$package_not_installed</code> is not installed.
+Did you accidentally uninstall it?
+<br />See also: $see_also_link
+<br />$if_you_know_what_you_are_doing_msg</p>"
+   fi
+
+   $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+}

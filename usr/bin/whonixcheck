@@ -198,6 +198,9 @@ whonixcheck_main() {
    fi
 
    ## Does not use the network.
+   whonixcheck_run_function check_packages ## check_packages
+
+   ## Does not use the network.
    whonixcheck_run_function donate ## donate
    ## Does not use the network.
    whonixcheck_run_function whonixcheck_completed ## check_lastrun
