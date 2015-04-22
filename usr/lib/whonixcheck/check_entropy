@@ -1,0 +1,23 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_entropy() {
+   # Check entropy available bits, 112 is FIPS-140 requirement
+   local entropy_file entropy_size
+   entropy_file="/proc/sys/kernel/random/entropy_avail"
+   entropy_size="$(cat "$entropy_file")"
+   if [ "${entropy_size}" -lt "112" ]; then
+      local MSG="<p>Entropy Available Check Result: low. <code>$entropy_file</code>: <code>$entropy_size</code> Please report this issue!</p>"
+      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   else
+      local MSG="<p>Entropy Available Check Result: ok. <code>$entropy_file</code>: <code>$entropy_size</code></p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   fi
+}

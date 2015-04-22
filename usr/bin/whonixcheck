@@ -137,6 +137,9 @@ whonixcheck_main() {
    ## Does not use the network.
    whonixcheck_run_function check_hostname ## check_hostname
 
+   ## Does not use the network.
+   whonixcheck_run_function check_entropy ## check_entropy
+
    if [ "$MINIMAL" = "1" ]; then
 
       ## Only for debugging using the --minimal switch.
