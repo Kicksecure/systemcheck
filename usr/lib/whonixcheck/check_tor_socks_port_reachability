@@ -5,7 +5,7 @@
 ## See the file COPYING for copying conditions.
 
 check_tor_socks_port_reachability() {
-   ## {{ Small check if one of Tor's SocksPorts is functional.
+   ## Small check if one of Tor's SocksPorts is functional.
 
    local SOCKS_PORT_WHONIXCHECK
    SOCKS_PORT_WHONIXCHECK="9110"
@@ -29,36 +29,43 @@ check_tor_socks_port_reachability() {
    lastpid="$!"
    wait "$lastpid" || { check_socks_port_open_test="$?" ; true; };
 
-   if [ "$check_socks_port_open_test" = "22" ]; then
-      ## OK.
-      true
-      return 0
-   fi
-
    local curl_status_message
    curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_socks_port_open_test")"
 
-   ## TODO
-   if [ "$check_socks_port_open_test" = "7" ]; then
-      true "
-      ## curl_status_message: Failed to connect to host.
-      ## Gateway likely reachable, but Tor service likely not started.
-      ## Either user has run "sudo service tor stop" or Gateway is still
-      ## booting and hasn't started Tor service yet.
-      "
-      true
-   elif [ "$check_socks_port_open_test" = "28" ]; then
-      true "
-      ## curl_status_message: Operation timeout. The specified time-out period was reached according to the conditions.
-      ## Gateway likely powered off.
-      "
-      true
-   else
-      true "
-      ## Unexpected error.
-      "
-      true
+   if [ "$check_socks_port_open_test" = "22" ]; then
+      local MSG="<p>Tor SocksPort Reachability Test Result: Reachable. \
+(curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
    fi
 
-   ## }}
+   if [ "$check_socks_port_open_test" = "7" ]; then
+      local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
+Failed to connect to host. Gateway likely reachable, but Tor service likely not started. \
+Either user has run <code>sudo service tor stop</code> or Gateway is still booting and has not started Tor service yet. \
+(curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      fi
+   elif [ "$check_socks_port_open_test" = "28" ]; then
+      local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
+Gateway likely powered off. \
+(curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      fi
+   else
+      local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
+Unexpected error! \
+(curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      fi
+   fi
 }
