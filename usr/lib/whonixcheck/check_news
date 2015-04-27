@@ -45,6 +45,7 @@ whonix_news_preparation() {
    fi
 
    whonix_news_hyperlink="<a href=https://www.whonix.org/wiki/Whonix_News>Whonix News</a>"
+   whonix_news_build_version_link="<a href=https://www.whonix.org/wiki/Whonixcheck#Whonix_Build_Version>Whonix Build Version</a>"
 
    whonix_news_download_dir="$TEMP_DIR/news/news_download_dir"
    whonix_news_verify_dir="$TEMP_DIR/news_verify_dir"
@@ -335,11 +336,11 @@ check_whonix_build_version() {
    if [ "$whonix_news_build_up_to_date" = "true" ]; then
       ## Up to date...
       whonix_news_result_output="${whonix_news_result_output}<br></br>
-<span style=color:#008000>√</span> Up to date: Whonix Build Version <u>$whonix_build_version</u>"
+<span style=color:#008000>√</span> Up to date: $whonix_news_build_version_link: <u>$whonix_build_version</u>"
    else
       ## Outdated...
       whonix_news_result_output="${whonix_news_result_output}<br></br>
-<span style=font-weight:600;color:#ff0000>✘</span> <b>Outdated: Whonix Build Version <u>$whonix_build_version</u> is outdated!</b>
+<span style=font-weight:600;color:#ff0000>✘</span> <b>Outdated: $whonix_news_build_version_link: <u>$whonix_build_version</u> is outdated!</b>
 <br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image."
    fi
 }
@@ -402,7 +403,7 @@ check_whonix_build_news() {
       ## - when no news file has been uploaded yet
       if [ "$verbose" = "1" ]; then
          whonix_news_result_output="${whonix_news_result_output}<br></br>
-There is no news file available for Whonix Build Version <u>${whonix_build_version}</u> yet."
+There is no news file available for $whonix_news_build_version_link: <u>${whonix_build_version}</u> yet."
       fi
    else
       local message
