@@ -10,3 +10,4 @@ GenericName=System Check
 Comment=Check Tor Connection, Tor Browser Version, Operating System Updates, Whonix Version, Whonix News
 Categories=System
 Icon=/usr/share/icons/anon-icon-pack/whonix.png
+Keywords=Whonix;system;check
