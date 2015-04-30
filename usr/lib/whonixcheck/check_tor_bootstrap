@@ -178,10 +178,9 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
          check_tor_bootstrap
          return 0
       fi
-   fi
-
-   if [ "$VM" = "Whonix-Gateway" ]; then
-      local MSG="<p>Tor Bootstrap Result:
+   elif [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
+      if [ "$VM" = "Whonix-Gateway" ]; then
+         local MSG="<p>Tor Bootstrap Result:
 <br></br><b>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
 <br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status</p>
@@ -209,8 +208,8 @@ you will need them for Whonix as well.</p>
 <br></br>Use arm, connection page two, to see if Tor is connected:
 <blockquote>Start menu -> Applications -> System -> Arm</blockquote>
 or in Terminal: <code>arm</code></p>"
-   elif [ "$VM" = "Whonix-Workstation" ]; then
-      local MSG="<p>Tor Bootstrap Result:
+      elif [ "$VM" = "Whonix-Workstation" ]; then
+         local MSG="<p>Tor Bootstrap Result:
 <br></br>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.
 <br></br>Tor Circuit: $tor_circuit_established_word
 <br></br>Bootstrapping $tor_bootstrap_percent % done.
@@ -230,16 +229,28 @@ or in Terminal: <code>arm</code></p>"
 
 <p>2)
 <br></br>Run whonixcheck on Whonix-Gateway as well.</p>"
-   else
-      local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
-   fi
+      else
+         local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
+      fi
 
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      fi
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
+      return 0
+   else
+      error_handler "<p>(Tor Bootstrap Result:)
+<br></br>(Technical information:)
+<br></br>(tor_bootstrap_percent: $tor_bootstrap_percent)
+<br></br>(tor_circuit_established: $tor_circuit_established)
+<br></br>(tor_circuit_established_word: $tor_circuit_established_word)
+<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
+<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
+<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
+<br></br>(TOR_BOOTSTRAP_TIME_PASSED: $TOR_BOOTSTRAP_TIME_PASSED)
+<br></br>(whonixcheck_tor_bootstrap_wait_max: $whonixcheck_tor_bootstrap_wait_max)</p>"
    fi
-   $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-   EXIT_CODE="1"
-   cleanup "1"
-   return 0
 }
