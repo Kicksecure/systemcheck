@@ -1,3 +1,69 @@
+commit c9697f2f3939ddd7dd9a839b19901c4370ae020b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 30 16:03:53 2015 +0000
+
+    debugging
+
+commit 04fc6c2667c779c0ac0edb7d38b730327a75d16a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 30 14:49:22 2015 +0000
+
+    init script: removed '$all' from 'Required-Start:' to fix lintian warning
+
+commit 0df381e3bbc253df0dabae18beb4c620b6422039
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Apr 28 23:10:47 2015 +0000
+
+    output
+
+commit 349165f4c452a202524342abeb5ce4cf35e770d6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Apr 28 15:24:03 2015 +0000
+
+    added 'Keywords=' to '.desktop' files to fix lintian warning 'desktop-entry-lacks-keywords-entry' - https://phabricator.whonix.org/T281
+
+commit 7a6c0e997509f3a691757f1eba09ebe37b4313ee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Apr 28 13:43:29 2015 +0000
+
+    added debian/source/lintian-overrides with debian-watch-may-check-gpg-signature to fix lintian warning - https://phabricator.whonix.org/T277
+
+commit aefc489edbbb0e5603d3e653f67990720819c024
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 27 17:55:31 2015 +0000
+
+    added link to document Whonix Build Version
+
+commit 08f8a66bb85f2dfd1eb4a1fb4ca4ee87f2261a34
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Apr 26 23:16:20 2015 +0000
+
+    packaging, bumped Standards-Version from 3.9.4 to 3.9.6 for jessie support
+
+commit e6fc4b9d6b1209753e81c8ed410ac807cc58c1fe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Apr 26 23:03:51 2015 +0000
+
+    verbose output for check_tor_socks_port_reachability
+
+commit 8d2276ec02a9fc2e0a40db20c835477c6e93c8a1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 22 14:12:41 2015 +0000
+
+    warn if there is low entropy - https://phabricator.whonix.org/T202
+
+commit 564f23ba2f4c9aeb61fe4e12525eecb0e7a21881
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 22 13:51:54 2015 +0000
+
+    warn if whonix-gateway / whonix-workstation package is not installed - https://phabricator.whonix.org/T264
+
+commit 136907baf730a7572bb073796ffdb812bbf1b98c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Apr 7 17:43:04 2015 +0000
+
+    bumped changelog version
+
 commit a8907e768fc9bf3920767a2d11b8a4c4b88a0d52
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Apr 4 17:15:06 2015 +0000
