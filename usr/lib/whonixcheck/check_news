@@ -152,12 +152,8 @@ verify_whonix_news() {
    gpg_bash_lib_output_diagnostic_message="$(/usr/lib/msgcollector/br_add "$gpg_bash_lib_output_diagnostic_message")"
    gpg_bash_lib_output_freshness_msg="$(/usr/lib/msgcollector/br_add "$gpg_bash_lib_output_freshness_msg")"
 
-   local MSG="<p>$whonix_news_hyperlink Check: gpg_bash_lib_output_diagnostic_message:<br></br>
-$gpg_bash_lib_output_diagnostic_message</p>"
-   if [ "$verbose" = "1" ]; then
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
+   local freshness_msg="$whonix_news_hyperlink gpg_bash_lib_output_diagnostic_message:
+<br></br>$gpg_bash_lib_output_diagnostic_message"
 
    if [ ! "$gpg_bash_lib_output_alright_status" = "true" ] || [ "$gpg_bash_lib_output_failure" = "true" ] ; then
       whonix_news_verified_ok="false"
@@ -172,7 +168,16 @@ gpg_bash_lib_output_failure: $gpg_bash_lib_output_failure)
 <br></br>- or Whonix News Keys might be outdated. Upgrading using apt-get might fix this.</p>"
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      local MSG="<p>$freshness_msg</p>"
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
+   fi
+
+   local MSG="<p>$freshness_msg</p>"
+   if [ "$verbose" = "1" ]; then
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    case "$gpg_bash_lib_output_freshness_detail" in
