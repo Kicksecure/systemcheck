@@ -1,3 +1,21 @@
+commit fe7b5eaffec1bd12460b7986a089ad528f6b7581
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 1 00:53:56 2015 +0000
+
+    show diagnostic message on whonixcheck Whonix News gpg verification failure by default
+
+commit 9fe3cdb679794cc5767195dfda0af597eff901c2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 1 00:47:12 2015 +0000
+
+    output
+
+commit 45e63bee2708f0ca373f6d39ddc79d6c640eafd9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 30 17:57:05 2015 +0000
+
+    bumped changelog version
+
 commit c9697f2f3939ddd7dd9a839b19901c4370ae020b
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 30 16:03:53 2015 +0000
