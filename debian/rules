@@ -7,10 +7,9 @@
 #export DH_VERBOSE=1
 
 %:
-	dh $@
+	dh $@ --with systemd
 
 override_dh_install:
-	dh_installinit --onlyscripts
 	make manpages
 	dh_installman $(CURDIR)/debian/tmp-man/*
 

@@ -1,0 +1,19 @@
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+[Unit]
+Description = whonixcheck
+Documentation = https://www.whonix.org/wiki/whonixcheck
+After = network.target
+Wants = rinetd.service
+Wants = tor.service
+
+[Service]
+Type = simple
+User = user
+Group = user
+ExecStart = /usr/lib/whonixcheckdaemon
+
+[Install]
+WantedBy = multi-user.target
