@@ -14,6 +14,7 @@ Type = simple
 User = user
 Group = user
 ExecStart = /usr/lib/whonixcheckdaemon
+SuccessExitStatus = 143
 
 [Install]
 WantedBy = multi-user.target
