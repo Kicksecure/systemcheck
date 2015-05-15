@@ -1,3 +1,27 @@
+commit 7091c9d136f2a7a0051f6f6f94e4a5a86ef1763f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu May 14 23:40:13 2015 +0000
+
+    systemd unit: added 'SuccessExitStatus = 143'
+
+commit c473132920cbd671d36d2d379767155f20fe50f8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 13 21:26:13 2015 +0000
+
+    debugging
+
+commit c91dc77a1dae49be4635380e330fdfda9cb4ada2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 13 14:21:13 2015 +0000
+
+    ported to systemd - https://phabricator.whonix.org/T106
+
+commit 11327b13684b435a6e3dc9af8bbb8c388405f9fb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 1 13:17:41 2015 +0000
+
+    bumped changelog version
+
 commit fe7b5eaffec1bd12460b7986a089ad528f6b7581
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri May 1 00:53:56 2015 +0000
