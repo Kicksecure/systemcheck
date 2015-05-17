@@ -15,6 +15,7 @@ User = user
 Group = user
 ExecStart = /usr/lib/whonixcheckdaemon
 SuccessExitStatus = 143
+KillMode = process
 
 [Install]
 WantedBy = multi-user.target
