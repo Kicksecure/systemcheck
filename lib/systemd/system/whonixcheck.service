@@ -8,6 +8,7 @@ Documentation = https://www.whonix.org/wiki/whonixcheck
 After = network.target
 Wants = rinetd.service
 Wants = tor.service
+Requires = msgcollector.service
 
 [Service]
 Type = simple
