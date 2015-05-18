@@ -1,3 +1,21 @@
+commit 6c32af29753a3da5b0b019bdf74d75823f8c9fc1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon May 18 11:17:00 2015 +0000
+
+    systemd unit: added 'Requires = msgcollector.service'
+
+commit 7cb379710c081a3e14a68b41d1f30c68ca5f1b0e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun May 17 11:42:53 2015 +0000
+
+    systemd unit: added 'KillMode = process', because the daemon handles terminating child processes itself - https://phabricator.whonix.org/T106
+
+commit 28539bfc0ada2a92ea9a3ac782065bd6b221f963
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 15 20:31:23 2015 +0000
+
+    bumped changelog version
+
 commit 7091c9d136f2a7a0051f6f6f94e4a5a86ef1763f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu May 14 23:40:13 2015 +0000
