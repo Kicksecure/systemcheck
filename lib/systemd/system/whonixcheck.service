@@ -3,20 +3,20 @@
 ## See the file COPYING for copying conditions.
 
 [Unit]
-Description = whonixcheck
-Documentation = https://www.whonix.org/wiki/whonixcheck
-After = network.target
-Wants = rinetd.service
-Wants = tor.service
-Requires = msgcollector.service
+Description=whonixcheck
+Documentation=https://www.whonix.org/wiki/whonixcheck
+After=network.target
+Wants=rinetd.service
+Wants=tor.service
+Requires=msgcollector.service
 
 [Service]
-Type = simple
-User = user
-Group = user
-ExecStart = /usr/lib/whonixcheckdaemon
-SuccessExitStatus = 143
-KillMode = process
+Type=simple
+User=user
+Group=user
+ExecStart=/usr/lib/whonixcheckdaemon
+SuccessExitStatus=143
+KillMode=process
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target
