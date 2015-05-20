@@ -1,3 +1,9 @@
+whonixcheck (3:2.7-1) unstable; urgency=low
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Wed, 20 May 2015 15:49:02 +0000
+
 whonixcheck (3:2.6-1) unstable; urgency=low
 
   * New upstream version (local package).
