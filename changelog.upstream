@@ -1,3 +1,21 @@
+commit c12b7c1f33a4a281dc1802ba7b6801d2a8067de3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 23 18:13:15 2015 +0000
+
+    abolished random wait by default - https://phabricator.whonix.org/T299
+
+commit 7ca17bca6da5f5d910d3fa84a8c08388aa3c0906
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 20 16:34:42 2015 +0000
+
+    debian/control: fix, added to 'Build-Depends:' 'ruby-ronn (>= 0.7.3)'
+
+commit 192c1811eeac6cb0a16b7edcfa624cfb2a2aae5a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 20 15:49:06 2015 +0000
+
+    bumped changelog version
+
 commit 2a72ec4348ab1ba4ac718d4e4be25b105292dc7c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed May 20 15:48:51 2015 +0000
