@@ -1,3 +1,15 @@
+commit eccbb43021ace3a9d2144c63e1a3c99571006701
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu May 28 20:06:13 2015 +0000
+
+    systemd unit: added 'TimeoutSec=30' and 'Restart=always' - https://phabricator.whonix.org/T311
+
+commit b1d516c77ab1911032e1d7d3ec69d97bffa51131
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 23 18:37:55 2015 +0000
+
+    bumped changelog version
+
 commit c12b7c1f33a4a281dc1802ba7b6801d2a8067de3
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat May 23 18:13:15 2015 +0000
