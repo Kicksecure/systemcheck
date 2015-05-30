@@ -118,7 +118,7 @@ ex_funct() {
       if [ ! "$progressbaridx" = "" ]; then
          local progress_bar_open
          progress_bar_open="0"
-         $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --progressbaridx "$progressbaridx" --progressbarxrunning || { progress_bar_open="$?" ; true; };
+         $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --progressbaridx "$progressbaridx" --progressbarxprogresstxtexisting || { progress_bar_open="$?" ; true; };
       fi
 
       if [ "$SIGNAL_TYPE" = "SIGUSR2" ]; then
