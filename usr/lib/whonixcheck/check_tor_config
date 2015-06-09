@@ -17,18 +17,17 @@ check_tor_config_do() {
       return 0
    fi
 
-   local file_list="/etc/tor/torrc /usr/share/tor/tor-service-defaults-torrc"
-   local file_name
-   for file_name in $file_list; do
-      tor_verify_config_file="$file_name"
-      ## This has a /etc/sudoers.d exception.
-      tor_verify_config_output="$(sudo tor --verify-config -f "$file_name" 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
-      tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
-      if [ ! "$tor_verify_config_exit_code" = "0" ]; then
-         break
-      fi
-   done
-   unset file_name
+   ## XXX:
+   ## No longer running:
+   ## sudo -u debian-tor tor --verify-config -f /usr/share/tor/tor-service-defaults-torrc
+   ## Too many warnings for /usr/share/tor/tor-service-defaults-torrc since:
+   ## tor 0.2.6.8-5~d80.jessie+1
+   ## (You configured a non-loopback address [...])
+
+   tor_verify_config_file="/etc/tor/torrc"
+   ## This has a /etc/sudoers.d exception.
+   tor_verify_config_output="$(sudo -u debian-tor tor --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
+   tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
 
    return 0
 }
@@ -48,6 +47,21 @@ check_tor_config() {
 
 <p><b>You have to fix this error, before you can use Tor.</b></p>
 
+Try to look at this report yourself by running.
+
+Start Menu -> Applications -> System -> Terminal
+
+<blockquote>sudo -u debian-tor tor --verify-config</blockquote>
+
+And.
+
+<blockquote>sudo -u debian-tor tor --verify-config -f /etc/tor/torrc</blockquote>
+
+<p>To try to fix this, please open your Tor config file.
+
+<blockquote>    Start Menu -> Applications -> System -> Torrc</blockquote>
+    <br></br>or in Terminal: <code>sudo nano /etc/tor/torrc</code></p>
+
 <p>Please restart Tor after fixing this error.
 
 <blockquote>    Start Menu -> Applications -> System -> Restart Tor</blockquote>
@@ -56,7 +70,11 @@ check_tor_config() {
 <p>Restart <code>whonixcheck</code> after fixing this error.
 
 <blockquote>    Start Menu -> Applications -> System -> Whonix Check</blockquote>
-    <br></br>or in Terminal: <code>whonixcheck</code></p>"
+    <br></br>or in Terminal: <code>whonixcheck</code></p>
+
+<p>If you know what you are doing or if this is a false positive, feel free to disable this check.
+Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
+<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"

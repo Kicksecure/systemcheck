@@ -5,6 +5,8 @@
 ## Required for whonixcheck running "tor --verify config".
 %sudo ALL=NOPASSWD: /usr/bin/tor *
 %sudo ALL=NOPASSWD: /usr/sbin/tor *
+ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
+ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
 
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
