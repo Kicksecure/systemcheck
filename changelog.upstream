@@ -1,3 +1,15 @@
+commit bf55af20a5856d8a024a7eb821f5d54692dc5b15
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 9 22:00:52 2015 +0000
+
+    fixed Tor Config Check Result issue that was caused by the Tor upgrade; improved output for Tor Config Check Result - https://www.whonix.org/forum/index.php/topic,1295
+
+commit f38c828e7d2fe0286b76fcf34205e6a9dfea3ad5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 3 15:00:33 2015 +0000
+
+    bumped changelog version
+
 commit 65258098bb759e6bf539a478f3f8964c8d313810
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat May 30 14:46:06 2015 +0000
