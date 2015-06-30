@@ -5,7 +5,7 @@
 ## See the file COPYING for copying conditions.
 
 check_whonix_apt_repository() {
-   local temp_x_tool="<blockquote>Start Menu -> Applications -> System -> Whonix Repository</blockquote>"
+   local temp_x_tool="<blockquote>$start_menu_instructions_system_first_part Whonix Repository</blockquote>"
    local temp_cli_tool="<code><blockquote>sudo whonix_repository</blockquote></code>"
 
    local temp_base_msg_enabled="<p>Whonix APT Repository: Enabled.

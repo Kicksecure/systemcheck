@@ -49,7 +49,7 @@ check_tor_config() {
 
 Try to look at this report yourself by running.
 
-Start Menu -> Applications -> System -> Terminal
+$start_menu_instructions_system_first_part Terminal
 
 <blockquote>sudo -u debian-tor tor --verify-config</blockquote>
 
@@ -59,17 +59,17 @@ And.
 
 <p>To try to fix this, please open your Tor config file.
 
-<blockquote>    Start Menu -> Applications -> System -> Torrc</blockquote>
+<blockquote>    $start_menu_instructions_system_first_part Torrc</blockquote>
     <br></br>or in Terminal: <code>sudo nano /etc/tor/torrc</code></p>
 
 <p>Please restart Tor after fixing this error.
 
-<blockquote>    Start Menu -> Applications -> System -> Restart Tor</blockquote>
+<blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
     <br></br>or in Terminal: <code>sudo service tor restart</code></p>
 
 <p>Restart <code>whonixcheck</code> after fixing this error.
 
-<blockquote>    Start Menu -> Applications -> System -> Whonix Check</blockquote>
+<blockquote>    $start_menu_instructions_system_first_part Whonix Check</blockquote>
     <br></br>or in Terminal: <code>whonixcheck</code></p>
 
 <p>If you know what you are doing or if this is a false positive, feel free to disable this check.

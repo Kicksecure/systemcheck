@@ -59,12 +59,12 @@ check_tor_pid() {
 
 <p>Please restart Tor after fixing this error.</p>
 
-<blockquote>    Start Menu -> Applications -> System -> Restart Tor</blockquote>
+<blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
     or in Terminal: <code><blockquote>sudo service tor restart</blockquote></code></p>
 
 <p>Restart whonixcheck after fixing this error.
 
-<blockquote>   Start Menu -> Applications -> System -> Whonix Check</blockquote>
+<blockquote>   $start_menu_instructions_system_first_part Whonix Check</blockquote>
     or in Terminal: <code><blockquote>whonixcheck</blockquote></code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
