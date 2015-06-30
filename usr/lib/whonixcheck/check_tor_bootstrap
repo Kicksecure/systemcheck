@@ -200,13 +200,13 @@ working on your host. If you cannot get the Tor Browser Bundle to work, you will
 you will need them for Whonix as well.</p>
 
 <p>2)
-<br></br>Try again: Start menu -> Applications -> System -> Whonix Check
+<br></br>Try again: Start Menu -> Applications -> System -> Whonix Check
 <br></br>or in Terminal: <code>whonixcheck</code>
 <br></br>or in Terminal with debugging: <code>bash -x whonixcheck --verbose</code></p>
 
 <p>3)
 <br></br>Use arm, connection page two, to see if Tor is connected:
-<blockquote>Start menu -> Applications -> System -> Arm</blockquote>
+<blockquote>Start Menu -> Applications -> System -> Arm</blockquote>
 or in Terminal: <code>arm</code></p>"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="<p>Tor Bootstrap Result:
@@ -223,7 +223,7 @@ or in Terminal: <code>arm</code></p>"
 <p>Recommendations:</p>
 
 <p>1)
-<br></br>Try again: Start menu -> Applications -> System -> Whonix Check
+<br></br>Try again: Start Menu -> Applications -> System -> Whonix Check
 <br></br>           or in Terminal: <code>whonixcheck</code>
 <br></br>           or in Terminal with debugging: <code>bash -x whonixcheck --verbose</code></p>
 
