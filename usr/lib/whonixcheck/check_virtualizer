@@ -18,6 +18,12 @@ check_virtualizer() {
       fi
    fi
 
+   local MSG="<p>Check Virtualizer Result (debug): qubes_detected: <u>$qubes_detected</u>, continuing.</p>"
+   if [ "$verbose" = "1" ]; then
+      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
    if [ "$result" = "" ]; then
       ## Not running in a Virtual Machine (or none detected).
       local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on <u>bare metal</u>, continuing.</p>"
