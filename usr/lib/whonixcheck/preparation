@@ -199,6 +199,16 @@ preparation() {
    ## Preventing overlapping windows.
    $output --lefttop
 
+   if command -v qubesdb-read >/dev/null 2>&1 ; then
+      qubes_detected="true"
+      ## Overwrite with || true to prevent failing just because of this.
+      qubes_name_of_vm="$(qubesdb-read /name)" || true
+      start_menu_instructions_first_part="dom0 -> Start Menu -> $qubes_name_of_vm ->"
+   else
+      qubes_detected="false"
+      start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
+   fi
+
    for i in /etc/whonix.d/*; do
       if [ -f "$i" ]; then
          ## If the last character is a ~, ignore that file,
