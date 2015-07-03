@@ -71,7 +71,7 @@ check_operating_system() {
 
    local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
 <br></br>Please update Whonix-Gateway and Whonix-Workstation:
-(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
+<br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
    $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
