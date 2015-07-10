@@ -89,6 +89,9 @@ whonixcheck_main() {
    ## Does not use the network.
    whonixcheck_run_function check_kvmclock ## check_kvmclock
 
+   ## Does not use the network.
+   whonixcheck_run_function check_systemd_clock ## check_systemd_clock
+
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
 

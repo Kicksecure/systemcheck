@@ -1,0 +1,81 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_systemd_clock() {
+   if ! command -v timedatectl >/dev/null 2>&1 ; then
+      local MSG="<p>Systemd Clock Check Result: <code>timedatectl</code> not available, ok.</p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   ## timedatectl example output:
+   ##       Local time: Fri 2015-07-10 16:22:26 UTC
+   ##   Universal time: Fri 2015-07-10 16:22:26 UTC
+   ##         RTC time: Fri 2015-07-10 16:22:24
+   ##        Time zone: Etc/UTC (UTC, +0000)
+   ##      NTP enabled: no
+   ## NTP synchronized: no
+   ##  RTC in local TZ: no
+   ##       DST active: n/a
+
+   timedatectl_output_original="$(timedatectl)"
+   timedatectl_output_pretty="$(/usr/lib/msgcollector/br_add "$timedatectl_output_original")"
+
+
+
+   local timedatectl_ok_counter_actual="0"
+   local timedatectl_ok_counter_expected="5"
+   local timedatectl_line
+   while read -r -d $'\n' timedatectl_line; do
+      timedatectl_line="${timedatectl_line,,}"
+      if [ "$timedatectl_line" = 'time zone: etc/utc (utc, +0000)' ]; then
+         timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
+      fi
+      if [ "$timedatectl_line" = 'ntp enabled: no' ]; then
+         timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
+      fi
+      if [ "$timedatectl_line" = 'ntp synchronized: no' ]; then
+         timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
+      fi
+      if [ "$timedatectl_line" = 'rtc in local tz: no' ]; then
+         timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
+      fi
+      if [ "$timedatectl_line" = 'dst active: n/a' ]; then
+         timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
+      fi
+   done < <( echo "$timedatectl_output_original" )
+
+   if [ "$timedatectl_ok_counter_actual" -ge "$timedatectl_ok_counter_expected" ]; then
+      local MSG="<p>Systemd Clock Check Result: set to UTC and NTP disabled as expected, ok.
+<br></br>timedatectl_output_pretty:
+<blockquote><code>$timedatectl_output_pretty</code></blockquote></p>"
+      if [ "$verbose" = "1" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   else
+      local MSG="<p>Systemd Clock Check Result:
+<br></br><b>Unexpected results by timedatectl.</b>
+<br></br>ttimedatectl_output_pretty:
+<blockquote><code>$timedatectl_output_pretty</code></blockquote>
+It is generally recommended to keep the default as per Whonix Design. [1]
+If you did not change timezone related settings, please report this Whonix bug.
+If you know what you are doing and changed this on purpose, feel free to
+disable this check. [2]
+<br></br><br></br>
+[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a>
+<br></br>[2] Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
+<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
+      return 0
+   fi
+}
