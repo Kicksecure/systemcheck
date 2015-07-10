@@ -138,6 +138,9 @@ whonixcheck_main() {
    whonixcheck_run_function check_hostname ## check_hostname
 
    ## Does not use the network.
+   whonixcheck_run_function check_timezone ## check_timezone
+
+   ## Does not use the network.
    whonixcheck_run_function check_entropy ## check_entropy
 
    if [ "$MINIMAL" = "1" ]; then
