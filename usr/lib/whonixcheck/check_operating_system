@@ -19,11 +19,39 @@ check_operating_system() {
    wait "$apt_get_update_pid" || { apt_get_exit_code="$?" ; true; };
    unset apt_get_update_pid
 
+   if [ "$qubes_detected" = "true" ]; then
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+         qubes_update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
+      else
+         if [ "$qubes_vm_uptableable" = "True" ]; then
+            qubes_update_where="this StandaloneVM ('<code>$qubes_name_of_vm</code>')"
+         else
+            qubes_update_where="your TemplateVM"
+         fi
+      fi
+      if [ "$qubes_vm_uptableable" = "True" ]; then
+         ## Running in either StandaloneVM or TemplateVM.
+         local qubes_update_help="<br></br>1. Open a terminal, dom0 -> Start Menu -> '<code>$qubes_name_of_vm</code>' -> Terminal.
+<br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>"
+      else
+         local qubes_update_help="<br></br>1. Open a terminal, dom0 -> Start Menu -> <code>$VM</code> TemplateVM -> Terminal.
+<br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>
+3. Shutdown the <code>$VM</code> TemplateVM. (dom0 -> Qubes VM Manager -> right click <code>$VM</code> TemplateVM -> Shutdown VM)
+<br></br>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"
+      fi
+   fi
+
    if [ ! "$apt_get_exit_code" = "0" ]; then
-      local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> (apt-get code: $apt_get_exit_code)
+      if [ "$qubes_detected" = "true" ]; then
+         local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> (apt-get code: $apt_get_exit_code)
+<br></br>Please manually check inside $qubes_update_where.
+$qubes_update_help</p>"
+      else
+         local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> (apt-get code: $apt_get_exit_code)
 <br></br>Please manually check:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
+      fi
       $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       return 0
@@ -69,10 +97,17 @@ check_operating_system() {
       return 0
    fi
 
-   local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
+   if [ "$qubes_detected" = "true" ]; then
+      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
+<br></br>Please update $qubes_update_where.
+$qubes_update_help</p>"
+   else
+      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
 <br></br>Please update Whonix-Gateway and Whonix-Workstation:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
+   fi
+
    $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }
