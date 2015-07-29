@@ -25,7 +25,7 @@ check_logs() {
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   temp_file_name=~/".tb/torbrowser_updater_error.log"
+   temp_file_name=~/".cache/tb/torbrowser_updater_error.log"
 
    if [ -f "$temp_file_name" ]; then
       local MSG="<p>Check Logs Result: <b>$temp_file_name exists.</b> Please consider reporting any bugs inside this log.
