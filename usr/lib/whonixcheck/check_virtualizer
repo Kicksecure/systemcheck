@@ -98,7 +98,7 @@ in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
 <p>Recommended action:
 <br></br>- Shut down.
 <br></br>- Read Whonix documentation [4].
-<br></br>- Use Whonix with either VirtualBox or Physical Isolation [5].</p>
+<br></br>- Use Whonix with a supported virtualizer or Physical Isolation [5].</p>
 
 <p>Footnotes:</p>
 
