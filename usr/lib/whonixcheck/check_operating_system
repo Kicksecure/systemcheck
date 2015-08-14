@@ -37,7 +37,7 @@ check_operating_system() {
          local qubes_update_help="<br></br>1. Open a terminal, dom0 -> Start Menu -> <code>$VM</code> TemplateVM -> Terminal.
 <br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>
 3. Shutdown the <code>$VM</code> TemplateVM. (dom0 -> Qubes VM Manager -> right click <code>$VM</code> TemplateVM -> Shutdown VM)
-<br></br>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"
+<br></br>4. Shutdown and restart this Template-Based <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"
       fi
    fi
 
