@@ -4,9 +4,9 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-check_kvmclock() {
+check_pvclock() {
    if [ ! -f "/sys/devices/system/clocksource/clocksource0/current_clocksource" ]; then
-      local MSG="<p>KVMClock Result: <code>/sys/devices/system/clocksource/clocksource0/current_clocksource</code> does not exist, ok.</p>"
+      local MSG="<p>PVClock Result: <code>/sys/devices/system/clocksource/clocksource0/current_clocksource</code> does not exist, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -18,7 +18,7 @@ check_kvmclock() {
    current_clocksource="$(cat "/sys/devices/system/clocksource/clocksource0/current_clocksource")"
 
    if [ ! "$current_clocksource" = "kvm-clock" ]; then
-      local MSG="<p>KVMClock Result: <code>/sys/devices/system/clocksource/clocksource0/current_clocksource</code> exist, is <code>$current_clocksource</code>, not <code>kvm-clock</code>, ok.</p>"
+      local MSG="<p>PVClock Result: <code>/sys/devices/system/clocksource/clocksource0/current_clocksource</code> exist, is <code>$current_clocksource</code>, not <code>kvm-clock</code>, ok.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -26,25 +26,25 @@ check_kvmclock() {
       return 0
    fi
 
-   if [ "$WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION" = "1" ]; then
-      local MSG="<p>KVMClock Test Result: KVMClock detected, but <code>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION</code> is set, continuing.</p>"
+   if [ "$WHONIXCHECK_NO_EXIT_ON_PVCLOCK_DETECTION" = "1" ]; then
+      local MSG="<p>PVClock Test Result: PVClock detected, but <code>WHONIXCHECK_NO_EXIT_ON_PVCLOCK_DETECTION</code> is set, continuing.</p>"
       if [ "$verbose" = "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
-      local MSG="<p>KVMClock Test Result:
+      local MSG="<p>PVClock Test Result:
 
-<br></br><b>KVMClock detected! This is unsupported by Whonix developers! Whonixcheck aborted!</b>
+<br></br><b>PVClock detected! This is unsupported by Whonix developers! Whonixcheck aborted!</b>
 
-<p>Using KVMClock together with Whonix is recommended against, because KVMClock conflicts with Whonix's TimeSync design [1].</p>
+<p>Using PVClock together with Whonix is recommended against, because PVClock conflicts with Whonix's TimeSync design [1].</p>
 
 <p>You probably did not follow Whonix's KVM instructions. [2]</p>
 
 <p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
 <p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
-<code><blockquote>WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION=\"1\"</blockquote></code>
+<code><blockquote>WHONIXCHECK_NO_EXIT_ON_PVCLOCK_DETECTION=\"1\"</blockquote></code>
 in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
 
 <p>Recommended action:

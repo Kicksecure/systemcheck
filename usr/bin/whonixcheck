@@ -87,7 +87,7 @@ whonixcheck_main() {
    whonixcheck_run_function check_virtualizer ## check_virtualizer
 
    ## Does not use the network.
-   whonixcheck_run_function check_kvmclock ## check_kvmclock
+   whonixcheck_run_function check_pvclock ## check_pvclock
 
    ## Does not use the network.
    whonixcheck_run_function check_systemd_clock ## check_systemd_clock
