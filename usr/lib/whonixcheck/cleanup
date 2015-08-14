@@ -78,12 +78,14 @@ ex_funct() {
 
    maybe_kill_apt_get_update
 
-   ## kill $lastpid (if running)
-   process_killer_helper
+   if command -v "process_killer_helper" >/dev/null ; then
+      ## kill $lastpid (if running)
+      process_killer_helper
 
-   lastpid="$tail_pid"
-   ## kill $lastpid (if running)
-   process_killer_helper
+      lastpid="$tail_pid"
+      ## kill $lastpid (if running)
+      process_killer_helper
+   fi
 
    cleanup_files
 
@@ -130,6 +132,12 @@ ex_funct() {
             true "No progress bar open. No need to send progress 100 to close progress bar."
          fi
       fi
+
+      if [ "$TITLE" = "" ]; then
+         TITLE="No TITLE defined yet."
+      fi
+      $output ${output_opts[@]} --titlex "$TITLE"
+      $output ${output_opts[@]} --titlecli "$TITLE"
 
       if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
          local MSG="<p><b>$SCRIPTNAME aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
