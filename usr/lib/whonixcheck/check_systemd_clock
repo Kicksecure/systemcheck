@@ -24,17 +24,16 @@ check_systemd_clock() {
    ##  RTC in local TZ: no
    ##       DST active: n/a
 
+   ## Not checking for 'Time zone: Etc/UTC (UTC, +0000)'. This is left to check_timezone.
+
    timedatectl_output_original="$(timedatectl)"
    timedatectl_output_pretty="$(/usr/lib/msgcollector/br_add "$timedatectl_output_original")"
 
    local timedatectl_ok_counter_actual="0"
-   local timedatectl_ok_counter_expected="5"
+   local timedatectl_ok_counter_expected="4"
    local timedatectl_line
    while read -r -d $'\n' timedatectl_line; do
       timedatectl_line="${timedatectl_line,,}"
-      if [ "$timedatectl_line" = 'time zone: etc/utc (utc, +0000)' ]; then
-         timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
-      fi
       if [ "$timedatectl_line" = 'ntp enabled: no' ]; then
          timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
       fi
