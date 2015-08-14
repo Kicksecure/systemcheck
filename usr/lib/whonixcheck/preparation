@@ -226,6 +226,11 @@ preparation() {
    ## Preventing overlapping windows.
    $output --lefttop
 
+   if [ "$verbose" = "1" ] || [ "$qubes_detected" = "true" ]; then
+      local MSG="$TITLE"
+      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
    for i in /etc/whonix.d/*; do
       if [ -f "$i" ]; then
          ## If the last character is a ~, ignore that file,
