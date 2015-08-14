@@ -90,6 +90,9 @@ whonixcheck_main() {
    whonixcheck_run_function check_pvclock ## check_pvclock
 
    ## Does not use the network.
+   whonixcheck_run_function check_timezone ## check_timezone
+
+   ## Does not use the network.
    whonixcheck_run_function check_systemd_clock ## check_systemd_clock
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
@@ -139,9 +142,6 @@ whonixcheck_main() {
 
    ## Does not use the network.
    whonixcheck_run_function check_hostname ## check_hostname
-
-   ## Does not use the network.
-   whonixcheck_run_function check_timezone ## check_timezone
 
    ## Does not use the network.
    whonixcheck_run_function check_entropy ## check_entropy
