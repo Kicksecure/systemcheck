@@ -178,7 +178,34 @@ preparation() {
    ## ARCH="i686"
    ARCH="$(uname --machine)"
 
-   TITLE="$IDENTIFIER | $VM | $whonix_deb_package_version | $(date)"
+   if command -v qubesdb-read >/dev/null 2>&1 ; then
+      qubes_detected="true"
+      ## Overwrite with || true to prevent failing just because of this.
+      qubes_name_of_vm="$(qubesdb-read /name)" || true
+      start_menu_instructions_first_part="dom0 -> Start Menu -> '$qubes_name_of_vm' ->"
+      ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM' or 'TemplateVM'
+      qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
+      ## '/qubes-vm-updateable' is 'True' for StandaloneVMs and TemplateVMs.
+      ## 'False' otherwise.
+      qubes_vm_uptableable="$(qubesdb-read /qubes-vm-updateable)" || true
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+         qubes_title_extra=" | TemplateVM"
+      else
+         if [ "$qubes_vm_uptableable" = "True" ]; then
+            qubes_title_extra=" | Standalone $qubes_vm_type"
+         elif [ "$qubes_vm_uptableable" = "False" ]; then
+            qubes_title_extra=" | Template-Based $qubes_vm_type"
+         else
+            qubes_title_extra=" | Unknown Qubes VM Type"
+         fi
+      fi
+   else
+      qubes_detected="false"
+      start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
+      qubes_title_extra=""
+   fi
+
+   TITLE="$IDENTIFIER | ${VM}${qubes_title_extra} | $(date)"
 
    ## https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
    TPO_PIN_CERT_FILE="/usr/share/torbrowser-launcher/torproject.pem"
@@ -198,21 +225,6 @@ preparation() {
    ## Only for whonixcheck to make it distinct from timesync.
    ## Preventing overlapping windows.
    $output --lefttop
-
-   if command -v qubesdb-read >/dev/null 2>&1 ; then
-      qubes_detected="true"
-      ## Overwrite with || true to prevent failing just because of this.
-      qubes_name_of_vm="$(qubesdb-read /name)" || true
-      start_menu_instructions_first_part="dom0 -> Start Menu -> '$qubes_name_of_vm' ->"
-      ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM' or 'TemplateVM'
-      qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
-      ## '/qubes-vm-updateable' is 'True' for StandaloneVMs and TemplateVMs.
-      ## 'False' otherwise.
-      qubes_vm_uptableable="$(qubesdb-read /qubes-vm-updateable)" || true
-   else
-      qubes_detected="false"
-      start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
-   fi
 
    for i in /etc/whonix.d/*; do
       if [ -f "$i" ]; then
