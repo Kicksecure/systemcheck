@@ -7,6 +7,11 @@
 #set -x
 
 check_whonixsetup_done_do() {
+   if [ "$qubes_detected" = "true" ]; then
+      ## Do not insist on finishing whonixsetup for Qubes-Whonix.
+      return 0
+   fi
+
    ## Check if /var/cache/whonix-setup-wizard/status-files/whonixsetup.done exists.
    if [ -f "/var/cache/whonix-setup-wizard/status-files/whonixsetup.done" ]; then
       ## /var/cache/whonix-setup-wizard/status-files/whonixsetup.done exists.
