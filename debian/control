@@ -16,7 +16,7 @@ Package: whonixcheck
 Architecture: all
 Depends: anon-gw-base-files | anon-ws-base-files, anon-base-files, curl,
  curl-scripts, ca-certificates, msgcollector, virt-what, psmisc, sudo,
- gpg-bash-lib, xz-utils, ${misc:Depends}
+ gpg-bash-lib, xz-utils, anon-shared-helper-scripts, ${misc:Depends}
 Recommends: anon-icon-pack
 Description: Anonymity and security check
  Checks many important aspects of Whonix for better security.
