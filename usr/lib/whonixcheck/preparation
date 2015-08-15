@@ -238,19 +238,19 @@ preparation() {
          fi
       fi
       if [ "$qubes_vm_type" = "TemplateVM" ]; then
-         qubes_update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
+         update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
       else
          if [ "$qubes_vm_uptableable" = "True" ]; then
-            qubes_update_where="this StandaloneVM ('<code>$qubes_name_of_vm</code>')"
+            update_where="this StandaloneVM ('<code>$qubes_name_of_vm</code>')"
          else
-            qubes_update_where="your TemplateVM"
+            update_where="your TemplateVM"
          fi
       fi
    else
       qubes_detected="false"
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
       qubes_title_extra=""
-      qubes_update_where="this machine"
+      update_where="this machine"
    fi
 
    TITLE="$IDENTIFIER | ${VM}${qubes_title_extra} | $(date)"

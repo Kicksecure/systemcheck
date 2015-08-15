@@ -84,7 +84,7 @@ check_unwanted_packages() {
    fi
 
    local MSG="<p>Whonix Unwanted Packages Test Result: $unwanted_packages_counter unwanted package(s) installed. \
-It is recommended that you remove them from $qubes_update_where.
+It is recommended that you remove them from $update_where.
 $qubes_update_help
 <br />See also: $see_also_link
 <br />$if_you_know_what_you_are_doing_msg</p>"
