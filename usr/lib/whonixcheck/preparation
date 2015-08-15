@@ -106,7 +106,7 @@ get_local_whonix_version() {
 }
 
 preparation() {
-   if [ "$AUTOSTARTED" = "1" ]; then
+   if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
       whonixcheck_run_function whonixcheck_msgdispatcher_windows_existing
    fi
 
