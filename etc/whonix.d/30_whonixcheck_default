@@ -70,6 +70,23 @@ WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION="0"
 ## Defaults to: 90
 #whonixcheck_tor_bootstrap_wait_max="90"
 
+## Unwanted packages whonixcheck will warn against.
+whonixcheck_unwanted_package+=" popularity-contest " ## privacy issues
+whonixcheck_unwanted_package+=" canonical-census " ## privacy issues
+whonixcheck_unwanted_package+=" unity-lens-shopping " ## privacy issues
+whonixcheck_unwanted_package+=" unity-scope-video-remote " ## privacy issues
+whonixcheck_unwanted_package+=" unity-scope-musicstores " ## privacy issues
+whonixcheck_unwanted_package+=" chrony " ## interferes with Whonix network time synchronization
+whonixcheck_unwanted_package+=" ntp " ## interferes with Whonix network time synchronization
+whonixcheck_unwanted_package+=" ntpdate " ## interferes with Whonix network time synchronization
+
+## To remove selected packages from the list of unwanted packages,
+## you could add something like  the following to your
+## "/etc/whonix.d/50_whonixcheck_user". (Replace the below example that is
+## using 'popularity-contest' with the actual name of the package you want
+## to remove from the list.
+#whonixcheck_unwanted_package="$(echo "$whonixcheck_unwanted_package" | sed 's/ popularity-contest //g')"
+
 ## Using the whonixcheck_skip_functions variable you can blacklist one or more
 ## functions of whonixcheck. Not all combinations of selective function
 ## blacklisting are tested. Blacklisting the check_tor_bootstrap function
@@ -162,3 +179,8 @@ WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION="0"
 ## Does not use the network.
 ## Configuration function only.
 #whonixcheck_skip_functions+=" pin_tpo_ssl_cert "
+
+## Does not use the network.
+#whonixcheck_skip_functions+=" check_packages "
+#whonixcheck_skip_functions+=" check_meta_packages "
+#whonixcheck_skip_functions+=" check_unwanted_packages "

@@ -4,6 +4,14 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+if_you_know_what_you_are_doing_funct() {
+   ## $1 - $FUNCNAME
+   echo "\
+If you know what you are doing, feel free to disable this check.
+Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
+<code><blockquote>whonixcheck_skip_functions+=\" $1 \"</blockquote></code>"
+}
+
 whonixcheck_msgdispatcher_windows_existing() {
    local msgdispatcher_dispatch_x_pids pid args cmd
    local first second third fourth
@@ -229,10 +237,20 @@ preparation() {
             qubes_title_extra=" | Unknown Qubes VM Type"
          fi
       fi
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+         qubes_update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
+      else
+         if [ "$qubes_vm_uptableable" = "True" ]; then
+            qubes_update_where="this StandaloneVM ('<code>$qubes_name_of_vm</code>')"
+         else
+            qubes_update_where="your TemplateVM"
+         fi
+      fi
    else
       qubes_detected="false"
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
       qubes_title_extra=""
+      qubes_update_where="this machine"
    fi
 
    TITLE="$IDENTIFIER | ${VM}${qubes_title_extra} | $(date)"
