@@ -80,6 +80,9 @@ check_timezone() {
    fi
 
    if [ "$timezone_check_result" = "false" ]; then
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
       local MSG="<p>Check Timezone Result:
 <br></br><b>Settings different from Whonix defaults. (See above!)</b>
 <br></br>You could try to fix this.
@@ -89,12 +92,8 @@ check_timezone() {
 <br></br>cp \"$localtime_file_usr\" \"$localtime_file_etc\"</code></blockquote>
 It is generally recommended to keep the default as per Whonix Design. [1]
 If you did not change timezone related settings, please report this Whonix bug.
-If you know what you are doing and changed this on purpose, feel free to
-disable this check. [2]
-<br></br><br></br>
-[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a>
-<br></br>[2] Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
-<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
+<br></br>$if_you_know_what_you_are_doing_msg
+[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a></p>"
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    fi
