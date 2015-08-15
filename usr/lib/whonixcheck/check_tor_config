@@ -33,7 +33,7 @@ check_tor_config_do() {
 }
 
 check_tor_config() {
-   ## returns: tor_verify_config_exit_code, tor_verify_config_output
+   ## sets: tor_verify_config_exit_code, tor_verify_config_output
    check_tor_config_do
 
    if [ ! "$tor_verify_config_exit_code" = "0" ]; then
