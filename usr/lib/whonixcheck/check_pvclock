@@ -51,7 +51,7 @@ in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
 
 check_pvclock() {
    if [ -f "/var/run/qubes-whonix/qubes.SetDateTime" ]; then
-      qubes_set_date_time_content="$(cat /var/run/qubes-whonix/qubes.SetDateTime)" || true
+      qubes_set_date_time_content="$(cat "/var/run/qubes-whonix/qubes.SetDateTime")" || true
       local MSG="<p>\
 PVClock Result: dom0 is telling us the time. \
 File <code>/var/run/qubes-whonix/qubes.SetDateTime</code> exists. \
