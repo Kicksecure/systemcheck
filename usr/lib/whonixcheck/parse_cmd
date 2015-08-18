@@ -30,8 +30,6 @@ parse_cmd_options() {
                return 0
                ;;
            -v | --verbose)
-               echo "$SCRIPTNAME verbose output..."
-               echo "Script running as $(whoami)"
                verbose="$(( $verbose + 1 ))"
                shift
                ;;
