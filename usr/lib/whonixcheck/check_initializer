@@ -20,7 +20,7 @@ check_initializer() {
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    else
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          local MSG="<p>Check Initializer Result: <code>$fail_file</code> does not exist, ok.</p>"
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"

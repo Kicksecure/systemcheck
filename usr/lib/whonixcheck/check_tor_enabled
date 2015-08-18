@@ -38,13 +38,13 @@ Then run <code>whonixcheck</code> again.</p>"
    else
       if [ -e "/usr/share/anon-gw-base-files/gateway" ]; then
          local MSG='<p>Tor Check Result: "DisableNetwork 1" in /etc/tor/torrc commented out, ok.</p>'
-         if [ "$verbose" = "1" ]; then
+         if [ "$verbose" -ge "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       else
          local MSG='<p>Tor Check Result: Not running on Whonix-Gateway, ok.</p>'
-         if [ "$verbose" = "1" ]; then
+         if [ "$verbose" -ge "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi

@@ -35,7 +35,7 @@ check_control_port_filter_running() {
          return 0
       else
          local MSG="<p>Control Port Filter Proxy Test Result: OK</p>"
-         if [ "$verbose" = "1" ]; then
+         if [ "$verbose" -ge "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi

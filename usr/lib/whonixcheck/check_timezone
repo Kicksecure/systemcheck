@@ -21,7 +21,7 @@ check_timezone() {
       timezone_file_actual_content="$(cat "$timezone_file_location" 2>&1)" || { timezone_status_code="$?" ; true; };
       if [ "$timezone_file_actual_content" = "$timezone_file_expected_content" ]; then
          local MSG="<p>Check Timezone Result: <code>$timezone_file_location</code>, <code>$timezone_file_actual_content</code> matches <code>$timezone_file_expected_content</code>, ok.</p>"
-         if [ "$verbose" = "1" ]; then
+         if [ "$verbose" -ge "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
@@ -48,7 +48,7 @@ check_timezone() {
          localtime_result="$(diff "$localtime_file_usr" "$localtime_file_etc" 2>&1)" || { localtime_status_code="$?" ; true; };
          if [ "$localtime_status_code" = "0" ]; then
             local MSG="<p>Check Timezone Result: <code>$localtime_file_usr</code> matches <code>$localtime_file_etc</code>, ok.</p>"
-            if [ "$verbose" = "1" ]; then
+            if [ "$verbose" -ge "1" ]; then
                $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
                $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             fi

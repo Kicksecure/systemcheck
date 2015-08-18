@@ -8,7 +8,7 @@ check_torbrowser() {
    if [ -f /usr/lib/tbbversion_parser ]; then
       source /usr/lib/tbbversion_parser
    else
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          local MSG="<p>Tor Browser Update Check: tb-updater packages not installed, skipped.</p>"
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -23,7 +23,7 @@ check_torbrowser() {
       MSG="<p>Tor Browser Update Check: Tor Browser language set to default en-US.</p>"
       TB_LANG="en-US"
    fi
-   if [ "$verbose" = "1" ]; then
+   if [ "$verbose" -ge "1" ]; then
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi

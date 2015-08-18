@@ -82,7 +82,7 @@ Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
       return 0
    else
       local MSG="<p>Tor Config Check Result: $tor_verify_config_file, ok.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

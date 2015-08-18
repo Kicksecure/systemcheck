@@ -54,7 +54,7 @@ nor file <code>/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip</cod
       return 0
    else
       local MSG='<p>Check whonixsetup Result: done, ok.</p>'
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

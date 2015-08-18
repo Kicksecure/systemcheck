@@ -113,7 +113,7 @@ download_now_whonix_news_helper() {
       curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
       local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed. \
 (file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       fi
@@ -121,7 +121,7 @@ download_now_whonix_news_helper() {
    fi
 
    whonix_news_download_success="true"
-   if [ "$verbose" = "1" ]; then
+   if [ "$verbose" -ge "1" ]; then
       local curl_status_message
       curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
       local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File succeeded. \
@@ -175,7 +175,7 @@ gpg_bash_lib_output_failure: $gpg_bash_lib_output_failure)
    fi
 
    local MSG="<p>$freshness_msg</p>"
-   if [ "$verbose" = "1" ]; then
+   if [ "$verbose" -ge "1" ]; then
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
@@ -185,7 +185,7 @@ gpg_bash_lib_output_failure: $gpg_bash_lib_output_failure)
          local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
 Whonix News File was signed $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
 Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output before.)</p>"
-         if [ "$verbose" = "1" ]; then
+         if [ "$verbose" -ge "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
@@ -216,7 +216,7 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
       "current")
          local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago. \
 (Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.)</p>"
-         if [ "$verbose" = "1" ]; then
+         if [ "$verbose" -ge "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
@@ -232,13 +232,13 @@ or in Terminal: <code><blockquote>timesync</blockquote></code></p>"
 
    local MSG="<p>$whonix_news_hyperlink Check: gpg_bash_lib_output_freshness_msg:<br></br>
 $gpg_bash_lib_output_freshness_msg</p>"
-   if [ "$verbose" = "1" ]; then
+   if [ "$verbose" -ge "1" ]; then
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    local MSG="<p>$whonix_news_hyperlink Check: news file valid.</p>"
-   if [ "$verbose" = "1" ]; then
+   if [ "$verbose" -ge "1" ]; then
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
@@ -359,7 +359,7 @@ check_whonix_general_news() {
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          whonix_news_result_output="${whonix_news_result_output}<br></br>
 There is no <u>general</u> news file available for <code>$VM</code> yet."
       fi
@@ -383,7 +383,7 @@ check_whonix_debian_news() {
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          whonix_news_result_output="${whonix_news_result_output}<br></br>
 There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet."
       fi
@@ -407,7 +407,7 @@ check_whonix_build_news() {
       ## This will happen:
       ## - when using custom git tags / versions
       ## - when no news file has been uploaded yet
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          whonix_news_result_output="${whonix_news_result_output}<br></br>
 There is no news file available for $whonix_news_build_version_link: <u>${whonix_build_version}</u> yet."
       fi

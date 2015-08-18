@@ -25,7 +25,7 @@ check_meta_packages() {
 
    if [ "$package_not_installed" = "none" ]; then
       local MSG="<p>Whonix Meta Packages Test Result: $package_not_installed missing. (See also: $see_also_link)</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
@@ -59,7 +59,7 @@ check_unwanted_packages() {
 
    if [ "$unwanted_packages_counter" = "0" ]; then
       local MSG="<p>Whonix Unwanted Packages Test Result: None found.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

@@ -12,7 +12,7 @@ check_package_manager_running() {
          $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
       local MSG="<p>Check Package Manager Running Result: None running, ok.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

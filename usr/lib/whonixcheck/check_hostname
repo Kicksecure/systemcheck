@@ -16,7 +16,7 @@ check_hostname() {
    fi
    if [ "$hostname_fqdn_output" = "host.localdomain" ]; then
       local MSG="<p>Check Hostname Result: \"hostname --fqdn\" output is \"host.localdomain\", ok.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
@@ -35,7 +35,7 @@ check_hostname() {
    fi
    if [ "$hostname_output" = "host" ]; then
       local MSG="<p>Check Hostname Result: \"hostname\" output is \"host\", ok.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
@@ -54,7 +54,7 @@ it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
    fi
    if [ "$hostname_ip_address_output" = "127.0.0.1" ]; then
       local MSG="<p>Check Hostname Result: \"hostname --ip-address\" output is \"127.0.0.1\", ok.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
@@ -73,7 +73,7 @@ it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
    fi
    if [ "$hostname_domain_output" = "localdomain" ]; then
       local MSG="<p>Check Hostname Result: \"hostname --ip-address\" output is \"localdomain\", ok.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

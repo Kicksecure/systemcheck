@@ -73,7 +73,7 @@ check_tor_pid() {
       return 0
    else
       local MSG="<p>Tor Pid Check Result: $tor_pid_message, ok.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

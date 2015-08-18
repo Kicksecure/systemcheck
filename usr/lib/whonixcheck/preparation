@@ -274,7 +274,7 @@ preparation() {
    ## Preventing overlapping windows.
    $output --lefttop
 
-   if [ "$verbose" = "1" ] || [ "$qubes_detected" = "true" ]; then
+   if [ "$verbose" -ge "1" ] || [ "$qubes_detected" = "true" ]; then
       local MSG="$TITLE"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi

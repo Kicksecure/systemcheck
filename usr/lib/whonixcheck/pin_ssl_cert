@@ -7,13 +7,13 @@
 pin_tpo_ssl_cert() {
    if [ "$PIN_TPO_CERT" = "true" ]; then
       local MSG="<p>Pin torproject.org certificate: enabled.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       if [ -r "$TPO_PIN_CERT_FILE" ]; then
          local MSG="<p>Pin torproject.org certificate: TPO_PIN_CERT_FILE $TPO_PIN_CERT_FILE is readable.</p>"
-         if [ "$verbose" = "1" ]; then
+         if [ "$verbose" -ge "1" ]; then
            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
@@ -38,7 +38,7 @@ is readable, and if you are using <code>apparmor-profile-whonixcheck</code>, tha
       fi
    else
       local MSG="<p>Pin torproject.org certificate: disabled.</p>"
-      if [ "$verbose" = "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
