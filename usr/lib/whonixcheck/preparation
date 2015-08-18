@@ -71,7 +71,7 @@ get_local_whonix_version() {
 
    local dpkg_query_exit_code
    dpkg_query_exit_code="0"
-   whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$whonix_deb_package_name")" || { dpkg_query_exit_code="$?" ; true; };
+   whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$whonix_deb_package_name" 2>/dev/null)" || { dpkg_query_exit_code="$?" ; true; };
 
    if [ ! "$dpkg_query_exit_code" = "0" ]; then
       whonix_deb_package_version="Could not detect Whonix $whonix_deb_package_name version. (Code: 2) Probably because package $whonix_deb_package_name is not installed."
