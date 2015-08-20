@@ -5,11 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_autostart() {
-   ## This script gets run by:
-   ## - /etc/profile.d/
-   ## - /etc/xdg/autostart/whonixcheck.desktop
-   ## - /etc/cron.d/
-
    ## If it was not autostarted the user is free to re-run the checks.
    if [ "$manualrun" = "1" ]; then
       return 0
