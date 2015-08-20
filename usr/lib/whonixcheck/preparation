@@ -222,7 +222,7 @@ preparation() {
       qubes_detected="true"
       ## Overwrite with || true to prevent failing just because of this.
       qubes_name_of_vm="$(qubesdb-read /name)" || true
-      start_menu_instructions_first_part="dom0 -> Start Menu -> '$qubes_name_of_vm' ->"
+      start_menu_instructions_system_first_part="dom0 -> Start Menu -> '$qubes_name_of_vm' ->"
       ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM' or 'TemplateVM'
       qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
       ## '/qubes-vm-updateable' is 'True' for StandaloneVMs and TemplateVMs.
