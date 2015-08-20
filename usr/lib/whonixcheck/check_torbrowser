@@ -9,7 +9,7 @@ check_torbrowser() {
       source /usr/lib/tbbversion_parser
    else
       if [ "$verbose" -ge "1" ]; then
-         local MSG="<p>Tor Browser Update Check: tb-updater packages not installed, skipped.</p>"
+         local MSG="<p>Tor Browser Update Check: tb-updater package is not installed, skipped.</p>"
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
