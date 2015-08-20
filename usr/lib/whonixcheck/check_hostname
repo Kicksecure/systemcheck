@@ -22,8 +22,8 @@ check_hostname() {
       fi
    else
       hostname_discouraged_setting_detected="true"
-      local MSG="<p>Check Hostname Result: \"hostname --fqdn\" output is not \
-\"host.localdomain\", it is \"$hostname_fqdn_output\". (hostname_exit_code: $hostname_exit_code)</p>"
+      local MSG="<p>Check Hostname Result: <b>\"hostname --fqdn\" output is not \
+\"host.localdomain\", it is \"$hostname_fqdn_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    fi
