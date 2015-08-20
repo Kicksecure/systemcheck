@@ -5,8 +5,8 @@
 ## See the file COPYING for copying conditions.
 
 check_torbrowser() {
-   if [ -f /usr/lib/tbbversion_parser ]; then
-      source /usr/lib/tbbversion_parser
+   if [ -f "/usr/lib/tbbversion_parser" ]; then
+      source "/usr/lib/tbbversion_parser"
    else
       if [ "$verbose" -ge "1" ]; then
          local MSG="<p>Tor Browser Update Check: tb-updater package is not installed, skipped.</p>"
