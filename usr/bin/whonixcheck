@@ -79,7 +79,7 @@ whonixcheck_main() {
 
    ## Conditionally only run the function name that was given by the --function
    ## command line parameter. Then exit.
-   whonixcheck_run_function function_manual_run ## check_lastrun
+   whonixcheck_run_function function_manual_run ## function_manual_run
 
    ## Does not use the network.
    whonixcheck_run_function check_whonixcheck_lastrun ## check_lastrun
