@@ -125,6 +125,18 @@ preparation() {
       ## || true to prevent a race condition with whonixcheckd's init script
       oldpid="$(cat "/var/run/whonixcheck/${IDENTIFIER}_pid")" || true
       if [ ! "$oldpid" = "" ]; then
+         if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
+            if kill -0 "$oldpid" >/dev/null 2>/dev/null ; then
+               echo "Already running." >&2
+               echo "AUTOSTARTED: $AUTOSTARTED" >&2
+               echo "DAEMON: $DAEMON" >&2
+               echo "oldpid: $oldpid" >&2
+               echo "Not killing existing one." >&2
+               echo "Exiting." >&2
+               EXIT_CODE="124"
+               cleanup
+            fi
+         fi
          ## $lastpid is used by by process_killer_helper.
          lastpid="$oldpid"
          process_killer_helper
