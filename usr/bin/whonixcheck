@@ -54,6 +54,14 @@ for i in /usr/lib/whonixcheck/*; do
    fi
 done
 
+whonixcheck_progress_main() {
+   if [ "$PROGRESS_MAIN" = "" ]; then
+      PROGRESS_MAIN="0"
+   fi
+   PROGRESS_MAIN="$(( $PROGRESS_MAIN + $1 ))"
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS_MAIN"
+}
+
 whonixcheck_main() {
    parse_cmd_options ${1+"$@"} ## parse_cmd
    preparation ## preparation
@@ -62,10 +70,29 @@ whonixcheck_main() {
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
    ## Does not use the network.
+   whonixcheck_run_function root_check ## root_check
+
+   ## Does not use the network.
+   whonixcheck_run_function check_whonixcheck_lastrun ## check_lastrun
+
+   ## Does not use the network.
+   whonixcheck_run_function check_autostart ## autostart
+
+   ## Does not use the network.
    whonixcheck_run_function uwt_tool ## help_uwt_tool
+
+   ## Only connects to Whonix-Gateway.
+   #whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
+
+   ## Only connects to Whonix-Gateway.
+   #whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
+
+   local MSG="$NOTIFY_MSG"
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
 
    ## Does not use the network.
    whonixcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
+   whonixcheck_progress_main "1"
 
    if [ "$FUNCTION" = "" ]; then
       true
@@ -76,76 +103,72 @@ whonixcheck_main() {
    fi
 
    ## Does not use the network.
-   whonixcheck_run_function root_check ## root_check
-
-   ## Does not use the network.
    whonixcheck_run_function check_packages ## check_packages
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_initializer ## check_initializer
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_virtualizer ## check_virtualizer
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_pvclock ## check_pvclock
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_timezone ## check_timezone
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_systemd_clock ## check_systemd_clock
+   whonixcheck_progress_main "1"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_whonixsetup_done ## check_whonixsetup_done
+   whonixcheck_progress_main "1"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_tor_enabled ## check_tor_enabled
+   whonixcheck_progress_main "1"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_tor_config ## check_tor_config
+   whonixcheck_progress_main "1"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_tor_pid ## check_tor_pid
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_package_manager_running ## check_package_manager_running
+   whonixcheck_progress_main "1"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_control_port_filter_running ## check_control_port_filter
-
-   ## Only connects to Whonix-Gateway.
-   whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
-
-   ## Only connects to Whonix-Gateway.
-   whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
-
-   ## Does not use the network.
-   whonixcheck_run_function check_whonixcheck_lastrun ## check_lastrun
-   ## Does not use the network.
-   whonixcheck_run_function check_autostart ## autostart
-
-   local MSG="$NOTIFY_MSG"
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
-   ## The 5% indicate, that the check has begun.
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "5"
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function disclaimer ## disclaimer
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_logs ## check_logs
-
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "10"
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_hostname ## check_hostname
+   whonixcheck_progress_main "1"
 
    ## Does not use the network.
    whonixcheck_run_function check_entropy ## check_entropy
+   whonixcheck_progress_main "1"
 
    if [ "$MINIMAL" = "1" ]; then
 
@@ -158,11 +181,11 @@ whonixcheck_main() {
 
       ## Uses the network. 1
       whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "15"
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "25"
 
       ## Uses the network. 2
       whonixcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "30"
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "35"
 
       ## Does not use the network.
       whonixcheck_run_function check_stream_isolation ## check_stream_isolation
