@@ -61,7 +61,7 @@ check_stream_isolation() {
       ## TODO: Stream Isolation should be tested on Whonix-Gateway using Tor's Control Port. - https://phabricator.whonix.org/T76
 
       ## Old, more confusing message:
-      ## TransPort and SocksPort have the same IP. This is sometimes normal."
+      ## TransPort and SocksPort have the same IP. This is sometimes normal.
 
       local MSG="<p>Stream Isolation Test Result: TransPort and SocksPort have the same IP. This is normal.</p>"
       if [ "$silent" -ge "2" ]; then
