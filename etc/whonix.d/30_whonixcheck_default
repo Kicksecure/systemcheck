@@ -67,8 +67,8 @@ WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION="0"
 #DEL_TMP="true"
 
 ## How long whonixcheck should wait at maximum until Tor bootstrap finished.
-## Defaults to: 90
-#whonixcheck_tor_bootstrap_wait_max="90"
+## Defaults to: 120
+#whonixcheck_tor_bootstrap_wait_max="120"
 
 ## Unwanted packages whonixcheck will warn against.
 whonixcheck_unwanted_package+=" popularity-contest " ## privacy issues

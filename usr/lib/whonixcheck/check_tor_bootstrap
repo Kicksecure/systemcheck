@@ -125,7 +125,7 @@ $multiple_whonix_ws_msg
       return 0
    fi
 
-   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="90"
+   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="120"
 
    if [ "$TOR_BOOTSTRAP_TIME_PASSED" -gt "1" ]; then
       if [ ! "$started_tor_bootstrap_progress_bar" = "1" ]; then
@@ -150,6 +150,9 @@ $multiple_whonix_ws_msg
             PROGRESS="5"
          fi
          PROGRESS="$(( $PROGRESS + 1 ))"
+         if [ "$PROGRESS" -ge "100" ]; then
+            PROGRESS="6"
+         fi
 
          if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "" ]; then
             TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
