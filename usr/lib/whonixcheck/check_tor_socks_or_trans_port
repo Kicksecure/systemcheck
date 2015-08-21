@@ -91,7 +91,7 @@ check_tor_socks_or_trans_port() {
       ## --function was perhaps used. Therefore perhaps $FUNCTION is set. Conditionally allow to explicit run only this function.
       if [ "$FUNCTION" = "" ]; then
          if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
-            local MSG="<p><b>TransPort Test: Not checking Tor's TransPort, because SocksPort test failed already. FUNCTION: $FUNCTION</b></p>"
+            local MSG="<p><b>TransPort Test: Not checking Tor's TransPort, because SocksPort test failed already.</b></p>"
             $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
             return 0
