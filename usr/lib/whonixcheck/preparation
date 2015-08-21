@@ -285,8 +285,9 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
       qubes_title_extra=""
       update_where="this machine"
-      [ -n "$silent" ] || silent="0"
    fi
+
+   [ -n "$silent" ] || silent="0"
 
    if [ "$whonixcheck_exit_immediate" = "true" ]; then
       echo "whonixcheck_exit_immediate is $whonixcheck_exit_immediate. Exiting." >&2
