@@ -5,6 +5,11 @@
 ## See the file COPYING for copying conditions.
 
 disclaimer() {
+   if [ "$silent" -ge "1" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
    ## Not adding disclaimer here, because the kdialog info message would contain it,
    ## which would be too much.
    if [ "$AUTOSTARTED" = "1" ]; then
