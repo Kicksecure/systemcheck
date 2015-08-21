@@ -277,9 +277,9 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
                fi
                whonixcheck_exit_immediate="true"
             fi
+            [ -n "$silent" ] || silent="3"
          fi
       fi
-      [ -n "$silent" ] || silent="3"
    else
       qubes_detected="false"
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
