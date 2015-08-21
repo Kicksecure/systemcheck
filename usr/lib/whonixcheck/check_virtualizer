@@ -5,10 +5,11 @@
 ## See the file COPYING for copying conditions.
 
 check_virtualizer() {
-   if command -v systemd-detect-virt >/dev/null 2>&1 ; then
-      result="$(systemd-detect-virt 2>&1)" || true
+   [ -n "$whonixcheck_virt_detection_tool" ] || whonixcheck_virt_detection_tool="systemd-detect-virt"
+   if command -v "$whonixcheck_virt_detection_tool" >/dev/null 2>&1 ; then
+      result="$("$whonixcheck_virt_detection_tool" 2>&1)" || true
    else
-      local MSG="<p>Check Virtualizer Result: systemd-detect-virt not available. Skipping test.</p>"
+      local MSG="<p>Check Virtualizer Result: $whonixcheck_virt_detection_tool not available. Skipping test.</p>"
       $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       return 0
@@ -32,7 +33,7 @@ check_virtualizer() {
 
    if [ "$result" = "oracle" ]; then
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>VirtualBox</u> detected, continuing.
-<br></br>systemd-detect-virt result: <code>$result</code></p>"
+<br></br>$whonixcheck_virt_detection_tool result: <code>$result</code></p>"
       if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -42,7 +43,7 @@ check_virtualizer() {
 
    if [ "$result" = "kvm" ]; then
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>KVM</u> detected, continuing.
-<br></br>systemd-detect-virt result: <code>$result</code></p>"
+<br></br>$whonixcheck_virt_detection_tool result: <code>$result</code></p>"
       if [ "$verbose" -ge "1" ]; then
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -53,7 +54,7 @@ check_virtualizer() {
    if [ "$result" = "xen" ]; then
       if [ "$qubes_detected" = "true" ]; then
          local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
-<br></br>systemd-detect-virt result: <code>$result</code></p>"
+<br></br>$whonixcheck_virt_detection_tool result: <code>$result</code></p>"
          if [ "$verbose" -ge "1" ]; then
             $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
