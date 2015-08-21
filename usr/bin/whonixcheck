@@ -77,13 +77,9 @@ whonixcheck_main() {
    local progressbaridx
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
-   if [ "$FUNCTION" = "" ]; then
-      true
-   else
-      $FUNCTION
-      cleanup
-      return 0
-   fi
+   ## Conditionally only run the function name that was given by the --function
+   ## command line parameter. Then exit.
+   whonixcheck_run_function function_manual_run ## check_lastrun
 
    ## Does not use the network.
    whonixcheck_run_function check_whonixcheck_lastrun ## check_lastrun
