@@ -5,6 +5,11 @@
 ## See the file COPYING for copying conditions.
 
 check_operating_system() {
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
    local update_documentation_link_x="<a href=https://www.whonix.org/wiki/Update>Debian Package Update</a>"
    local update_documentation_link_cli="( Documentation: https://www.whonix.org/wiki/Update )"
    ## Running apt-get update as user (non-root).
@@ -83,6 +88,10 @@ $qubes_update_help</p>"
 
    if [ "$number_upgraded" = "0" ]; then
       local MSG="<p>$update_documentation_link_x Check Result: No updates found via apt-get.</p>"
+      if [ "$silent" -ge "2" ]; then
+         true "silent is $silent. Skipping output."
+         return 0
+      fi
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0

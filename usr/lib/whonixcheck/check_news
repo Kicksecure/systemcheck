@@ -5,6 +5,11 @@
 ## See the file COPYING for copying conditions.
 
 download_whonix_news() {
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
    whonixcheck_run_function whonix_news_preparation
 
    whonixcheck_run_function download_now_whonix_news
@@ -435,6 +440,14 @@ check_whonix_show_news() {
 
    local MSG="<p>$whonix_news_hyperlink Result:<br></br>
 $whonix_news_result_output</p>"
+
+   if [ "$type" = "info" ]; then
+      if [ "$silent" -ge "2" ]; then
+         true "Message type is $type. silent is $silent. Skipping output."
+         return 0
+      fi
+   fi
+
    $output ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
    $output ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
 }

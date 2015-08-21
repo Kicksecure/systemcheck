@@ -5,8 +5,17 @@
 ## See the file COPYING for copying conditions.
 
 check_stream_isolation() {
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
    if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
       local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test is disabled.</b></p>"
+      if [ "$silent" -ge "2" ]; then
+         true "silent is $silent. Skipping output."
+         return 0
+      fi
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
@@ -14,6 +23,10 @@ check_stream_isolation() {
 
    if [ "$WHONIXCHECK_DISABLE_TRANS_PORT_TEST" = "1" ]; then
       local MSG="<p>Stream Isolation Test: <b>Skipped, because TransPort test is disabled.</b></p>"
+      if [ "$silent" -ge "2" ]; then
+         true "silent is $silent. Skipping output."
+         return 0
+      fi
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
@@ -22,6 +35,10 @@ check_stream_isolation() {
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
       local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test failed!</b> Can not test stream isolation.</p>"
+      if [ "$silent" -ge "2" ]; then
+         true "silent is $silent. Skipping output."
+         return 0
+      fi
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -30,6 +47,10 @@ check_stream_isolation() {
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_TRANS_PORT" = "0" ]; then
       local MSG="<p>Stream Isolation Test: <b>Skipped, because TransPort test failed!</b> Can not test stream isolation.</p>"
+      if [ "$silent" -ge "2" ]; then
+         true "silent is $silent. Skipping output."
+         return 0
+      fi
       $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -43,6 +64,10 @@ check_stream_isolation() {
       ## TransPort and SocksPort have the same IP. This is sometimes normal."
 
       local MSG="<p>Stream Isolation Test Result: TransPort and SocksPort have the same IP. This is normal.</p>"
+      if [ "$silent" -ge "2" ]; then
+         true "silent is $silent. Skipping output."
+         return 0
+      fi
       $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
@@ -53,6 +78,10 @@ check_stream_isolation() {
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       else
          local MSG="<p>Stream Isolation Test Result: Functional.</p>"
+         if [ "$silent" -ge "2" ]; then
+            true "silent is $silent. Skipping output."
+            return 0
+         fi
          $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

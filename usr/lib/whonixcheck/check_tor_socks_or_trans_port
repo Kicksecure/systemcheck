@@ -9,13 +9,20 @@ check_tor_socks_or_trans_port() {
    #CURL=echo
    #TEMP_DIR=/home/user
 
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping FUNCNAME $1."
+      return 0
+   fi
+
    local LINK="https://check.torproject.org"
 
    if [ "$1" = "SocksPort" ]; then
       if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
          local MSG="<p>SocksPort Test: Not testing Tor's SocksPort, because you set <code>WHONIXCHECK_DISABLE_SOCKS_PORT_TEST=\"1\"</code> to deactivate this.</p>"
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         if [ "$verbose" -ge "1" ]; then
+            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
          return 0
       fi
 
@@ -55,8 +62,7 @@ check_tor_socks_or_trans_port() {
 <br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.<p>"
 
          elif [ "$VM" = "Whonix-Workstation" ]; then
-            local curl_status_message
-            curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TOR_RESULT_SOCKS_PORT")"
+
             local MSG="\
 <p>SocksPort Test Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable. (curl exit code: $curl_status_message)
 <br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.</p>"
@@ -75,8 +81,10 @@ check_tor_socks_or_trans_port() {
    elif [ "$1" = "TransPort" ]; then
       if [ "$WHONIXCHECK_DISABLE_TRANS_PORT_TEST" = "1" ]; then
          local MSG="<p>TransPort Test: <b>Not testing Tor's TransPort, because you set <code>WHONIXCHECK_DISABLE_TRANS_PORT_TEST=\"1\"</code> to deactivate this.</b></p>"
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         if [ "$verbose" -ge "1" ]; then
+            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
          return 0
       fi
 
@@ -224,8 +232,10 @@ check_tor_socks_or_trans_port() {
       elif [ "$1" = "SocksPort" ]; then
          local MSG="<p>SocksPort Test Result: Connected to Tor. IP: $ip</p>"
       fi
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      if [ "$silent" -le "0" ]; then
+         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
       return 0
    else
       ## Tor not detected.

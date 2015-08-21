@@ -5,6 +5,11 @@
 ## See the file COPYING for copying conditions.
 
 check_whonix_apt_repository() {
+   if [ "$silent" -ge "4" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
    local temp_x_tool="<blockquote>$start_menu_instructions_system_first_part Whonix Repository</blockquote>"
    local temp_cli_tool="<code><blockquote>sudo whonix_repository</blockquote></code>"
 
@@ -25,6 +30,10 @@ If you want to change this, use:</p>"
    if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then
       local MSG="$temp_base_msg_enabled
     $temp_x_tool"
+      if [ "$silent" -ge "3" ]; then
+         true "silent is $silent. Not reporting that repository is enabled."
+         return 0
+      fi
    else
       local MSG="$temp_base_msg_disabled
     $temp_x_tool"

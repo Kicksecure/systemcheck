@@ -10,96 +10,12 @@ check_autostart() {
       return 0
    fi
 
-   ## Random delay, unless started with --sleepseconds, which is the default.
-   ## --sleepseconds is only a debugging option.
-   if [ "$SLEEP_SECONDS" = "" ]; then
-      ## To prevent issuing leaving a clear network fingerprint,
-      ## we add a random delay.
-
-      ## Random delay between 0 and 500 seconds.
-      local DELAY
-      DELAY="$(( 100+($(od -An -N2 -i /dev/random) )%(300-0+1) ))"
-
-      ## 60 seconds minimum delay.
-      DELAY="$(( $DELAY + 60 ))"
-
-      ## For debugging.
-      #DELAY="10"
-   else
-      DELAY="$SLEEP_SECONDS"
-   fi
-
    if [ "$NOCHECKLASTRUN" = "1" ]; then
       RECENTLY_RUN="0"
    fi
 
    if [ "$RECENTLY_RUN" = "0" ]; then
-      if [ "$NOSLEEP" = "1" ]; then
-         return 0
-      else
-         if [ "$NEVER_RUN" = "1" ]; then
-            local temp="First run of $SCRIPTNAME. Running $SCRIPTNAME in $DELAY seconds (randomly chosen)..."
-         else
-            local temp="$SCRIPTNAME has not been completed for more than one day. Running $SCRIPTNAME again in $DELAY seconds (randomly chosen)..."
-         fi
-
-         local MSG="\
-$temp
-
-The delay is a security feature, which is documented here:
-https://www.whonix.org/wiki/whonixcheck
-
-You can also cancel waiting and manually start $SCRIPTNAME right away."
-
-         $output ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
-
-         local MSG="\
-$temp
-
-The delay is a security feature, which is documented here:
-https://www.whonix.org/wiki/whonixcheck
-
-You can also cancel waiting and start whonixcheck right away by double clicking on the whonixcheck icon or
-entering \"whonixcheck\" in a terminal emulator (such as Konsole).
-
-$NOTIFY_MSG"
-
-         local progressbaridx
-         progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
-
-         local wait
-         wait="0"
-
-         ## Debugging.
-         #DELAY=30
-
-         while true; do
-            if [ "$wait" -ge "$DELAY" ]; then
-               break
-            fi
-            wait="$(( $wait + 1))"
-
-            if [ "$waitprogress" = "" ]; then
-               waitprogress="0"
-            fi
-            waitprogress="$(( $waitprogress + 1 ))"
-            if [ "$waitprogress" -ge "100" ]; then
-               waitprogress="0"
-            fi
-
-            $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$waitprogress"
-
-            sleep ".500" &
-            lastpid="$!"
-            wait "$lastpid" || true
-         done
-
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-
-         return 0
-      fi
+      return 0
    else
       ## The check_whonixcheck_lastrun function told us, that whonixcheck has
       ## recently completed (using the
@@ -124,11 +40,13 @@ $NOTIFY_MSG"
          ## Autostarted...
          ## (Not manualrun, we checked that at the top already.)
 
-         local MSG="No need to run $SCRIPTNAME, was run less than one day ago. You could still start $SCRIPTNAME manually."
-         $output ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE" --typex "info" --message "$MSG" --done
+         if [ ! "$silent" -ge "1" ]; then
+            local MSG="No need to run $SCRIPTNAME, was run less than one day ago. You could still start $SCRIPTNAME manually."
+            $output ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE" --typex "info" --message "$MSG" --done
 
-         ## --done not necessary, the cleanup function will do that.
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            ## --done not necessary, the cleanup function will do that.
+            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
 
          EXIT_CODE="0"
          cleanup "1"

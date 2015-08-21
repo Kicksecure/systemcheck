@@ -54,12 +54,20 @@ for i in /usr/lib/whonixcheck/*; do
    fi
 done
 
+whonixcheck_move_progress_bar_to_percent() {
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping $FUNCNAME $1."
+      return 0
+   fi
+   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$1"
+}
+
 whonixcheck_progress_main() {
    if [ "$PROGRESS_MAIN" = "" ]; then
       PROGRESS_MAIN="0"
    fi
    PROGRESS_MAIN="$(( $PROGRESS_MAIN + $1 ))"
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS_MAIN"
+   whonixcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
 }
 
 whonixcheck_main() {
@@ -82,13 +90,18 @@ whonixcheck_main() {
    whonixcheck_run_function uwt_tool ## help_uwt_tool
 
    ## Only connects to Whonix-Gateway.
-   #whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
+   whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
 
    ## Only connects to Whonix-Gateway.
-   #whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
+   whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
    local MSG="$NOTIFY_MSG"
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping progress bar."
+   else
+      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+   fi
 
    ## Does not use the network.
    whonixcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
@@ -181,11 +194,11 @@ whonixcheck_main() {
 
       ## Uses the network. 1
       whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "25"
+      whonixcheck_move_progress_bar_to_percent "25"
 
       ## Uses the network. 2
       whonixcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "35"
+      whonixcheck_move_progress_bar_to_percent "35"
 
       ## Does not use the network.
       whonixcheck_run_function check_stream_isolation ## check_stream_isolation
@@ -194,40 +207,40 @@ whonixcheck_main() {
       ## after checking IPs
       ## early in list, because less likely to break
       whonixcheck_run_function download_whonix_news ## check_news
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "45"
+      whonixcheck_move_progress_bar_to_percent "45"
 
       ## Uses the network. 4
       whonixcheck_run_function check_operating_system ## check_operating_system
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "60"
+      whonixcheck_move_progress_bar_to_percent "60"
 
       ## Does not use the network.
       whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "61"
+      whonixcheck_move_progress_bar_to_percent "61"
 
       ## Uses the network. 4
       whonixcheck_run_function check_torbrowser ## check_torbrowser
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "95"
+      whonixcheck_move_progress_bar_to_percent "95"
 
    else
       ## for Whonix-Gateway
 
       ## Uses the network. 1
       whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "33"
+      whonixcheck_move_progress_bar_to_percent "33"
 
       ## Uses the network. 2
       ## after checking IP
       ## early in list, because less likely to break
       whonixcheck_run_function download_whonix_news ## check_news
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "66"
+      whonixcheck_move_progress_bar_to_percent "66"
 
       ## Uses the network. 3
       whonixcheck_run_function check_operating_system ## check_operating_system
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "95"
+      whonixcheck_move_progress_bar_to_percent "95"
 
       ## Does not use the network.
       whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "97"
+      whonixcheck_move_progress_bar_to_percent "97"
    fi
 
    ## Does not use the network.

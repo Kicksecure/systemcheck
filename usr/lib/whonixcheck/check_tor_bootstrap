@@ -118,6 +118,13 @@ $multiple_whonix_ws_msg
          ## successfully finished the Tor bootstrap test.
          return 0
       fi
+      if [ "$silent" -ge "2" ]; then
+         if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+            true "We did not open a progress bar and silent is $silent. Therefore not showing the the passive message."
+            return 0
+         fi
+      fi
+
       $output ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE" --typex "info" --message "$MSG" --done
       ## Only attempt to close the progress bar if one was started.
       ## Otherwise this might conflict with the progress bar in 25_autostart.
