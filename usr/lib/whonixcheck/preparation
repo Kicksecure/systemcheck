@@ -342,4 +342,8 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
    done
 
    TIME_START="$(date +%s)"
+
+   whonixcheck_run_function root_check ## root_check
+   whonixcheck_run_function uwt_tool ## help_uwt_tool
+   whonixcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
 }

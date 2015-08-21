@@ -77,15 +77,6 @@ whonixcheck_main() {
    local progressbaridx
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
-   ## Does not use the network.
-   whonixcheck_run_function root_check ## root_check
-
-   ## Does not use the network.
-   whonixcheck_run_function uwt_tool ## help_uwt_tool
-
-   ## Does not use the network.
-   whonixcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
-
    if [ "$FUNCTION" = "" ]; then
       true
    else
