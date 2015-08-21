@@ -5,6 +5,12 @@
 ## See the file COPYING for copying conditions.
 
 check_torbrowser() {
+   true "$FUNCNAME has been deprecated, because local version detection code \
+was broken since Tor Browser got its own internal updater. Also since Tor
+Browser now automatically updates itself without asking, there is less need for
+this test."
+   return 0
+
    if [ -f "/usr/lib/tbbversion_parser" ]; then
       source "/usr/lib/tbbversion_parser"
    else
