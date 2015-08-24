@@ -1,3 +1,439 @@
+commit 34ac6001d1377ebad7ed44cb5800855685d5f815
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 16:27:57 2015 +0000
+
+    comment
+
+commit 866e7216d1777594e0e1a7c92a1211a257157d99
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 16:26:27 2015 +0000
+
+    refactoring
+
+commit 831cdb5b699a884e506f89ca61c8eb1ae53fcb58
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 16:22:40 2015 +0000
+
+    refactoring
+
+commit d34425d1fea09f9298ca05f7fc54583b0acb75fb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 16:17:52 2015 +0000
+
+    fix
+
+commit 0f1516284b9637ebf5dae9e2409a784846ab5d12
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 16:06:39 2015 +0000
+
+    refactoring
+
+commit bba948ff4f5b1be5dcac4428a85b21fe97190214
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 16:03:49 2015 +0000
+
+    minor output
+
+commit e50d8a1b46805662f055a48ba014811e9d13aa21
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 15:54:52 2015 +0000
+
+    fix
+
+commit 75d411b4adaaf866e9b50d87fd1b4f519a535ddd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 15:26:26 2015 +0000
+
+    Tor Browser update check has been deprecated, because local version detection code was broken since Tor Browser got its own internal updater. Also since Tor Browser now automatically updates itself without asking, there is less need for this test.
+
+commit 76bfba2dd93c693e6f1616676f0732389a45e0d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 15:04:01 2015 +0000
+
+    1) silent -ge 1: do not show disclaimer.
+    2) no "please donate" message if no other output available
+
+commit 50f3775f5c5ecbe423cbdd901cf6ee8325c4cf93
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 14:51:11 2015 +0000
+
+    fix
+
+commit ae3fdccb377d4fa708f4e1ec1c0b16195361a2d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 14:24:04 2015 +0000
+
+    minor
+
+commit b6e4754cdf60f0f1aca5172f40ab6824a886ecc0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 14:05:44 2015 +0000
+
+    comment
+
+commit e651a7a807bcba284f1ce7513255b850d562cfdd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 14:03:19 2015 +0000
+
+    made whonixcheck more silent, suitable for Qubes AppVM design
+    
+    1) If running in Qubes, when autostarted (after boot) -> silent=3
+    2) If running in Qubes Qubes, when daemon (planed iteration during run) -> silent=3
+    3) If running in Qubes-Whonix-Workstation -> Exit immediately. Otherwise, 5 started AppVMs and the same error everywhere (not bootstrapped, needs upgrade etc.) would result in 5 popups.
+    4) Silent only applies to autostart and daemon mode. When manually run, show all messages. Same as Whonix 11.
+    5) overview of various silent levels
+    
+    silent -le 0: show SocksPort and TransPort "Test Result: Connected to Tor. IP" messages
+    
+    silent -ge 1: no "whonixcheck was recently run, no need to run it again, you could still manually start it" message.
+    
+    silent -ge 2: no "Tor Bootstrap Result: Connected to Tor." message unless bootstrapping took a while and a progress bar was shown
+    silent -le 2: do test SocksPort and TransPort but only report errors (no connectivity, Tor not detected and false positives)
+    silent -ge 2: do test stream isolation, but only report errors
+    silent -ge 2: no Whonix News result if there are no news and debian and build version up to date
+    silent -ge 2: no "No updates found via apt-get" message
+    
+    silent -ge 3: no Tor SocksPort / TransPort test at all
+    silent -ge 3: no stream isolation test at all
+    silent -ge 3: no Whonix News check at all
+    silent -ge 3: no apt-get update check at all
+    silent -ge 3: skip to inform if Whonix repository is enabled
+    silent -ge 3: no progress bar for the usual tests. Except a progress bar if Tor is not bootstrapped yet.
+    
+    silent -ge 4: skip test whether Whonix repository enabled/disabled test at all. In other words, do not report disabled Whonix repository.
+    
+    6) cleanup, deprecated random wait code
+
+commit c827be1b7a7ecc47ee1b917280cf4a027336194b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 02:27:03 2015 +0000
+
+    minor
+
+commit f72c36366662caa01c633d1551a7c6c8b294d5be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 02:26:26 2015 +0000
+
+    minor
+
+commit 7a0fea9188b028f1c6e11e546a6432ed759675af
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 02:25:29 2015 +0000
+
+    more responsive progress bar adjusted to the new tests
+
+commit fcdaa293a314b4a54a4bb5b94fca9ba722278a42
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 00:49:17 2015 +0000
+
+    don't let autorun / daemon kill existing one, exit in these cases
+
+commit 28e5efc3476d0a011cce959c5dcbf7bc82733825
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 21 00:36:47 2015 +0000
+
+    increased whonixcheck_tor_bootstrap_wait_max from 90 to 120
+
+commit dd9e65115c106db653593b7efe104d9d2732191c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 20 23:32:00 2015 +0000
+
+    cleanup
+
+commit 7f7505820e102d84661567e111230869cfdd6a5e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 20 23:24:07 2015 +0000
+
+    cleanup
+
+commit 1b35f4bcf9b8137cacf01347f309334866a565a5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 20 23:22:08 2015 +0000
+
+    allow running standalone 'whonixcheck --function check_tor_trans_port'
+
+commit 558a974901fe80fd8e3d547367940b4be757ccb4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 20 23:06:08 2015 +0000
+
+    fix
+
+commit 3cbca4a4a550d4c995f2a572d0ce7bc102b5930f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 20 22:39:37 2015 +0000
+
+    quotes
+
+commit d067473a21e160061df9458773b9a755eba12836
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 20 22:38:59 2015 +0000
+
+    minor
+
+commit 2db4a35d6c06ce7237b9a46864f98eec31cccf8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 20 22:37:11 2015 +0000
+
+    minor
+
+commit cf7041ee9c70f1568aa12bb8ab99869b1e9bd4ab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 19 23:39:55 2015 +0000
+
+    workaround for 'dh_installinit should run systemd-tmpfiles if a /usr/lib/tmpfiles.d/ snippet gets shipped for systemd-only packages also' - http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=795519
+
+commit 851fcd58a2aed08bce881c8d9aa61d7a58317b0c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 18 13:36:57 2015 +0000
+
+    quotes
+
+commit 0019e00e28ef85cdd95937d4d1e134335a03af18
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 18 01:55:48 2015 +0000
+
+    Added an info level message when running with --verbose if dom0 is telling us the time. As long as https://phabricator.whonix.org/T397 is unsolved. - https://phabricator.whonix.org/T398
+
+commit a9727dd5b276e48dec04531b3a055ca008ef34aa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 18 01:24:15 2015 +0000
+
+    minor output
+
+commit ba32ca9d2105c902650d468e8afbc05e5d7a8c12
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 18 01:22:34 2015 +0000
+
+    minor output
+
+commit 832873d20ab41e2af84d2c45494a420f4191eafe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 18 01:21:48 2015 +0000
+
+    verbosity
+
+commit 4ed01f83d90c3d4594b626cbbef0c06e92bb920a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 18 00:18:12 2015 +0000
+
+    refactoring
+
+commit b6b2a6553c18f30acb9c64079869038af976c71b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 18:15:12 2015 +0000
+
+    minor
+
+commit 2904e991670db8f9f0291645f95af1d8052a3206
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 18:11:32 2015 +0000
+
+    refactoring
+
+commit aca3db87b1b4fec5849121abb64123bc9cb2299d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 17:50:16 2015 +0000
+
+    refactoring
+
+commit 0113ef90fe943f5afe145948acd3c0f66dd2fc5b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 17:35:01 2015 +0000
+
+    whonixcheck test for unwanted packages such as chrony, ntp, ntpdate and other anon-banned-packages - https://phabricator.whonix.org/T390
+
+commit 04667af601ab01dc532a511022508d7234b966f2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 15:57:01 2015 +0000
+
+    improved Qubes check Tor bootstrap output on the workstation
+
+commit f09f04e6b3cfe3fea05513a24b47053db1606611
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 13:59:33 2015 +0000
+
+    fix
+
+commit abe04419899556e60a6cccffca4f3dead23f21d4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 02:54:25 2015 +0000
+
+    run Whonix Meta Packages Test earlier
+
+commit 6402f9bb0a3a297d084ba4681dda98ca7af956c8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 02:50:31 2015 +0000
+
+    Prevent multiple whonixcheck windows. When whonixcheck is automatically started, exit if there is a still existing result window.
+
+commit db2885100c414583732f555d78647efbd7d349e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 01:51:05 2015 +0200
+
+    output
+
+commit 9f8c44c054b96c4463c30eddf6f0f88203bd4d1e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 01:41:25 2015 +0200
+
+    fix
+
+commit 551f2f413045cb2a0616be00110652edb6cb5410
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 01:14:55 2015 +0200
+
+    added title to cli output when running verbosely or in Qubes
+
+commit 624627e0b12ec5b80e68f63b492a8a379948c26e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 01:07:23 2015 +0200
+
+    output
+
+commit 1bacfe1aeeab82343f07755dbba0adadc32e1a91
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 01:01:55 2015 +0200
+
+    minor output
+
+commit 8b8ec996adfa3ea0a0adae80a4e7968d9834cb39
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 01:01:06 2015 +0200
+
+    improved window title in Qubes, added VM type such as 'StandaloneVM AppVM', 'Template-Based ProxyVM' or 'TemplateVM'
+
+commit cb48556dcd15b9dfb83667d9a535dd505b7e9947
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 00:37:27 2015 +0200
+
+    also check for pvclock xen in verbose mode until we fixed https://phabricator.whonix.org/T389
+
+commit 1f263a9a521bd98cb6f1055f2603c61e94bc79e9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 15 00:33:54 2015 +0200
+
+    fix
+
+commit fdd14dacd1c54c12f6443781dd1c0b7f5a3d0101
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 14 22:11:54 2015 +0000
+
+    output
+
+commit 4412b476fd7b5a01b0fb1ceb223bf22848815500
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 14 22:09:15 2015 +0000
+
+    reworked check_virtualizer test to use systemd-virt-detect which provides simpler, fewer, better one single output per virtualizer which is easier to parse
+
+commit f9ec0e3196570b52d1fa02655489e9fe560bc20a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 14 21:40:31 2015 +0000
+
+    Do not insist on finishing whonixsetup for Qubes-Whonix.
+
+commit c5d05d17a20e199cd7f476e683a111dee9524236
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 14 21:36:21 2015 +0000
+
+    check_systemd_clock: Not checking for 'Time zone: Etc/UTC (UTC, +0000)'. This is left to check_timezone.
+
+commit 947f64f8dca43102ea164ab3a3e96cfcda26daa7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 14 21:28:48 2015 +0000
+
+    check_timezone before check_systemd_clock so timezone mismatch is detected by the former test so this is more unlikely to be falsely blamed on systemd_clock
+
+commit 79efd44aebafbafc2a2c3f67ac3a1a6434705fcf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 14 22:59:23 2015 +0200
+
+    added missing dependency anon-shared-helper-scripts
+
+commit dd6ecb59dc8d645ae0cb9d6b221e2953953d423e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 14 22:21:44 2015 +0200
+
+    refactoring, kvmclock -> pvclock; WHONIXCHECK_NO_EXIT_ON_KVMCLOCK_DETECTION -> WHONIXCHECK_NO_EXIT_ON_PVCLOCK_DETECTION
+
+commit 8f327525eeae73d379d4255cd28292b7b9dcea1e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 19:15:58 2015 +0200
+
+    updated path to tb cache dir
+
+commit efb3f399548d20d739bf7a8a10aa1ff562c53e42
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 27 20:30:21 2015 +0200
+
+    improved whonixcheck update notification output in Qubes
+
+commit bf4b8bec7797d573498fbd0967ac876321dd6e8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 10 16:56:05 2015 +0000
+
+    formatting
+
+commit 07f5922b48447a0a9828c708bde1c18a12c20ca5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 10 16:54:19 2015 +0000
+
+    parse output of timedatectl as sanity check in whonixcheck to make sure systemd NTP is disabled as well as timezone is set to UTC - https://phabricator.whonix.org/T332
+
+commit 07406526e8bade4c7546a2db03bd11f204141f17
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 10 13:43:14 2015 +0000
+
+    check if /etc/timezone and /etc/localtime are configured for UTC - https://phabricator.whonix.org/T368
+
+commit dc89041aef00b64e65af59182efcc971cb42d472
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 3 23:15:05 2015 +0000
+
+    output
+
+commit cfe54277078a619762c92b7a9ea8ba4430e74faa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 3 23:12:54 2015 +0000
+
+    added update documentation link to whonixcheck's operating system updates check
+
+commit 5108b32e377d34872a3260780d310b55d5cf5459
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 30 13:43:11 2015 +0000
+
+    added to 'whonixcheck --verbose' output of Qubes has been detected
+
+commit 697e077f8ecde2f60199c29fa52d15eb961bbf26
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 30 13:33:30 2015 +0000
+
+    switch to use variable start_menu_instructions_system_first_part - https://phabricator.whonix.org/T366
+
+commit 42f3fc0e565f2130086e1a1866a3a31a2ffc826d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 30 13:29:28 2015 +0000
+
+    made start menu instructions variable - https://phabricator.whonix.org/T366
+
+commit fc98254759793f3d29cb73443fcc0991fa7a10d2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 30 13:17:02 2015 +0000
+
+    output
+
+commit 8d5bbe9a7ea8bf5bfa9abbe3eabf82e9dfdd124b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 27 00:05:00 2015 +0000
+
+    improved output in case Tor is not enabled yet (in case 'DisableNetwork 0' is not set in '/etc/tor/torrc')
+
+commit 86b5f79d7a1ea30160f6882068fad0bc19ca9ce8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 10 03:07:16 2015 +0000
+
+    bumped changelog version
+
 commit bf55af20a5856d8a024a7eb821f5d54692dc5b15
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Jun 9 22:00:52 2015 +0000
