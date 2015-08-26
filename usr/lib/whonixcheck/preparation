@@ -261,6 +261,7 @@ preparation() {
          fi
       fi
       if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
+         [ -n "$silent" ] || silent="3"
          if [ "$vm_lower_case_short" = "workstation" ]; then
             local MSG="\
 Qubes detected. Workstation detected.
@@ -277,7 +278,6 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
                fi
                whonixcheck_exit_immediate="true"
             fi
-            [ -n "$silent" ] || silent="3"
          fi
       fi
    else
