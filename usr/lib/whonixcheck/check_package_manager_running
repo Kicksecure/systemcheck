@@ -5,6 +5,11 @@
 ## See the file COPYING for copying conditions.
 
 check_package_manager_running() {
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
    check_package_manager_running_helper
 
    if [ "$check_apt_get_exit_code" = "0" ]; then
