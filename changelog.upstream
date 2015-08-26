@@ -1,3 +1,27 @@
+commit 5e34abf703016092b6db73d1940b2e896a8b71c9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 02:45:14 2015 +0000
+
+    use --debug instead of bash -x
+
+commit 4e720ee3ff7b8d53f0c80a0cb4be7756288ddcc6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 02:34:28 2015 +0000
+
+    silent -ge 3: skip test if a package manager is already running.
+
+commit 539e8451909013243c13183b0e1402f75e0aad82
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 02:28:34 2015 +0000
+
+    fix
+
+commit 80da8b3144043b70863bb21ef2c8068c8ab5d1a6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 25 14:08:30 2015 +0000
+
+    bumped changelog version
+
 commit aeaf8b1fb81e9e36ceabffa641eae7fec1090a53
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Aug 24 17:47:27 2015 +0000
