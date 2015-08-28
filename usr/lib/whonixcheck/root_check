@@ -9,13 +9,13 @@ root_check() {
       if [ "$(id -u)" != "0" ]; then
          local MSG="<p>Root Check Result: Ok, not running as root.</p>"
          if [ "$verbose" -ge "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       else
          local MSG="<p>Please do not run whonixcheck as root.</p>"
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          return 0

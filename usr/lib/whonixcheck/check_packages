@@ -26,8 +26,8 @@ check_meta_packages() {
    if [ "$package_not_installed" = "none" ]; then
       local MSG="<p>Whonix Meta Packages Test Result: $package_not_installed missing. (See also: $see_also_link)</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    elif [ "$package_not_installed" = "unknown" ]; then
@@ -42,8 +42,8 @@ Did you accidentally uninstall it?
 <br />$if_you_know_what_you_are_doing_msg</p>"
    fi
 
-   $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }
 
 check_unwanted_packages() {
@@ -60,8 +60,8 @@ check_unwanted_packages() {
    if [ "$unwanted_packages_counter" = "0" ]; then
       local MSG="<p>Whonix Unwanted Packages Test Result: None found.</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -88,8 +88,8 @@ It is recommended that you remove them from $update_where.
 $qubes_update_help
 <br />See also: $see_also_link
 <br />$if_you_know_what_you_are_doing_msg</p>"
-   $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }
 
 check_packages() {

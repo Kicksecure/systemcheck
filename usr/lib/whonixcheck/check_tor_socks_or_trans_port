@@ -20,14 +20,14 @@ check_tor_socks_or_trans_port() {
       if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
          local MSG="<p>SocksPort Test: Not testing Tor's SocksPort, because you set <code>WHONIXCHECK_DISABLE_SOCKS_PORT_TEST=\"1\"</code> to deactivate this.</p>"
          if [ "$verbose" -ge "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
          return 0
       fi
 
       local MSG="SocksPort Test: Testing Tor's SocksPort..."
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
       local SOCKS_PORT_WHONIXCHECK="9110"
 
@@ -73,8 +73,8 @@ check_tor_socks_or_trans_port() {
 
          fi
 
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
 
          return 0
       fi
@@ -82,8 +82,8 @@ check_tor_socks_or_trans_port() {
       if [ "$WHONIXCHECK_DISABLE_TRANS_PORT_TEST" = "1" ]; then
          local MSG="<p>TransPort Test: <b>Not testing Tor's TransPort, because you set <code>WHONIXCHECK_DISABLE_TRANS_PORT_TEST=\"1\"</code> to deactivate this.</b></p>"
          if [ "$verbose" -ge "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
          return 0
       fi
@@ -92,7 +92,7 @@ check_tor_socks_or_trans_port() {
       ## This variable may be set to 1, during the first run of this function.
       if [ "$NOT_USING_TOR" = "1" ]; then
          local MSG="<p><b>TransPort Test: Not testing Tor's TransPort, because Tor could not be detected on Tor's SocksPort.</b></p>"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          return 0
       fi
 
@@ -100,14 +100,14 @@ check_tor_socks_or_trans_port() {
       if [ "$FUNCTION" = "" ]; then
          if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
             local MSG="<p><b>TransPort Test: Not checking Tor's TransPort, because SocksPort test failed already.</b></p>"
-            $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
             return 0
          fi
       fi
 
       local MSG="TransPort Test: Testing Tor's TransPort..."
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
       CHECK_TOR_RESULT_TRANS_PORT="0"
 
@@ -132,14 +132,14 @@ check_tor_socks_or_trans_port() {
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TOR_RESULT_TRANS_PORT")"
          local MSG="<p>TransPort Test Result: <b>Tor's TransPort was not reachable. (curl exit code:</b> $curl_status_message)
 <br></br>(If you disabled Tor's TransPort, please disable this check, see whonixcheck /etc/whonix.d/30_whonixcheck_default configuration file.)</p>"
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          return 0
       fi
    else
       local MSG="<p>Trans/Socks-Port Test Error: <b>\$1 is neither TransPort nor SocksPort.</b> Please report this Whonix BUG!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -161,8 +161,8 @@ check_tor_socks_or_trans_port() {
    if [ "$tor_detected" -gt "1" ] || [ "$tor_detected" -lt "0" ]; then
       ## an error occurred
       local MSG="<p><b>tor_detected is $tor_detected</b>. Please report this Whonix BUG!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -178,8 +178,8 @@ check_tor_socks_or_trans_port() {
    if [ "$grep_ip_exit_code" -gt "1" ] || [ "$grep_ip_exit_code" -lt "0" ]; then
       ## an error occurred
       local MSG="<p><b>grep_ip_exit_code: $grep_ip_exit_code.</b> Please report this Whonix BUG!</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -210,8 +210,8 @@ check_tor_socks_or_trans_port() {
 
          local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> ($actual_string_length characters).
          Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this to Whonix developers!</p>"
-         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
          return 0
       fi
 
@@ -233,8 +233,8 @@ check_tor_socks_or_trans_port() {
          local MSG="<p>SocksPort Test Result: Connected to Tor. IP: $ip</p>"
       fi
       if [ "$silent" -le "0" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    else
@@ -244,8 +244,8 @@ check_tor_socks_or_trans_port() {
       if [ "$1" = "TransPort" ]; then
          if [ "$WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE" = "1" ]; then
             local MSG="<p>TransPort Test Result: Tor not detected, but you set <code>WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE=\"1\"</code> to ignore this. IP: $ip</p>"
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             return 0
          else
             local MSG="\
@@ -269,8 +269,8 @@ check_tor_socks_or_trans_port() {
 <p>You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
 <br></br><a href=https://metrics.torproject.org/exonerator.html>https://metrics.torproject.org/exonerator.html</a></p>"
 
-            $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
             EXIT_CODE="1"
             cleanup "1"
             return 0
@@ -289,8 +289,8 @@ check_tor_socks_or_trans_port() {
 
 <p>You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
 <br></br><a href=https://metrics.torproject.org/exonerator.html>https://metrics.torproject.org/exonerator.html</a></p>"
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          return 0

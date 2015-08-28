@@ -16,7 +16,7 @@ check_operating_system() {
    ## Depends on exception set in /etc/sudoers.d/.
    ## Minimal custom script.
    local MSG="Debian Package Update Check: Checking for software updates via apt-get... $update_documentation_link_cli"
-   $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    local apt_get_exit_code
    apt_get_exit_code="0"
    sudo "/usr/lib/apt-get-update" >/dev/null &
@@ -48,8 +48,8 @@ $qubes_update_help</p>"
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
       fi
-      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       return 0
    fi
 
@@ -92,8 +92,8 @@ $qubes_update_help</p>"
          true "silent is $silent. Skipping output."
          return 0
       fi
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
@@ -108,6 +108,6 @@ $qubes_update_help</p>"
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
    fi
 
-   $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }

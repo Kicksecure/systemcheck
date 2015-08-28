@@ -77,10 +77,10 @@ $multiple_whonix_ws_msg
          local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
       fi
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0
@@ -94,10 +94,10 @@ $multiple_whonix_ws_msg
 <br></br>(Tor Circuit: $tor_circuit_established_word)
 <br></br>Please report this Whonix bug!</p>"
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0
@@ -111,7 +111,7 @@ $multiple_whonix_ws_msg
    if [ "$tor_bootstrap_percent" = "100" ] && [ "$tor_circuit_established" = "1" ]; then
       local MSG="<p>Tor Bootstrap Result: Connected to Tor.</p>"
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
       if [ "$DAEMON" = "1" ]; then
          ## Let's not show a success message every time whonixcheck
@@ -125,10 +125,10 @@ $multiple_whonix_ws_msg
          fi
       fi
 
-      $output ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE" --typex "info" --message "$MSG" --done
+      $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE" --typex "info" --message "$MSG" --done
       ## Only attempt to close the progress bar if one was started.
       ## Otherwise this might conflict with the progress bar in 25_autostart.
-      $output ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
+      $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
       return 0
    fi
 
@@ -146,7 +146,7 @@ $multiple_whonix_ws_msg
             local progressbaridx
             progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
             local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
-            $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
          fi
       fi
    fi
@@ -177,11 +177,11 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
 
          TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
 
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
          ## Only attempt to close the progress bar if one was started.
          ## Otherwise this might conflict with the progress bar in 25_autostart.
          if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-            $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
+            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
          fi
 
          sleep "2" &
@@ -247,10 +247,10 @@ or in Terminal: <code>arm</code></p>"
       fi
 
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0

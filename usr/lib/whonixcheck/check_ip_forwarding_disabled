@@ -8,8 +8,8 @@ check_ip_forwarding_disabled() {
    if [ ! -f "/usr/share/anon-gw-base-files/gateway" ]; then
       local MSG="<p>IP Forwarding Result: not running on Whonix-Gatway, skipping, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -38,8 +38,8 @@ check_ip_forwarding_disabled() {
          if [ "$ip_forwarding" = "0" ]; then
             local MSG="<p>IP Forwarding Result: $file_name is 0, ok.</p>"
             if [ "$verbose" -ge "1" ]; then
-               $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-               $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+               $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+               $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             fi
             continue
          else
@@ -50,8 +50,8 @@ check_ip_forwarding_disabled() {
       if [ "$WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION" = "1" ]; then
          local MSG="IP Forwarding Result: $temp"
 
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          continue
       else
          ## "IP Forwarding Result:$temp    ## was in MSG below
@@ -63,8 +63,8 @@ check_ip_forwarding_disabled() {
 Recommended action:
 <blockquote>- Shut down.</blockquote></p>"
 
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          continue

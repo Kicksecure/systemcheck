@@ -17,13 +17,13 @@ check_initializer() {
    if [ -f "$fail_file" ]; then
       local MSG="<p>Check Initializer Result: <b><code>$fail_file</code> exists. Your system could be unstable!</b> Please consider reporting any bugs inside: <code>$log_file</code>
 (Be careful not to copy and paste personal information.)</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    else
       if [ "$verbose" -ge "1" ]; then
          local MSG="<p>Check Initializer Result: <code>$fail_file</code> does not exist, ok.</p>"
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    fi
 }

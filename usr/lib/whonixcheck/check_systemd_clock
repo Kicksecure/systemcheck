@@ -8,8 +8,8 @@ check_systemd_clock() {
    if ! command -v timedatectl >/dev/null 2>&1 ; then
       local MSG="<p>Systemd Clock Check Result: <code>timedatectl</code> not available, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -51,8 +51,8 @@ check_systemd_clock() {
 <br></br>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote></p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
       local MSG="<p>Systemd Clock Check Result:
@@ -67,8 +67,8 @@ disable this check. [2]
 [1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a>
 <br></br>[2] Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
 <code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0

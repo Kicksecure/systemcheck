@@ -31,6 +31,9 @@ source /usr/lib/msgcollector/error_handler
 trap "error_handler" ERR ## /usr/lib/msgcollector/error_handler
 set +e
 
+bash -n /usr/lib/msgcollector/msgdispatcher_run_check
+source /usr/lib/msgcollector/msgdispatcher_run_check
+
 bash -n /usr/lib/anon-shared-helper-scripts/tor_enabled_check
 source /usr/lib/anon-shared-helper-scripts/tor_enabled_check
 bash -n /usr/lib/anon-shared-helper-scripts/pkg_manager_running_check
@@ -59,7 +62,7 @@ whonixcheck_move_progress_bar_to_percent() {
       true "silent is $silent. Skipping $FUNCNAME $1."
       return 0
    fi
-   $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$1"
+   $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$1"
 }
 
 whonixcheck_progress_main() {
@@ -98,7 +101,7 @@ whonixcheck_main() {
    if [ "$silent" -ge "3" ]; then
       true "silent is $silent. Skipping progress bar."
    else
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
    fi
 
    ## Does not use the network.

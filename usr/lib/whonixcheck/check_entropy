@@ -11,13 +11,13 @@ check_entropy() {
    entropy_size="$(cat "$entropy_file")"
    if [ "${entropy_size}" -lt "112" ]; then
       local MSG="<p>Entropy Available Check Result: low. <code>$entropy_file</code>: <code>$entropy_size</code> Please report this issue!</p>"
-      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
       local MSG="<p>Entropy Available Check Result: ok. <code>$entropy_file</code>: <code>$entropy_size</code></p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    fi
 }

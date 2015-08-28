@@ -93,11 +93,11 @@ ex_funct() {
    ## when the script is terminated very early.
    local command_v_output_exit_code
    command_v_output_exit_code="0"
-   command -v "$output" >/dev/null || { command_v_output_exit_code="$?" ; true; };
+   command -v "output_func" >/dev/null || { command_v_output_exit_code="$?" ; true; };
    if [ "$command_v_output_exit_code" = "0" ]; then
       local output_status_exit_code
       output_status_exit_code="0"
-      $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --messagecli || { output_status_exit_code="$?" ; true; };
+      $output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --messagecli || { output_status_exit_code="$?" ; true; };
 
       ## The "Please feel free to press <enter> to return back to your normal prompt."
       ## message is not necessary when manually started.
@@ -107,27 +107,27 @@ ex_funct() {
             ## We have messages to show.
             ## Add press enter to return back to your normal prompt message below.
             local MSG="<p>Please feel free to press enter to return back to your normal prompt.</p>"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          elif [ "$output_status_exit_code" = "1" ]; then
             true "No messages for --messagecli in the queue. Not adding press enter to return back to your normal prompt message below."
          else
-            local MSG="<p><b>$output returned $output_status_exit_code.</b> Please report this bug!</p>"
-            $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-            $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+            local MSG="<p><b>$output_general returned $output_status_exit_code.</b> Please report this bug!</p>"
+            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          fi
       fi
 
       if [ ! "$progressbaridx" = "" ]; then
          local progress_bar_open
          progress_bar_open="0"
-         $output ${output_opts[@]} --identifier "$IDENTIFIER" --status --progressbaridx "$progressbaridx" --progressbarxprogresstxtexisting || { progress_bar_open="$?" ; true; };
+         $output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --progressbaridx "$progressbaridx" --progressbarxprogresstxtexisting || { progress_bar_open="$?" ; true; };
       fi
 
       if [ "$SIGNAL_TYPE" = "SIGUSR2" ]; then
          true "User most likely pressed cancel button. No need to send progress 100 to close progress bar."
       else
          if [ "$progress_bar_open" = "0" ]; then
-            $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
          else
             true "No progress bar open. No need to send progress 100 to close progress bar."
          fi
@@ -136,17 +136,17 @@ ex_funct() {
       if [ "$TITLE" = "" ]; then
          TITLE="No TITLE defined yet."
       fi
-      $output ${output_opts[@]} --titlex "$TITLE"
-      $output ${output_opts[@]} --titlecli "$TITLE"
+      $output_x ${output_opts[@]} --titlex "$TITLE"
+      $output_cli ${output_opts[@]} --titlecli "$TITLE"
 
       if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
          local MSG="<p><b>$SCRIPTNAME aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
 
-      $output ${output_opts[@]} --messagex --done
-      $output ${output_opts[@]} --messagecli --done
+      $output_x ${output_opts[@]} --messagex --done
+      $output_cli ${output_opts[@]} --messagecli --done
    else
       if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
          local MSG="$SCRIPTNAME aborted! (SIGNAL_TYPE: $SIGNAL_TYPE)"

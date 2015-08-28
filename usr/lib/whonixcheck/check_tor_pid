@@ -66,16 +66,16 @@ check_tor_pid() {
 
 <blockquote>   $start_menu_instructions_system_first_part Whonix Check</blockquote>
     or in Terminal: <code><blockquote>whonixcheck</blockquote></code></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0
    else
       local MSG="<p>Tor Pid Check Result: $tor_pid_message, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    fi
 }

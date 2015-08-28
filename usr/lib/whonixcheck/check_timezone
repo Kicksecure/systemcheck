@@ -22,8 +22,8 @@ check_timezone() {
       if [ "$timezone_file_actual_content" = "$timezone_file_expected_content" ]; then
          local MSG="<p>Check Timezone Result: <code>$timezone_file_location</code>, <code>$timezone_file_actual_content</code> matches <code>$timezone_file_expected_content</code>, ok.</p>"
          if [ "$verbose" -ge "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       else
          timezone_status_code="3"
@@ -31,8 +31,8 @@ check_timezone() {
 <br></br><code>$timezone_file_location</code> settings different from Whonix defaults.
 <br></br>timezone_file_expected_content: <code>$timezone_file_expected_content</code>
 <br></br>timezone_file_actual_content: <code>$timezone_file_actual_content</code></p>"
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       fi
    else
       timezone_status_code="2"
@@ -49,30 +49,30 @@ check_timezone() {
          if [ "$localtime_status_code" = "0" ]; then
             local MSG="<p>Check Timezone Result: <code>$localtime_file_usr</code> matches <code>$localtime_file_etc</code>, ok.</p>"
             if [ "$verbose" -ge "1" ]; then
-               $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-               $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+               $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+               $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             fi
          else
             local MSG="<p>Check Timezone Result:
 <br></br>localtime_file_etc <code>$localtime_file_etc</code> settings different from <code>$localtime_file_usr</code>. Different from Whonix defaults.
 <br></br>localtime_status_code: <code>$localtime_status_code</code>
 <br></br>localtime_result: <code>$localtime_result</code></p>"
-            $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          fi
       else
          localtime_status_code="2"
          localtime_result="File <code>$localtime_file_usr</code> does not exist."
          local MSG="<p>Check Timezone Result: $localtime_result</p>"
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       fi
    else
       localtime_status_code="3"
       localtime_result="File <code>$localtime_file_etc</code> does not exist."
       local MSG="<p>Check Timezone Result: $localtime_result</p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    fi
 
    if [ ! "$localtime_status_code" = "0" ]; then
@@ -94,7 +94,7 @@ It is generally recommended to keep the default as per Whonix Design. [1]
 If you did not change timezone related settings, please report this Whonix bug.
 <br></br>$if_you_know_what_you_are_doing_msg
 [1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    fi
 }

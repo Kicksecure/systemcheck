@@ -16,8 +16,8 @@ this test."
    else
       if [ "$verbose" -ge "1" ]; then
          local MSG="<p>Tor Browser Update Check: tb-updater package is not installed, skipped.</p>"
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -30,13 +30,13 @@ this test."
       TB_LANG="en-US"
    fi
    if [ "$verbose" -ge "1" ]; then
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    CHECK_TORBROWSER_RESULT="0"
    local MSG="Tor Browser Update Check: Checking version..."
-   $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    local SOCKS_PORT_WHONIXCHECK
    SOCKS_PORT_WHONIXCHECK="9110"
@@ -69,8 +69,8 @@ this test."
       local MSG="<p>Tor Browser Update Check Result: <b>Tor Browser Update check failed.</b> (curl exit code: $curl_status_message)
 Could not download: <a href=$TBB_VERSIONS_FILE_LINK>$TBB_VERSIONS_FILE_LINK</a>. Try:
 <blockquote>    $start_menu_instructions_system_first_part Tor Browser Updater</blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -89,8 +89,8 @@ Could not download: <a href=$TBB_VERSIONS_FILE_LINK>$TBB_VERSIONS_FILE_LINK</a>.
       true "Successfully detected Tor Browser version."
    else
       local MSG="<p>Tor Browser Update Check Result: $tbb_locally_installed_version</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
@@ -108,14 +108,14 @@ Could not download: <a href=$TBB_VERSIONS_FILE_LINK>$TBB_VERSIONS_FILE_LINK</a>.
    if [ "$up_to_date" = "1" ]; then
       ## It is up to date...
       local MSG="<p>Tor Browser Update Check Result: Up to date.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
       ## Outdated...
       local MSG="<p>Tor Browser Update Check Result: Installed Tor Browser version: $tbb_locally_installed_version.
 Latest recommend Tor Browser version(s): $tbb_recommended_versions_list. Please run:
 <blockquote>    $start_menu_instructions_system_first_part Tor Browser Updater</blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    fi
 }

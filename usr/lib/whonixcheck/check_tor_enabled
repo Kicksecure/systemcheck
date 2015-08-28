@@ -28,8 +28,8 @@ or manually (if you know about the public Tor network and : Open <code>/etc/tor/
 Then run <code>whonixcheck</code> again.</p>"
 
       if [ "$manualrun" = "1" ]; then
-         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       fi
 
       EXIT_CODE="1"
@@ -39,14 +39,14 @@ Then run <code>whonixcheck</code> again.</p>"
       if [ -e "/usr/share/anon-gw-base-files/gateway" ]; then
          local MSG='<p>Tor Check Result: "DisableNetwork 1" in /etc/tor/torrc commented out, ok.</p>'
          if [ "$verbose" -ge "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       else
          local MSG='<p>Tor Check Result: Not running on Whonix-Gateway, ok.</p>'
          if [ "$verbose" -ge "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       fi
    fi

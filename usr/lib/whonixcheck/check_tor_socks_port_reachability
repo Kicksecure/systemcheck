@@ -36,8 +36,8 @@ check_tor_socks_port_reachability() {
       local MSG="<p>Tor SocksPort Reachability Test Result: Reachable. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -48,24 +48,24 @@ Failed to connect to host. Gateway likely reachable, but Tor service likely not 
 Either user has run <code>sudo service tor stop</code> or Gateway is still booting and has not started Tor service yet. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
    elif [ "$check_socks_port_open_test" = "28" ]; then
       local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
 Gateway likely powered off. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
    else
       local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
 Unexpected error! \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       fi
    fi
 }

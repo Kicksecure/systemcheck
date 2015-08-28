@@ -10,23 +10,23 @@ check_virtualizer() {
       result="$("$whonixcheck_virt_detection_tool" 2>&1)" || true
    else
       local MSG="<p>Check Virtualizer Result: $whonixcheck_virt_detection_tool not available. Skipping test.</p>"
-      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       return 0
    fi
 
    local MSG="<p>Check Virtualizer Result (debug): qubes_detected: <u>$qubes_detected</u>, continuing.</p>"
    if [ "$verbose" -ge "1" ]; then
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ "$result" = "" ]; then
       ## Not running in a Virtual Machine (or none detected).
       local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on <u>bare metal</u>, continuing.</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -35,8 +35,8 @@ check_virtualizer() {
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>VirtualBox</u> detected, continuing.
 <br></br>$whonixcheck_virt_detection_tool result: <code>$result</code></p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -45,8 +45,8 @@ check_virtualizer() {
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>KVM</u> detected, continuing.
 <br></br>$whonixcheck_virt_detection_tool result: <code>$result</code></p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -56,8 +56,8 @@ check_virtualizer() {
          local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
 <br></br>$whonixcheck_virt_detection_tool result: <code>$result</code></p>"
          if [ "$verbose" -ge "1" ]; then
-            $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
          return 0
       fi
@@ -66,8 +66,8 @@ check_virtualizer() {
    if [ "$WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
       local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer <code>$result</code> detected, but <code>WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER</code> is set, continuing.</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -112,8 +112,8 @@ in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
 <br></br>$WIKI_LINK</p>
 "
 
-   $output ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    return 0

@@ -14,12 +14,12 @@ check_package_manager_running() {
 
    if [ "$check_apt_get_exit_code" = "0" ]; then
       if [ "$whonixcheck_package_manager_waiting" = "1" ]; then
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
       local MSG="<p>Check Package Manager Running Result: None running, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -37,9 +37,9 @@ check_package_manager_running() {
          progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
          local MSG="$package_manager_waiting_msg_x"
-         $output ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
+         $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
          ## Start progress bar to show we are waiting.
-         $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
       fi
    fi
 

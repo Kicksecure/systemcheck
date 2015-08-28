@@ -17,12 +17,12 @@ check_logs() {
    if [ -f "$temp_file_name" ]; then
       local MSG="<p>Check Logs Result: <b>$temp_file_name exists.</b> Please consider reporting any bugs inside this log.
 (Be careful not to copy and paste personal information). You may delete this file now.</p>"
-      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
       local MSG="<p>Check Logs Result: $temp_file_name does not exist, ok.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    temp_file_name=~/".cache/tb/torbrowser_updater_error.log"
@@ -30,11 +30,11 @@ check_logs() {
    if [ -f "$temp_file_name" ]; then
       local MSG="<p>Check Logs Result: <b>$temp_file_name exists.</b> Please consider reporting any bugs inside this log.
 (Be careful not to copy and paste personal information). You may delete this file now.</p>"
-      $output ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
       local MSG="<p>Check Logs Result: $temp_file_name does not exist, ok.</p>"
-      $output ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 }
