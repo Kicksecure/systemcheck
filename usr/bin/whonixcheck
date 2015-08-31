@@ -202,9 +202,12 @@ whonixcheck_main() {
       whonixcheck_run_function check_operating_system ## check_operating_system
       whonixcheck_move_progress_bar_to_percent "60"
 
+      ## Local network connection.
+      whonixcheck_run_function check_qubes_update_proxy ## check_qubes
+      whonixcheck_move_progress_bar_to_percent "70"
+
       ## Does not use the network.
       whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
-      whonixcheck_move_progress_bar_to_percent "61"
 
       ## Uses the network. 4
       whonixcheck_run_function check_torbrowser ## check_torbrowser
@@ -222,6 +225,10 @@ whonixcheck_main() {
       ## early in list, because less likely to break
       whonixcheck_run_function download_whonix_news ## check_news
       whonixcheck_move_progress_bar_to_percent "66"
+
+      ## Local network connection.
+      whonixcheck_run_function check_qubes_update_proxy ## check_qubes
+      whonixcheck_move_progress_bar_to_percent "75"
 
       ## Uses the network. 3
       whonixcheck_run_function check_operating_system ## check_operating_system
