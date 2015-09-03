@@ -71,7 +71,7 @@ check_unwanted_packages() {
    see_also_link="<a href=https://www.whonix.org/wiki/Whonix_Debian_Packages>https://www.whonix.org/wiki/Whonix_Debian_Packages</a>"
 
    if [ "$qubes_detected" = "true" ]; then
-      if [ "$qubes_vm_uptableable" = "True" ]; then
+      if [ "$qubes_vm_persistence" = "full" ]; then
          ## Running in either StandaloneVM or TemplateVM.
          local qubes_update_help="<br></br>1. Open a terminal, dom0 -> Start Menu -> '<code>$qubes_name_of_vm</code>' -> Terminal.
 <br></br>2. Purge. <blockquote><code>sudo apt-get purge $unwanted_packages_list</code></blockquote>"

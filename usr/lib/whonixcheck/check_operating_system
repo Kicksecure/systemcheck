@@ -25,7 +25,7 @@ check_operating_system() {
    unset apt_get_update_pid
 
    if [ "$qubes_detected" = "true" ]; then
-      if [ "$qubes_vm_uptableable" = "True" ]; then
+      if [ "$qubes_vm_persistence" = "full" ]; then
          ## Running in either StandaloneVM or TemplateVM.
          local qubes_update_help="<br></br>1. Open a terminal. (dom0 -> Start Menu -> '<code>$qubes_name_of_vm</code>' -> Terminal)
 <br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>"
