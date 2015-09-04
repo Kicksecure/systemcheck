@@ -5,6 +5,10 @@
 ## See the file COPYING for copying conditions.
 
 disclaimer() {
+   if [ "$qubes_detected" = "true" ]; then
+      true "qubes_detected is $qubes_detected. Skipping $FUNCNAME."
+      return 0
+   fi
    if [ "$silent" -ge "1" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
       return 0
