@@ -19,6 +19,9 @@ check_qubes_update_proxy() {
       ip="10.137.255.254"
    fi
 
+   local qubes_update_proxy_test_curl_exit_code
+   qubes_update_proxy_test_curl_exit_code="0"
+
    http_proxy="http://$ip:8082" \
       $CURL \
          --fail \
