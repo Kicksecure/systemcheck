@@ -101,7 +101,7 @@ whonixcheck_main() {
    if [ "$silent" -ge "3" ]; then
       true "silent is $silent. Skipping progress bar."
    else
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
    fi
 
    ## Does not use the network.

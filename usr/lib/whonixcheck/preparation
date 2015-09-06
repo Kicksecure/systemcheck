@@ -289,7 +289,11 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       cleanup
    fi
 
-   TITLE="$IDENTIFIER | ${VM}${qubes_title_extra} | $(date)"
+   TITLE_X="$IDENTIFIER | ${VM}${qubes_title_extra} | $(date)"
+
+   ## No need to add $IDENTIFIER to output, because msgcollector already does that.
+   ## $qubes_name_of_vm is empty in non-Qubes-Whonix.
+   TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(date)"
 
    ## https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
    TPO_PIN_CERT_FILE="/usr/share/torbrowser-launcher/torproject.pem"
@@ -300,15 +304,15 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
    $output_general --icon "$ICON"
    $output_general --parenttty "$my_tty"
    $output_general --whoami "$who_ami"
-   $output_x --titlex "$TITLE"
-   $output_cli --titlecli "$TITLE"
+   $output_x --titlex "$TITLE_X"
+   $output_cli --titlecli "$TITLE_CLI"
 
    ## Only for whonixcheck to make it distinct from timesync.
    ## Preventing overlapping windows.
    $output_general --lefttop
 
    if [ "$verbose" -ge "1" ] || [ "$qubes_detected" = "true" ]; then
-      local MSG="$TITLE"
+      local MSG="$TITLE_CLI"
       if [ "$manualrun" = "1" ]; then
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi

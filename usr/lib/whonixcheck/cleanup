@@ -133,11 +133,14 @@ ex_funct() {
          fi
       fi
 
-      if [ "$TITLE" = "" ]; then
+      if [ "$TITLE_X" = "" ]; then
          TITLE="No TITLE defined yet."
       fi
-      $output_x ${output_opts[@]} --titlex "$TITLE"
-      $output_cli ${output_opts[@]} --titlecli "$TITLE"
+      if [ "$TITLE_CLI" = "" ]; then
+         TITLE="No TITLE defined yet."
+      fi
+      $output_x ${output_opts[@]} --titlex "$TITLE_X"
+      $output_cli ${output_opts[@]} --titlecli "$TITLE_CLI"
 
       if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
          local MSG="<p><b>$SCRIPTNAME aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"

@@ -125,7 +125,7 @@ $multiple_whonix_ws_msg
          fi
       fi
 
-      $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE" --typex "info" --message "$MSG" --done
+      $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE_X" --typex "info" --message "$MSG" --done
       ## Only attempt to close the progress bar if one was started.
       ## Otherwise this might conflict with the progress bar in 25_autostart.
       $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
@@ -146,7 +146,7 @@ $multiple_whonix_ws_msg
             local progressbaridx
             progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
             local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
-            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
          fi
       fi
    fi

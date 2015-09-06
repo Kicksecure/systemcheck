@@ -39,7 +39,7 @@ check_package_manager_running() {
          local MSG="$package_manager_waiting_msg_x"
          $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
          ## Start progress bar to show we are waiting.
-         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE" --message "$MSG" --done
+         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
       fi
    fi
 
