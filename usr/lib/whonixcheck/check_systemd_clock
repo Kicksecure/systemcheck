@@ -57,7 +57,7 @@ check_systemd_clock() {
    else
       local MSG="<p>Systemd Clock Check Result:
 <br></br><b>Unexpected results by timedatectl.</b>
-<br></br>ttimedatectl_output_pretty:
+<br></br>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote>
 It is generally recommended to keep the default as per Whonix Design. [1]
 If you did not change timezone related settings, please report this Whonix bug.
