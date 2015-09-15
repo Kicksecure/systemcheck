@@ -119,7 +119,7 @@ $multiple_whonix_ws_msg
          return 0
       fi
       if [ "$silent" -ge "2" ]; then
-         if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+         if [ ! "$started_tor_bootstrap_progress_bar" = "1" ]; then
             true "We did not open a progress bar and silent is $silent. Therefore not showing the the passive message."
             return 0
          fi
