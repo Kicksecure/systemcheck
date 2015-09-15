@@ -190,11 +190,19 @@ preparation() {
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
       VM="Whonix-Workstation"
       vm_lower_case_short="workstation"
-      GATEWAY_IP="10.152.152.10"
+      if [ "$qubes_detected" = "true" ]; then
+         GATEWAY_IP="$(qubesdb-read /qubes-gateway)"
+      else
+         GATEWAY_IP="10.152.152.10"
+      fi
    else
       VM="whonixcheck script could not determine if this is whonix_gateway or whonix_workstation. Please report this bug."
       vm_lower_case_short="error"
-      GATEWAY_IP="10.152.152.10"
+      if [ "$qubes_detected" = "true" ]; then
+         GATEWAY_IP="$(qubesdb-read /qubes-gateway)"
+      else
+         GATEWAY_IP="10.152.152.10"
+      fi
    fi
 
    if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then
