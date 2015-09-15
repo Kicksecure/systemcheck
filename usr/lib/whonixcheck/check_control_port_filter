@@ -25,9 +25,6 @@ check_control_port_filter_running() {
          local MSG="<p>Control Port Filter Proxy Test Result:
 <br></br><b>File /var/run/control-port-filter-python/pid does not exist.</b>
 <br></br>Please report this Whonix bug!<\p>"
-         if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-         fi
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
