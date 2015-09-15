@@ -235,6 +235,9 @@ preparation() {
       ## - 'rw-only' (TemplateBasedVM), or
       ## - 'none' (DispVM).
       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)" || true
+      ## '/qubes-base-template outputs for example:
+      ## whonix-gw
+      ## whonix-ws
       qubes_base_template="$(qubesdb-read /qubes-base-template)" || true
       if [ "$qubes_vm_type" = "TemplateVM" ]; then
          qubes_title_extra=" | TemplateVM"
