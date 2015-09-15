@@ -177,6 +177,12 @@ preparation() {
    ## Prepare temporary directory.
    chmod 700 "$TEMP_DIR"
 
+   if command -v qubesdb-read >/dev/null 2>&1 ; then
+      qubes_detected="true"
+   else
+      qubes_detected="false"
+   fi
+
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       VM="Whonix-Gateway"
       vm_lower_case_short="gateway"
@@ -223,8 +229,7 @@ preparation() {
    ## ARCH="i686"
    ARCH="$(uname --machine)"
 
-   if command -v qubesdb-read >/dev/null 2>&1 ; then
-      qubes_detected="true"
+   if [ "$qubes_detected" = "true" ]; then
       ## Overwrite with || true to prevent failing just because of this.
       ## '/qubes-vm-persistence' outputs for example:
       ## sys-whonix
@@ -282,7 +287,6 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
          fi
       fi
    else
-      qubes_detected="false"
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
       qubes_title_extra=""
       update_where="this machine"
