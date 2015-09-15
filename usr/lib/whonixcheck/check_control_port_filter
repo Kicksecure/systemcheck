@@ -26,7 +26,8 @@ check_control_port_filter_running() {
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
          local MSG="<p>Control Port Filter Proxy Test Result:
 <br></br><b>File /var/run/control-port-filter-python/pid does not exist.</b>
-<br></br>Please report this Whonix bug!
+<br></br>Did you disable Control Port Filter Proxy?
+<br></br>If not, please report this Whonix bug!
 <br></br>$if_you_know_what_you_are_doing_msg<\p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
