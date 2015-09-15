@@ -245,6 +245,7 @@ preparation() {
       if [ "$qubes_vm_type" = "TemplateVM" ]; then
          qubes_title_extra=" | TemplateVM"
          update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
+         GATEWAY_IP="$(qubesdb-read /qubes-gateway)"
       else
          if [ "$qubes_vm_persistence" = "full" ]; then
             qubes_title_extra=" | Standalone $qubes_vm_type"
