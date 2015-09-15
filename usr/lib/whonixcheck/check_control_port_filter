@@ -9,8 +9,6 @@ check_control_port_filter_running() {
 
    ## Only testing on Whonix-Gateway, because Control Port Filter Proxy only
    ## runs on Whonix-Gateway.
-   local i
-   i="0"
    if [ "$VM" = "Whonix-Gateway" ]; then
       local cpfpy_pid_file="/var/run/control-port-filter-python/pid"
       local cpfpy_pid_existed_msg
@@ -22,6 +20,8 @@ File <code>$cpfpy_pid_file</code> does not exist. Waiting up to 30 seconds.<\p>"
             cpfpy_pid_existed_msg="true"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
+         local i
+         i="0"
          while [ ! -f "$cpfpy_pid_file" ]; do
             i="$(( $i + 1 ))"
             if [ "$i" -ge "30" ]; then
