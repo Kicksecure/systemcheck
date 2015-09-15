@@ -13,15 +13,25 @@ check_control_port_filter_running() {
    i="0"
    if [ "$VM" = "Whonix-Gateway" ]; then
       local cpfpy_pid_file="/var/run/control-port-filter-python/pid"
-      while [ ! -f "$cpfpy_pid_file" ]; do
-         i="$(( $i + 1 ))"
-         if [ "$i" -ge "30" ]; then
-            break
+      local cpfpy_pid_existed_msg
+      if [ ! -f "$cpfpy_pid_file" ]; then
+         cpfpy_pid_existed_msg="false"
+         local MSG="<p>Control Port Filter Proxy Test: \
+File <code>$cpfpy_pid_file</code> does not exist. Waiting up to 30 seconds.<\p>"
+         if [ "$silent" -le "2" ]; then
+            cpfpy_pid_existed_msg="true"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
-         sleep "1" &
-         lastpid="$!"
-         wait "$lastpid" || true
-      done
+         while [ ! -f "$cpfpy_pid_file" ]; do
+            i="$(( $i + 1 ))"
+            if [ "$i" -ge "30" ]; then
+               break
+            fi
+            sleep "1" &
+            lastpid="$!"
+            wait "$lastpid" || true
+         done
+      fi
       if [ ! -f "$cpfpy_pid_file" ]; then
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
@@ -37,7 +47,7 @@ check_control_port_filter_running() {
          return 0
       else
          local MSG="<p>Control Port Filter Proxy Test Result: OK</p>"
-         if [ "$verbose" -ge "1" ]; then
+         if [ "$verbose" -ge "1" ] || [ "$cpfpy_pid_existed_msg" = "true" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
