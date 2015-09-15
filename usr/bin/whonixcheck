@@ -90,6 +90,25 @@ whonixcheck_main() {
    ## Does not use the network.
    whonixcheck_run_function check_autostart ## autostart
 
+   ## Does not use the network.
+   whonixcheck_run_function check_whonixsetup_done ## check_whonixsetup_done
+
+   ## Does not use the network.
+   ## Own Progress Bar: Yes
+   whonixcheck_run_function check_package_manager_running ## check_package_manager_running
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_tor_enabled ## check_tor_enabled
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_tor_config ## check_tor_config
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_tor_pid ## check_tor_pid
+
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_control_port_filter_running ## check_control_port_filter
+
    ## Only connects to Whonix-Gateway.
    whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
 
@@ -131,31 +150,6 @@ whonixcheck_main() {
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
-   whonixcheck_progress_main "1"
-
-   ## Does not use the network.
-   whonixcheck_run_function check_whonixsetup_done ## check_whonixsetup_done
-   whonixcheck_progress_main "1"
-
-   ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_tor_enabled ## check_tor_enabled
-   whonixcheck_progress_main "1"
-
-   ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_tor_config ## check_tor_config
-   whonixcheck_progress_main "1"
-
-   ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_tor_pid ## check_tor_pid
-   whonixcheck_progress_main "1"
-
-   ## Does not use the network.
-   ## Own Progress Bar: Yes
-   whonixcheck_run_function check_package_manager_running ## check_package_manager_running
-   whonixcheck_progress_main "1"
-
-   ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_control_port_filter_running ## check_control_port_filter
    whonixcheck_progress_main "1"
 
    ## Does not use the network.
