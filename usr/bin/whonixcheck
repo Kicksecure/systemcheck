@@ -94,6 +94,7 @@ whonixcheck_main() {
    whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
 
    ## Only connects to Whonix-Gateway.
+   ## Own Progress Bar: Yes
    whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
    local MSG="$NOTIFY_MSG"
@@ -149,6 +150,7 @@ whonixcheck_main() {
    whonixcheck_progress_main "1"
 
    ## Does not use the network.
+   ## Own Progress Bar: Yes
    whonixcheck_run_function check_package_manager_running ## check_package_manager_running
    whonixcheck_progress_main "1"
 
