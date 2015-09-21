@@ -5,11 +5,6 @@
 ## See the file COPYING for copying conditions.
 
 check_package_manager_running() {
-   if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping $FUNCNAME."
-      return 0
-   fi
-
    check_package_manager_running_helper
 
    if [ "$check_apt_get_exit_code" = "0" ]; then
@@ -30,6 +25,8 @@ check_package_manager_running() {
       ## show a package manager waiting message.
       if [ "$DAEMON" = "1" ]; then
          true "No package manager waiting message when running in daemon mode."
+      elif [ "$AUTOSTARTED" = "1" ] && [ "$silent" -ge "3" ]; then
+         true "$FUNCNAME: AUTOSTARTED is $AUTOSTARTED. silent is $silent. Skipping creation of waiting progress bar."
       else
          whonixcheck_package_manager_waiting="1"
 
