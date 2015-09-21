@@ -27,11 +27,11 @@ check_operating_system() {
    if [ "$qubes_detected" = "true" ]; then
       if [ "$qubes_vm_persistence" = "full" ]; then
          ## Running in either StandaloneVM or TemplateVM.
-         local qubes_update_help="<br></br>1. Open a terminal. (dom0 -> Start Menu -> '<code>$qubes_name_of_vm</code>' -> Terminal)
+         local qubes_update_help="<br></br>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
 <br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>"
       else
          ## TemplateBasedVM
-         local qubes_update_help="<br></br>1. Open a TemplateVM terminal. (dom0 -> Start Menu -> '<code>$qubes_base_template</code>' -> Terminal)
+         local qubes_update_help="<br></br>1. Open a TemplateVM terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
 <br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>
 3. Shutdown your TemplateVM. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_base_template</code>' -> Shutdown VM)
 <br></br>4. Shutdown and restart this Template-Based <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"

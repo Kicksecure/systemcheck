@@ -258,20 +258,25 @@ preparation() {
       if [ "$qubes_vm_type" = "TemplateVM" ]; then
          qubes_title_extra=" | TemplateVM"
          update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
+         persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_name_of_vm</code> ->"
          GATEWAY_IP="$(qubesdb-read /qubes-gateway)"
       else
          if [ "$qubes_vm_persistence" = "full" ]; then
             qubes_title_extra=" | Standalone $qubes_vm_type"
             update_where="this StandaloneVM ('<code>$qubes_name_of_vm</code>')"
+            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_name_of_vm</code> ->"
          elif [ "$qubes_vm_persistence" = "rw-only" ]; then
             qubes_title_extra=" | $qubes_base_template Template-Based $qubes_vm_type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM"
+            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_base_template</code> ->"
          elif [ "$qubes_vm_persistence" = "none" ]; then
             qubes_title_extra=" | $qubes_base_template DispVM $qubes_vm_type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM"
+            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_base_template</code> ->"
          else
             qubes_title_extra=" | Unknown Qubes VM Type"
             update_where="<?> your '<code>$qubes_base_template</code>' TemplateVM </?>"
+            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_base_template</code> ->"
          fi
       fi
       if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then

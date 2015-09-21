@@ -10,7 +10,7 @@ check_whonix_apt_repository() {
       return 0
    fi
 
-   local temp_x_tool="<blockquote>$start_menu_instructions_system_first_part Whonix Repository</blockquote>"
+   local temp_x_tool="<blockquote>$persistent_changes_start_menu_instructions_first_part Whonix Repository</blockquote>"
    local temp_cli_tool="<code><blockquote>sudo whonix_repository</blockquote></code>"
 
    local temp_base_msg_enabled="<p>Whonix APT Repository: Enabled.
