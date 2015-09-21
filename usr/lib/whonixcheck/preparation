@@ -239,7 +239,7 @@ preparation() {
 
    if [ "$qubes_detected" = "true" ]; then
       ## Overwrite with || true to prevent failing just because of this.
-      ## '/qubes-vm-persistence' outputs for example:
+      ## '/name' outputs for example:
       ## sys-whonix
       ## whonix
       qubes_name_of_vm="$(qubesdb-read /name)" || true
