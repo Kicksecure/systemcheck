@@ -243,7 +243,7 @@ preparation() {
       ## sys-whonix
       ## whonix
       qubes_name_of_vm="$(qubesdb-read /name)" || true
-      start_menu_instructions_system_first_part="dom0 -> Start Menu -> '$qubes_name_of_vm' ->"
+      start_menu_instructions_system_first_part="dom0 -> Start Menu -> Template: <code>$qubes_name_of_vm</code> ->"
       ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
       qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
       ## '/qubes-vm-persistence' outputs:
