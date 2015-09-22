@@ -4,6 +4,62 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+check_qubes_settings() {
+   if [ ! "$qubes_detected" = "true" ]; then
+      local MSG="<p>Qubes Settings Test Result: Skipped, because Qubes not detected.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   if [ "$GATEWAY_IP" = "qubesdb_read_failed" ]; then
+      local netvm_to_what
+      if [ "$vm_lower_case_short" = "gateway" ]; then
+         netvm_to_what="<code>sys-firewall</code>"
+      else
+         netvm_to_what="<code>sys-whonix</code>"
+      fi
+      local MSG="\
+<p>Qubes Settings Test Result: Networking will probably not work. Is the netvm of this VM set to <code>none</code>?
+<br></br>Usually you want to set the netvm of this VM to $netvm_to_what.
+<blockquote>dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> VM Settings -> NetVM</blockquote>
+Also refer to the installation instructions of Qubes-Whonix.
+<br></br>(Debugging information:)
+<br></br>(GATEWAY_IP could not be read.)
+<br></br>(command failed: <code>qubesdb-read /qubes-gateway</code>)
+<br></br>(GATEWAY_IP: <code>$GATEWAY_IP</code>)
+<br></br>(qubes_vm_type: <code>$qubes_vm_type</code>)\
+</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   else
+      local MSG="<p>QQubes Settings Test Result: Ok. (GATEWAY_IP: <code>$GATEWAY_IP</code>)</p>"
+      if [ ! "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      fi
+   fi
+
+   if [ "$vm_lower_case_short" = "gateway" ]; then
+      if [ "$qubes_vm_type" = "NetVM" ] || [ "$qubes_vm_type" = "ProxyVM" ]; then
+         local MSG="<p>Qubes Settings Test Result: Ok, qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
+         if [ ! "$verbose" -ge "1" ]; then
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+      else
+         local MSG="\
+<p>Qubes Settings Test Result: Qubes-Whonix-Gateway Qubes VM Type is <code>$qubes_vm_type</code>, but NetVM or ProxyVM is expected.
+<br></br>You most likely want to re-create this VM. Make sure to choose ProxyVM.
+<br></br>Also refer to the installation instructions of Qubes-Whonix.</p>"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      fi
+   fi
+}
+
 check_qubes_update_proxy_reachability() {
    local MSG="<p>Qubes Update Proxy Reachability Test: Trying to reach Qubes update proxy... PROXY_SERVER: $PROXY_SERVER</p>"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
