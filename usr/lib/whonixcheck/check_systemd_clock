@@ -35,7 +35,7 @@ check_systemd_clock() {
    local timedatectl_line
    while read -r -d $'\n' timedatectl_line; do
       timedatectl_line="${timedatectl_line,,}"
-      if [ "$timedatectl_line" = 'ntp enabled: no' ]; then
+      if [ "$timedatectl_line" = 'ntp enabled: no' ] || [ "$timedatectl_line" = 'network time on: no' ]; then
          timedatectl_ok_counter_actual="$(( $timedatectl_ok_counter_actual + 1 ))"
       fi
       if [ "$timedatectl_line" = 'ntp synchronized: no' ]; then
