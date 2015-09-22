@@ -4,75 +4,138 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+check_qubes_update_proxy_reachability() {
+   local MSG="<p>Qubes Update Proxy Reachability Test: Trying to reach Qubes update proxy... PROXY_SERVER: $PROXY_SERVER</p>"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
+   #qubes_update_proxy_ip="10.137.255.254"
+
+   local curl_exit_code
+   curl_exit_code="0"
+
+   ## Do not use --fail, otherwise curl will return exit code 22 and skip tinyproxy output.
+   UWT_DEV_PASSTHROUGH="1" \
+      curl \
+      $CURL_VERBOSE \
+      --connect-timeout 3 \
+      --output "$TEMP_DIR/qubes_update_proxy_reachability_file" \
+      "$PROXY_SERVER" \
+      &
+
+   lastpid="$!"
+   wait "$lastpid" || { curl_exit_code="$?" ; true; };
+
+   local curl_status_message
+   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
+
+   qubes_update_proxy_test_result_torified="none"
+
+   if [ "$curl_exit_code" = "7" ]; then
+      local MSG="<p>Qubes Update Proxy Reachability Result: Failed. (Update proxy not reachable.) \
+(curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
+   if [ ! "$curl_exit_code" = "0" ]; then
+      local MSG="<p>Qubes Update Proxy Reachability Result: Failed. (Unknown issue.) \
+(curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
+   local curl_output
+   curl_output="$(cat "$TEMP_DIR/qubes_update_proxy_reachability_file")" || true
+
+   if echo "$curl_output" | grep -q "${PROXY_META}" ; then
+      qubes_update_proxy_test_result_torified="true"
+      local MSG="<p>Qubes Update Proxy Reachability Result: Ok, torified update proxy reachable.</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
+   qubes_update_proxy_test_result_torified="false"
+   local MSG="<p>Qubes Update Proxy Reachability Result: Ok, <u>non</u>-torified update proxy reachable.
+curl_output: <blockquote>$curl_output</blockquote></p>"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+}
+
+check_qubes_update_proxy_functionality() {
+   if [ ! "$qubes_update_proxy_test_result_torified" = "true" ]; then
+      local MSG="<p>Qubes Update Proxy Functionality Result: Skipped.</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
+   local MSG="<p>Qubes Update Proxy Functionality Test: Trying to use Qubes update proxy... PROXY_SERVER: $PROXY_SERVER</p>"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
+   local curl_exit_code
+   curl_exit_code="0"
+
+   ## UWT_DEV_PASSTHROUGH=1 curl --connect-timeout 3 http://10.137.255.254:8082/
+   http_proxy="$PROXY_SERVER" \
+      UWT_DEV_PASSTHROUGH="1" \
+         curl \
+            --fail \
+            $CURL_VERBOSE \
+            --max-time 10 \
+            --output "$TEMP_DIR/qubes_update_proxy_functionality_file" \
+            http://deb.qubes-os.org/r3.0/vm/dists/jessie/Release \
+            &
+
+   lastpid="$!"
+   wait "$lastpid" || { curl_exit_code="$?" ; true; };
+
+   local curl_status_message
+   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
+
+   if [ "$curl_exit_code" = "22" ]; then
+      local MSG="<p>Qubes Update Proxy Functionality Result: Failed. (Filtered.) \
+(curl exit code: curl_exit_code | curl status message: $curl_status_message)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
+   if [ ! "$curl_exit_code" = "0" ]; then
+      local MSG="<p>Qubes Update Proxy Functionality Result: Unknown issue. \
+(curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
+   local MSG="<p>Qubes Update Proxy Functionality Result: Ok, functional.</p>"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+}
+
 check_qubes_update_proxy() {
    if [ ! "$verbose" -ge "1" ]; then
       return 0
    fi
 
-   local MSG="<p>Qubes Update Proxy Test: Trying to reach Qubes update proxy...</p>"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-
-   local ip
-   if [ "$vm_lower_case_short" = "gateway" ]; then
-      ip="127.0.0.1"
-   else
-      ip="10.137.255.254"
-   fi
-
-   local qubes_update_proxy_test_curl_exit_code
-   qubes_update_proxy_test_curl_exit_code="0"
-
-   http_proxy="http://$ip:8082" \
-      $CURL \
-         --fail \
-         $CURL_VERBOSE \
-         --max-time 10 \
-         --output "$TEMP_DIR/qubes_update_proxy_file" \
-         http://deb.qubes-os.org/r3.0/vm/dists/jessie/Release \
-         &
-
-   ## Example OK:
-   ## Origin: Qubes Debian
-   ## Label: Qubes Debian
-   ## [...]
-
-   ## Example Failure:
-   ## curl: (22) The requested URL returned error: 403 Filtered
-
-   ## Example Failure:
-   ## curl: (7) Failed to connect to 127.0.0.1 port 8082: Connection refused
-
-   lastpid="$!"
-   wait "$lastpid" || { qubes_update_proxy_test_curl_exit_code="$?" ; true; };
-
-   local curl_status_message
-   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$qubes_update_proxy_test_curl_exit_code")"
-
-   if [ "$qubes_update_proxy_test_curl_exit_code" = "22" ]; then
-      local MSG="<p>Qubes Update Proxy Result: Failed. (Filtered.) \
-(curl exit code: $qubes_update_proxy_test_curl_exit_code | curl status message: $curl_status_message)</p>"
+   if [ ! "$qubes_detected" = "true" ]; then
+      local MSG="<p>Qubes Update Proxy Test Result: Skipped, because Qubes not detected.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
-   if [ "$qubes_update_proxy_test_curl_exit_code" = "7" ]; then
-      local MSG="<p>Qubes Update Proxy Result: Failed. (Update proxy not reachable.) \
-(curl exit code: $qubes_update_proxy_test_curl_exit_code | curl status message: $curl_status_message)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      return 0
+   ## sets: PROXY_SERVER
+   ## sets: PROXY_META
+   source /usr/lib/qubes-whonix/utility_functions.sh
+
+   if [ "$qubes_vm_type" = "NetVM" ] || [ "$qubes_vm_type" = "ProxyVM" ]; then
+      PROXY_SERVER="${PROXY_SERVER/10.137.255.254/127.0.0.1}"
    fi
 
-   if [ ! "$qubes_update_proxy_test_curl_exit_code" = "0" ]; then
-      local MSG="<p>Qubes Update Proxy Result: Unknown issue. \
-(curl exit code: $qubes_update_proxy_test_curl_exit_code | curl status message: $curl_status_message)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      return 0
-   fi
-
-   local MSG="<p>Qubes Update Proxy Result: Ok, reachable.</p>"
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   check_qubes_update_proxy_reachability
+   check_qubes_update_proxy_functionality
 }
