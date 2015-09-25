@@ -246,8 +246,8 @@ whonixcheck_further() {
 }
 
 whonixcheck_main() {
-   whonixcheck_basics
-   whonixcheck_further
+   whonixcheck_basics ${1+"$@"}
+   whonixcheck_further ${1+"$@"}
 }
 
 whonixcheck_main ${1+"$@"}
