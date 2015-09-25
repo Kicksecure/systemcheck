@@ -63,7 +63,7 @@ check_autostart() {
 
    if [ "$NOCHECKLASTRUN" = "1" ]; then
       ## --nochecklastrun
-      RECENTLY_RUN="0"
+      return 0
    fi
 
    if [ "$RECENTLY_RUN" = "0" ]; then
