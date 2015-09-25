@@ -11,6 +11,7 @@ check_autostart() {
    fi
 
    if [ "$NOCHECKLASTRUN" = "1" ]; then
+      ## --nochecklastrun
       RECENTLY_RUN="0"
    fi
 
