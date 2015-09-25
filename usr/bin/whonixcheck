@@ -110,6 +110,7 @@ whonixcheck_basics() {
    whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
    ## Does not use the network.
+   ## Conditionally exit if whonixcheck has recently completed.
    whonixcheck_run_function check_autostart ## autostart
 }
 
