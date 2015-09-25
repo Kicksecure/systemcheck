@@ -35,7 +35,7 @@ Also refer to the installation instructions of Qubes-Whonix.
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
-      local MSG="<p>QQubes Settings Test Result: Ok. (GATEWAY_IP: <code>$GATEWAY_IP</code>)</p>"
+      local MSG="<p>Qubes Settings Test Result: Ok. (GATEWAY_IP: <code>$GATEWAY_IP</code>)</p>"
       if [ ! "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
