@@ -85,9 +85,6 @@ whonixcheck_main() {
    whonixcheck_run_function function_manual_run ## function_manual_run
 
    ## Does not use the network.
-   whonixcheck_run_function check_whonixcheck_lastrun ## check_lastrun
-
-   ## Does not use the network.
    whonixcheck_run_function check_autostart ## autostart
 
    ## Does not use the network.
@@ -241,7 +238,7 @@ whonixcheck_main() {
    ## Does not use the network.
    whonixcheck_run_function donate ## donate
    ## Does not use the network.
-   whonixcheck_run_function whonixcheck_completed ## check_lastrun
+   whonixcheck_run_function whonixcheck_completed ## autostart
    ## Does not use the network.
    whonixcheck_run_function cleanup ## cleanup
 }
