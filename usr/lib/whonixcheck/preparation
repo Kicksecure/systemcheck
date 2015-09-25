@@ -282,23 +282,29 @@ preparation() {
       fi
       if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
          [ -n "$silent" ] || silent="3"
-         if [ "$vm_lower_case_short" = "workstation" ]; then
-            local MSG="\
-Qubes detected. Workstation detected.
+      fi
+      whonixcheck_exit_immediate_was="$whonixcheck_exit_immediate"
+      ## {{ By default,
+      ##    - on Whonix-Gateway: run in autostart mode, exit in daemon mode.
+      ##    - in Whonix-Workstation: exit immediate in autostart and in daemon mode.
+      if [ "$vm_lower_case_short" = "gateway" ]; then
+         if [ "$DAEMON" = "1" ]; then
+            [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
+         fi
+      else
+         if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
+            [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
+         fi
+      fi
+      ## }}
+      local MSG="\
+Qubes detected.
 AUTOSTARTED: $AUTOSTARTED
 DAEMON: $DAEMON
+whonixcheck_exit_immediate_was: $whonixcheck_exit_immediate_was
 whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
-            if [ "$verbose" -ge "3" ]; then
-               $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-            fi
-            if [ "$whonixcheck_exit_immediate" = "" ]; then
-               local MSG="whonixcheck_exit_immediate was unset, setting to 'true'."
-               if [ "$verbose" -ge "3" ]; then
-                  $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-               fi
-               whonixcheck_exit_immediate="true"
-            fi
-         fi
+      if [ "$verbose" -ge "3" ]; then
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
