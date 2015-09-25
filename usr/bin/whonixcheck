@@ -73,7 +73,7 @@ whonixcheck_progress_main() {
    whonixcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
 }
 
-whonixcheck_main() {
+whonixcheck_basics() {
    parse_cmd_options ${1+"$@"} ## parse_cmd
    preparation ## preparation
 
@@ -111,7 +111,9 @@ whonixcheck_main() {
 
    ## Does not use the network.
    whonixcheck_run_function check_autostart ## autostart
+}
 
+whonixcheck_further() {
    local progressbaridx
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
@@ -240,6 +242,11 @@ whonixcheck_main() {
    whonixcheck_run_function whonixcheck_completed ## autostart
    ## Does not use the network.
    whonixcheck_run_function cleanup ## cleanup
+}
+
+whonixcheck_main() {
+   whonixcheck_basics
+   whonixcheck_further
 }
 
 whonixcheck_main ${1+"$@"}
