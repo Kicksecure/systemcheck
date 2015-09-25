@@ -77,9 +77,6 @@ whonixcheck_main() {
    parse_cmd_options ${1+"$@"} ## parse_cmd
    preparation ## preparation
 
-   local progressbaridx
-   progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-
    ## Conditionally only run the function name that was given by the --function
    ## command line parameter. Then exit.
    whonixcheck_run_function function_manual_run ## function_manual_run
@@ -114,6 +111,9 @@ whonixcheck_main() {
 
    ## Does not use the network.
    whonixcheck_run_function check_autostart ## autostart
+
+   local progressbaridx
+   progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
    local MSG="$NOTIFY_MSG"
 
