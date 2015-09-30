@@ -99,11 +99,11 @@ $qubes_update_help</p>"
    fi
 
    if [ "$qubes_detected" = "true" ]; then
-      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
+      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
 <br></br><b><u>Please update $update_where.</u></b>
 $qubes_update_help</p>"
    else
-      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that ${number_upgraded} packages can be updated.</b>
+      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
 <br></br>Please update Whonix-Gateway and Whonix-Workstation:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
