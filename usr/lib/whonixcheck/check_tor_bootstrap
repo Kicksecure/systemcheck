@@ -109,7 +109,7 @@ $multiple_whonix_ws_msg
    #fi
 
    if [ "$tor_bootstrap_percent" = "100" ] && [ "$tor_circuit_established" = "1" ]; then
-      local MSG="<p>Tor Bootstrap Result: Connected to Tor.</p>"
+      local MSG="<p>Connected to Tor.</p>"
       ## Only attempt to close the progress bar if one was started.
       ## Otherwise this might conflict with the progress bar in 25_autostart.
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
