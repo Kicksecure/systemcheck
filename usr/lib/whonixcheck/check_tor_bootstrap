@@ -110,6 +110,8 @@ $multiple_whonix_ws_msg
 
    if [ "$tor_bootstrap_percent" = "100" ] && [ "$tor_circuit_established" = "1" ]; then
       local MSG="<p>Tor Bootstrap Result: Connected to Tor.</p>"
+      ## Only attempt to close the progress bar if one was started.
+      ## Otherwise this might conflict with the progress bar in 25_autostart.
       if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
          $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
@@ -124,10 +126,7 @@ $multiple_whonix_ws_msg
             return 0
          fi
       fi
-
       $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE_X" --typex "info" --message "$MSG" --done
-      ## Only attempt to close the progress bar if one was started.
-      ## Otherwise this might conflict with the progress bar in 25_autostart.
       $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
       return 0
    fi
