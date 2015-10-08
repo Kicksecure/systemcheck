@@ -120,12 +120,6 @@ $multiple_whonix_ws_msg
          ## successfully finished the Tor bootstrap test.
          return 0
       fi
-      if [ "$silent" -ge "2" ]; then
-         if [ ! "$started_tor_bootstrap_progress_bar" = "1" ]; then
-            true "We did not open a progress bar and silent is $silent. Therefore not showing the the passive message."
-            return 0
-         fi
-      fi
       $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE_X" --typex "info" --message "$MSG" --done
       $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
       return 0
@@ -140,12 +134,24 @@ $multiple_whonix_ws_msg
             true
          else
             ## Not running in daemon mode.
-            started_tor_bootstrap_progress_bar="1"
-            ## Waited for more than 5 seconds.
-            local progressbaridx
-            progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-            local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
-            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
+            if [ "$AUTOSTARTED" = "1" ] && [ "$silent" -ge "2" ]; then
+               true "AUTOSTARTED is $AUTOSTARTED and silent is $silent. Therefore not creating a progress bar."
+               if [ "$tor_bootstrap_in_progress_passive_popup_shown" = "true" ]; then
+                  true
+               else
+                  tor_bootstrap_in_progress_passive_popup_shown="true"
+                  local MSG="<p>Tor bootstrap in progress.</p>"
+                  $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$TITLE_X" --typex "info" --message "$MSG" --done
+                  $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
+               fi
+            else
+               started_tor_bootstrap_progress_bar="1"
+               ## Waited for more than 5 seconds.
+               local progressbaridx
+               progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
+               local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
+               $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
+            fi
          fi
       fi
    fi
