@@ -43,7 +43,7 @@ Also refer to the installation instructions of Qubes-Whonix.
    fi
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if [ "$qubes_vm_type" = "NetVM" ] || [ "$qubes_vm_type" = "ProxyVM" ]; then
+      if [ "$qubes_vm_type" = "NetVM" ] || [ "$qubes_vm_type" = "ProxyVM" ] || [ "$qubes_vm_type" = "TemplateVM" ] ; then
          local MSG="<p>Qubes Settings Test Result: Ok, qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
