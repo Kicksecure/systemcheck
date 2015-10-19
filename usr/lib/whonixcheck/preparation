@@ -244,6 +244,7 @@ preparation() {
       ## sys-whonix
       ## whonix
       qubes_name_of_vm="$(qubesdb-read /name)" || true
+      passive_popup_title="[${qubes_name_of_vm}]"
       ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
 
       qubes_starter_first_part="ServiceVM"
@@ -323,6 +324,7 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
       qubes_title_extra=""
       update_where="this machine"
+      passive_popup_title="[$IDENTIFIER]"
    fi
 
    [ -n "$silent" ] || silent="0"
