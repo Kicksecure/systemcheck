@@ -144,7 +144,8 @@ ex_funct() {
 
       if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
          local MSG="<p><b>$SCRIPTNAME aborted!</b> (SIGNAL_TYPE: $SIGNAL_TYPE)</p>"
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         ## Not adding aborted message to gui output. Caused too much confusion.
+         #$output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
 
