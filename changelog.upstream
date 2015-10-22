@@ -1,3 +1,352 @@
+commit 46766fabfa480e09057a84a0a61226c713c68cc7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 19 17:38:54 2015 +0000
+
+    no longer showing aborted message in gui
+
+commit 20373846840b10a59502f53c53a48c3f6769dfcb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 19 16:59:04 2015 +0000
+
+    Qubes Tor bootstrap passive popup text: [Connecting|Connected] to Tor[.|...]
+    
+     [sys-whonix]
+     Connecting to Tor...
+    
+     [sys-whonix]
+     Connected to Tor.
+
+commit 49869998f5f537125159fcbc66790d803550bf00
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 12 11:30:38 2015 +0000
+
+    fixed Qubes settings test in whonix-gw TemplateVM
+
+commit dca3ee26bdbef238ee65fe1be18f8433f006578a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 8 18:45:43 2015 +0000
+
+    passive popup "Tor Bootstrap Result: Connected to Tor." -> "Connected to Tor."
+
+commit 600478aeb8f4b0be8077cd6dfe47d63d9dc3e1f2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 8 18:03:01 2015 +0000
+
+    no more progress bars, only two passive popups on autostart
+
+commit 38d4843a13ccd949c7c0df7ef8147d240ee1d4dd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 8 14:43:09 2015 +0000
+
+    comment
+
+commit 969dc2d14ef2757d7ade05c8d4fab5fc06556516
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Sep 30 15:06:59 2015 +0000
+
+    no longer show how many packages can be updated since it is not interesting for the user
+
+commit 7e9e76840082ca64f9e68a873a15a13c97f05547
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 14:37:20 2015 +0000
+
+    fix
+
+commit 38cb4a32e740b77f5e9c5d81d19609b03660bb3e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 13:48:01 2015 +0000
+
+    improved output for Qubes starter first part ('Domain:' vs 'ServiceVM:' vs 'Template:')
+
+commit 5489a578926015303cda20772d5849e362125f8e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 13:17:10 2015 +0000
+
+    comment
+
+commit 9bd4ff36e6b5a107c2141fb60e2e4e43bb0b1fd6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 13:15:42 2015 +0000
+
+    refactoring
+
+commit 4da66159fbb8a85a6c63586c069ecb486ee96369
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 13:13:08 2015 +0000
+
+    refactoring
+
+commit a3e08477262f444fa076b4df05cb21fdaad1fc30
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 13:10:36 2015 +0000
+
+    fix
+
+commit c25f6e093b718ff201105b7925058a7f5e09dc8e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 13:05:48 2015 +0000
+
+    code simplification
+
+commit ccd7b888ec3e84f157dbfb8662c8c253004fcd7c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 13:01:56 2015 +0000
+
+    refactoring
+
+commit 599c32c0a6d7f68d831b4badcc5effa6eccb7f96
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 12:59:48 2015 +0000
+
+    code simplification
+
+commit b3f484d98552ef955fb3fccb2bc3b6c70ff511e0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 12:54:01 2015 +0000
+
+    comment
+
+commit 4fb2ff9d4c62a1a80ba9326bebd0c3aff37fc885
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 12:53:20 2015 +0000
+
+    code simplification
+
+commit fb1858dfc63deba6086d26488db2be2ad7800a8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 12:46:50 2015 +0000
+
+    fix
+
+commit 420746477638fb7e3d5558d39e3c677997fdd08e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 12:44:02 2015 +0000
+
+    output
+
+commit f0dbbbac433dfd7340b8ac6accf806ec4dd3f44b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 12:42:17 2015 +0000
+
+    exit immediate when started in daemon mode on Qubes-Whonix-Gateway to avoid intrusive popups
+
+commit 9949235e969a55e33f3098996a7440b6aabf0ffd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 22 20:05:54 2015 +0000
+
+    - check if Qubes-Whonix-Gateway is running in the right type of VM (ProxyVM)
+    - report if Whonix-Workstation or TemplateVM is connected to netvm 'none'
+
+commit 5c7cd6c6ea99ad539a70ed428a4e0d94b8445ec6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 22 19:59:29 2015 +0000
+
+    check_systemd_clock: compatibility with newer systemd - https://github.com/systemd/systemd/commit/2fc4f5bd924b9732afc70f8a6da80573f833fc9d
+
+commit 7f898a2594f93e07880ac215d72f3b7116132b8e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 22 17:29:29 2015 +0000
+
+    improved Qubes update proxy test
+
+commit a1d038ed5e8fa917090361dc920cd7b25435ca42
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 22 16:52:50 2015 +0000
+
+    error handling in case 'qubesdb-read /qubes-gateway' fails (could be the case if netvm is set to 'none')
+
+commit 0b62cc2b2d433d617a2b54020c71bc9f779ce88a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 22 11:26:47 2015 +0000
+
+    comment
+
+commit 7c298032d66890427b66dbcd37bbd371cb3a1898
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 22 11:22:17 2015 +0000
+
+    added instructions on how to open torrc in case Tor is disabled using 'DisableNetwork 0'; improved Qubes specific start menu instructions
+
+commit 4d25b9874b6c7d6cb080bd901bc0ee4a49951855
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 22 11:16:41 2015 +0000
+
+    output
+
+commit 6b268987ae753249ed97d0d6ef9b6f2968112b0d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 21 17:57:01 2015 +0000
+
+    improved Whonix apt repository Qubes specific instructions; refactoring
+
+commit 8a9197c4bc8b5e5f7befcc813894461c40dd8275
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 21 14:44:52 2015 +0000
+
+    comment
+
+commit 233ee5f290e21bdf70d303b772eb7f19f8f574eb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 21 14:43:08 2015 +0000
+
+    fix
+
+commit c3985c3529aa2f13f737d3dc26d368494956ab61
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 22:47:42 2015 +0000
+
+    no longer require Qubes ip replacement script to modify the file
+
+commit 548d0aef59baa3b9136a5b34ec64ddd1bf49f02c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 22:42:57 2015 +0000
+
+    refactoring
+
+commit fc3e0ae19094d5cba4bdedae2b49e26a7465d3aa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 22:40:42 2015 +0000
+
+    support running in Qubes-Whonix-Gateway TemplateVM
+
+commit 029bdb84a33f27dcc94de1827834888c88344eeb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 16:09:33 2015 +0000
+
+    fixed order of functions
+
+commit 0ad0d9b442140283b9776f9696bb7e0b8d8ae706
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 15:20:50 2015 +0000
+
+    refactoring
+
+commit 2304c10995edcb8bc8b820c0021f8df91221474a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 15:19:42 2015 +0000
+
+    better output in case waiting for cpfpy
+
+commit e761b428ed7ae729c825254bff7e24b47c9504a2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 15:08:04 2015 +0000
+
+    output
+
+commit 2b2ad356b372aadb4912b076887d6fbb063b6251
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 15:07:36 2015 +0000
+
+    refactoring
+
+commit 12af5a56be6b754330755cf314018a181e750195
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 15:06:01 2015 +0000
+
+    output
+
+commit 8b204d232f0c4ef50003001a3e1f69d88fa1e354
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 15:04:51 2015 +0000
+
+    output
+
+commit c6561ff8c69576f50a08cf6f7a6d22b811528bf4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 14:59:35 2015 +0000
+
+    cleanup
+
+commit 94bf09ca4c5cce3da9dafdaa423f2e8d51cd0b88
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 14:58:43 2015 +0000
+
+    fix
+
+commit 2f09e6ff0a291e826ad7c32dd60b94e1fff83944
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 14:51:55 2015 +0000
+
+    comments
+
+commit 1e356dad48775339a8eb302b7392cfbc97d65991
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 14:48:59 2015 +0000
+
+    comment
+
+commit 163f27242479b2b1f62fe04280eb2df040ccfb45
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 14:47:17 2015 +0000
+
+    comment
+
+commit d76912623e8aac9289caa4d748206e7fe2f98ad6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 15 14:45:01 2015 +0000
+
+    comment
+
+commit 979442cf180033a8ef2a98e7f0005540ea146684
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Sep 9 17:14:36 2015 +0000
+
+    minor
+
+commit f0165de9747902a1c72791be041877bdd67b0a1f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 6 22:24:16 2015 +0000
+
+    fix
+
+commit 30ed7ab5d2e009d1be9e5ae71b6d9914d68ee93c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 6 21:46:30 2015 +0000
+
+    improved CLI title in Qubes
+
+commit 89a35396955edda1db7c212cc9a5b33d4ca45b48
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 4 12:31:56 2015 +0000
+
+    always skip disclaimer when running inside Qubes
+
+commit a82643540549d7909cf4c235a9be3356e9684069
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 4 12:19:26 2015 +0000
+
+    fixed --function with no extra argument help output
+
+commit 442e94257bd3e3a07bb0f9f9d6ecbd1e8b5e5856
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 3 23:22:49 2015 +0000
+
+    refactoring, ported from old 'qubesdb-read /qubes-vm-updateable' to new (https://github.com/QubesOS/qubes-issues/issues/1101) more readable 'qubesdb-read /qubes-vm-persistence'
+
+commit 1d1ebc4ed98982d2dcfe396153c12a429b62887a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 3 22:50:17 2015 +0000
+
+    improved output in Qubes by using 'qubesdb-read /qubes-base-template'
+
+commit 58b3f91fa1209d45698ddd72d350ed01de2e84d8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 31 16:14:29 2015 +0000
+
+    in Qubes-Whonix, when using --verbose, check if Qubes update proxy is reachable
+
+commit cb7e3ec8ccd9ff77ca017449c980eaf453fa9961
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 28 15:28:24 2015 +0000
+
+    compatibility with newer msgcollector
+
+commit c587ecc6f15c84950f2560a220706e9c74ac3f8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 23:32:00 2015 +0000
+
+    bumped changelog version
+
 commit 5e34abf703016092b6db73d1940b2e896a8b71c9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 26 02:45:14 2015 +0000
