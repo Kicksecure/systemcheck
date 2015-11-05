@@ -335,7 +335,7 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       cleanup
    fi
 
-   TITLE_X="$IDENTIFIER | ${VM}${qubes_title_extra} | $(date)"
+   TITLE_X="$IDENTIFIER | ${VM}${qubes_title_extra}"
 
    ## No need to add $IDENTIFIER to output, because msgcollector already does that.
    ## $qubes_name_of_vm is empty in non-Qubes-Whonix.
