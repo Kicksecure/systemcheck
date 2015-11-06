@@ -136,7 +136,7 @@ check_tor_socks_or_trans_port() {
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TOR_RESULT_TRANS_PORT")"
          local MSG="\
 <p>TransPort Test Result: Tor's TransPort was not reachable.
-<br></br>If this is a transient error, this is sometimes normal.
+<br></br>It is normal for this error to temporarily occur.
 <br></br>(If you disabled Tor's TransPort, please disable this check, see whonixcheck <code>/etc/whonix.d/30_whonixcheck_default</code> configuration file.)
 <br></br>(curl exit code: $curl_status_message)</p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
