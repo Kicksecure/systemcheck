@@ -263,7 +263,7 @@ check_tor_socks_or_trans_port() {
 
 <p>(
 <br></br> VPN/transproxy users:
-<br></br> In case you added a VPN/transproxy and do not want whonixcheck to stop once this has been detected, see whonixcheck /etc/whonix.d/30_whonixcheck_default configuration file.
+<br></br> In case you added a VPN/transproxy and do not want whonixcheck to stop once this has been detected, see whonixcheck <code>/etc/whonix.d/30_whonixcheck_default</code> configuration file.
 <br></br>)</p>
 
 <p>You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
