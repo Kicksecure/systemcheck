@@ -18,7 +18,8 @@ check_tor_socks_or_trans_port() {
 
    if [ "$1" = "SocksPort" ]; then
       if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
-         local MSG="<p>SocksPort Test: Not testing Tor's SocksPort, because you set <code>WHONIXCHECK_DISABLE_SOCKS_PORT_TEST=\"1\"</code> to deactivate this.</p>"
+         local MSG="\
+<p>SocksPort Test: Not testing Tor's SocksPort, because you set <code>WHONIXCHECK_DISABLE_SOCKS_PORT_TEST=\"1\"</code> to deactivate this.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -80,7 +81,8 @@ check_tor_socks_or_trans_port() {
       fi
    elif [ "$1" = "TransPort" ]; then
       if [ "$WHONIXCHECK_DISABLE_TRANS_PORT_TEST" = "1" ]; then
-         local MSG="<p>TransPort Test: <b>Not testing Tor's TransPort, because you set <code>WHONIXCHECK_DISABLE_TRANS_PORT_TEST=\"1\"</code> to deactivate this.</b></p>"
+         local MSG="\
+<p>TransPort Test: <b>Not testing Tor's TransPort, because you set <code>WHONIXCHECK_DISABLE_TRANS_PORT_TEST=\"1\"</code> to deactivate this.</b></p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -130,7 +132,8 @@ check_tor_socks_or_trans_port() {
       if [ ! "$CHECK_TOR_RESULT_TRANS_PORT" = "0" ]; then
          local curl_status_message
          curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TOR_RESULT_TRANS_PORT")"
-         local MSG="<p>TransPort Test Result: <b>Tor's TransPort was not reachable. (curl exit code:</b> $curl_status_message)
+         local MSG="\
+<p>TransPort Test Result: <b>Tor's TransPort was not reachable. (curl exit code:</b> $curl_status_message)
 <br></br>(If you disabled Tor's TransPort, please disable this check, see whonixcheck <code>/etc/whonix.d/30_whonixcheck_default</code> configuration file.)</p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
