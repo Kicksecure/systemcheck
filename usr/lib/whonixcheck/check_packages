@@ -47,11 +47,17 @@ Did you accidentally uninstall it?
 }
 
 check_unwanted_packages() {
-   local unwanted_package unwanted_packages_list unwanted_packages_counter dpkg_query_result
+   local unwanted_package unwanted_packages_list unwanted_packages_counter dpkg_query_result first
    unwanted_packages_counter="0"
    for unwanted_package in $whonixcheck_unwanted_package ; do
-      dpkg_query_result="$(dpkg-query --show --showformat='${Status}' "$unwanted_package" 2>/dev/null)" || true
-      if [ "install ok installed" = "$dpkg_query_result" ]; then
+      dpkg_query_result="$(dpkg-query --show --showformat='${Status}\n' "$unwanted_package" 2>/dev/null)" || true
+      ## dpkg_query_result example:
+      ## when installed           : install ok installed
+      ## when not fully installed : install ok unpacked
+      ## when removed             : deinstall ok config-files
+      ## when purged, no stdout
+      read -r first _ <<< "$dpkg_query_result"
+      if [ "install" = "$first" ]; then
          unwanted_packages_counter="$(( $unwanted_packages_counter + 1 ))"
          unwanted_packages_list+="$unwanted_package "
       fi
