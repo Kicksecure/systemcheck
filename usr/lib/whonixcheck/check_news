@@ -271,7 +271,6 @@ extract_whonix_news() {
          bsdtar \
             --strip-components 1 \
             --extract \
-            --verbose \
             --directory "$whonix_news_extract_dir" \
             --file "$whonix_news_download_dir/$file_name" \
             >/dev/null \
