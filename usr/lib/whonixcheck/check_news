@@ -52,16 +52,18 @@ whonix_news_preparation() {
    whonix_news_hyperlink="<a href=https://www.whonix.org/wiki/Whonix_News>Whonix News</a>"
    whonix_news_build_version_link="<a href=https://www.whonix.org/wiki/Whonixcheck#Whonix_Build_Version>Whonix Build Version</a>"
 
-   whonix_news_download_dir="$TEMP_DIR/news/news_download_dir"
-   whonix_news_verify_dir="$TEMP_DIR/news_verify_dir"
+   whonix_news_download_dir="$TEMP_DIR/news/download_dir"
+   whonix_news_verify_dir="$TEMP_DIR/news/verify_dir"
+   whonix_news_extract_dir="$TEMP_DIR/news/extract_dir"
 
-   SOCKS_PORT_WHONIX_NEWS="9114"
+   [ -n "$SOCKS_PORT_WHONIX_NEWS" ] || SOCKS_PORT_WHONIX_NEWS="9114"
 
    local MSG="Whonix News Download: Checking for Whonix news and updates..."
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    mkdir --parents "$whonix_news_download_dir"
    mkdir --parents "$whonix_news_verify_dir"
+   mkdir --parents "$whonix_news_extract_dir"
 }
 
 download_now_whonix_news() {
@@ -262,16 +264,18 @@ extract_whonix_news() {
 
    whonix_news_tar_exit_code="0"
 
-   timeout --kill-after="$kill_after" "$timeout_after" \
-      tar \
-         --extract \
-         --verbose \
-         --xz \
-         --file="$whonix_news_download_dir/$file_name" \
-         --directory="$whonix_news_download_dir/" \
-         . \
-         >/dev/null \
-         &
+   ## Using `bsdtar` because it can auto detect the archive type.
+   timeout \
+      --kill-after="$kill_after" \
+      "$timeout_after" \
+         bsdtar \
+            --strip-components 1 \
+            --extract \
+            --verbose \
+            --directory "$whonix_news_extract_dir" \
+            --file "$whonix_news_download_dir/$file_name" \
+            >/dev/null \
+            &
 
    lastpid="$!"
    wait "$lastpid" || { whonix_news_tar_exit_code="$?" ; true; };
@@ -289,12 +293,13 @@ extract_whonix_news() {
    fi
 
    ## Debugging.
-   #ls -la "$whonix_news_download_dir/"
+   ls -la "$whonix_news_download_dir/"
+   ls -la "$whonix_news_extract_dir/"
 }
 
 check_whonix_debian_version() {
    local file_name
-   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
+   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
 
    if [ ! -f "$file_name" ]; then
       ## This file should always exist.
@@ -325,7 +330,7 @@ check_whonix_debian_version() {
 
 check_whonix_build_version() {
    local file_name
-   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_valid_build_versions"
+   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_valid_build_versions"
 
    if [ ! -f "$file_name" ]; then
       ## This file should always exist.
@@ -358,7 +363,7 @@ check_whonix_build_version() {
 
 check_whonix_general_news() {
    local file_name
-   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_general_news"
+   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_general_news"
 
    if [ ! -f "$file_name" ]; then
       ## This will happen:
@@ -382,7 +387,7 @@ $VM <u>general</u> News: <code><blockquote>$message</blockquote></code>"
 
 check_whonix_debian_news() {
    local file_name
-   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
+   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
 
    if [ ! -f "$file_name" ]; then
       ## This will happen:
@@ -406,7 +411,7 @@ $VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> N
 
 check_whonix_build_news() {
    local file_name
-   file_name="$whonix_news_download_dir/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
+   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
 
    if [ ! -f "$file_name" ]; then
       ## This will happen:
