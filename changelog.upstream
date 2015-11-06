@@ -1,3 +1,15 @@
+commit 54dd2f769fd9ee1ee300ec87de340c258ec1f78a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 12:31:41 2015 +0000
+
+    disabled debugging
+
+commit c1615cbb5c33f788a7bdd1209f6c2875d0e41b6e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 12:01:45 2015 +0000
+
+    bumped changelog version
+
 commit 1ea2af786e2a19c829a46cffa82abb16211ecf80
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Nov 6 11:43:17 2015 +0000
