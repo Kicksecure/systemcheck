@@ -211,7 +211,7 @@ check_tor_socks_or_trans_port() {
          ## Shorten excess length $ip to $max_string_length chars.
          ip="${ip:0:$max_string_length}"
 
-         local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> ($actual_string_length characters).
+         local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> (<code>$actual_string_length</code> characters).
          Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this to Whonix developers!</p>"
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
@@ -231,9 +231,9 @@ check_tor_socks_or_trans_port() {
    if [ "$tor_detected" = "0" ]; then
       ## Tor detected.
       if [ "$1" = "TransPort" ]; then
-         local MSG="<p>TransPort Test Result: Connected to Tor. IP: $ip</p>"
+         local MSG="<p>TransPort Test Result: Connected to Tor. IP: <code>$ip</code></p>"
       elif [ "$1" = "SocksPort" ]; then
-         local MSG="<p>SocksPort Test Result: Connected to Tor. IP: $ip</p>"
+         local MSG="<p>SocksPort Test Result: Connected to Tor. IP: <code>$ip</code></p>"
       fi
       if [ "$silent" -le "0" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -246,7 +246,7 @@ check_tor_socks_or_trans_port() {
 
       if [ "$1" = "TransPort" ]; then
          if [ "$WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE" = "1" ]; then
-            local MSG="<p>TransPort Test Result: Tor not detected, but you set <code>WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE=\"1\"</code> to ignore this. IP: $ip</p>"
+            local MSG="<p>TransPort Test Result: Tor not detected, but you set <code>WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE=\"1\"</code> to ignore this. IP: <code>$ip</code></p>"
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             return 0
@@ -254,7 +254,7 @@ check_tor_socks_or_trans_port() {
             local MSG="\
 <p>TransPort Test Result:
 <br></br><b>Looks like you are not connected through Tor!</b>
-<br></br>IP: $ip</p>
+<br></br>IP: <code>$ip</code></p>
 
 <p>Whonixcheck aborted!</p>
 
@@ -282,7 +282,7 @@ check_tor_socks_or_trans_port() {
          local MSG="\
 <p>SocksPort Test Result:
 <br></br>Tor's SocksPort: <b>Looks like you are not connected through Tor!</b>
-<br></br>IP: $ip</p>
+<br></br>IP: <code>$ip</code></p>
 
 <p>Whonixcheck aborted!</p>
 
