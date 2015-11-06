@@ -1,3 +1,65 @@
+commit 1ea2af786e2a19c829a46cffa82abb16211ecf80
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 11:43:17 2015 +0000
+
+    output
+
+commit 2b09b2a445b5d1001a7064d3032140b895ecb3d6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 11:15:18 2015 +0000
+
+    - use bsdtar rather than tar, because it can auto detect archive type
+    - allow manually setting variable SOCKS_PORT_WHONIX_NEWS, so testing this gets simpler outside of Whonix
+    - refactoring
+
+commit 8b69f227f99adff8fed275f251a770f2e2aa537e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 09:54:29 2015 +0000
+
+    minor
+
+commit a56ef695cf640464d9f9b03ad3c668131f68c5ef
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 09:52:18 2015 +0000
+
+    refactoring
+
+commit c7a0a37e1bab4154d9bb87b3cb6b845b4969dd7d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 09:50:07 2015 +0000
+
+    minor
+
+commit ca5164b5e2a64f6f4a34f2b8f638f3a3effd8f6d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 09:49:06 2015 +0000
+
+    minor
+
+commit defddbde43ce756193cd329f25207cd9829c4730
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 09:35:21 2015 +0000
+
+    output
+
+commit c9a7a8dc2e19fa8affd57d022cf1efd841af9502
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 09:31:36 2015 +0000
+
+    fixed unwanted packages check
+
+commit b91b464b601619a245a4dd2b89780bcebd435a0e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Nov 5 20:38:56 2015 +0000
+
+    removed date from title_x
+
+commit e127e6e76f80e8c6f697673daab5663cb5f1cc1d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 22 23:12:41 2015 +0000
+
+    bumped changelog version
+
 commit 46766fabfa480e09057a84a0a61226c713c68cc7
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Oct 19 17:38:54 2015 +0000
