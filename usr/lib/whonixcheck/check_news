@@ -293,8 +293,8 @@ extract_whonix_news() {
    fi
 
    ## Debugging.
-   ls -la "$whonix_news_download_dir/"
-   ls -la "$whonix_news_extract_dir/"
+   #ls -la "$whonix_news_download_dir/"
+   #ls -la "$whonix_news_extract_dir/"
 }
 
 check_whonix_debian_version() {
