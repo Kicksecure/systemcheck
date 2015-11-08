@@ -86,7 +86,7 @@ check_timezone() {
       local MSG="<p>Check Timezone Result:
 <br></br><b>Settings different from Whonix defaults. (See above!)</b>
 <br></br>You could try to fix this.
-<blockquote>    $start_menu_instructions_system_first_part Konsole</blockquote>
+<blockquote>    $persistent_changes_start_menu_instructions_first_part Konsole</blockquote>
 <blockquote><code>sudo su
 <br></br>echo \"Etc/UTC\" > /etc/timezone
 <br></br>cp \"$localtime_file_usr\" \"$localtime_file_etc\"</code></blockquote>
