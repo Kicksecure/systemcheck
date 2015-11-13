@@ -1,3 +1,33 @@
+commit 26713b4737cb7d9fe87ffe39f741ebada7f352e9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 8 19:17:51 2015 +0000
+
+    fixed output with advice in Qubes when incorrect timezone is being set
+
+commit 80b9a9c19f8c325822621d574905a50b27616838
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 8 20:13:03 2015 +0100
+
+    output
+
+commit db5dfd7e0b9a7376e6b2577c695d31f80ab2cc57
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 19:15:28 2015 +0000
+
+    output
+
+commit 70520808ca175002abbebce53dd8de49dc0f7309
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 19:13:18 2015 +0000
+
+    less verbosity
+
+commit dcefa881bece41fa169cdadd09b8a5d520806e83
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 6 12:32:09 2015 +0000
+
+    bumped changelog version
+
 commit 54dd2f769fd9ee1ee300ec87de340c258ec1f78a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Nov 6 12:31:41 2015 +0000
