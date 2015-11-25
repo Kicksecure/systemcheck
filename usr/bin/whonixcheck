@@ -135,10 +135,12 @@ whonixcheck_further() {
    whonixcheck_progress_main "1"
 
    ## Does not use the network.
+   ## sets: whonixcheck_virtualizer_detected
    whonixcheck_run_function check_virtualizer ## check_virtualizer
    whonixcheck_progress_main "1"
 
    ## Does not use the network.
+   ## requires: whonixcheck_virtualizer_detected
    whonixcheck_run_function check_pvclock ## check_pvclock
    whonixcheck_progress_main "1"
 
