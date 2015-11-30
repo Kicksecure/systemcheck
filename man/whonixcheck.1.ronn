@@ -88,7 +88,7 @@ https://github.com/Whonix/Whonix/issues/24
 
 ## Configuration File and Folder
 
-See /etc/whonix.d/30_whonixcheck_default
+See /etc/whonix.d/30_whonixcheck_default.conf
 
 ## WWW
 https://www.whonix.org/wiki/Whonixcheck
