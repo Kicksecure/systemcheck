@@ -1,0 +1,1 @@
+rm_conffile /etc/whonix.d/30_whonixcheck_default

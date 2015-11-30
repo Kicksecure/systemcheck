@@ -365,22 +365,9 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       fi
    fi
 
-   for i in /etc/whonix.d/*; do
-      if [ -f "$i" ]; then
-         ## If the last character is a ~, ignore that file,
-         ## because it was created by some editor,
-         ## which creates backup files.
-         if [ "${i: -1}" = "~" ]; then
-            continue
-         fi
-         ## Skipping files such as .dpkg-old and .dpkg-dist.
-         if ( echo "$i" | grep -q ".dpkg-" ); then
-            true "skip $i"
-            continue
-         fi
-         bash -n "$i"
-         source "$i"
-      fi
+   for i in /etc/whonix.d/*.conf; do
+      bash -n "$i"
+      source "$i"
    done
 
    TIME_START="$(date +%s)"
