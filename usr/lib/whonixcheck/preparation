@@ -195,25 +195,15 @@ preparation() {
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       VM="Whonix-Gateway"
       vm_lower_case_short="gateway"
-      GATEWAY_IP="127.0.0.1"
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
       VM="Whonix-Workstation"
       vm_lower_case_short="workstation"
-      if [ "$qubes_detected" = "true" ]; then
-         ## Would fail if netvm is set to 'none'.
-         GATEWAY_IP="$(qubesdb-read /qubes-gateway)" || GATEWAY_IP="qubesdb_read_failed"
-      else
-         GATEWAY_IP="10.152.152.10"
-      fi
    else
       VM="whonixcheck script could not determine if this is whonix_gateway or whonix_workstation. Please report this bug."
       vm_lower_case_short="error"
-      if [ "$qubes_detected" = "true" ]; then
-         GATEWAY_IP="$(qubesdb-read /qubes-gateway)" || GATEWAY_IP="qubesdb_read_failed"
-      else
-         GATEWAY_IP="10.152.152.10"
-      fi
    fi
+
+   eval $(/usr/lib/anon-shared-helper-scripts/settings_echo)
 
    if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then
       ## Fallback
@@ -279,7 +269,6 @@ preparation() {
          update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
          persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_name_of_vm</code> ->"
          start_menu_instructions_system_first_part="$persistent_changes_start_menu_instructions_first_part"
-         GATEWAY_IP="$(qubesdb-read /qubes-gateway)" || GATEWAY_IP="qubesdb_read_failed"
       else
          if [ "$qubes_vm_persistence" = "full" ]; then
             qubes_title_extra=" | Standalone $qubes_vm_type"
