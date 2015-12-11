@@ -58,12 +58,16 @@ get_local_whonix_version() {
 
    ## fallback
    whonix_deb_package_version="Could not detect Whonix debian version. (Code: 1) Please report this bug!"
+   whonix_deb_package_version_detection_success="false"
 
    local dpkg_query_exit_code
    dpkg_query_exit_code="0"
    whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$whonix_deb_package_name" 2>/dev/null)" || { dpkg_query_exit_code="$?" ; true; };
 
-   if [ ! "$dpkg_query_exit_code" = "0" ]; then
+   if [ "$dpkg_query_exit_code" = "0" ]; then
+      whonix_deb_package_version_detection_success="true"
+   else
+      whonix_deb_package_version_detection_success="false"
       whonix_deb_package_version="Could not detect Whonix $whonix_deb_package_name version. (Code: 2) Probably because package $whonix_deb_package_name is not installed."
    fi
 
@@ -76,11 +80,13 @@ get_local_whonix_version() {
 
    ## fallback
    if [ "$whonix_deb_package_version" = "" ]; then
+      whonix_deb_package_version_detection_success="false"
       whonix_deb_package_version="Could not detect Whonix $whonix_deb_package_name version. (Code: 2) Please report this bug!"
    fi
 
    ## fallback
    whonix_build_version="Could not read Whonix Build Version File. (Code: 3) Please report this bug!"
+   whonix_build_version_detection_success="false"
 
    local build_version_file
    if [ -f "/usr/share/whonix/build_version" ]; then
@@ -90,15 +96,18 @@ get_local_whonix_version() {
    fi
 
    if [ "$build_version_file" = "" ]; then
+      whonix_build_version_detection_success="false"
       whonix_build_version="There is no Whonix Build Version File. (Code: 4) Please report this bug!"
    else
       if [ -f "$build_version_file" ]; then
          whonix_build_version="$(cat "$build_version_file")"
+         whonix_build_version_detection_success="true"
       fi
    fi
 
    ## fallback
    if [ "$whonix_build_version" = "" ]; then
+      whonix_build_version_detection_success="false"
       whonix_build_version="Could not read Whonix Build Version File. (Code: 5) Please report this bug!"
    fi
 }

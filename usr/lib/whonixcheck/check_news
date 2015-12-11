@@ -297,6 +297,16 @@ extract_whonix_news() {
 }
 
 check_whonix_debian_version() {
+   if [ "$whonix_deb_package_version_detection_success" = "false" ]; then
+      whonix_news_deb_up_to_date="unknown"
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      whonix_news_result_output="\
+<b><span style=font-weight:600;color:#ff0000>✘</span> Unknown: <code>$whonix_deb_package_name</code> version unknown, because not installed.</b>
+<br></br>$if_you_know_what_you_are_doing_msg"
+      return 0
+   fi
+
    local file_name
    file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
 
@@ -328,6 +338,16 @@ check_whonix_debian_version() {
 }
 
 check_whonix_build_version() {
+   if [ "$whonix_build_version_detection_success" = "false" ]; then
+      whonix_news_build_up_to_date="unknown"
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      whonix_news_result_output="${whonix_news_result_output}<br></br>
+<span style=font-weight:600;color:#ff0000>✘</span> <b>Unknown: $whonix_news_build_version_link: <u>$whonix_build_version</u></b>
+<br></br>$if_you_know_what_you_are_doing_msg"
+      return 0
+   fi
+
    local file_name
    file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_valid_build_versions"
 
