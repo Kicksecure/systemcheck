@@ -8,7 +8,7 @@ if_you_know_what_you_are_doing_funct() {
    ## $1 - $FUNCNAME
    echo "\
 If you know what you are doing, feel free to disable this check.
-Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
+Create a file <code>/etc/whonix.d/50_whonixcheck_user.conf</code> and add:
 <code><blockquote>whonixcheck_skip_functions+=\" $1 \"</blockquote></code>"
 }
 
