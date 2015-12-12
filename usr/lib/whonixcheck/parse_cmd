@@ -81,6 +81,14 @@ parse_cmd_options() {
                DEL_TMP="false"
                shift
                ;;
+           --gui)
+               GUI="true"
+               shift
+               ;;
+           --cli)
+               CLI="true"
+               shift
+               ;;
            --)
                shift
                break

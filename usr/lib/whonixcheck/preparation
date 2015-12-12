@@ -4,6 +4,51 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+input_detection() {
+   if [ "$CLI" = "true" ] && [ "$GUI" = "true" ]; then
+      CLI="true"
+      GUI="true"
+      input_auto="false"
+      input_msg="<p>Input Detection: INPUT_AUTO=$input_auto CLI=$CLI GUI=$GUI
+Manually set to --gui and --cli.</p>"
+   elif [ "$CLI" = "true" ]; then
+      CLI="true"
+      GUI="false"
+      input_auto="false"
+      input_msg="<p>Input Detection: INPUT_AUTO=$input_auto CLI=$CLI GUI=$GUI
+Manually set to --cli.</p>"
+   elif [ "$GUI" = "true" ]; then
+      CLI="false"
+      GUI="true"
+      input_auto="false"
+      input_msg="<p>Input Detection: INPUT_AUTO=$input_auto CLI=$CLI GUI=$GUI
+Manually set to --gui.</p>"
+   elif [ -t "0" ]; then
+      CLI="true"
+      GUI="false"
+      input_auto="true"
+      input_msg="<p>Input Detection: INPUT_AUTO=$input_auto CLI=$CLI GUI=$GUI
+stdin connected to terminal. Using cli output. Not using gui output.
+Alternatively, if want to run from \
+command line, but still use the graphical user interface for input, \
+you could add to command line: --gui</p>"
+   else
+      CLI="true"
+      GUI="true"
+      input_auto="true"
+      input_msg="<p>Input Detection: INPUT_AUTO=$input_auto CLI=$CLI GUI=$GUI
+stdin not connected to terminal, probably run in graphical environment, ok.</p>"
+   fi
+   if [ "$CLI" = "false" ]; then
+      ## Set output_cli to bash built-in 'true' so it will be ignored.
+      output_cli="true"
+   fi
+   if [ "$GUI" = "false" ]; then
+      ## Set output_x to bash built-in 'true' so it will be ignored.
+      output_x="true"
+   fi
+}
+
 if_you_know_what_you_are_doing_funct() {
    ## $1 - $FUNCNAME
    echo "\
@@ -113,7 +158,8 @@ get_local_whonix_version() {
 }
 
 preparation() {
-   msgdispatcher_init
+   whonixcheck_run_function msgdispatcher_init
+   whonixcheck_run_function input_detection
 
    [ -n "$verbose" ] || verbose="0"
 
@@ -361,6 +407,12 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       if [ "$manualrun" = "1" ]; then
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
+   fi
+
+   MSG="$input_msg"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    shopt -s nullglob
