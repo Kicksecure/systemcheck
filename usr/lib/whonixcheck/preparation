@@ -289,8 +289,8 @@ preparation() {
       ## sys-whonix
       ## whonix
       qubes_name_of_vm="$(qubesdb-read /name)" || true
+
       passive_popup_title="[${qubes_name_of_vm}]"
-      ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
 
       qubes_starter_first_part="ServiceVM"
       if [ "$qubes_name_of_vm" = "AppVM" ]; then
@@ -300,16 +300,20 @@ preparation() {
          qubes_starter_first_part="Template"
       fi
 
+      ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
       qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
+
       ## '/qubes-vm-persistence' outputs:
       ## - 'full' (TemplateVM or Standalone),
       ## - 'rw-only' (TemplateBasedVM), or
       ## - 'none' (DispVM).
       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)" || true
+
       ## '/qubes-base-template outputs for example:
       ## whonix-gw
       ## whonix-ws
       qubes_base_template="$(qubesdb-read /qubes-base-template)" || true
+
       if [ "$qubes_vm_type" = "TemplateVM" ]; then
          qubes_title_extra=" | TemplateVM"
          update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
