@@ -57,8 +57,32 @@ check_qubes_vm_type() {
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
          local MSG="\
-<p>Qubes Settings Test Result: Qubes-Whonix-Gateway Qubes VM Type is <code>$qubes_vm_type</code>, but NetVM or ProxyVM is expected.
+<p>Qubes Settings Test Result: Qubes-Whonix-Gateway Qubes VM Type is <code>$qubes_vm_type</code>, but NetVM, ProxyVM or TemplateVM is expected.
 <br></br>You most likely want to re-create this VM. Make sure to choose ProxyVM.
+<br></br>Also refer to the installation instructions of Qubes-Whonix.</p>
+<br></br>
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         EXIT_CODE="1"
+         cleanup "1"
+         return 0
+      fi
+   fi
+
+   if [ "$vm_lower_case_short" = "workstation" ]; then
+      if [ "$qubes_vm_type" = "AppVM" ] || [ "$qubes_vm_type" = "TemplateVM" ] ; then
+         local MSG="<p>Qubes Settings Test Result: Ok, qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
+         if [ "$verbose" -ge "1" ]; then
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+      else
+         local if_you_know_what_you_are_doing_msg
+         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+         local MSG="\
+<p>Qubes Settings Test Result: Qubes-Whonix-Workstation Qubes VM Type is <code>$qubes_vm_type</code>, but AppVM or TemplateVM is expected.
+<br></br>You most likely want to re-create this VM. Make sure to choose AppVM.
 <br></br>Also refer to the installation instructions of Qubes-Whonix.</p>
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
