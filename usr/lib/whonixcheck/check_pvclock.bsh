@@ -74,7 +74,11 @@ This is non-ideal. A known issue. Contributions happily considered. Read more: <
    ## VirtualBox: https://phabricator.whonix.org/T437
    if [ "$whonixcheck_virtualizer_detected" = "kvm" ]; then
       if [ "$current_clocksource" = "kvm-clock" ]; then
-         whonixcheck_run_function pvclock_unwanted_detected
+         ## Skip this check on Whonix-Gateway.
+         ## https://phabricator.whonix.org/T385#7651
+         if [ "$vm_lower_case_short" = "gateway" ]; then
+            whonixcheck_run_function pvclock_unwanted_detected
+         fi
          return 0
       fi
    fi
