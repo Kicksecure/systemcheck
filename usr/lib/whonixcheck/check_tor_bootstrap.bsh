@@ -199,7 +199,7 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
    elif [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
          local MSG="<p>Tor Bootstrap Result:
-<br></br><b>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.</b>
+<br></br><b>Whonixcheck gave up waiting.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
 <br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status</p>
 
@@ -228,7 +228,7 @@ you will need them for Whonix as well.</p>
 or in Terminal: <code>arm</code></p>"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="<p>Tor Bootstrap Result:
-<br></br>Whonixcheck gave up waiting after $TOR_BOOTSTRAP_TIME_PASSED seconds.
+<br></br>Whonixcheck gave up waiting.
 <br></br>Tor Circuit: $tor_circuit_established_word
 <br></br>Bootstrapping $tor_bootstrap_percent % done.
 <br></br>Tor reports: $tor_bootstrap_status.</p>
