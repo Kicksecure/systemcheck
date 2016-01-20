@@ -6,7 +6,7 @@ Source: whonixcheck
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 9), faketime, genmkfile, dh-systemd, ruby-ronn (>= 0.7.3)
+Build-Depends: debhelper (>= 9), faketime, genmkfile, dh-systemd, ruby-ronn (>= 0.7.3), dh-apparmor
 Homepage: https://www.whonix.org/wiki/whonixcheck
 Vcs-Browser: https://github.com/Whonix/whonixcheck
 Vcs-Git: https://github.com/Whonix/whonixcheck.git
@@ -17,6 +17,7 @@ Architecture: all
 Depends: anon-gw-base-files | anon-ws-base-files, anon-base-files, curl,
  curl-scripts, ca-certificates, msgcollector, virt-what, psmisc, sudo,
  gpg-bash-lib, bsdtar, anon-shared-helper-scripts, ${misc:Depends}
+Replaces: apparmor-profile-whonixcheck
 Recommends: anon-icon-pack
 Description: Anonymity and security check
  Checks many important aspects of Whonix for better security.
