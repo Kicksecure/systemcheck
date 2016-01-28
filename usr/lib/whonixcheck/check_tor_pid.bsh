@@ -67,7 +67,7 @@ check_tor_pid() {
 <p>Please restart Tor after fixing this error.</p>
 
 <blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
-    or in Terminal: <code><blockquote>sudo service tor restart</blockquote></code></p>
+    or in Terminal: <code><blockquote>sudo service tor@default restart</blockquote></code></p>
 
 <p>Restart whonixcheck after fixing this error.
 

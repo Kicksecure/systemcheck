@@ -45,7 +45,7 @@ check_tor_socks_port_reachability() {
    if [ "$check_socks_port_open_test" = "7" ]; then
       local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
 Failed to connect to host. Gateway likely reachable, but Tor service likely not started. \
-Either user has run <code>sudo service tor stop</code> or Gateway is still booting and has not started Tor service yet. \
+Either user has run <code>sudo service tor@default stop</code> or Gateway is still booting and has not started Tor service yet. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
