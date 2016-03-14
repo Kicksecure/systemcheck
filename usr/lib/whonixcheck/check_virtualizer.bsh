@@ -25,7 +25,7 @@ check_virtualizer() {
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "" ]; then
+   if [ "$whonixcheck_virtualizer_detected" = "" ] || [ "$whonixcheck_virtualizer_detected" = "none" ]; then
       ## Not running in a Virtual Machine (or none detected).
       local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on <u>bare metal</u>, continuing.</p>"
       if [ "$verbose" -ge "1" ]; then
