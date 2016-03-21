@@ -51,6 +51,7 @@
 	/bin/hostname rix,
 	/bin/tar rix,
 	/bin/cp rix,
+	/bin/dmesg rix,
 	/usr/bin/tor rix,
 	/usr/sbin/tor rix,
 	/usr/bin/mkfifo rix,
