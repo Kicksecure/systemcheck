@@ -72,6 +72,10 @@ whonixcheck_basics() {
    whonixcheck_run_function check_qubes_settings ## check_qubes
 
    ## Does not use the network.
+   whonixcheck_run_function check_kernel_messages ## check_systemd_clock
+   whonixcheck_progress_main "1"
+
+   ## Does not use the network.
    whonixcheck_run_function check_whonixsetup_done ## check_whonixsetup_done
 
    ## Does not use the network.
