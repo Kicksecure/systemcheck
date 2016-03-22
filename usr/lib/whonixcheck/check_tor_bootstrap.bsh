@@ -198,7 +198,7 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
       fi
    elif [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
-         check_anondate
+         check_anondate_do
          ## sets: anondate_issue
          ## sets: anondate_recommendation
 
