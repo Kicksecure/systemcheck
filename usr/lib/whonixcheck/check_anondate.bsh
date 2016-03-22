@@ -5,6 +5,8 @@
 ## See the file COPYING for copying conditions.
 
 check_anondate_do() {
+   ## Used by check_tor_bootstrap and check_anondate_show.
+
    local type tor_consensus_status current_time_in_valid_range
    local tor_consensus_valid_after tor_consensus_valid_until tor_consensus_middle_range
    local tor_cert_lifetime_output tor_cert_lifetime_valid tor_cert_valid_after
