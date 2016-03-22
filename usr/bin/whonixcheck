@@ -94,6 +94,9 @@ whonixcheck_basics() {
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_control_port_filter_running ## check_control_port_filter
 
+   ## Does not use the network. (Runs only on Whonix-Gateway.)
+   whonixcheck_run_function check_anondate_show
+
    ## Only connects to Whonix-Gateway.
    whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
    ## Only connects to Whonix-Gateway.

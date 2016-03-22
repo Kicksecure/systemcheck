@@ -110,3 +110,15 @@ is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manu
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>sudo date --set \"$suggested_date\"</blockquote></p>"
 }
+
+check_anondate_show() {
+   if [ "$verbose" -ge "1" ]; then
+      check_anondate_do
+      ## sets: anondate_issue
+      ## sets: anondate_recommendation
+      ## sets: anondate_debugging_information
+      local MSG="$anondate_debugging_information"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}

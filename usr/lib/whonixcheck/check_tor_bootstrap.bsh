@@ -201,6 +201,7 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
          check_anondate_do
          ## sets: anondate_issue
          ## sets: anondate_recommendation
+         ## sets: anondate_debugging_information
 
          local MSG="<p>Tor Bootstrap Result:
 <br></br><b>Whonixcheck gave up waiting.</b>
