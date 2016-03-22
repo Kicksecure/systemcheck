@@ -102,6 +102,6 @@ tor_cert_valid_after       : <code>$tor_cert_valid_after</code><br /></p>"
    anondate_recommendation="<p>Please check, that the time inside this virtual machine (<code>$current_time_short</code>) is correct. (A clock that
 is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manually fix it.
 <br></br>
-<br></br>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
+<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>sudo date --set \"$suggested_date\"</blockquote></p>"
 }
