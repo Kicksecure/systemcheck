@@ -1,0 +1,107 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_anondate() {
+   ## TODO
+   ## Only check on Whonix-Gateway.
+   #if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
+      #return 0
+   #fi
+
+   type=info
+
+   if sudo /usr/lib/anon-shared-helper-scripts/anondate --verified-only --has-consensus ; then
+      tor_consensus_status=verified
+   elif sudo /usr/lib/anon-shared-helper-scripts/anondate --unverified-only --has-consensus ; then
+      tor_consensus_status=unverified
+      type=warning
+   else
+      tor_consensus_status=none
+      type=warning
+   fi
+
+   if [ ! "$tor_consensus_status" = "none" ]; then
+      if sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --current-time-in-valid-range ; then
+         current_time_in_valid_range=true
+      else
+         current_time_in_valid_range=false
+         type=warning
+      fi
+   fi
+
+   if [ "$tor_consensus_status" = "verified" ]; then
+      if [ "$current_time_in_valid_range" = "true" ]; then
+         if [ "$verbose" -lt "1" ]; then
+            ## Got verified Tor consensus, our time is in the valid range,
+            ## running non-verbose, therefore skipping the rest of this test.
+            return 0
+         fi
+      fi
+   fi
+
+   ## Check valid-after, valid-until and middle-range if we got an either
+   ## verified or unverified Tor consensus.
+   if [ ! "$tor_consensus_status" = "none" ]; then
+      tor_consensus_valid_after="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --show-valid-after)" || true
+      tor_consensus_valid_until="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --show-valid-until)" || true
+      tor_consensus_middle_range="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --show-middle-range)" || true
+   fi
+
+   if tor_cert_lifetime_output="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --tor-cert-lifetime-invalid)" ; then
+      tor_cert_lifetime_valid=false
+      tor_cert_valid_after="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --tor-cert-valid-after)" || true
+      type=warning
+   else
+      tor_cert_lifetime_valid=true
+   fi
+
+   current_time_in_utc="$(date -u)"
+   current_time_short="$(date -u '+%d/%m/%Y %H:%M:%S')"
+   current_time_torish="$(date -u '+%Y-%m-%d %H:%M:%S')"
+
+   if [ ! "$tor_consensus_middle_range" = "" ]; then
+      suggested_date="$tor_consensus_middle_range"
+   elif [ ! "$tor_cert_valid_after" = "" ]; then
+      suggested_date="$tor_cert_valid_after"
+   else
+      suggested_date="$current_time_in_utc"
+   fi
+
+   if [ "$tor_consensus_status" = "none" ]; then
+      if [ "$tor_cert_lifetime_valid" = "true" ]; then
+         if [ "$verbose" -lt "1" ]; then
+            ## Got no Tor consensus (yet) but also no Tor invalid certificate
+            ## log message. Perhaps Tor or networking is (intentionally)
+            ## disabled. Therefore skipping the rest of this test.
+            return 0
+         fi
+      fi
+   fi
+
+   if [ "$verbose" -ge "1" ]; then
+      anondate_debugging_information="<p>$FUNCNAME debugging information:<br />
+<br />
+tor_consensus_status       : <code>$tor_consensus_status</code><br />
+current_time_in_valid_range: <code>$current_time_in_valid_range</code><br />
+<br />
+current_time_torish        : <code>$current_time_torish</code><br />
+tor_consensus_valid_after  : <code>$tor_consensus_valid_after</code><br />
+tor_consensus_valid_until  : <code>$tor_consensus_valid_until</code><br />
+tor_consensus_middle_range : <code>$tor_consensus_middle_range</code><br />
+<br />
+tor_cert_lifetime_output   : <code>$tor_cert_lifetime_output</code><br />
+tor_cert_lifetime_valid    : <code>$tor_cert_lifetime_valid</code><br />
+tor_cert_valid_after       : <code>$tor_cert_valid_after</code><br /></p>"
+   fi
+
+   anondate_issue="<br></br>- Tor needs a reasonable correct time to be able to connect."
+
+   anondate_recommendation="<p>Please check, that the time inside this virtual machine (<code>$current_time_short</code>) is correct. (A clock that
+is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manually fix it.
+<br></br>
+<br></br>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
+<br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>sudo date --set \"$suggested_date\"</blockquote></p>"
+}

@@ -13,3 +13,4 @@ ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
 %sudo ALL=NOPASSWD: /usr/lib/apt-get-update
 %sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
 %sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
+%sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/anondate

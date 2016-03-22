@@ -198,6 +198,10 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
       fi
    elif [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
+         check_anondate
+         ## sets: anondate_issue
+         ## sets: anondate_recommendation
+
          local MSG="<p>Tor Bootstrap Result:
 <br></br><b>Whonixcheck gave up waiting.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
@@ -206,9 +210,12 @@ Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
 <br></br>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
-<br></br>- Do you live in a censored area?</p>
+<br></br>- Do you live in a censored area?
+$anondate_issue</p>
 
 <p>Recommendations:</p>
+
+$anondate_recommendation
 
 <p>1)
 <br></br>Shut down Whonix and try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>

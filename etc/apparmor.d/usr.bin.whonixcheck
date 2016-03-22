@@ -55,6 +55,7 @@
 	/usr/bin/tor rix,
 	/usr/sbin/tor rix,
 	/usr/bin/mkfifo rix,
+	/usr/bin/sort rix,
 
 	/sbin/start-stop-daemon rix,
 
@@ -227,6 +228,7 @@
 	/usr/lib/anon-shared-helper-scripts/* rix,
 	/usr/lib/apt-get-update rix,
 	/usr/lib/apt-get-wrapper rix,
+	/usr/lib/anon-shared-helper-scripts/anondate rix,
 
 	# operation="unlink" requested_mask="d" denied_mask="d"
 	/usr/lib/python2.7/* rl,
@@ -250,12 +252,18 @@
 	/var/lib/apt/extended_states r,
 	/var/lib/whonixcheck/** rw,
 	/var/lib/whonix/whonixblog/* rw,
+	/var/lib/tor/cached-microdesc-consensus r,
+	/var/lib/tor/cached-microdesc-consensus.new r,
+	/var/lib/tor/unverified-microdesc-consensus r,
+	/var/lib/tor/unverified-microdesc-consensus.new r,
 
 	/var/log/sdwdate.log rw,
 	/var/log/timesanitycheck.log rw,
+	/var/log/tor/log r,
 
 	/var/lib/anon-dist/build_version r,
 
+	/run/tor/log r,
 	/run/tor/tor.pid r,
 	/run/tor/control.authcookie r,
 	/run/control-port-filter-python/pid r,
