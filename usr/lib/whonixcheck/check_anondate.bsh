@@ -101,7 +101,7 @@ tor_consensus_middle_range : <code>$tor_consensus_middle_range</code><br />
 <br />
 tor_cert_lifetime_output   : <code>$tor_cert_lifetime_output</code><br />
 tor_cert_lifetime_valid    : <code>$tor_cert_lifetime_valid</code><br />
-tor_cert_valid_after       : <code>$tor_cert_valid_after</code><br /></p>"
+tor_cert_valid_after       : <code>$tor_cert_valid_after</code></p>"
    fi
 
    anondate_issue="<br></br>- Tor needs a reasonable correct time to be able to connect."
