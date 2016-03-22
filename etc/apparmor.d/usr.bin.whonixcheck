@@ -63,6 +63,7 @@
 	/dev/tty rw,
 	/dev/null rw,
 	/dev/mem r,
+	/dev/kmsg r,
 
 	/etc/passwd r,
 	/etc/host.conf r,
