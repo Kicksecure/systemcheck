@@ -141,6 +141,7 @@
 	@{PROC}/uptime r,
 	@{PROC}/tty/drivers r,
 	@{PROC}/[0-9]*/task/ r,
+	@{PROC}/[0-9]*/task/** r,
 	@{PROC}/sys/kernel/random/uuid r,
 	@{PROC}/sys/net/ipv4/ip_forward r,
 	@{PROC}/[0-9]*/environ r,
