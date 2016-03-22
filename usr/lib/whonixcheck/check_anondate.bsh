@@ -5,6 +5,11 @@
 ## See the file COPYING for copying conditions.
 
 check_anondate() {
+   local type tor_consensus_status current_time_in_valid_range
+   local tor_consensus_valid_after tor_consensus_valid_until tor_consensus_middle_range
+   local tor_cert_lifetime_output tor_cert_lifetime_valid tor_cert_valid_after
+   local current_time_in_utc current_time_short current_time_torish suggested_date
+
    ## TODO
    ## Only check on Whonix-Gateway.
    #if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
