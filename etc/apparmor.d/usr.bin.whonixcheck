@@ -208,6 +208,7 @@
 	/usr/bin/diff rix,
 	/usr/bin/pgrep rix,
 	/usr/bin/bsdtar rix,
+	/usr/bin/pstree rix,
 
 	## Required by Qubes.
 	/usr/bin/gdbus rix,
