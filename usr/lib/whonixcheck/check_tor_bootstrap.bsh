@@ -232,7 +232,8 @@ you will need them for Whonix as well.</p>
 <p>3)
 <br></br>Use arm, connection page two, to see if Tor is connected:
 <blockquote>$start_menu_instructions_system_first_part Arm</blockquote>
-or in Terminal: <code>arm</code></p>"
+or in Terminal: <code>arm</code></p>
+$anondate_debugging_information"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="<p>Tor Bootstrap Result:
 <br></br>Whonixcheck gave up waiting.
