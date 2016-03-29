@@ -60,6 +60,7 @@ whonix_news_preparation() {
    whonix_news_extract_dir="$TEMP_DIR/news/extract_dir"
 
    [ -n "$SOCKS_PORT_WHONIX_NEWS" ] || SOCKS_PORT_WHONIX_NEWS="9114"
+   [ -n "$CURL_PROXY_WHONIX_NEWS" ] || CURL_PROXY_WHONIX_NEWS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS"
 
    local MSG="Whonix News Download: Checking for Whonix news and updates..."
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -107,7 +108,7 @@ download_now_whonix_news_helper() {
    $CURL \
       $CURL_VERBOSE \
       --fail \
-      --proxy "socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS" \
+      $CURL_PROXY_WHONIX_NEWS \
       --location \
       --max-time 180 \
       --output "$whonix_news_download_dir/$file_name" \

@@ -31,6 +31,7 @@ check_tor_socks_or_trans_port() {
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
       local SOCKS_PORT_WHONIXCHECK="9110"
+      [ -n "$CURL_PROXY_WHONIXCHECK" ] || CURL_PROXY_WHONIXCHECK="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK"
 
       CHECK_TOR_RESULT_SOCKS_PORT="0"
 
@@ -41,7 +42,7 @@ check_tor_socks_or_trans_port() {
       $CURL \
          --fail \
          $CURL_VERBOSE \
-         --proxy "socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK" \
+         $CURL_PROXY_WHONIXCHECK \
          --tlsv1 \
          --proto =https \
          --max-time 180 \
