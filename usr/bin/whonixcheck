@@ -202,10 +202,6 @@ whonixcheck_further() {
       ## Does not use the network.
       whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
 
-      ## Uses the network. 4
-      whonixcheck_run_function check_torbrowser ## check_torbrowser
-      whonixcheck_move_progress_bar_to_percent "95"
-
    else
       ## for Whonix-Gateway
 
