@@ -4,6 +4,9 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+## test command:
+## GATEWAY_IP=127.0.0.1 SOCKS_PORT_WHONIX_NEWS=9050 whonixcheck --function download_whonix_news
+
 download_whonix_news() {
    if [ "$silent" -ge "3" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
