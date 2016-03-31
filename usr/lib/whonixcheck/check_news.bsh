@@ -71,9 +71,9 @@ whonix_news_preparation() {
 }
 
 download_now_whonix_news() {
-   download_now_whonix_news_helper "http://www.whonix.org/download/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "whonix_news.tar.xz.asc"
+   download_now_whonix_news_helper "https://www.whonix.org/download/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "whonix_news.tar.xz.asc"
    if [ "$whonix_news_download_success" = "true" ]; then
-      download_now_whonix_news_helper "http://www.whonix.org/download/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "whonix_news.tar.xz"
+      download_now_whonix_news_helper "https://www.whonix.org/download/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "whonix_news.tar.xz"
    fi
 
    if [ "$whonix_news_download_success" = "false" ]; then
@@ -99,6 +99,11 @@ download_now_whonix_news_helper() {
    web_link="$1"
    file_name="$2"
 
+   if echo "$web_link" | grep -q "https://" ; then
+      local CURL_SSL
+      CURL_SSL="--tlsv1.2"
+   fi
+
    ## Fallback.
    whonix_news_download_success="false"
 
@@ -107,6 +112,7 @@ download_now_whonix_news_helper() {
 
    $CURL \
       $CURL_VERBOSE \
+      $CURL_SSL \
       --fail \
       $CURL_PROXY_WHONIX_NEWS \
       --location \
