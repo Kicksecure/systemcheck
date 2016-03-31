@@ -1,0 +1,64 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+#set -x
+
+check_network_interfaces() {
+   local failed eth0_failed eth1_failed
+
+   failed=false
+   if ! sudo /sbin/ifconfig eth0 >/dev/null ; then
+      eth0_failed=true
+      failed=true
+   fi
+
+   if [ "$vm_lower_case_short" = "gateway" ]; then
+      if ! sudo /sbin/ifconfig eth1 >/dev/null 2>&1 ; then
+         eth1_failed=true
+         failed=true
+      fi
+   fi
+
+   if [ "$failed" = "false" ]; then
+      local MSG="<p>check network interfaces Result: Ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   if [ "$eth0_failed" = "true" ]; then
+      local MSG="<p>check network interfaces Result: network interface eth0 not up!
+
+$if_you_know_what_you_are_doing_msg
+
+Debugging information:
+Command <code>sudo /sbin/ifconfig eth0</code> failed."
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
+      return 0
+   fi
+
+   if [ "$eth1_failed" = "true" ]; then
+      local MSG="<p>check network interfaces Result: network interface eth1 not up!
+
+$if_you_know_what_you_are_doing_msg
+
+Debugging information:
+Command <code>sudo /sbin/ifconfig eth1</code> failed."
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
+      return 0
+   fi
+}

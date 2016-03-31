@@ -81,6 +81,9 @@ whonixcheck_basics() {
    ## Own Progress Bar: Yes
    whonixcheck_run_function check_package_manager_running ## check_package_manager_running
 
+   ## Does not use the network.
+   whonixcheck_run_function check_network_interfaces ## check_network_interfaces
+
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_tor_enabled ## check_tor_enabled
 

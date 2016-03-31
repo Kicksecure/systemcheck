@@ -58,6 +58,7 @@
 	/usr/bin/sort rix,
 
 	/sbin/start-stop-daemon rix,
+	/sbin/ifconfig rix,
 
 	/dev/ r,
 	/dev/tty rw,
@@ -147,6 +148,7 @@
 	@{PROC}/[0-9]*/environ r,
 	@{PROC}/sys/kernel/random/entropy_avail r,
 	@{PROC}/xen/capabilities r,
+	@{PROC}/[0-9]*/net/** r,
 
 	/run/whonixcheck/* mrwcx,
 	/run/utmp rk,
