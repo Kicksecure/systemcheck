@@ -39,6 +39,9 @@ check_tor_socks_or_trans_port() {
 
       ## Ensuring normal curl activity can not be linked to whonixcheck,
       ## by using a SocksPort, which is solely used by whonixcheck.
+      ##
+      ## Cannot use --tlsv1.2 yet:
+      ## https://phabricator.whonix.org/T489
       $CURL \
          --fail \
          $CURL_VERBOSE \
