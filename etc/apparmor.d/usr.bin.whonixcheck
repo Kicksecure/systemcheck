@@ -212,6 +212,7 @@
 	/usr/bin/pgrep rix,
 	/usr/bin/bsdtar rix,
 	/usr/bin/pstree rix,
+        /usr/bin/vrms rix,
 
 	## Required by Qubes.
 	/usr/bin/gdbus rix,
@@ -247,6 +248,8 @@
 	/usr/share/open-link-confirmation/share/config/kdeglobals r,
 	/usr/share/torbrowser-launcher/torproject.pem r,
 	/usr/share/libthai/thbrk.tri r,
+	/usr/share/perl/** r,
+	/usr/share/vrms/** r,
 
 	/var/cache/apt/ r,
 	/var/cache/apt/* rw,

@@ -15,7 +15,7 @@ Standards-Version: 3.9.6
 Package: whonixcheck
 Architecture: all
 Depends: anon-gw-base-files | anon-ws-base-files, anon-base-files, curl,
- curl-scripts, ca-certificates, msgcollector, virt-what, psmisc, sudo,
+ curl-scripts, ca-certificates, msgcollector, virt-what, psmisc, sudo, vrms,
  gpg-bash-lib, bsdtar, anon-shared-helper-scripts, net-tools, ${misc:Depends}
 Replaces: apparmor-profile-whonixcheck
 Recommends: anon-icon-pack

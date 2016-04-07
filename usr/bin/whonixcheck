@@ -168,6 +168,10 @@ whonixcheck_further() {
    whonixcheck_run_function check_entropy ## check_entropy
    whonixcheck_progress_main "1"
 
+   ## Does not use the network.
+   whonixcheck_run_function check_nonfree ## check_nonfree
+   whonixcheck_progress_main "1"
+
    if [ "$MINIMAL" = "1" ]; then
 
       ## Only for debugging using the --minimal switch.

@@ -1,0 +1,72 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_nonfree() {
+   local vrms_output vrms_result line expected_package check_nonfree_result continue
+
+   ## Human readable output.
+   vrms_output="$(vrms 2>&1)" || true
+   vrms_output="$(/usr/lib/msgcollector/br_add "$vrms_output")"
+
+   ## For machine readable output.
+   vrms_result="$(vrms --quiet --sparse 2>&1)" || true
+
+   check_nonfree_result=free
+   for line in $vrms_result ; do
+      if [ "$line" = "" ]; then
+         continue
+      fi
+      for expected_package in $whonixcheck_expected_nonfree_package ; do
+         if [ "$line" = "" ] || [ "$line" = "$expected_package" ]; then
+            check_nonfree_result=expected
+            continue=true
+            break
+         fi
+      done
+      if [ "$continue" = "true" ]; then
+         unset continue
+         continue
+      fi
+      check_nonfree_result=nonfree
+      true "nonfree found: line: $line"
+      break
+   done
+
+   local nonfreelink="<a href=https://www.whonix.org/wiki/Avoid_nonfree_software>https://www.whonix.org/wiki/Avoid_nonfree_software</a>"
+
+   if [ "$check_nonfree_result" = "free" ]; then
+      local MSG="<p>Check nonfree Result: Ok, no nonfree packages found. For more information, see:
+<br />$nonfreelink</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   elif \
+   [ "$check_nonfree_result" = "expected" ]; then
+      nonfree_packages_detected=expected
+      local MSG="<p>Check nonfree Result: Ok, only expected nonfree packages found. For more information, see:
+<br />$nonfreelink
+<br />
+<br />vrms_output:
+<br /><code>$vrms_output</code></p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   else
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      local MSG="<p>Check nonfree Result: nonfree packages found. This is non-ideal but okay if you know what you are doing. For more information, see:
+<br />$nonfreelink
+<br />
+<br />vrms_output:
+<br /><code>$vrms_output</code>
+<br />
+<br />$if_you_know_what_you_are_doing_msg</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   fi
+}
