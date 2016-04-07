@@ -1,3 +1,375 @@
+commit 41eb9e1eba1b1e45c39ff20b3730bf184d6432fe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 7 18:25:00 2016 +0000
+
+    check for nonfree packages during
+    
+    https://phabricator.whonix.org/T461
+
+commit e8d65d4a9b1bbcd6c017e5d2515046c34b921eb1
+Merge: 142621d 599de94
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 7 00:59:39 2016 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 599de94dc22fc65a4d73a3021fe62a1e192c6e01
+Merge: 142621d 76158be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 7 00:59:13 2016 +0000
+
+    Merge pull request #4 from HulaHoopWhonix/patch-1
+    
+    Ban bts and wnpp-check
+
+commit 76158beb9bb36717a7f392539d6654d83e24853e
+Author: HulaHoopWhonix <bancfc@openmailbox.org>
+Date:   Thu Apr 7 00:25:37 2016 +0000
+
+    Ban bts and wnpp-check
+    
+    These packages were specifically pointed out as causing privacy leaks. Debian maintainers say this is not a definitive list. Need to ask them what else.
+    
+    https://lwn.net/Articles/672350/
+    https://wiki.debian.org/TorifyDebianServices
+
+commit 142621dc7ecec233a99d674e5d9a0e342b176660
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 31 22:00:53 2016 +0000
+
+    test if network interfaces are up
+    
+    https://phabricator.whonix.org/T490
+
+commit dd81a2841948e63e1a30d03038ab458699c2ed31
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 31 21:19:42 2016 +0000
+
+    download Whonix News using --tlsv1
+
+commit 774af24282a2bf18697a4dfabb82f6e7c83ff365
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 31 21:10:38 2016 +0000
+
+    comment
+
+commit 04e714c1014d55c25a9e4e53bba8125d5e794e8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 29 23:23:02 2016 +0000
+
+    cleanup, removed no longer used function check_torbrowser
+
+commit 062ff87fb318d6cabe6662fe19db7ab91cdb608e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 29 23:20:43 2016 +0000
+
+    made --proxy argument to curl configurable
+    
+    through environment variables
+    
+    - CURL_PROXY_WHONIXCHECK
+    - CURL_PROXY_WHONIX_NEWS
+
+commit 2c3b98cec95cd3e24c01ff1eb48d966d2aefa041
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 29 23:14:03 2016 +0000
+
+    comment
+
+commit 0ee4ac7cd603977634ae09adc9766ee86a94ac2f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 29 23:12:53 2016 +0000
+
+    only show build version if it is outdated or when running with --verbose
+    
+    showing the current build version has lead to too much confusion
+    
+    https://www.whonix.org/wiki/Whonixcheck#Whonix_Build_Version
+
+commit 483ee4785d0d8ff916055f88818426af66cd48dd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 10:36:40 2016 +0000
+
+    output
+
+commit 1603651d03f752c22ceba1c2860efffd083d69a0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 10:27:34 2016 +0000
+
+    fix
+
+commit e49e3157b2a2aa17c293b441a405034eb43dcfab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 10:15:15 2016 +0000
+
+    	@{PROC}/[0-9]*/task/** r,
+
+commit 971260573446e73d288424df06a39e076d590724
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 10:06:59 2016 +0000
+
+    /usr/bin/pstree rix,
+
+commit ad84a55667e84c9c5bbc0626b2b2a4619c4ae97e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:55:19 2016 +0000
+
+    comment
+
+commit 04c2ac6a53873b925dd1a736821c879af445ed46
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:54:04 2016 +0000
+
+    work on 'whonixcheck should test for slow / fast clock'
+    
+    https://phabricator.whonix.org/T482
+
+commit 61be795d764487352e5acbc2544ae903a8bb0d7d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:47:19 2016 +0000
+
+    refactoring
+
+commit 80b98c617ee8f4e44ab1db27b1b6b092957fc0ba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:46:01 2016 +0000
+
+    output
+
+commit ec227cd50d3d663dfe2451b166310c4b8c91d701
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:44:46 2016 +0000
+
+    local
+
+commit 66d666aef612009a0d64e5694ab9967ccb821d6c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:31:54 2016 +0000
+
+    output
+
+commit c93a264d47e67eeace9fc657ff6e52ef492ac5ff
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:23:18 2016 +0000
+
+    	/dev/kmsg r,
+
+commit 1411d7c3d2b3cb55c501c30c102321ef419e97d1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 22 09:17:57 2016 +0000
+
+    work on 'whonixcheck should test for slow / fast clock'
+    
+    https://phabricator.whonix.org/T482
+
+commit 1049109a01bcf997a193265abb22e122b324463e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 21 14:09:52 2016 +0000
+
+    run check_kernel_messages test
+    
+    https://phabricator.whonix.org/T480
+
+commit acf19620fc68f0b6c7b29cab9669a6cb5e7e9877
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 21 14:04:49 2016 +0000
+
+    look out for timekeeping watchdog kernel messages
+    
+    Kernel messages wrt timekeeping can indicate issues which generate lots of
+    confusion, inconvenience and even time related fingerprinting issues. See
+    https://github.com/QubesOS/qubes-issues/issues/1779 (new information to be
+    added there soon). Which took a while to debug.
+    
+    https://phabricator.whonix.org/T480
+
+commit 9795c5c5bf59e5eee20d05f6b0cfed1058816afe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 21 13:54:49 2016 +0100
+
+    Whonix News Download: download from whonix.org rather than mirror.whonix.de
+    
+    https://phabricator.whonix.org/T475
+
+commit ef6f98d4a3d9e17200cbcf3b73bc2fd50066d77d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 14 22:53:28 2016 +0000
+
+    cover cases when systemd-detect-virt outputs 'none'
+
+commit 51b9e014453b3001ada51b6dcbcdcec739b7c3d1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 13 17:15:39 2016 +0000
+
+    Fixed message if unwanted packages are found.
+    
+    Thanks to @rAntOCauDgb for the report.
+    
+    Fixes https://github.com/Whonix/whonixcheck/pull/3
+
+commit 88a81ea56cc33f0d97f8caa74a68e53e983faba7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 28 11:18:31 2016 +0100
+
+    tor -> tor@default
+
+commit 155071aee36895a30d65f05a2fea54667e18cfb7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 20 17:48:07 2016 +0000
+
+    merged apparmor-profile-whonixcheck
+
+commit e9409d635aea043e47a05abfb8d2ee646ea58c52
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 19 20:43:58 2016 +0100
+
+    bootstrap failure message: removed "after X seconds" message
+
+commit 88ce7981e57b564aef421aebdbd3e7174c7517c8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Dec 21 23:02:00 2015 +0100
+
+    skip kvmclock check on Whonix-Gateway
+    
+    https://phabricator.whonix.org/T385#7651
+
+commit e0d549265419a4e98132f6ac4fd678148e87a06c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 17 18:38:34 2015 +0100
+
+    comment
+
+commit dd228f9c1989c506c61147c0793555aae4988b59
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 13 02:07:17 2015 +0000
+
+    code simplification, source only files matching /usr/lib/whonixcheck/*.bsh
+
+commit 23dc10249e29d59ac741847cf3a7385dbaff9be6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 13 02:04:58 2015 +0000
+
+    renamed all files in usr/lib/whonixcheck to end with '.bsh'
+
+commit f8292d62efc419acef4cd677363191edeea29014
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 12 04:19:37 2015 +0000
+
+    check if Qubes-Whonix-Workstation is running in the right type of VM
+    
+    AppVM or TemplateVM
+
+commit 2bea94ed309ecc870f72403b08138a89f7bfaf4f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 12 04:08:13 2015 +0000
+
+    comments
+
+commit a5407b75a575af4aaf9a46ce396e8b48a505af19
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 12 03:59:33 2015 +0000
+
+    improved Qubes settings checks; show a warning if NetVM is set to none
+
+commit f9f4f87ff5bd5ad798d82a4b0c4458694ae5bd0d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 12 02:16:01 2015 +0000
+
+    no longer show graphical output when run from cli; implemented --gui and --cli
+
+commit 87788c81c75f2615af53f4aecb706c445675456d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 11 01:41:51 2015 +0000
+
+    output
+
+commit 484a7f0e318abf346dfff825434d5ec2011dc889
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 11 01:39:58 2015 +0000
+
+    code simplification, use settings_echo to get GATEWAY_IP
+
+commit a9667e3558bde418552ed85ca2777e4da8b9868c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 11 01:29:40 2015 +0000
+
+    Improved Whonix News output.
+    
+    Improved output in case package whonix-workstation-packages-dependencies or in
+    case Whonix build version file does not exist.
+    
+    Thanks to Vogel123 for the report!
+    
+    http://forums.whonix.org/t/source-list-error
+
+commit d3394bf315d44043a3c244ebd252aa9ad2a968de
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Dec 1 21:43:08 2015 +0000
+
+    fixed config file parser if config folder does not exist
+
+commit c6649dce555cba6b895de51f4cdfdd7e339d22f3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Dec 1 21:10:05 2015 +0000
+
+    Revert "no need to reintroduce /etc/whonix.d/30_whonixcheck_default.conf"
+    
+    This reverts commit 23a5a6991055bf8e1e4bf469c9280e3f0f84b635.
+
+commit 23a5a6991055bf8e1e4bf469c9280e3f0f84b635
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Dec 1 21:08:42 2015 +0000
+
+    no need to reintroduce /etc/whonix.d/30_whonixcheck_default.conf
+
+commit 750bf9ff387b4e3d3c1997aa1d75230ee6084fbe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 30 21:28:32 2015 +0000
+
+    Only source configuration files that end with the '.conf' extension.
+    
+    Thanks to @nrgaway for the suggestion!
+    
+    https://phabricator.whonix.org/T286
+
+commit a52b900bdffe36e9e9dad39d2ac676bef933c100
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 30 20:00:13 2015 +0000
+
+    local
+
+commit afe9aad6aa25e7577442478ce8f1117b76f86bfe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 30 19:46:21 2015 +0000
+
+    Only source configuration files that end with the '.conf' extension.
+    
+    Thanks to @nrgaway for the suggestion!
+    
+    https://phabricator.whonix.org/T286
+
+commit cb5f82e20b60b0c70ae73a5e36d53811f17573e9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 25 18:53:40 2015 +0000
+
+    whonixcheck pvclock test fixes
+    - no longer exit whonixcheck if unsupported pv clock was detected
+    - make unsupported pv clock detection only a warning as opposed to an error
+    - improved unsupported pv clock detection output
+    - deprecated config option WHONIXCHECK_NO_EXIT_ON_PVCLOCK_DETECTION (can be replaced by adding the function to the skipped ones)
+    - Only report unsupported pv clock for KVM, since this is not yet implemented for other platforms.
+      - Qubes: https://phabricator.whonix.org/T389
+      - VirtualBox: https://phabricator.whonix.org/T437
+    
+    Thanks to Corrupt Correct Pig for reporting this!
+    https://forums.whonix.org/t/recurring-time-error-within-gateway-11-under-virtualbox-5-error-unwanted-pvclock-kvm-clock-tsc-acpi-pm-detected/1671
+
+commit 9359ebc5a1a010a33370682a78392e37e6de2912
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 13 15:53:37 2015 +0000
+
+    bumped changelog version
+
 commit 26713b4737cb7d9fe87ffe39f741ebada7f352e9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Nov 8 19:17:51 2015 +0000
