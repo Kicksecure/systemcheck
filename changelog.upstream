@@ -1,3 +1,15 @@
+commit 700134e19135b6247c835c89b9e4040fea69579f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 18 19:31:46 2016 +0200
+
+    extended Whonix news signing key
+
+commit 9165ccde0d95b56546af6cba2dedad3769227b31
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 7 22:54:53 2016 +0000
+
+    bumped changelog version
+
 commit 41eb9e1eba1b1e45c39ff20b3730bf184d6432fe
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 7 18:25:00 2016 +0000
