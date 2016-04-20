@@ -402,7 +402,7 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
    $output_x --titlex "$TITLE_X"
    $output_cli --titlecli "$TITLE_CLI"
 
-   ## Only for whonixcheck to make it distinct from timesync.
+   ## Only for whonixcheck to make it distinct from other progress bars.
    ## Preventing overlapping windows.
    $output_general --lefttop
 

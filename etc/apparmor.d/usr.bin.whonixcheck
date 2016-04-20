@@ -22,7 +22,6 @@
 	/ r,
 
 	/usr/bin/whonixcheck r,
-	/usr/bin/timesync rix,
 
 	/bin/bash rix,
 	/bin/dash rix,
