@@ -117,6 +117,7 @@
 	/etc/login.defs r,
 	/etc/ssl/openssl.cnf r,
 	/etc/ssl/certs/ca-certificates.crt r,
+	/etc/tor/torrc r,
 
 	@{HOME}/ r,
 	@{HOME}/tor-browser_en-US/Docs/version r,
@@ -249,6 +250,7 @@
 	/usr/share/libthai/thbrk.tri r,
 	/usr/share/perl/** r,
 	/usr/share/vrms/** r,
+	/usr/share/tor/tor-service-defaults-torrc r,
 
 	/var/cache/apt/ r,
 	/var/cache/apt/* rw,
