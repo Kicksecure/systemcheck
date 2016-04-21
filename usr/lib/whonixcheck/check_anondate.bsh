@@ -113,6 +113,11 @@ is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manu
 }
 
 check_anondate_show() {
+   ## Only check on Whonix-Gateway.
+   if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
+      return 0
+   fi
+
    if [ "$verbose" -ge "1" ]; then
       check_anondate_do
       ## sets: anondate_issue
