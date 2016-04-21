@@ -12,11 +12,10 @@ check_anondate_do() {
    local tor_cert_lifetime_output tor_cert_lifetime_valid tor_cert_valid_after
    local current_time_in_utc current_time_short current_time_torish suggested_date
 
-   ## TODO
    ## Only check on Whonix-Gateway.
-   #if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
-      #return 0
-   #fi
+   if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
+      return 0
+   fi
 
    type=info
 
