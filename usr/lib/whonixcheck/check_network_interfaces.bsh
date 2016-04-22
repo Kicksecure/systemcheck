@@ -7,6 +7,10 @@
 #set -x
 
 check_network_interfaces() {
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      return 0
+   fi
+
    local failed eth0_failed eth1_failed
 
    failed=false
