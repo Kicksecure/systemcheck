@@ -1,3 +1,47 @@
+commit aaa26a47f2552b8c17f76f4195eda7332817516e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 22 03:31:31 2016 +0000
+
+    fix, skip check_network_interfaces in Qubes TemplateVM
+    
+    Since it does not have eth1 and since TemplateVM will be non-networked in future.
+
+commit ce5c326843f6eb5c21bfa6a50bf40a52815f0e90
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 21 18:23:12 2016 +0000
+
+    comment
+
+commit a24eba31de7b818f0726929c4536fe6945b05842
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 21 18:21:22 2016 +0000
+
+    fix
+
+commit 8826360324c94022e3022b6b8ebbb2049b8f479b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 21 18:18:56 2016 +0000
+
+    run check_anondate test only on Whonix-Gateway
+
+commit 7940765cb30a6609cff9df9c4d2a958644897dae
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 21 17:30:00 2016 +0000
+
+    torrc apparmor read access
+
+commit b37eead0399bada2cc9f67b31a488db6614f1559
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 20 04:13:39 2016 +0000
+
+    no longer mention timesync as it was replaced by sdwdate-gui
+
+commit 53a411eef69aeb2e757d09859123c051dc153391
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Apr 19 19:44:43 2016 +0000
+
+    bumped changelog version
+
 commit 700134e19135b6247c835c89b9e4040fea69579f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Apr 18 19:31:46 2016 +0200
