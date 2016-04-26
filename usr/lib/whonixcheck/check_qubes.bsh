@@ -71,7 +71,7 @@ check_qubes_vm_type() {
    fi
 
    if [ "$vm_lower_case_short" = "workstation" ]; then
-      if [ "$qubes_vm_type" = "AppVM" ] || [ "$qubes_vm_type" = "TemplateVM" ] ; then
+      if [ "$qubes_vm_type" = "AppVM" ] || [ "$qubes_vm_type" = "DisposableVM" ] || [ "$qubes_vm_type" = "TemplateVM" ] ; then
          local MSG="<p>Qubes Settings Test Result: Ok, qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
