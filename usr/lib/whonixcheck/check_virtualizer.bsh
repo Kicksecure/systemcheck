@@ -98,7 +98,7 @@ $VMWARE_TEXT
 
 <p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
 <code><blockquote>    WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote></code>
-in <code>/etc/whonix.d/30_whonixcheck_default</code>.</p>
+in <code>/etc/whonix.d/30_whonixcheck_default.conf</code>.</p>
 
 <p>Recommended action:
 <br></br>- Shut down.
