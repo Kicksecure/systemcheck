@@ -1,3 +1,23 @@
+commit b8d6548cc72df9f89e5fb635d6a16ab0b635e9a9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 4 19:01:01 2016 +0200
+
+    Added '/run/resolvconf/resolv.conf r,' to AppArmor profile.
+    
+    Required for curl when resolvconf is installed.
+
+commit 275f49ab4830228d747382f5bec1d489cbe22dbd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 4 18:59:31 2016 +0200
+
+    output
+
+commit f0be9a1d1e2c490ae6b2a9428af8244ee71fa97f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 28 03:59:51 2016 +0000
+
+    bumped changelog version
+
 commit a55997d4f07fa032541184d3c2688523c0bc3b08
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 28 02:33:35 2016 +0000
