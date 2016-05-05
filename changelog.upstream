@@ -1,3 +1,17 @@
+commit 02fc9940fcb1ea6942368a4fabfab04ef72fca5d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu May 5 01:08:02 2016 +0000
+
+    AppArmor profile: Allow running 'apt-get update' unconfined.
+    
+    So it can also initially create /var/cache/apt/archives/.
+
+commit deeefe960ab93e3a0b62f8c6144db64e27f1b5a6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 4 22:07:16 2016 +0000
+
+    bumped changelog version
+
 commit b8d6548cc72df9f89e5fb635d6a16ab0b635e9a9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed May 4 19:01:01 2016 +0200
