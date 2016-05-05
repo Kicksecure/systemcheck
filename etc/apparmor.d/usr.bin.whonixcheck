@@ -232,7 +232,11 @@
 	/usr/lib/apt/methods/* rix,
 	/usr/lib/curl-scripts/curl_exit_codes rix,
 	/usr/lib/anon-shared-helper-scripts/* rix,
-	/usr/lib/apt-get-update rix,
+
+	## Allow running 'apt-get update' unconfined so it can also initially
+	## create /var/cache/apt/archives/.
+	/usr/lib/apt-get-update rUx,
+
 	/usr/lib/apt-get-wrapper rix,
 	/usr/lib/anon-shared-helper-scripts/anondate rix,
 
