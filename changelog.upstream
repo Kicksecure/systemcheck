@@ -1,3 +1,17 @@
+commit 46dc5d30062b85ed090ab5d0280acaa1e681cf7b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 14 13:40:47 2016 +0000
+
+    fixed sudoers permissions for /sbin/ifconfig eth1
+    
+    required for check_network_interfaces
+
+commit 3e9ce26aa1bc7d1d2db2d26333cde824a105f08f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu May 5 03:27:02 2016 +0000
+
+    bumped changelog version
+
 commit 02fc9940fcb1ea6942368a4fabfab04ef72fca5d
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu May 5 01:08:02 2016 +0000
