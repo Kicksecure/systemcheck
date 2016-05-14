@@ -17,4 +17,4 @@ ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
 
 ## required for check_network_interfaces
 %sudo ALL=NOPASSWD: /sbin/ifconfig eth0
-%sudo ALL=NOPASSWD: /sbin/ifconfig eth0
+%sudo ALL=NOPASSWD: /sbin/ifconfig eth1
