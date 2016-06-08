@@ -37,16 +37,11 @@ check_tor_socks_or_trans_port() {
 
       CHECK_TOR_OUT_FILE="check_tpo_tor_socksport.html"
 
-      ## Ensuring normal curl activity can not be linked to whonixcheck,
-      ## by using a SocksPort, which is solely used by whonixcheck.
-      ##
-      ## Cannot use --tlsv1.2 yet:
-      ## https://phabricator.whonix.org/T489
       $CURL \
          --fail \
          $CURL_VERBOSE \
          $CURL_PROXY_WHONIXCHECK \
-         --tlsv1 \
+         --tlsv1.2 \
          --proto =https \
          --max-time 180 \
          $CURL_TPO_PIN_CERT \
@@ -125,7 +120,7 @@ check_tor_socks_or_trans_port() {
       $CURL \
          --fail \
          $CURL_VERBOSE \
-         --tlsv1 \
+         --tlsv1.2 \
          --proto =https \
          --max-time 180 \
          $CURL_TPO_PIN_CERT \
