@@ -424,7 +424,7 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
 
    shopt -s nullglob
    local i
-   for i in /etc/whonix.d/*.conf; do
+   for i in /etc/whonix.d/*.conf /rw/config/whonix.d/*.conf; do
       bash -n "$i"
       source "$i"
    done
