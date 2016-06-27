@@ -127,7 +127,7 @@
 	@{HOME}/.msgcollector rwk,
 	@{HOME}/.msgcollector/** rwk,
 
-	/lib/i386-linux-gnu/** mr,
+	/lib/*-linux-gnu/** mr,
 	/lib/security/* mr,
 	/lib/*/security/** mr,
 
