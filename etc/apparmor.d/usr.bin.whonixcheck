@@ -97,7 +97,7 @@
 	/etc/init.d/sdwdate rix,
 	/etc/apt/apt.conf.d/ r,
 	/etc/apt/apt.conf.d/* r,
-	/etc/python2.7/sitecustomize.py r,
+	/etc/python*/sitecustomize.py r,
 	/etc/dpkg/dpkg.cfg r,
 	/etc/dpkg/dpkg.cfg.d/ r,
 	/etc/dpkg/dpkg.cfg.d/** r,
@@ -192,7 +192,7 @@
 	/usr/lib/uwtwrapper rix,
 	/usr/bin/curl rix,
 	/usr/bin/torsocks rix,
-	/usr/bin/python2.7 rix,
+	/usr/bin/python* rix,
 	/usr/bin/dpkg rix,
 	/usr/bin/getopt rix,
 	/usr/bin/gpg rix,
@@ -226,7 +226,7 @@
 	/usr/lib/msgcollector/* rix,
 	/usr/lib/sudo/sudoers.so mr,
 	/usr/lib/whonixcheck/** rix,
-	/usr/lib/python2.7/** mr,
+	/usr/lib/python*/** mr,
 	/usr/lib/torsocks/* mr,
 	/usr/lib/virt-what/virt-what-cpuid-helper rix,
 	/usr/lib/apt/methods/* rix,
@@ -241,9 +241,10 @@
 	/usr/lib/anon-shared-helper-scripts/anondate rix,
 
 	# operation="unlink" requested_mask="d" denied_mask="d"
-	/usr/lib/python2.7/* rl,
+	/usr/lib/python*/* rl,
 
-	/usr/local/lib/python2.7/dist-packages/ r,
+	/usr/local/lib/python*/dist-packages/ r,
+	/usr/local/lib/python*/dist-packages/* r,
 
 	/usr/share/whonix/** r,
 	/usr/share/ca-certificates/** r,
