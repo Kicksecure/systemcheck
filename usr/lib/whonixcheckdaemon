@@ -55,11 +55,11 @@ if [ "$debugging" = "true" ]; then
    log_file="/home/user/whonixcheck.log"
    exec >  >(tee --append "$log_file")
    exec 2> >(tee --append "$log_file" >&2)
-   /usr/bin/whonixcheck --debug --autostart >>"$log_file" 2>&1 &
+   /usr/bin/whonixcheck --debug --autostart --gui --cli >>"$log_file" 2>&1 &
    pid="$!"
    wait "$pid" || true
 else
-   /usr/bin/whonixcheck --autostart >/dev/null 2>&1 &
+   /usr/bin/whonixcheck --autostart --gui --cli >/dev/null 2>&1 &
    pid="$!"
    wait "$pid" || true
 fi
@@ -70,11 +70,11 @@ wait "$!"
 while true; do
 
    if [ "$debugging" = "true" ]; then
-      /usr/bin/whonixcheck --debug --daemon >>"$log_file" 2>&1 &
+      /usr/bin/whonixcheck --debug --daemon --gui --cli >>"$log_file" 2>&1 &
       pid="$!"
       wait "$pid" || true
    else
-      /usr/bin/whonixcheck --daemon >/dev/null 2>/dev/null &
+      /usr/bin/whonixcheck --daemon --gui --cli >/dev/null 2>/dev/null &
       pid="$!"
       wait "$pid" || true
    fi
