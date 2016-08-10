@@ -118,6 +118,7 @@
 	/etc/ssl/openssl.cnf r,
 	/etc/ssl/certs/ca-certificates.crt r,
 	/etc/tor/torrc r,
+	/etc/perl/sitecustomize.pl r,
 
 	@{HOME}/ r,
 	@{HOME}/tor-browser_en-US/Docs/version r,
