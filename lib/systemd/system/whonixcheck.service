@@ -7,6 +7,8 @@ Description=whonixcheck
 Documentation=https://www.whonix.org/wiki/whonixcheck
 
 After=network.target
+Wants=network.target
+
 After=rinetd.service
 After=tor.service
 
