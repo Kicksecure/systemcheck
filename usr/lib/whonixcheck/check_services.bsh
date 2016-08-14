@@ -1,0 +1,120 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+#set -x
+
+check_services() {
+   if [ "$verbose" -lt "1" ]; then
+      return 0
+   fi
+
+   ## user@host:~$ sudo systemctl --failed --no-legend list-units
+   ## apparmor.service        loaded failed failed LSB: AppArmor initialization
+   ## whonix-firewall.service loaded failed failed Whonix firewall loader
+   ##
+   ## user@host:~$ sudo systemctl --failed list-units
+   ##   UNIT                    LOAD   ACTIVE SUB    DESCRIPTION
+   ## ● apparmor.service        loaded failed failed LSB: AppArmor initialization
+   ## ● whonix-firewall.service loaded failed failed Whonix firewall loader
+   ##
+   ## LOAD   = Reflects whether the unit definition was properly loaded.
+   ## ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+   ## SUB    = The low-level unit activation state, values depend on unit type.
+   ##
+   ## 2 loaded units listed. Pass --all to see loaded but inactive units, too.
+   ## To show all installed unit files use 'systemctl list-unit-files'.
+
+   local line unit load active sub counter failed_lines
+
+   counter="0"
+
+   while read -r -d $'\n' line; do
+      read -r unit load active sub _ <<< "$line"
+      if [ "apparmor.service" = "$unit" ]; then
+         if [ "$verbose" -lt "2" ]; then
+            if [ "$qubes_detected" = "true" ]; then
+               continue
+            fi
+         fi
+      fi
+      if [ "failed" = "$active" ]; then
+         counter="$(( counter + 1 ))"
+         if [ "$failed_lines" = "" ]; then
+            failed_lines="$line"
+         else
+            failed_lines="$failed_lines
+<br></br>$line"
+         fi
+      fi
+   done < <( systemctl --no-legend --failed )
+
+   if [ "$counter" = "0" ]; then
+      return 0
+   fi
+
+   systemctl_output_with_legend="$(systemctl --failed list-units)"
+   systemctl_output_with_legend="$(/usr/lib/msgcollector/br_add "$systemctl_output_with_legend")"
+
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   local MSG
+   MSG="<p>systemd units check Result: $counter systemd units failed loading. Output of <code>systemctl --failed list-units</code>:
+<br></br>
+<br></br>########################################
+<br></br>$systemctl_output_with_legend
+<br></br>########################################
+<br></br>
+<br></br>To see this for yourself...
+<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br></br>2. Run. <blockquote><code>systemctl --failed list-units</code></blockquote>
+$if_you_know_what_you_are_doing_msg</p>"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+
+   return 0
+}
+
+check_whonix_firewall_systemd_status() {
+   systemctl_status_whonix_firewall_exit_code="0"
+   systemctl_status_whonix_firewall_output="$(systemctl status whonix-firewall status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; };
+   systemctl_status_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
+
+   if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ]; then
+      local MSG="<p>Whonix firewall systemd unit check Result: Ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   local MSG="<p>Whonix firewall systemd unit check Result: Ok.
+<br></br>
+output of <code>systemctl status whonix-firewall</code>:
+<br></br>
+<br></br>########################################
+<br></br>$systemctl_status_whonix_firewall_output
+<br></br>########################################
+<br></br>
+<br></br>To see this for yourself...
+<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br></br>2. Run. <blockquote><code>systemctl status whonix-firewall</code></blockquote>
+<br></br>2. Also see. <blockquote><code>sudo journalctl -u whonix-firewall | cat</code></blockquote>
+<br></br>3. Try to manually start Whonix firewall. <blockquote><code>sudo whonix_firewall</code></blockquote>
+$if_you_know_what_you_are_doing_msg
+</p>"
+
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+
+   EXIT_CODE="1"
+   cleanup "1"
+   return 0
+}
