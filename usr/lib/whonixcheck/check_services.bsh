@@ -95,9 +95,11 @@ check_whonix_firewall_systemd_status() {
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
-   local MSG="<p>Whonix firewall systemd unit check Result: Ok.
+   local MSG="<p>whonix_firewall failed to load!
 <br></br>
-output of <code>systemctl status whonix-firewall</code>:
+<br></br>The whonix_firewall failed to load for some reason. This could be due to the firewall being mis-configured or race-condition. Try restarting the VM to see if this error persists.
+<br></br>
+<br></br>output of <code>systemctl status whonix-firewall</code>:
 <br></br>
 <br></br>########################################
 <br></br>$systemctl_status_whonix_firewall_output
