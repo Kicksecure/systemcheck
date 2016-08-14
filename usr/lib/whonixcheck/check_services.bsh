@@ -79,11 +79,21 @@ $if_you_know_what_you_are_doing_msg</p>"
 }
 
 check_whonix_firewall_systemd_status() {
+   local extra_text systemctl_status_whonix_firewall_exit_code systemctl_status_whonix_firewall_output
+
+   if [ -e /var/run/anon-firewall/failed.status ]; then
+      anon_firewall_failed_file_exists=true
+      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> exists."
+   else
+      anon_firewall_failed_file_exists=false
+      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> does not exist."
+   fi
+
    systemctl_status_whonix_firewall_exit_code="0"
    systemctl_status_whonix_firewall_output="$(systemctl status whonix-firewall status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; };
    systemctl_status_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
 
-   if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ]; then
+   if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ -e "$anon_firewall_failed_file_exists" = "true" ]; then
       local MSG="<p>Whonix firewall systemd unit check Result: Ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -98,6 +108,8 @@ check_whonix_firewall_systemd_status() {
    local MSG="<p>whonix_firewall failed to load!
 <br></br>
 <br></br>The whonix_firewall failed to load for some reason. This could be due to the firewall being mis-configured or race-condition. Try restarting the VM to see if this error persists.
+<br></br>
+<br></br>$extra_text
 <br></br>
 <br></br>output of <code>systemctl status whonix-firewall</code>:
 <br></br>
