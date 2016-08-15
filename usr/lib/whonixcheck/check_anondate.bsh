@@ -10,6 +10,7 @@ check_anondate_do() {
    local tor_consensus_valid_after tor_consensus_valid_until tor_consensus_middle_range
    local tor_cert_lifetime_output tor_cert_lifetime_valid tor_cert_valid_after
    local current_time_in_utc current_time_short current_time_torish suggested_date
+   local permission_expected
 
    ## Only check on Whonix-Gateway.
    if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
@@ -53,6 +54,8 @@ check_anondate_do() {
       tor_consensus_valid_after="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --show-valid-after)" || true
       tor_consensus_valid_until="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --show-valid-until)" || true
       tor_consensus_middle_range="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --show-middle-range)" || true
+      tor_consensus_user_permission="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --user-permission)" || true
+      tor_consensus_group_permission="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --${tor_consensus_status}-only --group-permission)" || true
    fi
 
    if tor_cert_lifetime_output="$(sudo /usr/lib/anon-shared-helper-scripts/anondate --tor-cert-lifetime-invalid)" ; then
@@ -73,6 +76,25 @@ check_anondate_do() {
       suggested_date="$tor_cert_valid_after"
    else
       suggested_date="$current_time_in_utc"
+   fi
+
+   permission_expected="debian-tor"
+   if [ ! "$tor_consensus_user_permission" = "$permission_expected" ] || [ ! "$tor_consensus_group_permission" = "$permission_expected" ]; then
+
+      local MSG="<p>Tor folder test result: faulty permissions.
+<br></br>
+<br></br>user : <code>$tor_consensus_user_permission</code> (expected: <code>$permission_expected</code>)
+<br></br>group: <code>$tor_consensus_group_permission</code> (expected: <code>$permission_expected</code>)
+<br></br>
+<br></br>To fix this.
+<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br></br>2. Run. <blockquote><code>sudo chown --recursive $permission_expected:$permission_expected /var/lib/tor</code></blockquote></p>"
+
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
+      return 0
    fi
 
    if [ "$tor_consensus_status" = "none" ]; then
@@ -99,7 +121,10 @@ tor_consensus_middle_range : <code>$tor_consensus_middle_range</code><br />
 <br />
 tor_cert_lifetime_output   : <code>$tor_cert_lifetime_output</code><br />
 tor_cert_lifetime_valid    : <code>$tor_cert_lifetime_valid</code><br />
-tor_cert_valid_after       : <code>$tor_cert_valid_after</code></p>"
+tor_cert_valid_after       : <code>$tor_cert_valid_after</code><br />
+<br />
+tor_consensus_user_permission : <code>$tor_consensus_user_permission</code><br />
+tor_consensus_group_permission: <code>$tor_consensus_group_permission</code><br /></p>"
    fi
 
    anondate_issue="<br></br>- Tor needs a reasonable correct time to be able to connect."

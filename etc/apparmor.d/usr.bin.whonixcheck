@@ -56,6 +56,7 @@
 	/usr/sbin/tor rix,
 	/usr/bin/mkfifo rix,
 	/usr/bin/sort rix,
+	/usr/bin/stat rix,
 
 	/sbin/start-stop-daemon rix,
 	/sbin/ifconfig rix,
