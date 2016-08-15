@@ -9,6 +9,34 @@ check_qubes_network_interface() {
    qubesdb_read_qubes_ip_exit_code="0"
    qubes_ip="$(qubesdb-read /qubes-ip 2>&1)" || { qubesdb_read_qubes_ip_exit_code="$?" ; true; };
 
+   if [ "$qubes_ip" = "Failed connect to local daemon" ]; then
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      local MSG="\
+<p>Qubes qubes-db test Result: qubes-db read failed!
+<br></br>
+<br></br>Reading qubes-db failed to for some reason. This could be due to a broken upgrade, race-condition or other bug. Try restarting the VM to see if this error persists.
+<br></br>
+<br></br><code>qubesdb-read /qubes-ip</code> output:
+<br></br><code>$qubes_ip</code>
+<br></br>
+<br></br>Check the systemd unit status of qubes-db.
+<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br></br>2. Run. <blockquote><code>systemctl status qubes-db</code></blockquote>
+$if_you_know_what_you_are_doing_msg</p>"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
+      return 0
+   else
+      local MSG="<p>Qubes qubes-db Test Result: Connection to local qubes-db daemon succeeded, ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   fi
+
    if [ "$GATEWAY_IP" = "qubesdb_read_failed" ] || [ ! "$qubesdb_read_qubes_ip_exit_code" = "0" ] ; then
       local netvm_to_what
       if [ "$vm_lower_case_short" = "gateway" ]; then
