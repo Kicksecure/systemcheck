@@ -89,6 +89,10 @@ parse_cmd_options() {
                CLI="true"
                shift
                ;;
+           --show-ip)
+               show_ip="true"
+               shift
+               ;;
            --)
                shift
                break
