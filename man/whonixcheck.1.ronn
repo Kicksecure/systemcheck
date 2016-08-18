@@ -89,6 +89,8 @@ https://github.com/Whonix/Whonix/issues/24
 
 1 Error
 
+2 Warning
+
 143 Signal sigterm received.
 
 130 Signal sigint received.

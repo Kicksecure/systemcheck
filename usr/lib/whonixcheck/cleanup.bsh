@@ -149,6 +149,14 @@ ex_funct() {
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
 
+      if [ "$EXIT_CODE" = "" ]; then
+         local TYPE
+         TYPE="$($output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
+         if [ "$TYPE" = "warning" ] || [ "$TYPE" = "error" ]; then
+            EXIT_CODE="2"
+         fi
+      fi
+
       $output_x ${output_opts[@]} --messagex --done
       $output_cli ${output_opts[@]} --messagecli --done
    else
@@ -201,11 +209,6 @@ cleanup() {
    SIGNAL_TYPE="NONE"
 
    cd ..
-
-   ## default exit code
-   if [ "$EXIT_CODE" = "" ]; then
-      EXIT_CODE="0"
-   fi
 
    ex_funct
 }
