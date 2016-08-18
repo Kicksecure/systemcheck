@@ -83,10 +83,10 @@ check_whonix_firewall_systemd_status() {
 
    if [ -e /var/run/anon-firewall/failed.status ]; then
       anon_firewall_failed_file_exists=true
-      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> exists."
+      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> exists!"
    else
       anon_firewall_failed_file_exists=false
-      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> does not exist."
+      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> does not exist, ok."
    fi
 
    systemctl_status_whonix_firewall_exit_code="0"
