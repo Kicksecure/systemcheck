@@ -17,7 +17,12 @@ check_tor_bootstrap() {
    ## sets: tor_circuit_established_check_exit_code
    ## sets: tor_circuit_established_word
    source /usr/lib/anon-shared-helper-scripts/tor_bootstrap_check.bsh
-   check_tor_bootstrap_helper
+
+   if [ "$vm_lower_case_short" = "gateway" ]; then
+      check_tor_bootstrap_status
+   fi
+
+   check_tor_circuit_established
 
    true "tor_bootstrap_percent: $tor_bootstrap_percent"
    true "tor_bootstrap_status: $tor_bootstrap_status"
@@ -41,7 +46,7 @@ check_tor_bootstrap() {
    ## check_socks_port_open_test gets set by check_tor_socks_port_reachability,
    ## which runs earlier.
 
-   if [ "$tor_bootstrap_percent" = "255" ] || [ "$tor_bootstrap_percent" = "124" ] || [ "$tor_bootstrap_percent" = "137" ]; then
+   if [ "$tor_circuit_established_check_exit_code" = "255" ] || [ "$tor_circuit_established_check_exit_code" = "124" ] || [ "$tor_circuit_established_check_exit_code" = "137" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
          local MSG="<p>Tor Bootstrap Result:
 <br></br>Tor's Control Port could not be reached!
@@ -49,7 +54,7 @@ check_tor_bootstrap() {
 <br></br>Please report this Whonix bug!
 <br></br>
 <br></br>(Technical information:)
-<br></br>(Code: $tor_bootstrap_percent)
+<br></br>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
 <br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
@@ -68,7 +73,7 @@ $multiple_whonix_ws_msg
 <br></br>- Rerun <code>whonixcheck</code> here in this Whonix-Workstation.
 <br></br>
 <br></br>(Technical information:)
-<br></br>(Code: $tor_bootstrap_percent)
+<br></br>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
 <br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
@@ -86,9 +91,10 @@ $multiple_whonix_ws_msg
       return 0
    fi
 
-   if [ "$tor_bootstrap_percent" -gt "100" ] || [ "$tor_bootstrap_percent" -lt "0" ]; then
+   if [ "$tor_circuit_established_check_exit_code" -gt "100" ] || [ "$tor_circuit_established_check_exit_code" -lt "0" ]; then
       local MSG="<p>Tor Bootstrap Result:
-<br></br>$check_bootstrap_script ERROR ($tor_bootstrap_percent).
+<br></br>$check_bootstrap_script ERROR:
+<br></br>tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(Tor Circuit: $tor_circuit_established_word)
