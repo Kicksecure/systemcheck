@@ -46,6 +46,16 @@ check_tor_bootstrap() {
    ## check_socks_port_open_test gets set by check_tor_socks_port_reachability,
    ## which runs earlier.
 
+   if [ "$VM" = "Whonix-Workstation" ]; then
+      if [ "$tor_circuit_established" = "1" ]; then
+         ## On the workstation we do not have access to tor_bootstrap_percent,
+         ## so assume it is 100 for code simplification purposes.
+         tor_bootstrap_percent="100"
+      else
+         tor_bootstrap_percent="0"
+      fi
+   fi
+
    if [ "$tor_circuit_established_check_exit_code" = "255" ] || [ "$tor_circuit_established_check_exit_code" = "124" ] || [ "$tor_circuit_established_check_exit_code" = "137" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
          local MSG="<p>Tor Bootstrap Result:
@@ -178,12 +188,20 @@ $multiple_whonix_ws_msg
 
          if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "$tor_bootstrap_percent" ]; then
             ## no progress has been made
-            local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. $tor_bootstrap_percent % done. \
+            if [ "$VM" = "Whonix-Gateway" ]; then
+               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. $tor_bootstrap_percent % done. \
 Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
+            else
+               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.</p>"
+            fi
          else
             ## progress has been made
-            local MSG="<p>Tor Bootstrap Result: Bootstrapping $TOR_BOOTSTRAP_TIME_PASSED seconds. \
+            if [ "$VM" = "Whonix-Gateway" ]; then
+               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. \
 Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
+            else
+               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.</p>"
+            fi
          fi
 
          TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
@@ -244,9 +262,7 @@ $anondate_debugging_information"
       elif [ "$VM" = "Whonix-Workstation" ]; then
          local MSG="<p>Tor Bootstrap Result:
 <br></br>Whonixcheck gave up waiting.
-<br></br>Tor Circuit: $tor_circuit_established_word
-<br></br>Bootstrapping $tor_bootstrap_percent % done.
-<br></br>Tor reports: $tor_bootstrap_status.</p>
+<br></br>Tor Circuit: $tor_circuit_established_word</p>
 
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
