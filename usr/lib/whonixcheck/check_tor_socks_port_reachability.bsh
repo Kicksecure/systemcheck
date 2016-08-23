@@ -52,9 +52,14 @@ Either user has run <code>sudo service tor@default stop</code> or Gateway is sti
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
    elif [ "$check_socks_port_open_test" = "28" ]; then
-      local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
+      if [ "$VM" = "Whonix-Gateway" ]; then
+         local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
 Gateway likely powered off. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
+      else
+         local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
+(curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
+      fi
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
