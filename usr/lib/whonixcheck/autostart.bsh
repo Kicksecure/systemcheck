@@ -40,7 +40,7 @@ check_whonixcheck_lastrun() {
 whonixcheck_completed() {
    local LASTRUN
    LASTRUN="$(date +%s)"
-   echo "$LASTRUN" | sudo -u user tee "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun" > /dev/null
+   echo "$LASTRUN" | tee "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun" > /dev/null
 }
 
 check_autostart() {
@@ -64,7 +64,7 @@ check_autostart() {
    ## recently completed (using the
    ## "/var/lib/whonixcheck/"$SCRIPTNAME"_lastrun" status file),
    ## create the recently_run status file.
-   sudo -u user touch "/var/run/whonixcheck/${SCRIPTNAME}_recently_run"
+   touch "/var/run/whonixcheck/${SCRIPTNAME}_recently_run"
 
    ## If it was run in daemon mode and there is nothing to tell, say nothing,
    ## only send a debug message, if debugging is enabled.

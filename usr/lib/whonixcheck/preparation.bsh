@@ -194,8 +194,8 @@ preparation() {
 
    rm --force "/var/run/whonixcheck/${IDENTIFIER}_done"
    rm --force "/var/run/whonixcheck/${IDENTIFIER}_recently_run"
-   sudo -u user touch "/var/run/whonixcheck/${IDENTIFIER}_running"
-   echo "$$" | sudo -u user tee "/var/run/whonixcheck/${IDENTIFIER}_pid" > /dev/null
+   touch "/var/run/whonixcheck/${IDENTIFIER}_running"
+   echo "$$" | tee "/var/run/whonixcheck/${IDENTIFIER}_pid"
 
    sync
 
