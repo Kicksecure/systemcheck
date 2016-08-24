@@ -5,6 +5,25 @@
 ## See the file COPYING for copying conditions.
 
 check_tor_bootstrap() {
+   while true; do
+      check_tor_bootstrap_init
+
+      check_tor_bootstrap_known_failure_cases || break || return 0
+      check_tor_bootstrap_unknown_failure_cases || break || return 0
+      check_tor_bootstrap_stop_when_bootstrap_done || break || return 0
+
+      check_tor_bootstrap_show_wait_notification_maybe
+
+      check_tor_bootstrap_wait_longer_maybe || continue || return 0
+      check_tor_bootstrap_give_up_maybe || break || return 0
+
+      check_tor_bootstrap_script_error || break || return 0
+
+      break
+   done
+}
+
+check_tor_bootstrap_init() {
    ## sets: check_bootstrap_script
    ## sets: lastpid
    ## sets: TOR_BOOTSTRAP_TIME_START
@@ -56,9 +75,27 @@ check_tor_bootstrap() {
       fi
    fi
 
+   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="120"
+
+   if [ -e /var/run/sdwdate/success ]; then
+      time_synchronization_status_word="success"
+   elif [ -e /var/run/sdwdate/first_success ]; then
+      time_synchronization_status_word="first_success"
+   else
+      time_synchronization_status_word="pending"
+   fi
+}
+
+check_tor_bootstrap_known_failure_cases() {
    if [ "$tor_circuit_established_check_exit_code" = "255" ] || [ "$tor_circuit_established_check_exit_code" = "124" ] || [ "$tor_circuit_established_check_exit_code" = "137" ]; then
-      if [ "$VM" = "Whonix-Gateway" ]; then
-         local MSG="<p>Tor Bootstrap Result:
+      true
+   else
+      ## Keep check_tor_bootstrap loop running
+      return 0
+   fi
+
+   if [ "$VM" = "Whonix-Gateway" ]; then
+      local MSG="<p>Tor Bootstrap Result:
 <br></br>Tor's Control Port could not be reached!
 <br></br>
 <br></br>Please report this Whonix bug!
@@ -69,11 +106,11 @@ check_tor_bootstrap() {
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
-      elif [ "$VM" = "Whonix-Workstation" ]; then
-         if [ "$qubes_detected" = "false" ]; then
-            local multiple_whonix_ws_msg="<br></br>- If you’re running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=https://www.whonix.org/wiki/Multiple_Whonix-Workstations>https://www.whonix.org/wiki/Multiple_Whonix-Workstations</a>)."
-         fi
-         local MSG="<p>Tor Bootstrap Result:
+   elif [ "$VM" = "Whonix-Workstation" ]; then
+      if [ "$qubes_detected" = "false" ]; then
+         local multiple_whonix_ws_msg="<br></br>- If you’re running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=https://www.whonix.org/wiki/Multiple_Whonix-Workstations>https://www.whonix.org/wiki/Multiple_Whonix-Workstations</a>)."
+      fi
+      local MSG="<p>Tor Bootstrap Result:
 <br></br>Tor's Control Port could not be reached!
 <br></br>
 <br></br>Troubleshooting:
@@ -88,149 +125,200 @@ $multiple_whonix_ws_msg
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
-      else
-         local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
-      fi
-      if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-      fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-      cleanup "1"
+   else
+      local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
+   fi
+   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+   fi
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
+   ## TODO
+   #cleanup "1"
+   ## `break` check_tor_bootstrap loop.
+   return 1
+}
+
+check_tor_bootstrap_unknown_failure_cases() {
+   if [ "$tor_circuit_established_check_exit_code" -gt "100" ] || [ "$tor_circuit_established_check_exit_code" -lt "0" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running
       return 0
    fi
 
-   if [ "$tor_circuit_established_check_exit_code" -gt "100" ] || [ "$tor_circuit_established_check_exit_code" -lt "0" ]; then
-      local MSG="<p>Tor Bootstrap Result:
+   local MSG="<p>Tor Bootstrap Result:
 <br></br>$check_bootstrap_script ERROR:
 <br></br>tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(Tor Circuit: $tor_circuit_established_word)
 <br></br>Please report this Whonix bug!</p>"
-      if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-      fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-      cleanup "1"
-      return 0
+   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
    fi
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
+   ## TODO
+   #cleanup "1"
+   ## `break` check_tor_bootstrap loop.
+   return 1
+}
 
+check_tor_bootstrap_stop_when_bootstrap_done() {
    ## For testing.
    #if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "10" ]; then
       #tor_bootstrap_percent="$(( 5 + ${#RANDOM} ))"
    #fi
 
    if [ "$tor_bootstrap_percent" = "100" ] && [ "$tor_circuit_established" = "1" ]; then
-      local MSG="<p>Connected to Tor.</p>"
-      ## Only attempt to close the progress bar if one was started.
-      ## Otherwise this might conflict with the progress bar in 25_autostart.
-      if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-      fi
-      if [ "$DAEMON" = "1" ]; then
-         ## Let's not show a success message every time whonixcheck
-         ## successfully finished the Tor bootstrap test.
-         return 0
-      fi
+      true
+   else
+      ## Keep check_tor_bootstrap loop running
+      return 0
+   fi
+
+   if [ "$time_synchronization_status_word" = "first_success" ] || [ "$time_synchronization_status_word" = "success" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running
+      return 0
+   fi
+
+   local MSG="<p>Connected to Tor.</p>"
+   ## Only attempt to close the progress bar if one was started.
+   ## Otherwise this might conflict with the progress bar in 25_autostart.
+   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+   fi
+   if [ "$DAEMON" = "1" ]; then
+      ## Let's not show a success message every time whonixcheck
+      ## successfully finished the Tor bootstrap test.
+      ## `break` check_tor_bootstrap loop.
+      return 1
+   fi
+   $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
+   $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
+   ## `break` check_tor_bootstrap loop.
+   return 1
+}
+
+check_tor_bootstrap_show_wait_notification_maybe() {
+   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "1" ]; then
+      return 0
+   fi
+
+   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+      return 0
+   fi
+
+   if [ "$tor_bootstrap_in_progress_passive_popup_shown" = "true" ]; then
+      return 0
+   fi
+
+   if [ "$DAEMON" = "1" ]; then
+      ## Daemon mode. Not creating a progress bar.
+      return 0
+   fi
+
+   ## Not running in daemon mode.
+
+   if [ "$AUTOSTARTED" = "1" ] && [ "$silent" -ge "2" ]; then
+      true "AUTOSTARTED is $AUTOSTARTED and silent is $silent. Therefore not creating a progress bar."
+      tor_bootstrap_in_progress_passive_popup_shown="true"
+      local MSG="<p>Connecting to Tor...</p>"
       $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
       $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
       return 0
    fi
 
-   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="120"
+   started_tor_bootstrap_progress_bar="1"
+   ## Waited for more than 5 seconds.
+   progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
+   local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
+   $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
+   return 0
+}
 
-   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -gt "1" ]; then
-      if [ ! "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         if [ "$DAEMON" = "1" ]; then
-            ## Daemon mode. Not creating a progress bar.
-            true
-         else
-            ## Not running in daemon mode.
-            if [ "$AUTOSTARTED" = "1" ] && [ "$silent" -ge "2" ]; then
-               true "AUTOSTARTED is $AUTOSTARTED and silent is $silent. Therefore not creating a progress bar."
-               if [ "$tor_bootstrap_in_progress_passive_popup_shown" = "true" ]; then
-                  true
-               else
-                  tor_bootstrap_in_progress_passive_popup_shown="true"
-                  local MSG="<p>Connecting to Tor...</p>"
-                  $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
-                  $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
-               fi
-            else
-               started_tor_bootstrap_progress_bar="1"
-               ## Waited for more than 5 seconds.
-               local progressbaridx
-               progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-               local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
-               $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
-            fi
-         fi
+check_tor_bootstrap_wait_longer_maybe() {
+   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "$whonixcheck_tor_bootstrap_wait_max" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running
+      return 0
+   fi
+   if [ "$tor_bootstrap_percent" -lt "100" ] || [ "$tor_circuit_established" = "0" ] || [ "$time_synchronization_status_word" = "pending" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running
+      return 0
+   fi
+
+   if [ "$PROGRESS" = "" ]; then
+      PROGRESS="5"
+   fi
+   PROGRESS="$(( $PROGRESS + 1 ))"
+   if [ "$PROGRESS" -ge "100" ]; then
+      PROGRESS="6"
+   fi
+
+   if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "" ]; then
+      TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
+   fi
+
+   local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.</p>"
+   if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "$tor_bootstrap_percent" ]; then
+      ## no progress has been made
+      if [ "$VM" = "Whonix-Gateway" ]; then
+         local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. $tor_bootstrap_percent % done. \
+Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
+      fi
+   else
+      ## progress has been made
+      if [ "$VM" = "Whonix-Gateway" ]; then
+         local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. \
+Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
       fi
    fi
 
-   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "$whonixcheck_tor_bootstrap_wait_max" ]; then
-      if [ "$tor_bootstrap_percent" -lt "100" ] || [ "$tor_circuit_established" = "0" ]; then
-         if [ "$PROGRESS" = "" ]; then
-            PROGRESS="5"
-         fi
-         PROGRESS="$(( $PROGRESS + 1 ))"
-         if [ "$PROGRESS" -ge "100" ]; then
-            PROGRESS="6"
-         fi
+   TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
 
-         if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "" ]; then
-            TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
-         fi
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
+   ## Only attempt to close the progress bar if one was started.
+   ## Otherwise this might conflict with the progress bar in 25_autostart.
+   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
+   fi
 
-         if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "$tor_bootstrap_percent" ]; then
-            ## no progress has been made
-            if [ "$VM" = "Whonix-Gateway" ]; then
-               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. $tor_bootstrap_percent % done. \
-Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
-            else
-               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.</p>"
-            fi
-         else
-            ## progress has been made
-            if [ "$VM" = "Whonix-Gateway" ]; then
-               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. \
-Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
-            else
-               local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.</p>"
-            fi
-         fi
+   sleep "2" &
+   lastpid="$!"
+   wait "$lastpid" || true
 
-         TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
+   ## `continue` check_tor_bootstrap loop.
+   return 1
+}
 
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
-         ## Only attempt to close the progress bar if one was started.
-         ## Otherwise this might conflict with the progress bar in 25_autostart.
-         if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-            $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
-         fi
+check_tor_bootstrap_give_up_maybe() {
+   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running
+      return 0
+   fi
 
-         sleep "2" &
-         lastpid="$!"
-         wait "$lastpid" || true
+   if [ "$VM" = "Whonix-Gateway" ]; then
+      check_anondate_do
+      ## sets: anondate_issue
+      ## sets: anondate_recommendation
+      ## sets: anondate_debugging_information
 
-         check_tor_bootstrap
-         return 0
-      fi
-   elif [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
-      if [ "$VM" = "Whonix-Gateway" ]; then
-         check_anondate_do
-         ## sets: anondate_issue
-         ## sets: anondate_recommendation
-         ## sets: anondate_debugging_information
-
-         local MSG="<p>Tor Bootstrap Result:
+      local MSG="<p>Tor Bootstrap Result:
 <br></br><b>Whonixcheck gave up waiting.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
-<br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status</p>
+<br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status
+<br></br>Time synchronization status: $time_synchronization_status_word</p>
 
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
@@ -259,10 +347,11 @@ you will need them for Whonix as well.</p>
 <blockquote>$start_menu_instructions_system_first_part Arm</blockquote>
 or in Terminal: <code>arm</code></p>
 $anondate_debugging_information"
-      elif [ "$VM" = "Whonix-Workstation" ]; then
-         local MSG="<p>Tor Bootstrap Result:
+   elif [ "$VM" = "Whonix-Workstation" ]; then
+      local MSG="<p>Tor Bootstrap Result:
 <br></br>Whonixcheck gave up waiting.
-<br></br>Tor Circuit: $tor_circuit_established_word</p>
+<br></br>Tor Circuit: $tor_circuit_established_word
+<br></br>Time synchronization status: $time_synchronization_status_word</p>
 
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
@@ -278,20 +367,24 @@ $anondate_debugging_information"
 
 <p>2)
 <br></br>Run whonixcheck on Whonix-Gateway as well.</p>"
-      else
-         local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
-      fi
-
-      if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-      fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-      cleanup "1"
-      return 0
    else
-      error_handler "<p>(Tor Bootstrap Result:)
+      local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
+   fi
+
+   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+   fi
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
+   ## TODO
+   #cleanup "1"
+   ## `break` check_tor_bootstrap loop.
+   return 1
+}
+
+check_tor_bootstrap_script_error() {
+   error_handler "<p>(Tor Bootstrap Result:)
 <br></br>(Technical information:)
 <br></br>(tor_bootstrap_percent: $tor_bootstrap_percent)
 <br></br>(tor_circuit_established: $tor_circuit_established)
@@ -301,5 +394,7 @@ $anondate_debugging_information"
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(TOR_BOOTSTRAP_TIME_PASSED: $TOR_BOOTSTRAP_TIME_PASSED)
 <br></br>(whonixcheck_tor_bootstrap_wait_max: $whonixcheck_tor_bootstrap_wait_max)</p>"
-   fi
+
+   ## `break` check_tor_bootstrap loop.
+   return 1
 }

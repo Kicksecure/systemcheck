@@ -30,7 +30,6 @@ check_package_manager_running() {
       else
          whonixcheck_package_manager_waiting="1"
 
-         local progressbaridx
          progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
          local MSG="$package_manager_waiting_msg_x"
