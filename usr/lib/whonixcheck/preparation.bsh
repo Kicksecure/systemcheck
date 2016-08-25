@@ -158,6 +158,9 @@ get_local_whonix_version() {
 }
 
 preparation() {
+   ## For msgdispatcher_init.
+   [ -n "$who_ami" ] || who_ami="user"
+
    whonixcheck_run_function msgdispatcher_init
    whonixcheck_run_function input_detection
 
@@ -396,8 +399,6 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
    ## https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
    TPO_PIN_CERT_FILE="/usr/share/torbrowser-launcher/torproject.pem"
    CURL_TPO_PIN_CERT="--cacert $TPO_PIN_CERT_FILE"
-
-   who_ami="$(whoami)"
 
    $output_general --icon "$ICON"
    $output_general --parenttty "$my_tty"
