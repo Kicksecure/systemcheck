@@ -7,6 +7,10 @@
 check_tor_socks_port_reachability() {
    ## Small check if one of Tor's SocksPorts is functional.
 
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      return 0
+   fi
+
    local SOCKS_PORT_WHONIXCHECK
    SOCKS_PORT_WHONIXCHECK="9110"
 
