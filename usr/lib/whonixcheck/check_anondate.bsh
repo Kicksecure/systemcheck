@@ -17,6 +17,10 @@ check_anondate_do() {
       return 0
    fi
 
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      return 0
+   fi
+
    type=info
 
    if sudo --non-interactive /usr/lib/anon-shared-helper-scripts/anondate --verified-only --has-consensus ; then
