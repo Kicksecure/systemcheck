@@ -137,8 +137,7 @@ $multiple_whonix_ws_msg
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
-   ## TODO
-   #cleanup "1"
+   cleanup "1"
    ## `break` check_tor_bootstrap loop.
    return 1
 }
@@ -164,8 +163,7 @@ check_tor_bootstrap_unknown_failure_cases() {
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
-   ## TODO
-   #cleanup "1"
+   cleanup "1"
    ## `break` check_tor_bootstrap loop.
    return 1
 }
@@ -382,8 +380,7 @@ $anondate_debugging_information"
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
-   ## TODO
-   #cleanup "1"
+   cleanup "1"
    ## `break` check_tor_bootstrap loop.
    return 1
 }
