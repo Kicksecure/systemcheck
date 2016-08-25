@@ -3,18 +3,18 @@
 ## See the file COPYING for copying conditions.
 
 ## Required for whonixcheck running "tor --verify-config".
-%sudo ALL=NOPASSWD: /usr/bin/tor *
-%sudo ALL=NOPASSWD: /usr/sbin/tor *
+whonixcheck ALL=NOPASSWD: /usr/bin/tor *
+whonixcheck ALL=NOPASSWD: /usr/sbin/tor *
 ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
-ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
+ALL ALL=(debian-tor) NOPASSWD: /usr/sbin/tor *
 
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
-%sudo ALL=NOPASSWD: /usr/lib/apt-get-update
-%sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
-%sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
-%sudo ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/anondate
+whonixcheck ALL=NOPASSWD: /usr/lib/apt-get-update
+whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
+whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
+whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/anondate
 
 ## required for check_network_interfaces
-%sudo ALL=NOPASSWD: /sbin/ifconfig eth0
-%sudo ALL=NOPASSWD: /sbin/ifconfig eth1
+whonixcheck ALL=NOPASSWD: /sbin/ifconfig eth0
+whonixcheck ALL=NOPASSWD: /sbin/ifconfig eth1
