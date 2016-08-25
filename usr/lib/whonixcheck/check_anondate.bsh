@@ -148,6 +148,10 @@ check_anondate_show() {
       return 0
    fi
 
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      return 0
+   fi
+
    if [ "$verbose" -ge "1" ]; then
       check_anondate_do
       ## sets: anondate_issue
