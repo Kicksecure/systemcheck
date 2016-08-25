@@ -22,6 +22,14 @@ case "$1" in
    configure)
       adduser --no-create-home --quiet --system --group whonixcheck || true
 
+      ## Compatibility with anon-ws-disable-stacked-tor.
+      addgroup debian-tor 2>/dev/null || true
+
+      ## Add whonixcheck to group debian-tor so it can read
+      ## /var/run/tor/control.authcookie which is required to check for Tor
+      ## bootstrap test.
+      addgroup whonixcheck debian-tor
+
       mkdir -p /var/lib/whonixcheck/
       chown --recursive whonixcheck:whonixcheck /var/lib/whonixcheck/
       chmod --recursive o+w /var/lib/whonixcheck/
