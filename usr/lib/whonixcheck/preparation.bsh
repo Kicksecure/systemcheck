@@ -65,7 +65,7 @@ whonixcheck_msgdispatcher_windows_existing() {
    for pid in $msgdispatcher_dispatch_x_pids; do
       args="$(ps ww --no-header -p "$pid" -o 'args')" || return 0
       ## Example args:
-      ## /usr/bin/python /usr/lib/msgcollector/msgdispatcher_dispatch_x info whonixcheck | Whonix-Workstation | Template-Based AppVM | Sat Aug 15 02:08:03 UTC 2015 <p><span style=color:#008000>INFO</span>: <b>whonixcheck aborted!</b> (SIGNAL_TYPE: SIGINT)</p> 1 /usr/share/icons/anon-icon-pack/whonix.ico
+      ## /usr/bin/python /usr/lib/msgcollector/msgdispatcher_dispatch_x info whonixcheck | Whonix-Workstation | TemplateBased AppVM | Sat Aug 15 02:08:03 UTC 2015 <p><span style=color:#008000>INFO</span>: <b>whonixcheck aborted!</b> (SIGNAL_TYPE: SIGINT)</p> 1 /usr/share/icons/anon-icon-pack/whonix.ico
       read -r first second third fourth _ <<< "$args"
       if [ "/usr/lib/msgcollector/msgdispatcher_dispatch_x" = "$second" ]; then
          if [ "whonixcheck" = "$fourth" ]; then
@@ -332,7 +332,7 @@ preparation() {
             persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Domain: <code>$qubes_name_of_vm</code> ->"
             start_menu_instructions_system_first_part="$persistent_changes_start_menu_instructions_first_part"
          elif [ "$qubes_vm_persistence" = "rw-only" ]; then
-            qubes_title_extra=" | $qubes_base_template Template-Based $qubes_vm_type"
+            qubes_title_extra=" | $qubes_base_template TemplateBased $qubes_vm_type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM"
             persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_base_template</code> ->"
             start_menu_instructions_system_first_part="dom0 -> Start Menu -> $qubes_starter_first_part: <code>$qubes_name_of_vm</code> ->"
