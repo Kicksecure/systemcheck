@@ -79,10 +79,13 @@ check_tor_bootstrap_init() {
 
    if [ -e /var/run/sdwdate/success ]; then
       time_synchronization_status_word="success"
+      time_synchronization_status_notification="done"
    elif [ -e /var/run/sdwdate/first_success ]; then
       time_synchronization_status_word="first_success"
+      time_synchronization_status_notification="done"
    else
       time_synchronization_status_word="pending"
+      time_synchronization_status_notification="not done"
    fi
 }
 
@@ -268,19 +271,21 @@ check_tor_bootstrap_wait_longer_maybe() {
       TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
    fi
 
-   local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.</p>"
+   local progress_made_text
    if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "$tor_bootstrap_percent" ]; then
       ## no progress has been made
-      if [ "$VM" = "Whonix-Gateway" ]; then
-         local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. $tor_bootstrap_percent % done. \
-Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
-      fi
+      progress_made_text=""
    else
-      ## progress has been made
-      if [ "$VM" = "Whonix-Gateway" ]; then
-         local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. \
-Progress has been made. $tor_bootstrap_percent % done. Tor Circuit: $tor_circuit_established_word. Tor reports: $tor_bootstrap_status</p>"
-      fi
+      progress_made_text="Progress has been made. |"
+   fi
+
+   if [ "$VM" = "Whonix-Gateway" ]; then
+      local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. | $tor_bootstrap_percent % done. |\
+$progress_made_text Tor Circuit: $tor_circuit_established_word. | Tor reports: $tor_bootstrap_status | \
+Timesync status: $time_synchronization_status_notification.</p>"
+   else
+      local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. | \
+Tor Circuit: $tor_circuit_established_word. | Timesync status: $time_synchronization_status_notification.</p>"
    fi
 
    TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
