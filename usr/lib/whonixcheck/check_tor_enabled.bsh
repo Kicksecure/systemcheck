@@ -5,6 +5,15 @@
 ## See the file COPYING for copying conditions.
 
 check_tor_enabled() {
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      local MSG='<p>Tor Check Result: Skipped, because running in TemplateVM, ok.</p>'
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
    ## provided by: /usr/lib/anon-shared-helper-scripts/tor_enabled_check
    ## sets: TOR_ENABLED
    check_tor_enabled_do
