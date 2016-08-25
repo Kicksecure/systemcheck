@@ -42,7 +42,7 @@ maybe_kill_apt_get_update() {
    ## There is an exception in /etc/sudoers.d/.
    ## "|| true", to avoid an error when whonixcheck receives a sigterm signal
    ## while running this command (such as when whonixcheckd gets stopped).
-   sudo "/usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper" "$apt_get_update_pid" || true
+   sudo --non-interactive "/usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper" "$apt_get_update_pid" || true
 }
 ## }}
 

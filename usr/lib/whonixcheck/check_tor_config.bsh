@@ -26,7 +26,7 @@ check_tor_config_do() {
 
    tor_verify_config_file="/etc/tor/torrc"
    ## This has a /etc/sudoers.d exception.
-   tor_verify_config_output="$(sudo -u debian-tor tor --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
+   tor_verify_config_output="$(sudo --non-interactive -u debian-tor tor --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
    tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
 
    return 0

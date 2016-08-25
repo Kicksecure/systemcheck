@@ -14,13 +14,13 @@ check_network_interfaces() {
    local failed eth0_failed eth1_failed
 
    failed=false
-   if ! sudo /sbin/ifconfig eth0 >/dev/null ; then
+   if ! sudo --non-interactive /sbin/ifconfig eth0 >/dev/null ; then
       eth0_failed=true
       failed=true
    fi
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if ! sudo /sbin/ifconfig eth1 >/dev/null 2>&1 ; then
+      if ! sudo --non-interactive /sbin/ifconfig eth1 >/dev/null 2>&1 ; then
          eth1_failed=true
          failed=true
       fi
@@ -44,7 +44,7 @@ check_network_interfaces() {
 $if_you_know_what_you_are_doing_msg
 
 Debugging information:
-Command <code>sudo /sbin/ifconfig eth0</code> failed."
+Command <code>sudo --non-interactive /sbin/ifconfig eth0</code> failed."
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
@@ -58,7 +58,7 @@ Command <code>sudo /sbin/ifconfig eth0</code> failed."
 $if_you_know_what_you_are_doing_msg
 
 Debugging information:
-Command <code>sudo /sbin/ifconfig eth1</code> failed."
+Command <code>sudo --non-interactive /sbin/ifconfig eth1</code> failed."
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
