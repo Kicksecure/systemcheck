@@ -17,6 +17,12 @@ check_tor_config_do() {
       return 0
    fi
 
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      tor_verify_config_file="Not running in TemplateVM"
+      tor_verify_config_exit_code="0"
+      return 0
+   fi
+
    ## XXX:
    ## No longer running:
    ## sudo -u debian-tor tor --verify-config -f /usr/share/tor/tor-service-defaults-torrc
