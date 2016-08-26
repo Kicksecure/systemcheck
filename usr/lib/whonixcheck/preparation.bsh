@@ -348,9 +348,6 @@ preparation() {
             start_menu_instructions_system_first_part="dom0 -> Start Menu -> $qubes_starter_first_part: <code>$qubes_name_of_vm</code> ->"
          fi
       fi
-      if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
-         [ -n "$silent" ] || silent="3"
-      fi
       whonixcheck_exit_immediate_was="$whonixcheck_exit_immediate"
       ## {{ By default,
       ##    - on Whonix-Gateway: run in autostart mode, exit in daemon mode.
@@ -380,6 +377,10 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       qubes_title_extra=""
       update_where="this machine"
       passive_popup_title="[$IDENTIFIER]"
+   fi
+
+   if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
+      [ -n "$silent" ] || silent="3"
    fi
 
    [ -n "$silent" ] || silent="0"
