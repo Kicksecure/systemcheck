@@ -91,6 +91,14 @@ check_tor_bootstrap_init() {
       time_synchronization_status_word="pending"
       time_synchronization_status_notification="not done"
    fi
+
+   if [ -e /var/run/sdwdate/msg ]; then
+      time_synchronization_msg="$(cat /var/run/sdwdate/msg)" || true
+   fi
+
+   if [ "$time_synchronization_msg" = "" ]; then
+      time_synchronization_msg="Not available."
+   fi
 }
 
 check_tor_bootstrap_known_failure_cases() {
@@ -278,16 +286,22 @@ check_tor_bootstrap_wait_longer_maybe() {
       ## no progress has been made
       progress_made_text=""
    else
-      progress_made_text="Progress has been made. |"
+      progress_made_text="| Progress has been made."
    fi
 
    if [ "$VM" = "Whonix-Gateway" ]; then
-      local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. | $tor_bootstrap_percent % done. |\
-$progress_made_text Tor Circuit: $tor_circuit_established_word. | Tor reports: $tor_bootstrap_status | \
-Timesync status: $time_synchronization_status_notification.</p>"
+      local MSG="<p>Tor Bootstrap Result:
+- Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. | $tor_bootstrap_percent % done. $progress_made_text
+- Tor Circuit: $tor_circuit_established_word.
+- Tor reports: $tor_bootstrap_status
+- Timesync status: $time_synchronization_status_notification.
+- sdwdate reports: $time_synchronization_msg</p>"
    else
-      local MSG="<p>Tor Bootstrap Result: Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. | \
-Tor Circuit: $tor_circuit_established_word. | Timesync status: $time_synchronization_status_notification.</p>"
+      local MSG="<p>Tor Bootstrap Result:
+- Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.
+- Tor Circuit: $tor_circuit_established_word.
+- Timesync status: $time_synchronization_status_notification.
+- sdwdate reports: $time_synchronization_msg</p>"
    fi
 
    TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
@@ -325,7 +339,8 @@ check_tor_bootstrap_give_up_maybe() {
 <br></br><b>Whonixcheck gave up waiting.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
 <br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status
-<br></br>Time synchronization status: $time_synchronization_status_word</p>
+<br></br>Time synchronization status: $time_synchronization_status_word
+<br></br>sdwdate reports: $time_synchronization_msg</p>
 
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
@@ -358,7 +373,8 @@ $anondate_debugging_information"
       local MSG="<p>Tor Bootstrap Result:
 <br></br>Whonixcheck gave up waiting.
 <br></br>Tor Circuit: $tor_circuit_established_word
-<br></br>Time synchronization status: $time_synchronization_status_word</p>
+<br></br>Time synchronization status: $time_synchronization_status_word
+<br></br>sdwdate reports: $time_synchronization_msg</p>
 
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
