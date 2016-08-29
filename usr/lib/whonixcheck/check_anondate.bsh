@@ -9,8 +9,11 @@ check_anondate_do() {
    local type tor_consensus_status current_time_in_valid_range
    local tor_consensus_valid_after tor_consensus_valid_until tor_consensus_middle_range
    local tor_cert_lifetime_output tor_cert_lifetime_valid tor_cert_valid_after
-   local current_time_in_utc current_time_short current_time_torish suggested_date
+   local current_time_in_utc current_time_short current_time_torish
    local permission_expected
+
+   ## Set this in any case to some sensible value for Tor bootstrap test.
+   anondate_suggested_date="$(date -u)"
 
    ## Only check on Whonix-Gateway.
    if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
@@ -75,11 +78,11 @@ check_anondate_do() {
    current_time_torish="$(date -u '+%Y-%m-%d %H:%M:%S')"
 
    if [ ! "$tor_consensus_middle_range" = "" ]; then
-      suggested_date="$tor_consensus_middle_range"
+      anondate_suggested_date="$tor_consensus_middle_range"
    elif [ ! "$tor_cert_valid_after" = "" ]; then
-      suggested_date="$tor_cert_valid_after"
+      anondate_suggested_date="$tor_cert_valid_after"
    else
-      suggested_date="$current_time_in_utc"
+      anondate_suggested_date="$current_time_in_utc"
    fi
 
    if [ ! "$tor_consensus_status" = "none" ]; then
@@ -139,7 +142,7 @@ tor_consensus_group_permission: <code>$tor_consensus_group_permission</code><br 
 is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manually fix it.
 <br></br>
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>sudo date --set \"$suggested_date\"</blockquote></p>"
+<br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>sudo date --set \"$anondate_suggested_date\"</blockquote></p>"
 }
 
 check_anondate_show() {

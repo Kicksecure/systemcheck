@@ -19,7 +19,8 @@ check_tor_bootstrap() {
       check_tor_bootstrap_show_wait_notification_maybe
 
       check_tor_bootstrap_wait_longer_maybe || continue || return 0
-      check_tor_bootstrap_give_up_maybe || break || return 0
+      check_tor_bootstrap_give_up_on_connection_issue_maybe || break || return 0
+      check_tor_bootstrap_give_up_on_timesync_issue_maybe || break || return 0
 
       check_tor_bootstrap_script_error || break || return 0
 
@@ -105,12 +106,12 @@ check_tor_bootstrap_known_failure_cases() {
    if [ "$tor_circuit_established_check_exit_code" = "255" ] || [ "$tor_circuit_established_check_exit_code" = "124" ] || [ "$tor_circuit_established_check_exit_code" = "137" ]; then
       true
    else
-      ## Keep check_tor_bootstrap loop running
+      ## Keep check_tor_bootstrap loop running.
       return 0
    fi
 
    if [ "$VM" = "Whonix-Gateway" ]; then
-      local MSG="<p>Tor Bootstrap Result:
+      local MSG="<p>Tor Connection Result:
 <br></br>Tor's Control Port could not be reached!
 <br></br>
 <br></br>Please report this Whonix bug!
@@ -125,7 +126,7 @@ check_tor_bootstrap_known_failure_cases() {
       if [ "$qubes_detected" = "false" ]; then
          local multiple_whonix_ws_msg="<br></br>- If you’re running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=https://www.whonix.org/wiki/Multiple_Whonix-Workstations>https://www.whonix.org/wiki/Multiple_Whonix-Workstations</a>)."
       fi
-      local MSG="<p>Tor Bootstrap Result:
+      local MSG="<p>Tor Connection Result:
 <br></br>Tor's Control Port could not be reached!
 <br></br>
 <br></br>Troubleshooting:
@@ -158,11 +159,11 @@ check_tor_bootstrap_unknown_failure_cases() {
    if [ "$tor_circuit_established_check_exit_code" -gt "100" ] || [ "$tor_circuit_established_check_exit_code" -lt "0" ]; then
       true
    else
-      ## Keep check_tor_bootstrap loop running
+      ## Keep check_tor_bootstrap loop running.
       return 0
    fi
 
-   local MSG="<p>Tor Bootstrap Result:
+   local MSG="<p>Tor Connection Result:
 <br></br>$check_bootstrap_script ERROR:
 <br></br>tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
@@ -189,14 +190,14 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
    if [ "$tor_bootstrap_percent" = "100" ] && [ "$tor_circuit_established" = "1" ]; then
       true
    else
-      ## Keep check_tor_bootstrap loop running
+      ## Keep check_tor_bootstrap loop running.
       return 0
    fi
 
    if [ "$time_synchronization_status_word" = "first_success" ] || [ "$time_synchronization_status_word" = "success" ]; then
       true
    else
-      ## Keep check_tor_bootstrap loop running
+      ## Keep check_tor_bootstrap loop running.
       return 0
    fi
 
@@ -250,7 +251,7 @@ check_tor_bootstrap_show_wait_notification_maybe() {
    started_tor_bootstrap_progress_bar="1"
    ## Waited for more than 5 seconds.
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-   local MSG="<p>Tor Bootstrap Test: Checking Tor's Bootstrap Status... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
+   local MSG="<p>Tor Bootstrap Test: Waiting for Tor Connection... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
    $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
    return 0
 }
@@ -259,13 +260,13 @@ check_tor_bootstrap_wait_longer_maybe() {
    if [ "$TOR_BOOTSTRAP_TIME_PASSED" -lt "$whonixcheck_tor_bootstrap_wait_max" ]; then
       true
    else
-      ## Keep check_tor_bootstrap loop running
+      ## Keep check_tor_bootstrap loop running.
       return 0
    fi
    if [ "$tor_bootstrap_percent" -lt "100" ] || [ "$tor_circuit_established" = "0" ] || [ "$time_synchronization_status_word" = "pending" ]; then
       true
    else
-      ## Keep check_tor_bootstrap loop running
+      ## Keep check_tor_bootstrap loop running.
       return 0
    fi
 
@@ -290,15 +291,15 @@ check_tor_bootstrap_wait_longer_maybe() {
    fi
 
    if [ "$VM" = "Whonix-Gateway" ]; then
-      local MSG="<p>Tor Bootstrap Result:
-- Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds. | $tor_bootstrap_percent % done. $progress_made_text
+      local MSG="<p>Tor Connection Result:
+- Connecting for $TOR_BOOTSTRAP_TIME_PASSED seconds. | $tor_bootstrap_percent % done. $progress_made_text
 - Tor Circuit: $tor_circuit_established_word.
 - Tor reports: $tor_bootstrap_status
 - Timesync status: $time_synchronization_status_notification.
 - sdwdate reports: $time_synchronization_msg</p>"
    else
-      local MSG="<p>Tor Bootstrap Result:
-- Bootstrapping for $TOR_BOOTSTRAP_TIME_PASSED seconds.
+      local MSG="<p>Tor Connection Result:
+- Connecting for $TOR_BOOTSTRAP_TIME_PASSED seconds.
 - Tor Circuit: $tor_circuit_established_word.
 - Timesync status: $time_synchronization_status_notification.
 - sdwdate reports: $time_synchronization_msg</p>"
@@ -321,11 +322,18 @@ check_tor_bootstrap_wait_longer_maybe() {
    return 1
 }
 
-check_tor_bootstrap_give_up_maybe() {
+check_tor_bootstrap_give_up_on_connection_issue_maybe() {
    if [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
       true
    else
-      ## Keep check_tor_bootstrap loop running
+      ## Keep check_tor_bootstrap loop running.
+      return 0
+   fi
+
+   if [ "$tor_circuit_established" = "0" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running.
       return 0
    fi
 
@@ -334,13 +342,13 @@ check_tor_bootstrap_give_up_maybe() {
       ## sets: anondate_issue
       ## sets: anondate_recommendation
       ## sets: anondate_debugging_information
+   fi
 
-      local MSG="<p>Tor Bootstrap Result:
+   if [ "$VM" = "Whonix-Gateway" ]; then
+      local MSG="<p>Tor Connection Result:
 <br></br><b>Whonixcheck gave up waiting.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
-<br></br>Bootstrapping $tor_bootstrap_percent % done. Tor reports: $tor_bootstrap_status
-<br></br>Time synchronization status: $time_synchronization_status_word
-<br></br>sdwdate reports: $time_synchronization_msg</p>
+<br></br>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
 
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
@@ -362,7 +370,7 @@ you will need them for Whonix as well.</p>
 <p>2)
 <br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
 <br></br>or in Terminal: <code>whonixcheck</code>
-<br></br>or in Terminal with debugging: <code>whonixcheck --debug --verbose</code></p>
+<br></br>or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code></p>
 
 <p>3)
 <br></br>Use arm, connection page two, to see if Tor is connected:
@@ -370,15 +378,13 @@ you will need them for Whonix as well.</p>
 or in Terminal: <code>arm</code></p>
 $anondate_debugging_information"
    elif [ "$VM" = "Whonix-Workstation" ]; then
-      local MSG="<p>Tor Bootstrap Result:
+      local MSG="<p>Tor Connection Result:
 <br></br>Whonixcheck gave up waiting.
-<br></br>Tor Circuit: $tor_circuit_established_word
-<br></br>Time synchronization status: $time_synchronization_status_word
-<br></br>sdwdate reports: $time_synchronization_msg</p>
+<br></br>Tor Circuit: <code>$tor_circuit_established_word</code></p>
 
 <p>Possible issues:
 <br></br>- Is the host's internet connection working?
-<br></br>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
+<br></br>- Whonix-Gateway will need a few moments for connecting to the Tor network.
 <br></br>- Did you start Whonix-Gateway beforehand?</p>
 
 <p>Recommendations:</p>
@@ -386,7 +392,7 @@ $anondate_debugging_information"
 <p>1)
 <br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
 <br></br>           or in Terminal: <code>whonixcheck</code>
-<br></br>           or in Terminal with debugging: <code>whonixcheck --debug --verbose</code></p>
+<br></br>           or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code></p>
 
 <p>2)
 <br></br>Run whonixcheck on Whonix-Gateway as well.</p>"
@@ -405,17 +411,84 @@ $anondate_debugging_information"
    return 1
 }
 
+check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
+   if [ "$TOR_BOOTSTRAP_TIME_PASSED" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running.
+      return 0
+   fi
+
+   if [ "$tor_circuit_established" = "1" ] && [ "$time_synchronization_status_word" = "pending" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running.
+      return 0
+   fi
+
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   local MSG="<p>Time Synchronization Result:
+<br></br><b>Whonixcheck gave up waiting.</b>
+<br></br>
+<br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
+<br></br>sdwdate reports: <code>$time_synchronization_msg</code>
+<br></br>
+<br></br>Possible issues:
+<br></br>- sdwdate will need a few more moments for fetching the time.
+<br></br>- sdwdate time sources might be dysfunctional.
+<br></br>
+<br></br>Recommendations:
+<br></br>
+<br></br><b>A)</b> <u>Rerun whonixcheck</u>:
+<blockquote>$start_menu_instructions_system_first_part Whonix Check</blockquote>
+or in Terminal: <code>whonixcheck</code>
+<br></br>or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code>
+<br></br>
+<br></br><b>B)</b> <u>Restart sdwdate.</u>
+<blockquote>$start_menu_instructions_system_first_part sdwdate-gui -> right click on sdwdate-gui systray -> Restart sdwate - instantly adjust the time</blockquote>
+or in Terminal: <code>sudo service sdwdate restart</code>
+<br></br>
+<br></br><b>C)</b> <u>Manually set the time.</u>
+<br></br>
+<br></br>As last resort...
+<br></br>
+<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>sudo date --set \"$anondate_suggested_date\"</blockquote>
+3. Simulate sdwdate success. <blockquote><code>sudo touch /var/run/sdwdate/first_success</code></blockquote>
+4. Rerun whonixcheck.</p>"
+
+   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+   fi
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
+   cleanup "1"
+   ## `break` check_tor_bootstrap loop.
+   return 1
+}
+
 check_tor_bootstrap_script_error() {
-   error_handler "<p>(Tor Bootstrap Result:)
+   error_handler "<p>(Tor Connection Result:)
 <br></br>(Technical information:)
-<br></br>(tor_bootstrap_percent: $tor_bootstrap_percent)
-<br></br>(tor_circuit_established: $tor_circuit_established)
-<br></br>(tor_circuit_established_word: $tor_circuit_established_word)
-<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
-<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>(TOR_BOOTSTRAP_TIME_PASSED: $TOR_BOOTSTRAP_TIME_PASSED)
-<br></br>(whonixcheck_tor_bootstrap_wait_max: $whonixcheck_tor_bootstrap_wait_max)</p>"
+<br></br>(tor_bootstrap_percent: <code>$tor_bootstrap_percent</code>)
+<br></br>(tor_circuit_established: <code>$tor_circuit_established</code>)
+<br></br>(tor_circuit_established_word: <code>$tor_circuit_established_word</code>)
+<br></br>(tor_bootstrap_timeout_type: <code>$tor_bootstrap_timeout_type</code>)
+<br></br>(tor_bootstrap_status: <code>$tor_bootstrap_status</code>)
+<br></br>(check_socks_port_open_test: <code>$check_socks_port_open_test</code>)
+<br></br>(TOR_BOOTSTRAP_TIME_PASSED: <code>$TOR_BOOTSTRAP_TIME_PASSED</code>)
+<br></br>(whonixcheck_tor_bootstrap_wait_max: <code>$whonixcheck_tor_bootstrap_wait_max</code>)
+<br></br>
+<br></br>(time_synchronization_status_word: <code>$time_synchronization_status_word</code>)
+<br></br>(time_synchronization_msg: <code>$time_synchronization_msg</code>)
+<br></br>
+<br></br>(anondate_issue: $anondate_issue)
+<br></br>(anondate_recommendation: $anondate_recommendation)
+<br></br>
+<br></br>(anondate_debugging_information: $anondate_debugging_information)</p>"
 
    ## `break` check_tor_bootstrap loop.
    return 1
