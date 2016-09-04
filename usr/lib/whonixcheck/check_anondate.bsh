@@ -142,7 +142,7 @@ tor_consensus_group_permission: <code>$tor_consensus_group_permission</code><br 
 is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manually fix it.
 <br></br>
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>kdesudo clock-random-manual-gui</blockquote></p>"
+<br></br>2. Set the clock to the correct time in UTC. (Example.) <blockquote><code>kdesudo clock-random-manual-gui</code></blockquote></p>"
 }
 
 check_anondate_show() {
