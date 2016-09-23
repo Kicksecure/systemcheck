@@ -66,6 +66,11 @@ cleanup_files() {
 ## trap_sigint (ex: ctrl + c) and error_handler.
 
 ex_funct() {
+   ## In case parse_cmd failed.
+   [ -n "$output_cli" ] || output_cli="true"
+   [ -n "$output_x" ] || output_x="true"
+   [ -n "$output_general" ] || output_general="true"
+
    if [ ! "$SIGNAL_TYPE" = "NONE" ]; then
       echo "$SCRIPTNAME: signal $SIGNAL_TYPE received. Cleaning up... Exiting..."
    fi
