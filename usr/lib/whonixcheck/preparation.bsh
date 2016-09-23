@@ -66,7 +66,7 @@ whonixcheck_msgdispatcher_windows_existing() {
       args="$(ps ww --no-header -p "$pid" -o 'args')" || return 0
       ## Example args:
       ## /usr/bin/python /usr/lib/msgcollector/msgdispatcher_dispatch_x info whonixcheck | Whonix-Workstation | TemplateBased AppVM | Sat Aug 15 02:08:03 UTC 2015 <p><span style=color:#008000>INFO</span>: <b>whonixcheck aborted!</b> (SIGNAL_TYPE: SIGINT)</p> 1 /usr/share/icons/anon-icon-pack/whonix.ico
-      read -r first second third fourth _ <<< "$args"
+      read -r first second third fourth _ <<< "$args" || return 0
       if [ "/usr/lib/msgcollector/msgdispatcher_dispatch_x" = "$second" ]; then
          if [ "whonixcheck" = "$fourth" ]; then
             echo "A whonixcheck result window is already open." >&2
