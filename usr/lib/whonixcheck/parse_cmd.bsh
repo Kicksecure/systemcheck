@@ -93,7 +93,7 @@ parse_cmd_options() {
                show_ip="true"
                shift
                ;;
-           --leak-test | --leak-tests | --leaktest | --leaktests)
+           --leak-test | --leak-tests | --leaktest | --leaktests | --ip-test | --iptest | --ip-tests | --iptests)
                leak_tests="true"
                shift
                ;;
