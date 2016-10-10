@@ -44,8 +44,7 @@ check_nonfree() {
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-   elif \
-   [ "$check_nonfree_result" = "expected" ]; then
+   elif [ "$check_nonfree_result" = "expected" ]; then
       nonfree_packages_detected=expected
       local MSG="<p>Check nonfree Result: Ok, only expected nonfree packages found. For more information, see:
 <br />$nonfreelink
