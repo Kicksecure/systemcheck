@@ -114,12 +114,9 @@
 	/etc/apparmor.d/ r,
 	/etc/uwt.d/ r,
 	/etc/uwt.d/** r,
-	/etc/tor/ r,
-	/etc/tor/** r,
 	/etc/login.defs r,
 	/etc/ssl/openssl.cnf r,
 	/etc/ssl/certs/ca-certificates.crt r,
-	/etc/tor/torrc r,
 	/etc/perl/sitecustomize.pl r,
 
 	@{HOME}/ r,
@@ -261,7 +258,6 @@
 	/usr/share/libthai/thbrk.tri r,
 	/usr/share/perl/** r,
 	/usr/share/vrms/** r,
-	/usr/share/tor/tor-service-defaults-torrc r,
 
 	/var/cache/apt/ r,
 	/var/cache/apt/* rw,
@@ -272,10 +268,12 @@
 	/var/lib/apt/extended_states r,
 	/var/lib/whonixcheck/** rw,
 	/var/lib/whonix/whonixblog/* rw,
-	/var/lib/tor/cached-microdesc-consensus r,
-	/var/lib/tor/cached-microdesc-consensus.new r,
-	/var/lib/tor/unverified-microdesc-consensus r,
-	/var/lib/tor/unverified-microdesc-consensus.new r,
+
+        ## For Running 'tor --verify-config'.
+        /usr/share/tor/** r,
+        /var/lib/tor/** r,
+        /{,var/}run/tor/** r,
+        /etc/tor/** r,
 
 	/var/log/sdwdate.log rw,
 	/var/log/timesanitycheck.log rw,
