@@ -71,9 +71,9 @@ whonix_news_preparation() {
 }
 
 download_now_whonix_news() {
-   download_now_whonix_news_helper "https://www.whonix.org/download/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "whonix_news.tar.xz.asc"
+   download_now_whonix_news_helper "https://download.whonix.org/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "whonix_news.tar.xz.asc"
    if [ "$whonix_news_download_success" = "true" ]; then
-      download_now_whonix_news_helper "https://www.whonix.org/download/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "whonix_news.tar.xz"
+      download_now_whonix_news_helper "https://download.whonix.org/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "whonix_news.tar.xz"
    fi
 
    if [ "$whonix_news_download_success" = "false" ]; then
