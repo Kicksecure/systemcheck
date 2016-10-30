@@ -13,8 +13,10 @@ check_whonixcheck_lastrun() {
    ## /var/run/ gets cleared on boot.
 
    if [ -f "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun" ]; then
-      LASTRUN="$(cat "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun")"
-   else
+      LASTRUN="$(cat "/var/lib/whonixcheck/${SCRIPTNAME}_lastrun")" || true
+   fi
+
+   if [ "$LASTRUN" = "" ]; then
       ## the whonixcheck_completed function does almost the same
       LASTRUN="$MAX"
       NEVER_RUN="1"
