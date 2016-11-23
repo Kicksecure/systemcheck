@@ -60,6 +60,8 @@
 
 	/sbin/start-stop-daemon rix,
 	/sbin/ifconfig rix,
+        ## Required by torsocks.
+	/sbin/getcap rix,
 
 	/dev/ r,
 	/dev/tty rw,
@@ -150,6 +152,8 @@
 	@{PROC}/xen/capabilities r,
 	@{PROC}/[0-9]*/net/** r,
 	@{PROC}/sys/kernel/random/boot_id r,
+	## Required by ps.
+	@{PROC}/sys/kernel/osrelease r,
 
 	/run/whonixcheck/* mrwcx,
 	/run/utmp rk,
@@ -168,6 +172,8 @@
 	/sys/devices/virtual/dmi/id/sys_vendor r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/ r,
         /sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
+        ## For systemd-detect-virt.
+        /sys/devices/virtual/dmi/id/product_name r,
 
 	/tmp/** lrwcix,
 
@@ -278,6 +284,7 @@
 	/var/log/sdwdate.log rw,
 	/var/log/timesanitycheck.log rw,
 	/var/log/tor/log r,
+	/var/log/apt/** rw,
 
 	/var/lib/anon-dist/build_version r,
 
