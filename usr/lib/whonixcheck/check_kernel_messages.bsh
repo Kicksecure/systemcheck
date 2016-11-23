@@ -7,7 +7,7 @@
 check_kernel_messages() {
    local dmesg_output grep_output
 
-   dmesg_output="$(dmesg)" || true
+   dmesg_output="$(sudo --non-interactive dmesg)" || true
    grep_output="$(echo "$dmesg_output" | grep -i "timekeeping watchdog")" || true
 
    if [ "$grep_output" = "" ]; then

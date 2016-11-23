@@ -20,3 +20,6 @@ whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/anondate
 ## required for check_network_interfaces
 whonixcheck ALL=NOPASSWD: /sbin/ifconfig eth0
 whonixcheck ALL=NOPASSWD: /sbin/ifconfig eth1
+
+## requried for check_kernel_messages
+whonixcheck ALL=NOPASSWD: /bin/dmesg
