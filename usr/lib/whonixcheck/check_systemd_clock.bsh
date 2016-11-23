@@ -24,6 +24,15 @@ check_systemd_clock() {
    ##  RTC in local TZ: no
    ##       DST active: n/a
 
+   ## timedatectl example output on Debian stretch:
+   ##       Local time: Wed 2016-11-23 05:58:44 UTC
+   ##   Universal time: Wed 2016-11-23 05:58:44 UTC
+   ##         RTC time: Wed 2016-11-23 05:58:59
+   ##        Time zone: Etc/UTC (UTC, +0000)
+   ##  Network time on: yes
+   ## NTP synchronized: no
+   ##  RTC in local TZ: no
+
    ## Not checking for 'Time zone: Etc/UTC (UTC, +0000)'. This is left to check_timezone.
    ## Not checking for 'Time zone: DST active: n/a'. This is left to check_timezone.
 
