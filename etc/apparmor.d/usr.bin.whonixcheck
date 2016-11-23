@@ -18,6 +18,7 @@
 	capability kill,
 	capability sys_rawio,
 	capability audit_write,
+	capability syslog,
 
 	/ r,
 
