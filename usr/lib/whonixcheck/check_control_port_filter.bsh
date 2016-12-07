@@ -20,9 +20,9 @@ check_control_port_filter_running() {
 
    local i
    i="0"
-   while ! sudo --non-interactive /usr/bin/service control-port-filter-python status >/dev/null 2>&1 ; do
+   while ! sudo --non-interactive /usr/bin/service tor-controlport-filter status >/dev/null 2>&1 ; do
       local MSG="<p>Control Port Filter Proxy Test: \
-control-port-filter-python service not running. Waiting up to 30 seconds.<\p>"
+tor-controlport-filter service not running. Waiting up to 30 seconds.<\p>"
       if [ "$silent" -le "2" ]; then
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
@@ -31,7 +31,7 @@ control-port-filter-python service not running. Waiting up to 30 seconds.<\p>"
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
          local MSG="<p>Control Port Filter Proxy Test Result:
-   <br></br><b>control-port-filter-python service not running.</b>
+   <br></br><b>tor-controlport-filter service not running.</b>
    <br></br>Did you disable Control Port Filter Proxy?
    <br></br>$if_you_know_what_you_are_doing_msg<\p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
