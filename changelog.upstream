@@ -1,3 +1,561 @@
+commit bb0a463f2fab96d94aa464d0ac335d8e8353ae64
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Dec 7 22:59:30 2016 +0000
+
+    adjust for tor-controlport-filter
+    
+    https://phabricator.whonix.org/T573
+
+commit 62d8e9e7b115702164db1b9af86efca889aa6a06
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Dec 7 22:55:48 2016 +0000
+
+    adjust sudoers for tor-controlport-filter
+    
+    https://phabricator.whonix.org/T573
+
+commit cebcdcb3c4441c0beb7edee8ba02698cd1b706d2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Dec 7 22:53:21 2016 +0000
+
+    adjust for tor-controlport-filter
+    
+    https://phabricator.whonix.org/T573
+
+commit 8e2c4cc8af93d96eae014d90ec27376612e5cfcc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 23 07:04:35 2016 +0100
+
+    comment
+
+commit 9fd7481d43bacb3e15f1cd8e7cdd13e1151696e8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 23 07:02:06 2016 +0100
+
+    comment
+
+commit 0b1f1fb6034dc8aae2f8691e857bc7eb6d7e27ac
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 23 06:59:52 2016 +0100
+
+    add capability syslog to apparmor profile for Debian stretch support
+
+commit b18cdc06f92e5391ae0742f3eb75b0ab41878a57
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 23 06:55:16 2016 +0100
+
+    run dmesg as root for Debian stretch compatibility
+
+commit 8428af2affe157cf89fcd360de5da41a614cd08a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 23 06:51:49 2016 +0100
+
+    work on Debian stretch compatibility
+
+commit 163bdd7696ef9269538aac09316d6df900ffa382
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 21 17:43:47 2016 +0000
+
+    readme
+
+commit af4865aa23b7f61f8d38983647200c81a48c7430
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 30 21:04:55 2016 +0100
+
+    fix lastrun check race condition bug
+    
+    Thanks to hologone for the bug report!
+    
+    https://forums.whonix.org/t/whonixcheck-error-script-bug
+
+commit e628438a79eff94b6d51ba64e8f01d5c793e4bd4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 17 00:01:14 2016 +0200
+
+    update Whonix news link
+
+commit 71b96f69a6d9bed231deb4957eab70e326f5e448
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 13 18:43:00 2016 +0000
+
+    Fix /var/lib/tor AppArmor permission issue.
+    
+    Thanks to Temple for the bug report!
+    
+    https://forums.whonix.org/t/gateway-tor-problem-latest-update
+
+commit 2730ebb073d3b2c4afeb04761a58888704726c88
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 10 21:41:54 2016 +0000
+
+    only show nonfree packages when using --verbose
+    
+    https://forums.whonix.org/t/nonfree-packages-found-with-virtualbox
+
+commit bc5a004c1bea5d1d019000e0fa0bdfec7887a386
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 10 23:39:38 2016 +0200
+
+    minor
+
+commit b20d35df8739f96dd44adce056e775ba03d749e1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 10 15:15:30 2016 +0000
+
+    sudoers
+
+commit 3f1d6ad2855de2a13c8b385b45ddbc14bc1d7fc1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 10 15:12:51 2016 +0000
+
+    no longer check /var/run/control-port-filter-python/pid
+    
+    use /bin/service
+
+commit 33c6e783c5e5cdcbfd72e721179e5eec02858665
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 23 04:12:50 2016 +0000
+
+    fix
+
+commit c7ce11224b3f4b8ddf99756021677159dc6e2dd8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 23 04:02:59 2016 +0000
+
+    fix
+
+commit 8bd65d52522439e92a2e115e83400a220ce50710
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 23 04:00:29 2016 +0000
+
+    more ip test command line parameter aliases
+
+commit b8798772aa93d0524db86fd0844173301e2f6212
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 9 14:00:00 2016 +0000
+
+    fix, also skip stream isolation test if not using --leak-tests
+
+commit 726165e67f008596a1ec77d21c2fc6e3c35c7887
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 9 13:13:48 2016 +0000
+
+    /sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
+
+commit 6044bbcdd8fa6ac9067fc824077338f64ea2d027
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 5 21:46:29 2016 +0200
+
+    whonixcheck_expected_nonfree_package+=
+    
+    https://forums.whonix.org/t/nonfree-packages-found-with-virtualbox
+
+commit c5a5fa621264f5c5fab1a5dde9a64b2ed045c1e7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 4 22:12:26 2016 +0200
+
+    output
+
+commit 4ea33cad15889dc1c349fbba4a43e525476d9e7e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 4 22:10:39 2016 +0200
+
+    fix
+
+commit e2d14f532f31bf2380b819e3bbfb67eaf4ce98b3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 4 22:08:28 2016 +0200
+
+    recommend clock-random-manual-gui rather than manually setting randomizing the clock
+    
+    in sdwdate permanent failure cases (ddos against enough time providers)
+    
+    https://phabricator.whonix.org/T533
+
+commit 7ab9126eb76e5ee6fc78971d1e96e40cc5265994
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 29 21:39:49 2016 +0000
+
+    - separate whonixcheck help message when Tor bootstrap succeeded but timesync failed
+    - avoid too technical word "bootstrap"
+    - output
+    - comments
+    
+    https://phabricator.whonix.org/T533
+
+commit a6c043c85548d82e232e0c2e0fe1f909305790c2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 26 21:37:23 2016 +0000
+
+    add sdwdate status to whonixcheck Tor bootstrap test output
+    
+    https://phabricator.whonix.org/T533
+
+commit 71930e80882bc8d62afe674b4a1108aa60946afb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 26 02:26:27 2016 +0000
+
+    silent="3" by default everywhere for daemon and autostart mode
+
+commit e020f2a10a6cb95b73f59b1c0c5f8d690c1d18ae
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 26 02:20:50 2016 +0000
+
+    improve whonixcheck --verbose output for Tor config check
+
+commit 17fe54c31cee0f4086bf8c7ed5954584d3321985
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 23:00:50 2016 +0200
+
+    improve whonixcheck --verbose output for Tor enabled check when running in TemplateVM
+
+commit c8b24f4a9d2cef98e300256d96f00e3a90a37038
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 22:54:01 2016 +0200
+
+    fix
+
+commit fe0d242d27f878e2d4ff39a0c5903c1383b1a031
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 18:54:12 2016 +0000
+
+    output, Template-Based -> TemplateBased
+
+commit c9bd62cab8eca9cb4f37d8c41a06601fd9d2e938
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 18:50:35 2016 +0000
+
+    skip Tor bootstrap and Tor socks port reachability test in Qubes TemplateVM
+
+commit 31f812a9a9bc6364ba8f23644a54178cdc528561
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 17:04:14 2016 +0000
+
+    fix, only run Tor data folder permission test if we actually have a Tor consensus file
+
+commit 143b26bf5cf112486ab276393eb28c634aab5e18
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 16:52:19 2016 +0000
+
+    reenable exit whonixcheck on Tor bootstrap test failure
+    
+    https://phabricator.whonix.org/T533
+
+commit 95fc9e7a589c8601ddfe2ac5c10fe7fd9136a2cd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 16:49:38 2016 +0000
+
+    skip anondate test in Qubes TempalteVM since Tor does not run there
+
+commit 18f694d14bb03adafc305822c4ad40a12c31fac7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 16:46:08 2016 +0000
+
+    add timesync status to cli output
+    
+    code simplification
+    
+    https://phabricator.whonix.org/T533
+
+commit 992edf4a227c4f1df6a254755cd7b3c5cadbbdfd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 16:30:46 2016 +0000
+
+    sudo --non-interactive
+    
+    https://phabricator.whonix.org/T549
+
+commit 44f777e24982c337ec64dcaede9a60d59a047053
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 16:03:33 2016 +0000
+
+    compatibility with msgcollector when running under different user account
+    
+    https://phabricator.whonix.org/T533
+
+commit b04205463492e9da67a851a085597154d7d871fb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 01:26:03 2016 +0000
+
+    add user whonixcheck to group debian-tor for Tor bootstrap test
+    
+    https://phabricator.whonix.org/T533
+
+commit 0fcc4947ef9d32850f750ab85c69b20ec50ce585
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 01:25:46 2016 +0000
+
+    fix
+
+commit 2c95286b1b35c287038f470671a816d92fe4c453
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 01:08:43 2016 +0000
+
+    fix sudoers permissions for running as user whonixcheck
+    
+    https://phabricator.whonix.org/T533
+
+commit fcbe5f1605d436b09fe192c1e80f16d639a161dc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 00:54:08 2016 +0000
+
+    fix
+
+commit 8761c697a21b481e84d5bda67f403ceba91b3710
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 25 00:52:14 2016 +0000
+
+    fix
+
+commit 49c84b3b43078593a6e32959ccef1230d08a0920
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 24 23:47:05 2016 +0000
+
+    run whonixcheck under user 'whonixcheck'
+    
+    so it can run Tor bootstrap test even if Whonix firewall is in restricted mode
+    
+    https://phabricator.whonix.org/T533
+
+commit cdb5408d941fee0bea03aa2b5e2ea5b3236a542b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 24 23:21:13 2016 +0000
+
+    usr/bin/whonixcheck -> usr/lib/whonixcheck/whonixcheck
+    
+    so /usr/bin/whonixcheck wrapper can be added that will run whonixcheck under
+    user 'whonixcheck'
+    
+    https://phabricator.whonix.org/T533
+
+commit d351e44222dd857d159f0c215d1091bffa057a82
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 24 21:48:28 2016 +0000
+
+    minor formatting
+
+commit 1bc4ba9674af5df773faf296bf6ded536f8d0e33
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 24 19:44:21 2016 +0000
+
+    also wait for sdwdate to succeed until Tor bootstrapping is considered done
+    
+    refactoring Tor bootstrapping code
+    
+    https://phabricator.whonix.org/T533
+
+commit 9dfb76cd843c346b1583bcfc7407646596bb92fb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 23 18:33:04 2016 +0000
+
+    improve check_tor_socks_port_reachability output on gateway
+
+commit 5e50b5f1f002ca917ad0ea324f3cf77ecc4a5052
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 22 22:52:44 2016 +0000
+
+    no longer use tor_bootstrap_status on the workstation
+
+commit 87730c72502c7f6fa4648318ddb76e2af4d2f8ba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 22 22:21:58 2016 +0000
+
+    refactoring
+
+commit df8ce7b52c1bde9bbb76f3999567d0e918d8453e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 23:34:28 2016 +0000
+
+    disable Whonix News by default, since the UX is to bad to be useful
+    
+    can still be manually run using whonixcheck --function download_whonix_news
+    
+    https://forums.whonix.org/t/whonixcheck-whonix-14-ideas
+
+commit 95624483864bca097f112aa4de002caf61c5f6e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 23:28:11 2016 +0000
+
+    skip Tor leak tests by default for hardening; implement --leak-tests
+    
+    https://forums.whonix.org/t/whonixcheck-whonix-14-ideas
+
+commit 499d0bdc189fe00b5edee91e984f6303f0c39fd7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 23:17:57 2016 +0000
+
+    exit 2 on warning so whonixcheck can be used as part of automated testing
+
+commit dcca948cea7071e2431c7ad9eb7b598b37cd58f6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 22:43:35 2016 +0000
+
+    document --show-ip in man page
+
+commit 9ede77fdda2df67dbfbf048c1123497d5d8d8a9d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 22:41:58 2016 +0000
+
+    output
+
+commit f5d85feabc883225e3df1a20642d390614570ddf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 22:41:21 2016 +0000
+
+    fix
+
+commit abfeec092d2af0f7a4e521175b9c7b546846e92f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 22:39:53 2016 +0000
+
+    document how to enable showing IP during Tor leak test
+
+commit a4bde61e9622b8776fd7bcc47794d53e493fec4c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 18 22:34:35 2016 +0000
+
+    show IP during Tor leak test only when using --show-ip
+    
+    to avoid users posting screenshots with their IPs
+
+commit d5356b734ea7a3b41fd9524e177fc817901955ba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 15 23:34:32 2016 +0000
+
+    check permissions of /var/lib/tor folder
+
+commit f77f415bc043ef07bbe4ed7aa91d6160292f7d8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 15 20:39:22 2016 +0000
+
+    check if qubes-db is functional
+
+commit be677f9964a7318b1034a1b2060ff83cd08f1f08
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 14 23:14:30 2016 +0000
+
+    check for /var/run/anon-firewall/failed.status ; local
+
+commit c9fa6b72cc72741eabd651af24ad871724d17267
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 14 22:55:50 2016 +0000
+
+    output
+
+commit b8a3cc9cadc3c3d45dddebf9b7c9e6d559691084
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 14 22:49:00 2016 +0000
+
+    check if Whonix firewall systemd unit was successfully loaded
+    
+    check for failed systemd units when using --verbose
+    
+    https://phabricator.whonix.org/T488
+
+commit f5e9de796e01d8c95c7230f1aa77e6baa390286d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 13 01:16:19 2016 +0200
+
+    Wants=network.service
+
+commit ccde7ef0d796d3aebb866cfee151361f9baa1f11
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 13 01:14:40 2016 +0200
+
+    fix, Wants= -> After=
+
+commit 0dea981efb7728e9618915fd2ec7d9e71b25f601
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 10 19:36:40 2016 +0000
+
+    fix apparmor /etc/perl/sitecustomize.pl warning
+    
+    Thanks to massy1 for reporting this bug?
+    
+    http://forums.whonix.org/t/var-log-kern-log-contains-4-denied-messages-in-the-last-day
+
+commit 270633c131dbf79ef2dc8078a0c734168a787fc6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 22 21:29:33 2016 +0000
+
+    fix whonixcheckdaemon --gui --cli
+
+commit 926c2a0667f99a4d90d536066dd6bdac946d41e3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 14 19:42:36 2016 +0000
+
+    fix apparmor protbuf denied message
+    
+    Thanks to ramongalaxy for the report!
+    
+    Thanks to entr0py for instructions for reproduction and suggestions to fix!
+    
+    https://forums.whonix.org/t/profile-usr-bin-whonixcheck-operation-open-denied-name-usr-local-lib-python2-7-dist-package-protobut-2-6-1-nspkg-pth
+
+commit 983a0ede85fff4d43789362aa57118c523317bea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 27 16:36:22 2016 +0200
+
+    fixed i386 specificness
+
+commit 8ece92a62428896d7b071a05cfee729f24e85eb7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 15 22:00:05 2016 +0000
+
+    also source /rw/config/whonix.d/*.conf for config snippets
+
+commit bcbec6cf0fa31cb5b2cb17602615df4929be04ca
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 15 21:57:15 2016 +0000
+
+    more modern / common config parser
+    
+    /etc/default/whonixcheckd.d/*.conf /rw/config/default/whonixcheckd.d/*.conf
+
+commit 599b43e95085b8b741df8d0583ca1e2d554b50bb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 8 22:52:48 2016 +0000
+
+    --tlsv1.2
+    
+    https://phabricator.whonix.org/T489
+
+commit 6b27e2b676cc78480731b9cc8b1bd0904192c948
+Merge: 664c12e c51cc8e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 8 21:57:22 2016 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit c51cc8e3e3bb3c92969c4f33e2b00c0ae00384b3
+Merge: 664c12e 095686f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 8 21:56:46 2016 +0000
+
+    Merge pull request #5 from HulaHoopWhonix/patch-2
+    
+    Added more banned packages
+
+commit 095686fc57b81bb8a083bac4d638c13f69fd4d0e
+Author: HulaHoopWhonix <bancfc@openmailbox.org>
+Date:   Wed Jun 8 21:51:20 2016 +0000
+
+    Added more banned packages
+
+commit 664c12e313c76536bc2ecd8b69f51fce1e4bddf6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 2 15:01:18 2016 +0000
+
+    fixed pvclock test
+    
+    https://forums.whonix.org/t/whonix-13-time-sync-issue
+
+commit bf3cec43f9fa46218ac71993d994fc90f397a9bc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 14 15:09:44 2016 +0000
+
+    bumped changelog version
+
 commit 46dc5d30062b85ed090ab5d0280acaa1e681cf7b
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat May 14 13:40:47 2016 +0000
