@@ -186,7 +186,6 @@
 	/usr/bin/dpkg-query rix,
 	/usr/bin/mawk rix,
 	/usr/bin/tput rix,
-	/usr/bin/service rix,
 	/usr/bin/env rix,
 	/usr/bin/timeout rix,
 	/usr/bin/tail rix,

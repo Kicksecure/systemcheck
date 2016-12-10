@@ -8,8 +8,8 @@ whonixcheck ALL=NOPASSWD: /usr/sbin/tor *
 ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
 ALL ALL=(debian-tor) NOPASSWD: /usr/sbin/tor *
 
-ALL ALL=(debian-tor) NOPASSWD: /usr/bin/service control-port-filter-python status
-ALL ALL=(debian-tor) NOPASSWD: /usr/bin/service tor-controlport-filter status
+ALL ALL=(debian-tor) NOPASSWD: /usr/sbin/service control-port-filter-python status
+ALL ALL=(debian-tor) NOPASSWD: /usr/sbin/service tor-controlport-filter status
 
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
