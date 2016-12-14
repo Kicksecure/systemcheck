@@ -8,13 +8,10 @@ user ALL=(whonixcheck) NOPASSWD: /usr/lib/whonixcheck/whonixcheck *
 user ALL=(whonixcheck) NOPASSWD: /bin/bash -x /usr/lib/whonixcheck/whonixcheck *
 
 ## Required for whonixcheck running "tor --verify-config".
-whonixcheck ALL=NOPASSWD: /usr/bin/tor *
-whonixcheck ALL=NOPASSWD: /usr/sbin/tor *
-ALL ALL=(debian-tor) NOPASSWD: /usr/bin/tor *
-ALL ALL=(debian-tor) NOPASSWD: /usr/sbin/tor *
+whonixcheck ALL=(debian-tor) NOPASSWD: /usr/bin/tor --verify-config
+whonixcheck ALL=(debian-tor) NOPASSWD: /usr/sbin/tor --verify-config
 
-ALL ALL=(debian-tor) NOPASSWD: /usr/sbin/service control-port-filter-python status
-ALL ALL=(debian-tor) NOPASSWD: /usr/sbin/service tor-controlport-filter status
+whonixcheck ALL=NOPASSWD: /usr/sbin/service tor-controlport-filter status
 
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
