@@ -1,3 +1,33 @@
+commit d2a3327af0636d1fb3a98024c65f3632633296da
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Dec 14 19:30:29 2016 +0000
+
+    sudoers fixes
+
+commit 5c1dbfaacd292cb7d2282f4092a79c015d6c5837
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Dec 14 19:12:54 2016 +0000
+
+    typo
+
+commit 9f5b4bc21b46d478a373ffd251ad1620b0bb95a1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Dec 14 19:12:19 2016 +0000
+
+    fix sudoers for running whonixcheck under user 'whonixcheck'
+
+commit 57ab6f99d826f6567a7e02cadb02c4b6e87e7642
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 10 04:20:37 2016 +0000
+
+    fix path to /usr/sbin/service
+
+commit 5d0bb784f787754cd7b316b681e17ce46b9aa904
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 10 02:37:20 2016 +0000
+
+    bumped changelog version
+
 commit bb0a463f2fab96d94aa464d0ac335d8e8353ae64
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Dec 7 22:59:30 2016 +0000
