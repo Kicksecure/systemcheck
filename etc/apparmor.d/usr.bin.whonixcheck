@@ -244,9 +244,9 @@
 
 	## Allow running 'apt-get update' unconfined so it can also initially
 	## create /var/cache/apt/archives/.
-	/usr/lib/apt-get-update rUx,
+	/usr/lib/security-misc/apt-get-update rUx,
 
-	/usr/lib/apt-get-wrapper rix,
+	/usr/lib/security-misc/apt-get-wrapper rix,
 	/usr/lib/anon-shared-helper-scripts/anondate rix,
 
 	# operation="unlink" requested_mask="d" denied_mask="d"
