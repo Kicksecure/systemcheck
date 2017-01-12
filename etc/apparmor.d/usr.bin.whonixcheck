@@ -175,6 +175,7 @@
         /sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
         ## For systemd-detect-virt.
         /sys/devices/virtual/dmi/id/product_name r,
+        /sys/hypervisor/type r,
 
 	/tmp/** lrwcix,
 
