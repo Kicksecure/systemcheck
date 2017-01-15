@@ -1,3 +1,29 @@
+commit 57fa0045193bb8fbda1492bab5e12594a89f3b46
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 15 07:47:25 2017 +0000
+
+    use --home /nonexistent to fix lintian warning
+
+commit c27c40a03aaa6dd6fee31c43b709ce14f6057a06
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 15 08:35:44 2017 +0100
+
+    packaging, bumped Standards-Version from 3.9.6 to 3.9.8 for jessie support
+
+commit 1d482706ea7cb192562b417d77c2a6a5b6ba0d25
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 12 04:18:19 2017 +0000
+
+    apparmor 'sudo umount /proc/xen' compatibility  fix
+    
+    https://forums.whonix.org/t/tor-browser-sandbox-linux-alpha-coming-soon
+
+commit fa0bf91b84ca65772cdc7ede7362fd9b83e05692
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 12 02:58:20 2017 +0000
+
+    bumped changelog version
+
 commit af5c3a285b8b3cabf109bf9d3c91cc332c23b040
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jan 9 05:22:09 2017 +0000
@@ -868,7 +894,7 @@ commit e49e3157b2a2aa17c293b441a405034eb43dcfab
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 22 10:15:15 2016 +0000
 
-    	@{PROC}/[0-9]*/task/** r,
+            @{PROC}/[0-9]*/task/** r,
 
 commit 971260573446e73d288424df06a39e076d590724
 Author: Patrick Schleizer <adrelanos@riseup.net>
@@ -918,7 +944,7 @@ commit c93a264d47e67eeace9fc657ff6e52ef492ac5ff
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 22 09:23:18 2016 +0000
 
-    	/dev/kmsg r,
+            /dev/kmsg r,
 
 commit 1411d7c3d2b3cb55c501c30c102321ef419e97d1
 Author: Patrick Schleizer <adrelanos@riseup.net>
