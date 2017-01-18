@@ -21,7 +21,8 @@ check_tor_socks_port_reachability() {
       $CURL_VERBOSE \
       --max-time 10 \
       --output "$TEMP_DIR/socks_port_open_file" \
-      "$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK" \
+      --unix-socket "/var/run/tor/socks" \
+      "file//var/run/tor/socks" \
       &
 
    ## Example OK:
