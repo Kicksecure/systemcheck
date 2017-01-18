@@ -1,3 +1,29 @@
+commit fb5f6879460f7ffd043e6722b6ac0bfb9031d068
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 18 14:20:44 2017 +0000
+
+    fix, After=whonix-firewall.service
+
+commit ad54de22028ce5b6bd21568f55511dd6c64bf285
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 18 14:20:15 2017 +0000
+
+    After=whonixcheck.service
+
+commit 0b71a85c66cd2a217a2a776da5ed888e16483dc5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 18 10:00:10 2017 +0000
+
+    port whonixcheck check_tor_socks_port_reachability.bsh to using Tor unix domain socket socks file
+    
+    https://phabricator.whonix.org/T548
+
+commit c6b0d140656850a3e66728874873ce56fb7ae812
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 15 15:37:49 2017 +0000
+
+    bumped changelog version
+
 commit 57fa0045193bb8fbda1492bab5e12594a89f3b46
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jan 15 07:47:25 2017 +0000
