@@ -265,6 +265,7 @@
 	/usr/share/libthai/thbrk.tri r,
 	/usr/share/perl/** r,
 	/usr/share/vrms/** r,
+	/usr/share/dpkg/** r,
 
 	/var/cache/apt/ r,
 	/var/cache/apt/* rw,
