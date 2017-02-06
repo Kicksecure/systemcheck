@@ -1,3 +1,29 @@
+commit 831d0c965942f5e66d24b4a2566722fdfa1f218d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 31 15:18:27 2017 +0100
+
+    /usr/share/dpkg/** r, for stretch
+
+commit 5ebcd658f67d591eb981c15f8550bfae73424183
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 25 12:30:07 2017 +0000
+
+    whonixcheck_expected_nonfree_package remove firmware-linux and firmware-linux-nonfree
+    
+    since these can and should be removed in Qubes-Whonix for upgraded VMs
+
+commit 5811516689509d46f4b81c02bc1b0336fd4f1192
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 25 12:29:28 2017 +0000
+
+    whonixcheck_expected_nonfree_package add onionshare and torbrowser-launcher
+
+commit 540ed9a9daa9a2e9fdc59255df9128cec9d8befd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 18 14:34:26 2017 +0000
+
+    bumped changelog version
+
 commit fb5f6879460f7ffd043e6722b6ac0bfb9031d068
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jan 18 14:20:44 2017 +0000
