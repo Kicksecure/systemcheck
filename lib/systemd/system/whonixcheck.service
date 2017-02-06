@@ -11,6 +11,7 @@ Wants=network.target
 
 After=rinetd.service
 After=tor.service
+After=tor@default.service
 After=whonix-firewall.service
 
 Requires=msgcollector.service
