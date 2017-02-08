@@ -39,13 +39,24 @@ check_operating_system() {
       fi
    fi
 
+   ## `timeout` returns:
+   ## - 124 if sigterm was sufficient
+   ## - 137 if needed to use kill.
+
+   local debugging_information
+   if [ "$apt_get_exit_code" = "124" ] || [ "$apt_get_exit_code" = "137" ]; then
+      debugging_information="(Timeout reached.) (apt-get code: $apt_get_exit_code)"
+   else
+      debugging_information="(apt-get code: $apt_get_exit_code)"
+   fi
+
    if [ ! "$apt_get_exit_code" = "0" ]; then
       if [ "$qubes_detected" = "true" ]; then
-         local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> (apt-get code: $apt_get_exit_code)
+         local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
 <br></br><u><b>Please manually check inside $update_where.</u></b>
 $qubes_update_help</p>"
       else
-         local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> (apt-get code: $apt_get_exit_code)
+         local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
 <br></br>Please manually check:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
