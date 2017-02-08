@@ -89,7 +89,7 @@ $qubes_update_help</p>"
       fi
       if [[ "$first_char" != *[!0-9]* ]]; then
          true "'$first_char' is strictly numeric."
-         read number_upgraded _ <<< "$line"
+         read -r number_upgraded _ <<< "$line"
          true "number_upgraded: $number_upgraded"
          break
       fi
