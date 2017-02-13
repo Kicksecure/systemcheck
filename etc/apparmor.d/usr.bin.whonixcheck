@@ -19,6 +19,8 @@
 	capability sys_rawio,
 	capability audit_write,
 	capability syslog,
+	## Required for systemctl.
+	capability net_admin,
 
 	/ r,
 
@@ -155,6 +157,8 @@
 	@{PROC}/sys/kernel/random/boot_id r,
 	## Required by ps.
 	@{PROC}/sys/kernel/osrelease r,
+	## Required for systemctl.
+	@{PROC}/[0-9]*/comm r,
 
 	/run/whonixcheck/* mrwcx,
 	/run/utmp rk,
@@ -292,7 +296,8 @@
 
 	/run/tor/log r,
 	/run/tor/tor.pid r,
-	/run/log/journal/ r,
+   	/run/log/journal/ r,
+	/run/log/journal/** r,
 	/run/tor/control.authcookie r,
 	/run/control-port-filter-python/pid r,
         /run/tor-controlport-filter/pid r,
