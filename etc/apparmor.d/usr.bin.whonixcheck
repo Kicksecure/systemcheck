@@ -63,7 +63,7 @@
 
 	/sbin/start-stop-daemon rix,
 	/sbin/ifconfig rix,
-        ## Required by torsocks.
+	## Required by torsocks.
 	/sbin/getcap rix,
 
 	/dev/ r,
@@ -176,10 +176,10 @@
 	/sys/devices/system/clocksource/clocksource0/available_clocksource r,
 	/sys/devices/virtual/dmi/id/sys_vendor r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/ r,
-        /sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
-        ## For systemd-detect-virt.
-        /sys/devices/virtual/dmi/id/product_name r,
-        /sys/hypervisor/type r,
+	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
+	## For systemd-detect-virt.
+	/sys/devices/virtual/dmi/id/product_name r,
+	/sys/hypervisor/type r,
 
 	/tmp/** lrwcix,
 
@@ -226,7 +226,7 @@
 	/usr/bin/pgrep rix,
 	/usr/bin/bsdtar rix,
 	/usr/bin/pstree rix,
-        /usr/bin/vrms rix,
+	/usr/bin/vrms rix,
 
 	## Required by Qubes.
 	/usr/bin/gdbus rix,
@@ -281,11 +281,11 @@
 	/var/lib/whonixcheck/** rw,
 	/var/lib/whonix/whonixblog/* rw,
 
-        ## For Running 'tor --verify-config'.
-        /usr/share/tor/** r,
-        /var/lib/tor/** r,
-        /{,var/}run/tor/** r,
-        /etc/tor/** r,
+	## For Running 'tor --verify-config'.
+	/usr/share/tor/** r,
+	/var/lib/tor/** r,
+	/{,var/}run/tor/** r,
+	/etc/tor/** r,
 
 	/var/log/sdwdate.log rw,
 	/var/log/timesanitycheck.log rw,
@@ -296,11 +296,11 @@
 
 	/run/tor/log r,
 	/run/tor/tor.pid r,
-   	/run/log/journal/ r,
+	/run/log/journal/ r,
 	/run/log/journal/** r,
 	/run/tor/control.authcookie r,
 	/run/control-port-filter-python/pid r,
-        /run/tor-controlport-filter/pid r,
+	/run/tor-controlport-filter/pid r,
 	## Required for curl when resolvconf is installed.
 	/run/resolvconf/resolv.conf r,
 
