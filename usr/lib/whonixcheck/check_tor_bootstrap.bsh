@@ -103,6 +103,16 @@ check_tor_bootstrap_init() {
    if [ "$time_synchronization_msg" = "" ]; then
       time_synchronization_msg="Not available."
    fi
+
+   if [ -e /var/run/whonix_firewall/consecutive_run.status ]; then
+      whonix_firewall_status_word="consecutive_run"
+      whonix_firewall_status_notification="consecutive run after boot"
+   elif [ -e /var/run/whonix_firewall/first_run_current_boot.status ]; then
+      whonix_firewall_status_word="first_run_current_boot"
+      whonix_firewall_status_notification="first run after boot"
+   else
+      whonix_firewall_status_word="pending"
+   fi
 }
 
 check_tor_bootstrap_grace() {
@@ -459,11 +469,27 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
-   local MSG="<p>Time Synchronization Result:
+   if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
+      local MSG="<p>Time Synchronization Result:
 <br></br><b>Whonixcheck gave up waiting.</b>
 <br></br>
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
+<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
+<br></br>
+<br></br>Possible issues:
+<br></br>- sdwdate will need a few more moments for fetching the time.
+<br></br>- sdwdate time sources might be dysfunctional.
+<br></br>
+<br></br>Apparently you have already reload Whonix-Firewall.
+</p>"
+   else
+      local MSG="<p>Time Synchronization Result:
+<br></br><b>Whonixcheck gave up waiting.</b>
+<br></br>
+<br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
+<br></br>sdwdate reports: <code>$time_synchronization_msg</code>
+<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
 <br></br>
 <br></br>Possible issues:
 <br></br>- sdwdate will need a few more moments for fetching the time.
@@ -488,16 +514,23 @@ or in Terminal: <code>sudo service sdwdate restart</code>
 <br></br>2. Use the manual clock setting tool. <blockquote><code>kdesudo clock-random-manual-gui</code></blockquote>
 3. Simulate sdwdate success. <blockquote><code>sudo touch /var/run/sdwdate/first_success</code></blockquote>
 4. Rerun whonixcheck.</p>"
+   fi
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
    fi
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-   EXIT_CODE="1"
-   cleanup "1"
-   ## `break` check_tor_bootstrap loop.
-   return 1
+
+   if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
+      ## `break` check_tor_bootstrap loop.
+      return 1
+   else
+      EXIT_CODE="1"
+      cleanup "1"
+      ## `break` check_tor_bootstrap loop.
+      return 1
+   fi
 }
 
 check_tor_bootstrap_script_error() {
@@ -512,13 +545,17 @@ check_tor_bootstrap_script_error() {
 <br></br>(TOR_BOOTSTRAP_TIME_PASSED: <code>$TOR_BOOTSTRAP_TIME_PASSED</code>)
 <br></br>(whonixcheck_tor_bootstrap_wait_max: <code>$whonixcheck_tor_bootstrap_wait_max</code>)
 <br></br>
+<br></br>(whonix_firewall_status_word: $whonix_firewall_status_word)
+<br></br>(whonix_firewall_status_notification: $whonix_firewall_status_notification)
+<br></br>
 <br></br>(time_synchronization_status_word: <code>$time_synchronization_status_word</code>)
 <br></br>(time_synchronization_msg: <code>$time_synchronization_msg</code>)
 <br></br>
 <br></br>(anondate_issue: $anondate_issue)
 <br></br>(anondate_recommendation: $anondate_recommendation)
 <br></br>
-<br></br>(anondate_debugging_information: $anondate_debugging_information)</p>"
+<br></br>(anondate_debugging_information: $anondate_debugging_information)
+</p>"
 
    ## `break` check_tor_bootstrap loop.
    return 1
