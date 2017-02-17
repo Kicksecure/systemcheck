@@ -1,3 +1,86 @@
+commit 5c8bf9be88f9951d2263b23aa82818935aa3f733
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 15 23:22:08 2017 +0000
+
+    when Whonix firewall has been reload, continue after Tor bootstrap test
+    
+    even if time synchronization status is still pending
+
+commit 388918a64cbe2f8af1e149f7f96baa95feab297a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 15 22:47:42 2017 +0000
+
+    gracefully handle cases where Tor is restarted during Tor bootstrap test
+    
+    no longer exit with error message "Tor's Control Port could not be reached."
+    try a few 5 times, wait 2 seconds between attempts
+
+commit e5397769e3869b70f11b26c66dacc3c042cd96db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 15 21:36:07 2017 +0000
+
+    After=tor-controlport-filter.service
+    
+    because it checks tor-controlport-filter
+
+commit d841780eedf7376d6f6c8a0efdc64094f5ae577c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 13 18:00:44 2017 +0000
+
+    minor
+
+commit 54d6a583d0178f80157bf1e573d618bae242a4a7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 13 17:59:23 2017 +0000
+
+    Debian stretch apparmor fixes
+
+commit 2ce1bfd3b68c1b5a292adcf280f972e17ff54215
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 11 07:10:12 2017 +0100
+
+    whonixcheck_unwanted_package+=" kdeconnect "
+    
+    https://forums.whonix.org/t/kdeconnectd-removal
+
+commit b9b8236bdedad9f920ff895c9e479a0ed730233f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 15:47:52 2017 +0000
+
+    remove faketime from Build-Depends:
+    
+    since no longer used for reproducible builds
+
+commit 60b808844adda8e6d42e7c0a877a75c4ffc86f12
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 15:35:26 2017 +0000
+
+    remove debian/gain-root-command workaround
+
+commit 005700d8aadead75238154bc4604a8500cfe491a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 15:26:42 2017 +0000
+
+    packaging simplification ruby-ronn (>= 0.7.3) -> ruby-ronn
+
+commit 5fefb4f5d6093e28bc7d0fe4258eb851c1f41d60
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 8 13:39:04 2017 +0000
+
+    read -r
+
+commit 1a7adc786385523d23629163def5a1e36b7d719b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 8 14:18:52 2017 +0100
+
+    add timeout to apt-get update check if there was a timeout
+
+commit ab2402bd07df0d686beeb19187ddb7821576ff48
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 6 18:01:20 2017 +0000
+
+    bumped changelog version
+
 commit 1043fdd08f9164d4129d2d48db7bdf4bc263aa22
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Feb 6 17:23:57 2017 +0000
