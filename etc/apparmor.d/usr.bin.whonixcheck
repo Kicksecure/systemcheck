@@ -94,14 +94,11 @@
 	/etc/apt/sources.list.d/* r,
 	/etc/whonix.d/ r,
 	/etc/whonix.d/* r,
-	/etc/init.d/bootclockrandomization rix,
 	/etc/default/rcS r,
 	/etc/default/timesanitycheck r,
-	/etc/init.d/timesanitycheck rix,
 	/etc/sdwdate.d/ r,
 	/etc/sdwdate.d/* r,
 	/etc/default/sdwdate r,
-	/etc/init.d/sdwdate rix,
 	/etc/apt/apt.conf.d/ r,
 	/etc/apt/apt.conf.d/* r,
 	/etc/python*/sitecustomize.py r,
@@ -233,7 +230,7 @@
 	/usr/bin/qubesdb-read rix,
 	/usr/bin/qubesdb-cmd rix,
 
-	/usr/sbin/service rix,
+	/bin/systemctl rix,
 	/usr/sbin/virt-what rix,
 	/usr/sbin/dmidecode rix,
 

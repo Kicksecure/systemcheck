@@ -20,7 +20,7 @@ check_control_port_filter_running() {
 
    local i
    i="0"
-   while ! sudo --non-interactive /usr/sbin/service tor-controlport-filter status >/dev/null 2>&1 ; do
+   while ! sudo --non-interactive /bin/systemctl --no-pager --no-block status tor-controlport-filter >/dev/null 2>&1 ; do
       local MSG="<p>Control Port Filter Proxy Test: \
 tor-controlport-filter service not running. Waiting up to 30 seconds.<\p>"
       if [ "$silent" -le "2" ]; then

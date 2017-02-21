@@ -49,13 +49,13 @@ check_services() {
 <br></br>$line"
          fi
       fi
-   done < <( systemctl --no-legend --failed )
+   done < <( systemctl --no-pager --no-block --no-legend --failed )
 
    if [ "$counter" = "0" ]; then
       return 0
    fi
 
-   systemctl_output_with_legend="$(systemctl --failed list-units)"
+   systemctl_output_with_legend="$(systemctl --no-pager --no-block --failed list-units)"
    systemctl_output_with_legend="$(/usr/lib/msgcollector/br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
@@ -90,7 +90,7 @@ check_whonix_firewall_systemd_status() {
    fi
 
    systemctl_status_whonix_firewall_exit_code="0"
-   systemctl_status_whonix_firewall_output="$(systemctl status whonix-firewall 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; };
+   systemctl_status_whonix_firewall_output="$(systemctl --no-pager --no-block status whonix-firewall 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; };
    systemctl_status_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then
