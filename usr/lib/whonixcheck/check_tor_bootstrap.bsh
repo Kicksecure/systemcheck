@@ -245,6 +245,23 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
       return 0
    fi
 
+   local MSG="<p>Tor Connection Result: Ok.
+<br></br>tor_bootstrap_status:  <code>$tor_bootstrap_status</code>
+<br></br>Tor Circuit:  <code>$tor_circuit_established_word</code></p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
+   local MSG="<p>Time Synchronization Result: Ok.
+<br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
+<br></br>sdwdate reports: <code>$time_synchronization_msg</code>
+<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code></p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
    local MSG="<p>Connected to Tor.</p>"
    ## Only attempt to close the progress bar if one was started.
    ## Otherwise this might conflict with the progress bar in 25_autostart.
