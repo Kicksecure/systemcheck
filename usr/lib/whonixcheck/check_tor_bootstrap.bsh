@@ -246,8 +246,8 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
    fi
 
    local MSG="<p>Tor Connection Result: Ok.
-<br></br>tor_bootstrap_status:  <code>$tor_bootstrap_status</code>
-<br></br>Tor Circuit:  <code>$tor_circuit_established_word</code></p>"
+<br></br>tor_bootstrap_status: <code>$tor_bootstrap_status</code>
+<br></br>Tor Circuit: <code>$tor_circuit_established_word</code></p>"
    if [ "$verbose" -ge "1" ]; then
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
