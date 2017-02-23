@@ -45,9 +45,6 @@ check_tor_bootstrap_init() {
 
    ## sets: check_bootstrap_script
    ## sets: lastpid
-   ## sets: TOR_BOOTSTRAP_TIME_START
-   ## sets: TOR_BOOTSTRAP_TIME_NOW
-   ## sets: TOR_BOOTSTRAP_TIME_PASSED
    ## sets: tor_bootstrap_percent
    ## sets: tor_bootstrap_status
    ## sets: tor_bootstrap_timeout_type
