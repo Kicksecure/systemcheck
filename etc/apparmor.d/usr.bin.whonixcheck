@@ -95,7 +95,6 @@
 	/etc/whonix.d/ r,
 	/etc/whonix.d/* r,
 	/etc/default/rcS r,
-	/etc/default/timesanitycheck r,
 	/etc/sdwdate.d/ r,
 	/etc/sdwdate.d/* r,
 	/etc/default/sdwdate r,
@@ -164,7 +163,6 @@
 	/run/sdwdate r,
 	/run/sdwdate/ rw,
 	/run/sdwdate/* rw,
-	/run/timesanitycheck/success rw,
 
 	/sys/bus/pci/devices/ r,
 	/sys/bus/pci/slots/ r,
@@ -285,7 +283,6 @@
 	/etc/tor/** r,
 
 	/var/log/sdwdate.log rw,
-	/var/log/timesanitycheck.log rw,
 	/var/log/tor/log r,
 	/var/log/apt/** rw,
 
