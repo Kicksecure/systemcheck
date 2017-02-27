@@ -1,3 +1,47 @@
+commit 53324715168b6eb425c0afc9f925169c46761369
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 25 03:35:05 2017 +0000
+
+    cleanup
+
+commit 1d5f3989b38cb28f3cb987ea2e02c7caa5e26be1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 23 02:49:47 2017 +0000
+
+    minor
+
+commit 8f7161e141be79acb29ac027438640e3483e1779
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 23 02:44:04 2017 +0000
+
+    add Tor Connection and Time Synchronization Status results in --verbose mode
+
+commit 30adceb9d7024e25a4dfae5d421f26a20a906b85
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 23 01:42:22 2017 +0000
+
+    cleanup
+
+commit da44fbbf24b092a749afddb6c415d514c78676d0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 23 01:39:49 2017 +0000
+
+    Tor bootstrap test fix: timeout no longer gets confused by sdwdate clock jumps
+
+commit 5940732eef48d959f3a376e8ddd75ade99403b9e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 21 22:25:33 2017 +0000
+
+    use systemctl --no-pager to prevent blocking due to systemctl interactivity
+    
+    https://phabricator.whonix.org/T637
+
+commit 004ed26ce9d382f01e5696998098795b7f99ec3b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 17 14:13:39 2017 +0000
+
+    bumped changelog version
+
 commit 5c8bf9be88f9951d2263b23aa82818935aa3f733
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 15 23:22:08 2017 +0000
