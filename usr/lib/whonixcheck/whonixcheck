@@ -61,7 +61,7 @@ whonixcheck_progress_main() {
 }
 
 whonixcheck_basics() {
-   parse_cmd_options ${1+"$@"} ## parse_cmd
+   parse_cmd_options "$@" ## parse_cmd
    preparation ## preparation
 
    ## Conditionally only run the function name that was given by the --function
@@ -249,10 +249,10 @@ whonixcheck_further() {
 }
 
 whonixcheck_main() {
-   whonixcheck_basics ${1+"$@"}
-   whonixcheck_further ${1+"$@"}
+   whonixcheck_basics "$@"
+   whonixcheck_further "$@"
 }
 
-whonixcheck_main ${1+"$@"}
+whonixcheck_main "$@"
 
 ## End of whonixcheck script.

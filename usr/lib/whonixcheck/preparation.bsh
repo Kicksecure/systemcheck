@@ -85,13 +85,13 @@ whonixcheck_msgdispatcher_windows_existing() {
 
 whonixcheck_run_function() {
    case $whonixcheck_skip_functions in
-   *"${1+"$@"}"*) echo "INFO: Skipping ${1+"$@"}, because whonixcheck_skip_functions includes it."
+   *"$@"*) echo "INFO: Skipping $@, because whonixcheck_skip_functions includes it."
                   return 0
                   ;;
    esac
 
-   true "INFO: Running ${1+"$@"}, because whonixcheck_skip_functions does not include it."
-   eval ${1+"$@"}
+   true "INFO: Running $@, because whonixcheck_skip_functions does not include it."
+   eval "$@"
 }
 
 get_local_whonix_version() {
