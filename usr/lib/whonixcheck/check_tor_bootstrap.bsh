@@ -522,7 +522,7 @@ or in Terminal: <code>whonixcheck</code>
 <br></br>or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code>
 <br></br>
 <br></br><b>B)</b> <u>Restart sdwdate.</u>
-<blockquote>$start_menu_instructions_system_first_part sdwdate-gui -> right click on sdwdate-gui systray -> Restart sdwdate - instantly adjust the time</blockquote>
+<blockquote>$start_menu_instructions_system_first_part sdwdate-gui -> right click on sdwdate-gui systray -> Restart sdwdate</blockquote>
 or in Terminal: <code>sudo service sdwdate restart</code>
 <br></br>
 <br></br><b>C)</b> <u>Manually set the time.</u>
