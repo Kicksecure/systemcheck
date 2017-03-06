@@ -107,7 +107,7 @@ check_tor_bootstrap_init() {
    fi
 
    if [ "$time_synchronization_msg" = "" ]; then
-      time_synchronization_msg="Not available."
+      time_synchronization_msg="nothing yet."
    fi
 
    if [ -e /var/run/whonix_firewall/consecutive_run.status ]; then
