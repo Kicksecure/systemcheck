@@ -69,6 +69,9 @@ whonixcheck_basics() {
    whonixcheck_run_function function_manual_run ## function_manual_run
 
    ## Does not use the network.
+   whonixcheck_run_function show_versions ## show_versions
+
+   ## Does not use the network.
    whonixcheck_run_function check_whonix_firewall_systemd_status ## check_services
 
    ## Does not use the network.

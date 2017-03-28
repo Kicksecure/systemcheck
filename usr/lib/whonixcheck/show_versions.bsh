@@ -1,0 +1,25 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2017 - 2017 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+show_versions() {
+   if [ ! "$verbose" -ge "1" ]; then
+      return 0
+   fi
+
+   local MSG="<p>whonix_build_version: <code>$whonix_build_version</code></p>"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
+   xx="$(/usr/lib/msgcollector/striphtml "$whonix_deb_package_version")"
+
+   local MSG="<p>$whonix_deb_package_name: <code>$xx</code></p>"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
+   local MSG="<p>/etc/whonix_version: <code>$(cat /etc/whonix_version)</code></p>" || true
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+}
