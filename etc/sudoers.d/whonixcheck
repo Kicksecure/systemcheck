@@ -11,7 +11,7 @@ user ALL=(whonixcheck) NOPASSWD: /bin/bash -x /usr/lib/whonixcheck/whonixcheck *
 whonixcheck ALL=(debian-tor) NOPASSWD: /usr/bin/tor --verify-config
 whonixcheck ALL=(debian-tor) NOPASSWD: /usr/sbin/tor --verify-config
 
-whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor-controlport-filter
+whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status onion-grater
 
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)

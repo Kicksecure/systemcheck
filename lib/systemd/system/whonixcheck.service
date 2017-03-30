@@ -12,7 +12,7 @@ Wants=network.target
 After=rinetd.service
 After=tor.service
 After=tor@default.service
-After=tor-controlport-filter.service
+After=onion-grater.service
 After=whonix-firewall.service
 
 Requires=msgcollector.service

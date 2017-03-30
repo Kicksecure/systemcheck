@@ -293,8 +293,7 @@
 	/run/log/journal/ r,
 	/run/log/journal/** r,
 	/run/tor/control.authcookie r,
-	/run/control-port-filter-python/pid r,
-	/run/tor-controlport-filter/pid r,
+	/run/onion-grater/pid r,
 	## Required for curl when resolvconf is installed.
 	/run/resolvconf/resolv.conf r,
 
