@@ -14,6 +14,7 @@ After=tor.service
 After=tor@default.service
 After=onion-grater.service
 After=whonix-firewall.service
+After=whonix-firewall-sdwdate-watcher.service
 
 Requires=msgcollector.service
 
