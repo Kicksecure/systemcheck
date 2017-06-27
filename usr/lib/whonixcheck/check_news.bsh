@@ -4,9 +4,6 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-## test command:
-## GATEWAY_IP=127.0.0.1 SOCKS_PORT_WHONIX_NEWS=9050 whonixcheck --function download_whonix_news
-
 download_whonix_news() {
    if [ "$silent" -ge "3" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
@@ -14,39 +11,48 @@ download_whonix_news() {
    fi
 
    whonixcheck_run_function whonix_news_preparation
+   whonixcheck_run_function whonix_gateway_census_count_or_not
 
    whonixcheck_run_function download_now_whonix_news
 
-   if [ ! "$whonix_news_download_success" = "true" ]; then
-      true "$BASH_SOURCE WARNING: whonix_news_download_success is not true, it is $whonix_news_verified_ok, return"
-      return 0
-   fi
+   ## TODO: vs whonix_gateway_census_result
+#    if [ ! "$whonix_news_download_success" = "true" ]; then
+#       true "$BASH_SOURCE WARNING: whonix_news_download_success is not true, it is $whonix_news_verified_ok, return"
+#       return 0
+#    fi
 
-   whonixcheck_run_function verify_whonix_news
+#    whonixcheck_run_function verify_whonix_news
+#
+#    if [ ! "$whonix_news_verified_ok" = "true" ]; then
+#       true "$BASH_SOURCE WARNING: whonix_news_verified_ok is not true, it is $whonix_news_verified_ok, return"
+#       return 0
+#    fi
+#
+#    whonixcheck_run_function extract_whonix_news
+#
+#    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
+#       true "$BASH_SOURCE ERROR: whonix_news_tar_exit_code is not 0, it is $whonix_news_tar_exit_code, return"
+#       return 0
+#    fi
+#
+#    whonixcheck_run_function check_whonix_debian_version
+#    whonixcheck_run_function check_whonix_build_version
+#
+#    whonixcheck_run_function check_whonix_general_news
+#    whonixcheck_run_function check_whonix_debian_news
+#    whonixcheck_run_function check_whonix_build_news
 
-   if [ ! "$whonix_news_verified_ok" = "true" ]; then
-      true "$BASH_SOURCE WARNING: whonix_news_verified_ok is not true, it is $whonix_news_verified_ok, return"
-      return 0
-   fi
-
-   whonixcheck_run_function extract_whonix_news
-
-   if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      true "$BASH_SOURCE ERROR: whonix_news_tar_exit_code is not 0, it is $whonix_news_tar_exit_code, return"
-      return 0
-   fi
-
-   whonixcheck_run_function check_whonix_debian_version
-   whonixcheck_run_function check_whonix_build_version
-
-   whonixcheck_run_function check_whonix_general_news
-   whonixcheck_run_function check_whonix_debian_news
-   whonixcheck_run_function check_whonix_build_news
+   whonixcheck_run_function whonix_gateway_census_result
 
    whonixcheck_run_function check_whonix_show_news
 }
 
 whonix_news_preparation() {
+## TODO: remove
+GATEWAY_IP=127.0.0.1
+SOCKS_PORT_WHONIX_NEWS=9050
+vm_lower_case_short=gateway
+
    if [ "$TEMP_DIR" = "" ]; then
       error "Variable TEMP_DIR is empty!"
       return 0
@@ -59,29 +65,79 @@ whonix_news_preparation() {
    whonix_news_verify_dir="$TEMP_DIR/news/verify_dir"
    whonix_news_extract_dir="$TEMP_DIR/news/extract_dir"
 
+   whonix_gateway_census_api_link="http://api.kkkkkkkkkk63ava6.onion/whonix_gateway_census"
+   whonix_gateway_last_census_file="/var/lib/whonixcheck/whonix_gateway_last_census.txt"
+   whonix_gateway_census_result_file="/var/lib/whonixcheck/whonix_gateway_census_result.txt"
+
    [ -n "$SOCKS_PORT_WHONIX_NEWS" ] || SOCKS_PORT_WHONIX_NEWS="9114"
    [ -n "$CURL_PROXY_WHONIX_NEWS" ] || CURL_PROXY_WHONIX_NEWS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS"
 
-   local MSG="Whonix News Download: Checking for Whonix news and updates..."
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   #local MSG="Whonix News Download: Checking for Whonix news and updates..."
+   #$output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    mkdir --parents "$whonix_news_download_dir"
    mkdir --parents "$whonix_news_verify_dir"
    mkdir --parents "$whonix_news_extract_dir"
+
+   rm -f "$whonix_gateway_census_result_file"
+}
+
+whonix_gateway_census_count_or_not() {
+   ## TODO: Not in Qubes DispVM.
+
+   local max_age current_time last_run difference
+
+   if [ ! "$vm_lower_case_short" = "gateway" ]; then
+      whonix_gateway_census_do_check_in="false"
+      return 0
+   fi
+
+   ## One hour has 3600 seconds.
+   ## A day has 86400 seconds.
+   max_age="86400"
+
+   if [ -f "$whonix_gateway_last_census_file" ]; then
+      last_run="$(cat "$whonix_gateway_last_census_file")" || true
+   fi
+
+   [ -n "$last_run" ] || last_run="$max_age"
+
+   current_time="$(date +%s)"
+   difference="$(( $current_time - $last_run ))" || whonix_gateway_census_do_check_in="true"
+
+   if [ "$difference" -ge "$max_age" ]; then
+      whonix_gateway_census_do_check_in="true"
+   else
+      whonix_gateway_census_do_check_in="false"
+   fi
 }
 
 download_now_whonix_news() {
-   download_now_whonix_news_helper "https://download.whonix.org/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "whonix_news.tar.xz.asc"
-   if [ "$whonix_news_download_success" = "true" ]; then
-      download_now_whonix_news_helper "https://download.whonix.org/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "whonix_news.tar.xz"
-   fi
+   #download_now_whonix_news_helper "http://kkkkkkkkkk63ava6.onion/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "$whonix_news_download_dir/whonix_news.tar.xz.asc"
+   #if [ "$whonix_news_download_success" = "true" ]; then
+      #download_now_whonix_news_helper "http://kkkkkkkkkk63ava6.onion/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "$whonix_news_download_dir/whonix_news.tar.xz"
 
-   if [ "$whonix_news_download_success" = "false" ]; then
-      download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download" "whonix_news.tar.xz.asc"
-      if [ "$whonix_news_download_success" = "true" ]; then
-         download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download" "whonix_news.tar.xz"
+      if [ "$whonix_gateway_census_do_check_in" = "true" ]; then
+         local MSG="Whonix Census: anonymously counting this Whonix-Gateway, ok."
+         if [ "$verbose" -ge "1" ]; then
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+         download_now_whonix_news_helper "$whonix_gateway_census_api_link" "$whonix_gateway_census_result_file" "--request PUT --data gateway-sign-in"
+      else
+         local MSG="Whonix Census: Not needed, ok."
+         if [ "$verbose" -ge "1" ]; then
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+         download_now_whonix_news_helper "None required at this time, ok." "none"
       fi
-   fi
+   #fi
+
+#    if [ "$whonix_news_download_success" = "false" ]; then
+#       download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download" "$whonix_news_download_dir/whonix_news.tar.xz.asc"
+#       if [ "$whonix_news_download_success" = "true" ]; then
+#          download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download" "$whonix_news_download_dir/whonix_news.tar.xz"
+#       fi
+#    fi
 
    if [ "$whonix_news_download_success" = "false" ]; then
       local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed.</p>"
@@ -98,6 +154,7 @@ download_now_whonix_news_helper() {
 
    web_link="$1"
    file_name="$2"
+   #extra_curl_args: ${@:3}
 
    if echo "$web_link" | grep -q "https://" ; then
       local CURL_SSL
@@ -110,19 +167,24 @@ download_now_whonix_news_helper() {
    declare -A -g whonix_news_download_exit_code
    whonix_news_download_exit_code["$web_link"]="0"
 
-   $CURL \
-      $CURL_VERBOSE \
-      $CURL_SSL \
-      --fail \
-      $CURL_PROXY_WHONIX_NEWS \
-      --location \
-      --max-time 180 \
-      --output "$whonix_news_download_dir/$file_name" \
-      "$web_link" \
-      &
+   if [ "$file_name" = "none" ]; then
+      true
+   else
+      $CURL \
+         $CURL_VERBOSE \
+         $CURL_SSL \
+         --fail \
+         $CURL_PROXY_WHONIX_NEWS \
+         --location \
+         --max-time 180 \
+         --output "$file_name" \
+         ${@:3} \
+         "$web_link" \
+         &
 
-   lastpid="$!"
-   wait "$lastpid" || { whonix_news_download_exit_code["$web_link"]="$?" ; true; };
+      lastpid="$!"
+      wait "$lastpid" || { whonix_news_download_exit_code["$web_link"]="$?" ; true; };
+   fi
 
    if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
       whonix_news_download_success="false"
@@ -462,13 +524,70 @@ $VM Build <u>${whonix_build_version}</u> News: <code><blockquote>$message</block
    fi
 }
 
+whonix_gateway_census_result() {
+   local web_link whonix_gateway_census_result_content message
+
+   whonix_census_result_ok="false"
+
+   if [ ! "$vm_lower_case_short" = "gateway" ]; then
+      whonix_census_result_ok="true"
+      if [ "$verbose" -ge "1" ]; then
+         whonix_news_result_output="${whonix_news_result_output}
+$VM Census: Skipped, because not running on Whonix-Gateway, ok."
+      fi
+      return 0
+   fi
+
+   if [ "$whonix_gateway_census_do_check_in" = "false" ]; then
+      whonix_census_result_ok="true"
+      if [ "$verbose" -ge "1" ]; then
+         whonix_news_result_output="${whonix_news_result_output}
+$VM Census: Skipped, because already counted less than a day ago, ok."
+      fi
+      return 0
+   fi
+
+   web_link="$whonix_gateway_census_api_link"
+   if [ "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
+      local last_run
+      last_run="$(date +%s)"
+      echo "$last_run" | tee "$whonix_gateway_last_census_file" > /dev/null
+      whonix_census_result_ok="true"
+      if [ "$verbose" -ge "1" ]; then
+         whonix_news_result_output="${whonix_news_result_output}
+$VM Census: Ok."
+      fi
+      return 0
+   fi
+
+   if [ -f "$whonix_gateway_census_result_file" ]; then
+      whonix_gateway_census_result_content="$(cat "$whonix_gateway_census_result_file")" || whonix_gateway_census_result_content="Error reading $whonix_gateway_census_result_file"
+   else
+      whonix_gateway_census_result_content="File <code>$whonix_gateway_census_result_file</code> does not exist."
+   fi
+   message="$(/usr/lib/msgcollector/striphtml "$whonix_gateway_census_result_content")"
+
+   whonix_news_result_output="${whonix_news_result_output}
+$VM Census: Error.
+<br></br>
+whonix_news_download_exit_code[$web_link]: <code>${whonix_news_download_exit_code[$web_link]}</code>
+whonix_gateway_census_result_file:<br></br>
+<code>$message</code>"
+
+   ## TODO
+   # "$whonix_gateway_census_result_file"
+}
+
 check_whonix_show_news() {
    local type
    type="info"
-   if [ ! "$whonix_news_build_up_to_date" = "true" ]; then
-      type="warning"
-   fi
-   if [ ! "$whonix_news_deb_up_to_date" = "true" ]; then
+#    if [ ! "$whonix_news_build_up_to_date" = "true" ]; then
+#       type="warning"
+#    fi
+#    if [ ! "$whonix_news_deb_up_to_date" = "true" ]; then
+#       type="warning"
+#    fi
+   if [ ! "$whonix_census_result_ok" = "true" ]; then
       type="warning"
    fi
 
