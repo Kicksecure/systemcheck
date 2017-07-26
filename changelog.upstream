@@ -1,3 +1,77 @@
+commit 3da614e8a02e3606de93618bea3f32075aa354c4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 27 20:37:18 2017 +0000
+
+    Whonix census
+    
+    https://phabricator.whonix.org/T689
+
+commit 45bc01bc4f4d2cc27a2ae2a0bf637487bbbd4679
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 23 11:21:40 2017 +0200
+
+    Revert "reenable whonix news"
+    
+    This reverts commit ba54e4498d455bc047621482d71bdd94b508fbb4.
+
+commit ba54e4498d455bc047621482d71bdd94b508fbb4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 7 14:20:28 2017 +0000
+
+    reenable whonix news
+
+commit e5664a542e7f148fc9ea30050c56f9ea81706a07
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 12 13:18:27 2017 +0200
+
+    After=whonix-firewall-sdwdate-watcher.service
+
+commit 4fb8a71a012c0978419efd1e7955a91468f68cad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 30 03:16:22 2017 +0200
+
+    control-port-filter-python -> onion-grater
+
+commit 05205385a9a2c07554a2801fc74a78cf60ea91a6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 28 21:40:35 2017 +0000
+
+    show Whonix versions in verbose mode
+
+commit 736c1d59bf9cde5361c27827eb79d5742aa8096e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 28 21:38:52 2017 +0000
+
+    fix
+
+commit df497c1892fcec2eab9f69f2e7509f4966a60f37
+Merge: 37ac2d6 5e1a1cf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 16 13:32:56 2017 +0100
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 5e1a1cfb105f5615bbd93a3cc4842c39a4ff4cdc
+Merge: 37ac2d6 15e5767
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 16 13:04:49 2017 +0100
+
+    Merge pull request #6 from HulaHoopWhonix/patch-3
+    
+    Update 30_whonixcheck_default.conf
+
+commit 15e5767d88d28cd82ad87cae732bcf76eee77c98
+Author: HulaHoopWhonix <bancfc@openmailbox.org>
+Date:   Wed Mar 15 17:18:17 2017 +0000
+
+    Update 30_whonixcheck_default.conf
+
+commit 37ac2d6b1b22aa27b77449702e27546c3e62409c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 6 20:07:51 2017 +0000
+
+    bumped changelog version
+
 commit 778ae1bb2789631a4b2838fa4e58a7f4f9184c08
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Mar 6 19:56:32 2017 +0000
