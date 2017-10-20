@@ -5,6 +5,10 @@
 ## See the file COPYING for copying conditions.
 
 check_qubes_network_interface() {
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      return 0
+   fi
+
    local qubesdb_read_qubes_ip_exit_code
    qubesdb_read_qubes_ip_exit_code="0"
    qubes_ip="$(qubesdb-read /qubes-ip 2>&1)" || { qubesdb_read_qubes_ip_exit_code="$?" ; true; };
