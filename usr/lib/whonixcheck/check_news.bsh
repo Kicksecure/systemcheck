@@ -10,6 +10,10 @@ download_whonix_news() {
       return 0
    fi
 
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      return 0
+   fi
+
    whonixcheck_run_function whonix_news_preparation
    whonixcheck_run_function whonix_gateway_census_count_or_not
 

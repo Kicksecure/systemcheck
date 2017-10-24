@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## This file is part of Whonix.
-## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## Copyright (C) 2012 - 2017 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
 check_tor_socks_or_trans_port() {
@@ -24,136 +24,79 @@ check_tor_socks_or_trans_port() {
       return 0
    fi
 
+   ## Do not test for stream isolation if Tor detection failed.
+   ## This variable may be set to 1, during the first run of this function.
+   if [ "$NOT_USING_TOR" = "1" ]; then
+      local MSG="<p><b>$test_name: Not testing Tor's TransPort, because Tor could not be detected previously.</b></p>"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
    local LINK="https://check.torproject.org"
+   local SOCKS_PORT_WHONIXCHECK="9110"
+   local check_result_curl_exit_code="0"
 
    if [ "$1" = "SocksPort" ]; then
-      if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
-         local MSG="\
-<p>SocksPort Test: Not testing Tor's SocksPort, because you set <code>WHONIXCHECK_DISABLE_SOCKS_PORT_TEST=\"1\"</code> to deactivate this.</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
-         return 0
+      local test_name="SocksPort IP Leak Test"
+      local checking_msg="$test_name: Testing Tor's SocksPort..."
+      local CURL_PROXY_WHONIXCHECK="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK"
+      local CHECK_TOR_OUT_FILE="check_tpo_tor_socksport.html"
+      if [ "$VM" = "Whonix-Gateway" ] || [ "$VM" = "Whonix-Workstation" ]; then
+         local connection_failed_msg="\
+<p>$test_name Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable.
+<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle."
+      else
+         local connection_failed_msg="$FUNCNAME: <p>This is neither Whonix-Gateway nor Whonix-Workstation. Please report this bug to the Whonix developers!</p>"
       fi
+   elif [ "$1" = "UpdatesProxy" ]; then
+      local test_name="Updates Proxy IP Leak Test"
+      local checking_msg="$test_name: Testing Qubes' Updates Proxy..."
 
-      local MSG="SocksPort Test: Testing Tor's SocksPort..."
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      source /usr/lib/qubes-whonix/utility_functions.sh
+      local CURL_PROXY_WHONIXCHECK="--proxy $PROXY_SERVER"
 
-      local SOCKS_PORT_WHONIXCHECK="9110"
-      [ -n "$CURL_PROXY_WHONIXCHECK" ] || CURL_PROXY_WHONIXCHECK="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK"
-
-      CHECK_TOR_RESULT_SOCKS_PORT="0"
-
-      CHECK_TOR_OUT_FILE="check_tpo_tor_socksport.html"
-
-      $CURL \
-         --fail \
-         $CURL_VERBOSE \
-         $CURL_PROXY_WHONIXCHECK \
-         --tlsv1.2 \
-         --proto =https \
-         --max-time 180 \
-         $CURL_TPO_PIN_CERT \
-         --output "$TEMP_DIR/$CHECK_TOR_OUT_FILE" \
-         "$LINK" \
-         &
-
-      lastpid="$!"
-      wait "$lastpid" || { CHECK_TOR_RESULT_SOCKS_PORT="$?" ; true; };
-
-      if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
-         local curl_status_message
-         curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TOR_RESULT_SOCKS_PORT")"
-         if [ "$VM" = "Whonix-Gateway" ]; then
-
-            local MSG="\
-<p>SocksPort Test Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable.
-<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.
-<br></br>(curl exit code: $curl_status_message)<p>"
-
-         elif [ "$VM" = "Whonix-Workstation" ]; then
-
-            local MSG="\
-<p>SocksPort Test Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable.
-<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.
-<br></br>(curl exit code: $curl_status_message)</p>"
-
-         else
-
-            local MSG="$FUNCNAME: <p>This is neither Whonix-Gateway nor Whonix-Workstation. Please report this bug!</p>"
-
-         fi
-
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-
-         return 0
-      fi
+      local CHECK_TOR_OUT_FILE="check_tpo_tor_transport.html"
+      local connection_failed_msg="\
+<p>Updates Proxy IP Leak Test: Qubes' Updates Proxy was not reachable."
    elif [ "$1" = "TransPort" ]; then
-      if [ "$WHONIXCHECK_DISABLE_TRANS_PORT_TEST" = "1" ]; then
-         local MSG="\
-<p>TransPort Test: <b>Not testing Tor's TransPort, because you set <code>WHONIXCHECK_DISABLE_TRANS_PORT_TEST=\"1\"</code> to deactivate this.</b></p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
-         return 0
-      fi
-
-      ## Do not test for stream isolation if Tor detection failed.
-      ## This variable may be set to 1, during the first run of this function.
-      if [ "$NOT_USING_TOR" = "1" ]; then
-         local MSG="<p><b>TransPort Test: Not testing Tor's TransPort, because Tor could not be detected on Tor's SocksPort.</b></p>"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         return 0
-      fi
-
-      ## --function was perhaps used. Therefore perhaps $FUNCTION is set. Conditionally allow to explicit run only this function.
-      if [ "$FUNCTION" = "" ]; then
-         if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
-            local MSG="<p><b>TransPort Test: Not checking Tor's TransPort, because SocksPort test failed already.</b></p>"
-            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-            return 0
-         fi
-      fi
-
-      local MSG="TransPort Test: Testing Tor's TransPort..."
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-
-      CHECK_TOR_RESULT_TRANS_PORT="0"
-
-      CHECK_TOR_OUT_FILE="check_tpo_tor_transport.html"
-
-      ## For production:
-      $CURL \
-         --fail \
-         $CURL_VERBOSE \
-         --tlsv1.2 \
-         --proto =https \
-         --max-time 180 \
-         $CURL_TPO_PIN_CERT \
-         --output "$TEMP_DIR/$CHECK_TOR_OUT_FILE" \
-         "$LINK" &
-
-      lastpid="$!"
-      wait "$lastpid" || { CHECK_TOR_RESULT_TRANS_PORT="$?" ; true; };
-
-      if [ ! "$CHECK_TOR_RESULT_TRANS_PORT" = "0" ]; then
-         local curl_status_message
-         curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$CHECK_TOR_RESULT_TRANS_PORT")"
-         local MSG="\
+      local test_name="TransPort IP Leak Test"
+      local checking_msg="$test_name: Testing Tor's TransPort..."
+      local CURL_PROXY_WHONIXCHECK=""
+      local CHECK_TOR_OUT_FILE="check_updates_proxy.html"
+      local connection_failed_msg="\
 <p>TransPort Test Result: Tor's TransPort was not reachable.
-<br></br>It is normal for this error to temporarily occur.
-<br></br>(If you disabled Tor's TransPort, please disable this check, see whonixcheck <code>/etc/whonix.d/30_whonixcheck_default.conf</code> configuration file.)
-<br></br>(curl exit code: $curl_status_message)</p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         return 0
-      fi
+<br></br>It is normal for this error to temporarily occur."
    else
-      local MSG="<p>Trans/Socks-Port Test Error: <b>\$1 is neither TransPort nor SocksPort.</b> Please report this Whonix BUG!</p>"
+      local MSG="<p>TransPort/SocksPort/UpdatesProxy Test Error: <b>\$1 is neither TransPort nor SocksPort nor UpdatesProxy.</b> Please report this bug to the Whonix developers!</p>"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      return 0
+   fi
+
+   local MSG="$checking_msg"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
+   $CURL \
+      --fail \
+      $CURL_VERBOSE \
+      $CURL_PROXY_WHONIXCHECK \
+      --tlsv1.2 \
+      --proto =https \
+      --max-time 1 \
+      $CURL_TPO_PIN_CERT \
+      --output "$TEMP_DIR/$CHECK_TOR_OUT_FILE" \
+      "$LINK" \
+      &
+
+   lastpid="$!"
+   wait "$lastpid" || { check_result_curl_exit_code="$?" ; true; };
+
+   if [ ! "$check_result_curl_exit_code" = "0" ]; then
+      local curl_status_message
+      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_result_curl_exit_code")"
+
+      local MSG="$connection_failed_msg
+<br></br>(curl exit code: $curl_status_message)</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -176,7 +119,7 @@ check_tor_socks_or_trans_port() {
    ## Handling cases where grep exit codes greater than 1 and less than 0.
    if [ "$tor_detected" -gt "1" ] || [ "$tor_detected" -lt "0" ]; then
       ## an error occurred
-      local MSG="<p><b>tor_detected is $tor_detected</b>. Please report this Whonix BUG!</p>"
+      local MSG="<p>$test_name Result: <b>tor_detected is $tor_detected</b>. Please report this bug to the Whonix developers!</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -193,7 +136,7 @@ check_tor_socks_or_trans_port() {
    ## Handling cases where grep exit codes greater than 1 and less than 0.
    if [ "$grep_ip_exit_code" -gt "1" ] || [ "$grep_ip_exit_code" -lt "0" ]; then
       ## an error occurred
-      local MSG="<p><b>grep_ip_exit_code: $grep_ip_exit_code.</b> Please report this Whonix BUG!</p>"
+      local MSG="<p>$test_name Result: <b>grep_ip_exit_code: $grep_ip_exit_code.</b> Please report this bug to the Whonix developers!</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -204,7 +147,7 @@ check_tor_socks_or_trans_port() {
 
    if [ ! "$grep_ip_exit_code" = "0" ]; then
       ## grep exit code: non-zero
-      ip="IP not detected (2). Please report this bug!"
+      ip="IP not detected (2). Please report this bug to the Whonix developers!"
    else
       ## grep exit code: 0
       ip="$(/usr/lib/msgcollector/striphtml "$ip")"
@@ -225,17 +168,19 @@ check_tor_socks_or_trans_port() {
          ip="${ip:0:$max_string_length}"
 
          local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> (<code>$actual_string_length</code> characters).
-         Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this to Whonix developers!</p>"
+         Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this bug to the Whonix developers!</p>"
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
          return 0
       fi
 
       ## Store IP for later use in memory.
-      if [ "$1" = "TransPort" ]; then
-         IP_TRANS_PORT="$ip"
-      elif [ "$1" = "SocksPort" ]; then
+      if [ "$1" = "SocksPort" ]; then
          IP_SOCKS_PORT="$ip"
+      elif [ "$1" = "UpdatesProxy" ]; then
+         IP_UPDATES_PROXY="$ip"
+      else [ "$1" = "TransPort" ]; then
+         IP_TRANS_PORT="$ip"
       fi
    fi
 
@@ -250,30 +195,31 @@ check_tor_socks_or_trans_port() {
    ## and choose which message to show.
    if [ "$tor_detected" = "0" ]; then
       ## Tor detected.
-      if [ "$1" = "TransPort" ]; then
-         local MSG="<p>TransPort Test Result: Connected to Tor. $ip_show_maybe_text</p>"
-      elif [ "$1" = "SocksPort" ]; then
-         local MSG="<p>SocksPort Test Result: Connected to Tor. $ip_show_maybe_text</p>"
+
+      if [ "$1" = "SocksPort" ]; then
+         CHECK_TOR_RESULT_SOCKS_PORT="$tor_detected"
+      elif [ "$1" = "UpdatesProxy" ]; then
+         CHECK_TOR_RESULT_UPDATES_PROXY="$tor_detected"
+      else [ "$1" = "TransPort" ]; then
+         CHECK_TOR_RESULT_TRANS_PORT="$tor_detected"
       fi
+
+      local MSG="<p>$test_name: Connected to Tor. $ip_show_maybe_text</p>"
       if [ "$silent" -le "0" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
-   else
-      ## Tor not detected.
-      NOT_USING_TOR="1"
+   fi
 
-      if [ "$1" = "TransPort" ]; then
-         if [ "$WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE" = "1" ]; then
-            local MSG="\
-<p>TransPort Test Result: Tor not detected, but you set <code>WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE=\"1\"</code> to ignore this. $ip_show_maybe_text</p>"
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-            return 0
-         else
-            local MSG="\
-<p>TransPort Test Result:
+   ## Tor not detected.
+   NOT_USING_TOR="1"
+
+   exornator_msg="You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
+<br></br><a href=https://metrics.torproject.org/exonerator.html>https://metrics.torproject.org/exonerator.html</a>"
+
+   local not_using_msg_tor="\
+<p>$test_name Result:
 <br></br><b>Looks like you are not connected through Tor!</b>
 <br></br>$ip_show_maybe_text</p>
 
@@ -281,46 +227,46 @@ check_tor_socks_or_trans_port() {
 
 <p>Possible reasons:
 <br></br>- There could be something wrong.
+<br></br>- It's a false positive. <a href=https://check.torproject.org>https://check.torproject.org</a> fails in some cases to detect exit nodes.</p>"
+
+   if [ "$1" = "SocksPort" ]; then
+      local not_using_msg_tor="$not_using_msg_tor"
+   elif [ "$1" = "UpdatesProxy" ]; then
+      local not_using_msg_tor="$not_using_msg_tor"
+   elif [ "$1" = "TransPort" ]; then
+      local not_using_msg_tor="$not_using_msg_tor
+
+<p>Other in this case common reasons:
 <br></br>- You added a VPN.
-<br></br>- You added a transproxy.
-<br></br>- It's a false positive. <a href=https://check.torproject.org>https://check.torproject.org</a> fails in some cases to detect exit nodes.</p>
-
-<p>(
-<br></br> VPN/transproxy users:
-<br></br> In case you added a VPN/transproxy and do not want whonixcheck to stop once this has been detected, see whonixcheck <code>/etc/whonix.d/30_whonixcheck_default.conf</code> configuration file.
-<br></br>)</p>
-
-<p>You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
-<br></br><a href=https://metrics.torproject.org/exonerator.html>https://metrics.torproject.org/exonerator.html</a></p>"
-
-            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-            EXIT_CODE="1"
-            cleanup "1"
-            return 0
-         fi
-      elif [ "$1" = "SocksPort" ]; then
-         local MSG="\
-<p>SocksPort Test Result:
-<br></br>Tor's SocksPort: <b>Looks like you are not connected through Tor!</b>
-<br></br>$ip_show_maybe_text</p>
-
-<p>Whonixcheck aborted!</p>
-
-<p>Possible reasons:
-<br></br>- There could be something wrong.
-<br></br>- It's a false positive. <a href=https://check.torproject.org>https://check.torproject.org</a> fails in some cases to detect exit nodes.</p>
-
-<p>You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
-<br></br><a href=https://metrics.torproject.org/exonerator.html>https://metrics.torproject.org/exonerator.html</a></p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         EXIT_CODE="1"
-         cleanup "1"
-         return 0
-      fi
+<br></br>- You added a transproxy.</p>"
    fi
 
+   not_using_msg_tor="$not_using_msg_tor
+
+<p>$exornator_msg</p>"
+
+   local MSG="$not_using_msg_tor"
+
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
+   cleanup "1"
+   return 0
+}
+
+check_qubes_updates_proxy() {
+   if [ ! "$qubes_detected" = "true" ]; then
+      return 0
+   fi
+
+   ## Abort for any Qubes VM type other than TemplateVM, because
+   ## sys-whonix can reach non-torified Qubes updates proxy
+   ## https://github.com/QubesOS/qubes-issues/issues/3201
+   if [ ! "$qubes_vm_type" = "TemplateVM" ]; then
+      return 0
+   fi
+
+   check_tor_socks_or_trans_port "UpdatesProxy"
 }
 
 check_tor_socks_port() {

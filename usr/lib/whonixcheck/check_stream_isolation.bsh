@@ -20,28 +20,6 @@ check_stream_isolation() {
       return 0
    fi
 
-   if [ "$WHONIXCHECK_DISABLE_SOCKS_PORT_TEST" = "1" ]; then
-      local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test is disabled.</b></p>"
-      if [ "$silent" -ge "2" ]; then
-         true "silent is $silent. Skipping output."
-         return 0
-      fi
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      return 0
-   fi
-
-   if [ "$WHONIXCHECK_DISABLE_TRANS_PORT_TEST" = "1" ]; then
-      local MSG="<p>Stream Isolation Test: <b>Skipped, because TransPort test is disabled.</b></p>"
-      if [ "$silent" -ge "2" ]; then
-         true "silent is $silent. Skipping output."
-         return 0
-      fi
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      return 0
-   fi
-
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
       local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test failed!</b> Can not test stream isolation.</p>"

@@ -193,6 +193,10 @@ whonixcheck_further() {
       whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
       whonixcheck_move_progress_bar_to_percent "25"
 
+      ## Uses the network. 1
+      whonixcheck_run_function check_qubes_updates_proxy ## check_qubes_updates_proxy
+      whonixcheck_move_progress_bar_to_percent "30"
+
       ## Uses the network. 2
       whonixcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
       whonixcheck_move_progress_bar_to_percent "35"
@@ -223,6 +227,10 @@ whonixcheck_further() {
       ## Uses the network. 1
       whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
       whonixcheck_move_progress_bar_to_percent "33"
+
+      ## Uses the network. 1
+      whonixcheck_run_function check_qubes_updates_proxy ## check_qubes_updates_proxy
+      whonixcheck_move_progress_bar_to_percent "45"
 
       ## Uses the network. 2
       ## after checking IP
