@@ -1,3 +1,42 @@
+commit 967bea77f61c03f0b2d52cd446cedc6c0cca7e27
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 24 23:17:55 2017 +0200
+
+    fix
+
+commit ac614c35717fb3450b6415b3010396d1549ab7d7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 24 23:12:06 2017 +0200
+
+    add leak test for Qubes Updates Proxy
+    
+    (no leak tests are run by default, requires adding --leak-tests (--show-ips))
+    
+    leak test code refactoring
+    
+    deprecated configuration values:
+    - WHONIXCHECK_DISABLE_SOCKS_PORT_TEST
+    - WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE
+    - WHONIXCHECK_DISABLE_TRANS_PORT_TEST
+    
+    output
+    
+    https://phabricator.whonix.org/T724
+
+commit e7bf9224c82d2fe675a2026fb8cb26f76321419d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 20 15:04:06 2017 +0000
+
+    skip Qubes network interface test in Qubes TemplateVMs
+    
+    since no longer networked by default in Qubes R4
+
+commit 084522a5a1e39ed854c7c92ee86593c011491eb8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 26 14:41:52 2017 +0000
+
+    bumped changelog version
+
 commit 3da614e8a02e3606de93618bea3f32075aa354c4
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Jun 27 20:37:18 2017 +0000
