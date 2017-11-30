@@ -1,7 +1,7 @@
 # Last modified: Mon Sep  1 07:46:03 UTC 2014
 #include <tunables/global>
 
-/usr/bin/whonixcheck {
+/usr/bin/whonixcheck flags=(attach_disconnected) {
 	#include <abstractions/base>
 	#include <abstractions/bash>
 
