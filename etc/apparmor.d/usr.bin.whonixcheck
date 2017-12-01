@@ -60,6 +60,7 @@
 	/usr/bin/mkfifo rix,
 	/usr/bin/sort rix,
 	/usr/bin/stat rix,
+	/usr/bin/systemd-detect-virt rix,
 
 	/sbin/start-stop-daemon rix,
 	/sbin/ifconfig rix,
