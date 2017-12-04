@@ -350,29 +350,6 @@ preparation() {
             start_menu_instructions_system_first_part="dom0 -> Start Menu -> $qubes_starter_first_part: <code>$qubes_name_of_vm</code> ->"
          fi
       fi
-      whonixcheck_exit_immediate_was="$whonixcheck_exit_immediate"
-      ## {{ By default,
-      ##    - on Whonix-Gateway: run in autostart mode, exit in daemon mode.
-      ##    - in Whonix-Workstation: exit immediate in autostart and in daemon mode.
-      if [ "$vm_lower_case_short" = "gateway" ]; then
-         if [ "$DAEMON" = "1" ]; then
-            [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
-         fi
-      else
-         if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
-            [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
-         fi
-      fi
-      ## }}
-      local MSG="\
-Qubes detected.
-AUTOSTARTED: $AUTOSTARTED
-DAEMON: $DAEMON
-whonixcheck_exit_immediate_was: $whonixcheck_exit_immediate_was
-whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
-      if [ "$verbose" -ge "3" ]; then
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
    else
       start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
       persistent_changes_start_menu_instructions_first_part="$start_menu_instructions_system_first_part"
@@ -386,6 +363,30 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
    fi
 
    [ -n "$silent" ] || silent="0"
+
+   whonixcheck_exit_immediate_was="$whonixcheck_exit_immediate"
+   ## {{ By default,
+   ##    - on Whonix-Gateway: run in autostart mode, exit in daemon mode.
+   ##    - in Whonix-Workstation: exit immediate in autostart and in daemon mode.
+   if [ "$vm_lower_case_short" = "gateway" ]; then
+      if [ "$DAEMON" = "1" ]; then
+         [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
+      fi
+   else
+      if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
+         [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
+      fi
+   fi
+   ## }}
+
+   local MSG="\
+AUTOSTARTED: $AUTOSTARTED
+DAEMON: $DAEMON
+whonixcheck_exit_immediate_was: $whonixcheck_exit_immediate_was
+whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
+   if [ "$verbose" -ge "3" ]; then
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
 
    if [ "$whonixcheck_exit_immediate" = "true" ]; then
       echo "whonixcheck_exit_immediate is $whonixcheck_exit_immediate. Exiting." >&2
