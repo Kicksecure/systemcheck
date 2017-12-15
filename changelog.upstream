@@ -1,3 +1,61 @@
+commit 58c66f5700f0e90301a9e4d6042f573371671edd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Dec 4 10:09:04 2017 +0000
+
+    Whonix 14 changes:
+    
+    Non-Qubes-Whonix:
+    - no longer autostart whonixcheck on Whonix-Workstation (changed in Whonix 14)
+    - only autostart whonixcheck in `autostart mode` on Whonix-Gateway (to only show the connected to Tor passive popup or active popup on failure) (changed in Whonix 14)
+    - by default, exit whonixcheck in daemon mode (do not auto run in randomized regular periods) (these popups interrupted whatever the user was doing, confusing them, click away) (changed in Whonix 14)
+    
+    Qubes-Whonix
+    - no longer autostart whonixcheck on Whonix-Workstation (was already that way in Whonix 13)
+    - only autostart whonixcheck in `autostart mode` on Whonix-Gateway (to only show the connected to Tor passive popup or active popup on failure)  (was already that way in Whonix 13)
+    - by default, exit whonixcheck in daemon mode (do not auto run in randomized regular periods) (these popups interrupted whatever the user was doing, confusing them, click away) (was already that way in Whonix 13)
+
+commit 22e19e975fb12566504720a81ef1f106be76d62c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 2 19:50:29 2017 +0000
+
+    fix whonixcheck whonix-firewall check race condition
+    
+    https://phabricator.whonix.org/T675
+
+commit 708534df6ac9cd76c00b4d0c5ece0ef785e43686
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 1 01:37:39 2017 +0000
+
+    add systemd-detect-virt
+
+commit fb439f8a8a068cc47fc3462dab603e8f8172c46c
+Merge: c9b23b2 8bdc9cb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 1 00:06:54 2017 +0100
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 8bdc9cb66dac1a3b92b55a0205778960c7daea3b
+Merge: c9b23b2 0dd257c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Nov 30 21:38:18 2017 +0100
+
+    Merge pull request #7 from Algernon-01/master
+    
+    Patches for Whonix live
+
+commit 0dd257cbb25ad8f43a9720a33864d99c9a873368
+Author: user <33966997+Algernon-01@users.noreply.github.com>
+Date:   Mon Nov 27 15:30:44 2017 -0500
+
+    Patches for Whonix live
+
+commit c9b23b2fcb6c5c2d740728a10c24afc37615480b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 21 22:56:59 2017 +0000
+
+    bumped changelog version
+
 commit 967bea77f61c03f0b2d52cd446cedc6c0cca7e27
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 24 23:17:55 2017 +0200
