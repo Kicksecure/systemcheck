@@ -1,3 +1,17 @@
+commit 137ce9b16c4f62a73f34f0a440873642e184a3ad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 16 22:49:04 2017 +0000
+
+    fix, set back timeout for leak tests from 1 to 180
+    
+    (was a leftover from testing)
+
+commit 144c04d03554b21c50b0553049ec92e6441bb509
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 16 21:49:22 2017 +0000
+
+    bumped changelog version
+
 commit e54b3ab221865a3c813a0aa25eb3e01b9fc2b9b5
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 16 21:49:02 2017 +0000
