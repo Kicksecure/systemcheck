@@ -82,7 +82,7 @@ check_tor_socks_or_trans_port() {
       $CURL_PROXY_WHONIXCHECK \
       --tlsv1.2 \
       --proto =https \
-      --max-time 1 \
+      --max-time 180 \
       $CURL_TPO_PIN_CERT \
       --output "$TEMP_DIR/$CHECK_TOR_OUT_FILE" \
       "$LINK" \
