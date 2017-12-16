@@ -1,3 +1,15 @@
+commit e54b3ab221865a3c813a0aa25eb3e01b9fc2b9b5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 16 21:49:02 2017 +0000
+
+    remove non-ASCII character
+
+commit 3de9a9de9c8cda2d2876ae7ef6945e6bece89c17
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 15 18:43:45 2017 +0000
+
+    bumped changelog version
+
 commit 58c66f5700f0e90301a9e4d6042f573371671edd
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Dec 4 10:09:04 2017 +0000
