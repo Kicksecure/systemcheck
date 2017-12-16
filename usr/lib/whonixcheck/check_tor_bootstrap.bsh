@@ -168,7 +168,7 @@ check_tor_bootstrap_known_failure_cases() {
 <br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
    elif [ "$VM" = "Whonix-Workstation" ]; then
       if [ "$qubes_detected" = "false" ]; then
-         local multiple_whonix_ws_msg="<br></br>- If you’re running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=https://www.whonix.org/wiki/Multiple_Whonix-Workstations>https://www.whonix.org/wiki/Multiple_Whonix-Workstations</a>)."
+         local multiple_whonix_ws_msg="<br></br>- If you're running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=https://www.whonix.org/wiki/Multiple_Whonix-Workstations>https://www.whonix.org/wiki/Multiple_Whonix-Workstations</a>)."
       fi
       local MSG="<p>Tor Connection Result:
 <br></br>Tor's Control Port could not be reached!
