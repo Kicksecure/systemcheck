@@ -1,3 +1,15 @@
+commit 7f857b7af59f05282cdefedeac844ab625d2f167
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 29 19:26:19 2017 +0000
+
+    /etc/whonix_version r,
+
+commit b774a19415461c00cfec39ec001f40c894922e08
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 16 23:36:11 2017 +0000
+
+    bumped changelog version
+
 commit 137ce9b16c4f62a73f34f0a440873642e184a3ad
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 16 22:49:04 2017 +0000
