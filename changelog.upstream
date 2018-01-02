@@ -1,3 +1,22 @@
+commit bd10676271e61df5c628f2136e1d4e4a07135ddc
+Merge: 2e76c47 fb650ee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 2 10:07:44 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit fb650ee096bf91aafdff994f20c39ae8a007b890
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jan 1 19:27:59 2018 +0000
+
+    add lines for /etc/torrc.d
+
+commit 2e76c476fd77c8ecfac763f9f3118749bda45e96
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 29 19:27:23 2017 +0000
+
+    bumped changelog version
+
 commit 7f857b7af59f05282cdefedeac844ab625d2f167
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Dec 29 19:26:19 2017 +0000
