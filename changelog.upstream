@@ -1,3 +1,22 @@
+commit 9c5fbcc82ad1089c5961693aae83d1e16c8a18b1
+Merge: 3cf1b21 1a96d45
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 4 20:42:39 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 1a96d450923817c1bef67bbea6869a5f273f7dbf
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 3 21:11:54 2018 +0000
+
+    apparmor remove /etc r,
+
+commit 3cf1b210fbbaddd0d875e66a26cf366263ba89e9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 2 15:06:37 2018 +0000
+
+    bumped changelog version
+
 commit bd10676271e61df5c628f2136e1d4e4a07135ddc
 Merge: 2e76c47 fb650ee
 Author: Patrick Schleizer <adrelanos@riseup.net>
