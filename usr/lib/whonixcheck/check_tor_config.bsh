@@ -59,10 +59,6 @@ $start_menu_instructions_system_first_part Terminal
 
 <blockquote>sudo -u debian-tor tor --verify-config</blockquote>
 
-And.
-
-<blockquote>sudo -u debian-tor tor --verify-config -f /etc/tor/torrc</blockquote>
-
 <p>To try to fix this, please open your Tor config file.
 
 <blockquote>    $start_menu_instructions_system_first_part Torrc</blockquote>
