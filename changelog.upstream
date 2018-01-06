@@ -1,3 +1,27 @@
+commit 0ec4bd6c66ac0b27cac789bdff8cbcd5dd773237
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 6 17:52:35 2018 +0000
+
+    use if_you_know_what_you_are_doing_msg consistently
+
+commit 6a9af05e26fd9c87c44f26f39a78dd1b086f1784
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 6 15:36:43 2018 +0000
+
+    output
+
+commit 16ced2e4c0b769f96d9a09d4aaa882da6041eb40
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 6 15:35:40 2018 +0000
+
+    comment
+
+commit 50684ae8757eb33162da8cd86e193d0df34e94c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 4 20:51:48 2018 +0000
+
+    bumped changelog version
+
 commit 9c5fbcc82ad1089c5961693aae83d1e16c8a18b1
 Merge: 3cf1b21 1a96d45
 Author: Patrick Schleizer <adrelanos@riseup.net>
