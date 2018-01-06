@@ -64,6 +64,8 @@ check_systemd_clock() {
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
       local MSG="<p>Systemd Clock Check Result:
 <br></br><b>Unexpected results by timedatectl.</b>
 <br></br>timedatectl_output_pretty:
@@ -72,10 +74,8 @@ It is generally recommended to keep the default as per Whonix Design. [1]
 If you did not change timezone related settings, please report this Whonix bug.
 If you know what you are doing and changed this on purpose, feel free to
 disable this check. [2]
-<br></br><br></br>
-[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a>
-<br></br>[2] Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
-<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
+<br />
+<br />$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"

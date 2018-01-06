@@ -94,17 +94,12 @@ a non-zero exit code.</b> This is probably a network misconfiguration. See above
    fi
 
    if [ "$hostname_discouraged_setting_detected" = "true" ]; then
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
       local MSG="<p>Check Hostname Result:
-<br></br><b>Hostname settings different from Whonix defaults.</b> (See above.)</p>
-<p>
-It is generally recommended to keep the default as per Whonix Design. [1]
-If you did not change hostname related settings, please report this Whonix bug.
-If you know what you are doing and changed this on purpose, feel free to
-disable this check. [2]</p>
-
-<p>[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname>https://www.whonix.org/wiki/Dev/Design-Shared#Username.2C_FQDN.2C_hostname</a>
-<br></br>[2] Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
-<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
+<br></br><b>Hostname settings different from Whonix defaults.</b> (See above.)
+<br />
+<br />$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    fi

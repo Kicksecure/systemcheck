@@ -54,14 +54,14 @@ check_ip_forwarding_disabled() {
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          continue
       else
+         local if_you_know_what_you_are_doing_msg
+         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
          ## "IP Forwarding Result:$temp    ## was in MSG below
          local MSG="<p><b>IP Forwarding enabled! This is unsupported by Whonix developers! Whonixcheck aborted!</b>
 <br></br>Using IP Forwarding on Whonix-Gateway is recommended against, due to risks of leaks.
-<br></br>This might endanger your anonymity. Do not proceed unless you know what you are doing.
-<br></br>If you wish to ignore this warning and to continue whonixcheck anyway, you can create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add.
-<blockquote><code>WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION=1</code></blockquote>
-Recommended action:
-<blockquote>- Shut down.</blockquote></p>"
+<br></br>This might endanger your anonymity.
+<br />
+<br />$if_you_know_what_you_are_doing_msg</p>"
 
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"

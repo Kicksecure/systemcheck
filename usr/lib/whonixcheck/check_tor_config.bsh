@@ -43,6 +43,8 @@ check_tor_config() {
    check_tor_config_do
 
    if [ ! "$tor_verify_config_exit_code" = "0" ]; then
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
       local MSG="<p>Tor Config Check Result:
 <br></br><b>Your $tor_verify_config_file file contains at least one error.</b></p>
 
@@ -74,9 +76,7 @@ $start_menu_instructions_system_first_part Terminal
 <blockquote>    $start_menu_instructions_system_first_part Whonix Check</blockquote>
     <br></br>or in Terminal: <code>whonixcheck</code></p>
 
-<p>If you know what you are doing or if this is a false positive, feel free to disable this check.
-Create a file <code>/etc/whonix.d/50_whonixcheck_user</code> and add:
-<code><blockquote>whonixcheck_skip_functions+=\" $FUNCNAME \"</blockquote></code></p>"
+<p>$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
