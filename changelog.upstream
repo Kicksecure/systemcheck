@@ -1,3 +1,15 @@
+commit c3810150c38a089e3cea6e6da0051b0e48e53a05
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 18:34:06 2018 +0000
+
+    fix, no write access for torrc.d
+
+commit 842e2ba71422ab620f13e037043f18ae1707ed39
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 6 18:08:06 2018 +0000
+
+    bumped changelog version
+
 commit 0ec4bd6c66ac0b27cac789bdff8cbcd5dd773237
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 6 17:52:35 2018 +0000
