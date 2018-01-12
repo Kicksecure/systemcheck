@@ -284,9 +284,9 @@
 	/{,var/}run/tor/** r,
 	/etc/tor/** r,
 	/etc/torrc.d/ r,
-	/etc/torrc.d/* rw,
+	/etc/torrc.d/* r,
 	/usr/local/etc/torrc.d/ r,
-	/usr/local/etc/torrc.d/* rw,
+	/usr/local/etc/torrc.d/* r,
 
 	/var/log/sdwdate.log rw,
 	/var/log/tor/log r,
