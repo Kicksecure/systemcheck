@@ -19,12 +19,10 @@ check_tor_enabled() {
    check_tor_enabled_do
 
    if [ "$TOR_ENABLED" = "0" ]; then
-      ## When Tor is not yet enabled, i.e. if "DisableNetwork 1" is in
-      ## commented /etc/tor/torrc and/or
-      ## /usr/share/tor/tor-service-defaults-torrc and whonixcheck is
-      ## manually started, show the following message and exit.
-      ## Otherwise, if whonixcheck is automatically started just be quit and
-      ## exit.
+      ## When Tor is not yet enabled, i.e. if "DisableNetwork 0" is set in
+      ## Tor config and whonixcheck is manually started, show the following
+      ## message and exit. Otherwise, if whonixcheck is automatically started
+      ## just be quit and exit.
 
       local MSG="<p>Tor Check Result:
 <b>Tor is disabled.</b> Therefore you most likely can not connect to the internet.<br /><br />
