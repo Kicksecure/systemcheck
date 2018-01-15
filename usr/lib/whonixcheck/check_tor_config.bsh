@@ -12,13 +12,11 @@ check_tor_config_do() {
 
    ## Only check on Whonix-Gateway.
    if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
-      tor_verify_config_file="Not running on Whonix-Gateway"
       tor_verify_config_exit_code="0"
       return 0
    fi
 
    if [ "$qubes_vm_type" = "TemplateVM" ]; then
-      tor_verify_config_file="Not running in TemplateVM"
       tor_verify_config_exit_code="0"
       return 0
    fi
@@ -30,7 +28,6 @@ check_tor_config_do() {
    ## tor 0.2.6.8-5~d80.jessie+1
    ## (You configured a non-loopback address [...])
 
-   tor_verify_config_file="/etc/tor/torrc"
    ## This has a /etc/sudoers.d exception.
    tor_verify_config_output="$(sudo --non-interactive -u debian-tor tor --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
    tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
@@ -46,7 +43,7 @@ check_tor_config() {
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
       local MSG="<p>Tor Config Check Result:
-<br></br><b>Your $tor_verify_config_file file contains at least one error.</b></p>
+<br></br><b>Your Tor config file contains at least one error.</b></p>
 
 <p>(Tor exit code: $tor_verify_config_exit_code)</p>
 
@@ -64,7 +61,7 @@ $start_menu_instructions_system_first_part Terminal
 <p>To try to fix this, please open your Tor config file.
 
 <blockquote>    $start_menu_instructions_system_first_part Torrc</blockquote>
-    <br></br>or in Terminal: <code>sudo nano /etc/tor/torrc</code></p>
+    <br></br>or in Terminal: <code>sudo nano /etc/tor/torrc/usr/local/etc/torrc.d/50_user.torrc</code></p>
 
 <p>Please restart Tor after fixing this error.
 
@@ -83,7 +80,7 @@ $start_menu_instructions_system_first_part Terminal
       cleanup "1"
       return 0
    else
-      local MSG="<p>Tor Config Check Result: $tor_verify_config_file, ok.</p>"
+      local MSG="<p>Tor Config Check Result: Tor config ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
