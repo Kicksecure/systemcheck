@@ -1,3 +1,27 @@
+commit 084fa2993e0cd01d561655ac22f87693ba6dad81
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 15 22:56:40 2018 +0000
+
+    fix
+
+commit a0fb4b9c222f4b7b9baeb4a0058348683088ed4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 15 22:51:55 2018 +0000
+
+    torrc.d
+
+commit b0d787e54af033655b31da1bf8fc410c26187f06
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 15 19:57:52 2018 +0100
+
+    comment
+
+commit 6cdacd3f912d06be44c35d147028a3ed53f34112
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 20:12:11 2018 +0000
+
+    bumped changelog version
+
 commit c3810150c38a089e3cea6e6da0051b0e48e53a05
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jan 12 18:34:06 2018 +0000
