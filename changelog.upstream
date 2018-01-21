@@ -1,3 +1,15 @@
+commit 24b4866db14caee951492734a4dd6dcca709b947
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 21 13:43:05 2018 +0000
+
+    move to v3 onion
+
+commit 4b03979cb101441831d5550321886840cb11301d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 18 17:32:49 2018 +0000
+
+    bumped changelog version
+
 commit 084fa2993e0cd01d561655ac22f87693ba6dad81
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jan 15 22:56:40 2018 +0000
