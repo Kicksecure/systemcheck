@@ -151,9 +151,12 @@ whonixcheck_further() {
    whonixcheck_run_function check_timezone ## check_timezone
    whonixcheck_progress_main "1"
 
+   ## Disabled because of systemd bug.
+   ## timedatectl: caches NTP enablement state, better shouldn't
+   ## https://github.com/systemd/systemd/issues/1329
    ## Does not use the network.
-   whonixcheck_run_function check_systemd_clock ## check_systemd_clock
-   whonixcheck_progress_main "1"
+   #whonixcheck_run_function check_systemd_clock ## check_systemd_clock
+   #whonixcheck_progress_main "1"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
