@@ -1,3 +1,47 @@
+commit e7e9ce9a6391c23696afbf60fb54d61e719517f6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 16:08:30 2018 +0000
+
+    disable check_systemd_clock
+    
+    https://github.com/QubesOS/qubes-issues/issues/3469
+
+commit a1e9249052fc1540a3160dbed22982a01d438e5f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:50:41 2018 +0000
+
+    readme
+
+commit e427519c2cf880fe80c0fb4d79ef84bd6d55679c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:39:03 2018 +0000
+
+    update copyright
+
+commit dfb6b6147bdb85f3aace1b9dcf34ec17de4c5532
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:22:11 2018 +0000
+
+    update copyright
+
+commit 84f8bcb9055e5e391bceaf3bbd9667412143f8c8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:15:23 2018 +0000
+
+    update copyright
+
+commit 49c055278d8f91e3bf240cdfda37c046ccd1a4b9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:09:48 2018 +0000
+
+    update copyright
+
+commit e6e4941416935d0d99be7b2dac788d753798f7f1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 21 13:43:50 2018 +0000
+
+    bumped changelog version
+
 commit 24b4866db14caee951492734a4dd6dcca709b947
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jan 21 13:43:05 2018 +0000
