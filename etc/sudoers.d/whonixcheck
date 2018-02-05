@@ -3,7 +3,9 @@
 
 ## required for /usr/bin/whonixcheck running /usr/lib/whonixcheck/whonixcheck
 ## under user 'whonixcheck'.
+user ALL=(whonixcheck) NOPASSWD: /usr/lib/whonixcheck/whonixcheck
 user ALL=(whonixcheck) NOPASSWD: /usr/lib/whonixcheck/whonixcheck *
+user ALL=(whonixcheck) NOPASSWD: /bin/bash -x /usr/lib/whonixcheck/whonixcheck
 user ALL=(whonixcheck) NOPASSWD: /bin/bash -x /usr/lib/whonixcheck/whonixcheck *
 
 ## Required for whonixcheck running "tor --verify-config".
