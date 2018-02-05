@@ -33,6 +33,11 @@ check_whonixsetup_done_do() {
 }
 
 check_whonixsetup_done() {
+   if [ ! "$VM" = "Whonix-Gateway" ]; then
+      true "Do not enforce running whonixsetup unless run on Whonix-Gateway."
+      return 0
+   fi
+
    ## sets: whonixsetup_done
    check_whonixsetup_done_do
 
