@@ -1,3 +1,45 @@
+commit b89b887672bc351c8647ecd47dbf96dbe39b2cb1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 5 17:00:49 2018 +0000
+
+    comment
+
+commit 2266989b9bc04bd0029040ba19db966a26ec884a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 5 17:00:24 2018 +0000
+
+    sudoers
+
+commit ab1a69916b49bbdaf8096a14573512951af0fa1f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 5 16:43:34 2018 +0000
+
+    debugging
+
+commit 26d7bc6a0493668123407d888f7f725c63cc27e5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 5 16:42:23 2018 +0000
+
+    handle tor_circuit_established_check_exit_code=277; comments
+
+commit b5980719ab7ad85acf0954296913d3adea158e1b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 5 16:37:00 2018 +0000
+
+    refactoring
+
+commit 75e3734136d01203f66cce8c5a3adeb44cb19539
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 5 16:24:53 2018 +0000
+
+    Do not enforce running whonixsetup unless run on Whonix-Gateway.
+
+commit a230865b32cd35331907f90ffebec8c906c473d5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 1 15:29:53 2018 +0000
+
+    bumped changelog version
+
 commit e7e9ce9a6391c23696afbf60fb54d61e719517f6
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jan 29 16:08:30 2018 +0000
