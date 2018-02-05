@@ -156,7 +156,7 @@ check_tor_bootstrap_known_failure_cases() {
    [ "$tor_circuit_established_check_exit_code" = "124" ] || \
    [ "$tor_circuit_established_check_exit_code" = "137" ]
    then
-      true
+      true "tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code"
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
