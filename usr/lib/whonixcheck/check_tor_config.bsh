@@ -60,7 +60,7 @@ $start_menu_instructions_system_first_part Terminal
 <p>To try to fix this, please open your Tor config file.
 
 <blockquote>    $start_menu_instructions_system_first_part Torrc</blockquote>
-    <br></br>or in Terminal: <code>sudo nano /usr/local/etc/torrc.d/50_user.torrc</code></p>
+    <br></br>or in Terminal: <code>sudo nano /usr/local/etc/torrc.d/50_user.conf</code></p>
 
 <p>Please restart Tor after fixing this error.
 
