@@ -5,6 +5,7 @@
 ## under user 'whonixcheck'.
 user ALL=(whonixcheck) NOPASSWD: /usr/lib/whonixcheck/whonixcheck
 user ALL=(whonixcheck) NOPASSWD: /usr/lib/whonixcheck/whonixcheck *
+## required for "bash -x whonixcheck"
 user ALL=(whonixcheck) NOPASSWD: /bin/bash -x /usr/lib/whonixcheck/whonixcheck
 user ALL=(whonixcheck) NOPASSWD: /bin/bash -x /usr/lib/whonixcheck/whonixcheck *
 
