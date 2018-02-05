@@ -146,8 +146,13 @@ Tor's Control Port could not be reached. Attempt $whonixcheck_tor_bootstrap_erro
 }
 
 check_tor_bootstrap_known_failure_cases() {
+   ## 255 Tor Control Port could not be reached.
+   ## 277 Variable check_bootstrap_helper_script_output is empty.
+   ## 124 if sigterm was sufficient.
+   ## 137 if needed to use kill.
    if \
    [ "$tor_circuit_established_check_exit_code" = "255" ] || \
+   [ "$tor_circuit_established_check_exit_code" = "277" ] || \
    [ "$tor_circuit_established_check_exit_code" = "124" ] || \
    [ "$tor_circuit_established_check_exit_code" = "137" ]
    then
