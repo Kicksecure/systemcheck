@@ -1,3 +1,19 @@
+commit 78b09f1eb4c30a068b58bfb76212c80b3b0b4c98
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 7 01:05:24 2018 +0100
+
+    fix KVM unsupported virtualizer false positive
+    
+    https://forums.whonix.org/t/whonix-virtualbox-14-0-0-6-6-testers-wanted/4802/2
+    
+    Thanks to @HulaHoopWhonix for the bug report!
+
+commit 0679c3dd6e11a28370adabbe206afd3bf989dcf9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 5 21:58:03 2018 +0000
+
+    bumped changelog version
+
 commit 37b2dc8484e2f97718f62ca6a23d4ea28f62e3df
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Feb 5 21:37:33 2018 +0000
