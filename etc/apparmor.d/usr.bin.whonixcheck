@@ -15,12 +15,16 @@
 	capability fowner,
 	capability fsetid,
 	capability dac_override,
+	capability dac_read_search,
 	capability kill,
 	capability sys_rawio,
 	capability audit_write,
 	capability syslog,
 	## Required for systemctl.
 	capability net_admin,
+
+    ptrace (trace) peer=@{profile_name},
+    signal peer=@{profile_name},
 
 	/ r,
 
