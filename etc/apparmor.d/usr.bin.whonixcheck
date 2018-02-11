@@ -24,6 +24,7 @@
 	capability net_admin,
 
     ptrace (trace) peer=@{profile_name},
+    signal peer=@{profile_name},
 
 	/ r,
 
