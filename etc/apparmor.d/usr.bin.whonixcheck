@@ -23,8 +23,8 @@
 	## Required for systemctl.
 	capability net_admin,
 
-    ptrace (trace) peer=@{profile_name},
-    signal peer=@{profile_name},
+    ptrace,
+    signal,
 
 	/ r,
 
