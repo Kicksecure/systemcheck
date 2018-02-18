@@ -1,3 +1,41 @@
+commit b8d884810e4095b6ee77d81ecf28f4f96f3103f0
+Merge: eefeff6 a10d7ec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 18 14:38:52 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit a10d7ecf4f558f58e1c224a984b640e2f9b4ab82
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Feb 17 19:22:17 2018 +0000
+
+    open ptrace and signal
+
+commit eefeff6d9f83e996b8210a43adba3bf5327b243a
+Merge: 7fc49eb 26e5a88
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 11 20:14:04 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 26e5a88b3118d3f17491bf96f16c17eb72c11457
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Feb 11 16:49:50 2018 +0000
+
+    allow all signals
+
+commit b714257e39003f84fa95a3d68a3668592fbdbb55
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Feb 11 15:59:44 2018 +0000
+
+    fix ptrace denied message
+
+commit 7fc49eb5cf4b82e9a2d0c99c29c26bc04159572f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 10 13:53:19 2018 +0000
+
+    bumped changelog version
+
 commit 78b09f1eb4c30a068b58bfb76212c80b3b0b4c98
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 7 01:05:24 2018 +0100
