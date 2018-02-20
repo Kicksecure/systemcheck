@@ -25,6 +25,7 @@
 
     ptrace,
     signal,
+    signal (send) peer=unconfined,
     signal set=(rtmin+*) peer=unconfined,
 
 	/ r,
