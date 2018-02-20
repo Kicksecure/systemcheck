@@ -29,6 +29,7 @@
 
     signal,
     signal (send) peer=unconfined,
+    signal (send) peer=@{profile_name},
     signal set=(rtmin+*) peer=unconfined,
 
 	/ r,
