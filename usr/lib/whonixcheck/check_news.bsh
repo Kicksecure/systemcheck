@@ -549,22 +549,10 @@ $VM Census: Ok."
       return 0
    fi
 
-   if [ -f "$whonix_gateway_census_result_file" ]; then
-      whonix_gateway_census_result_content="$(cat "$whonix_gateway_census_result_file")" || whonix_gateway_census_result_content="Error reading $whonix_gateway_census_result_file"
-   else
-      whonix_gateway_census_result_content="File <code>$whonix_gateway_census_result_file</code> does not exist."
-   fi
-   message="$(/usr/lib/msgcollector/striphtml "$whonix_gateway_census_result_content")"
-
    whonix_news_result_output="${whonix_news_result_output}
 $VM Census: Error.
 <br></br>
-whonix_news_download_exit_code[$web_link]: <code>${whonix_news_download_exit_code[$web_link]}</code>
-whonix_gateway_census_result_file:<br></br>
-<code>$message</code>"
-
-   ## TODO
-   # "$whonix_gateway_census_result_file"
+whonix_news_download_exit_code[$web_link]: <code>${whonix_news_download_exit_code[$web_link]}</code>"
 }
 
 check_whonix_show_news() {
