@@ -4,11 +4,6 @@
 ## See the file COPYING for copying conditions.
 
 download_whonix_news() {
-   if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping $FUNCNAME."
-      return 0
-   fi
-
    if [ "$qubes_vm_type" = "TemplateVM" ]; then
       return 0
    fi
@@ -139,7 +134,7 @@ download_now_whonix_news() {
 
    if [ "$whonix_news_download_success" = "false" ]; then
       local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed.</p>"
-      if [ "$silent" -ge "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       fi
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
@@ -587,13 +582,6 @@ check_whonix_show_news() {
 
    local MSG="<p>$whonix_news_hyperlink Result:<br></br>
 $whonix_news_result_output</p>"
-
-   if [ "$type" = "info" ]; then
-      if [ "$silent" -ge "2" ]; then
-         true "Message type is $type. silent is $silent. Skipping output."
-         return 0
-      fi
-   fi
 
    ## TODO
    if [ "$verbose" -ge "1" ]; then

@@ -55,11 +55,13 @@ whonixcheck_progress_main() {
    if [ "$PROGRESS_MAIN" = "" ]; then
       PROGRESS_MAIN="0"
    fi
-   PROGRESS_MAIN="$(( $PROGRESS_MAIN + $1 ))"
+   local increment
+   increment="$1"
+   PROGRESS_MAIN="$(( $PROGRESS_MAIN + $increment ))"
    whonixcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
 }
 
-whonixcheck_basics() {
+whonixcheck_main() {
    parse_cmd_options "$@" ## parse_cmd
    preparation ## preparation
 
@@ -113,12 +115,13 @@ whonixcheck_basics() {
    ## Own Progress Bar: Yes
    whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
+   ## Uses the network.
+   whonixcheck_run_function download_whonix_news ## check_news
+
    ## Does not use the network.
    ## Conditionally exit if whonixcheck has recently completed.
    whonixcheck_run_function check_autostart ## autostart
-}
 
-whonixcheck_further() {
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
    local MSG="$NOTIFY_MSG"
@@ -156,7 +159,7 @@ whonixcheck_further() {
    ## https://github.com/systemd/systemd/issues/1329
    ## Does not use the network.
    #whonixcheck_run_function check_systemd_clock ## check_systemd_clock
-   #whonixcheck_progress_main "1"
+   #whonixcheck_progress_main "6"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    whonixcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
@@ -182,88 +185,43 @@ whonixcheck_further() {
    whonixcheck_run_function check_nonfree ## check_nonfree
    whonixcheck_progress_main "1"
 
-   if [ "$MINIMAL" = "1" ]; then
+   ## Does not use the network.
+   whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
+   whonixcheck_progress_main "1"
 
-      ## Only for debugging using the --minimal switch.
+   ## Local network connection.
+   whonixcheck_run_function check_qubes_update_proxy ## check_qubes
+   whonixcheck_progress_main "3"
 
-      true
+   ## Uses the network.
+   whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
+   whonixcheck_progress_main "15"
 
-   elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-      ## for Whonix-Workstation
+   ## Uses the network.
+   whonixcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
+   whonixcheck_progress_main "15"
 
-      ## Uses the network. 1
-      whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
-      whonixcheck_move_progress_bar_to_percent "25"
+   ## Uses the network.
+   whonixcheck_run_function check_qubes_updates_proxy ## check_tor_socks_or_trans_port
+   whonixcheck_progress_main "15"
 
-      ## Uses the network. 1
-      whonixcheck_run_function check_qubes_updates_proxy ## check_qubes_updates_proxy
-      whonixcheck_move_progress_bar_to_percent "30"
+   ## Does not use the network.
+   whonixcheck_run_function check_stream_isolation ## check_stream_isolation
+   whonixcheck_progress_main "15"
 
-      ## Uses the network. 2
-      whonixcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
-      whonixcheck_move_progress_bar_to_percent "35"
-
-      ## Does not use the network.
-      whonixcheck_run_function check_stream_isolation ## check_stream_isolation
-
-      ## Uses the network. 3
-      ## after checking IPs
-      ## early in list, because less likely to break
-      #whonixcheck_run_function download_whonix_news ## check_news
-      whonixcheck_move_progress_bar_to_percent "45"
-
-      ## Uses the network. 4
-      whonixcheck_run_function check_operating_system ## check_operating_system
-      whonixcheck_move_progress_bar_to_percent "60"
-
-      ## Local network connection.
-      whonixcheck_run_function check_qubes_update_proxy ## check_qubes
-      whonixcheck_move_progress_bar_to_percent "70"
-
-      ## Does not use the network.
-      whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
-
-   else
-      ## for Whonix-Gateway
-
-      ## Uses the network. 1
-      whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
-      whonixcheck_move_progress_bar_to_percent "33"
-
-      ## Uses the network. 1
-      whonixcheck_run_function check_qubes_updates_proxy ## check_qubes_updates_proxy
-      whonixcheck_move_progress_bar_to_percent "45"
-
-      ## Uses the network. 2
-      ## after checking IP
-      ## early in list, because less likely to break
-      whonixcheck_run_function download_whonix_news ## check_news
-      whonixcheck_move_progress_bar_to_percent "66"
-
-      ## Local network connection.
-      whonixcheck_run_function check_qubes_update_proxy ## check_qubes
-      whonixcheck_move_progress_bar_to_percent "75"
-
-      ## Uses the network. 3
-      whonixcheck_run_function check_operating_system ## check_operating_system
-      whonixcheck_move_progress_bar_to_percent "95"
-
-      ## Does not use the network.
-      whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
-      whonixcheck_move_progress_bar_to_percent "97"
-   fi
+   ## Uses the network.
+   whonixcheck_run_function check_operating_system ## check_operating_system
+   whonixcheck_progress_main "15"
 
    ## Does not use the network.
    whonixcheck_run_function donate ## donate
+   whonixcheck_progress_main "1"
+
    ## Does not use the network.
    whonixcheck_run_function whonixcheck_completed ## autostart
+
    ## Does not use the network.
    whonixcheck_run_function cleanup ## cleanup
-}
-
-whonixcheck_main() {
-   whonixcheck_basics "$@"
-   whonixcheck_further "$@"
 }
 
 whonixcheck_main "$@"
