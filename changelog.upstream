@@ -1,3 +1,39 @@
+commit 90209d68f8297b83c7a05e82d23051e7ace00863
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 20:39:16 2018 +0000
+
+    code simplification
+
+commit 5845a3f35f4e93ddcf9986e16e82284ca848e91b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 20:34:09 2018 +0000
+
+    run Whonix census in daemon mode
+
+commit 1b9ef87b29546e929185dbce9403a0d86d31955e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 20:13:45 2018 +0000
+
+    Whonix census
+
+commit 210d47232142243214f5b2ef2e7f7a32673ff3c6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 18:51:27 2018 +0000
+
+    enable Whonix census
+
+commit 0776288fb5fa027998fb4a187e10881389582ded
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 18:47:08 2018 +0000
+
+    fix Whonix census
+
+commit e4a90933098d0fff119d4231a13047ea3003cf46
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 15:46:18 2018 +0000
+
+    bumped changelog version
+
 commit a08eae0f7d1bb7cc033f441f9424585bbf7c8fa0
 Merge: 37711c9 4c2be93
 Author: Patrick Schleizer <adrelanos@riseup.net>
