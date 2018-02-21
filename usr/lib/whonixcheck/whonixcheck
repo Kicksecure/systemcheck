@@ -237,7 +237,7 @@ whonixcheck_further() {
       ## Uses the network. 2
       ## after checking IP
       ## early in list, because less likely to break
-      #whonixcheck_run_function download_whonix_news ## check_news
+      whonixcheck_run_function download_whonix_news ## check_news
       whonixcheck_move_progress_bar_to_percent "66"
 
       ## Local network connection.
