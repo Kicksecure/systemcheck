@@ -51,11 +51,6 @@ download_whonix_news() {
 }
 
 whonix_news_preparation() {
-## TODO: remove
-GATEWAY_IP=127.0.0.1
-SOCKS_PORT_WHONIX_NEWS=9050
-vm_lower_case_short=gateway
-
    if [ "$TEMP_DIR" = "" ]; then
       error "Variable TEMP_DIR is empty!"
       return 0
@@ -68,7 +63,7 @@ vm_lower_case_short=gateway
    whonix_news_verify_dir="$TEMP_DIR/news/verify_dir"
    whonix_news_extract_dir="$TEMP_DIR/news/extract_dir"
 
-   whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix_gateway_census"
+   whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix_census"
    whonix_gateway_last_census_file="/var/lib/whonixcheck/whonix_gateway_last_census.txt"
    whonix_gateway_census_result_file="/var/lib/whonixcheck/whonix_gateway_census_result.txt"
 
@@ -144,7 +139,9 @@ download_now_whonix_news() {
 
    if [ "$whonix_news_download_success" = "false" ]; then
       local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      if [ "$silent" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      fi
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    fi
 }
@@ -534,19 +531,15 @@ whonix_gateway_census_result() {
 
    if [ ! "$vm_lower_case_short" = "gateway" ]; then
       whonix_census_result_ok="true"
-      if [ "$verbose" -ge "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}
+      whonix_news_result_output="${whonix_news_result_output}
 $VM Census: Skipped, because not running on Whonix-Gateway, ok."
-      fi
       return 0
    fi
 
    if [ "$whonix_gateway_census_do_check_in" = "false" ]; then
       whonix_census_result_ok="true"
-      if [ "$verbose" -ge "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}
+      whonix_news_result_output="${whonix_news_result_output}
 $VM Census: Skipped, because already counted less than a day ago, ok."
-      fi
       return 0
    fi
 
@@ -556,10 +549,8 @@ $VM Census: Skipped, because already counted less than a day ago, ok."
       last_run="$(date +%s)"
       echo "$last_run" | tee "$whonix_gateway_last_census_file" > /dev/null
       whonix_census_result_ok="true"
-      if [ "$verbose" -ge "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}
+      whonix_news_result_output="${whonix_news_result_output}
 $VM Census: Ok."
-      fi
       return 0
    fi
 
@@ -604,6 +595,9 @@ $whonix_news_result_output</p>"
       fi
    fi
 
-   $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
+   ## TODO
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
+   fi
 }
