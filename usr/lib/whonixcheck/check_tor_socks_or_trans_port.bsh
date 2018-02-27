@@ -62,9 +62,15 @@ check_tor_socks_or_trans_port() {
       local checking_msg="$test_name: Testing Tor's TransPort..."
       local CURL_PROXY_WHONIXCHECK=""
       local CHECK_TOR_OUT_FILE="check_updates_proxy.html"
-      local connection_failed_msg="\
+      if [ "$VM" = "Whonix-Gateway" ]; then
+         local connection_failed_msg="\
+<p>TransPort Test Result: Ok, Tor's TransPort was not reachable.
+<br></br>This is expected on Whonix-Gateway's default configuration."
+      else
+         local connection_failed_msg="\
 <p>TransPort Test Result: Tor's TransPort was not reachable.
 <br></br>It is normal for this error to temporarily occur."
+      fi
    else
       local MSG="<p>TransPort/SocksPort/UpdatesProxy Test Error: <b>\$1 is neither TransPort nor SocksPort nor UpdatesProxy.</b> Please report this bug to the Whonix developers!</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
