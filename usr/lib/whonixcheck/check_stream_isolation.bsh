@@ -21,7 +21,11 @@ check_stream_isolation() {
 
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
-      local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test failed!</b> Can not test stream isolation.</p>"
+      if [ "$VM" = "Whonix-Gateway" ]; then
+         local MSG="<p>Stream Isolation Test: Ok, skipped, because SocksPort test failed! Can not test stream isolation. This is expected on Whonix-Gateway's default configuration.</p>"
+      else
+         local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test failed!</b> Can not test stream isolation.</p>"
+      fi
       if [ "$silent" -ge "2" ]; then
          true "silent is $silent. Skipping output."
          return 0
