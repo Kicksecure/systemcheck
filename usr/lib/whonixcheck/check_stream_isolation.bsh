@@ -44,8 +44,8 @@ check_stream_isolation() {
          true "silent is $silent. Skipping output."
          return 0
       fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
       return 0
    fi
 
