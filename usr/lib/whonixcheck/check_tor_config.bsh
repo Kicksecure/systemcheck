@@ -31,8 +31,8 @@ check_tor_config_do() {
    tor_verify_config_output="$(sudo --non-interactive -u debian-tor tor --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
    tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
 
-   # concise report which only contains complains with [warn] or [err] tags
-   tor_verify_config_output_concise="$(grep -E -w -h -i '\[warn\]|\[err\]' <<<"$tor_verify_config_output" 2>&1)" || true
+   ## concise report which only contains complains with [warn] or [err] tags
+   tor_verify_config_output_concise="$(grep -E -w -h -i '\[warn\]|\[err\]' <<< "$tor_verify_config_output" 2>&1)" || true
 
    return 0
 }
