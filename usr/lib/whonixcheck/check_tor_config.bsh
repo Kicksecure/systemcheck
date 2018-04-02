@@ -28,8 +28,11 @@ check_tor_config_do() {
    ## (You configured a non-loopback address [...])
 
    ## This has a /etc/sudoers.d exception.
-   tor_verify_config_output="$(sudo --non-interactive -u debian-tor tor --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
+   tor_verify_config_output="$(sudo --non-interactive /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
    tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
+
+   # concise report which only contains complains with [warn] or [err] tags
+   tor_verify_config_output_concise="$(grep -E -w -h -i '\[warn\]|\[err\]' <<<"$tor_verify_config_output" 2>&1)" || true
 
    return 0
 }
@@ -46,16 +49,17 @@ check_tor_config() {
 
 <p>(Tor exit code: $tor_verify_config_exit_code)</p>
 
-<p><u>Tor reports</u>:
-<br></br>$tor_verify_config_output</p>
+<p><u><b>Tor concise reports (below warns and errors must be fixed before you can use Tor)</b></u>:
+<br></br>$tor_verify_config_output_concise</p>
 
-<p><b>You have to fix this error, before you can use Tor.</b></p>
+<p><u>Tor full reports</u>:
+<br></br>$tor_verify_config_output</p>
 
 Try to look at this report yourself by running.
 
 $start_menu_instructions_system_first_part Terminal
 
-<blockquote>sudo -u debian-tor tor --verify-config</blockquote>
+<blockquote>sudo --non-interactive /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 --verify-config</blockquote>
 
 <p>To try to fix this, please open your Tor config file.
 
