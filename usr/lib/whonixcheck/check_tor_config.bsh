@@ -28,7 +28,7 @@ check_tor_config_do() {
    ## (You configured a non-loopback address [...])
 
    ## This has a /etc/sudoers.d exception.
-   tor_verify_config_output="$(sudo --non-interactive /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
+   tor_verify_config_output="$(sudo --non-interactive -u debian-tor tor --verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
    tor_verify_config_output="$(/usr/lib/msgcollector/br_add "$tor_verify_config_output")"
 
    # concise report which only contains complains with [warn] or [err] tags
@@ -59,7 +59,7 @@ Try to look at this report yourself by running.
 
 $start_menu_instructions_system_first_part Terminal
 
-<blockquote>sudo --non-interactive /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 --verify-config</blockquote>
+<blockquote>sudo -u debian-tor tor --verify-config</blockquote>
 
 <p>To try to fix this, please open your Tor config file.
 
