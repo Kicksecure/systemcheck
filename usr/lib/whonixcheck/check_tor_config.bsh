@@ -50,10 +50,10 @@ check_tor_config() {
 <p>(Tor exit code: $tor_verify_config_exit_code)</p>
 
 <p><u><b>Tor concise reports (below warns and errors must be fixed before you can use Tor)</b></u>:
-<br></br>$tor_verify_config_output_concise</p>
+<br></br><code>$tor_verify_config_output_concise</code></p>
 
 <p><u>Tor full reports</u>:
-<br></br>$tor_verify_config_output</p>
+<br></br><code>$tor_verify_config_output</code></p>
 
 Try to look at this report yourself by running.
 
