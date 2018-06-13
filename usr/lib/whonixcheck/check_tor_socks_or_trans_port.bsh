@@ -26,7 +26,7 @@ check_tor_socks_or_trans_port() {
    ## Do not test for stream isolation if Tor detection failed.
    ## This variable may be set to 1, during the first run of this function.
    if [ "$NOT_USING_TOR" = "1" ]; then
-      local MSG="<p><b>$test_name: Not testing Tor's TransPort, because Tor could not be detected previously.</b></p>"
+      local MSG="<p><b>$test_name: Not testing Tor's <code>TransPort</code>, because Tor could not be detected previously.</b></p>"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
@@ -36,45 +36,56 @@ check_tor_socks_or_trans_port() {
    local check_result_curl_exit_code="0"
 
    if [ "$1" = "SocksPort" ]; then
-      local test_name="SocksPort IP Leak Test"
-      local checking_msg="$test_name: Testing Tor's SocksPort..."
+      local test_name="<code>SocksPort</code> IP Leak Test"
+      local checking_msg="$test_name: Testing Tor's <code>SocksPort</code>..."
       local CURL_PROXY_WHONIXCHECK="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK"
       local CHECK_TOR_OUT_FILE="check_tpo_tor_socksport.html"
-      if [ "$VM" = "Whonix-Gateway" ] || [ "$VM" = "Whonix-Workstation" ]; then
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+         local type=info
+         local connection_failed_msg="\
+<p><code>SocksPort</code> Test Result: Ok, Tor's <code>SocksPort</code> was not reachable.
+<br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs>https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
+      elif [ "$VM" = "Whonix-Gateway" ] || [ "$VM" = "Whonix-Workstation" ]; then
          local connection_failed_msg="\
 <p>$test_name Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable.
-<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle."
+<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.</p>"
       else
          local connection_failed_msg="$FUNCNAME: <p>This is neither Whonix-Gateway nor Whonix-Workstation. Please report this bug to the Whonix developers!</p>"
       fi
    elif [ "$1" = "UpdatesProxy" ]; then
-      local test_name="Updates Proxy IP Leak Test"
-      local checking_msg="$test_name: Testing Qubes' Updates Proxy..."
+      local test_name="<code>UpdatesProxy</code> IP Leak Test"
+      local checking_msg="$test_name: Testing Qubes' <code>UpdatesProxy</code>..."
 
       source /usr/lib/qubes-whonix/utility_functions.sh
       local CURL_PROXY_WHONIXCHECK="--proxy $PROXY_SERVER"
 
       local CHECK_TOR_OUT_FILE="check_tpo_tor_transport.html"
       local connection_failed_msg="\
-<p>Updates Proxy IP Leak Test: Qubes' Updates Proxy was not reachable."
+<p><code>UpdatesProxy</code> IP Leak Test: Qubes' <code>UpdatesProxy</code> was not reachable.</p>"
    elif [ "$1" = "TransPort" ]; then
-      local test_name="TransPort IP Leak Test"
-      local checking_msg="$test_name: Testing Tor's TransPort..."
+      local test_name="<code>TransPort</code> IP Leak Test"
+      local checking_msg="$test_name: Testing Tor's <code>TransPort</code>..."
       local CURL_PROXY_WHONIXCHECK=""
       local CHECK_TOR_OUT_FILE="check_updates_proxy.html"
-      if [ "$VM" = "Whonix-Gateway" ]; then
+
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
          local type=info
          local connection_failed_msg="\
-<p>TransPort Test Result: Ok, Tor's TransPort was not reachable.
-<br></br>This is expected on Whonix-Gateway's default configuration."
+<p><code>TransPort</code> Test Result: Ok, Tor's <code>TransPort</code> was not reachable.
+<br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs>https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
+      elif [ "$VM" = "Whonix-Gateway" ]; then
+         local type=info
+         local connection_failed_msg="\
+<p><code>TransPort</code> Test Result: Ok, Tor's <code>TransPort</code> was not reachable.
+<br></br>This is expected on Whonix-Gateway's default configuration.</p>"
       else
          local type=error
          local connection_failed_msg="\
-<p>TransPort Test Result: Tor's TransPort was not reachable.
-<br></br>It is normal for this error to temporarily occur."
+<p><code>TransPort</code> Test Result: Tor's <code>TransPort</code> was not reachable.
+<br></br>It is normal for this error to temporarily occur.</p>"
       fi
    else
-      local MSG="<p>TransPort/SocksPort/UpdatesProxy Test Error: <b>\$1 is neither TransPort nor SocksPort nor UpdatesProxy.</b> Please report this bug to the Whonix developers!</p>"
+      local MSG="<p><code>TransPort</code>/<code>SocksPort</code>/<code>UpdatesProxy</code> Test Error: <b>\$1 is neither TransPort nor <code>SocksPort</code> nor <code>UpdatesProxy</code>.</b> Please report this bug to the Whonix developers!</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -103,7 +114,7 @@ check_tor_socks_or_trans_port() {
       curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_result_curl_exit_code")"
 
       local MSG="$connection_failed_msg
-<br></br>(curl exit code: $curl_status_message)</p>"
+(curl exit code: $curl_status_message)</p>"
       if [ "$type" = "" ]; then
          type=error
       fi
@@ -270,7 +281,7 @@ check_qubes_updates_proxy() {
    fi
 
    ## Abort for any Qubes VM type other than TemplateVM, because
-   ## sys-whonix can reach non-torified Qubes updates proxy
+   ## sys-whonix can reach non-torified Qubes UpdatesProxy
    ## https://github.com/QubesOS/qubes-issues/issues/3201
    if [ ! "$qubes_vm_type" = "TemplateVM" ]; then
       return 0
