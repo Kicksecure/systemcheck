@@ -1,3 +1,19 @@
+commit e9a70f18eccc8671235c8f9766b9611d50af442f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 22 09:57:31 2018 +0800
+
+    apparmor /usr/lib/uwtexec rix
+    
+    https://github.com/Whonix/uwt/pull/6
+    
+    https://phabricator.whonix.org/T797
+
+commit aa3c3707fac2e252a40239288aa48c1313cd5c0e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 13 16:36:42 2018 +0000
+
+    bumped changelog version
+
 commit 8e625996e48b7a6c44169e5cae4da79adf2587b7
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 13 16:35:30 2018 +0000
