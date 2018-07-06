@@ -23,14 +23,14 @@
 	## Required for systemctl.
 	capability net_admin,
 
-    ptrace,
-    ptrace (trace) peer=@{profile_name},
-    ptrace (trace) peer=unconfined,
+	ptrace,
+	ptrace (trace) peer=@{profile_name},
+	ptrace (trace) peer=unconfined,
 
-    signal,
-    signal (send) peer=unconfined,
-    signal (send) peer=@{profile_name},
-    #signal set=(rtmin+*) peer=unconfined,
+	signal,
+	signal (send) peer=unconfined,
+	signal (send) peer=@{profile_name},
+	#signal set=(rtmin+*) peer=unconfined,
 
 	/ r,
 
