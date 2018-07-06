@@ -1,3 +1,269 @@
+commit cd8dc3f4a97f7ffd9849c54e146dea56e6c8bc1f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 6 06:29:24 2018 +0000
+
+    formatting
+
+commit 006d8b4f5a8b65494738c48c38deb5d77c9b2157
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 22 02:27:03 2018 +0000
+
+    bumped changelog version
+
+commit e9a70f18eccc8671235c8f9766b9611d50af442f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 22 09:57:31 2018 +0800
+
+    apparmor /usr/lib/uwtexec rix
+    
+    https://github.com/Whonix/uwt/pull/6
+    
+    https://phabricator.whonix.org/T797
+
+commit aa3c3707fac2e252a40239288aa48c1313cd5c0e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 13 16:36:42 2018 +0000
+
+    bumped changelog version
+
+commit 8e625996e48b7a6c44169e5cae4da79adf2587b7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 13 16:35:30 2018 +0000
+
+    output
+
+commit 3462a8802c4a09042ac67852a53a1913d836a5a7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 13 15:08:19 2018 +0000
+
+    bumped changelog version
+
+commit 6e0cba6e76a6a1d3c01badfbb37ae2e94e74ed99
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 13 15:07:10 2018 +0000
+
+    output
+
+commit bbe8cf0509de5cd05cc5a145c4a934c3e8f86390
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 2 12:54:53 2018 +0000
+
+    bumped changelog version
+
+commit 9e57a4a7c66355338e2d700e314e3b18d44d99f3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 2 12:42:57 2018 +0000
+
+    output
+
+commit 6c0ecdd3e8a067e91a0d962a4c061345b7fb1ff2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 2 12:39:25 2018 +0000
+
+    minor
+
+commit 190b4356a5955a5a4c4080b7ad8161ede868d645
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 2 12:29:13 2018 +0000
+
+    fix
+    
+    https://github.com/Whonix/whonixcheck/pull/8
+
+commit c0cd66fd9f6491d896e78dad8c9ba5faca9baaf4
+Merge: 327a228 62c77c1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 2 12:27:55 2018 +0000
+
+    Merge remote-tracking branch 'irykoon/master'
+
+commit 62c77c1e4a7695410e3ea6d5a9bb587622fd7c42
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Mar 19 03:54:14 2018 +0000
+
+    Update output log
+
+commit 298c4a1e09bb4d8d50956939d9eb5d210d5c7817
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Mar 19 03:30:12 2018 +0000
+
+    Improve tor --verify-config report
+    
+    Whonix starts Tor using systemd with this command: /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 Therefor, it is important to verify if Tor can work under exactly those parameters.
+    
+    Tor report may be huge, making users feel overwhlemed. Therefore, we introduce Tor concise report which only contains complains with [warn] or [err] tags.
+    
+    This commit introduces a new bug that should be fixed:
+    
+    /usr/lib/whonixcheck/cleanup.bsh: line 215: cd: ..: Permission denied
+    [ERROR] [whonixcheck] -------------------------------------------------------------------------------
+    -- whonixcheck script bug.
+    -- No panic. Nothing is broken. Just some rare condition has been hit.
+    -- Try again later. There is likely a solution for this problem.
+    -- Please see Whonix News, Whonix Blog and Whonix User Help Forum.
+    -- Please report this bug!
+    --
+    -- who_ami: user
+    -- identifier:
+    -- exit_code: 1
+    -- error_cause: error_handler signal ERR detected with BASH_COMMAND:
+    cd ..
+    --
+    -- Experts only:
+    -- bash -x whonixcheck --verbose
+    -- for verbose output. Clean the output and report to Whonix developers.
+    -------------------------------------------------------------------------
+    whonixcheck: Error detected. Cleaning up... Exiting...
+    whonixcheck: signal ERR received. Cleaning up... Exiting...
+
+commit 327a228b82d4aa60ff4afde1e1ebdf0c6efee9db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 27 15:02:30 2018 +0000
+
+    bumped changelog version
+
+commit 82424903f6793a380e872b2c6b3b0f763462c4bc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 27 14:58:03 2018 +0000
+
+    output
+
+commit ba39d57232b88193e0a481e44c1e43d23d41a4c8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 27 14:57:02 2018 +0000
+
+    output
+
+commit 88a97dcb412bdfa825c82cd4b6ae99577275906e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 27 14:53:00 2018 +0000
+
+    fix; output
+
+commit d6b6418cdebce33a6d5b55dd86cdcb47adf3b79f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 27 14:50:01 2018 +0000
+
+    output
+
+commit 9a8f586e19639347d0444ad86c73d769109e2088
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 27 14:45:48 2018 +0000
+
+    output
+
+commit 8ef45991e717d6a635a1e9845cea061944ba1a8f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 20:58:41 2018 +0000
+
+    bumped changelog version
+
+commit 90209d68f8297b83c7a05e82d23051e7ace00863
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 20:39:16 2018 +0000
+
+    code simplification
+
+commit 5845a3f35f4e93ddcf9986e16e82284ca848e91b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 20:34:09 2018 +0000
+
+    run Whonix census in daemon mode
+
+commit 1b9ef87b29546e929185dbce9403a0d86d31955e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 20:13:45 2018 +0000
+
+    Whonix census
+
+commit 210d47232142243214f5b2ef2e7f7a32673ff3c6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 18:51:27 2018 +0000
+
+    enable Whonix census
+
+commit 0776288fb5fa027998fb4a187e10881389582ded
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 18:47:08 2018 +0000
+
+    fix Whonix census
+
+commit e4a90933098d0fff119d4231a13047ea3003cf46
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 21 15:46:18 2018 +0000
+
+    bumped changelog version
+
+commit a08eae0f7d1bb7cc033f441f9424585bbf7c8fa0
+Merge: 37711c9 4c2be93
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 20 14:23:14 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 4c2be936a02b1d49480fcd21601b6b9fbe5cd7f9
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Feb 19 17:43:20 2018 +0000
+
+    + signal (send)
+
+commit 37711c9441e925289389d87458188614b8ca0470
+Merge: 8865e9e b0c710b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 18 23:19:34 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit b0c710b074e76cd86974b00c8278d6546eb010d8
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Feb 18 19:45:28 2018 +0000
+
+    allow real time signals
+
+commit 8865e9e2b75fdcefe0dd3bebd0e9d5cc06b10e3e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 18 14:07:57 2018 +0000
+
+    bumped changelog version
+
+commit b8d884810e4095b6ee77d81ecf28f4f96f3103f0
+Merge: eefeff6 a10d7ec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 18 14:38:52 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit a10d7ecf4f558f58e1c224a984b640e2f9b4ab82
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Feb 17 19:22:17 2018 +0000
+
+    open ptrace and signal
+
+commit eefeff6d9f83e996b8210a43adba3bf5327b243a
+Merge: 7fc49eb 26e5a88
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 11 20:14:04 2018 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 26e5a88b3118d3f17491bf96f16c17eb72c11457
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Feb 11 16:49:50 2018 +0000
+
+    allow all signals
+
+commit b714257e39003f84fa95a3d68a3668592fbdbb55
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Feb 11 15:59:44 2018 +0000
+
+    fix ptrace denied message
+
+commit 7fc49eb5cf4b82e9a2d0c99c29c26bc04159572f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 10 13:53:19 2018 +0000
+
+    bumped changelog version
+
 commit 78b09f1eb4c30a068b58bfb76212c80b3b0b4c98
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 7 01:05:24 2018 +0100

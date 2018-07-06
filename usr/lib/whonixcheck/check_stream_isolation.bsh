@@ -21,25 +21,41 @@ check_stream_isolation() {
 
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "0" ]; then
-      local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test failed!</b> Can not test stream isolation.</p>"
-      if [ "$silent" -ge "2" ]; then
-         true "silent is $silent. Skipping output."
-         return 0
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+         local type=info
+         local MSG="<p>Stream Isolation Test: Ok, skipped, because SocksPort test failed! Can not test stream isolation. This is expected in default configuration of TemplateVMs in Qubes R4.0 and above.</p>"
+         if [ "$verbose" -ge "1" ]; then
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            return 0
+         fi
+      else
+         local MSG="<p>Stream Isolation Test: <b>Skipped, because SocksPort test failed!</b> Can not test stream isolation.</p>"
+         if [ "$silent" -ge "2" ]; then
+            true "silent is $silent. Skipping output."
+            return 0
+         fi
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_TRANS_PORT" = "0" ]; then
-      local MSG="<p>Stream Isolation Test: <b>Skipped, because TransPort test failed!</b> Can not test stream isolation.</p>"
+      if [ "$VM" = "Whonix-Gateway" ]; then
+         local type=info
+         local MSG="<p>Stream Isolation Test: Ok, skipped, because TransPort test failed! Can not test stream isolation. This is expected on Whonix-Gateway's default configuration.</p>"
+      else
+         local type=error
+         local MSG="<p>Stream Isolation Test: <b>Skipped, because TransPort test failed!</b> Can not test stream isolation.</p>"
+      fi
       if [ "$silent" -ge "2" ]; then
          true "silent is $silent. Skipping output."
          return 0
       fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
       return 0
    fi
 

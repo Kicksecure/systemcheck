@@ -23,6 +23,7 @@
 	## Required for systemctl.
 	capability net_admin,
 
+<<<<<<< HEAD
     ptrace,
     ptrace (trace) peer=@{profile_name},
     ptrace (trace) peer=unconfined,
@@ -31,6 +32,12 @@
     signal (send) peer=unconfined,
     signal (send) peer=@{profile_name},
     signal set=(rtmin+*) peer=unconfined,
+=======
+	ptrace,
+	signal,
+	signal (send) peer=unconfined,
+	signal set=(rtmin+*) peer=unconfined,
+>>>>>>> whonix/master
 
 	/ r,
 
@@ -211,6 +218,7 @@
 	/usr/bin/apt-get rix,
 	/usr/bin/uwt rix,
 	/usr/lib/uwtwrapper rix,
+	/usr/lib/uwtexec rix,
 	/usr/bin/curl rix,
 	/usr/bin/torsocks rix,
 	/usr/bin/python* rix,

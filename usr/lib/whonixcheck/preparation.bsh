@@ -387,12 +387,6 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   if [ "$whonixcheck_exit_immediate" = "true" ]; then
-      echo "whonixcheck_exit_immediate is $whonixcheck_exit_immediate. Exiting." >&2
-      EXIT_CODE="123"
-      cleanup
-   fi
-
    TITLE_X="$IDENTIFIER | ${VM}${qubes_title_extra}"
 
    ## No need to add $IDENTIFIER to output, because msgcollector already does that.
@@ -438,4 +432,12 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
    whonixcheck_run_function root_check ## root_check
    whonixcheck_run_function uwt_tool ## help_uwt_tool
    whonixcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
+
+   if [ "$whonixcheck_exit_immediate" = "true" ]; then
+      echo "whonixcheck_exit_immediate is $whonixcheck_exit_immediate. Checking Whonix news / Whonix census only..." >&2
+      whonixcheck_run_function download_whonix_news ## check_news
+      echo "whonixcheck_exit_immediate is $whonixcheck_exit_immediate. Exiting." >&2
+      EXIT_CODE="123"
+      cleanup
+   fi
 }
