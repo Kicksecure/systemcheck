@@ -23,10 +23,10 @@
 	## Required for systemctl.
 	capability net_admin,
 
-    ptrace,
-    signal,
-    signal (send) peer=unconfined,
-    signal set=(rtmin+*) peer=unconfined,
+	ptrace,
+	signal,
+	signal (send) peer=unconfined,
+	signal set=(rtmin+*) peer=unconfined,
 
 	/ r,
 
