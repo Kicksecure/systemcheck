@@ -1,3 +1,35 @@
+commit 8f24317b0d357b812c806fb60cff2a1a29926716
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 6 11:22:54 2018 +0000
+
+    formatting
+
+commit 148a3445e991babcdf2e51b2471516d2a2330ded
+Merge: b5f59b6 1bb377b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 6 11:21:59 2018 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 1bb377bca29cdaa9af8745f8ae9ade42a4b879c9
+Author: troubadoour <user@host.localdomain>
+Date:   Fri Jul 6 08:53:24 2018 +0000
+
+    cleaning after merge, comment out signal rtmin, add /bin/readlink rix,
+
+commit b7436bc55d58c0e47bada4e7ba0b96a13b936897
+Merge: 45924a3 b5f59b6
+Author: troubadoour <user@host.localdomain>
+Date:   Fri Jul 6 08:24:17 2018 +0000
+
+    Merge remote-tracking branch 'whonix/master'
+
+commit b5f59b6bd593f0d7977f73bd03f220145136505f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 6 06:58:45 2018 +0000
+
+    bumped changelog version
+
 commit cd8dc3f4a97f7ffd9849c54e146dea56e6c8bc1f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 6 06:29:24 2018 +0000
@@ -193,6 +225,18 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 21 15:46:18 2018 +0000
 
     bumped changelog version
+
+commit 45924a3f7e32d31fb39b0c43ebd0c1caa6d67860
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Feb 20 21:09:14 2018 +0000
+
+    add signal rule
+
+commit 7003b53d62db6273230e64e39a6834abeb7a76a2
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Feb 20 20:56:06 2018 +0000
+
+    add ptrace rules
 
 commit a08eae0f7d1bb7cc033f441f9424585bbf7c8fa0
 Merge: 37711c9 4c2be93
