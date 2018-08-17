@@ -1,3 +1,17 @@
+commit 0ff945f20b606422fdd1b3e0aea146249489ed75
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 10 18:39:09 2018 +0800
+
+    sudoers.d asterix hardening
+    
+    https://github.com/QubesOS/qubes-issues/issues/2852
+
+commit 6faec5cbcf29cb24e7f92d06fac13ea7d0cf5599
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 9 05:17:01 2018 +0000
+
+    bumped changelog version
+
 commit 8f24317b0d357b812c806fb60cff2a1a29926716
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 6 11:22:54 2018 +0000
