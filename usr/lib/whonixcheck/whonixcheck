@@ -15,7 +15,7 @@ set -o errtrace
 #trap 'sleep 1' DEBUG
 
 NOTIFY_MSG="Checking Tor Connection, Tor Browser Version, Operating System Updates, Whonix Version, Whonix News...
-This will happen in background and will take approximately three minutes..."
+This will happen in the background and will take approximately three minutes..."
 
 ICON="/usr/share/icons/anon-icon-pack/whonix.ico"
 
