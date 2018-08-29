@@ -18,7 +18,9 @@ check_kernel_messages() {
    else
       local MSG="<p>Check Kernel Messages Test Result: Remarkable kernel message found using <code>dmesg</code>.<br />
 <code>$grep_output</code></p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      fi
    fi
 }
