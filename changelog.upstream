@@ -1,3 +1,20 @@
+commit 3d89fb7c3eb42cb2a60c51f6ba40e0cd539a66e1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 29 10:21:26 2018 -0400
+
+    show Kernel Messages Test Result only when using --verbose
+    
+    to avoid the following non-actionable warning
+    
+    > WARNING: Check Kernel Messages Test Result: Remarkable kernel message found using dmesg.
+    > clocksource: timekeeping watchdog on CPU0: Marking clocksource 'tsc' as unstable because the skew is too large:
+
+commit de3518ea679ccf28d6cee702f40e70d9876509ea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 27 16:58:12 2018 +0000
+
+    bumped changelog version
+
 commit 3e3380ef668ce6dc3e8ebe7a69941b41000b948a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 24 09:49:22 2018 -0400
