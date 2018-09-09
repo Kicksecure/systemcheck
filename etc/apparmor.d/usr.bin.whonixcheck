@@ -9,6 +9,7 @@
 	capability sys_resource,
 	capability sys_admin,
 	capability sys_time,
+	capability sys_module,
 	capability setuid,
 	capability setgid,
 	capability chown,
