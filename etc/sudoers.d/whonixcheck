@@ -26,3 +26,6 @@ whonixcheck ALL=NOPASSWD: /sbin/ifconfig eth1
 
 ## required for check_kernel_messages
 whonixcheck ALL=NOPASSWD: /bin/dmesg
+
+## required for check_spectre_meltdown
+whonixcheck ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid

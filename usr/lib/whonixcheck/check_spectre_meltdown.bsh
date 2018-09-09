@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_spectre_meltdown() {
+   local spectre_meltdown_checker_output spectre_meltdown_checker_exit_code
+   local file_name timeout_after kill_after
+
+   spectre_meltdown_checker_exit_code="0"
+   timeout_after="10"
+   kill_after="10"
+
+   spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" sudo --non-interactive spectre-meltdown-checker --paranoid)" || { spectre_meltdown_checker_exit_code="$?"; };
+
+   if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
+      local MSG="<p>Spectre Meltdown Test Result: not vulerable, ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   else
+      local MSG="<p>Spectre Meltdown Test Result: Vulnerable.<br />
+<br />
+Technical information:<br />
+<code>sudo spectre-meltdown-checker --paranoid</code><br />
+exited with code <code>$spectre_meltdown_checker_exit_code</code>.<br />
+<br />
+Recommendation:<br />
+See <a href=https://www.whonix.org/wiki/Spectre_Meltdown>https://www.whonix.org/wiki/Spectre_Meltdown</a>.</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   fi
+}
