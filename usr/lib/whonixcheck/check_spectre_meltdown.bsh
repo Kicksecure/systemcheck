@@ -7,12 +7,15 @@ check_spectre_meltdown() {
    local spectre_meltdown_checker_output spectre_meltdown_checker_exit_code
    local file_name timeout_after kill_after
 
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
    spectre_meltdown_checker_exit_code="0"
    timeout_after="10"
    kill_after="10"
 
    spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" sudo --non-interactive spectre-meltdown-checker --paranoid)" || { spectre_meltdown_checker_exit_code="$?"; };
-
+spectre_meltdown_checker_exit_code=1
    if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
       local MSG="<p>Spectre Meltdown Test Result: not vulerable, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -27,7 +30,9 @@ Technical information:<br />
 exited with code <code>$spectre_meltdown_checker_exit_code</code>.<br />
 <br />
 Recommendation:<br />
-See <a href=https://www.whonix.org/wiki/Spectre_Meltdown>https://www.whonix.org/wiki/Spectre_Meltdown</a>.</p>"
+See <a href=https://www.whonix.org/wiki/Spectre_Meltdown>https://www.whonix.org/wiki/Spectre_Meltdown</a>.<br />
+<br />
+$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    fi
