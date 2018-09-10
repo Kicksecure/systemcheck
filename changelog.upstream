@@ -1,3 +1,45 @@
+commit c17c3ba79e43ba819d8bf6db1f609ef4799166f3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 10 07:32:59 2018 +0000
+
+    fix
+
+commit bfa790918b4b9967b080c34f95d9504d839b3db3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 10 07:32:01 2018 +0000
+
+    run check_spectre_meltdown by default
+
+commit 0a052ac35917edb9644948b7f065b3223117fb58
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 10 06:30:00 2018 +0000
+
+    spectre / meltdown check add if_you_know_what_you_are_doing_msg
+
+commit 5873f4c3bb1665a6fb92224968805f561aca87e3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 9 19:54:34 2018 +0000
+
+            capability sys_module,
+    
+    required for ifconfig
+    
+    https://forums.whonix.org/t/whonix-apparmor-profiles-development-discussion/108/682
+
+commit 4d65231b87b1dbc7827cd47c86f1f4d5476bcda2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 9 19:42:14 2018 +0000
+
+    add spectre/meltdown test
+    
+    https://forums.whonix.org/t/whonix-vulerable-due-to-missing-processor-microcode-packages
+
+commit b464e62eed1e2099da6882f7d8990338fc6627c7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 6 07:39:38 2018 +0000
+
+    bumped changelog version
+
 commit 3d89fb7c3eb42cb2a60c51f6ba40e0cd539a66e1
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 29 10:21:26 2018 -0400
