@@ -73,6 +73,9 @@ whonixcheck_main() {
    whonixcheck_run_function show_versions ## show_versions
 
    ## Does not use the network.
+   whonixcheck_run_function check_spectre_meltdown ## check_spectre_meltdown
+
+   ## Does not use the network.
    whonixcheck_run_function check_whonix_firewall_systemd_status ## check_services
 
    ## Does not use the network.
