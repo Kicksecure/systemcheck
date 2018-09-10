@@ -15,7 +15,7 @@ check_spectre_meltdown() {
    kill_after="10"
 
    spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" sudo --non-interactive spectre-meltdown-checker --paranoid)" || { spectre_meltdown_checker_exit_code="$?"; };
-spectre_meltdown_checker_exit_code=1
+
    if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
       local MSG="<p>Spectre Meltdown Test Result: not vulerable, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
