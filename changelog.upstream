@@ -1,3 +1,15 @@
+commit bf9a0556db5e32cc5522a440eae9479ed3fc7941
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 13 22:28:51 2018 +0000
+
+    update package names
+
+commit 99b2c40a0a0caa2da74c9cf832d6ea0bd16fc082
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 13 19:45:46 2018 +0000
+
+    bumped changelog version
+
 commit a3fe703a7fa1a5c4c0dc9975bf353cbd561aad3c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Sep 13 19:26:31 2018 +0000
