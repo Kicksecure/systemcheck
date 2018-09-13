@@ -95,9 +95,9 @@ whonixcheck_run_function() {
 
 get_local_whonix_version() {
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      whonix_deb_package_name="whonix-gateway-packages-dependencies"
+      whonix_deb_package_name="whonix-gateway-packages-dependencies-cli"
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-      whonix_deb_package_name="whonix-workstation-packages-dependencies"
+      whonix_deb_package_name="whonix-workstation-packages-dependencies-cli"
    fi
 
    ## fallback
