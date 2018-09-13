@@ -1,3 +1,17 @@
+commit a3fe703a7fa1a5c4c0dc9975bf353cbd561aad3c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 13 19:26:31 2018 +0000
+
+    Qubes: run spectre meltdown check only in Qubes R4 and above
+    
+    https://github.com/QubesOS/qubes-issues/issues/4295
+
+commit 117d108d2530822f65a96c03f8fbcce8f6caa891
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 10 07:37:51 2018 +0000
+
+    bumped changelog version
+
 commit c17c3ba79e43ba819d8bf6db1f609ef4799166f3
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Sep 10 07:32:59 2018 +0000
