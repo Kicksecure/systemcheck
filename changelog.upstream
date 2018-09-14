@@ -1,3 +1,15 @@
+commit 174c66e533e0dce8cf4cfe686b777ae11e8b1ff8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 14 13:13:14 2018 +0000
+
+    disable spectre meltdown test by default until fixed
+
+commit 13498ac63455b5f177ca813111dd41522ba160a9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 13 22:29:17 2018 +0000
+
+    bumped changelog version
+
 commit bf9a0556db5e32cc5522a440eae9479ed3fc7941
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Sep 13 22:28:51 2018 +0000
