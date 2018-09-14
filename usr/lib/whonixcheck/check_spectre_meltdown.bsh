@@ -10,6 +10,8 @@ check_spectre_meltdown() {
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
+   [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="false"
+
    if [ "$qubes_detected" = "false" ]; then
       [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="true"
    else
