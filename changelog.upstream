@@ -1,3 +1,15 @@
+commit 26e7213884221d1342fa9d0b3a02937900d31303
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 17 11:04:18 2018 +0000
+
+    fix check_meta_packages
+
+commit db28a32eb24edd8e189af74d88f5e64cf14e8924
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 14 13:20:49 2018 +0000
+
+    bumped changelog version
+
 commit 174c66e533e0dce8cf4cfe686b777ae11e8b1ff8
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Sep 14 13:13:14 2018 +0000
