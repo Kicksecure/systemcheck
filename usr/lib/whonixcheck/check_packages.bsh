@@ -16,11 +16,11 @@ check_meta_packages() {
          meta_package_wanted="qubes-whonix-workstation"
       fi
    else
-      meta_package_wanted_list="<code>non-qubes-whonix-gateway</code> or <code>non-qubes-whonix-workstation</code>"
+      meta_package_wanted_list="<code>non-qubes-whonix-gateway-kde</code> or <code>non-qubes-whonix-workstation-kde</code>"
       if [ "$vm_lower_case_short" = "gateway" ]; then
-         meta_package_wanted="non-qubes-whonix-gateway"
+         meta_package_wanted="non-qubes-whonix-gateway-kde"
       elif [ "$vm_lower_case_short" = "workstation" ]; then
-         meta_package_wanted="non-qubes-whonix-workstation"
+         meta_package_wanted="non-qubes-whonix-workstation-kde"
       fi
    fi
 
