@@ -1,3 +1,27 @@
+commit 7eec772015948573319e281da67b9b1ffb93e201
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 13 10:52:53 2018 +0000
+
+    update meta packages installed check for Whonix XFCE and Whonix CLI
+
+commit 2dcc1257f728639772f66f055134ea6ed960012c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 13 04:09:04 2018 -0500
+
+    show "sudo apt-get-update-plus dist-upgrade" if available
+
+commit 7f9d648909e790a8d188dda5f83622367fd432c3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 13 04:07:17 2018 -0500
+
+    refactoring
+
+commit 512b5aa68706dfc6370fa692a3378a189ea3205c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 17 11:04:46 2018 +0000
+
+    bumped changelog version
+
 commit 26e7213884221d1342fa9d0b3a02937900d31303
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Sep 17 11:04:18 2018 +0000
