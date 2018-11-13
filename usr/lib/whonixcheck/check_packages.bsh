@@ -4,58 +4,69 @@
 ## See the file COPYING for copying conditions.
 
 check_meta_packages() {
-   local meta_package_not_installed meta_package_wanted meta_package_wanted_list
-
-   meta_package_wanted="unknown"
-
-   if [ "$qubes_detected" = "true" ]; then
-      meta_package_wanted_list="<code>qubes-whonix-gateway</code> or <code>qubes-whonix-workstation</code>"
-      if [ "$vm_lower_case_short" = "gateway" ]; then
-         meta_package_wanted="qubes-whonix-gateway"
-      elif [ "$vm_lower_case_short" = "workstation" ]; then
-         meta_package_wanted="qubes-whonix-workstation"
-      fi
-   else
-      meta_package_wanted_list="<code>non-qubes-whonix-gateway-kde</code> or <code>non-qubes-whonix-workstation-kde</code>"
-      if [ "$vm_lower_case_short" = "gateway" ]; then
-         meta_package_wanted="non-qubes-whonix-gateway-kde"
-      elif [ "$vm_lower_case_short" = "workstation" ]; then
-         meta_package_wanted="non-qubes-whonix-workstation-kde"
-      fi
-   fi
-
-   if [ "$meta_package_wanted" = "unknown" ]; then
-      meta_package_not_installed="unknown"
-   else
-      if dpkg-query --show "$meta_package_wanted" &> /dev/null ; then
-          meta_package_not_installed="none"
-      else
-          meta_package_not_installed="$meta_package_wanted"
-      fi
-   fi
+   local meta_package_wanted_list meta_package_installed
 
    local if_you_know_what_you_are_doing_msg see_also_link
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
    see_also_link="<a href=https://www.whonix.org/wiki/Whonix_Debian_Packages>https://www.whonix.org/wiki/Whonix_Debian_Packages</a>"
 
-   if [ "$meta_package_not_installed" = "none" ]; then
-      local MSG="<p>Whonix Meta Packages Test Result: $meta_package_not_installed missing. (See also: $see_also_link)</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   if [ "$qubes_detected" = "true" ]; then
+      meta_package_wanted_list="<code>qubes-whonix-gateway</code> or <code>qubes-whonix-workstation</code>"
+      if [ "$vm_lower_case_short" = "gateway" ]; then
+         meta_package_wanted_list="qubes-whonix-gateway"
+      elif [ "$vm_lower_case_short" = "workstation" ]; then
+         meta_package_wanted_list="qubes-whonix-workstation"
       fi
-      return 0
-   elif [ "$meta_package_not_installed" = "unknown" ]; then
-      local MSG="<p>Whonix Meta Packages Test Result: Neither Whonix-Gateway nor Whonix-Workstation detected.
-Therefore unchecked, if either the $meta_package_wanted_list meta packages is installed.
-<br />See also: $see_also_link
-<br />$if_you_know_what_you_are_doing_msg</p>"
    else
-      local MSG="<p>Whonix Meta Packages Test Result: $VM detected, but the meta package <code>$meta_package_not_installed</code> is not installed.
-Did you accidentally uninstall it?
-<br />See also: $see_also_link
-<br />$if_you_know_what_you_are_doing_msg</p>"
+      if [ "$vm_lower_case_short" = "gateway" ]; then
+         meta_package_wanted_list="\
+non-qubes-whonix-gateway-kde
+non-qubes-whonix-gateway-xfce
+non-qubes-whonix-gateway-cli"
+      elif [ "$vm_lower_case_short" = "workstation" ]; then
+         meta_package_wanted_list="\
+non-qubes-whonix-workstation-kde
+non-qubes-whonix-workstation-xfce
+non-qubes-whonix-workstation-cli"
+      fi
    fi
+
+   ## Fallback if neither gateway nor workstation was detected.
+   if [ "$meta_package_wanted_list" = "" ]; then
+      meta_package_wanted_list="\
+non-qubes-whonix-gateway-kde
+non-qubes-whonix-gateway-xfce
+non-qubes-whonix-gateway-cli
+non-qubes-whonix-workstation-kde
+non-qubes-whonix-workstation-xfce
+non-qubes-whonix-workstation-cli"
+   fi
+
+   for meta_package_wanted_item in $meta_package_wanted_list ; do
+      if dpkg-query --show "$meta_package_wanted_item" &> /dev/null ; then
+         meta_package_installed="$meta_package_wanted_item"
+         local MSG="<p>Whonix Meta Packages Test Result: Meta package <code>$meta_package_installed</code> installed, ok.</p>"
+         if [ "$verbose" -ge "1" ]; then
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+      fi
+   done
+
+   if [ ! "$meta_package_installed" = "" ]; then
+      return 0
+   fi
+
+   local MSG="<p>Whonix Meta Packages Test Result: No meta package is installed.<br />
+Did you accidentally uninstall it?<br />
+<br />
+Make sure any of the following meta packages is installed.<br />
+<br />
+<code>$meta_package_wanted_list</code>
+<br />
+<br />See also: $see_also_link
+<br />
+<br />$if_you_know_what_you_are_doing_msg</p>"
 
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
