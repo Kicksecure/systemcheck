@@ -11,7 +11,12 @@ check_operating_system() {
 
    local update_documentation_link_x="<a href=https://www.whonix.org/wiki/Update>Debian Package Update</a>"
    local update_documentation_link_cli="( Documentation: https://www.whonix.org/wiki/Update )"
-   local update_command="sudo apt-get update && sudo apt-get dist-upgrade"
+   local update_command
+   if command -v apt-get-update-plus >/dev/null 2>&1 ; then
+      update_command="sudo apt-get-update-plus dist-upgrade"
+   else
+      update_command="sudo apt-get update && sudo apt-get dist-upgrade"
+   fi
    ## Running apt-get update as user (non-root).
    ## Depends on exception set in /etc/sudoers.d/.
    ## Minimal custom script.
