@@ -11,6 +11,7 @@ check_operating_system() {
 
    local update_documentation_link_x="<a href=https://www.whonix.org/wiki/Update>Debian Package Update</a>"
    local update_documentation_link_cli="( Documentation: https://www.whonix.org/wiki/Update )"
+   local update_command="sudo apt-get update && sudo apt-get dist-upgrade"
    ## Running apt-get update as user (non-root).
    ## Depends on exception set in /etc/sudoers.d/.
    ## Minimal custom script.
@@ -28,11 +29,11 @@ check_operating_system() {
       if [ "$qubes_vm_persistence" = "full" ]; then
          ## Running in either StandaloneVM or TemplateVM.
          local qubes_update_help="<br></br>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
-<br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>"
+<br></br>2. Update. <blockquote><code>$update_command</code></blockquote>"
       else
          ## TemplateBasedVM
          local qubes_update_help="<br></br>1. Open a TemplateVM terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
-<br></br>2. Update. <blockquote><code>sudo apt-get update && sudo apt-get dist-upgrade</code></blockquote>
+<br></br>2. Update. <blockquote><code>$update_command</code></blockquote>
 3. Shutdown your TemplateVM. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_base_template</code>' -> Shutdown VM)
 <br></br>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"
       fi
@@ -58,7 +59,7 @@ $qubes_update_help</p>"
          local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
 <br></br>Please manually check:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
-<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
+<code><blockquote>$update_command</blockquote></code></p>"
       fi
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
@@ -118,7 +119,7 @@ $qubes_update_help</p>"
       local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
 <br></br>Please update Whonix-Gateway and Whonix-Workstation:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
-<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code></p>"
+<code><blockquote>$update_command</blockquote></code></p>"
    fi
 
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
