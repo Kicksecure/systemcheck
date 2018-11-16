@@ -38,12 +38,17 @@ check_network_interfaces() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    if [ "$eth0_failed" = "true" ]; then
-      local MSG="<p>check network interfaces Result: network interface eth0 not up!
+      local MSG="<p>check network interfaces Result: network interface eth0 not up!<br />
+<br />
+Recommendation:<br />
+Try to manually start Whonix networking. <blockquote><code>sudo systemctl restart networking</code></blockquote>
 
-$if_you_know_what_you_are_doing_msg
-
-Debugging information:
-Command <code>sudo --non-interactive /sbin/ifconfig eth0</code> failed."
+Or reboot.<br />
+<br />
+Debugging information:<br />
+Command <code>sudo --non-interactive /sbin/ifconfig eth0</code> failed.<br />
+<br />
+$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
