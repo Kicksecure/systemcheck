@@ -269,6 +269,12 @@
 	# operation="unlink" requested_mask="d" denied_mask="d"
 	/usr/lib/python*/* rl,
 
+	## Nov 15 13:36:33 host kernel: audit: type=1400 audit(1542288993.054:12): apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/usr/lib/python3.5/__pycache__/" pid=31210 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
+	## Nov 15 13:36:36 host audit[31278]: AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/usr/lib/python3.5/plat-x86_64-linux-gnu/__pycache__/" pid=31278 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
+	## Nov 15 13:36:43 host audit[31466]: AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/usr/lib/python3.5/encodings/__pycache__/" pid=31466 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
+	/usr/lib/python*/__pycache__/ rw,
+	/usr/lib/python*/__pycache__/** rw,
+
 	/usr/local/lib/python*/dist-packages/ r,
 	/usr/local/lib/python*/dist-packages/* r,
 
