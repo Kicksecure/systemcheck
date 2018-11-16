@@ -1,3 +1,33 @@
+commit f854c976320a5f4e89101e7e830d0f72e79552f0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 16 09:34:19 2018 +0000
+
+    apparmor fix
+
+commit 9587c58c103a01569353e83af20791a354f4e882
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 16 09:20:38 2018 +0000
+
+    output
+
+commit f7a0e166ab9bceead43474766cb7a28ed7f6496d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 16 09:16:30 2018 +0000
+
+    output
+
+commit 41251efb2ffcc3287313455d56f89c657c4d04cf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 16 09:07:52 2018 +0000
+
+    fix check_package_manager_running
+
+commit 7c44d639c8abd0394884b71823ae96e4b8522ccc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 13 12:31:39 2018 +0000
+
+    bumped changelog version
+
 commit 7eec772015948573319e281da67b9b1ffb93e201
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Nov 13 10:52:53 2018 +0000
