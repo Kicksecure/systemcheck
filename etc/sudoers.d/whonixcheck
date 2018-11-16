@@ -20,6 +20,9 @@ whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-sim
 whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
 whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/anondate
 
+## check_package_manager_running_helper
+whonixcheck ALL=NOPASSWD: /bin/fuser /var/lib/dpkg/lock /var/cache/apt/archives/lock
+
 ## required for check_network_interfaces
 whonixcheck ALL=NOPASSWD: /sbin/ifconfig eth0
 whonixcheck ALL=NOPASSWD: /sbin/ifconfig eth1
