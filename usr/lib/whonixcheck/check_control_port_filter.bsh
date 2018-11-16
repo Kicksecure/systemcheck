@@ -29,10 +29,14 @@ onion-grater service not running. Waiting up to 30 seconds.<\p>"
       if [ "$i" -ge "30" ]; then
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-         local MSG="<p>Control Port Filter Proxy Test Result:
-   <br></br><b>onion-grater service not running.</b>
-   <br></br>Did you disable Control Port Filter Proxy?
-   <br></br>$if_you_know_what_you_are_doing_msg<\p>"
+         local MSG="<p>Control Port Filter Proxy Test Result: onion-grater service not running.
+<br></br>
+<br></br>Did you disable Control Port Filter Proxy?
+<br></br>
+<br></br>Recommendation:
+Try to manually start onion-grater. <blockquote><code>sudo systemctl restart onion-grater</code></blockquote>
+
+$if_you_know_what_you_are_doing_msg<\p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
