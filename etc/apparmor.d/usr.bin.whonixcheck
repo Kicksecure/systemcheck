@@ -171,6 +171,9 @@
 	@{PROC}/sys/kernel/osrelease r,
 	## Required for systemctl.
 	@{PROC}/[0-9]*/comm r,
+	## Required for fuse.
+	@{PROC}/*/mountinfo r,
+	@{PROC}/swaps r,
 
 	/run/whonixcheck/* mrwcx,
 	/run/utmp rk,
