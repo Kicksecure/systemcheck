@@ -1,3 +1,27 @@
+commit 31f4fac568bc6f7021d166a4dc1c15809433dbbf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Nov 17 00:15:12 2018 -0500
+
+    apparmor fixes
+
+commit 04aee97200a445de129c654ba7151f19c6079fe1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Nov 17 00:01:07 2018 -0500
+
+    output
+
+commit d521fb59f60d5cccd3b0d7057632caf4dbe05e5b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 16 23:59:58 2018 -0500
+
+    fix check_network_interfaces
+
+commit b99f248358f58268657dc88e5053999d5b7a877d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 16 09:44:46 2018 +0000
+
+    bumped changelog version
+
 commit f854c976320a5f4e89101e7e830d0f72e79552f0
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Nov 16 09:34:19 2018 +0000
