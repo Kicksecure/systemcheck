@@ -34,7 +34,10 @@ onion-grater service not running. Waiting up to 30 seconds.<\p>"
 <br></br>Did you disable Control Port Filter Proxy?
 <br></br>
 <br></br>Recommendation:
-Try to manually start onion-grater. <blockquote><code>sudo systemctl restart onion-grater</code></blockquote>
+Try to manually start onion-grater.
+<blockquote>
+<code>sudo systemctl restart onion-grater</code>
+</blockquote>
 
 $if_you_know_what_you_are_doing_msg<\p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
