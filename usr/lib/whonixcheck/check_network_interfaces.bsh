@@ -13,13 +13,13 @@ check_network_interfaces() {
    local failed eth0_failed eth1_failed
 
    failed=false
-   if ! sudo --non-interactive /sbin/ifconfig eth0 >/dev/null ; then
+   if ! cat /sys/class/net/eth0/carrier &>/dev/null ; then
       eth0_failed=true
       failed=true
    fi
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if ! sudo --non-interactive /sbin/ifconfig eth1 >/dev/null 2>&1 ; then
+      if ! cat /sys/class/net/eth1/carrier &>/dev/null ; then
          eth1_failed=true
          failed=true
       fi
@@ -41,12 +41,14 @@ check_network_interfaces() {
       local MSG="<p>check network interfaces Result: network interface eth0 not up!<br />
 <br />
 Recommendation:<br />
-Try to manually start Whonix networking. <blockquote><code>sudo systemctl restart networking</code></blockquote>
-
+Try to manually start Whonix networking.
+<blockquote>
+<code>sudo systemctl restart networking</code>
+</blockquote>
 Or reboot.<br />
 <br />
 Debugging information:<br />
-Command <code>sudo --non-interactive /sbin/ifconfig eth0</code> failed.<br />
+Command <code>cat /sys/class/net/eth0/carrier</code> failed.<br />
 <br />
 $if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
@@ -62,7 +64,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 $if_you_know_what_you_are_doing_msg
 
 Debugging information:
-Command <code>sudo --non-interactive /sbin/ifconfig eth1</code> failed."
+Command <code>cat /sys/class/net/eth1/carrier</code> failed."
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
