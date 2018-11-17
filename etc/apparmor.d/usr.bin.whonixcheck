@@ -194,6 +194,7 @@
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
 	/sys/hypervisor/type r,
+	/sys/devices/*/net/*/carrier r,
 
 	/tmp/** lrwcix,
 
