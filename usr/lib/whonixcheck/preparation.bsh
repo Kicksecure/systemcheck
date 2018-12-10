@@ -317,8 +317,8 @@ preparation() {
       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)" || true
 
       ## '/qubes-base-template outputs for example:
-      ## whonix-gw
-      ## whonix-ws
+      ## whonix-gw-14
+      ## whonix-ws-14
       qubes_base_template="$(qubesdb-read /qubes-base-template)" || true
 
       if [ "$qubes_vm_type" = "TemplateVM" ]; then
