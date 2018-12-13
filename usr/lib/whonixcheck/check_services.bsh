@@ -120,6 +120,9 @@ wait "$lastpid" || true
       return 0
    fi
 
+   journalctl_whonix_firewall_output="$(/bin/journalctl --no-pager -u whonix-firewall)" || true
+   journalctl_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$journalctl_whonix_firewall_output")"
+
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
@@ -133,6 +136,12 @@ wait "$lastpid" || true
 <br></br>
 <br></br>########################################
 <br></br>$systemctl_status_whonix_firewall_output
+<br></br>########################################
+<br></br>
+<br></br>output of <code>journalctl -u whonix-firewall</code>:
+<br></br>
+<br></br>########################################
+<br></br>$journalctl_whonix_firewall_output
 <br></br>########################################
 <br></br>
 <br></br>To see this for yourself...

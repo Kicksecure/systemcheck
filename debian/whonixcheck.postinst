@@ -29,6 +29,9 @@ case "$1" in
       ## bootstrap test.
       addgroup whonixcheck debian-tor
 
+      ## Add whonixcheck to group systemd-journal so it can use journalctl.
+      addgroup whonixcheck systemd-journal
+
       mkdir -p /var/lib/whonixcheck/
       chown --recursive whonixcheck:whonixcheck /var/lib/whonixcheck/
       chmod --recursive o+w /var/lib/whonixcheck/

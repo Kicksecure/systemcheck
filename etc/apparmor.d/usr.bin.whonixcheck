@@ -66,6 +66,7 @@
 	/bin/cp rix,
 	/bin/dmesg rix,
 	/bin/systemctl rix,
+	/bin/journalctl rix,
 	/bin/readlink rix,
 	/bin/fuser rix,
 	/usr/bin/tor rix,
