@@ -1,3 +1,23 @@
+commit c8f1c5fde62cb83913502bf80a4b04fc1ab2b1dc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Dec 12 20:58:45 2018 -0500
+
+    show output of "journalctl -u whonix-firewall" in case of whonix-firewall error
+    
+    https://github.com/QubesOS/qubes-issues/issues/4603
+
+commit 97829dab03e03ac4e6de3c1bde56a8d475ae0b69
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 9 23:13:51 2018 -0500
+
+    comment
+
+commit 91aa2c4ca99790ba2541d4ec4647efc5be07ff9d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Nov 17 06:19:47 2018 +0000
+
+    bumped changelog version
+
 commit cc62e7f1fcdb85452a861e6f376a52fc05902c5c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Nov 17 06:18:31 2018 +0000
