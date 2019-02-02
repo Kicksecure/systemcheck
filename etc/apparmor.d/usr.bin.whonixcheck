@@ -257,6 +257,7 @@
 
 	/usr/lib/msgcollector/* rix,
 	/usr/lib/sudo/sudoers.so mr,
+	/usr/lib/*-linux-gnu/security/** mr,
 	/usr/lib/whonixcheck/** rix,
 	/usr/lib/python*/** mr,
 	/usr/lib/torsocks/* mr,
