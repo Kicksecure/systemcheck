@@ -69,6 +69,7 @@
 	/bin/journalctl rix,
 	/bin/readlink rix,
 	/bin/fuser rix,
+
 	/usr/bin/tor rix,
 	/usr/sbin/tor rix,
 	/usr/bin/mkfifo rix,
