@@ -1,3 +1,27 @@
+commit add429962dac37d2e776ab26adb8349c170655f1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 2 08:29:03 2019 -0500
+
+    /usr/lib/*-linux-gnu/security/** mr,
+
+commit 3d06d0f27ee3fe824efefc2ea05020281dea7cd4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 2 08:27:48 2019 -0500
+
+    minor
+
+commit 5edd48edc4ba6df4f24d527fd51acde8f4b622d8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 2 08:25:13 2019 -0500
+
+    fix, run check_network_interfaces before check_whonixsetup_done
+
+commit 68633a54a565f51474779d568d5010a250b62096
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 14 10:02:59 2018 +0000
+
+    bumped changelog version
+
 commit c8f1c5fde62cb83913502bf80a4b04fc1ab2b1dc
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Dec 12 20:58:45 2018 -0500
