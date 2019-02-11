@@ -102,7 +102,7 @@ $resolve_attempt_commands
 $debugging_information</p>"
       else
          local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
-<br/>To fix, try running these commands:
+<br/><b><u>To fix, try running these commands:</u></b>
 <br/>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 $resolve_attempt_commands
 $debugging_information</p>"
