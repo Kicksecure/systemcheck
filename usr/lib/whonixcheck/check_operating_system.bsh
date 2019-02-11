@@ -77,14 +77,21 @@ $qubes_update_help</p>"
    check_os_output="$(sudo --non-interactive /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
 
    if [ ! "$check_os_exit_code" = "0" ]; then
+      check_os_output="$(/usr/lib/msgcollector/br_add "$check_os_output")"
       if [ "$qubes_detected" = "true" ]; then
-         local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports:</b>
-<code><blockquote>$check_os_output</blockquote></code>
+         local MSG="<p>$update_documentation_link_x Check Result:<br />
+<code>sudo apt-get dist-upgrade --simulate</code> output:
+<br /><br /><code>
+$check_os_output
+</code><br />
 <br></br><b><u>Please update $update_where.</u></b>
 $qubes_update_help</p>"
       else
-         local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports:</b>
-<code><blockquote>$check_os_output</blockquote></code>
+         local MSG="<p>$update_documentation_link_x Check Result:<br />
+<code>sudo apt-get dist-upgrade --simulate</code> output:
+<br /><br /><code>
+$check_os_output
+</code><br />
 <br></br>Please update Whonix-Gateway and Whonix-Workstation:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>$update_command</blockquote></code></p>"
