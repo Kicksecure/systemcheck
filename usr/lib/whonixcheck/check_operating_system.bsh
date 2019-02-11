@@ -95,13 +95,13 @@ $if_you_know_what_you_are_doing_msg"
 <br/><code>sudo apt-get dist-upgrade</code></blockquote>"
 
       if [ "$qubes_detected" = "true" ]; then
-         local MSG="<p>$update_documentation_link_x Check Result:<br />
+         local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
 
 <br/><b><u>To fix, try running these commands in $update_where.</u></b>
 $resolve_attempt_commands
 $debugging_information</p>"
       else
-         local MSG="<p>$update_documentation_link_x Check Result:<br />
+         local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
 <br/>To fix, try running these commands:
 <br/>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 $resolve_attempt_commands
