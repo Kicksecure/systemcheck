@@ -71,9 +71,28 @@ $qubes_update_help</p>"
       return 0
    fi
 
-   local check_os_output
+   local check_os_output check_os_exit_code
+   check_os_exit_code="0"
    ## /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate is timeout protected.
-   check_os_output="$(/usr/lib/anon-shared-helper-scripts/apt-get-update-simulate 2>&1)"
+   check_os_output="$(sudo --non-interactive /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
+
+   if [ ! "$check_os_exit_code" = "0" ]; then
+      if [ "$qubes_detected" = "true" ]; then
+         local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports:</b>
+<code><blockquote>$check_os_output</blockquote></code>
+<br></br><b><u>Please update $update_where.</u></b>
+$qubes_update_help</p>"
+      else
+         local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports:</b>
+<code><blockquote>$check_os_output</blockquote></code>
+<br></br>Please update Whonix-Gateway and Whonix-Workstation:
+<br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
+<code><blockquote>$update_command</blockquote></code></p>"
+      fi
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      return 0
+   fi
 
    local number_upgraded line first_char
 
