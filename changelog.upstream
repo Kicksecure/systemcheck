@@ -1,3 +1,41 @@
+commit c6353d4f03adb77000b42b2803030a2ca5fdd6af
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 11 10:15:47 2019 +0000
+
+    output
+
+commit 108a9df119e7c93d56124f1c4e6ecd25abcca7df
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 11 10:14:18 2019 +0000
+
+    output
+
+commit 4d36735e32e99137ba4bb8be7ba6b5321c89e838
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 11 10:13:03 2019 +0000
+
+    output
+
+commit df75cf728bf5ad963800079698f9f7c57a59b298
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 11 09:50:48 2019 +0000
+
+    output
+
+commit fc03ea20da3c6aada63ca6fba400cd00b0488c80
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 11 09:43:13 2019 +0000
+
+    fix
+    
+    https://forums.whonix.org/t/whonix-error-script-bug/6814
+
+commit ae7378456da94581cc79a629f693612a4faefa74
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 3 11:40:56 2019 +0000
+
+    bumped changelog version
+
 commit add429962dac37d2e776ab26adb8349c170655f1
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Feb 2 08:29:03 2019 -0500
