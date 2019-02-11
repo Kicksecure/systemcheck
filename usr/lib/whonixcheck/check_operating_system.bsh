@@ -78,26 +78,37 @@ $qubes_update_help</p>"
 
    if [ ! "$check_os_exit_code" = "0" ]; then
       check_os_output="$(/usr/lib/msgcollector/br_add "$check_os_output")"
+
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+      local debugging_information resolve_attempt_commands
+      debugging_information="<b>Debugging information:</b><br />
+<code>sudo apt-get dist-upgrade --simulate</code> exit code: <code>$check_os_exit_code</code><br />
+<code>sudo apt-get dist-upgrade --simulate</code> output:
+<code><blockquote>
+$check_os_output
+</blockquote></code>
+$if_you_know_what_you_are_doing_msg"
+      resolve_attempt_commands="<blockquote><code>sudo dpkg --audit</code>
+<br/><code>sudo dpkg --configure -a</code>
+<br/><code>sudo apt-get dist-upgrade</code></blockquote>"
+
       if [ "$qubes_detected" = "true" ]; then
          local MSG="<p>$update_documentation_link_x Check Result:<br />
-<code>sudo apt-get dist-upgrade --simulate</code> output:
-<br /><br /><code>
-$check_os_output
-</code><br />
-<br></br><b><u>Please update $update_where.</u></b>
-$qubes_update_help</p>"
+
+<br/><b><u>To fix, try running these commands in $update_where.</u></b>
+$resolve_attempt_commands
+$debugging_information</p>"
       else
          local MSG="<p>$update_documentation_link_x Check Result:<br />
-<code>sudo apt-get dist-upgrade --simulate</code> output:
-<br /><br /><code>
-$check_os_output
-</code><br />
-<br></br>Please update Whonix-Gateway and Whonix-Workstation:
-<br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
-<code><blockquote>$update_command</blockquote></code></p>"
+<br/>To fix, try running these commands:
+<br/>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
+$resolve_attempt_commands
+$debugging_information</p>"
       fi
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
