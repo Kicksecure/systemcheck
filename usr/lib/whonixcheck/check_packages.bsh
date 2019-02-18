@@ -130,6 +130,6 @@ $packages_help_msg
 }
 
 check_packages() {
-   check_meta_packages
-   check_unwanted_packages
+   whonixcheck_run_function check_meta_packages
+   whonixcheck_run_function check_unwanted_packages
 }
