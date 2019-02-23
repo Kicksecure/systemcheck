@@ -1,3 +1,23 @@
+commit ddae5dddb09e1194fac06701a73a21da02c34047
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 23 02:55:44 2019 -0500
+
+    fix exit codes
+
+commit 7dcbf0a3e48336a88739e7ca36f3c2cccdd2d27a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 18 02:45:48 2019 -0500
+
+    make check_unwanted_packages skippable
+    
+    by running it from whonixcheck_run_function
+
+commit 2f956d79f75fcc914e658e3dbdb1c375cd9ef154
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 11 10:16:28 2019 +0000
+
+    bumped changelog version
+
 commit c6353d4f03adb77000b42b2803030a2ca5fdd6af
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Feb 11 10:15:47 2019 +0000
