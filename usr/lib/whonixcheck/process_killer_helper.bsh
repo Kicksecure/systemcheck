@@ -26,7 +26,7 @@ process_killer_helper() {
    fi
 
    ## >/dev/null 2>/dev/null to prevent seeing error due to race conditions (process in meanwhile already terminated).
-   kill -sigterm "$lastpid" >/dev/null 2>/dev/null || true
+   kill -s sigterm "$lastpid" >/dev/null 2>/dev/null || true
 
    local i
    i="0"
@@ -54,7 +54,7 @@ process_killer_helper() {
    done
 
    ## Seems like process still running. Terminating using sigkill.
-   kill -sigkill "$lastpid" >/dev/null 2>/dev/null || true
+   kill -s sigkill "$lastpid" >/dev/null 2>/dev/null || true
 
    return 0
 }

@@ -27,7 +27,7 @@ ex_funct() {
    echo "$SCRIPTNAME: $SIGNAL_TYPE received. Cleaning up..."
 
    if [ ! "$pid" = "" ]; then
-      kill -sigterm "$pid"
+      kill -s sigterm "$pid"
    fi
 
    echo "$SCRIPTNAME: $SIGNAL_TYPE received. Exiting."
