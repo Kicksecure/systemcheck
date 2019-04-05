@@ -1,0 +1,6 @@
+## Copyright (C) 2019 - 2019 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+## False positives.
+whonixcheck: uses-dpkg-database-directly etc/apparmor.d/usr.bin.whonixcheck
+whonixcheck: uses-dpkg-database-directly etc/sudoers.d/whonixcheck

@@ -33,18 +33,18 @@ case "$1" in
       addgroup whonixcheck systemd-journal
 
       mkdir -p /var/lib/whonixcheck/
-      chown --recursive whonixcheck:whonixcheck /var/lib/whonixcheck/
-      chmod --recursive o+w /var/lib/whonixcheck/
-      chmod --recursive g+w /var/lib/whonixcheck/
+      chown whonixcheck:whonixcheck /var/lib/whonixcheck/
+      chmod o+w /var/lib/whonixcheck/
+      chmod g+w /var/lib/whonixcheck/
 
       touch /var/lib/whonixcheck/write_lock
-      chmod --recursive o+w /var/lib/whonixcheck/write_lock
-      chmod --recursive g+w /var/lib/whonixcheck/write_lock
+      chmod o+w /var/lib/whonixcheck/write_lock
+      chmod g+w /var/lib/whonixcheck/write_lock
 
       mkdir -p /var/run/whonixcheck/
-      chown --recursive whonixcheck:whonixcheck /var/run/whonixcheck/
-      chmod --recursive o+w /var/run/whonixcheck/
-      chmod --recursive g+w /var/run/whonixcheck/
+      chown whonixcheck:whonixcheck /var/run/whonixcheck/
+      chmod o+w /var/run/whonixcheck/
+      chmod g+w /var/run/whonixcheck/
    ;;
 
    abort-upgrade|abort-remove|abort-deconfigure)
