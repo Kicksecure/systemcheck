@@ -1,3 +1,51 @@
+commit 6cacbae9adbc7ddfbd1f0cc114a36532193cb811
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 6 10:22:43 2019 +0000
+
+    sudo
+
+commit 8af109938338e42dbc886b864fba7c3a0ca2a0ad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 5 17:04:27 2019 -0400
+
+    gksudo
+
+commit d9d0772abdbd50b27f5d393a4f67285ef88fcea4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 5 14:06:26 2019 -0400
+
+    port to debian buster
+
+commit 4d6533dede1bc1f7957d470f80e604aa56a20661
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 5 13:48:35 2019 -0400
+
+    fix lintian warnings
+
+commit f71ecb764fc4ef7a6ac7b19ca59160b90facdb3a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 4 05:55:52 2019 -0400
+
+    port to debian buster
+
+commit 14c16c4ffab173f5d727c31344ce60e855a1afb1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 4 05:51:09 2019 -0400
+
+    port to debian buster
+
+commit 2dd8d1b523a9f13ba40beeaf64548afd6f503be6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 3 18:05:58 2019 -0400
+
+    readme
+
+commit 22c6a699b66d9b6198bd5103f2bd81a5215c1dd9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 29 10:11:01 2019 +0000
+
+    bumped changelog version
+
 commit 29d8f62290e72f6c828bdcb0d146ad85edbb62a1
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Mar 29 09:03:20 2019 +0000
