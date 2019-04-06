@@ -538,7 +538,7 @@ or in Terminal: <code>sudo service sdwdate restart</code>
 <br></br>As last resort...
 <br></br>
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Use the manual clock setting tool. <blockquote><code>gksudo clock-random-manual-gui</code></blockquote>
+<br></br>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote>
 3. Simulate sdwdate success. <blockquote><code>sudo touch /var/run/sdwdate/first_success</code></blockquote>
 4. Rerun whonixcheck.</p>"
    fi
