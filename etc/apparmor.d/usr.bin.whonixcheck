@@ -97,6 +97,8 @@
 	/etc/timezone r,
 	/etc/localtime r,
 	deny /etc/fstab r,
+	## sudo
+	/etc/shadow r,
 
 	/etc/ld.so.cache r,
 	/etc/nsswitch.conf r,
@@ -176,6 +178,8 @@
 	## Required for fuse.
 	@{PROC}/*/mountinfo r,
 	@{PROC}/swaps r,
+	## systemd-detect-virt
+	@{PROC}/[0-9]/sched r,
 
 	/run/whonixcheck/* mrwcx,
 	/run/utmp rk,
