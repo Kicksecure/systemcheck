@@ -1,3 +1,21 @@
+commit 458fc17bd48fa43fe417a851d1c5834c7e54d146
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 06:33:16 2019 -0400
+
+    fix apparmor
+
+commit d5661c0b834a21022a0530ec8d05159e79b4072e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 06:19:43 2019 -0400
+
+    output
+
+commit 0b12f0c8f6f04911ed57a54c1706e31f7f6c81aa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 6 12:21:46 2019 +0000
+
+    bumped changelog version
+
 commit 6cacbae9adbc7ddfbd1f0cc114a36532193cb811
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Apr 6 10:22:43 2019 +0000
