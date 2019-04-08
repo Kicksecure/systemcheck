@@ -350,7 +350,7 @@ preparation() {
          fi
       fi
    else
-      start_menu_instructions_system_first_part="Start Menu -> Applications -> System ->"
+      start_menu_instructions_system_first_part="Start Menu -> System ->"
       persistent_changes_start_menu_instructions_first_part="$start_menu_instructions_system_first_part"
       qubes_title_extra=""
       update_where="this machine"

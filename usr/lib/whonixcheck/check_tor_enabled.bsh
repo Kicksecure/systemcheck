@@ -26,11 +26,11 @@ check_tor_enabled() {
       local MSG="<p>Tor Check Result:
 <b>Tor is disabled.</b> Therefore you most likely can not connect to the internet.<br /><br />
 (Debugging information: Could not find <code>DisableNetwork 0</code> in Tor config.)<br /><br />
-Please close this window and enable Tor using Whonix Setup!
-<blockquote>    $start_menu_instructions_system_first_part Whonix Setup</blockquote>
+Please close this window and enable Tor using Anon Connection Wizard!
+<blockquote>    $start_menu_instructions_system_first_part Anon Connection Wizard</blockquote>
     or in Terminal: <code>sudo whonixsetup</code><br /><br />
 or manually (If you know about the public Tor network!) and open <code>/usr/local/etc/torrc.d/50_user.conf</code> with root rights
-($start_menu_instructions_system_first_part Torrc) and set:
+($start_menu_instructions_system_first_part Tor User Config) and set:
 <blockquote><code>DisableNetwork 0</code></blockquote>
 Then run <code>whonixcheck</code> again.</p>"
 

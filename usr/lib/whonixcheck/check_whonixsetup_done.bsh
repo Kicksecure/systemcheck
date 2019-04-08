@@ -42,7 +42,7 @@ check_whonixsetup_done() {
    check_whonixsetup_done_do
 
    if [ "$whonixsetup_done" = "0" ]; then
-      local MSG="<p>Please close this window and finish whonixsetup! <blockquote>$start_menu_instructions_system_first_part Whonix Setup</blockquote></p>
+      local MSG="<p>Please close this window and finish whonixsetup! <blockquote>$start_menu_instructions_system_first_part Anon Connection Wizard</blockquote></p>
 <p>or in Terminal: <blockquote><code>sudo whonixsetup</code></blockquote></p>
 
 <p>(Debugging information: Neither file <code>/var/cache/whonix-setup-wizard/status-files/whonixsetup.done</code>
