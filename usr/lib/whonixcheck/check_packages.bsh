@@ -20,12 +20,10 @@ check_meta_packages() {
    else
       if [ "$vm_lower_case_short" = "gateway" ]; then
          meta_package_wanted_list="\
-non-qubes-whonix-gateway-kde
 non-qubes-whonix-gateway-xfce
 non-qubes-whonix-gateway-cli"
       elif [ "$vm_lower_case_short" = "workstation" ]; then
          meta_package_wanted_list="\
-non-qubes-whonix-workstation-kde
 non-qubes-whonix-workstation-xfce
 non-qubes-whonix-workstation-cli"
       fi
@@ -34,10 +32,8 @@ non-qubes-whonix-workstation-cli"
    ## Fallback if neither gateway nor workstation was detected.
    if [ "$meta_package_wanted_list" = "" ]; then
       meta_package_wanted_list="\
-non-qubes-whonix-gateway-kde
 non-qubes-whonix-gateway-xfce
 non-qubes-whonix-gateway-cli
-non-qubes-whonix-workstation-kde
 non-qubes-whonix-workstation-xfce
 non-qubes-whonix-workstation-cli"
    fi
