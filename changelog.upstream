@@ -1,3 +1,29 @@
+commit d40ddc10a655ee682cfd4f7cb2bbb6b14494152f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 10 15:41:31 2019 -0400
+
+    warn against outdated meta packages
+
+commit f680cc9da26c64c697f378f62c5b1cceb1965b8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 10 15:38:39 2019 -0400
+
+    deprecate KDE
+    
+    https://forums.whonix.org/t/user-poll-xfce-vs-kde-kde-deprecation-considered/6235
+
+commit ffbdb2e2dfb35810ed3314e4ba6805f4902a4f9b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 10 15:27:46 2019 -0400
+
+    verbose output for apt-get update when using --verbose
+
+commit 1bd3941ac8684313fdfc2e3319bf55fabf3335b1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 13:06:46 2019 +0000
+
+    bumped changelog version
+
 commit 458fc17bd48fa43fe417a851d1c5834c7e54d146
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Apr 8 06:33:16 2019 -0400
