@@ -25,7 +25,11 @@ check_operating_system() {
    local apt_get_exit_code
    apt_get_exit_code="0"
    ## /usr/lib/security-misc/apt-get-update is timeout protected.
-   sudo --non-interactive "/usr/lib/security-misc/apt-get-update" >/dev/null &
+   if [ "$verbose" -ge "1" ]; then
+      sudo --non-interactive "/usr/lib/security-misc/apt-get-update" &
+   else
+      sudo --non-interactive "/usr/lib/security-misc/apt-get-update" >/dev/null &
+   fi
    apt_get_update_pid="$!"
    wait "$apt_get_update_pid" || { apt_get_exit_code="$?" ; true; };
    unset apt_get_update_pid
