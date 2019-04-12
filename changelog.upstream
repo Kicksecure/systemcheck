@@ -1,3 +1,23 @@
+commit a11abb6ca0e9ad3b77943dbcc066136e839c1f93
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 12 15:54:39 2019 +0000
+
+    sudo
+
+commit ded4e9324ffc804a3a4a6118d09de4a2effa63ae
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 12 15:39:57 2019 +0000
+
+    whonixcheck grep journal for "fail", "error" and "denied"
+    
+    https://phabricator.whonix.org/T854
+
+commit f83a4633e703b621794273f28136a4dc2e3fddfd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 10 16:23:50 2019 -0400
+
+    bumped changelog version
+
 commit d40ddc10a655ee682cfd4f7cb2bbb6b14494152f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Apr 10 15:41:31 2019 -0400
