@@ -80,6 +80,13 @@ $qubes_update_help</p>"
    ## /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate is timeout protected.
    check_os_output="$(sudo --non-interactive /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
 
+   if [ "$verbose" -ge "2" ]; then
+      local MSG="<p><code>apt-get dist-upgrade --simulate</code> output:
+<code><blockquote>$check_os_output</blockquote></code></p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   fi
+
    if [ ! "$check_os_exit_code" = "0" ]; then
       check_os_output="$(/usr/lib/msgcollector/br_add "$check_os_output")"
 
