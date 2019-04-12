@@ -70,6 +70,64 @@ check_services() {
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Run. <blockquote><code>systemctl --failed list-units</code></blockquote>
+
+$if_you_know_what_you_are_doing_msg</p>"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+
+   EXIT_CODE="1"
+
+   return 0
+}
+
+check_journal() {
+   if [ "$verbose" -lt "1" ]; then
+      return 0
+   fi
+
+   local journalctl_output grep_warn_output grep_error_output grep_denied_output
+
+   ## TODO: sudo
+   journalctl_output="$(sudo --non-interactive /bin/journalctl --no-pager)" || true
+
+   grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")"
+   grep_error_output="$(echo "$journalctl_output" | grep -i "error")"
+   grep_denied_output="$(echo "$journalctl_output" | grep -i "denied")"
+
+   if [ "$grep_warn_output" = "" ] && [ "$grep_error_output" = "" ] && [ "$grep_denied_output" = "" ]; then
+      return 0
+   fi
+
+   grep_warn_output="$(/usr/lib/msgcollector/br_add "$grep_warn_output")"
+   grep_error_output="$(/usr/lib/msgcollector/br_add "$grep_error_output")"
+   grep_denied_output="$(/usr/lib/msgcollector/br_add "$grep_denied_output")"
+
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   local MSG
+   MSG="<p>systemd journal check Result:
+<br></br>warnings:
+<br></br>########################################
+<br></br>$grep_warn_output
+<br></br>########################################
+<br></br>
+<br></br>errors:
+<br></br>########################################
+<br></br>$grep_error_output
+<br></br>########################################
+<br></br>
+<br></br>denied:
+<br></br>########################################
+<br></br>$grep_denied_output
+<br></br>########################################
+<br></br>
+<br></br>To see this for yourself...
+<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br></br>2. Run. <blockquote><code>sudo /bin/journalctl | grep -i warn</code></blockquote>
+<br></br>3. Run. <blockquote><code>sudo /bin/journalctl | grep -i error</code></blockquote>
+<br></br>4. Run. <blockquote><code>sudo /bin/journalctl | grep -i denied</code></blockquote>
+
 $if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
@@ -151,6 +209,7 @@ wait "$lastpid" || true
 <br></br>2. Run. <blockquote><code>systemctl status whonix-firewall</code></blockquote>
 <br></br>2. Also see. <blockquote><code>sudo journalctl -u whonix-firewall | cat</code></blockquote>
 <br></br>3. Try to manually start Whonix firewall. <blockquote><code>sudo whonix_firewall</code></blockquote>
+
 $if_you_know_what_you_are_doing_msg
 </p>"
 

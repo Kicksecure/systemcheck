@@ -32,3 +32,5 @@ whonixcheck ALL=NOPASSWD: /bin/dmesg
 
 ## required for check_spectre_meltdown
 whonixcheck ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid
+
+whonixcheck ALL=NOPASSWD: /bin/journalctl --no-pager

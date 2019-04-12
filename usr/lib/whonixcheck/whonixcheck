@@ -82,6 +82,9 @@ whonixcheck_main() {
    whonixcheck_run_function check_services ## check_services
 
    ## Does not use the network.
+   whonixcheck_run_function check_journal ## check_services
+
+   ## Does not use the network.
    whonixcheck_run_function check_qubes_settings ## check_qubes
 
    ## Does not use the network.

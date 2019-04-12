@@ -180,6 +180,8 @@
 	@{PROC}/swaps r,
 	## systemd-detect-virt
 	@{PROC}/[0-9]/sched r,
+        ## sudo
+	@{PROC}/[0-9]*/cgroup r,
 
 	/run/whonixcheck/* mrwcx,
 	/run/utmp rk,
@@ -197,6 +199,26 @@
 	/sys/devices/virtual/dmi/id/sys_vendor r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/ r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
+	/sys/fs/cgroup/cpuset/cgroup.clone_children r,
+	/sys/fs/cgroup/systemd/cgroup.procs mrwcx,
+	/sys/fs/cgroup/systemd/user/whonixcheck/ rw,
+	/sys/fs/cgroup/systemd/user/whonixcheck/** rw,
+	/sys/fs/cgroup/freezer/cgroup.procs rw,
+	/sys/fs/cgroup/freezer/user/whonixcheck/ rw,
+	/sys/fs/cgroup/freezer/user/whonixcheck/** rw,
+	/sys/fs/cgroup/memory/user/whonixcheck/0/ rw,
+	/sys/fs/cgroup/memory/user/whonixcheck/0/** rw,
+	/sys/fs/cgroup/memory/cgroup.procs rw,
+	/sys/fs/cgroup/memory/user/whonixcheck/ rw,
+	/sys/fs/cgroup/systemd/user/root/0/cgroup.procs rw,
+	/sys/fs/cgroup/freezer/user/root/0/cgroup.procs rw,
+	/sys/fs/cgroup/memory/user/root/0/cgroup.procs rw,
+	/sys/fs/cgroup/systemd/user/root/ rw,
+	/sys/fs/cgroup/systemd/user/root/** rw,
+	/sys/fs/cgroup/freezer/user/root/ rw,
+	/sys/fs/cgroup/freezer/user/root/** rw,
+	/sys/fs/cgroup/memory/user/root/ rw,
+	/sys/fs/cgroup/memory/user/root/** rw,
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
 	/sys/hypervisor/type r,
@@ -335,6 +357,8 @@
 	/run/onion-grater/pid r,
 	## Required for curl when resolvconf is installed.
 	/run/resolvconf/resolv.conf r,
+
+	/run/sudo/ts/whonixcheck rw,
 
 	## Qubes specific
 	/run/qubes-whonix/ r,
