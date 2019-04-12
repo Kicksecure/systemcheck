@@ -25,7 +25,7 @@ check_qubes_network_interface() {
 <br></br>
 <br></br>Check the systemd unit status of qubes-db.
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run. <blockquote><code>systemctl status qubes-db</code></blockquote>
+<br></br>2. Run. <blockquote><code>sudo systemctl status qubes-db</code></blockquote>
 $if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
