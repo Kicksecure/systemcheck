@@ -1,3 +1,21 @@
+commit 44686c60cf7aef3716939abba252159d26745b8a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 12 19:18:34 2019 +0000
+
+    fix Qubes virtualization detection in Debian buster
+
+commit bdc54d61f469380be654feea743474db5d50cf41
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 12 19:18:13 2019 +0000
+
+    verbose output
+
+commit 2c082cc55e39c37056ef3eb448b8880905df8f2d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 12 16:24:55 2019 +0000
+
+    bumped changelog version
+
 commit a11abb6ca0e9ad3b77943dbcc066136e839c1f93
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Apr 12 15:54:39 2019 +0000
