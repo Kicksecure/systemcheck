@@ -81,7 +81,7 @@ $qubes_update_help</p>"
    check_os_output="$(sudo --non-interactive /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
 
    if [ "$verbose" -ge "1" ]; then
-      local MSG="<p><code>apt-get dist-upgrade --simulate</code> output:
+      local MSG="<p><code>sudo apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>$check_os_output</blockquote></code></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
