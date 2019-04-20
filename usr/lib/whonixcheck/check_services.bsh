@@ -96,7 +96,11 @@ check_journal() {
    grep_denied_output="$(echo "$journalctl_output" | grep -i "denied")" || true
    grep_ordering_output="$(echo "$journalctl_output" | grep -i "ordering cycle")" || true
 
-   if [ "$grep_warn_output" = "" ] && [ "$grep_error_output" = "" ] && [ "$grep_denied_output" = "" ] && [ "$grep_ordering_output" = "" ]; then
+   if \
+   [ "$grep_warn_output" = "" ] && \
+   [ "$grep_error_output" = "" ] && \
+   [ "$grep_denied_output" = "" ] && \
+   [ "$grep_ordering_output" = "" ]; then
       return 0
    fi
 
