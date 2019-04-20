@@ -85,7 +85,7 @@ check_journal() {
       return 0
    fi
 
-   local journalctl_output grep_warn_output grep_error_output grep_denied_output
+   local journalctl_output grep_warn_output grep_error_output grep_denied_output grep_ordering_output
 
    ## TODO: sudo
    journalctl_output="$(sudo --non-interactive /bin/journalctl --no-pager)" || true
@@ -93,14 +93,16 @@ check_journal() {
    grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")"
    grep_error_output="$(echo "$journalctl_output" | grep -i "error")"
    grep_denied_output="$(echo "$journalctl_output" | grep -i "denied")"
+   grep_ordering_output="$(echo "$journalctl_output" | grep -i "ordering cycle")"
 
-   if [ "$grep_warn_output" = "" ] && [ "$grep_error_output" = "" ] && [ "$grep_denied_output" = "" ]; then
+   if [ "$grep_warn_output" = "" ] && [ "$grep_error_output" = "" ] && [ "$grep_denied_output" = "" ] && [ "$grep_ordering_output" = "" ]; then
       return 0
    fi
 
    grep_warn_output="$(/usr/lib/msgcollector/br_add "$grep_warn_output")"
    grep_error_output="$(/usr/lib/msgcollector/br_add "$grep_error_output")"
    grep_denied_output="$(/usr/lib/msgcollector/br_add "$grep_denied_output")"
+   grep_ordering_output="$(/usr/lib/msgcollector/br_add "$grep_ordering_output")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
@@ -122,11 +124,17 @@ check_journal() {
 <br></br>$grep_denied_output
 <br></br>########################################
 <br></br>
+<br></br>ordering cycle:
+<br></br>########################################
+<br></br>$grep_ordering_output
+<br></br>########################################
+<br></br>
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Run. <blockquote><code>sudo /bin/journalctl | grep -i warn</code></blockquote>
 <br></br>3. Run. <blockquote><code>sudo /bin/journalctl | grep -i error</code></blockquote>
 <br></br>4. Run. <blockquote><code>sudo /bin/journalctl | grep -i denied</code></blockquote>
+<br></br>5. Run. <blockquote><code>sudo /bin/journalctl | grep -i \"ordering cycle\"</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
