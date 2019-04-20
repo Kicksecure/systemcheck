@@ -90,10 +90,11 @@ check_journal() {
    ## TODO: sudo
    journalctl_output="$(sudo --non-interactive /bin/journalctl --no-pager)" || true
 
-   grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")"
-   grep_error_output="$(echo "$journalctl_output" | grep -i "error")"
-   grep_denied_output="$(echo "$journalctl_output" | grep -i "denied")"
-   grep_ordering_output="$(echo "$journalctl_output" | grep -i "ordering cycle")"
+   ## grep will exit 1 if no match, therefore overwrite with || true.
+   grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")" || true
+   grep_error_output="$(echo "$journalctl_output" | grep -i "error")" || true
+   grep_denied_output="$(echo "$journalctl_output" | grep -i "denied")" || true
+   grep_ordering_output="$(echo "$journalctl_output" | grep -i "ordering cycle")" || true
 
    if [ "$grep_warn_output" = "" ] && [ "$grep_error_output" = "" ] && [ "$grep_denied_output" = "" ] && [ "$grep_ordering_output" = "" ]; then
       return 0
