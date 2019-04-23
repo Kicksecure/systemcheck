@@ -1,3 +1,27 @@
+commit 8b827230dd5c5ac1ff5ceb060d98e57761be4e22
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 20 09:51:34 2019 +0000
+
+    refactoring
+
+commit f287e2b730def76818a5040bc0447b4f3ec4259a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 20 09:50:39 2019 +0000
+
+    fix
+
+commit b4971a0a8d75a6431f3f9c75c1bd621ab7c86ae4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 20 09:49:09 2019 +0000
+
+    grep for "ordering cycle" in journal to when using --verbose
+
+commit c1be65e27b5b5af9b566ac78b96ceab0d7133688
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 13 14:25:43 2019 +0000
+
+    bumped changelog version
+
 commit b987b902117c3616198dc19485a6659ad9e6c842
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Apr 13 13:36:28 2019 +0000
