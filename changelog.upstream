@@ -1,3 +1,27 @@
+commit 87512f236658e5e9cfb39f74acdb3ac9a437afc3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun May 12 03:03:35 2019 -0400
+
+    minor
+
+commit b410c0e16703c4da45aa928c21f48e2a3a54f612
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun May 12 02:58:46 2019 -0400
+
+    update path to pre.bsh
+
+commit d49e43a3099204a062b31e5afc47c82c94dca1e2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun May 12 02:50:16 2019 -0400
+
+    anon-shared-helper-scripts -> helper-scripts
+
+commit 9c423d1130588111a31c75c1de7dbb09707bf88a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 3 11:42:27 2019 +0000
+
+    bumped changelog version
+
 commit 6f743b3a495595990cf9de51641e13b923a4fc26
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri May 3 10:56:58 2019 +0000
@@ -1583,7 +1607,7 @@ commit 6f2bbabb84b11b61b0e583c5f0bc96e2b8d4c437
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Dec 25 01:23:46 2016 +0000
 
-    use /usr/lib/helper-scripts/apt-get-update-simulate
+    use /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
     
     instead of directly using apt-get --simulate dist-upgrade
     
@@ -3526,7 +3550,7 @@ commit 79efd44aebafbafc2a2c3f67ac3a1a6434705fcf
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 14 22:59:23 2015 +0200
 
-    added missing dependency helper-scripts
+    added missing dependency anon-shared-helper-scripts
 
 commit dd6ecb59dc8d645ae0cb9d6b221e2953953d423e
 Author: Patrick Schleizer <adrelanos@riseup.net>
@@ -4903,7 +4927,7 @@ commit cbb9f880f8da9a9dbedc0d8e59028a8f55f1d8ac
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 24 14:09:16 2014 +0000
 
-    init script: added "Should-Start: rinetd" to aid /usr/lib/helper-scripts/tor_bootstrap_check.py 127.0.0.1 9151 0
+    init script: added "Should-Start: rinetd" to aid /usr/lib/anon-shared-helper-scripts/tor_bootstrap_check.py 127.0.0.1 9151 0
 
 commit 06ba0462bc6624873f01a475e02f1c49e2177fdf
 Author: Patrick Schleizer <adrelanos@riseup.net>
