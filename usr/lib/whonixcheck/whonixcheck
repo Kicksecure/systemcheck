@@ -33,10 +33,10 @@ set +e
 bash -n /usr/lib/msgcollector/msgdispatcher_run_check
 source /usr/lib/msgcollector/msgdispatcher_run_check
 
-bash -n /usr/lib/anon-shared-helper-scripts/tor_enabled_check
-source /usr/lib/anon-shared-helper-scripts/tor_enabled_check
-bash -n /usr/lib/anon-shared-helper-scripts/pkg_manager_running_check
-source /usr/lib/anon-shared-helper-scripts/pkg_manager_running_check
+bash -n /usr/lib/helper-scripts/tor_enabled_check
+source /usr/lib/helper-scripts/tor_enabled_check
+bash -n /usr/lib/helper-scripts/pkg_manager_running_check
+source /usr/lib/helper-scripts/pkg_manager_running_check
 
 for i in /usr/lib/whonixcheck/*.bsh; do
    bash -n "$i"

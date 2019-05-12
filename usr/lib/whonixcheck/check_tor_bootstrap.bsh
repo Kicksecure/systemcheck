@@ -50,7 +50,7 @@ check_tor_bootstrap_init() {
    ## sets: tor_circuit_established
    ## sets: tor_circuit_established_check_exit_code
    ## sets: tor_circuit_established_word
-   source /usr/lib/anon-shared-helper-scripts/tor_bootstrap_check.bsh
+   source /usr/lib/helper-scripts/tor_bootstrap_check.bsh
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
       check_tor_bootstrap_status

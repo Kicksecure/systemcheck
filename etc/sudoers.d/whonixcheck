@@ -16,9 +16,9 @@ whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status onion-grat
 ## /usr/bin/whonixcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
 whonixcheck ALL=NOPASSWD: /usr/lib/security-misc/apt-get-update
-whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
-whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/apt-get-update-kill-helper
-whonixcheck ALL=NOPASSWD: /usr/lib/anon-shared-helper-scripts/anondate
+whonixcheck ALL=NOPASSWD: /usr/lib/helper-scripts/apt-get-update-simulate
+whonixcheck ALL=NOPASSWD: /usr/lib/helper-scripts/apt-get-update-kill-helper
+whonixcheck ALL=NOPASSWD: /usr/lib/helper-scripts/anondate
 
 ## check_package_manager_running_helper
 whonixcheck ALL=NOPASSWD: /bin/fuser /var/lib/dpkg/lock /var/cache/apt/archives/lock

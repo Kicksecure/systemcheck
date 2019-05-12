@@ -253,7 +253,7 @@ preparation() {
       vm_lower_case_short="error"
    fi
 
-   eval $(/usr/lib/anon-shared-helper-scripts/settings_echo)
+   eval $(/usr/lib/helper-scripts/settings_echo)
 
    if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then
       ## Fallback

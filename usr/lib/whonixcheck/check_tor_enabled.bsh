@@ -13,7 +13,7 @@ check_tor_enabled() {
       return 0
    fi
 
-   ## provided by: /usr/lib/anon-shared-helper-scripts/tor_enabled_check
+   ## provided by: /usr/lib/helper-scripts/tor_enabled_check
    ## sets: TOR_ENABLED
    check_tor_enabled_do
 

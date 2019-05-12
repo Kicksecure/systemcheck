@@ -1583,7 +1583,7 @@ commit 6f2bbabb84b11b61b0e583c5f0bc96e2b8d4c437
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Dec 25 01:23:46 2016 +0000
 
-    use /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
+    use /usr/lib/helper-scripts/apt-get-update-simulate
     
     instead of directly using apt-get --simulate dist-upgrade
     
@@ -3526,7 +3526,7 @@ commit 79efd44aebafbafc2a2c3f67ac3a1a6434705fcf
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 14 22:59:23 2015 +0200
 
-    added missing dependency anon-shared-helper-scripts
+    added missing dependency helper-scripts
 
 commit dd6ecb59dc8d645ae0cb9d6b221e2953953d423e
 Author: Patrick Schleizer <adrelanos@riseup.net>
@@ -4903,7 +4903,7 @@ commit cbb9f880f8da9a9dbedc0d8e59028a8f55f1d8ac
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 24 14:09:16 2014 +0000
 
-    init script: added "Should-Start: rinetd" to aid /usr/lib/anon-shared-helper-scripts/tor_bootstrap_check.py 127.0.0.1 9151 0
+    init script: added "Should-Start: rinetd" to aid /usr/lib/helper-scripts/tor_bootstrap_check.py 127.0.0.1 9151 0
 
 commit 06ba0462bc6624873f01a475e02f1c49e2177fdf
 Author: Patrick Schleizer <adrelanos@riseup.net>

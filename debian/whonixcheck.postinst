@@ -15,7 +15,7 @@ true "
 #####################################################################
 "
 
-source /usr/lib/anon-shared-helper-scripts/torsocks-remove-ld-preload
+source /usr/lib/helper-scripts/torsocks-remove-ld-preload
 
 case "$1" in
    configure)
