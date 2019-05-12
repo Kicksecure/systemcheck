@@ -5,7 +5,7 @@ Source: whonixcheck
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 12), genmkfile,  ronn, dh-apparmor
+Build-Depends: debhelper (>= 12), genmkfile, ronn, dh-apparmor
 Homepage: https://www.whonix.org/wiki/whonixcheck
 Vcs-Browser: https://github.com/Whonix/whonixcheck
 Vcs-Git: https://github.com/Whonix/whonixcheck.git
