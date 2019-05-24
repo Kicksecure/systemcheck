@@ -1,3 +1,23 @@
+commit 3cd30e3e4bfa90df07390da0e0c2e86f446ccce8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 24 12:29:11 2019 -0400
+
+    readme
+
+commit b965253c85f95458c200330a80fe5efeee667429
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 24 10:09:05 2019 +0000
+
+    better output if virtualizer detection test failed
+    
+    https://forums.whonix.org/t/error-virtualizer-unsupported-by-whonix-developers/4471
+
+commit 6aa837c495cce147a64a4c4fc3ebf2e074f5b030
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon May 13 11:10:55 2019 +0000
+
+    bumped changelog version
+
 commit 3bda1c79aa494d35063aecdc88b911f10a8fac6a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon May 13 10:28:07 2019 +0000
