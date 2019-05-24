@@ -10,7 +10,33 @@ check_virtualizer() {
    ## (Used by check_pvclock.)
 
    if command -v "$whonixcheck_virt_detection_tool" >/dev/null 2>&1 ; then
-      whonixcheck_virtualizer_detected="$("$whonixcheck_virt_detection_tool" 2>&1)" || true
+      if whonixcheck_virtualizer_detected="$("$whonixcheck_virt_detection_tool" 2>&1)" ; then
+         true "INFO: No error reported from running $whonixcheck_virtualizer_detected."
+      else
+         local if_you_know_what_you_are_doing_msg
+         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+         local MSG="\
+<p>Virtualizer detection failed. You might be running a virtualizer unsupported by Whonix developers! Whonixcheck aborted!
+<br></br>
+<br></br>This might endanger your anonymity. Do not proceed unless you know what you are doing.
+<br></br>
+<br></br>Recommended action:
+<br></br>- Shut down.
+<br></br>- Contact Whonix developers.
+<br></br>
+<br></br>Debugging information:<br />
+<br></br>Running <code>$whonixcheck_virt_detection_tool</code> failed!
+<br></br>qubes_detected: $qubes_detected
+<br></br><code>$whonixcheck_virt_detection_tool</code> output: <blockquote><code>$whonixcheck_virtualizer_detected</code></blockquote>
+<br></br>$if_you_know_what_you_are_doing_msg
+</p>"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         EXIT_CODE="1"
+         cleanup "1"
+         return 0
+      fi
    else
       local MSG="<p>Check Virtualizer Result: $whonixcheck_virt_detection_tool not available. Skipping test.</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
@@ -108,7 +134,7 @@ $VMWARE_TEXT
 
 <p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
 <code><blockquote>    WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote></code>
-in <code>/etc/whonix.d/30_whonixcheck_default.conf</code>.</p>
+in <code>/etc/whonix.d/50_whonixcheck_user.conf</code>.</p>
 
 <p>Recommended action:
 <br></br>- Shut down.
