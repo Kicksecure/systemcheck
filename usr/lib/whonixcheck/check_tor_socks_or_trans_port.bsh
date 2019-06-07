@@ -3,6 +3,23 @@
 ## Copyright (C) 2012 - 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+sanitize_variable() {
+   local input
+   input="$@"
+
+   sanitize_variable_output="$(/usr/lib/msgcollector/striphtml "$input")"
+   sanitize_variable_output="$@"
+
+   ## An IPv6 IP is 39 characters long. Add a few for more for the "[ ]" and...?
+   max_string_length="50"
+   actual_string_length="${#sanitize_variable_output}"
+
+   if [ "$actual_string_length" -gt "$max_string_length" ]; then
+      ## Shorten excess length $sanitize_variable_output to $max_string_length chars.
+      sanitize_variable_output="${sanitize_variable_output:0:$max_string_length}"
+   fi
+}
+
 check_tor_socks_or_trans_port() {
    if [ ! "$leak_tests" = "true" ]; then
       local MSG="\
@@ -31,7 +48,7 @@ check_tor_socks_or_trans_port() {
       return 0
    fi
 
-   local LINK="https://check.torproject.org"
+   local LINK="https://check.torproject.org/api/ip"
    local SOCKS_PORT_WHONIXCHECK="9110"
    local check_result_curl_exit_code="0"
 
@@ -47,8 +64,8 @@ check_tor_socks_or_trans_port() {
 <br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs>https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
       elif [ "$VM" = "Whonix-Gateway" ] || [ "$VM" = "Whonix-Workstation" ]; then
          local connection_failed_msg="\
-<p>$test_name Result: <a href=https://check.torproject.org>https://check.torproject.org</a> was not reachable.
-<br></br>You could check, if you can reach <a href=https://check.torproject.org>https://check.torproject.org</a> via the Tor Browser Bundle.</p>"
+<p>$test_name Result: <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> was not reachable.
+<br></br>You could check, if you can reach <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> via the Tor Browser Bundle.</p>"
       else
          local connection_failed_msg="$FUNCNAME: <p>This is neither Whonix-Gateway nor Whonix-Workstation. Please report this bug to the Whonix developers!</p>"
       fi
@@ -123,41 +140,71 @@ check_tor_socks_or_trans_port() {
       return 0
    fi
 
+   local bug_maybe_msg
+   bug_maybe_msg="Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this bug to the Whonix developers!"
+
    ## grep exit codes:
    ## 0 found
    ## 1 otherwise
    ## 2 if an error occurred
 
-   local tor_detected
-   tor_detected="0"
-   local grep_congratulations_result
-   grep_congratulations_result="$(grep --no-messages "Congratulations" "$TEMP_DIR/$CHECK_TOR_OUT_FILE")" || { tor_detected="$?" ; true; };
+   local tor_detected check_tor_out_file_content
+   tor_detected="Unknown"
 
-   ## Example grep_congratulations_result:
-   ## <img alt="Congratulations. Your browser is configured to use Tor." src="/images/tor-on.png">
-   ## Congratulations. Your browser is configured to use Tor.<br>
+   check_tor_out_file_content="$(cat $TEMP_DIR/$CHECK_TOR_OUT_FILE)"
+   ## sets:
+   ## actual_string_length
+   ## max_string_length
+   ## sanitize_variable_output
+   sanitize_variable "$check_tor_out_file_content"
+   check_tor_out_file_content="$sanitize_variable_output"
 
-   ## Handling cases where grep exit codes greater than 1 and less than 0.
-   if [ "$tor_detected" -gt "1" ] || [ "$tor_detected" -lt "0" ]; then
-      ## an error occurred
-      local MSG="<p>$test_name Result: <b>tor_detected is $tor_detected</b>. Please report this bug to the Whonix developers!</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      return 0
+   if [ "$verbose" -ge "2" ]; then
+      local MSG="\
+<p>$FUNCNAME $1: <code>check_tor_out_file_content:</code>
+<blockquote>$check_tor_out_file_content</blockquote></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   local grep_ip_exit_code
-   grep_ip_exit_code="0"
-   local ip
-   ip="$(grep --no-messages "IP" "$TEMP_DIR/$CHECK_TOR_OUT_FILE")" || { grep_ip_exit_code="$?" ; true; };
+   tor_detected="$(echo "$check_tor_out_file_content" | python3 -c "import sys, json; print(json.load(sys.stdin)['IsTor'])")" || { tor_detected="$?" ; true; };
+
+   ## sets:
+   ## actual_string_length
+   ## max_string_length
+   ## sanitize_variable_output
+   sanitize_variable "$tor_detected"
+   tor_detected="$sanitize_variable_output"
+
+   ## example tor_detected:
+   # True
+   ## example tor_detected:
+   # False
+   ## example output of python3 in case of an error:
+   #Traceback (most recent call last):
+   #  File "<string>", line 1, in <module>
+   #KeyError: 'name'
+
+   if [ ! "$tor_detected" = "False" ]; then
+      if [ ! "$tor_detected" = "True" ]; then
+         ## an error occurred
+         local MSG="<p>$test_name Result: tor_detected is neither True nor False. $bug_maybe_msg</p>"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         return 0
+      fi
+   fi
+
+   local json_ip_exit_code ip
+   json_ip_exit_code="0"
+   ip="$(echo "$check_tor_out_file_content" | python3 -c "import sys, json; print(json.load(sys.stdin)['IP'])")" || { json_ip_exit_code="$?" ; true; };
 
    ## example ip:
-   ## Your IP address appears to be: <b>94.242.204.74</b><br>
+   ## 94.242.204.74
 
-   ## Handling cases where grep exit codes greater than 1 and less than 0.
-   if [ "$grep_ip_exit_code" -gt "1" ] || [ "$grep_ip_exit_code" -lt "0" ]; then
+   if [ ! "$json_ip_exit_code" = "0" ]; then
       ## an error occurred
-      local MSG="<p>$test_name Result: <b>grep_ip_exit_code: $grep_ip_exit_code.</b> Please report this bug to the Whonix developers!</p>"
+      local MSG="<p>$test_name Result: <b>json_ip_exit_code: $json_ip_exit_code.</b> $bug_maybe_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -166,43 +213,27 @@ check_tor_socks_or_trans_port() {
    ## Test excessive string length.
    #ip="Your IP address appears to be: <b>2001:0db8:85a3:0042:1000:8a2e:0370:7334 \$f(do) \`this\` ... xxx ... xxx </b><br>"
 
-   if [ ! "$grep_ip_exit_code" = "0" ]; then
-      ## grep exit code: non-zero
-      ip="IP not detected (2). Please report this bug to the Whonix developers!"
-   else
-      ## grep exit code: 0
-      ip="$(/usr/lib/msgcollector/striphtml "$ip")"
-      ip="$(echo "$ip" | sed 's/Your IP address appears to be://g')"
-      ip="$(echo "$ip" | sed 's/ //g')"
+   ## sets:
+   ## actual_string_length
+   ## max_string_length
+   ## sanitize_variable_output
+   sanitize_variable "$ip"
+   ip="$sanitize_variable_output"
 
-      ## An IPv6 IP is 39 characters long. Add a few for more for the "[ ]" and...?
-      max_string_length="50"
-      actual_string_length="${#ip}"
-      local ip_excess_length
-      ip_excess_length=""
+   if [ "$actual_string_length" -gt "$max_string_length" ]; then
+      local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> (<code>$actual_string_length</code> characters).</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      return 0
+   fi
 
-      if [ "$actual_string_length" -gt "$max_string_length" ]; then
-         ## Store excess length for later use.
-         ip_excess_length="$ip"
-
-         ## Shorten excess length $ip to $max_string_length chars.
-         ip="${ip:0:$max_string_length}"
-
-         local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> (<code>$actual_string_length</code> characters).
-         Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this bug to the Whonix developers!</p>"
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-         return 0
-      fi
-
-      ## Store IP for later use in memory.
-      if [ "$1" = "SocksPort" ]; then
-         IP_SOCKS_PORT="$ip"
-      elif [ "$1" = "UpdatesProxy" ]; then
-         IP_UPDATES_PROXY="$ip"
-      elif [ "$1" = "TransPort" ]; then
-         IP_TRANS_PORT="$ip"
-      fi
+   ## Store IP for later use in memory.
+   if [ "$1" = "SocksPort" ]; then
+      IP_SOCKS_PORT="$ip"
+   elif [ "$1" = "UpdatesProxy" ]; then
+      IP_UPDATES_PROXY="$ip"
+   elif [ "$1" = "TransPort" ]; then
+      IP_TRANS_PORT="$ip"
    fi
 
    local ip_show_maybe_text
@@ -214,7 +245,7 @@ check_tor_socks_or_trans_port() {
 
    ## Check if connected to Tor or not,
    ## and choose which message to show.
-   if [ "$tor_detected" = "0" ]; then
+   if [ "$tor_detected" = "True" ]; then
       ## Tor detected.
 
       if [ "$1" = "SocksPort" ]; then
@@ -248,7 +279,7 @@ check_tor_socks_or_trans_port() {
 
 <p>Possible reasons:
 <br></br>- There could be something wrong.
-<br></br>- It's a false positive. <a href=https://check.torproject.org>https://check.torproject.org</a> fails in some cases to detect exit nodes.</p>"
+<br></br>- It's a false positive. <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> fails in some cases to detect exit nodes.</p>"
 
    if [ "$1" = "SocksPort" ]; then
       local not_using_msg_tor="$not_using_msg_tor"
