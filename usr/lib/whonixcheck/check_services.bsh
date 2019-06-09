@@ -179,7 +179,7 @@ check_whonix_firewall_systemd_status() {
       fi
       sleep "1" &
       lastpid="$!"
-wait "$lastpid" || true
+      wait "$lastpid" || true
    done
 
    systemctl_status_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
