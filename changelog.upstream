@@ -1,3 +1,39 @@
+commit ad8b994041479c44298d0d73e82be7c83dc0217a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 10 15:22:44 2019 +0000
+
+    apparmor
+    required for systemctl
+            /etc/machine-id r,
+
+commit 57bf058d4a95d806a75a221d4459f50ea79c5d31
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 10 14:51:48 2019 +0000
+
+    fix waiting if whonix-firewall check succeeds late
+    
+    Thanks to @TNTBOMBOM for the bug report!
+    
+    http://forums.whonix.org/t/whonix-virtualbox-15-0-0-0-7-debian-buster-based-testers-wanted/7131/21
+
+commit 7844fcd14ebe875a5f38b7d3e36c9a337e7ef944
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 10 14:36:22 2019 +0000
+
+    increase whonixcheck_tor_bootstrap_wait_max="150"
+
+commit 14cb467a29fbf61d1ea16d590413d73e3fd693e1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 9 01:52:18 2019 +0000
+
+    minor
+
+commit 237c24c4113b910366a48a311986487d7535724d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 8 11:40:17 2019 +0000
+
+    bumped changelog version
+
 commit 52f2d67ee89ade61ac4d09877d089268fbe269c2
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jun 8 00:05:37 2019 -0400
