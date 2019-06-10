@@ -38,7 +38,7 @@ check_tor_bootstrap_sleep() {
 check_tor_bootstrap_init() {
    [ -n "$whonixcheck_tor_bootstrap_waited_seconds" ] || whonixcheck_tor_bootstrap_waited_seconds="0"
    [ -n "$whonixcheck_tor_bootstrap_between_attempts" ] || whonixcheck_tor_bootstrap_between_attempts="2"
-   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="120"
+   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="150"
    [ -n "$whonixcheck_tor_bootstrap_error_counter" ] || whonixcheck_tor_bootstrap_error_counter="0"
    [ -n "$whonixcheck_tor_bootstrap_error_max" ] || whonixcheck_tor_bootstrap_error_max="5"
 
