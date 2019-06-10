@@ -139,6 +139,8 @@
 	/etc/ssl/certs/ca-certificates.crt r,
 	/etc/perl/sitecustomize.pl r,
 	/etc/whonix_version r,
+	## required for systemctl
+	/etc/machine-id r,
 
 	@{HOME}/ r,
 	@{HOME}/tor-browser_en-US/Docs/version r,
