@@ -161,12 +161,12 @@ check_whonix_firewall_systemd_status() {
       extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> does not exist, ok."
    fi
 
-   systemctl_status_whonix_firewall_exit_code="0"
-
    local i max
    i="0"
    max="30"
-   while systemctl_status_whonix_firewall_output="$(sudo --non-interactive /bin/systemctl --no-pager --no-block status whonix-firewall 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; } ; do
+   while true ; do
+      systemctl_status_whonix_firewall_exit_code="0"
+      systemctl_status_whonix_firewall_output="$(sudo --non-interactive /bin/systemctl --no-pager --no-block status whonix-firewall 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
       if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ]; then
          break
       else
