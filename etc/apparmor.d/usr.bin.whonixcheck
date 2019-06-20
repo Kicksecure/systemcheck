@@ -314,7 +314,6 @@
 	/usr/bin/qubesdb-read rix,
 	/usr/bin/qubesdb-cmd rix,
 
-	/bin/systemctl rix,
 	/usr/sbin/virt-what rix,
 	/usr/sbin/dmidecode rix,
 
