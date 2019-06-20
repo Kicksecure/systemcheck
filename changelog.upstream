@@ -1,3 +1,23 @@
+commit d02bbaf62195404bc3d8ab521ad141db118dcc50
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 07:43:03 2019 -0400
+
+    remove duplicate
+
+commit e7e835c4465f86ce2da70e7afe1ce7af6c31095e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 07:38:41 2019 -0400
+
+    compatibility with UsrMerge
+    
+    https://github.com/QubesOS/qubes-issues/issues/5111
+
+commit 32da48e0f964549dba9cc3939fcc80c9d8c3eee1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 10 15:44:05 2019 +0000
+
+    bumped changelog version
+
 commit ad8b994041479c44298d0d73e82be7c83dc0217a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jun 10 15:22:44 2019 +0000
