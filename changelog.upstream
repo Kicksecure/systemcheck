@@ -1,3 +1,15 @@
+commit 03d13c11f391f6c1dafd33dcf4c5c3850d4266c9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 13:31:46 2019 +0000
+
+    fix stream isolation test
+
+commit 895f238061f189a9dc650a26c5c5d87dadd612b9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 12:24:07 2019 +0000
+
+    bumped changelog version
+
 commit d02bbaf62195404bc3d8ab521ad141db118dcc50
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 20 07:43:03 2019 -0400
