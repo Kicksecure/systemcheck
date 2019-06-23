@@ -1,3 +1,33 @@
+commit 5a6e3ee498d62eeec2b463db24f210b54efcc21a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 18:36:12 2019 +0000
+
+    code simplification, always show donate message in CLI
+
+commit c22f81fb3502f81a0415726156b29c03b728b3c1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 13:10:47 2019 +0000
+
+    donate
+
+commit 4b366de1cd4f3524cc561a4f3a09dc1db1d14933
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 12:50:29 2019 +0000
+
+    output
+
+commit 98facce85a679f5935fa11db2ad73bc853ccca0c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 12:48:00 2019 +0000
+
+    fix donate
+
+commit 37da0a549cfc00d6e69c53c9f5714853087e78c8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 13:32:23 2019 +0000
+
+    bumped changelog version
+
 commit 03d13c11f391f6c1dafd33dcf4c5c3850d4266c9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 20 13:31:46 2019 +0000
