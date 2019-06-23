@@ -9,6 +9,10 @@ donate() {
       return
    fi
 
+   local MSG="<p>Please donate!
+   See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
    ## Do not ask for donations if the user has something important to do.
 
    local TYPE output_status_exit_code
@@ -27,10 +31,6 @@ donate() {
       true "No messages for --messagex in the queue. Not adding donation message."
       return 0
    fi
-
-   local MSG="<p>Please donate!
-   See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    return 0
 }
