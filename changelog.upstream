@@ -1,3 +1,21 @@
+commit 01e89f6e4dbcc0f3c454ffd1fa77e6c99521a1ad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 20:56:18 2019 +0000
+
+    fix showing donate notifications in CLI
+
+commit 645329186cf5af9d68cd58cc80e6d70e2c1c2a47
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 20:55:18 2019 +0000
+
+    fix donate message logic
+
+commit 6e67fc75de790ff5b729d4f55790698624aa5edb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 19:58:48 2019 +0000
+
+    bumped changelog version
+
 commit 5a6e3ee498d62eeec2b463db24f210b54efcc21a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jun 23 18:36:12 2019 +0000
