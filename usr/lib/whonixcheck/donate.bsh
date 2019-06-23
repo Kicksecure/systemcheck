@@ -9,7 +9,7 @@ donate() {
       return
    fi
 
-   local output_status_exit_code
+   local output_status_exit_code="0"
    $output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --messagex || { output_status_exit_code="$?" ; true; };
 
    if [ ! "$output_status_exit_code" = "0" ]; then
