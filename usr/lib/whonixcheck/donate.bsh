@@ -17,15 +17,15 @@ donate() {
    $output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --messagex || { output_status_exit_code="$?" ; true; };
 
    if [ "$output_status_exit_code" = "0" ]; then
-      true "No messages for --messagex in the queue. Not adding donation message."
-      return 0
-   else
       TYPE="$($output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
       if [ "$TYPE" = "info" ]; then
          local MSG="<p>Please donate!
          See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       fi
+   else
+      true "No messages for --messagex in the queue. Not adding donation message."
+      return 0
    fi
 
    local MSG="<p>Please donate!
