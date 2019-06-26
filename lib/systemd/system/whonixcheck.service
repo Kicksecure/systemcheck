@@ -27,5 +27,22 @@ KillMode=process
 TimeoutSec=30
 Restart=always
 
+# Hardening.
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+PrivateTmp=true
+PrivateMounts=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+RestrictRealtime=true
+SystemCallArchitectures=native
+RestrictNamespaces=true
+RestrictAddressFamilies=AF_UNIX AF_INET
+SystemCallFilter=wait4 read close execve open write rt_sigprocmask stat munmap mprotect clone mmap fstat access brk poll rt_sigaction select ioctl recvfrom getuid getgid getegid pipe getpid futex arch_prctl lseek rt_sigreturn geteuid fcntl getdents dup2 readlink sync getsid unlink sysinfo uname connect setresuid lstat newfstatat sendto getrlimit statfs faccessat sendmsg getppid setgroups bind umask fchmod writev mremap msync madvise dup alarm socket recvmsg shutdown getsockname getpeername socketpair getsockopt setsockopt kill getcwd chdir fchdir rename mkdir chmod chown lchown getrusage setuid setgid setpgid getpgrp setsid getgroups getresuid setresgid getresgud getpgid capget sigaltstack fstatfs prctl setrlimit gettid getxattr sched_getaffinity set_tid_address fadvise64 timer_create timer_settime openat unlinkat fchmodat ppoll set_robust_list utimensat getrandom
+
 [Install]
 WantedBy=multi-user.target
