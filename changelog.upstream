@@ -1,3 +1,31 @@
+commit 6d8ec980605f0bc6342d5b6659da4e189780be18
+Merge: 81bfe23 2592424
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 26 07:34:06 2019 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 25924245130b6dea1eb399445099550f1a3f8b03
+Merge: 81bfe23 2e93a5b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 26 11:33:33 2019 +0000
+
+    Merge pull request #10 from madaidan/patch-1
+    
+    Add systemd sandboxing
+
+commit 2e93a5b7562055d9e5fd92834d0c4f4aa76e7866
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Mon Jun 24 18:17:24 2019 +0000
+
+    Add systemd sandboxing
+
+commit 81bfe23c67d31fe2566ff3613ad327c2eff31095
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 21:04:19 2019 +0000
+
+    bumped changelog version
+
 commit 01e89f6e4dbcc0f3c454ffd1fa77e6c99521a1ad
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jun 23 20:56:18 2019 +0000
