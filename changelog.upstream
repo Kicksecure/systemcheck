@@ -1,3 +1,15 @@
+commit d8804493701e03f77398586582912c8a5608f745
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 1 08:15:15 2019 +0000
+
+    fix system call name
+
+commit 546345a1cecccec6e7c0df14f8cc7a67e45ea7a0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 30 07:16:07 2019 -0400
+
+    bumped changelog version
+
 commit 78de9f0a134eced5ed08a6734481b8c541af3cbb
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jun 29 13:45:41 2019 +0000
