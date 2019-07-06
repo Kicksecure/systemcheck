@@ -160,7 +160,7 @@ get_local_whonix_version() {
 
 preparation() {
    ## For msgdispatcher_init.
-   [ -n "$who_ami" ] || who_ami="user"
+   [ -n "$who_ami" ] || who_ami="$(whoami)"
 
    whonixcheck_run_function msgdispatcher_init
    whonixcheck_run_function input_detection

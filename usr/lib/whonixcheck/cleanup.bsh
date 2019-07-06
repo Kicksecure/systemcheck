@@ -204,7 +204,5 @@ cleanup() {
 
    SIGNAL_TYPE="NONE"
 
-   cd ..
-
    ex_funct
 }
