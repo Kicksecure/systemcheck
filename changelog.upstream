@@ -1,3 +1,22 @@
+commit 418e10dc88ff9f9afbbfc4ac8cf05de123aa25f2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 7 21:23:21 2019 +0000
+
+    check Tor running hidepid=2 compatibility
+
+commit 4621a5bd7e378c4db8794d7ccd7b391d7c923b57
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 7 21:14:50 2019 +0000
+
+    override with || true to avoid race condition.
+       pid="$(cat "/var/run/tor/tor.pid")" || true
+
+commit 95a45f0ff1d7153a4840e33d5ef9135ed468dcaf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 6 13:54:04 2019 +0000
+
+    bumped changelog version
+
 commit b1711167b726103eb177808ae85af6f162be8238
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jul 6 13:39:17 2019 +0000
