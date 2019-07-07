@@ -30,7 +30,8 @@ check_tor_pid_do() {
    fi
 
    local pid
-   pid="$(cat "/var/run/tor/tor.pid")"
+   ## override with || true to avoid race condition.
+   pid="$(cat "/var/run/tor/tor.pid")" || true
 
    if [ "$pid" = "" ]; then
       tor_pid_message="Pid file /var/run/tor/tor.pid is empty."
