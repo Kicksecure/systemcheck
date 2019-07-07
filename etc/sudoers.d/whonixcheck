@@ -39,3 +39,6 @@ whonixcheck ALL=NOPASSWD: /bin/journalctl --no-pager -u whonix-firewall
 whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-firewall
 whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --no-legend --failed
 whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-units
+
+## required for check_tor_pid
+whonixcheck ALL=NOPASSWD: /usr/lib/whonixcheck/check_tor_pid

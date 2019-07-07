@@ -23,34 +23,8 @@ check_tor_pid_do() {
       return 0
    fi
 
-   if [ ! -f "/var/run/tor/tor.pid" ]; then
-      tor_pid_message="Pid file /var/run/tor/tor.pid does not exist."
-      tor_pid_exit_code="1"
-      return 0
-   fi
-
-   local pid
-   ## override with || true to avoid race condition.
-   pid="$(cat "/var/run/tor/tor.pid")" || true
-
-   if [ "$pid" = "" ]; then
-      tor_pid_message="Pid file /var/run/tor/tor.pid is empty."
-      tor_pid_exit_code="1"
-      return 0
-   fi
-
-   local ps_p_exit_code
-   ps_p_exit_code="0"
-   ps -p "$pid" >/dev/null 2>/dev/null || { ps_p_exit_code="$?" ; true; };
-
-   if [ ! "$ps_p_exit_code" = "0" ]; then
-      tor_pid_message="Pid $pid is not running."
-      tor_pid_exit_code="1"
-      return 0
-   fi
-
-   tor_pid_message="Pid $pid running."
    tor_pid_exit_code="0"
+   tor_pid_message="$(sudo --non-interactive /usr/lib/whonixcheck/check_tor_pid)" || { tor_pid_exit_code="$?" ; true; };
    return 0
 }
 
