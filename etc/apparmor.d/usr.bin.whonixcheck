@@ -107,6 +107,7 @@
 	/usr/bin/fuser rix,
 	/usr/bin/zenity rix,
 	/usr/bin/dbus-daemon rix,
+	/usr/bin/wmctrl rix,
 
 	/usr/bin/tor rix,
 	/usr/sbin/tor rix,
