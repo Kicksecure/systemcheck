@@ -1,3 +1,21 @@
+commit 7c3dda1807308ba9577529c022ce43d2e6926993
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 8 02:03:26 2019 +0000
+
+            /usr/bin/wmctrl rix,
+
+commit 9b03cc2ac2f748f2827c48302615354be9e085f0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 8 01:42:14 2019 +0000
+
+    apparmor fixes for msgcollector / zenity changes
+
+commit 6371c02bc0da899b1efa3e56a765b4f5929f80dd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 7 21:24:07 2019 +0000
+
+    bumped changelog version
+
 commit 418e10dc88ff9f9afbbfc4ac8cf05de123aa25f2
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jul 7 21:23:21 2019 +0000
