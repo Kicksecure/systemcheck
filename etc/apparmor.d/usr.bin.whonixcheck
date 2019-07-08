@@ -4,6 +4,9 @@
 /usr/bin/whonixcheck flags=(attach_disconnected) {
 	#include <abstractions/base>
 	#include <abstractions/bash>
+	#include <abstractions/fonts>
+	#include <abstractions/dbus>
+	#include <abstractions/dbus-session>
 
 	capability sys_ptrace,
 	capability sys_resource,
@@ -102,6 +105,8 @@
 	/usr/bin/journalctl rix,
 	/usr/bin/readlink rix,
 	/usr/bin/fuser rix,
+	/usr/bin/zenity rix,
+	/usr/bin/dbus-daemon rix,
 
 	/usr/bin/tor rix,
 	/usr/sbin/tor rix,
@@ -110,6 +115,7 @@
 	/usr/bin/stat rix,
 	/usr/bin/systemd-detect-virt rix,
 	/usr/bin/spectre-meltdown-checker cux,
+	/usr/sbin/getcap rix,
 
 	/sbin/start-stop-daemon rix,
 	/sbin/ifconfig rix,
@@ -175,6 +181,9 @@
 	## required for systemctl
 	/etc/machine-id r,
 
+	/etc/dbus-1/session.d/ r,
+	/etc/dbus-1/session.d/** r,
+
 	@{HOME}/ r,
 	@{HOME}/tor-browser_en-US/Docs/version r,
 	@{HOME}/tor-browser_en-US/Docs/sources/versions r,
@@ -234,6 +243,8 @@
 	/sys/devices/virtual/dmi/id/sys_vendor r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/ r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
+	/sys/fs/cgroup/systemd/user/debian-tor/ rw,
+	/sys/fs/cgroup/systemd/user/debian-tor/** rw,
 	/sys/fs/cgroup/cpuset/cgroup.clone_children r,
 	/sys/fs/cgroup/systemd/cgroup.procs mrwcx,
 	/sys/fs/cgroup/systemd/user/whonixcheck/ rw,
@@ -245,6 +256,8 @@
 	/sys/fs/cgroup/memory/user/whonixcheck/0/** rw,
 	/sys/fs/cgroup/memory/cgroup.procs rw,
 	/sys/fs/cgroup/memory/user/whonixcheck/ rw,
+	/sys/fs/cgroup/memory/user/debian-tor/ rw,
+	/sys/fs/cgroup/memory/user/debian-tor/** rw,
 	/sys/fs/cgroup/systemd/user/root/0/cgroup.procs rw,
 	/sys/fs/cgroup/freezer/user/root/0/cgroup.procs rw,
 	/sys/fs/cgroup/memory/user/root/0/cgroup.procs rw,
@@ -252,6 +265,8 @@
 	/sys/fs/cgroup/systemd/user/root/** rw,
 	/sys/fs/cgroup/freezer/user/root/ rw,
 	/sys/fs/cgroup/freezer/user/root/** rw,
+	/sys/fs/cgroup/freezer/user/debian-tor/ rw,
+	/sys/fs/cgroup/freezer/user/debian-tor/** rw,
 	/sys/fs/cgroup/memory/user/root/ rw,
 	/sys/fs/cgroup/memory/user/root/** rw,
 	## For systemd-detect-virt.
@@ -347,16 +362,7 @@
 	/usr/local/lib/python*/dist-packages/ r,
 	/usr/local/lib/python*/dist-packages/* r,
 
-	/usr/share/whonix/** r,
-	/usr/share/ca-certificates/** r,
-	/usr/share/misc/pci.ids r,
-	/usr/share/pyshared/** r,
-	/usr/share/open-link-confirmation/share/config/kdeglobals r,
-	/usr/share/torbrowser-launcher/torproject.pem r,
-	/usr/share/libthai/thbrk.tri r,
-	/usr/share/perl/** r,
-	/usr/share/vrms/** r,
-	/usr/share/dpkg/** r,
+	/usr/share/** r,
 
 	/var/cache/apt/ r,
 	/var/cache/apt/* rw,
