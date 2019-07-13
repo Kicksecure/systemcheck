@@ -55,7 +55,7 @@ if [ "$debugging" = "true" ]; then
    pid="$!"
    wait "$pid" || true
 else
-   /usr/bin/whonixcheck --autostart --gui --cli >/dev/null 2>&1 &
+   /usr/bin/whonixcheck --autostart --gui --cli &>/dev/null &
    pid="$!"
    wait "$pid" || true
 fi
@@ -70,7 +70,7 @@ while true; do
       pid="$!"
       wait "$pid" || true
    else
-      /usr/bin/whonixcheck --daemon --gui --cli >/dev/null 2>/dev/null &
+      /usr/bin/whonixcheck --daemon --gui --cli &>/dev/null &
       pid="$!"
       wait "$pid" || true
    fi
