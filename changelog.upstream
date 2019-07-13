@@ -1,3 +1,35 @@
+commit 2df17e75e2e67761235d0d3f3775f38694f1bc2a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 20:11:40 2019 +0000
+
+    disable systemd hardening since broken
+    
+    https://forums.whonix.org/t/apply-systemd-sandboxing-by-default-to-some-services/7590/31
+
+commit 731d88922800a38c20ddf96c22be70de87495abe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 19:35:28 2019 +0000
+
+    code simplification, rely on systemd for process cleanup
+
+commit 77f8e187a8d78cb7dcd738cb609c4c595a60f28f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 19:15:17 2019 +0000
+
+    refactoring
+
+commit d92b54e155ec5caef12584ccce4c2b6ae6fd881b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 19:14:36 2019 +0000
+
+    debugging
+
+commit 68cd88a2602765e5063cd92b335f964c67500929
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 8 02:16:34 2019 +0000
+
+    bumped changelog version
+
 commit 7c3dda1807308ba9577529c022ce43d2e6926993
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jul 8 02:03:26 2019 +0000
