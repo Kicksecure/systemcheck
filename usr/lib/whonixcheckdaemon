@@ -51,10 +51,7 @@ trap "signal_sigterm" SIGTERM
 
 if [ "$debugging" = "true" ]; then
    set -x
-   log_file="/home/user/whonixcheck.log"
-   exec >  >(tee --append "$log_file")
-   exec 2> >(tee --append "$log_file" >&2)
-   /usr/bin/whonixcheck --debug --autostart --gui --cli >>"$log_file" 2>&1 &
+   /usr/bin/whonixcheck --debug --autostart --gui --cli &
    pid="$!"
    wait "$pid" || true
 else
@@ -69,7 +66,7 @@ wait "$!"
 while true; do
 
    if [ "$debugging" = "true" ]; then
-      /usr/bin/whonixcheck --debug --daemon --gui --cli >>"$log_file" 2>&1 &
+      /usr/bin/whonixcheck --debug --daemon --gui --cli &
       pid="$!"
       wait "$pid" || true
    else
