@@ -23,60 +23,22 @@ $bash_n_output" >&2
    source "$i"
 done
 
-ex_funct() {
-   echo "$SCRIPTNAME: $SIGNAL_TYPE received. Cleaning up..."
-
-   if [ ! "$pid" = "" ]; then
-      kill -s sigterm "$pid"
-   fi
-
-   echo "$SCRIPTNAME: $SIGNAL_TYPE received. Exiting."
-}
-
-signal_sigint() {
-   SIGNAL_TYPE="sigint"
-   ex_funct
-   exit 130
-}
-
-trap "trap_sigint" SIGINT ## ctrl + c
-
-signal_sigterm() {
-   SIGNAL_TYPE="sigterm"
-   ex_funct
-   exit 143
-}
-
-trap "signal_sigterm" SIGTERM
-
 if [ "$debugging" = "true" ]; then
    set -x
-   /usr/bin/whonixcheck --debug --autostart --gui --cli &
-   pid="$!"
-   wait "$pid" || true
+   /usr/bin/whonixcheck --debug --autostart --gui --cli
 else
-   /usr/bin/whonixcheck --autostart --gui --cli &>/dev/null &
-   pid="$!"
-   wait "$pid" || true
+   /usr/bin/whonixcheck --autostart --gui --cli &>/dev/null
 fi
 
-sleep 3600 &
-wait "$!"
+sleep 3600
 
 while true; do
 
    if [ "$debugging" = "true" ]; then
-      /usr/bin/whonixcheck --debug --daemon --gui --cli &
-      pid="$!"
-      wait "$pid" || true
+      /usr/bin/whonixcheck --debug --daemon --gui --cli
    else
-      /usr/bin/whonixcheck --daemon --gui --cli &>/dev/null &
-      pid="$!"
-      wait "$pid" || true
+      /usr/bin/whonixcheck --daemon --gui --cli &>/dev/null
    fi
 
-   sleep 3600 &
-   pid="$!"
-   wait "$pid" || true
-
+   sleep 3600
 done

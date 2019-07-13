@@ -23,7 +23,6 @@ User=user
 Group=user
 ExecStart=/usr/lib/whonixcheckdaemon
 SuccessExitStatus=143
-KillMode=process
 TimeoutSec=30
 Restart=always
 
