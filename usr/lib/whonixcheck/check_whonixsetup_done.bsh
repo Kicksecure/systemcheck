@@ -17,7 +17,7 @@ check_whonixsetup_done_do() {
       ## whonixsetup already finished earlier, exit.
       whonixsetup_done="1"
       return 0
-   elif [ -f "/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip" ]; then
+   elif [ -f "/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip" ]; then
       whonixsetup_done="1"
       return 0
    ## Legacy up to build version 9.x.
@@ -46,7 +46,7 @@ check_whonixsetup_done() {
 <p>or in Terminal: <blockquote><code>sudo whonixsetup</code></blockquote></p>
 
 <p>(Debugging information: Neither file <code>/var/cache/whonix-setup-wizard/status-files/whonixsetup.done</code>
-nor file <code>/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip</code> exists.)</p>"
+nor file <code>/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip</code> exists.)</p>"
 
       if [ "$manualrun" = "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
