@@ -37,10 +37,6 @@ case "$1" in
       chmod o+w /var/lib/whonixcheck/
       chmod g+w /var/lib/whonixcheck/
 
-      touch /var/lib/whonixcheck/write_lock
-      chmod o+w /var/lib/whonixcheck/write_lock
-      chmod g+w /var/lib/whonixcheck/write_lock
-
       mkdir -p /var/run/whonixcheck/
       chown whonixcheck:whonixcheck /var/run/whonixcheck/
       chmod o+w /var/run/whonixcheck/
