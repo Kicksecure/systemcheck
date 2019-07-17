@@ -22,12 +22,13 @@ check_whonixcheck_lastrun() {
    fi
 
    if [[ "$LASTRUN" != *[!0-9]* ]]; then
+      true "$FUNCNAME: LASTRUN is strictly numeric."
+   else
+      true "$FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
       ## Not strictly numeric.
       ## the whonixcheck_completed function does almost the same
       LASTRUN="$MAX"
       NEVER_RUN="1"
-   else
-      true "$FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
    fi
 
    ## read by sanitize_variable
