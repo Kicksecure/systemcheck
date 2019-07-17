@@ -10,8 +10,6 @@ sanitize_variable() {
    sanitize_variable_output="$(/usr/lib/msgcollector/striphtml "$input")"
    sanitize_variable_output="$@"
 
-   ## An IPv6 IP is 39 characters long. Add a few for more for the "[ ]" and...?
-   max_string_length="50"
    actual_string_length="${#sanitize_variable_output}"
 
    if [ "$actual_string_length" -gt "$max_string_length" ]; then
@@ -152,6 +150,9 @@ check_tor_socks_or_trans_port() {
    tor_detected="Unknown"
 
    check_tor_out_file_content="$(cat $TEMP_DIR/$CHECK_TOR_OUT_FILE)"
+   ## read by sanitize_variable
+   ## An IPv6 IP is 39 characters long. Add a few for more for the "[ ]" and...?
+   max_string_length="50"
    ## sets:
    ## actual_string_length
    ## max_string_length
@@ -169,6 +170,9 @@ check_tor_socks_or_trans_port() {
 
    tor_detected="$(echo "$check_tor_out_file_content" | python3 -c "import sys, json; print(json.load(sys.stdin)['IsTor'])")" || { tor_detected="$?" ; true; };
 
+   ## read by sanitize_variable
+   ## An IPv6 IP is 39 characters long. Add a few for more for the "[ ]" and...?
+   max_string_length="50"
    ## sets:
    ## actual_string_length
    ## max_string_length
