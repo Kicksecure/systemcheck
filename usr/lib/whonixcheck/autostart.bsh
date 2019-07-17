@@ -30,6 +30,14 @@ check_whonixcheck_lastrun() {
       true "$FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
    fi
 
+   ## read by sanitize_variable
+   max_string_length="12"
+   ## sets:
+   ## actual_string_length
+   ## sanitize_variable_output
+   sanitize_variable "$LASTRUN"
+   LASTRUN="$sanitize_variable_output"
+
    local CURRENTTIME
    CURRENTTIME="$(date +%s)"
 
