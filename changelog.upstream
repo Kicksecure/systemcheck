@@ -1,3 +1,39 @@
+commit 4b6c0cf5ed1a4ba0498b7a36100db35959f3519d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 22:28:30 2019 +0000
+
+    fix
+
+commit 386ab5a0137fe7e91d32d8c881972d6d12e4b1f8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 22:18:13 2019 +0000
+
+    sanitize_variable "$LASTRUN"
+
+commit 86d4c30cb06ac7b2ec5fc78d80e39d60c8969d3b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 22:12:50 2019 +0000
+
+    refactoring
+
+commit 2e72c25a4697bb1a0ed6722f57950646cf543de2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 22:12:14 2019 +0000
+
+    refactoring
+
+commit 29f80c283caabbd0afaf50d4822a22ad8b6489d1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 22:09:00 2019 +0000
+
+    check if LASTRUN is strictly numeric
+
+commit 8662399ee296487ca974af4c1337cb5c155071d2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 15 19:51:34 2019 +0000
+
+    bumped changelog version
+
 commit 95c611b5dc22fffa1f3537543fd275ec1e29504b
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jul 15 12:38:30 2019 -0400
