@@ -21,6 +21,15 @@ check_whonixcheck_lastrun() {
       NEVER_RUN="1"
    fi
 
+   if [[ "$LASTRUN" != *[!0-9]* ]]; then
+      ## Not strictly numeric.
+      ## the whonixcheck_completed function does almost the same
+      LASTRUN="$MAX"
+      NEVER_RUN="1"
+   else
+      true "$FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
+   fi
+
    local CURRENTTIME
    CURRENTTIME="$(date +%s)"
 
