@@ -8,6 +8,18 @@ check_tor_bootstrap() {
       return 0
    fi
 
+   [ -n "$whonixcheck_tor_bootstrap_skip_auto_check" ] || whonixcheck_tor_bootstrap_skip_auto_check="true"
+
+   if [ "$whonixcheck_tor_bootstrap_skip_auto_check" = "true" ]; then
+      if [ "$DAEMON" = "1" ]; then
+         return 0
+      fi
+
+      if [ "$AUTOSTARTED" = "1" ]; then
+         return 0
+      fi
+   fi
+
    while true; do
       check_tor_bootstrap_init
 
