@@ -10,7 +10,7 @@ if [ -f /etc/default/whonixcheckd ]; then
 fi
 
 shopt -s nullglob
-for i in /etc/default/whonixcheckd.d/*.conf /rw/config/default/whonixcheckd.d/*.conf; do
+for i in /etc/default/whonixcheckd.d/*.conf /rw/config/default/whonixcheckd.d/*.conf /usr/local/etc/default/whonixcheckd.d/*.conf; do
    bash_n_exit_code="0"
    bash_n_output="$(bash -n "$i" 2>&1)" || { bash_n_exit_code="$?" ; true; };
    if [ ! "$bash_n_exit_code" = "0" ]; then
