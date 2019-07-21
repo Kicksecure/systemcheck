@@ -87,7 +87,9 @@ check_journal() {
 
    local journalctl_output grep_warn_output grep_error_output grep_denied_output grep_ordering_output
 
-   journalctl_output="$(sudo --non-interactive /bin/journalctl --no-pager)" || true
+   ## '--priority=0..4'
+   ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
+   journalctl_output="$(sudo --non-interactive /bin/journalctl --no-pager --priority=0..4 --boot)" || true
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
    grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")" || true
@@ -141,8 +143,8 @@ check_journal() {
 <br></br>5. Run. <blockquote><code>sudo /bin/journalctl | grep -i \"ordering cycle\"</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    EXIT_CODE="1"
 
