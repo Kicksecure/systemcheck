@@ -87,7 +87,6 @@ check_journal() {
 
    local journalctl_output grep_warn_output grep_error_output grep_denied_output grep_ordering_output
 
-   ## TODO: sudo
    journalctl_output="$(sudo --non-interactive /bin/journalctl --no-pager)" || true
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
