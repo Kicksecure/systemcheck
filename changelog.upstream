@@ -1,3 +1,36 @@
+commit cf786a7096f31d2b25421710b762bfe0969b869c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 21 12:13:06 2019 -0400
+
+    check_journalctl: really do not exit non-zero when warning messages are detected
+
+commit 86c60b267bf1b7fa8128d3cf95a205a2d08565d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 21 12:08:52 2019 -0400
+
+    check_journal: reduce message priority to info, do not exit non-zero
+    when warning messages are detected
+    
+    and reduce false postives by using journalctl with
+    --priority=0..4 --boot
+    ("emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4))
+    
+    Thanks to @marmarek for the bug report!
+    
+    https://phabricator.whonix.org/T925
+
+commit 063da3ebea57afcfdb5d9c4ad44138c8345889e1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 21 12:04:44 2019 -0400
+
+    remove obsolete comment
+
+commit affb6cae6be676fa9f5d41185f341dd7253cdcfe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 10:10:48 2019 +0000
+
+    bumped changelog version
+
 commit 79127f4f5e45454801aace51ec36efeadc15d946
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 19 09:56:41 2019 +0000
