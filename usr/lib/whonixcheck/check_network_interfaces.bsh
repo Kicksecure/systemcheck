@@ -64,7 +64,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 $if_you_know_what_you_are_doing_msg
 
 Debugging information:
-Command <code>cat /sys/class/net/eth1/carrier</code> failed."
+Command <code>cat /sys/class/net/eth1/carrier</code> failed.</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
