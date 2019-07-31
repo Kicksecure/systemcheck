@@ -1,3 +1,15 @@
+commit 31b52ae290cc739a0a050f99144522ee6435a91b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 31 03:14:31 2019 -0400
+
+    /var/run -> /run
+
+commit 868e592d6dccea2c681c49a6824117f39744e956
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 28 19:31:26 2019 +0000
+
+    bumped changelog version
+
 commit ed16c2d51d00f5f71405a6ed814b6857cb4ea623
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jul 28 13:01:10 2019 -0400
@@ -196,7 +208,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jul 7 21:14:50 2019 +0000
 
     override with || true to avoid race condition.
-       pid="$(cat "/run/tor/tor.pid")" || true
+       pid="$(cat "/var/run/tor/tor.pid")" || true
 
 commit 95a45f0ff1d7153a4840e33d5ef9135ed468dcaf
 Author: Patrick Schleizer <adrelanos@riseup.net>
@@ -2201,7 +2213,7 @@ commit 3f1d6ad2855de2a13c8b385b45ddbc14bc1d7fc1
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Oct 10 15:12:51 2016 +0000
 
-    no longer check /run/control-port-filter-python/pid
+    no longer check /var/run/control-port-filter-python/pid
     
     use /bin/service
 
@@ -2527,7 +2539,7 @@ commit be677f9964a7318b1034a1b2060ff83cd08f1f08
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Aug 14 23:14:30 2016 +0000
 
-    check for /run/anon-firewall/failed.status ; local
+    check for /var/run/anon-firewall/failed.status ; local
 
 commit c9fa6b72cc72741eabd651af24ad871724d17267
 Author: Patrick Schleizer <adrelanos@riseup.net>
@@ -4780,7 +4792,7 @@ commit 1718089f7b2dc91924021970353597f5f76106eb
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Nov 2 06:17:18 2014 +0000
 
-    refactoring, fewer leftover files in /run/msgcollector
+    refactoring, fewer leftover files in /var/run/msgcollector
 
 commit de048119c96a61bf78b4407e7883b50744588a6f
 Author: Patrick Schleizer <adrelanos@riseup.net>
