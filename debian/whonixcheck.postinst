@@ -25,7 +25,7 @@ case "$1" in
       addgroup debian-tor 2>/dev/null || true
 
       ## Add whonixcheck to group debian-tor so it can read
-      ## /var/run/tor/control.authcookie which is required to check for Tor
+      ## /run/tor/control.authcookie which is required to check for Tor
       ## bootstrap test.
       addgroup whonixcheck debian-tor
 
@@ -37,10 +37,10 @@ case "$1" in
       chmod o+w /var/lib/whonixcheck/
       chmod g+w /var/lib/whonixcheck/
 
-      mkdir -p /var/run/whonixcheck/
-      chown whonixcheck:whonixcheck /var/run/whonixcheck/
-      chmod o+w /var/run/whonixcheck/
-      chmod g+w /var/run/whonixcheck/
+      mkdir -p /run/whonixcheck/
+      chown whonixcheck:whonixcheck /run/whonixcheck/
+      chmod o+w /run/whonixcheck/
+      chmod g+w /run/whonixcheck/
    ;;
 
    abort-upgrade|abort-remove|abort-deconfigure)

@@ -53,9 +53,9 @@ cleanup_files() {
          rm --recursive "$TEMP_DIR"
       fi
 
-      rm --force "/var/run/whonixcheck/${IDENTIFIER}_running"
-      rm --force "/var/run/whonixcheck/${IDENTIFIER}_waiting"
-      #rm --force "/var/run/whonixcheck/${IDENTIFIER}_pid"
+      rm --force "/run/whonixcheck/${IDENTIFIER}_running"
+      rm --force "/run/whonixcheck/${IDENTIFIER}_waiting"
+      #rm --force "/run/whonixcheck/${IDENTIFIER}_pid"
    fi
 }
 
@@ -198,7 +198,7 @@ trap "trap_sigusr2" SIGUSR2 ## msgcollector, zenity cancel button
 cleanup() {
    true "$FUNCNAME..."
 
-   touch "/var/run/whonixcheck/${IDENTIFIER}_done"
+   touch "/run/whonixcheck/${IDENTIFIER}_done"
 
    sync
 

@@ -3,16 +3,16 @@
 ## Copyright (C) 2012 - 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-if [ ! -f "/var/run/tor/tor.pid" ]; then
-   echo "Pid file /var/run/tor/tor.pid does not exist."
+if [ ! -f "/run/tor/tor.pid" ]; then
+   echo "Pid file /run/tor/tor.pid does not exist."
    exit 1
 fi
 
 ## override with || true to avoid race condition.
-pid="$(cat "/var/run/tor/tor.pid")" || true
+pid="$(cat "/run/tor/tor.pid")" || true
 
 if [ "$pid" = "" ]; then
-   echo "Pid file /var/run/tor/tor.pid is empty."
+   echo "Pid file /run/tor/tor.pid is empty."
    exit 2
 fi
 

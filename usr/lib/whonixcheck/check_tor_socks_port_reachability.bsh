@@ -20,8 +20,8 @@ check_tor_socks_port_reachability() {
       $CURL_VERBOSE \
       --max-time 10 \
       --output "$TEMP_DIR/socks_port_open_file" \
-      --unix-socket "/var/run/tor/socks" \
-      "file//var/run/tor/socks" \
+      --unix-socket "/run/tor/socks" \
+      "file//run/tor/socks" \
       &
 
    ## Example OK:

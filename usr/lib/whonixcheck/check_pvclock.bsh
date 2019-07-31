@@ -30,11 +30,11 @@ $if_you_know_what_you_are_doing_msg
 }
 
 check_pvclock() {
-   if [ -f "/var/run/qubes-whonix/qubes.SetDateTime" ]; then
-      qubes_set_date_time_content="$(cat "/var/run/qubes-whonix/qubes.SetDateTime")" || true
+   if [ -f "/run/qubes-whonix/qubes.SetDateTime" ]; then
+      qubes_set_date_time_content="$(cat "/run/qubes-whonix/qubes.SetDateTime")" || true
       local MSG="<p>\
 PVClock Result: dom0 is telling us the time. \
-File <code>/var/run/qubes-whonix/qubes.SetDateTime</code> exists. \
+File <code>/run/qubes-whonix/qubes.SetDateTime</code> exists. \
 Its content is <code>$qubes_set_date_time_content</code>. \
 This is non-ideal. A known issue. Contributions happily considered. Read more: <a href=https://phabricator.whonix.org/T397>https://phabricator.whonix.org/T397</a></p>"
       if [ "$verbose" -ge "1" ]; then

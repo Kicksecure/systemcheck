@@ -102,10 +102,10 @@ check_tor_bootstrap_init() {
       fi
    fi
 
-   if [ -e /var/run/sdwdate/success ]; then
+   if [ -e /run/sdwdate/success ]; then
       time_synchronization_status_word="success"
       time_synchronization_status_notification="done"
-   elif [ -e /var/run/sdwdate/first_success ]; then
+   elif [ -e /run/sdwdate/first_success ]; then
       time_synchronization_status_word="first_success"
       time_synchronization_status_notification="done"
    else
@@ -113,18 +113,18 @@ check_tor_bootstrap_init() {
       time_synchronization_status_notification="not done"
    fi
 
-   if [ -e /var/run/sdwdate/msg ]; then
-      time_synchronization_msg="$(cat /var/run/sdwdate/msg)" || true
+   if [ -e /run/sdwdate/msg ]; then
+      time_synchronization_msg="$(cat /run/sdwdate/msg)" || true
    fi
 
    if [ "$time_synchronization_msg" = "" ]; then
       time_synchronization_msg="nothing yet."
    fi
 
-   if [ -e /var/run/whonix_firewall/consecutive_run.status ]; then
+   if [ -e /run/whonix_firewall/consecutive_run.status ]; then
       whonix_firewall_status_word="consecutive_run"
       whonix_firewall_status_notification="consecutive run after boot"
-   elif [ -e /var/run/whonix_firewall/first_run_current_boot.status ]; then
+   elif [ -e /run/whonix_firewall/first_run_current_boot.status ]; then
       whonix_firewall_status_word="first_run_current_boot"
       whonix_firewall_status_notification="first run after boot"
    else
@@ -551,7 +551,7 @@ or in Terminal: <code>sudo service sdwdate restart</code>
 <br></br>
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote>
-3. Simulate sdwdate success. <blockquote><code>sudo touch /var/run/sdwdate/first_success</code></blockquote>
+3. Simulate sdwdate success. <blockquote><code>sudo touch /run/sdwdate/first_success</code></blockquote>
 4. Rerun whonixcheck.</p>"
    fi
 

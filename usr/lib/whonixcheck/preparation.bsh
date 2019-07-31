@@ -187,10 +187,10 @@ preparation() {
       whonixcheck_run_function whonixcheck_msgdispatcher_windows_existing
    fi
 
-   if [ -e "/var/run/whonixcheck/${IDENTIFIER}_pid" ]; then
+   if [ -e "/run/whonixcheck/${IDENTIFIER}_pid" ]; then
       local oldpid
       ## || true to prevent a race condition with whonixcheckd's init script
-      oldpid="$(cat "/var/run/whonixcheck/${IDENTIFIER}_pid")" || true
+      oldpid="$(cat "/run/whonixcheck/${IDENTIFIER}_pid")" || true
       if [ ! "$oldpid" = "" ]; then
          if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
             if kill -0 "$oldpid" >/dev/null 2>/dev/null ; then
@@ -211,10 +211,10 @@ preparation() {
       fi
    fi
 
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_done"
-   rm --force "/var/run/whonixcheck/${IDENTIFIER}_recently_run"
-   touch "/var/run/whonixcheck/${IDENTIFIER}_running"
-   echo "$$" | tee "/var/run/whonixcheck/${IDENTIFIER}_pid" >/dev/null
+   rm --force "/run/whonixcheck/${IDENTIFIER}_done"
+   rm --force "/run/whonixcheck/${IDENTIFIER}_recently_run"
+   touch "/run/whonixcheck/${IDENTIFIER}_running"
+   echo "$$" | tee "/run/whonixcheck/${IDENTIFIER}_pid" >/dev/null
 
    sync
 

@@ -152,12 +152,12 @@ $if_you_know_what_you_are_doing_msg</p>"
 check_whonix_firewall_systemd_status() {
    local extra_text systemctl_status_whonix_firewall_exit_code systemctl_status_whonix_firewall_output
 
-   if [ -e /var/run/anon-firewall/failed.status ]; then
+   if [ -e /run/anon-firewall/failed.status ]; then
       anon_firewall_failed_file_exists=true
-      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> exists!"
+      extra_text="Failure file <code>/run/anon-firewall/failed.status</code> exists!"
    else
       anon_firewall_failed_file_exists=false
-      extra_text="Failure file <code>/var/run/anon-firewall/failed.status</code> does not exist, ok."
+      extra_text="Failure file <code>/run/anon-firewall/failed.status</code> does not exist, ok."
    fi
 
    local i max
