@@ -1,3 +1,31 @@
+commit db16ef6def08a2fd3b1ad81cc57f5b98772635e9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 11:13:47 2019 +0000
+
+    readme
+
+commit 7a9ada903c98ba66e8bc33af0a9f978c31295e5f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 11:10:09 2019 +0000
+
+    increase delay in check_package_manager_running to reduce log spam
+    
+    and not confuse systemd
+
+commit 0e51e26bd11df3fff275de05060c738694f34e01
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 11:07:23 2019 +0000
+
+    abort when run in autostart or daemon mode when package manager is running
+    
+    because this is likely during apt-get upgrades.
+
+commit 38a6dc11fbf5ddbfa58fd0cf989d62f375b8c79e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 31 07:49:30 2019 +0000
+
+    bumped changelog version
+
 commit 31b52ae290cc739a0a050f99144522ee6435a91b
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jul 31 03:14:31 2019 -0400
