@@ -56,7 +56,7 @@ Exiting.</p>"
       fi
    fi
 
-   sleep "1" &
+   sleep "10" &
    wait "$!" || true
    check_package_manager_running
 }
