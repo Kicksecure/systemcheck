@@ -1,3 +1,15 @@
+commit 54c675be7b68d4b6ce6fed87e622570544967b28
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 11:30:34 2019 +0000
+
+    /var/log/journal/** r,
+
+commit 34dcf944d5033653727dc082cafcb32ba377fd4e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 12:11:35 2019 +0000
+
+    bumped changelog version
+
 commit db16ef6def08a2fd3b1ad81cc57f5b98772635e9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 1 11:13:47 2019 +0000
