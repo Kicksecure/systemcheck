@@ -388,6 +388,8 @@
 	/var/log/sdwdate.log rw,
 	/var/log/tor/log r,
 	/var/log/apt/** rw,
+	/var/log/journal/ r,
+	/var/log/journal/** r,
 
 	/var/lib/anon-dist/build_version r,
 	/var/lib/dpkg/lock r,
