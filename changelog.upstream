@@ -1,3 +1,15 @@
+commit 6b57ed2f748eeb45b50b35520d358bf18a39e772
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 28 11:28:31 2019 +0000
+
+    split dh_install / dh_installman
+
+commit 128bec5c7e15ef8570029add893e2b4b740cbb53
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 11:31:53 2019 +0000
+
+    bumped changelog version
+
 commit 54c675be7b68d4b6ce6fed87e622570544967b28
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 14 11:30:34 2019 +0000
