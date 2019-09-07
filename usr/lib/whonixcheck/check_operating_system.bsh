@@ -75,21 +75,20 @@ $qubes_update_help</p>"
       return 0
    fi
 
-   local check_os_output check_os_exit_code
+   local check_os_output check_os_output_show check_os_exit_code
    check_os_exit_code="0"
    ## /usr/lib/helper-scripts/apt-get-update-simulate is timeout protected.
    check_os_output="$(sudo --non-interactive /usr/lib/helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
+   check_os_output_show="$(/usr/lib/msgcollector/br_add "$check_os_output")"
 
    if [ "$verbose" -ge "1" ]; then
       local MSG="<p><code>sudo apt-get dist-upgrade --simulate</code> output:
-<code><blockquote>$check_os_output</blockquote></code></p>"
+<code><blockquote>$check_os_output_show</blockquote></code></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ ! "$check_os_exit_code" = "0" ]; then
-      check_os_output="$(/usr/lib/msgcollector/br_add "$check_os_output")"
-
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
@@ -98,7 +97,7 @@ $qubes_update_help</p>"
 <code>sudo apt-get dist-upgrade --simulate</code> exit code: <code>$check_os_exit_code</code><br />
 <code>sudo apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>
-$check_os_output
+$check_os_output_show
 </blockquote></code>
 $if_you_know_what_you_are_doing_msg"
       resolve_attempt_commands="<blockquote><code>sudo dpkg --audit</code>
