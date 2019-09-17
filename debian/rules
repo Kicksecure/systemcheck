@@ -16,6 +16,7 @@ override_dh_installman:
 
 override_dh_install:
 	dh_apparmor --profile-name=$(APPARMOR_PROFILE_NAME) -p$(shell dh_listpackages)
+	dh_install
 
 override_dh_installchangelogs:
 	dh_installchangelogs changelog.upstream upstream
