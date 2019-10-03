@@ -42,3 +42,10 @@ whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-uni
 
 ## required for check_tor_pid
 whonixcheck ALL=NOPASSWD: /usr/lib/whonixcheck/check_tor_pid
+
+## required for check_network_interfaces if /sys is restricted to root
+whonixcheck ALL=NOPASSWD: /bin/cat /sys/class/net/eth0/carrier
+whonixcheck ALL=NOPASSWD: /bin/cat /sys/class/net/eth1/carrier
+
+## required for check_pvclock if /sys is restricted to root
+whonixcheck ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/current_clocksource
