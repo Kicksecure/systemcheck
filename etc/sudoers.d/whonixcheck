@@ -49,3 +49,4 @@ whonixcheck ALL=NOPASSWD: /bin/cat /sys/class/net/eth1/carrier
 
 ## required for check_pvclock if /sys is restricted to root
 whonixcheck ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/current_clocksource
+whonixcheck ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/available_clocksource
