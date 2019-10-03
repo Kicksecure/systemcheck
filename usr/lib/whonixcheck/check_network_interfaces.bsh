@@ -13,13 +13,13 @@ check_network_interfaces() {
    local failed eth0_failed eth1_failed
 
    failed=false
-   if ! cat /sys/class/net/eth0/carrier &>/dev/null ; then
+   if ! sudo cat /sys/class/net/eth0/carrier &>/dev/null ; then
       eth0_failed=true
       failed=true
    fi
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if ! cat /sys/class/net/eth1/carrier &>/dev/null ; then
+      if ! sudo cat /sys/class/net/eth1/carrier &>/dev/null ; then
          eth1_failed=true
          failed=true
       fi
@@ -48,7 +48,7 @@ Try to manually start Whonix networking.
 Or reboot.<br />
 <br />
 Debugging information:<br />
-Command <code>cat /sys/class/net/eth0/carrier</code> failed.<br />
+Command <code>sudo cat /sys/class/net/eth0/carrier</code> failed.<br />
 <br />
 $if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
@@ -64,7 +64,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 $if_you_know_what_you_are_doing_msg
 
 Debugging information:
-Command <code>cat /sys/class/net/eth1/carrier</code> failed.</p>"
+Command <code>sudo cat /sys/class/net/eth1/carrier</code> failed.</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
