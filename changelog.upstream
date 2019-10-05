@@ -1,3 +1,61 @@
+commit 3c8bacb8c2b891051c5aaa7940ec531d5afa0e45
+Merge: 09ec0bd fb5cc2e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 5 04:44:47 2019 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit fb5cc2e721f99bee52be5f28ae4747aa38f67c01
+Merge: 09ec0bd 31ccb33
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 5 08:43:56 2019 +0000
+
+    Merge pull request #12 from madaidan/sudoers-exceptions
+    
+    Use sudo when checking files in /sys
+
+commit 31ccb332d9a0248613db043341cf8c0012b867b5
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Thu Oct 3 21:36:31 2019 +0000
+
+    Update check_network_interfaces.bsh
+
+commit e6417ae2e4dd033f047cfdf9a5cb58fd14ed64f6
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Thu Oct 3 21:36:08 2019 +0000
+
+    Update check_pvclock.bsh
+
+commit 9cd6c1d679da38125653cb790eebf99b295900c7
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Thu Oct 3 21:04:02 2019 +0000
+
+    Update whonixcheck
+
+commit 702c2c3f0596e144283cc8ea09e2fa056808e110
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Thu Oct 3 21:02:08 2019 +0000
+
+    Add sudoers exceptions
+
+commit d6f91a78b42370f2696be63ce27ca3525cd0ad5d
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Thu Oct 3 21:01:30 2019 +0000
+
+    Use sudo
+
+commit 039a15896ad40450bb8543b9daab5654965289e9
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Thu Oct 3 20:59:13 2019 +0000
+
+    Use sudo
+
+commit 09ec0bd80aea1ac1698abab47aeb3eef3610139f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 17 14:17:49 2019 +0000
+
+    bumped changelog version
+
 commit ac65e3f47f54f4fb879b7efab5269b280956408c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Sep 17 07:24:52 2019 +0000
