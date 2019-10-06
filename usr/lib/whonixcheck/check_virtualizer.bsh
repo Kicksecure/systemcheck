@@ -4,19 +4,18 @@
 ## See the file COPYING for copying conditions.
 
 check_virtualizer() {
-   [ -n "$whonixcheck_virt_detection_tool" ] || whonixcheck_virt_detection_tool="systemd-detect-virt"
+   if [ "$whonixcheck_virtualizer_detected" = "tool-unavailable" ]; then
+      local MSG="<p>Check Virtualizer Result: $whonixcheck_virt_detection_tool not available. Skipping test.</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      return 0
+   fi
 
-   ## Global variable whonixcheck_virtualizer_detected.
-   ## (Used by check_pvclock.)
+   if [ "$whonixcheck_virtualizer_detect_success" = "false" ]; then
+      local if_you_know_what_you_are_doing_msg
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
-   if command -v "$whonixcheck_virt_detection_tool" >/dev/null 2>&1 ; then
-      if whonixcheck_virtualizer_detected="$("sudo --non-interactive $whonixcheck_virt_detection_tool" 2>&1)" ; then
-         true "INFO: No error reported from running $whonixcheck_virtualizer_detected."
-      else
-         local if_you_know_what_you_are_doing_msg
-         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-
-         local MSG="\
+      local MSG="\
 <p>Virtualizer detection failed. You might be running a virtualizer unsupported by Whonix developers! Whonixcheck aborted!
 <br></br>
 <br></br>This might endanger your anonymity. Do not proceed unless you know what you are doing.
@@ -31,16 +30,10 @@ check_virtualizer() {
 <br></br><code>$whonixcheck_virt_detection_tool</code> output: <blockquote><code>$whonixcheck_virtualizer_detected</code></blockquote>
 <br></br>$if_you_know_what_you_are_doing_msg
 </p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         EXIT_CODE="1"
-         cleanup "1"
-         return 0
-      fi
-   else
-      local MSG="<p>Check Virtualizer Result: $whonixcheck_virt_detection_tool not available. Skipping test.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
       return 0
    fi
 

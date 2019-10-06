@@ -63,6 +63,26 @@ stdin not connected to terminal, probably run in graphical environment, ok.</p>"
    fi
 }
 
+virtualizer_detection() {
+   [ -n "$whonixcheck_virt_detection_tool" ] || whonixcheck_virt_detection_tool="systemd-detect-virt"
+
+   ## Global variable whonixcheck_virtualizer_detected.
+   ## (Used by check_pvclock.)
+
+   whonixcheck_virtualizer_detect_success=false
+
+   if ! command -v "$whonixcheck_virt_detection_tool" >/dev/null 2>&1 ; then
+      whonixcheck_virtualizer_detected="tool-unavailable"
+      return 0
+   fi
+
+   if whonixcheck_virtualizer_detected="$("sudo --non-interactive $whonixcheck_virt_detection_tool" 2>&1)" ; then
+      whonixcheck_virtualizer_detect_success=true
+      true "INFO: No error reported from running $whonixcheck_virtualizer_detected."
+      return 0
+   fi
+}
+
 if_you_know_what_you_are_doing_funct() {
    ## $1 - $FUNCNAME
    echo "\
@@ -179,6 +199,7 @@ preparation() {
 
    whonixcheck_run_function msgdispatcher_init
    whonixcheck_run_function input_detection
+   whonixcheck_run_function virtualizer_detection
 
    [ -n "$verbose" ] || verbose="0"
 
