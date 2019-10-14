@@ -1,3 +1,43 @@
+commit cfdcb60846684ded2335202e1515687450b5603c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 6 11:34:43 2019 +0000
+
+    refactoring
+
+commit b6954b9a75081ef5196f4de937c3e27cce56d247
+Merge: e9b69dd 7665654
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 6 05:21:27 2019 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7665654a950aa7966b1516df06d719a510d20962
+Merge: e9b69dd 123a04f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 6 09:18:34 2019 +0000
+
+    Merge pull request #13 from madaidan/sudoers-exception
+    
+    Add sudoers exception for systemd-detect-virt
+
+commit 123a04f92ce3ae76a918ae059adf4b90167f0700
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Sat Oct 5 18:14:06 2019 +0000
+
+    Use sudo
+
+commit eaaba3c73dcd3a828fd00c2bc1d7a1bf5099d6ba
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Sat Oct 5 18:11:45 2019 +0000
+
+    Add sudoers exception for systemd-detect-virt
+
+commit e9b69dde371b032edf8248ef62a24db8ae0be24e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 5 09:42:06 2019 +0000
+
+    bumped changelog version
+
 commit 3c8bacb8c2b891051c5aaa7940ec531d5afa0e45
 Merge: 09ec0bd fb5cc2e
 Author: Patrick Schleizer <adrelanos@riseup.net>
