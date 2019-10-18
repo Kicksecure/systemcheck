@@ -69,6 +69,7 @@ virtualizer_detection() {
    ## Global variable whonixcheck_virtualizer_detected.
    ## (Used by check_pvclock.)
 
+   whonixcheck_platform_or_virtualizer_known=false
    whonixcheck_virtualizer_detect_success=false
 
    if ! command -v "$whonixcheck_virt_detection_tool" >/dev/null 2>&1 ; then
@@ -92,6 +93,25 @@ virtualizer_detection() {
 
    if [ "$whonixcheck_virtualizer_detected" = "" ]; then
       whonixcheck_virtualizer_detected="unknown"
+   fi
+
+   if [ "$whonixcheck_virtualizer_detected" = "none" ]; then
+      whonixcheck_platform_or_virtualizer_known=true
+   fi
+   if [ "$whonixcheck_virtualizer_detected" = "oracle" ]; then
+      whonixcheck_platform_or_virtualizer_known=true
+   fi
+   if [ "$whonixcheck_virtualizer_detected" = "kvm" ]; then
+      whonixcheck_platform_or_virtualizer_known=true
+   fi
+   if [ "$whonixcheck_virtualizer_detected" = "qemu" ]; then
+      whonixcheck_platform_or_virtualizer_known=true
+   fi
+   if [ "$whonixcheck_virtualizer_detected" = "qubes" ]; then
+      whonixcheck_platform_or_virtualizer_known=true
+   fi
+   if [ "$whonixcheck_virtualizer_detected" = "vmware" ]; then
+      whonixcheck_platform_or_virtualizer_known=true
    fi
 }
 
