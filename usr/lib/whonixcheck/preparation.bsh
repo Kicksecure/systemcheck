@@ -229,6 +229,13 @@ preparation() {
    ## For msgdispatcher_init.
    [ -n "$who_ami" ] || who_ami="$(whoami)"
 
+   ## required by virtualizer_detection
+   if command -v qubesdb-read >/dev/null 2>&1 ; then
+      qubes_detected="true"
+   else
+      qubes_detected="false"
+   fi
+
    whonixcheck_run_function msgdispatcher_init
    whonixcheck_run_function input_detection
    whonixcheck_run_function virtualizer_detection
@@ -303,12 +310,6 @@ preparation() {
 
    ## Prepare temporary directory.
    chmod 700 "$TEMP_DIR"
-
-   if command -v qubesdb-read >/dev/null 2>&1 ; then
-      qubes_detected="true"
-   else
-      qubes_detected="false"
-   fi
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       VM="Whonix-Gateway"
