@@ -31,7 +31,15 @@ whonix_news_preparation() {
    whonix_news_verify_dir="$TEMP_DIR/news/verify_dir"
    whonix_news_extract_dir="$TEMP_DIR/news/extract_dir"
 
-   whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix_census"
+   ## legacy
+   #whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix_census"
+
+   if [ "$whonixcheck_platform_or_virtualizer_known" = "true" ]; then
+      whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_${whonixcheck_virtualizer_detected}"
+   else
+      whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_unknown"
+   fi
+
    whonix_gateway_last_census_file="/var/lib/whonixcheck/whonix_gateway_last_census.txt"
    whonix_gateway_census_result_file="/var/lib/whonixcheck/whonix_gateway_census_result.txt"
 
