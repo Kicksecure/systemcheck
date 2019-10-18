@@ -80,7 +80,7 @@ virtualizer_detection() {
 
    if whonixcheck_virtualizer_detected="$(sudo --non-interactive "$whonixcheck_virt_detection_tool" 2>&1)" ; then
       whonixcheck_virtualizer_detect_success=true
-      true "INFO: No error reported from running $whonixcheck_virtualizer_detected."
+      true "INFO: No error reported from running $whonixcheck_virt_detection_tool"
 
       if [ "$whonixcheck_virtualizer_detected" = "xen" ]; then
          if [ "$qubes_detected" = "true" ]; then
