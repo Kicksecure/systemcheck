@@ -13,33 +13,6 @@ download_whonix_news() {
 
    whonixcheck_run_function download_now_whonix_news
 
-   ## TODO: vs whonix_gateway_census_result
-#    if [ ! "$whonix_news_download_success" = "true" ]; then
-#       true "$BASH_SOURCE WARNING: whonix_news_download_success is not true, it is $whonix_news_verified_ok, return"
-#       return 0
-#    fi
-
-#    whonixcheck_run_function verify_whonix_news
-#
-#    if [ ! "$whonix_news_verified_ok" = "true" ]; then
-#       true "$BASH_SOURCE WARNING: whonix_news_verified_ok is not true, it is $whonix_news_verified_ok, return"
-#       return 0
-#    fi
-#
-#    whonixcheck_run_function extract_whonix_news
-#
-#    if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-#       true "$BASH_SOURCE ERROR: whonix_news_tar_exit_code is not 0, it is $whonix_news_tar_exit_code, return"
-#       return 0
-#    fi
-#
-#    whonixcheck_run_function check_whonix_debian_version
-#    whonixcheck_run_function check_whonix_build_version
-#
-#    whonixcheck_run_function check_whonix_general_news
-#    whonixcheck_run_function check_whonix_debian_news
-#    whonixcheck_run_function check_whonix_build_news
-
    whonixcheck_run_function whonix_gateway_census_result
 
    whonixcheck_run_function check_whonix_show_news
@@ -106,31 +79,19 @@ whonix_gateway_census_count_or_not() {
 }
 
 download_now_whonix_news() {
-   #download_now_whonix_news_helper "http://dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz.asc" "$whonix_news_download_dir/whonix_news.tar.xz.asc"
-   #if [ "$whonix_news_download_success" = "true" ]; then
-      #download_now_whonix_news_helper "http://dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonixdevelopermetafiles/internal/news_v4/whonix_news.tar.xz" "$whonix_news_download_dir/whonix_news.tar.xz"
-
-      if [ "$whonix_gateway_census_do_check_in" = "true" ]; then
-         local MSG="Whonix Census: anonymously counting this Whonix-Gateway, ok."
-         if [ "$verbose" -ge "1" ]; then
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
-         download_now_whonix_news_helper "$whonix_gateway_census_api_link" "$whonix_gateway_census_result_file" "--request PUT --data gateway-sign-in"
-      else
-         local MSG="Whonix Census: Not needed, ok."
-         if [ "$verbose" -ge "1" ]; then
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
-         download_now_whonix_news_helper "None required at this time, ok." "none"
+   if [ "$whonix_gateway_census_do_check_in" = "true" ]; then
+      local MSG="Whonix Census: anonymously counting this Whonix-Gateway, ok."
+      if [ "$verbose" -ge "1" ]; then
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-   #fi
-
-#    if [ "$whonix_news_download_success" = "false" ]; then
-#       download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz.asc/download" "$whonix_news_download_dir/whonix_news.tar.xz.asc"
-#       if [ "$whonix_news_download_success" = "true" ]; then
-#          download_now_whonix_news_helper "http://sourceforge.net/projects/whonixdevelopermetafiles/files/internal/news_v4/whonix_news.tar.xz/download" "$whonix_news_download_dir/whonix_news.tar.xz"
-#       fi
-#    fi
+      download_now_whonix_news_helper "$whonix_gateway_census_api_link" "$whonix_gateway_census_result_file" "--request PUT --data gateway-sign-in"
+   else
+      local MSG="Whonix Census: Not needed, ok."
+      if [ "$verbose" -ge "1" ]; then
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      download_now_whonix_news_helper "None required at this time, ok." "none"
+   fi
 
    if [ "$whonix_news_download_success" = "false" ]; then
       local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed.</p>"
@@ -142,9 +103,6 @@ download_now_whonix_news() {
 }
 
 download_now_whonix_news_helper() {
-   ## sf.net does not support ssl.
-   ## --location is required since sf.net uses redirects to mirrors.
-
    local web_link file_name
 
    web_link="$1"
@@ -205,320 +163,6 @@ download_now_whonix_news_helper() {
    fi
 }
 
-verify_whonix_news() {
-   ## Fallback
-   whonix_news_verified_ok="false"
-
-   gpg_bash_lib_input_key_import_dir="/usr/share/whonix/whonix-news-keys.d"
-   gpg_bash_lib_input_temp_folder="$whonix_news_verify_dir/news_gpg"
-   gpg_bash_lib_input_data_file="$whonix_news_download_dir/whonix_news.tar.xz"
-   gpg_bash_lib_input_sig_file="$whonix_news_download_dir/whonix_news.tar.xz.asc"
-   gpg_bash_lib_input_file_name_enforce="true"
-   gpg_bash_lib_input_cleanup="false"
-   gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_error_handler_message"'
-
-   source "/usr/lib/gpg-bash-lib/source_all"
-
-   trap "gpg_bash_lib_function_error_handler" ERR
-   gpg_bash_lib_function_main_verify
-   trap "error_handler" ERR
-
-   gpg_bash_lib_output_diagnostic_message="$(/usr/lib/msgcollector/br_add "$gpg_bash_lib_output_diagnostic_message")"
-   gpg_bash_lib_output_freshness_msg="$(/usr/lib/msgcollector/br_add "$gpg_bash_lib_output_freshness_msg")"
-
-   local freshness_msg="$whonix_news_hyperlink gpg_bash_lib_output_diagnostic_message:
-<br></br>$gpg_bash_lib_output_diagnostic_message"
-
-   if [ ! "$gpg_bash_lib_output_alright_status" = "true" ] || [ "$gpg_bash_lib_output_failure" = "true" ] ; then
-      whonix_news_verified_ok="false"
-      local MSG="<p>$whonix_news_hyperlink Download Result:<br></br><b>Could not OpenPGP verify authenticity of Whonix News </b>$file_name!!!
-<br></br>(gpg_bash_lib_output_gpg_verify_exit_code: $gpg_bash_lib_output_gpg_verify_exit_code \
-| gpg_bash_lib_output_validsig_status: $gpg_bash_lib_output_validsig_status | \
-gpg_bash_lib_output_alright_status: $gpg_bash_lib_output_alright_status | \
-gpg_bash_lib_output_failure: $gpg_bash_lib_output_failure)
-<br></br>This is either,
-<br></br>- a Whonix Bug,
-<br></br>- an attack on Whonix,
-<br></br>- or Whonix News Keys might be outdated. Upgrading using apt-get might fix this.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      local MSG="<p>$freshness_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      return 0
-   fi
-
-   local MSG="<p>$freshness_msg</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
-
-   case "$gpg_bash_lib_output_freshness_detail" in
-      "lenient")
-         local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
-Whonix News File was signed $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
-Ignoring this, because it still is within range. (Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output before.)</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
-         ;;
-      "slow")
-         whonix_news_verified_ok="false"
-         local MSG="<p>$whonix_news_hyperlink Check: <br></br><b>Your clock might be slow.</b> According to your system clock,
-Whonix News File was signed $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
-<br></br>Please check your clock is correct.</p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         return 0
-         ;;
-      "outdated")
-         whonix_news_verified_ok="false"
-         local MSG="<p>$whonix_news_hyperlink Check: <b>Whonix News File is no longer valid (outdated).</b>
-<br></br>Either,
-<br></br>- your clock might be fast (at least $gpg_bash_lib_output_in_future_pretty_output fast). In that case, please check your clock is correct.
-<br></br>- it has been forgotten to refresh Whonix's News File by Whonix maintainers (invalid since $gpg_bash_lib_output_in_future_pretty_output)
-<br></br>- this is a Whonix Bug
-<br></br>- or this is an attack on Whonix</p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         return 0
-         ;;
-      "current")
-         local MSG="<p>$whonix_news_hyperlink Check: According to your system clock, Whonix News File was signed $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago. \
-(Whonix News File Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.)</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
-         ;;
-      *)
-         whonix_news_verified_ok="false"
-         error "gpg_bash_lib_output_freshness_detail is neither lenient, nor slow, nor outdated, nor current, it is: $gpg_bash_lib_output_freshness_detail"
-         return 0
-         ;;
-   esac
-
-   whonix_news_verified_ok="true"
-
-   local MSG="<p>$whonix_news_hyperlink Check: gpg_bash_lib_output_freshness_msg:<br></br>
-$gpg_bash_lib_output_freshness_msg</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
-
-   local MSG="<p>$whonix_news_hyperlink Check: news file valid.</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
-}
-
-extract_whonix_news() {
-   local file_name timeout_after kill_after
-   file_name="whonix_news.tar.xz"
-
-   timeout_after="10"
-   kill_after="10"
-
-   ## Debugging.
-   #timeout_after="0.001"
-   #kill_after="0.001"
-
-   whonix_news_tar_exit_code="0"
-
-   ## Using `bsdtar` because it can auto detect the archive type.
-   timeout \
-      --kill-after="$kill_after" \
-      "$timeout_after" \
-         bsdtar \
-            --strip-components 1 \
-            --extract \
-            --directory "$whonix_news_extract_dir" \
-            --file "$whonix_news_download_dir/$file_name" \
-            >/dev/null \
-            &
-
-   lastpid="$!"
-   wait "$lastpid" || { whonix_news_tar_exit_code="$?" ; true; };
-
-   ## `timeout` returns:
-   ## - 124 if sigterm was sufficient
-   ## - 137 if needed to use kill.
-
-   if [ ! "$whonix_news_tar_exit_code" = "0" ]; then
-      local MSG="<p>$whonix_news_hyperlink Download Result: <b>Could not extract $file_name!</b> (tar exit code: ${whonix_news_tar_exit_code})
-<br></br>Please report this bug!</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      return 0
-   fi
-
-   ## Debugging.
-   #ls -la "$whonix_news_download_dir/"
-   #ls -la "$whonix_news_extract_dir/"
-}
-
-check_whonix_debian_version() {
-   if [ "$whonix_deb_package_version_detection_success" = "false" ]; then
-      whonix_news_deb_up_to_date="unknown"
-      local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-      whonix_news_result_output="\
-<b><span style=font-weight:600;color:#ff0000>✘</span> Unknown: <code>$whonix_deb_package_name</code> version unknown, because not installed.</b>
-<br></br>$if_you_know_what_you_are_doing_msg"
-      return 0
-   fi
-
-   local file_name
-   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_valid_deb_versions"
-
-   if [ ! -f "$file_name" ]; then
-      ## This file should always exist.
-      whonix_news_result_output="<b>File $file_name does not exist.</b><br></br>Please report this bug!"
-      return 0
-   fi
-
-   whonix_news_deb_up_to_date="false"
-
-   local LINE
-   while read -r LINE; do
-      #true "$i: $LINE"
-      if [ "$whonix_deb_package_version" = "$LINE" ]; then
-         whonix_news_deb_up_to_date="true"
-      fi
-   done < "$file_name"
-
-   if [ "$whonix_news_deb_up_to_date" = "true" ]; then
-      ## Up to date...
-      whonix_news_result_output="<span style=color:#008000>√</span> Up to date: <code>$whonix_deb_package_name</code> <u>$whonix_deb_package_version</u>"
-   else
-      ## Outdated...
-      whonix_news_result_output="<b><span style=font-weight:600;color:#ff0000>✘</span> Outdated: Installed <code>$whonix_deb_package_name</code> <u>$whonix_deb_package_version</u> is outdated!</b>
-<br></br>You should update. You can automatically update using Whonix's internal updater. Please update using:
-<code><blockquote>sudo apt-get update && sudo apt-get dist-upgrade</blockquote></code>"
-   fi
-}
-
-check_whonix_build_version() {
-   if [ "$whonix_build_version_detection_success" = "false" ]; then
-      whonix_news_build_up_to_date="unknown"
-      local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-      whonix_news_result_output="${whonix_news_result_output}<br></br>
-<span style=font-weight:600;color:#ff0000>✘</span> <b>Unknown: $whonix_news_build_version_link: <u>$whonix_build_version</u></b>
-<br></br>$if_you_know_what_you_are_doing_msg"
-      return 0
-   fi
-
-   local file_name
-   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_valid_build_versions"
-
-   if [ ! -f "$file_name" ]; then
-      ## This file should always exist.
-      whonix_news_result_output="${whonix_news_result_output}<br></br>
-<b>File $file_name does not exist.</b><br></br>Please report this bug!"
-      return 0
-   fi
-
-   whonix_news_build_up_to_date="false"
-
-   local LINE
-   while read -r LINE; do
-      #true "$i: $LINE"
-      if [ "$whonix_build_version" = "$LINE" ]; then
-         whonix_news_build_up_to_date="true"
-      fi
-   done < "$file_name"
-
-   if [ "$whonix_news_build_up_to_date" = "true" ]; then
-      ## Up to date...
-      if [ "$verbose" -ge "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}<br></br>
-<span style=color:#008000>√</span> Up to date: $whonix_news_build_version_link: <u>$whonix_build_version</u>"
-      fi
-   else
-      ## Outdated...
-      whonix_news_result_output="${whonix_news_result_output}<br></br>
-<span style=font-weight:600;color:#ff0000>✘</span> <b>Outdated: $whonix_news_build_version_link: <u>$whonix_build_version</u> is outdated!</b>
-<br></br>You should update. Sorry, automatically updating this Whonix version is not possible. You have to manually download a new Whonix image."
-   fi
-}
-
-check_whonix_general_news() {
-   local file_name
-   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_general_news"
-
-   if [ ! -f "$file_name" ]; then
-      ## This will happen:
-      ## - when using custom git tags / versions
-      ## - when no news file has been uploaded yet
-      if [ "$verbose" -ge "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}<br></br>
-There is no <u>general</u> news file available for <code>$VM</code> yet."
-      fi
-   else
-      local message
-      message="$(cat "$file_name")"
-      message="$(/usr/lib/msgcollector/striphtml "$message")"
-      if [ "$message" = "" ]; then
-         return 0
-      fi
-      whonix_news_result_output="${whonix_news_result_output}<br></br>
-$VM <u>general</u> News: <code><blockquote>$message</blockquote></code>"
-   fi
-}
-
-check_whonix_debian_news() {
-   local file_name
-   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_${whonix_deb_package_version}_deb_news"
-
-   if [ ! -f "$file_name" ]; then
-      ## This will happen:
-      ## - when using custom git tags / versions
-      ## - when no news file has been uploaded yet
-      if [ "$verbose" -ge "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}<br></br>
-There is no news file available for <code>$whonix_deb_package_name</code> version <u>${whonix_deb_package_version}</u> yet."
-      fi
-   else
-      local message
-      message="$(cat "$file_name")"
-      message="$(/usr/lib/msgcollector/striphtml "$message")"
-      if [ "$message" = "" ]; then
-         return 0
-      fi
-      whonix_news_result_output="${whonix_news_result_output}<br></br>
-$VM <code>$whonix_deb_package_name</code> <u>${whonix_deb_package_version}</u> News: <code><blockquote>$message</blockquote></code>"
-   fi
-}
-
-check_whonix_build_news() {
-   local file_name
-   file_name="$whonix_news_extract_dir/whonix_${vm_lower_case_short}_${whonix_build_version}_build_news"
-
-   if [ ! -f "$file_name" ]; then
-      ## This will happen:
-      ## - when using custom git tags / versions
-      ## - when no news file has been uploaded yet
-      if [ "$verbose" -ge "1" ]; then
-         whonix_news_result_output="${whonix_news_result_output}<br></br>
-There is no news file available for $whonix_news_build_version_link: <u>${whonix_build_version}</u> yet."
-      fi
-   else
-      local message
-      message="$(cat "$file_name")"
-      message="$(/usr/lib/msgcollector/striphtml "$message")"
-      if [ "$message" = "" ]; then
-         return 0
-      fi
-      whonix_news_result_output="${whonix_news_result_output}<br></br>
-$VM Build <u>${whonix_build_version}</u> News: <code><blockquote>$message</blockquote></code>"
-   fi
-}
-
 whonix_gateway_census_result() {
    local web_link whonix_gateway_census_result_content message
 
@@ -558,12 +202,6 @@ whonix_news_download_exit_code[$web_link]: <code>${whonix_news_download_exit_cod
 check_whonix_show_news() {
    local type
    type="info"
-#    if [ ! "$whonix_news_build_up_to_date" = "true" ]; then
-#       type="warning"
-#    fi
-#    if [ ! "$whonix_news_deb_up_to_date" = "true" ]; then
-#       type="warning"
-#    fi
    if [ ! "$whonix_census_result_ok" = "true" ]; then
       type="warning"
    fi
