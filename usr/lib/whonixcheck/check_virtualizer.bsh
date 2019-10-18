@@ -84,16 +84,14 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "xen" ]; then
-      if [ "$qubes_detected" = "true" ]; then
-         local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
+   if [ "$whonixcheck_virtualizer_detected" = "qubes" ]; then
+      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
 <br></br>$whonixcheck_virt_detection_tool result: <code>$whonixcheck_virtualizer_detected</code></p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
-         return 0
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
+      return 0
    fi
 
    if [ "$WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
