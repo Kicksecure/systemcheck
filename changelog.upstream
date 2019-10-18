@@ -1,3 +1,63 @@
+commit fb4d0e0434cac3cfc0c812e9dbe4845fce88d58f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 12:45:41 2019 +0000
+
+    virtualizer specific census
+
+commit 2c7b58ee5c213e27a2d7660095ecc0512fc9bbf2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 12:33:15 2019 +0000
+
+    implement variable whonixcheck_platform_or_virtualizer_known
+
+commit 796076de132b99f4b5cd2187acaf8dc64bb61a96
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 12:27:48 2019 +0000
+
+    refactoring
+
+commit a25e6a4349c43fcb596a29ef49de7634540a6502
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 12:21:19 2019 +0000
+
+    refactoring
+
+commit d23feebe0acf1fe9aec76c26bae9e44e3cbb9757
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 11:47:15 2019 +0000
+
+    lower debugging
+
+commit 1a303025fa3d36070f553e6fffc571f5562a6437
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 11:46:32 2019 +0000
+
+    refactoring
+
+commit df09096ba1854024ad8ee4ea1a3c78a701698531
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 11:24:16 2019 +0000
+
+    comment
+
+commit 7cbbfc94c3169e9e727283417e3845892f08cebf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 11:23:39 2019 +0000
+
+    skip census in Qubes DispVM
+
+commit 0ab072dcb7ae61ca62ac76eecf1af68aa29f4cd5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 11:20:56 2019 +0000
+
+    remove unused whonix news code
+
+commit 4c6c90786197d8be7633c2cf254188b787a18b46
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 10:41:23 2019 +0000
+
+    bumped changelog version
+
 commit bc021c349b22030062252115d5a618a362c00651
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Oct 18 04:43:40 2019 -0400
