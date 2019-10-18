@@ -1,3 +1,19 @@
+commit bc021c349b22030062252115d5a618a362c00651
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 04:43:40 2019 -0400
+
+    fix "systemd-detect-virt output: /usr/lib/whonixcheck/preparation.bsh: line 79: sudo --non-interactive systemd-detect-virt: command not found"
+    
+    Thanks to @madaidan for the bug report!
+    
+    http://forums.whonix.org/t/restrict-hardware-information-to-root/7329/78
+
+commit 00a194750d356bc26d7fdb63d229cc5056131e6f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 14 10:24:38 2019 +0000
+
+    bumped changelog version
+
 commit cfdcb60846684ded2335202e1515687450b5603c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Oct 6 11:34:43 2019 +0000
