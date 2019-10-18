@@ -49,9 +49,12 @@ whonix_news_preparation() {
 }
 
 whonix_gateway_census_count_or_not() {
-   ## TODO: Not in Qubes DispVM.
-
    local max_age current_time last_run difference
+
+   if [ "$qubes_vm_persistence" = "none" ]; then
+      whonix_gateway_census_do_check_in="false"
+      return 0
+   fi
 
    if [ ! "$vm_lower_case_short" = "gateway" ]; then
       whonix_gateway_census_do_check_in="false"
