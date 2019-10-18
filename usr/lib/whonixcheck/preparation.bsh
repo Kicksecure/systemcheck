@@ -85,8 +85,10 @@ virtualizer_detection() {
             whonixcheck_virtualizer_detected="qubes"
          fi
       fi
+   fi
 
-      return 0
+   if [ "$whonixcheck_virtualizer_detected" = "" ]; then
+      whonixcheck_virtualizer_detected="unknown"
    fi
 }
 
