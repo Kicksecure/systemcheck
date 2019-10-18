@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_virtualizer() {
-   if [ "$whonixcheck_virtualizer_detected" = "tool-unavailable" ]; then
+   if [ "$whonixcheck_virtualizer_tool_unavailable" = "true" ]; then
       local MSG="<p>Check Virtualizer Result: $whonixcheck_virt_detection_tool not available. Skipping test.</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
