@@ -76,7 +76,7 @@ virtualizer_detection() {
       return 0
    fi
 
-   if whonixcheck_virtualizer_detected="$("sudo --non-interactive $whonixcheck_virt_detection_tool" 2>&1)" ; then
+   if whonixcheck_virtualizer_detected="$(sudo --non-interactive "$whonixcheck_virt_detection_tool" 2>&1)" ; then
       whonixcheck_virtualizer_detect_success=true
       true "INFO: No error reported from running $whonixcheck_virtualizer_detected."
       return 0
