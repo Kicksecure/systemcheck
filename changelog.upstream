@@ -1,3 +1,15 @@
+commit fb087f1beca2620c0df56010064676df62cfdeb6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 21 10:03:49 2019 +0000
+
+    dh_installsystemd --no-start --no-restart-after-upgrade --no-stop-on-upgrade --no-restart-on-upgrade
+
+commit 8ffb2b375f8e31bd541e1e6492539d25c9da0fee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 18 13:07:01 2019 +0000
+
+    bumped changelog version
+
 commit a44ae1cc37bd3ab1e7b3ad67924c4248631731e7
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Oct 18 13:05:36 2019 +0000
