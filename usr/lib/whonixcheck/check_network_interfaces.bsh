@@ -50,6 +50,8 @@ Or reboot.<br />
 Debugging information:<br />
 Command <code>sudo --non-interactive cat /sys/class/net/eth0/carrier</code> failed.<br />
 <br />
+If this error happens only during upgrading or is transient this error can be safely ignored.
+<br />
 $if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
