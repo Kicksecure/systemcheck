@@ -24,10 +24,7 @@ check_spectre_meltdown() {
    fi
 
    if [ "$spectre_meltdown_check" = "false" ]; then
-      local MSG="<p>Spectre Meltdown Test: skipping since spectre_meltdown_check=<code>$spectre_meltdown_check</code>, ok.
-If you wish to enable this test, run:
-<br />
-<code>sudo spectre_meltdown_check=true $SCRIPTNAME</code><br /></p>"
+      local MSG="<p>Spectre Meltdown Test: skipping since spectre_meltdown_check=<code>$spectre_meltdown_check</code>, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
