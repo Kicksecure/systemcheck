@@ -12,17 +12,6 @@ check_spectre_meltdown() {
 
    [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="false"
 
-   if [ "$qubes_detected" = "false" ]; then
-      [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="true"
-   else
-      ## Qubes detected.
-      if dpkg --compare-versions "$(dpkg-query --show --showformat='${Version}' qubes-core-agent)" ge 4 2>&1 ; then
-         [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="true"
-      else
-         [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="false"
-      fi
-   fi
-
    if [ "$spectre_meltdown_check" = "false" ]; then
       local MSG="<p>Spectre Meltdown Test: skipping since spectre_meltdown_check=<code>$spectre_meltdown_check</code>, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
