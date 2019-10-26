@@ -34,13 +34,13 @@ case "$1" in
 
       mkdir -p /var/lib/whonixcheck/
       chown whonixcheck:whonixcheck /var/lib/whonixcheck/
-      chmod o+w /var/lib/whonixcheck/
       chmod g+w /var/lib/whonixcheck/
+      chmod o+w /var/lib/whonixcheck/
 
       mkdir -p /run/whonixcheck/
       chown whonixcheck:whonixcheck /run/whonixcheck/
-      chmod o+w /run/whonixcheck/
       chmod g+w /run/whonixcheck/
+      chmod o+w /run/whonixcheck/
    ;;
 
    abort-upgrade|abort-remove|abort-deconfigure)
