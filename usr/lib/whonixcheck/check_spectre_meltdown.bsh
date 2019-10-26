@@ -15,6 +15,7 @@ check_spectre_meltdown() {
    if [ "$qubes_detected" = "false" ]; then
       [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="true"
    else
+      ## Qubes detected.
       if dpkg --compare-versions "$(dpkg-query --show --showformat='${Version}' qubes-core-agent)" ge 4 2>&1 ; then
          [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="true"
       else
