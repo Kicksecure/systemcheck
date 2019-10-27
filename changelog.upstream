@@ -1,3 +1,56 @@
+commit 013f9764eeeb90c078a1254ce1f667a45cf7f648
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 26 13:35:05 2019 +0000
+
+    permission hardening
+
+commit 4c89e6639205be24ebd556c4f2af504ddcc5cd9d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 26 13:34:46 2019 +0000
+
+    refactoring
+
+commit 166c9b84430f871afaa4fa63a2b430b40e6629ae
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 26 13:06:03 2019 +0000
+
+    specture meltdown test when using whonixcheck --verbose --verbose
+
+commit afb4bd8668fefba9cfa0cc4acc3a9d5e9a3fc2b7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 26 09:02:30 2019 -0400
+
+    remove ineffective code
+
+commit 52aff17e38eb3d647c237aff7f2847f67d368c99
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 26 09:01:56 2019 -0400
+
+    fix output
+
+commit e2fedf65fc92acb8e63030de5fa09eb8553519bd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 26 09:00:24 2019 -0400
+
+    comment
+
+commit 74a01b77c5ae2cfcadbff9df567e11060afdabf8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 26 08:57:26 2019 -0400
+
+    code cleanup
+    
+    remove no longer required code
+    
+    since apt will no longer restart whonixcheck during package upgrades, there is
+    no need to detect that case.
+
+commit d97a868e8c68a64193c83ec104ef7e98a3bdf938
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 23 10:24:12 2019 +0000
+
+    bumped changelog version
+
 commit 09748ecbd57fbfdb2de1dcfddfcae0d39da10059
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 22 09:33:06 2019 -0400
