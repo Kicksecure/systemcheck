@@ -1,3 +1,31 @@
+commit fb1f0694b60c0faa639c6d2517c26d4f711a8984
+Merge: 014a3e3 48764f8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 30 00:16:21 2019 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 48764f86c287c7b6c7806e3002dc6a08122fa3c4
+Merge: 014a3e3 c72d21c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 30 04:15:55 2019 +0000
+
+    Merge pull request #14 from madaidan/apparmor
+    
+    Give access to /dev/pts/[0-9]*
+
+commit c72d21c2050da32043ba7aa1a12bd0ea4072621d
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Tue Oct 29 21:59:00 2019 +0000
+
+    /dev/pts/[0-9]* rw,
+
+commit 014a3e315bdcb5a6413ed8df0d605eab8f732fc1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 27 09:19:42 2019 +0000
+
+    bumped changelog version
+
 commit 013f9764eeeb90c078a1254ce1f667a45cf7f648
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Oct 26 13:35:05 2019 +0000
