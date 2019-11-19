@@ -408,6 +408,6 @@
 	## Qubes specific
 	/run/qubes-whonix/ r,
 	/run/qubes-whonix/qubes.SetDateTime r,
-	
+
 	/dev/pts/[0-9]* rw,
 }
