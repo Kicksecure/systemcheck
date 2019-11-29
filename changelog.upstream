@@ -1,3 +1,21 @@
+commit cee2ca97654575974c78a7a9ea699a38b8090c88
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Nov 28 12:25:18 2019 -0500
+
+    remove dmidecode, probably leftover from virt-what
+
+commit 1b15f154485d0edb407d5caa7778d8050858b2e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Nov 28 12:24:49 2019 -0500
+
+    no longer using virt-what, therefore removed
+
+commit 79db24d7061b9c8a302b57aa7291edfe4e2109ce
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 19 15:33:28 2019 +0000
+
+    bumped changelog version
+
 commit 374d78f1595763458e8a4c87434c20d57631d11f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Nov 19 15:30:54 2019 +0000
