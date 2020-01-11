@@ -93,12 +93,14 @@ check_journal() {
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
    grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")" || true
+   grep_fail_output="$(echo "$journalctl_output" | grep -i "fail")" || true
    grep_error_output="$(echo "$journalctl_output" | grep -i "error")" || true
    grep_denied_output="$(echo "$journalctl_output" | grep -i "denied")" || true
    grep_ordering_output="$(echo "$journalctl_output" | grep -i "ordering cycle")" || true
 
    if \
    [ "$grep_warn_output" = "" ] && \
+   [ "$grep_fail_output" = "" ] && \
    [ "$grep_error_output" = "" ] && \
    [ "$grep_denied_output" = "" ] && \
    [ "$grep_ordering_output" = "" ]; then
@@ -106,6 +108,7 @@ check_journal() {
    fi
 
    grep_warn_output="$(/usr/lib/msgcollector/br_add "$grep_warn_output")"
+   grep_fail_output="$(/usr/lib/msgcollector/br_add "$grep_fail_output")"
    grep_error_output="$(/usr/lib/msgcollector/br_add "$grep_error_output")"
    grep_denied_output="$(/usr/lib/msgcollector/br_add "$grep_denied_output")"
    grep_ordering_output="$(/usr/lib/msgcollector/br_add "$grep_ordering_output")"
@@ -118,6 +121,11 @@ check_journal() {
 <br></br>warnings:
 <br></br>########################################
 <br></br>$grep_warn_output
+<br></br>########################################
+<br></br>
+<br></br>failed:
+<br></br>########################################
+<br></br>$grep_fail_output
 <br></br>########################################
 <br></br>
 <br></br>errors:
