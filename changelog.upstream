@@ -1,3 +1,27 @@
+commit 7b47c030ae924bbb37ef3e9d596acd73efe55eb4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 11 08:31:22 2020 -0500
+
+    journalctl --boot
+
+commit f93f9d37f3154daf848d59eec1973d4fac2ea4b8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 11 08:30:51 2020 -0500
+
+    journalctl --boot
+
+commit 79a274d407950ad8be6906bc7feba0c5f1af9338
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 11 08:28:08 2020 -0500
+
+    whonixcheck --verbose: also show "journalctl -b | grep fail" output
+
+commit 801281f5e0c8fd116d27f5a96a9e9500f0328b15
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 29 08:12:59 2019 -0500
+
+    bumped changelog version
+
 commit cee2ca97654575974c78a7a9ea699a38b8090c88
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Nov 28 12:25:18 2019 -0500
