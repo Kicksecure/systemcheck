@@ -200,7 +200,7 @@ check_whonix_firewall_systemd_status() {
       return 0
    fi
 
-   journalctl_whonix_firewall_output="$(sudo --non-interactive /bin/journalctl --no-pager -u whonix-firewall)" || true
+   journalctl_whonix_firewall_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager -u whonix-firewall)" || true
    journalctl_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$journalctl_whonix_firewall_output")"
 
    local if_you_know_what_you_are_doing_msg
@@ -218,7 +218,7 @@ check_whonix_firewall_systemd_status() {
 <br></br>$systemctl_status_whonix_firewall_output
 <br></br>########################################
 <br></br>
-<br></br>output of <code>sudo journalctl -u whonix-firewall</code>:
+<br></br>output of <code>sudo journalctl --boot -u whonix-firewall</code>:
 <br></br>
 <br></br>########################################
 <br></br>$journalctl_whonix_firewall_output
@@ -227,7 +227,7 @@ check_whonix_firewall_systemd_status() {
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Run. <blockquote><code>sudo systemctl status whonix-firewall</code></blockquote>
-<br></br>2. Also see. <blockquote><code>sudo journalctl -u whonix-firewall | cat</code></blockquote>
+<br></br>2. Also see. <blockquote><code>sudo journalctl --boot -u whonix-firewall | cat</code></blockquote>
 <br></br>3. Try to manually start Whonix firewall. <blockquote><code>sudo whonix_firewall</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg
