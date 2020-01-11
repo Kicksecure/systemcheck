@@ -89,7 +89,7 @@ check_journal() {
 
    ## '--priority=0..4'
    ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
-   journalctl_output="$(sudo --non-interactive /bin/journalctl --no-pager --priority=0..4 --boot)" || true
+   journalctl_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager --priority=0..4)" || true
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
    grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")" || true
