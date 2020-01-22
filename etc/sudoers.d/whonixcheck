@@ -34,8 +34,8 @@ whonixcheck ALL=NOPASSWD: /bin/dmesg
 whonixcheck ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid
 
 ## required for check_services
-whonixcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager --priority=0..4
-whonixcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager -u whonix-firewall
+whonixcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager --output=cat --priority=0..4
+whonixcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager --output=cat -u whonix-firewall
 whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-firewall
 whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --no-legend --failed
 whonixcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-units
