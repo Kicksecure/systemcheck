@@ -89,7 +89,7 @@ check_journal() {
 
    ## '--priority=0..4'
    ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
-   journalctl_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager --output=cat --priority=0..4)" || true
+   journalctl_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager --priority=0..4)" || true
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
    grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")" || true
@@ -201,7 +201,7 @@ check_whonix_firewall_systemd_status() {
       return 0
    fi
 
-   journalctl_whonix_firewall_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager --output=cat -u whonix-firewall)" || true
+   journalctl_whonix_firewall_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager -u whonix-firewall)" || true
    journalctl_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$journalctl_whonix_firewall_output")"
 
    local if_you_know_what_you_are_doing_msg
