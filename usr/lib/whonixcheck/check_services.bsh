@@ -146,9 +146,10 @@ check_journal() {
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Run. <blockquote><code>sudo /bin/journalctl | grep -i warn</code></blockquote>
-<br></br>3. Run. <blockquote><code>sudo /bin/journalctl | grep -i error</code></blockquote>
-<br></br>4. Run. <blockquote><code>sudo /bin/journalctl | grep -i denied</code></blockquote>
-<br></br>5. Run. <blockquote><code>sudo /bin/journalctl | grep -i \"ordering cycle\"</code></blockquote>
+<br></br>3. Run. <blockquote><code>sudo /bin/journalctl | grep -i fail</code></blockquote>
+<br></br>4. Run. <blockquote><code>sudo /bin/journalctl | grep -i error</code></blockquote>
+<br></br>5. Run. <blockquote><code>sudo /bin/journalctl | grep -i denied</code></blockquote>
+<br></br>. Run. <blockquote><code>sudo /bin/journalctl | grep -i \"ordering cycle\"</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
