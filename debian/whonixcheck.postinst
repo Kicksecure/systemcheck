@@ -19,7 +19,7 @@ source /usr/lib/helper-scripts/torsocks-remove-ld-preload
 
 case "$1" in
    configure)
-      adduser --no-create-home --home /nonexistent --quiet --system --group whonixcheck || true
+      adduser --home /run/whonixcheck --no-create-home --quiet --system --group whonixcheck || true
 
       ## Compatibility with anon-ws-disable-stacked-tor.
       addgroup debian-tor 2>/dev/null || true
