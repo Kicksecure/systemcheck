@@ -1,0 +1,104 @@
+.\" generated with Ronn-NG/v0.8.0
+.\" http://github.com/apjanke/ronn-ng/tree/0.8.0
+.TH "WHONIXCHECK" "1" "April 2020" "whonixcheck" "whonixcheck Manual"
+.SH "NAME"
+\fBwhonixcheck\fR \- checks anonymity and security status in Whonix
+.P
+.SH "SYNOPSIS"
+\fBwhonixcheck\fR \fI\%#OPTIONS\fR
+.SH "DESCRIPTION"
+Whonixcheck is a tool, which checks the state of many aspects of Whonix, which is important for providing anonymity and security\.
+.SH "EXTENDED DESCRIPTION"
+Checks if,
+.IP "\[ci]" 4
+Your network connection is functional\.
+.IP "\[ci]" 4
+You are connected to Tor\.
+.IP "" 0
+.P
+Shows,
+.IP "\[ci]" 4
+Your external IP address(es)\.
+.IP "\[ci]" 4
+Installed Tor Browser version\. (Only on Whonix\-Workstation)
+.IP "\[ci]" 4
+Latest Tor Browser version\. (Only on Whonix\-Workstation)
+.IP "\[ci]" 4
+Available operating system updates\.
+.IP "\[ci]" 4
+Installed Whonix version\.
+.IP "\[ci]" 4
+Latest Whonix version\.
+.IP "\[ci]" 4
+Important Whonix News\.
+.IP "" 0
+.P
+Downloads,
+.IP "\[ci]" 4
+Whonix Important Blog\. (Only on Whonix\-Workstation)
+.IP "\[ci]" 4
+Whonix Feature Blog\. (Only on Whonix\-Workstation)
+.IP "" 0
+.P
+This script,
+.IP "\[ci]" 4
+Will break, if https://check\.torproject\.org is down or content of that page is changed\.
+.IP "\[ci]" 4
+Will break, if http://sourceforge\.net/projects/whonixdevelopermetafiles/files/internal/news/ is down\.
+.IP "\[ci]" 4
+Works in command line interface and under X Window System\.
+.IP "" 0
+.SH "OPTIONS"
+.IP "\[ci]" 4
+\-v, \-\-verbose
+.IP
+Verbose output\. Outputs results from tests that succeeded, that would otherwise only complain if there was an issue\.
+.IP "\[ci]" 4
+\-e, \-\-debug
+.IP
+Debug output\. Enables xtrace and enables curl output\. https://github\.com/Whonix/Whonix/issues/24
+.IP "\[ci]" 4
+\-\-pin\-tpo\-cert
+.IP
+Enable pinning of torproject\.org SSL certificate\.
+.IP "\[ci]" 4
+\-\-no\-pin\-tpo\-cert
+.IP
+Disable pinning of torproject\.org SSL certificate\. (Default\.) Disabled by default, because experimental and because maintenance burden too high\. See also: https://www\.whonix\.org/wiki/Whonixcheck#SSL_Certificate_Pinning
+.IP "\[ci]" 4
+\-\-leak\-tests
+.IP
+Run Tor leak tests\.
+.IP "\[ci]" 4
+\-\-show\-ip
+.IP
+Show IP during Tor leak tests\.
+.IP "\[ci]" 4
+\-\-gui
+.IP
+Deactivates output auto detection\. Enables gui output\.
+.IP "\[ci]" 4
+\-\-cli
+.IP
+Deactivates output auto detection\. Enables cli output\.
+.IP "" 0
+.SH "EXIT CODES"
+0 Success
+.P
+1 Error
+.P
+2 Warning
+.P
+143 Signal sigterm received\.
+.P
+130 Signal sigint received\.
+.SH "EXAMPLE"
+\fBwhonixcheck\fR
+.P
+\fBwhonixcheck \-v\fR
+.SH "Configuration File and Folder"
+See /etc/whonix\.d/30_whonixcheck_default\.conf
+.SH "WWW"
+https://www\.whonix\.org/wiki/Whonixcheck
+.SH "AUTHOR"
+This man page has been written by Patrick Schleizer (adrelanos@riseup\.net)\.
