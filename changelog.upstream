@@ -1,3 +1,15 @@
+commit c4c3207ea845ff070617444aaa53ebaaad16cb35
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 3 05:39:20 2020 -0400
+
+    remove curl-scripts (was merged into helper-scripts which we already depend on)
+
+commit a881e9e83cb739abe69bbfb55437166fab798d97
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 08:08:41 2020 -0400
+
+    bumped changelog version
+
 commit 3993f32a5cb68371b14602e44d9e694867fac1e8
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 2 07:23:02 2020 -0400
