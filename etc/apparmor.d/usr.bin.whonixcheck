@@ -1,4 +1,6 @@
-# Last modified: Mon Sep  1 07:46:03 UTC 2014
+## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
 #include <tunables/global>
 
 /usr/bin/whonixcheck flags=(attach_disconnected) {
