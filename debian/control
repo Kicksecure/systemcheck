@@ -15,7 +15,7 @@ Package: whonixcheck
 Architecture: all
 Depends: anon-gw-base-files | anon-ws-base-files, dist-base-files, curl,
  ca-certificates, msgcollector, psmisc, sudo, vrms,
- gpg-bash-lib, bsdtar, helper-scripts, net-tools, systemd, adduser,
+ bsdtar, helper-scripts, net-tools, systemd, adduser,
  security-misc, spectre-meltdown-checker, ${misc:Depends}
 Replaces: apparmor-profile-whonixcheck
 Recommends: anon-icon-pack
