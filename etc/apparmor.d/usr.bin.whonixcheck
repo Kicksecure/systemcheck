@@ -190,8 +190,7 @@
 	@{HOME}/ r,
 	@{HOME}/tor-browser_en-US/Docs/version r,
 	@{HOME}/tor-browser_en-US/Docs/sources/versions r,
-	@{HOME}/.whonix/ r,
-	@{HOME}/.whonix/* rwk,
+
 	@{HOME}/.msgcollector rwk,
 	@{HOME}/.msgcollector/** rwk,
 

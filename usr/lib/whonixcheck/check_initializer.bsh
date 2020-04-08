@@ -4,11 +4,10 @@
 ## See the file COPYING for copying conditions.
 
 check_initializer() {
-   local log_file start_file done_file done_file_compatiblity skip_file todo_file fail_file
+   local log_file start_file done_file skip_file todo_file fail_file
    log_file="/var/lib/whonix-initializer/status-files/first_run_initializer.log"
    start_file="/var/lib/whonix-initializer/status-files/first_run_initializer.start"
    done_file="/var/lib/whonix-initializer/status-files/first_run_initializer.done"
-   done_file_compatiblity="/root/.whonix/first_run_initializer.done"
    skip_file="/var/lib/whonix-initializer/status-files/first_run_initializer.skip"
    todo_file="/var/lib/whonix-initializer/status-files/first_run_initializer.todo"
    fail_file="/var/lib/whonix-initializer/status-files/first_run_initializer.fail"
