@@ -1,3 +1,15 @@
+commit 67198d849a38403c4a564e1887189849ac674051
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 9 11:49:47 2020 +0000
+
+    no more sdwdate.log
+
+commit 696c31e2e90031bd93c616e9a74fce6e1e4deab9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 9 09:46:36 2020 +0000
+
+    bumped changelog version
+
 commit b837c939d54ba5100c9e8b1e61c30da9f0e0da0f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Apr 8 20:59:05 2020 +0000
