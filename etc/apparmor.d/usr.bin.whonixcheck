@@ -382,7 +382,6 @@
 	/usr/local/etc/torrc.d/ r,
 	/usr/local/etc/torrc.d/* r,
 
-	/var/log/sdwdate.log rw,
 	/var/log/tor/log r,
 	/var/log/apt/** rw,
 	/var/log/journal/ r,
