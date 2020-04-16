@@ -203,9 +203,13 @@ get_local_whonix_version() {
 
    local build_version_file
    if [ -f "/usr/share/whonix/build_version" ]; then
+      ## Legacy.
       build_version_file="/usr/share/whonix/build_version"
    elif [ -f "/var/lib/anon-dist/build_version" ]; then
+      ## Legacy.
       build_version_file="/var/lib/anon-dist/build_version"
+   elif [ -f "/var/lib/dist-base-files/build_version" ]; then
+      build_version_file="/var/lib/dist-base-files/build_version"
    fi
 
    if [ "$build_version_file" = "" ]; then

@@ -387,7 +387,10 @@
 	/var/log/journal/ r,
 	/var/log/journal/** r,
 
+	## Legacy.
 	/var/lib/anon-dist/build_version r,
+
+	/var/lib/dist-base-files/build_version r,
 	/var/lib/dpkg/lock r,
 
 	/run/tor/log r,
