@@ -1,3 +1,15 @@
+commit e95abd36047d2185f4e00c6123c385d05b2da0b6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon May 11 09:30:05 2020 -0400
+
+    check_whonix_firewall_systemd_status after check services / check journal
+
+commit a2082ae3280ea30601762b32371fa46420165b4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 6 15:36:43 2020 -0400
+
+    bumped changelog version
+
 commit cdb054e16efc292899640879a67eabb0763264e3
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed May 6 15:28:12 2020 -0400
