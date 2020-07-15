@@ -215,15 +215,15 @@ check_qubes_update_proxy_functionality() {
    curl_exit_code="0"
 
    ## UWT_DEV_PASSTHROUGH=1 curl --connect-timeout 3 http://10.137.255.254:8082/
-      UWT_DEV_PASSTHROUGH="1" \
-         curl \
-            --fail \
-            --proxy "$PROXY_SERVER" \
-            $CURL_VERBOSE \
-            --max-time 10 \
-            --output "$TEMP_DIR/qubes_update_proxy_functionality_file" \
-            https://deb.qubes-os.org \
-            &
+   UWT_DEV_PASSTHROUGH="1" \
+      curl \
+         --fail \
+         --proxy "$PROXY_SERVER" \
+         $CURL_VERBOSE \
+         --max-time 10 \
+         --output "$TEMP_DIR/qubes_update_proxy_functionality_file" \
+         https://deb.qubes-os.org \
+         &
 
    lastpid="$!"
    wait "$lastpid" || { curl_exit_code="$?" ; true; };
