@@ -220,6 +220,10 @@ check_qubes_update_proxy_functionality() {
          --fail \
          --proxy "$PROXY_SERVER" \
          $CURL_VERBOSE \
+         --retry-connrefused \
+         --retry 3 \
+         --retry-delay 3 \
+         --retry-max-time 120 \
          --max-time 180 \
          --output "$TEMP_DIR/qubes_update_proxy_functionality_file" \
          https://deb.qubes-os.org \

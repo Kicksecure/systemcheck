@@ -145,6 +145,10 @@ download_now_whonix_news_helper() {
          --fail \
          $CURL_PROXY_WHONIX_NEWS \
          --location \
+         --retry-connrefused \
+         --retry 3 \
+         --retry-delay 3 \
+         --retry-max-time 120 \
          --max-time 180 \
          --output "$file_name" \
          ${@:3} \
