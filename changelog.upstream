@@ -1,3 +1,45 @@
+commit d207903a2741278e23eedf31b41d84059dbdf7e3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:55:35 2020 -0400
+
+    improve curl retry
+
+commit b59cad59640662f801f266115fd87bc6553e2f5f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:52:24 2020 -0400
+
+    same curl max-time everywhere
+
+commit db34da8eeb45a349ccced6ca6928993bf1968bac
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:49:51 2020 -0400
+
+    refactoring
+
+commit 4f37d2cbe8f246972b93972f905c761449a6cadb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:49:31 2020 -0400
+
+    --proxy rather than environment variable
+
+commit b6a4d414e33228714a7150e7022c68e4326387e2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:48:50 2020 -0400
+
+    update / generic link
+
+commit 4931b6b83fcbac974ffe54a5bde05acbffcdfe29
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:48:38 2020 -0400
+
+    https
+
+commit 6982e90c316c070990dc7bac838ca55ce8d48b76
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:32:09 2020 -0400
+
+    bumped changelog version
+
 commit 032a2b81d60844ea201d93d12c8636e4abe193e7
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jul 15 00:30:47 2020 -0400
