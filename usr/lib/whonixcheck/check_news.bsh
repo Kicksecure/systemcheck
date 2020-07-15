@@ -31,13 +31,17 @@ whonix_news_preparation() {
    whonix_news_verify_dir="$TEMP_DIR/news/verify_dir"
    whonix_news_extract_dir="$TEMP_DIR/news/extract_dir"
 
-   ## legacy
+   ## legacy 1
    #whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix_census"
+   ## legacy 2
+   #whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_${whonixcheck_virtualizer_detected}"
+   #whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_unknown"
 
+   ## Dedicated onion different from homepage.
    if [ "$whonixcheck_platform_or_virtualizer_known" = "true" ]; then
-      whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_${whonixcheck_virtualizer_detected}"
+      whonix_gateway_census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_${whonixcheck_virtualizer_detected}"
    else
-      whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_unknown"
+      whonix_gateway_census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_unknown"
    fi
 
    whonix_gateway_last_census_file="/var/lib/whonixcheck/whonix_gateway_last_census.txt"
