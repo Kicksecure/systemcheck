@@ -1,3 +1,21 @@
+commit 032a2b81d60844ea201d93d12c8636e4abe193e7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:30:47 2020 -0400
+
+    lower verbosity
+
+commit 2865fdfd2629ccb2b1bca78c158fe64112f23af1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:29:07 2020 -0400
+
+    dedicated onion
+
+commit b684cdac7d5f2ab4dddd7488e07de1c0ed7c267a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu May 14 07:00:04 2020 -0400
+
+    bumped changelog version
+
 commit e95abd36047d2185f4e00c6123c385d05b2da0b6
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon May 11 09:30:05 2020 -0400
