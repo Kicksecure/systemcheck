@@ -222,7 +222,7 @@ check_qubes_update_proxy_functionality() {
             $CURL_VERBOSE \
             --max-time 10 \
             --output "$TEMP_DIR/qubes_update_proxy_functionality_file" \
-            http://deb.qubes-os.org/r3.0/vm/dists/jessie/Release \
+            https://deb.qubes-os.org/r3.0/vm/dists/jessie/Release \
             &
 
    lastpid="$!"
