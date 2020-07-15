@@ -225,8 +225,7 @@ check_whonix_show_news() {
    local MSG="<p>$whonix_news_hyperlink Result:<br></br>
 $whonix_news_result_output</p>"
 
-   ## TODO
-   if [ "$verbose" -ge "1" ]; then
+   if [ "$verbose" -ge "2" ]; then
       $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
    fi
