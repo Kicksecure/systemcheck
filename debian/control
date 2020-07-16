@@ -16,7 +16,8 @@ Architecture: all
 Depends: anon-gw-base-files | anon-ws-base-files, dist-base-files, curl,
  ca-certificates, msgcollector, psmisc, sudo, vrms,
  bsdtar, helper-scripts, net-tools, systemd, adduser,
- security-misc, spectre-meltdown-checker, ${misc:Depends}
+ security-misc, spectre-meltdown-checker,
+ apparmor-profile-dist, ${misc:Depends}
 Replaces: apparmor-profile-whonixcheck
 Recommends: anon-icon-pack
 Description: Anonymity and security check
