@@ -1,3 +1,36 @@
+commit 089429f98742a2060ba2e8a9270da4056b6bf8a6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 16 05:44:51 2020 -0400
+
+    add sudo test
+    
+    would catch error conditions such as the following
+    
+        sudo hostname wrong-hostname
+        sudo test
+    
+    > sudo: unable to resolve host wrong-hostname: Temporary failure in name resolution
+
+commit 7fa9967a01bfb59a80a47c45faef017a814d0894
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 16 05:06:49 2020 -0400
+
+    output
+
+commit 752fe8fa195755a85b58f53da299fb2e56c2fd5c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 16 05:00:11 2020 -0400
+
+    Depends: apparmor-profile-dist
+    
+    to make sure it is installed before whonixcheck
+
+commit 5a89ff4f3aa23c0ebdc0224964d1d7a94eed6763
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 15 00:55:48 2020 -0400
+
+    bumped changelog version
+
 commit d207903a2741278e23eedf31b41d84059dbdf7e3
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jul 15 00:55:35 2020 -0400
