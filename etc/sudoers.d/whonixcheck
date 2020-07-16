@@ -53,3 +53,6 @@ whonixcheck ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/
 
 ## required for check_virtualizer if /sys is restricted to root
 whonixcheck ALL=NOPASSWD: /usr/bin/systemd-detect-virt
+
+## required for check_sudo
+whonixcheck ALL=NOPASSWD: /usr/bin/test -x /usr/bin/test

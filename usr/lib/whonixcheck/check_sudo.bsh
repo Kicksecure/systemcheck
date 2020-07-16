@@ -1,0 +1,48 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+check_sudo() {
+   local exit_code sudo_output
+
+   exit_code=0
+   sudo_output="$(sudo --non-interactive /usr/bin/test -x /usr/bin/test 2>&1)" || { exit_code="$?" ; true; };
+
+   if [ "$exit_code" = "0" ] ; then
+      sudo_ok=true
+   else
+      sudo_ok=false
+   fi
+
+   if [ ! "$sudo_output" = "" ]; then
+      sudo_ok=false
+   fi
+
+   if [ "$sudo_ok" = "true" ]; then
+      local MSG="<p>Check sudo Result: OK</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   else
+      local MSG="<p>Check sudo Result: System misconfiguration. No panic. No severe issue. Because of this other tests might be malfunctioning too. Command
+<blockquote>
+sudo /usr/bin/test -x /usr/bin/test ; echo \$?
+</blockquote>
+did not output nothing with exit code zero. Something else happened.
+
+<br></br><code>exit_code</code> output: <code>$exit_code</code>
+
+<br></br><code>sudo_output</code> output:
+
+<blockquote><code>$sudo_output</code></blockquote>
+</p>"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   fi
+
+   ## sudo hostname wrong-hostname
+   ## sudo test
+   ## sudo: unable to resolve host wrong-hostname: Temporary failure in name resolution
+}
