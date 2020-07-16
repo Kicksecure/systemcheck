@@ -27,7 +27,10 @@ check_virtualizer() {
 <br></br>Debugging information:<br />
 <br></br>Running <code>sudo --non-interactive $whonixcheck_virt_detection_tool</code> failed!
 <br></br>qubes_detected: $qubes_detected
-<br></br><code>$whonixcheck_virt_detection_tool</code> output: <blockquote><code>$whonixcheck_virtualizer_detected</code></blockquote>
+<br></br><code>$whonixcheck_virt_detection_tool</code> output:
+
+<blockquote><code>$whonixcheck_virtualizer_detected</code></blockquote>
+
 <br></br>$if_you_know_what_you_are_doing_msg
 </p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
@@ -109,11 +112,15 @@ check_virtualizer() {
    local MSG="\
 <p>Virtualizer <code>$whonixcheck_virtualizer_detected</code> unsupported by Whonix developers! Whonixcheck aborted! (qubes_detected: $qubes_detected)<p>
 
-<p>Using Virtualizer <code>$whonixcheck_virtualizer_detected</code> together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
+<p>Using Virtualizer this together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
 <br></br>It could be made possible, but would require more Whonix contributors.
 <br></br>It may already work, but is highly experimental.</p>
 
 $VMWARE_TEXT
+
+<br></br><code>$whonixcheck_virt_detection_tool</code> output:
+
+<blockquote><code>$whonixcheck_virtualizer_detected</code></blockquote>
 
 <p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
