@@ -1,3 +1,21 @@
+commit 276a5de40d166201fa31501231e9753d8cf0d5a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 3 16:26:37 2020 -0400
+
+    whonixcheck_expected_nonfree_package+=" virtualbox-6.1 "
+
+commit 67a1e0c2247ce539144e85d924320209b47c2cad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 3 16:26:00 2020 -0400
+
+    whonixcheck_expected_nonfree_package+=" virtualbox-guest-additions-iso "
+
+commit c2fde595d9aeb2be8ef00b20f7e68d350e94a96c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 16 06:08:13 2020 -0400
+
+    bumped changelog version
+
 commit 089429f98742a2060ba2e8a9270da4056b6bf8a6
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 16 05:44:51 2020 -0400
