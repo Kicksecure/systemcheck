@@ -471,7 +471,7 @@ $anondate_debugging_information"
 <p>1)
 <br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
 <br></br>           or in Terminal: <code>whonixcheck</code>
-<br></br>           or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code></p>
+<br></br>           or more verbose in Terminal: <code>whonixcheck --verbose --gui --cli</code></p>
 
 <p>2)
 <br></br>Run whonixcheck on Whonix-Gateway as well.</p>"
@@ -539,7 +539,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br><b>A)</b> <u>Rerun whonixcheck</u>:
 <blockquote>$start_menu_instructions_system_first_part Whonix Check</blockquote>
 or in Terminal: <code>whonixcheck</code>
-<br></br>or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code>
+<br></br>or more verbose in Terminal: <code>whonixcheck --verbose --gui --cli</code>
 <br></br>
 <br></br><b>B)</b> <u>Restart sdwdate.</u>
 <blockquote>$start_menu_instructions_system_first_part sdwdate-gui -> right click on sdwdate-gui systray -> Restart sdwdate</blockquote>
