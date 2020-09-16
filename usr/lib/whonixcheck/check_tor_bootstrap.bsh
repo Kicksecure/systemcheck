@@ -449,7 +449,7 @@ you will need them for Whonix as well.</p>
 <p>2)
 <br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
 <br></br>or in Terminal: <code>whonixcheck</code>
-<br></br>or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code></p>
+<br></br>or more verbose in Terminal: <code>whonixcheck --verbose --gui --cli</code></p>
 
 <p>3)
 <br></br>Use Nyx, connection page two, to see if Tor is connected:
