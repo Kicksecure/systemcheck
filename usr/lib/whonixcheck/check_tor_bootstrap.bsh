@@ -452,9 +452,9 @@ you will need them for Whonix as well.</p>
 <br></br>or in Terminal with debugging: <code>whonixcheck --debug --verbose --gui --cli</code></p>
 
 <p>3)
-<br></br>Use arm, connection page two, to see if Tor is connected:
-<blockquote>$start_menu_instructions_system_first_part Arm</blockquote>
-or in Terminal: <code>arm</code></p>
+<br></br>Use Nyx, connection page two, to see if Tor is connected:
+<blockquote>$start_menu_instructions_system_first_part Nyx</blockquote>
+or in Terminal: <code>nyx</code></p>
 $anondate_debugging_information"
    elif [ "$VM" = "Whonix-Workstation" ]; then
       local MSG="<p>Tor Connection Result:
