@@ -7,7 +7,7 @@ Only checks things. Does not change things.
 Safe to remove.
 ## How to install `whonixcheck` using apt-get ##
 
-1\. Download [Whonix's Signing Key]().
+1\. Download Whonix's Signing Key.
 
 ```
 wget https://www.whonix.org/patrick.asc
