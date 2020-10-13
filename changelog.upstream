@@ -1,3 +1,23 @@
+commit 4b49164f4a9883d40caa773f457b0208137edd16
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 13 12:34:22 2020 -0400
+
+    readme
+
+commit 3387f59baa9519c0f4564faa42f1c75aa9436e75
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 13 09:56:00 2020 -0400
+
+    warn if `dmesg` contains "Bad RAM detected"
+    
+    https://forums.whonix.org/t/kernel-built-in-ram-memory-test-parameter-memtest-1-enable-by-default/10394
+
+commit 996cc55684c538dc8206396b9c8f91c4af6715e2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Sep 19 09:30:00 2020 -0400
+
+    bumped changelog version
+
 commit d4481c5300c9c62649f8a738e04a4ff5cd64d3ba
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Sep 16 04:41:52 2020 -0400
