@@ -4,23 +4,30 @@
 ## See the file COPYING for copying conditions.
 
 check_kernel_messages() {
-   local dmesg_output grep_output
+   local remarkable_kernel_messages_list dmesg_output
+   local remarkable_message_one remarkable_message_list
+
+   remarkable_kernel_messages_list="Bad RAM detected"
 
    dmesg_output="$(sudo --non-interactive dmesg)" || true
-   grep_output="$(echo "$dmesg_output" | grep -i "timekeeping watchdog")" || true
 
-   if [ "$grep_output" = "" ]; then
+   for remarkable_kernel_messages_item in $remarkable_kernel_messages_list ; do
+      remarkable_message_one="$(echo "$dmesg_output" | grep -i "$remarkable_kernel_messages_item")" || true
+      remarkable_message_list="$remarkable_message_list
+$remarkable_message_one"
+   done
+
+   if [ "$remarkable_message_list" = "" ]; then
       local MSG="<p>Check Kernel Messages Test Result: Found nothing remarkable, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-   else
-      local MSG="<p>Check Kernel Messages Test Result: Remarkable kernel message found using <code>dmesg</code>.<br />
-<code>$grep_output</code></p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-      fi
+      return 0
    fi
+
+   local MSG="<p>Check Kernel Messages Test Result: Remarkable kernel message found using <code>dmesg</code>.<br />
+<code>$remarkable_message_list</code></p>"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }
