@@ -7,15 +7,21 @@ check_kernel_messages() {
    local remarkable_kernel_messages_list dmesg_output
    local remarkable_message_one remarkable_message_list
 
-   remarkable_kernel_messages_list="Bad RAM detected"
+   remarkable_kernel_messages_list=(
+"Bad RAM detected"
+)
 
    dmesg_output="$(sudo --non-interactive dmesg)" || true
 
+   OIFS="$IFS"
+   IFS=$(echo -en "\n\b")
    for remarkable_kernel_messages_item in $remarkable_kernel_messages_list ; do
-      remarkable_message_one="$(echo "$dmesg_output" | grep -i "$remarkable_kernel_messages_item")" || true
-      remarkable_message_list="$remarkable_message_list
+      if remarkable_message_one="$(echo "$dmesg_output" | grep -i "$remarkable_kernel_messages_item")" ; then
+         remarkable_message_list="$remarkable_message_list
 $remarkable_message_one"
+      fi
    done
+   IFS="$OIFS"
 
    if [ "$remarkable_message_list" = "" ]; then
       local MSG="<p>Check Kernel Messages Test Result: Found nothing remarkable, ok.</p>"
