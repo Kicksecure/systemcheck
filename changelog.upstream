@@ -1,3 +1,20 @@
+commit 285fc31382443c5bcf22da7861013705da573ab1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 26 11:07:55 2020 -0400
+
+    recommend upgrade-nonroot over apt-get-update-plus
+    
+    since that is more suitable in combination with apparmor-profile-everything and
+    different boot modes
+    
+    https://www.whonix.org/wiki/Dev/boot_modes
+
+commit 3683d9c09cdabdd0a635bb487bd9935d8e1e6859
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 15 08:32:10 2020 -0400
+
+    bumped changelog version
+
 commit 5152a1de7ef8d4c2b07f03d399d332de4e3c4c85
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Oct 15 08:13:22 2020 -0400
