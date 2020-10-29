@@ -127,7 +127,7 @@ download_now_whonix_news_helper() {
 
    if echo "$web_link" | grep -q "https://" ; then
       local CURL_SSL
-      CURL_SSL="--tlsv1.2"
+      CURL_SSL="--tlsv1.3"
    fi
 
    ## Fallback.
