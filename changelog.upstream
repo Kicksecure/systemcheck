@@ -1,3 +1,15 @@
+commit da66b530319bee6fe78fced84b3b71ead2ca344a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 1 07:55:56 2020 -0500
+
+    no need for `eval`
+
+commit af8dafe80fff758e69d1b658e096c7616ad6260b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 29 16:20:35 2020 -0400
+
+    bumped changelog version
+
 commit e0fca639a10382a3de1d8754af44831536f288ad
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Oct 29 16:14:48 2020 -0400
