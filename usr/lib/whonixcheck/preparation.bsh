@@ -155,9 +155,8 @@ whonixcheck_run_function() {
                   return 0
                   ;;
    esac
-
    true "INFO: Running $@, because whonixcheck_skip_functions does not include it."
-   eval "$@"
+   "$@"
 }
 
 get_local_whonix_version() {
