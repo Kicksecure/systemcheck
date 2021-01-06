@@ -346,7 +346,7 @@
 	/usr/lib/security-misc/apt-get-update rUx,
 
 	/usr/lib/security-misc/apt-get-wrapper rix,
-	/usr/lib/helper-scripts/anondate rix,
+	/usr/sbin/anondate rix,
 
 	# operation="unlink" requested_mask="d" denied_mask="d"
 	/usr/lib/python*/* rl,

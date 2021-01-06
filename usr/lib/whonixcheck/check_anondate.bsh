@@ -25,9 +25,9 @@ check_anondate_do() {
 
    type=info
 
-   if sudo --non-interactive /usr/lib/helper-scripts/anondate --verified-only --has-consensus ; then
+   if sudo --non-interactive /usr/sbin/anondate --verified-only --has-consensus ; then
       tor_consensus_status=verified
-   elif sudo --non-interactive /usr/lib/helper-scripts/anondate --unverified-only --has-consensus ; then
+   elif sudo --non-interactive /usr/sbin/anondate --unverified-only --has-consensus ; then
       tor_consensus_status=unverified
       type=warning
    else
@@ -36,7 +36,7 @@ check_anondate_do() {
    fi
 
    if [ ! "$tor_consensus_status" = "none" ]; then
-      if sudo --non-interactive /usr/lib/helper-scripts/anondate --${tor_consensus_status}-only --current-time-in-valid-range ; then
+      if sudo --non-interactive /usr/sbin/anondate --${tor_consensus_status}-only --current-time-in-valid-range ; then
          current_time_in_valid_range=true
       else
          current_time_in_valid_range=false
@@ -57,16 +57,16 @@ check_anondate_do() {
    ## Check valid-after, valid-until and middle-range if we got an either
    ## verified or unverified Tor consensus.
    if [ ! "$tor_consensus_status" = "none" ]; then
-      tor_consensus_valid_after="$(sudo --non-interactive /usr/lib/helper-scripts/anondate --${tor_consensus_status}-only --show-valid-after)" || true
-      tor_consensus_valid_until="$(sudo --non-interactive /usr/lib/helper-scripts/anondate --${tor_consensus_status}-only --show-valid-until)" || true
-      tor_consensus_middle_range="$(sudo --non-interactive /usr/lib/helper-scripts/anondate --${tor_consensus_status}-only --show-middle-range)" || true
-      tor_consensus_user_permission="$(sudo --non-interactive /usr/lib/helper-scripts/anondate --${tor_consensus_status}-only --user-permission)" || true
-      tor_consensus_group_permission="$(sudo --non-interactive /usr/lib/helper-scripts/anondate --${tor_consensus_status}-only --group-permission)" || true
+      tor_consensus_valid_after="$(sudo --non-interactive /usr/sbin/anondate --${tor_consensus_status}-only --show-valid-after)" || true
+      tor_consensus_valid_until="$(sudo --non-interactive /usr/sbin/anondate --${tor_consensus_status}-only --show-valid-until)" || true
+      tor_consensus_middle_range="$(sudo --non-interactive /usr/sbin/anondate --${tor_consensus_status}-only --show-middle-range)" || true
+      tor_consensus_user_permission="$(sudo --non-interactive /usr/sbin/anondate --${tor_consensus_status}-only --user-permission)" || true
+      tor_consensus_group_permission="$(sudo --non-interactive /usr/sbin/anondate --${tor_consensus_status}-only --group-permission)" || true
    fi
 
-   if tor_cert_lifetime_output="$(sudo --non-interactive /usr/lib/helper-scripts/anondate --tor-cert-lifetime-invalid)" ; then
+   if tor_cert_lifetime_output="$(sudo --non-interactive /usr/sbin/anondate --tor-cert-lifetime-invalid)" ; then
       tor_cert_lifetime_valid=false
-      tor_cert_valid_after="$(sudo --non-interactive /usr/lib/helper-scripts/anondate --tor-cert-valid-after)" || true
+      tor_cert_valid_after="$(sudo --non-interactive /usr/sbin/anondate --tor-cert-valid-after)" || true
       type=warning
    else
       tor_cert_lifetime_valid=true
