@@ -393,7 +393,7 @@ preparation() {
       ## whonix-ws-14
       qubes_base_template="$(qubesdb-read /qubes-base-template)" || true
 
-      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      if test -f /run/qubes/this-is-templatevm ; then
          qubes_title_extra=" | TemplateVM"
          update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
          persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_name_of_vm</code> ->"

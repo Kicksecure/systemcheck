@@ -21,7 +21,7 @@ check_stream_isolation() {
 
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "True" ]; then
-      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      if test -f /run/qubes/this-is-templatevm ; then
          local type=info
          local MSG="<p>Stream Isolation Test: Ok, skipped, because SocksPort test failed! Can not test stream isolation. This is expected in default configuration of TemplateVMs in Qubes R4.0 and above.</p>"
          if [ "$verbose" -ge "1" ]; then

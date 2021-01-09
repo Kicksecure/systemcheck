@@ -15,7 +15,7 @@ check_tor_config_do() {
       return 0
    fi
 
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       tor_verify_config_exit_code="0"
       return 0
    fi

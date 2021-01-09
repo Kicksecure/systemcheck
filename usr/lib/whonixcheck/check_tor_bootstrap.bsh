@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_tor_bootstrap() {
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       return 0
    fi
 

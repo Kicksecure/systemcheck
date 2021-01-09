@@ -17,7 +17,7 @@ check_tor_pid_do() {
    fi
 
    ## Skip in Qubes-Whonix-Gateway TemplateVM, because Tor is not running there.
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       tor_pid_message="Not running in Qubes-Whonix-Gateway TemplateVM."
       tor_pid_exit_code="0"
       return 0

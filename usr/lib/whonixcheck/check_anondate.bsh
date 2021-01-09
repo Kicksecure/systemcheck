@@ -19,7 +19,7 @@ check_anondate_do() {
       return 0
    fi
 
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       return 0
    fi
 
@@ -150,7 +150,7 @@ check_anondate_show() {
       return 0
    fi
 
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       return 0
    fi
 

@@ -6,7 +6,7 @@
 #set -x
 
 check_network_interfaces() {
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       return 0
    fi
 

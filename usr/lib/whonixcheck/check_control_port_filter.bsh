@@ -13,7 +13,7 @@ check_control_port_filter_running() {
    fi
 
    ## Skip in Qubes-Whonix-Gateway TemplateVM, because control port filter proxy is not running there.
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       return 0
    fi
 
