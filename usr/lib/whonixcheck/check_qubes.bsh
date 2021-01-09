@@ -78,7 +78,7 @@ Also refer to the installation instructions of Qubes-Whonix.
 
 check_qubes_vm_type() {
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if [ "$qubes_vm_type" = "NetVM" ] || [ "$qubes_vm_type" = "ProxyVM" ] || [ "$qubes_vm_type" = "TemplateVM" ] ; then
+      if [ -f /run/qubes/this-is-netvm ] || [ -f /run/qubes/this-is-proxyvm ] || [ -f /run/qubes/this-is-templatevm ] ; then
          local MSG="<p>Qubes Settings Test Result: Ok, qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -102,7 +102,7 @@ check_qubes_vm_type() {
    fi
 
    if [ "$vm_lower_case_short" = "workstation" ]; then
-      if [ "$qubes_vm_type" = "AppVM" ] || [ "$qubes_vm_type" = "DisposableVM" ] || [ "$qubes_vm_type" = "TemplateVM" ] ; then
+      if [ -f /run/qubes/this-is-appvm ] || [ -f /run/qubes/this-is-templatevm ] ; then
          local MSG="<p>Qubes Settings Test Result: Ok, qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -272,7 +272,7 @@ check_qubes_update_proxy() {
    ## sets: PROXY_META
    source /usr/lib/qubes-whonix/utility_functions.sh
 
-   if [ "$qubes_vm_type" = "NetVM" ] || [ "$qubes_vm_type" = "ProxyVM" ]; then
+   if [ -f /run/qubes/this-is-netvm ] || [ -f /run/qubes/this-is-proxyvm ]; then
       PROXY_SERVER="${PROXY_SERVER/10.137.255.254/127.0.0.1}"
    fi
 

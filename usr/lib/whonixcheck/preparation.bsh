@@ -376,10 +376,7 @@ preparation() {
          qubes_starter_first_part="Template"
       fi
 
-      ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM', 'TemplateVM' or 'DisposableVM'
-      ## Qubes bug report:
-      ## 'qubesdb-read /qubes-vm-type' should not output 'DisposableVM'
-      ## https://github.com/QubesOS/qubes-issues/issues/1935
+      ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
       qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
 
       ## '/qubes-vm-persistence' outputs:
