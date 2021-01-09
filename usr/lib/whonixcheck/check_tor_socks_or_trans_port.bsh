@@ -307,7 +307,7 @@ check_qubes_updates_proxy() {
    ## Abort for any Qubes VM type other than TemplateVM, because
    ## sys-whonix can reach non-torified Qubes UpdatesProxy
    ## https://github.com/QubesOS/qubes-issues/issues/3201
-   if [ ! "$qubes_vm_type" = "TemplateVM" ]; then
+   if ! test -f /run/qubes/this-is-templatevm ; then
       return 0
    fi
 
