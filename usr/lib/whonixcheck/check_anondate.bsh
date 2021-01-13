@@ -64,7 +64,7 @@ check_anondate_do() {
       tor_consensus_group_permission="$(sudo --non-interactive /usr/sbin/anondate --${tor_consensus_status}-only --group-permission)" || true
    fi
 
-   if tor_cert_lifetime_output="$(sudo --non-interactive /usr/sbin/anondate --tor-cert-lifetime-invalid)" ; then
+   if tor_cert_lifetime_output="$(sudo --non-interactive /usr/sbin/anondate --tor-cert-lifetime-valid)" ; then
       tor_cert_lifetime_valid=false
       tor_cert_valid_after="$(sudo --non-interactive /usr/sbin/anondate --tor-cert-valid-after)" || true
       type=warning
