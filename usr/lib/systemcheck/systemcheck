@@ -124,9 +124,6 @@ systemcheck_main() {
    ## Own Progress Bar: Yes
    systemcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
-   ## Uses the network.
-   systemcheck_run_function download_whonix_news ## check_news
-
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
    local MSG="$NOTIFY_MSG"
