@@ -133,7 +133,8 @@ census_count_or_not() {
 census_do() {
    mkdir --parents "/var/lib/systemcheck/census"
 
-   rm -f "/var/lib/systemcheck/census/census_result.txt"
+   #rm -f "/var/lib/systemcheck/census/census_result.txt"
+   #--output "/var/lib/systemcheck/census/census_result.txt"
 
    curl_exit_code="0"
 
@@ -147,7 +148,7 @@ census_do() {
       --retry-delay 3 \
       --retry-max-time 120 \
       --max-time 180 \
-      --output "/var/lib/systemcheck/census/census_result.txt" \
+      --output /dev/null \
       --request PUT \
       --data "gateway-sign-in" \
       "$census_api_link" \
