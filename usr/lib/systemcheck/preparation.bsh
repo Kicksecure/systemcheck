@@ -229,7 +229,11 @@ preparation() {
       my_tty="none"
    fi
 
-   PROJECT_HOMEPAGE="https://www.whonix.org"
+   if test -f /usr/share/whonix/marker ; then
+      PROJECT_HOMEPAGE="https://www.whonix.org"
+   else
+      PROJECT_HOMEPAGE="https://www.kicksecure.com"
+   fi
 
    user_name="user"
    TEMP_DIR="$(mktemp --directory)"
