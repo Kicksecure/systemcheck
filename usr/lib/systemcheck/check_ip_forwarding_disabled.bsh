@@ -46,7 +46,7 @@ check_ip_forwarding_disabled() {
          fi
       fi
 
-      if [ "$WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION" = "1" ]; then
+      if [ "$NO_EXIT_ON_IP_FORWARDING_DETECTION" = "1" ]; then
          local MSG="IP Forwarding Result: $temp"
 
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
