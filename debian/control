@@ -1,27 +1,27 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-Source: whonixcheck
+Source: systemcheck
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
 Build-Depends: debhelper (>= 12), dh-apparmor
-Homepage: https://www.whonix.org/wiki/whonixcheck
-Vcs-Browser: https://github.com/Whonix/whonixcheck
-Vcs-Git: https://github.com/Whonix/whonixcheck.git
+Homepage: https://www.whonix.org/wiki/systemcheck
+Vcs-Browser: https://github.com/Whonix/systemcheck
+Vcs-Git: https://github.com/Whonix/systemcheck.git
 Standards-Version: 4.3.0
 
-Package: whonixcheck
+Package: systemcheck
 Architecture: all
-Depends: anon-gw-base-files | anon-ws-base-files, dist-base-files, curl,
+Depends: dist-base-files, curl,
  ca-certificates, msgcollector, psmisc, sudo, vrms,
  bsdtar, helper-scripts, net-tools, systemd, adduser,
  security-misc, spectre-meltdown-checker,
  apparmor-profile-dist, ${misc:Depends}
-Replaces: apparmor-profile-whonixcheck
+Replaces: apparmor-profile-whonixcheck, whonixcheck
 Recommends: anon-icon-pack
 Description: Anonymity and security check
- Checks many important aspects of Whonix for better security.
+ Checks many important aspects for better security.
  .
  Only checks things. Does not change things.
  .

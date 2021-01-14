@@ -48,10 +48,8 @@ check_whonixsetup_done() {
 <p>(Debugging information: Neither file <code>/var/cache/whonix-setup-wizard/status-files/whonixsetup.done</code>
 nor file <code>/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip</code> exists.)</p>"
 
-      if [ "$manualrun" = "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-      fi
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 
       EXIT_CODE="1"
       cleanup "1"

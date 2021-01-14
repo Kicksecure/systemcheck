@@ -8,13 +8,8 @@ parse_cmd_options() {
    ## $1 will not exist.
 
    ## defaults
-   ##
-   ## not being autostarted is the default
-   AUTOSTARTED="0"
-   ##
-   ## adding --silent to curl to surpress output
+   ## adding --silent to curl to suppress output
    CURL_VERBOSE="--silent"
-   ##
 
    ## Thanks to:
    ## http://mywiki.wooledge.org/BashFAQ/035
@@ -37,18 +32,6 @@ parse_cmd_options() {
                echo "Script running as $(whoami)"
                set -x
                CURL_VERBOSE=""
-               shift
-               ;;
-           -d | --daemon)
-               DAEMON="1"
-               shift
-               ;;
-           -a | --autostart)
-               AUTOSTARTED="1"
-               shift
-               ;;
-           -l | --nochecklastrun)
-               NOCHECKLASTRUN="1"
                shift
                ;;
            -f | --function)

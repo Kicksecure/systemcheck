@@ -8,18 +8,6 @@ check_tor_bootstrap() {
       return 0
    fi
 
-   [ -n "$whonixcheck_tor_bootstrap_skip_auto_check" ] || whonixcheck_tor_bootstrap_skip_auto_check="true"
-
-   if [ "$whonixcheck_tor_bootstrap_skip_auto_check" = "true" ]; then
-      if [ "$DAEMON" = "1" ]; then
-         return 0
-      fi
-
-      if [ "$AUTOSTARTED" = "1" ]; then
-         return 0
-      fi
-   fi
-
    while true; do
       check_tor_bootstrap_init
 
@@ -283,16 +271,9 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
    fi
 
    local MSG="<p>Connected to Tor.</p>"
-   ## Only attempt to close the progress bar if one was started.
-   ## Otherwise this might conflict with the progress bar in 25_autostart.
+
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
-   fi
-   if [ "$DAEMON" = "1" ]; then
-      ## Let's not show a success message every time whonixcheck
-      ## successfully finished the Tor bootstrap test.
-      ## `break` check_tor_bootstrap loop.
-      return 1
    fi
    $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
    $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
@@ -310,22 +291,6 @@ check_tor_bootstrap_show_wait_notification_maybe() {
    fi
 
    if [ "$tor_bootstrap_in_progress_passive_popup_shown" = "true" ]; then
-      return 0
-   fi
-
-   if [ "$DAEMON" = "1" ]; then
-      ## Daemon mode. Not creating a progress bar.
-      return 0
-   fi
-
-   ## Not running in daemon mode.
-
-   if [ "$AUTOSTARTED" = "1" ] && [ "$silent" -ge "2" ]; then
-      true "AUTOSTARTED is $AUTOSTARTED and silent is $silent. Therefore not creating a progress bar."
-      tor_bootstrap_in_progress_passive_popup_shown="true"
-      local MSG="<p>Connecting to Tor...</p>"
-      $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
-      $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
       return 0
    fi
 
@@ -389,8 +354,7 @@ check_tor_bootstrap_wait_longer_maybe() {
    TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
 
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
-   ## Only attempt to close the progress bar if one was started.
-   ## Otherwise this might conflict with the progress bar in 25_autostart.
+
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
    fi

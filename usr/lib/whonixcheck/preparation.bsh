@@ -3,20 +3,8 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-sanitize_variable() {
-   local input
-   input="$@"
-
-   sanitize_variable_output="$(/usr/lib/msgcollector/striphtml "$input")"
-   sanitize_variable_output="$@"
-
-   actual_string_length="${#sanitize_variable_output}"
-
-   if [ "$actual_string_length" -gt "$max_string_length" ]; then
-      ## Shorten excess length $sanitize_variable_output to $max_string_length chars.
-      sanitize_variable_output="${sanitize_variable_output:0:$max_string_length}"
-   fi
-}
+## provides: sanitize_variable
+source /usr/lib/helper-scripts/sanitize_variable
 
 input_detection() {
    if [ "$CLI" = "true" ] && [ "$GUI" = "true" ]; then
@@ -245,42 +233,6 @@ preparation() {
 
    [ -n "$verbose" ] || verbose="0"
 
-   if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
-      whonixcheck_run_function msgdispatcher_wait
-      whonixcheck_run_function whonixcheck_msgdispatcher_windows_existing
-   fi
-
-   if [ -e "/run/whonixcheck/${IDENTIFIER}_pid" ]; then
-      local oldpid
-      ## || true to prevent a race condition with whonixcheckd's init script
-      oldpid="$(cat "/run/whonixcheck/${IDENTIFIER}_pid")" || true
-      if [ ! "$oldpid" = "" ]; then
-         if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
-            if kill -0 "$oldpid" >/dev/null 2>/dev/null ; then
-               echo "Already running." >&2
-               echo "AUTOSTARTED: $AUTOSTARTED" >&2
-               echo "DAEMON: $DAEMON" >&2
-               echo "oldpid: $oldpid" >&2
-               echo "Not killing existing one." >&2
-               echo "Exiting." >&2
-               EXIT_CODE="124"
-               cleanup
-            fi
-         fi
-         ## $lastpid is used by by process_killer_helper.
-         lastpid="$oldpid"
-         process_killer_helper
-         unset lastpid
-      fi
-   fi
-
-   rm --force "/run/whonixcheck/${IDENTIFIER}_done"
-   rm --force "/run/whonixcheck/${IDENTIFIER}_recently_run"
-   touch "/run/whonixcheck/${IDENTIFIER}_running"
-   echo "$$" | tee "/run/whonixcheck/${IDENTIFIER}_pid" >/dev/null
-
-   sync
-
    if [ "$display" = "" ]; then
       if [ "$DISPLAY" = "" ]; then
          display=":0"
@@ -346,14 +298,6 @@ preparation() {
    fi
 
    whonix_codename_uppercase="${whonix_codename^^}"
-
-   if [ "$DAEMON" = "1" ]; then
-      true
-   elif [ "$AUTOSTARTED" = "1" ]; then
-      true
-   else
-      manualrun="1"
-   fi
 
    ## ARCH="x86_64"
    ## ARCH="i686"
@@ -426,35 +370,7 @@ preparation() {
       passive_popup_title="[$IDENTIFIER]"
    fi
 
-   if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
-      [ -n "$silent" ] || silent="3"
-   fi
-
    [ -n "$silent" ] || silent="0"
-
-   whonixcheck_exit_immediate_was="$whonixcheck_exit_immediate"
-   ## {{ By default,
-   ##    - on Whonix-Gateway: run in autostart mode, exit in daemon mode.
-   ##    - in Whonix-Workstation: exit immediate in autostart and in daemon mode.
-   if [ "$vm_lower_case_short" = "gateway" ]; then
-      if [ "$DAEMON" = "1" ]; then
-         [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
-      fi
-   else
-      if [ "$AUTOSTARTED" = "1" ] || [ "$DAEMON" = "1" ]; then
-         [ -n "$whonixcheck_exit_immediate" ] || whonixcheck_exit_immediate="true"
-      fi
-   fi
-   ## }}
-
-   local MSG="\
-AUTOSTARTED: $AUTOSTARTED
-DAEMON: $DAEMON
-whonixcheck_exit_immediate_was: $whonixcheck_exit_immediate_was
-whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
-   if [ "$verbose" -ge "3" ]; then
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
 
    TITLE_X="$IDENTIFIER | ${VM}${qubes_title_extra}"
 
@@ -478,9 +394,7 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
 
    if [ "$verbose" -ge "1" ] || [ "$qubes_detected" = "true" ]; then
       local MSG="$TITLE_CLI"
-      if [ "$manualrun" = "1" ]; then
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    MSG="$input_msg"
@@ -501,12 +415,4 @@ whonixcheck_exit_immediate: $whonixcheck_exit_immediate"
    whonixcheck_run_function root_check ## root_check
    whonixcheck_run_function uwt_tool ## help_uwt_tool
    whonixcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
-
-   if [ "$whonixcheck_exit_immediate" = "true" ]; then
-      echo "whonixcheck_exit_immediate is $whonixcheck_exit_immediate. Checking Whonix news / Whonix census only..." >&2
-      whonixcheck_run_function download_whonix_news ## check_news
-      echo "whonixcheck_exit_immediate is $whonixcheck_exit_immediate. Exiting." >&2
-      EXIT_CODE="123"
-      cleanup
-   fi
 }

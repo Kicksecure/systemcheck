@@ -19,23 +19,14 @@ check_package_manager_running() {
    fi
 
    if [ ! "$whonixcheck_package_manager_waiting" = "1" ]; then
-      ## When "$AUTOSTARTED" = "1", it could be that whonixcheck was started
-      ## by whonixcheckd because Whonix is currently being upgraded. Therefore
-      ## show a package manager waiting message.
-      if [ "$DAEMON" = "1" ]; then
-         true "No package manager waiting message when running in daemon mode."
-      elif [ "$AUTOSTARTED" = "1" ] && [ "$silent" -ge "3" ]; then
-         true "$FUNCNAME: AUTOSTARTED is $AUTOSTARTED. silent is $silent. Skipping creation of waiting progress bar."
-      else
-         whonixcheck_package_manager_waiting="1"
+      whonixcheck_package_manager_waiting="1"
 
-         progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
+      progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
-         local MSG="$package_manager_waiting_msg_x"
-         $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
-         ## Start progress bar to show we are waiting.
-         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
-      fi
+      local MSG="$package_manager_waiting_msg_x"
+      $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
+      ## Start progress bar to show we are waiting.
+      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
    fi
 
    sleep "10" &

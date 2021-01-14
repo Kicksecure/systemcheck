@@ -127,10 +127,6 @@ whonixcheck_main() {
    ## Uses the network.
    whonixcheck_run_function download_whonix_news ## check_news
 
-   ## Does not use the network.
-   ## Conditionally exit if whonixcheck has recently completed.
-   whonixcheck_run_function check_autostart ## autostart
-
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
    local MSG="$NOTIFY_MSG"
@@ -225,9 +221,6 @@ whonixcheck_main() {
    ## Does not use the network.
    whonixcheck_run_function donate ## donate
    whonixcheck_progress_main "1"
-
-   ## Does not use the network.
-   whonixcheck_run_function whonixcheck_completed ## autostart
 
    ## Does not use the network.
    whonixcheck_run_function cleanup ## cleanup

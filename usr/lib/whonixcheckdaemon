@@ -25,9 +25,9 @@ done
 
 if [ "$debugging" = "true" ]; then
    set -x
-   /usr/bin/whonixcheck --debug --autostart --gui --cli
+   /usr/bin/whonixcheck --cli --debug
 else
-   /usr/bin/whonixcheck --autostart --gui --cli &>/dev/null
+   /usr/bin/whonixcheck --cli &>/dev/null
 fi
 
 sleep 3600
@@ -35,9 +35,9 @@ sleep 3600
 while true; do
 
    if [ "$debugging" = "true" ]; then
-      /usr/bin/whonixcheck --debug --daemon --gui --cli
+      /usr/bin/whonixcheck --cli --debug
    else
-      /usr/bin/whonixcheck --daemon --gui --cli &>/dev/null
+      /usr/bin/whonixcheck --cli &>/dev/null
    fi
 
    sleep 3600

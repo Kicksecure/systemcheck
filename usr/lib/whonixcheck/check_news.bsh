@@ -3,234 +3,168 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-download_whonix_news() {
-   if test -f /run/qubes/this-is-templatevm ; then
-      return 0
+set -e
+
+## provides: sanitize_variable
+source /usr/lib/helper-scripts/sanitize_variable
+source /usr/lib/whonixcheck/uwt_tool.bsh
+
+census_preparation() {
+   if [ ! "$(whoami)" = "systemcheck" ]; then
+      echo "ERROR: Exiting. Must be run under user systemcheck."
+      exit 1
    fi
 
-   whonixcheck_run_function whonix_news_preparation
-   whonixcheck_run_function whonix_gateway_census_count_or_not
-
-   whonixcheck_run_function download_now_whonix_news
-
-   whonixcheck_run_function whonix_gateway_census_result
-
-   whonixcheck_run_function check_whonix_show_news
-}
-
-whonix_news_preparation() {
-   if [ "$TEMP_DIR" = "" ]; then
-      error "Variable TEMP_DIR is empty!"
-      return 0
+   virtualizer="$(systemd-detect-virt)" || true
+   if [ "$virtualizer" = "oracle" ]; then
+      known_virtualizer=yes
+   elif [ "$virtualizer" = "kvm" ]; then
+      known_virtualizer=yes
+   elif [ "$virtualizer" = "qemu" ]; then
+      known_virtualizer=yes
    fi
-
-   whonix_news_hyperlink="<a href=https://www.whonix.org/wiki/Whonix_News>Whonix News</a>"
-   whonix_news_build_version_link="<a href=https://www.whonix.org/wiki/Whonixcheck#Whonix_Build_Version>Whonix Build Version</a>"
-
-   whonix_news_download_dir="$TEMP_DIR/news/download_dir"
-   whonix_news_verify_dir="$TEMP_DIR/news/verify_dir"
-   whonix_news_extract_dir="$TEMP_DIR/news/extract_dir"
-
-   ## legacy 1
-   #whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/whonix_census"
-   ## legacy 2
-   #whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_${whonixcheck_virtualizer_detected}"
-   #whonix_gateway_census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/census_unknown"
+   if command -v qubesdb-read &>/dev/null ; then
+      virtualizer=qubes
+      known_virtualizer=yes
+   fi
 
    ## Dedicated onion different from homepage.
-   if [ "$whonixcheck_platform_or_virtualizer_known" = "true" ]; then
-      whonix_gateway_census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_${whonixcheck_virtualizer_detected}"
+   if [ "$known_virtualizer" = "xen" ] ; then
+      census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_${virtualizer}"
    else
-      whonix_gateway_census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_unknown"
+      census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_unknown"
    fi
 
-   whonix_gateway_last_census_file="/var/lib/whonixcheck/whonix_gateway_last_census.txt"
-   whonix_gateway_census_result_file="/var/lib/whonixcheck/whonix_gateway_census_result.txt"
+   ## Main onion
+   census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/apitest"
 
-   [ -n "$SOCKS_PORT_WHONIX_NEWS" ] || SOCKS_PORT_WHONIX_NEWS="9114"
-   [ -n "$CURL_PROXY_WHONIX_NEWS" ] || CURL_PROXY_WHONIX_NEWS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIX_NEWS"
+   ## TODO
+   ## Dedicated onion.
+   #census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/apitest"
 
-   #local MSG="Whonix News Download: Checking for Whonix news and updates..."
-   #$output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   ## sets: GATEWAY_IP
+   eval $(/usr/lib/helper-scripts/settings_echo)
 
-   mkdir --parents "$whonix_news_download_dir"
-   mkdir --parents "$whonix_news_verify_dir"
-   mkdir --parents "$whonix_news_extract_dir"
+   if test -e /usr/share/anon-gw-base-files/gateway || test -f /usr/share/anon-ws-base-files/workstation ; then
+      [ -n "$SOCKS_PORT_CENSUS" ] || SOCKS_PORT_CENSUS="9114"
+   else
+      [ -n "$SOCKS_PORT_CENSUS" ] || SOCKS_PORT_CENSUS="9050"
+   fi
 
-   rm -f "$whonix_gateway_census_result_file"
+   [ -n "$CURL_PROXY_CENSUS" ] || CURL_PROXY_CENSUS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_CENSUS"
+
+   mkdir --parents "/var/lib/systemcheck/census"
 }
 
-whonix_gateway_census_count_or_not() {
-   local max_age current_time last_run difference
-
-   ## Skip in Qubes DispVM.
-   if [ "$qubes_vm_persistence" = "none" ]; then
-      whonix_gateway_census_do_check_in="false"
-      return 0
-   fi
-
-   if [ ! "$vm_lower_case_short" = "gateway" ]; then
-      whonix_gateway_census_do_check_in="false"
-      return 0
-   fi
-
+check_census_lastrun() {
    ## One hour has 3600 seconds.
    ## A day has 86400 seconds.
-   max_age="86400"
+   local MAX="86400"
 
-   if [ -f "$whonix_gateway_last_census_file" ]; then
-      last_run="$(cat "$whonix_gateway_last_census_file")" || true
+   if [ -f "/var/lib/systemcheck/census/last_done" ]; then
+      LASTRUN="$(cat "/var/lib/systemcheck/census/last_done")" || true
    fi
 
-   [ -n "$last_run" ] || last_run="$max_age"
+   if [ "$LASTRUN" = "" ]; then
+      LASTRUN="$MAX"
+   fi
 
-   current_time="$(date +%s)"
-   difference="$(( $current_time - $last_run ))" || whonix_gateway_census_do_check_in="true"
-
-   if [ "$difference" -ge "$max_age" ]; then
-      whonix_gateway_census_do_check_in="true"
+   if [[ "$LASTRUN" != *[!0-9]* ]]; then
+      true "$FUNCNAME: LASTRUN is strictly numeric."
    else
-      whonix_gateway_census_do_check_in="false"
+      echo "ERROR: $FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
+      ## Not strictly numeric.
+      ## the census_completed function does almost the same
+      LASTRUN="$MAX"
    fi
+
+   ## read by sanitize_variable
+   max_string_length="12"
+   ## sets:
+   ## actual_string_length
+   ## sanitize_variable_output
+   sanitize_variable "$LASTRUN"
+   LASTRUN="$sanitize_variable_output"
+
+   local CURRENTTIME
+   CURRENTTIME="$(date --utc +%s)"
+
+   DIFFERENCE="$(( $CURRENTTIME - $LASTRUN ))"
+
+   if [ "$DIFFERENCE" -le "$MAX" ]; then
+      echo "INFO: No need."
+      exit 0
+   fi
+
+   echo "INFO: Attempting to count-in..."
 }
 
-download_now_whonix_news() {
-   if [ "$whonix_gateway_census_do_check_in" = "true" ]; then
-      local MSG="Whonix Census: anonymously counting this Whonix-Gateway, ok."
-      if [ "$verbose" -ge "1" ]; then
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      download_now_whonix_news_helper "$whonix_gateway_census_api_link" "$whonix_gateway_census_result_file" "--request PUT --data gateway-sign-in"
-   else
-      local MSG="Whonix Census: Not needed, ok."
-      if [ "$verbose" -ge "1" ]; then
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      download_now_whonix_news_helper "None required at this time, ok." "none"
-   fi
-
-   if [ "$whonix_news_download_success" = "false" ]; then
-      local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      fi
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-   fi
+census_completed() {
+   local LASTRUN
+   LASTRUN="$(date --utc +%s)"
+   echo "$LASTRUN" | tee "/var/lib/systemcheck/census/last_done" > /dev/null
 }
 
-download_now_whonix_news_helper() {
-   local web_link file_name
-
-   web_link="$1"
-   file_name="$2"
-   #extra_curl_args: ${@:3}
-
-   if echo "$web_link" | grep -q "https://" ; then
-      local CURL_SSL
-      CURL_SSL="--tlsv1.3"
+census_count_or_not() {
+   if test -f /run/qubes/this-is-templatevm ; then
+      echo "INFO: Skip in Qubes TemplateVM"
+      exit 0
    fi
 
-   ## Fallback.
-   whonix_news_download_success="false"
-
-   declare -A -g whonix_news_download_exit_code
-   whonix_news_download_exit_code["$web_link"]="0"
-
-   if [ "$file_name" = "none" ]; then
-      true
-   else
-      $CURL \
-         $CURL_VERBOSE \
-         $CURL_SSL \
-         --fail \
-         $CURL_PROXY_WHONIX_NEWS \
-         --location \
-         --retry-connrefused \
-         --retry 3 \
-         --retry-delay 3 \
-         --retry-max-time 120 \
-         --max-time 180 \
-         --output "$file_name" \
-         ${@:3} \
-         "$web_link" \
-         &
-
-      lastpid="$!"
-      wait "$lastpid" || { whonix_news_download_exit_code["$web_link"]="$?" ; true; };
+   if command -v qubesdb-read &>/dev/null ; then
+      qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
    fi
 
-   if [ ! "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
-      whonix_news_download_success="false"
+   if [ "$qubes_vm_persistence" = "none" ]; then
+      echo "INFO: Skip in Qubes DispVM."
+      exit 0
+   fi
+
+   ## TODO
+#    if ! test -f /usr/share/anon-gw-base-files/gateway ; then
+#       echo "INFO: Skip. Count only gateway."
+#       exit 0
+#    fi
+}
+
+census_do() {
+   rm -f "/var/lib/systemcheck/census/census_result.txt"
+
+   curl_exit_code="0"
+
+   $CURL \
+      --silent \
+      --fail \
+      $CURL_PROXY_CENSUS \
+      --location \
+      --retry-connrefused \
+      --retry 3 \
+      --retry-delay 3 \
+      --retry-max-time 120 \
+      --max-time 180 \
+      --output "/var/lib/systemcheck/census/census_result.txt" \
+      --request PUT \
+      --data "gateway-sign-in" \
+      "$census_api_link" \
+      &
+
+   lastpid="$!"
+   wait "$lastpid" || { curl_exit_code="$?" ; true; };
+
+   if [ ! "$curl_exit_code" = "0" ]; then
       local curl_status_message
-      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
-      local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File failed. \
-(file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      fi
-      return 0
+      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
+      echo="ERROR: Failure.
+curl exit code: $curl_status_message"
+      exit 0
    fi
 
-   whonix_news_download_success="true"
-   if [ "$verbose" -ge "1" ]; then
-      local curl_status_message
-      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "${whonix_news_download_exit_code[$web_link]}")"
-      local MSG="<p>$whonix_news_hyperlink Result: Download of Whonix News File succeeded. \
-(file_name: <code>$file_name</code> | web_link: <code>$web_link</code> | curl exit code: <code>$curl_status_message</code>)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
+   echo "INFO: Success."
+
+   census_completed
 }
 
-whonix_gateway_census_result() {
-   local web_link whonix_gateway_census_result_content message
-
-   whonix_census_result_ok="false"
-
-   if [ ! "$vm_lower_case_short" = "gateway" ]; then
-      whonix_census_result_ok="true"
-      whonix_news_result_output="${whonix_news_result_output}
-$VM Census: Skipped, because not running on Whonix-Gateway, ok."
-      return 0
-   fi
-
-   if [ "$whonix_gateway_census_do_check_in" = "false" ]; then
-      whonix_census_result_ok="true"
-      whonix_news_result_output="${whonix_news_result_output}
-$VM Census: Skipped, because already counted less than a day ago, ok."
-      return 0
-   fi
-
-   web_link="$whonix_gateway_census_api_link"
-   if [ "${whonix_news_download_exit_code[$web_link]}" = "0" ]; then
-      local last_run
-      last_run="$(date +%s)"
-      echo "$last_run" | tee "$whonix_gateway_last_census_file" > /dev/null
-      whonix_census_result_ok="true"
-      whonix_news_result_output="${whonix_news_result_output}
-$VM Census: Ok."
-      return 0
-   fi
-
-   whonix_news_result_output="${whonix_news_result_output}
-$VM Census: Error.
-<br></br>
-whonix_news_download_exit_code[$web_link]: <code>${whonix_news_download_exit_code[$web_link]}</code>"
-}
-
-check_whonix_show_news() {
-   local type
-   type="info"
-   if [ ! "$whonix_census_result_ok" = "true" ]; then
-      type="warning"
-   fi
-
-   local MSG="<p>$whonix_news_hyperlink Result:<br></br>
-$whonix_news_result_output</p>"
-
-   if [ "$verbose" -ge "2" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
-   fi
-}
+census_preparation
+census_count_or_not
+check_census_lastrun
+census_do

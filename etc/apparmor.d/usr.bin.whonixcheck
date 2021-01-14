@@ -369,7 +369,7 @@
 	/var/lib/apt/lists/ r,
 	/var/lib/apt/lists/** rwk,
 	/var/lib/apt/extended_states r,
-	/var/lib/whonixcheck/** rw,
+	/var/lib/systemcheck/** rw,
 	/var/lib/whonix/whonixblog/* rw,
 
 	## For Running 'tor --verify-config'.
