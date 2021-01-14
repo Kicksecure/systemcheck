@@ -231,8 +231,10 @@ preparation() {
 
    if test -f /usr/share/whonix/marker ; then
       PROJECT_HOMEPAGE="https://www.whonix.org"
+      PROJECT_NAME="Whonix"
    else
       PROJECT_HOMEPAGE="https://www.kicksecure.com"
+      PROJECT_NAME="Kicksecure"
    fi
 
    user_name="user"
