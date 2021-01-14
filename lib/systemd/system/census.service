@@ -22,7 +22,7 @@ ExecStart=/usr/lib/systemcheck/census-daemon
 SuccessExitStatus=143
 TimeoutSec=30
 ## /usr/lib/systemcheck/census-daemon uses `sleep 3600`
-## /usr/lib/systemcheck/census uses `curl` with --max-time 180
+## /usr/lib/systemcheck/census uses `curl` with `--max-time 180`
 WatchdogSec=4000
 NotifyAccess=all
 Restart=always
