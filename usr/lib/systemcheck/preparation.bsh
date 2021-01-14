@@ -409,8 +409,6 @@ preparation() {
          source "$i"
    done
 
-   TIME_START="$(date +%s)"
-
    systemcheck_run_function root_check ## root_check
 
    source /usr/lib/systemcheck/uwt_tool.bsh
