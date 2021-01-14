@@ -6,7 +6,6 @@
 set -e
 
 ## provides: sanitize_variable
-source /usr/lib/helper-scripts/sanitize_variable
 source /usr/lib/systemcheck/uwt_tool.bsh
 
 census_preparation() {
@@ -84,13 +83,13 @@ check_census_lastrun() {
       LASTRUN="$MAX"
    fi
 
-   ## read by sanitize_variable
    max_string_length="12"
-   ## sets:
-   ## actual_string_length
-   ## sanitize_variable_output
-   sanitize_variable "$LASTRUN"
-   LASTRUN="$sanitize_variable_output"
+   actual_string_length="${#LASTRUN}"
+
+   if [ "$actual_string_length" -gt "$max_string_length" ]; then
+      echo "ERROR: $FUNCNAME: excessive string length: $actual_string_length / $max_string_length"
+      exit 1
+   fi
 
    local CURRENTTIME
    CURRENTTIME="$(date --utc +%s)"
