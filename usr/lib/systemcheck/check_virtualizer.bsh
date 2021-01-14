@@ -136,7 +136,7 @@ $VMWARE_TEXT
 
 <p>If you wish to ignore this warning and to continue systemcheck anyway, you can set
 <code><blockquote>    NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote></code>
-in <code>/etc/whonix.d/50_systemcheck_user.conf</code>.</p>
+in <code>/etc/systemcheck.d/50_systemcheck_user.conf</code>.</p>
 
 <p>Recommended action:
 <br></br>- Shut down.
