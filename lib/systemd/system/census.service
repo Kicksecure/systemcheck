@@ -16,8 +16,8 @@ After=whonix-firewall.service
 
 [Service]
 Type=simple
-User=user
-Group=user
+User=systemcheck
+Group=systemcheck
 ExecStart=/usr/lib/systemcheck/census-daemon
 SuccessExitStatus=143
 TimeoutSec=30
