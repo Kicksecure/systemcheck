@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 parse_cmd_options() {
-   ## If whonixcheck is run without command line arguments,
+   ## If systemcheck is run without command line arguments,
    ## $1 will not exist.
 
    ## defaults

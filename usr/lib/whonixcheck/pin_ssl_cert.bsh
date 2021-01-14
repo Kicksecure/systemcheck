@@ -28,9 +28,9 @@ package that provides this file is installed, still shipping that file, and that
          else
             local MSG="<p>Pin torproject.org certificate: $msg_shared Since you are not using the default \
 <code>/usr/share/torbrowser-launcher/torproject.pem</code> make sure that <code>$TPO_PIN_CERT_FILE</code> \
-is readable, and if you are using <code>apparmor-profile-whonixcheck</code>, that you added
+is readable, and if you are using <code>apparmor-profile-systemcheck</code>, that you added
 <code><blockquote>$TPO_PIN_CERT_FILE r,</code></blockquote> to \
-<code>/etc/apparmor.d/local/usr.bin.whonixcheck</code>.</p>"
+<code>/etc/apparmor.d/local/usr.bin.systemcheck</code>.</p>"
             $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          fi

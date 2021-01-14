@@ -29,18 +29,18 @@ check_tor_bootstrap() {
 }
 
 check_tor_bootstrap_sleep() {
-   sleep "$whonixcheck_tor_bootstrap_between_attempts" &
+   sleep "$systemcheck_tor_bootstrap_between_attempts" &
    lastpid="$!"
    wait "$lastpid" || true
-   whonixcheck_tor_bootstrap_waited_seconds="$(( "$whonixcheck_tor_bootstrap_waited_seconds" + "$whonixcheck_tor_bootstrap_between_attempts" ))"
+   systemcheck_tor_bootstrap_waited_seconds="$(( "$systemcheck_tor_bootstrap_waited_seconds" + "$systemcheck_tor_bootstrap_between_attempts" ))"
 }
 
 check_tor_bootstrap_init() {
-   [ -n "$whonixcheck_tor_bootstrap_waited_seconds" ] || whonixcheck_tor_bootstrap_waited_seconds="0"
-   [ -n "$whonixcheck_tor_bootstrap_between_attempts" ] || whonixcheck_tor_bootstrap_between_attempts="2"
-   [ -n "$whonixcheck_tor_bootstrap_wait_max" ] || whonixcheck_tor_bootstrap_wait_max="150"
-   [ -n "$whonixcheck_tor_bootstrap_error_counter" ] || whonixcheck_tor_bootstrap_error_counter="0"
-   [ -n "$whonixcheck_tor_bootstrap_error_max" ] || whonixcheck_tor_bootstrap_error_max="5"
+   [ -n "$systemcheck_tor_bootstrap_waited_seconds" ] || systemcheck_tor_bootstrap_waited_seconds="0"
+   [ -n "$systemcheck_tor_bootstrap_between_attempts" ] || systemcheck_tor_bootstrap_between_attempts="2"
+   [ -n "$systemcheck_tor_bootstrap_wait_max" ] || systemcheck_tor_bootstrap_wait_max="150"
+   [ -n "$systemcheck_tor_bootstrap_error_counter" ] || systemcheck_tor_bootstrap_error_counter="0"
+   [ -n "$systemcheck_tor_bootstrap_error_max" ] || systemcheck_tor_bootstrap_error_max="5"
 
    ## sets: check_bootstrap_script
    ## sets: lastpid
@@ -67,7 +67,7 @@ check_tor_bootstrap_init() {
    ## Debugging.
    ## Simulating cases where tor_bootstrap_percent is 100 while
    ## tor_circuit_established is 0.
-   #if [ "$whonixcheck_tor_bootstrap_waited_seconds" -gt "10" ]; then
+   #if [ "$systemcheck_tor_bootstrap_waited_seconds" -gt "10" ]; then
       #true
    #else
       #tor_circuit_established="0"
@@ -128,13 +128,13 @@ check_tor_bootstrap_grace() {
       return 0
    fi
 
-   whonixcheck_tor_bootstrap_error_counter="$(( $whonixcheck_tor_bootstrap_error_counter + 1 ))"
-   if [ "$whonixcheck_tor_bootstrap_error_counter" -ge "$whonixcheck_tor_bootstrap_error_max" ]; then
+   systemcheck_tor_bootstrap_error_counter="$(( $systemcheck_tor_bootstrap_error_counter + 1 ))"
+   if [ "$systemcheck_tor_bootstrap_error_counter" -ge "$systemcheck_tor_bootstrap_error_max" ]; then
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    else
       local MSG="<p>Tor Connection Result:
-Tor's Control Port could not be reached. Attempt $whonixcheck_tor_bootstrap_error_counter of $whonixcheck_tor_bootstrap_error_max. Could be temporary due to a Tor restart. Trying again...
+Tor's Control Port could not be reached. Attempt $systemcheck_tor_bootstrap_error_counter of $systemcheck_tor_bootstrap_error_max. Could be temporary due to a Tor restart. Trying again...
 </p>"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
 
@@ -183,9 +183,9 @@ check_tor_bootstrap_known_failure_cases() {
 <br></br>
 <br></br>Troubleshooting:
 <br></br>- Confirm that Whonix-Gateway is running.
-<br></br>- Run <code>whonixcheck</code> on Whonix-Gateway and confirm success.
+<br></br>- Run <code>systemcheck</code> on Whonix-Gateway and confirm success.
 $multiple_whonix_ws_msg
-<br></br>- Rerun <code>whonixcheck</code> here in this Whonix-Workstation.
+<br></br>- Rerun <code>systemcheck</code> here in this Whonix-Workstation.
 <br></br>
 <br></br>(Technical information:)
 <br></br>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
@@ -235,7 +235,7 @@ check_tor_bootstrap_unknown_failure_cases() {
 
 check_tor_bootstrap_stop_when_bootstrap_done() {
    ## For testing.
-   #if [ "$whonixcheck_tor_bootstrap_waited_seconds" -lt "10" ]; then
+   #if [ "$systemcheck_tor_bootstrap_waited_seconds" -lt "10" ]; then
       #tor_bootstrap_percent="$(( 5 + ${#RANDOM} ))"
    #fi
 
@@ -282,7 +282,7 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
 }
 
 check_tor_bootstrap_show_wait_notification_maybe() {
-   if [ "$whonixcheck_tor_bootstrap_waited_seconds" -lt "1" ]; then
+   if [ "$systemcheck_tor_bootstrap_waited_seconds" -lt "1" ]; then
       return 0
    fi
 
@@ -297,13 +297,13 @@ check_tor_bootstrap_show_wait_notification_maybe() {
    started_tor_bootstrap_progress_bar="1"
    ## Waited for more than 5 seconds.
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-   local MSG="<p>Tor Bootstrap Test: Waiting for Tor Connection... (Will take up to $whonixcheck_tor_bootstrap_wait_max seconds.)</p>"
+   local MSG="<p>Tor Bootstrap Test: Waiting for Tor Connection... (Will take up to $systemcheck_tor_bootstrap_wait_max seconds.)</p>"
    $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
    return 0
 }
 
 check_tor_bootstrap_wait_longer_maybe() {
-   if [ "$whonixcheck_tor_bootstrap_waited_seconds" -lt "$whonixcheck_tor_bootstrap_wait_max" ]; then
+   if [ "$systemcheck_tor_bootstrap_waited_seconds" -lt "$systemcheck_tor_bootstrap_wait_max" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
@@ -338,14 +338,14 @@ check_tor_bootstrap_wait_longer_maybe() {
 
    if [ "$VM" = "Whonix-Gateway" ]; then
       local MSG="<p>Tor Connection Result:
-- Connecting for $whonixcheck_tor_bootstrap_waited_seconds seconds. | $tor_bootstrap_percent % done. $progress_made_text
+- Connecting for $systemcheck_tor_bootstrap_waited_seconds seconds. | $tor_bootstrap_percent % done. $progress_made_text
 - Tor Circuit: $tor_circuit_established_word.
 - Tor reports: $tor_bootstrap_status
 - Timesync status: $time_synchronization_status_notification.
 - sdwdate reports: $time_synchronization_msg</p>"
    else
       local MSG="<p>Tor Connection Result:
-- Connecting for $whonixcheck_tor_bootstrap_waited_seconds seconds.
+- Connecting for $systemcheck_tor_bootstrap_waited_seconds seconds.
 - Tor Circuit: $tor_circuit_established_word.
 - Timesync status: $time_synchronization_status_notification.
 - sdwdate reports: $time_synchronization_msg</p>"
@@ -366,7 +366,7 @@ check_tor_bootstrap_wait_longer_maybe() {
 }
 
 check_tor_bootstrap_give_up_on_connection_issue_maybe() {
-   if [ "$whonixcheck_tor_bootstrap_waited_seconds" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
+   if [ "$systemcheck_tor_bootstrap_waited_seconds" -ge "$systemcheck_tor_bootstrap_wait_max" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
@@ -413,8 +413,8 @@ you will need them for Whonix as well.</p>
 
 <p>2)
 <br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
-<br></br>or in Terminal: <code>whonixcheck</code>
-<br></br>or more verbose in Terminal: <code>whonixcheck --verbose --gui --cli</code></p>
+<br></br>or in Terminal: <code>systemcheck</code>
+<br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>3)
 <br></br>Use Nyx, connection page two, to see if Tor is connected:
@@ -436,11 +436,11 @@ $anondate_debugging_information"
 
 <p>1)
 <br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
-<br></br>           or in Terminal: <code>whonixcheck</code>
-<br></br>           or more verbose in Terminal: <code>whonixcheck --verbose --gui --cli</code></p>
+<br></br>           or in Terminal: <code>systemcheck</code>
+<br></br>           or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>2)
-<br></br>Run whonixcheck on Whonix-Gateway as well.</p>"
+<br></br>Run systemcheck on Whonix-Gateway as well.</p>"
    else
       local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this Whonix bug!"
    fi
@@ -457,7 +457,7 @@ $anondate_debugging_information"
 }
 
 check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
-   if [ "$whonixcheck_tor_bootstrap_waited_seconds" -ge "$whonixcheck_tor_bootstrap_wait_max" ]; then
+   if [ "$systemcheck_tor_bootstrap_waited_seconds" -ge "$systemcheck_tor_bootstrap_wait_max" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
@@ -502,10 +502,10 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br>
 <br></br>Recommendations:
 <br></br>
-<br></br><b>A)</b> <u>Rerun whonixcheck</u>:
+<br></br><b>A)</b> <u>Rerun systemcheck</u>:
 <blockquote>$start_menu_instructions_system_first_part Whonix Check</blockquote>
-or in Terminal: <code>whonixcheck</code>
-<br></br>or more verbose in Terminal: <code>whonixcheck --verbose --gui --cli</code>
+or in Terminal: <code>systemcheck</code>
+<br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code>
 <br></br>
 <br></br><b>B)</b> <u>Restart sdwdate.</u>
 <blockquote>$start_menu_instructions_system_first_part sdwdate-gui -> right click on sdwdate-gui systray -> Restart sdwdate</blockquote>
@@ -518,7 +518,7 @@ or in Terminal: <code>sudo service sdwdate restart</code>
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote>
 3. Simulate sdwdate success. <blockquote><code>sudo -u sdwdate touch /run/sdwdate/first_success</code></blockquote>
-4. Rerun whonixcheck.</p>"
+4. Rerun systemcheck.</p>"
    fi
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
@@ -547,8 +547,8 @@ check_tor_bootstrap_script_error() {
 <br></br>(tor_bootstrap_timeout_type: <code>$tor_bootstrap_timeout_type</code>)
 <br></br>(tor_bootstrap_status: <code>$tor_bootstrap_status</code>)
 <br></br>(check_socks_port_open_test: <code>$check_socks_port_open_test</code>)
-<br></br>(whonixcheck_tor_bootstrap_waited_seconds: <code>$whonixcheck_tor_bootstrap_waited_seconds</code>)
-<br></br>(whonixcheck_tor_bootstrap_wait_max: <code>$whonixcheck_tor_bootstrap_wait_max</code>)
+<br></br>(systemcheck_tor_bootstrap_waited_seconds: <code>$systemcheck_tor_bootstrap_waited_seconds</code>)
+<br></br>(systemcheck_tor_bootstrap_wait_max: <code>$systemcheck_tor_bootstrap_wait_max</code>)
 <br></br>
 <br></br>(whonix_firewall_status_word: $whonix_firewall_status_word)
 <br></br>(whonix_firewall_status_notification: $whonix_firewall_status_notification)

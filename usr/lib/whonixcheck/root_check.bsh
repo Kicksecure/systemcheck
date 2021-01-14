@@ -12,7 +12,7 @@ root_check() {
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
       else
-         local MSG="<p>Please do not run whonixcheck as root.</p>"
+         local MSG="<p>Please do not run systemcheck as root.</p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"

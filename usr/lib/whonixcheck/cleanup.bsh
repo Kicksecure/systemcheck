@@ -6,18 +6,18 @@
 ## {{ maybe_kill_apt_get_update
 ##
 ## apt-get-update runs as root (using a /etc/sudoers.d/ exception) while
-## whonixcheck runs as user. Therefore we can't kill apt-get-update using
+## systemcheck runs as user. Therefore we can't kill apt-get-update using
 ## process_killer_helper. (Can't kill processes owned by other users.)
 ## In case apt-get-update is still running, we need to start
 ## apt-get-update-kill-helper as root (again using a /etc/sudoers.d/
 ## exception). This might look like a lot effort for little gain, but when
-## the user terminated whonixcheck, apt-get is still running and the user wants
+## the user terminated systemcheck, apt-get is still running and the user wants
 ## to manually use apt-get, it would show an error because the apt-get lockfile
 ## would still exist.
 maybe_kill_apt_get_update() {
    if [ "$apt_get_update_pid" = "" ]; then
       ## Pid never set. Either the check_operating_system check has been disabled,
-      ## or signal received earlier or this isn't whonixcheck. Either way.
+      ## or signal received earlier or this isn't systemcheck. Either way.
       ## Nothing to do.
       return 0
    fi
@@ -39,8 +39,8 @@ maybe_kill_apt_get_update() {
    fi
 
    ## There is an exception in /etc/sudoers.d/.
-   ## "|| true", to avoid an error when whonixcheck receives a sigterm signal
-   ## while running this command (such as when whonixcheckd gets stopped).
+   ## "|| true", to avoid an error when systemcheck receives a sigterm signal
+   ## while running this command (such as when systemcheckd gets stopped).
    sudo --non-interactive "/usr/lib/helper-scripts/apt-get-update-kill-helper" "$apt_get_update_pid" || true
 }
 ## }}
@@ -53,9 +53,9 @@ cleanup_files() {
          rm --recursive "$TEMP_DIR"
       fi
 
-      rm --force "/run/whonixcheck/${IDENTIFIER}_running"
-      rm --force "/run/whonixcheck/${IDENTIFIER}_waiting"
-      #rm --force "/run/whonixcheck/${IDENTIFIER}_pid"
+      rm --force "/run/systemcheck/${IDENTIFIER}_running"
+      rm --force "/run/systemcheck/${IDENTIFIER}_waiting"
+      #rm --force "/run/systemcheck/${IDENTIFIER}_pid"
    fi
 }
 
@@ -180,7 +180,7 @@ trap "trap_sigusr2" SIGUSR2 ## msgcollector, zenity cancel button
 cleanup() {
    true "$FUNCNAME..."
 
-   touch "/run/whonixcheck/${IDENTIFIER}_done"
+   touch "/run/systemcheck/${IDENTIFIER}_done"
 
    sync
 

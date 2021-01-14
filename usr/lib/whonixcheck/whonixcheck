@@ -23,7 +23,7 @@ SCRIPTNAME="$(basename "$BASH_SOURCE")"
 IDENTIFIER="$SCRIPTNAME"
 
 ## Debugging with bashdb.
-#IDENTIFIER="whonixcheck"
+#IDENTIFIER="systemcheck"
 
 bash -n /usr/lib/msgcollector/error_handler
 source /usr/lib/msgcollector/error_handler
@@ -38,12 +38,12 @@ source /usr/lib/helper-scripts/tor_enabled_check
 bash -n /usr/lib/helper-scripts/pkg_manager_running_check
 source /usr/lib/helper-scripts/pkg_manager_running_check
 
-for i in /usr/lib/whonixcheck/*.bsh; do
+for i in /usr/lib/systemcheck/*.bsh; do
    bash -n "$i"
    source "$i"
 done
 
-whonixcheck_move_progress_bar_to_percent() {
+systemcheck_move_progress_bar_to_percent() {
    if [ "$silent" -ge "3" ]; then
       true "silent is $silent. Skipping $FUNCNAME $1."
       return 0
@@ -51,81 +51,81 @@ whonixcheck_move_progress_bar_to_percent() {
    $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$1"
 }
 
-whonixcheck_progress_main() {
+systemcheck_progress_main() {
    if [ "$PROGRESS_MAIN" = "" ]; then
       PROGRESS_MAIN="0"
    fi
    local increment
    increment="$1"
    PROGRESS_MAIN="$(( $PROGRESS_MAIN + $increment ))"
-   whonixcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
+   systemcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
 }
 
-whonixcheck_main() {
+systemcheck_main() {
    parse_cmd_options "$@" ## parse_cmd
    preparation ## preparation
 
    ## Conditionally only run the function name that was given by the --function
    ## command line parameter. Then exit.
-   whonixcheck_run_function function_manual_run ## function_manual_run
+   systemcheck_run_function function_manual_run ## function_manual_run
 
    ## Does not use the network.
-   whonixcheck_run_function check_sudo ## check_sudo
+   systemcheck_run_function check_sudo ## check_sudo
 
    ## Does not use the network.
-   whonixcheck_run_function show_versions ## show_versions
+   systemcheck_run_function show_versions ## show_versions
 
    ## Does not use the network.
-   whonixcheck_run_function check_spectre_meltdown ## check_spectre_meltdown
+   systemcheck_run_function check_spectre_meltdown ## check_spectre_meltdown
 
    ## Does not use the network.
-   whonixcheck_run_function check_services ## check_services
+   systemcheck_run_function check_services ## check_services
 
    ## Does not use the network.
-   whonixcheck_run_function check_journal ## check_services
+   systemcheck_run_function check_journal ## check_services
 
    ## Does not use the network.
-   whonixcheck_run_function check_whonix_firewall_systemd_status ## check_services
+   systemcheck_run_function check_whonix_firewall_systemd_status ## check_services
 
    ## Does not use the network.
-   whonixcheck_run_function check_qubes_settings ## check_qubes
+   systemcheck_run_function check_qubes_settings ## check_qubes
 
    ## Does not use the network.
-   whonixcheck_run_function check_kernel_messages ## check_systemd_clock
+   systemcheck_run_function check_kernel_messages ## check_systemd_clock
 
    ## Does not use the network.
-   whonixcheck_run_function check_network_interfaces ## check_network_interfaces
+   systemcheck_run_function check_network_interfaces ## check_network_interfaces
 
    ## Does not use the network.
-   whonixcheck_run_function check_whonixsetup_done ## check_whonixsetup_done
+   systemcheck_run_function check_whonixsetup_done ## check_whonixsetup_done
 
    ## Does not use the network.
    ## Own Progress Bar: Yes
-   whonixcheck_run_function check_package_manager_running ## check_package_manager_running
+   systemcheck_run_function check_package_manager_running ## check_package_manager_running
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_tor_enabled ## check_tor_enabled
+   systemcheck_run_function check_tor_enabled ## check_tor_enabled
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_tor_config ## check_tor_config
+   systemcheck_run_function check_tor_config ## check_tor_config
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_tor_pid ## check_tor_pid
+   systemcheck_run_function check_tor_pid ## check_tor_pid
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_control_port_filter_running ## check_control_port_filter
+   systemcheck_run_function check_control_port_filter_running ## check_control_port_filter
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_anondate_show
+   systemcheck_run_function check_anondate_show
 
    ## Only connects to Whonix-Gateway.
-   whonixcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
+   systemcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
    ## Only connects to Whonix-Gateway.
    ## Own Progress Bar: Yes
-   whonixcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
+   systemcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
    ## Uses the network.
-   whonixcheck_run_function download_whonix_news ## check_news
+   systemcheck_run_function download_whonix_news ## check_news
 
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
@@ -138,94 +138,94 @@ whonixcheck_main() {
    fi
 
    ## Does not use the network.
-   whonixcheck_run_function check_packages ## check_packages
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_packages ## check_packages
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function check_initializer ## check_initializer
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_initializer ## check_initializer
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   ## sets: whonixcheck_virtualizer_detected
-   whonixcheck_run_function check_virtualizer ## check_virtualizer
-   whonixcheck_progress_main "1"
+   ## sets: systemcheck_virtualizer_detected
+   systemcheck_run_function check_virtualizer ## check_virtualizer
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   ## requires: whonixcheck_virtualizer_detected
-   whonixcheck_run_function check_pvclock ## check_pvclock
-   whonixcheck_progress_main "1"
+   ## requires: systemcheck_virtualizer_detected
+   systemcheck_run_function check_pvclock ## check_pvclock
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function check_timezone ## check_timezone
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_timezone ## check_timezone
+   systemcheck_progress_main "1"
 
    ## Disabled because of systemd bug.
    ## timedatectl: caches NTP enablement state, better shouldn't
    ## https://github.com/systemd/systemd/issues/1329
    ## Does not use the network.
-   #whonixcheck_run_function check_systemd_clock ## check_systemd_clock
-   #whonixcheck_progress_main "6"
+   #systemcheck_run_function check_systemd_clock ## check_systemd_clock
+   #systemcheck_progress_main "6"
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
-   whonixcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function disclaimer ## disclaimer
-   whonixcheck_progress_main "1"
+   systemcheck_run_function disclaimer ## disclaimer
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function check_logs ## check_logs
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_logs ## check_logs
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function check_hostname ## check_hostname
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_hostname ## check_hostname
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function check_entropy ## check_entropy
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_entropy ## check_entropy
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function check_nonfree ## check_nonfree
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_nonfree ## check_nonfree
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function check_whonix_apt_repository ## check_apt_repository
-   whonixcheck_progress_main "1"
+   systemcheck_run_function check_whonix_apt_repository ## check_apt_repository
+   systemcheck_progress_main "1"
 
    ## Local network connection.
-   whonixcheck_run_function check_qubes_update_proxy ## check_qubes
-   whonixcheck_progress_main "3"
+   systemcheck_run_function check_qubes_update_proxy ## check_qubes
+   systemcheck_progress_main "3"
 
    ## Uses the network.
-   whonixcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
-   whonixcheck_progress_main "15"
+   systemcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
+   systemcheck_progress_main "15"
 
    ## Uses the network.
-   whonixcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
-   whonixcheck_progress_main "15"
+   systemcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
+   systemcheck_progress_main "15"
 
    ## Uses the network.
-   whonixcheck_run_function check_qubes_updates_proxy ## check_tor_socks_or_trans_port
-   whonixcheck_progress_main "15"
+   systemcheck_run_function check_qubes_updates_proxy ## check_tor_socks_or_trans_port
+   systemcheck_progress_main "15"
 
    ## Does not use the network.
-   whonixcheck_run_function check_stream_isolation ## check_stream_isolation
-   whonixcheck_progress_main "15"
+   systemcheck_run_function check_stream_isolation ## check_stream_isolation
+   systemcheck_progress_main "15"
 
    ## Uses the network.
-   whonixcheck_run_function check_operating_system ## check_operating_system
-   whonixcheck_progress_main "15"
+   systemcheck_run_function check_operating_system ## check_operating_system
+   systemcheck_progress_main "15"
 
    ## Does not use the network.
-   whonixcheck_run_function donate ## donate
-   whonixcheck_progress_main "1"
+   systemcheck_run_function donate ## donate
+   systemcheck_progress_main "1"
 
    ## Does not use the network.
-   whonixcheck_run_function cleanup ## cleanup
+   systemcheck_run_function cleanup ## cleanup
 }
 
-whonixcheck_main "$@"
+systemcheck_main "$@"
 
-## End of whonixcheck script.
+## End of systemcheck script.

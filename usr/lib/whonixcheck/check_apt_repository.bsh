@@ -23,7 +23,7 @@ If you want to change this, use:</p>"
 When the Whonix team releases an update, it will be NOT be installed.
 Please read <a href=https://www.whonix.org/wiki/Trust>https://www.whonix.org/wiki/Trust</a> to understand the risk.
 You will still be notified when updated Whonix packages are released by
-whonixcheck's Whonix News. You are free to manually update from source code.
+systemcheck's Whonix News. You are free to manually update from source code.
 If you want to change this, use:</p>"
 
    if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then

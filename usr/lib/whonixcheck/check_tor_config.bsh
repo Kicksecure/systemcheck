@@ -71,10 +71,10 @@ $start_menu_instructions_system_first_part Terminal
 <blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
     <br></br>or in Terminal: <code>sudo service tor@default restart</code></p>
 
-<p>Restart <code>whonixcheck</code> after fixing this error.
+<p>Restart <code>systemcheck</code> after fixing this error.
 
 <blockquote>    $start_menu_instructions_system_first_part Whonix Check</blockquote>
-    <br></br>or in Terminal: <code>whonixcheck</code></p>
+    <br></br>or in Terminal: <code>systemcheck</code></p>
 
 <p>$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"

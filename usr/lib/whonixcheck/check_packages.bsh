@@ -71,7 +71,7 @@ Make sure any of the following meta packages is installed.<br />
 check_unwanted_packages() {
    local unwanted_package unwanted_packages_list unwanted_packages_counter dpkg_query_result first
    unwanted_packages_counter="0"
-   for unwanted_package in $whonixcheck_unwanted_package ; do
+   for unwanted_package in $systemcheck_unwanted_package ; do
       dpkg_query_result="$(dpkg-query --show --showformat='${Status}\n' "$unwanted_package" 2>/dev/null)" || true
       ## dpkg_query_result example:
       ## when installed           : install ok installed
@@ -126,6 +126,6 @@ $packages_help_msg
 }
 
 check_packages() {
-   whonixcheck_run_function check_meta_packages
-   whonixcheck_run_function check_unwanted_packages
+   systemcheck_run_function check_meta_packages
+   systemcheck_run_function check_unwanted_packages
 }

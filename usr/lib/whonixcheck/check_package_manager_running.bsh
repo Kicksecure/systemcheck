@@ -7,7 +7,7 @@ check_package_manager_running() {
    check_package_manager_running_helper
 
    if [ "$check_apt_get_exit_code" = "0" ]; then
-      if [ "$whonixcheck_package_manager_waiting" = "1" ]; then
+      if [ "$systemcheck_package_manager_waiting" = "1" ]; then
          $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
       local MSG="<p>Check Package Manager Running Result: None running, ok.</p>"
@@ -18,8 +18,8 @@ check_package_manager_running() {
       return 0
    fi
 
-   if [ ! "$whonixcheck_package_manager_waiting" = "1" ]; then
-      whonixcheck_package_manager_waiting="1"
+   if [ ! "$systemcheck_package_manager_waiting" = "1" ]; then
+      systemcheck_package_manager_waiting="1"
 
       progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 

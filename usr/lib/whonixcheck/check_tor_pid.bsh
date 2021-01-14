@@ -24,7 +24,7 @@ check_tor_pid_do() {
    fi
 
    tor_pid_exit_code="0"
-   tor_pid_message="$(sudo --non-interactive /usr/lib/whonixcheck/check_tor_pid)" || { tor_pid_exit_code="$?" ; true; };
+   tor_pid_message="$(sudo --non-interactive /usr/lib/systemcheck/check_tor_pid)" || { tor_pid_exit_code="$?" ; true; };
    return 0
 }
 
@@ -43,10 +43,10 @@ check_tor_pid() {
 <blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
     or in Terminal: <code><blockquote>sudo service tor@default restart</blockquote></code></p>
 
-<p>Restart whonixcheck after fixing this error.
+<p>Restart systemcheck after fixing this error.
 
 <blockquote>   $start_menu_instructions_system_first_part Whonix Check</blockquote>
-    or in Terminal: <code><blockquote>whonixcheck</blockquote></code></p>"
+    or in Terminal: <code><blockquote>systemcheck</blockquote></code></p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"

@@ -52,54 +52,54 @@ stdin not connected to terminal, probably run in graphical environment, ok.</p>"
 }
 
 virtualizer_detection() {
-   [ -n "$whonixcheck_virt_detection_tool" ] || whonixcheck_virt_detection_tool="systemd-detect-virt"
+   [ -n "$systemcheck_virt_detection_tool" ] || systemcheck_virt_detection_tool="systemd-detect-virt"
 
-   ## Global variable whonixcheck_virtualizer_detected.
+   ## Global variable systemcheck_virtualizer_detected.
    ## (Used by check_pvclock.)
 
-   whonixcheck_platform_or_virtualizer_known=false
-   whonixcheck_virtualizer_detect_success=false
+   systemcheck_platform_or_virtualizer_known=false
+   systemcheck_virtualizer_detect_success=false
 
-   if ! command -v "$whonixcheck_virt_detection_tool" >/dev/null 2>&1 ; then
-      whonixcheck_virtualizer_tool_unavailable="true"
-      whonixcheck_virtualizer_detected="unknown"
+   if ! command -v "$systemcheck_virt_detection_tool" >/dev/null 2>&1 ; then
+      systemcheck_virtualizer_tool_unavailable="true"
+      systemcheck_virtualizer_detected="unknown"
       return 0
    fi
 
-   if whonixcheck_virtualizer_detected="$(sudo --non-interactive "$whonixcheck_virt_detection_tool" 2>&1)" ; then
-      whonixcheck_virtualizer_detect_success=true
-      true "INFO: No error reported from running $whonixcheck_virt_detection_tool"
+   if systemcheck_virtualizer_detected="$(sudo --non-interactive "$systemcheck_virt_detection_tool" 2>&1)" ; then
+      systemcheck_virtualizer_detect_success=true
+      true "INFO: No error reported from running $systemcheck_virt_detection_tool"
 
-      if [ "$whonixcheck_virtualizer_detected" = "xen" ]; then
+      if [ "$systemcheck_virtualizer_detected" = "xen" ]; then
          if [ "$qubes_detected" = "true" ]; then
-            whonixcheck_virtualizer_detected="qubes"
+            systemcheck_virtualizer_detected="qubes"
          fi
       fi
    else
-      whonixcheck_virtualizer_detected="unknown"
+      systemcheck_virtualizer_detected="unknown"
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "" ]; then
-      whonixcheck_virtualizer_detected="unknown"
+   if [ "$systemcheck_virtualizer_detected" = "" ]; then
+      systemcheck_virtualizer_detected="unknown"
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "none" ]; then
-      whonixcheck_platform_or_virtualizer_known=true
+   if [ "$systemcheck_virtualizer_detected" = "none" ]; then
+      systemcheck_platform_or_virtualizer_known=true
    fi
-   if [ "$whonixcheck_virtualizer_detected" = "oracle" ]; then
-      whonixcheck_platform_or_virtualizer_known=true
+   if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
+      systemcheck_platform_or_virtualizer_known=true
    fi
-   if [ "$whonixcheck_virtualizer_detected" = "kvm" ]; then
-      whonixcheck_platform_or_virtualizer_known=true
+   if [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
+      systemcheck_platform_or_virtualizer_known=true
    fi
-   if [ "$whonixcheck_virtualizer_detected" = "qemu" ]; then
-      whonixcheck_platform_or_virtualizer_known=true
+   if [ "$systemcheck_virtualizer_detected" = "qemu" ]; then
+      systemcheck_platform_or_virtualizer_known=true
    fi
-   if [ "$whonixcheck_virtualizer_detected" = "qubes" ]; then
-      whonixcheck_platform_or_virtualizer_known=true
+   if [ "$systemcheck_virtualizer_detected" = "qubes" ]; then
+      systemcheck_platform_or_virtualizer_known=true
    fi
-   if [ "$whonixcheck_virtualizer_detected" = "vmware" ]; then
-      whonixcheck_platform_or_virtualizer_known=true
+   if [ "$systemcheck_virtualizer_detected" = "vmware" ]; then
+      systemcheck_platform_or_virtualizer_known=true
    fi
 }
 
@@ -107,11 +107,11 @@ if_you_know_what_you_are_doing_funct() {
    ## $1 - $FUNCNAME
    echo "\
 If you know what you are doing, feel free to disable this check.
-Create a file <code>/etc/whonix.d/50_whonixcheck_user.conf</code> and add:
-<code><blockquote>whonixcheck_skip_functions+=\" $1 \"</blockquote></code>"
+Create a file <code>/etc/whonix.d/50_systemcheck_user.conf</code> and add:
+<code><blockquote>systemcheck_skip_functions+=\" $1 \"</blockquote></code>"
 }
 
-whonixcheck_msgdispatcher_windows_existing() {
+systemcheck_msgdispatcher_windows_existing() {
    local msgdispatcher_dispatch_x_pids pid args cmd
    local first second third fourth
    cmd="pgrep -f msgdispatcher_dispatch_x"
@@ -119,11 +119,11 @@ whonixcheck_msgdispatcher_windows_existing() {
    for pid in $msgdispatcher_dispatch_x_pids; do
       args="$(ps ww --no-header -p "$pid" -o 'args')" || return 0
       ## Example args:
-      ## /usr/bin/python /usr/lib/msgcollector/msgdispatcher_dispatch_x info whonixcheck | Whonix-Workstation | TemplateBased AppVM | Sat Aug 15 02:08:03 UTC 2015 <p><span style=color:#008000>INFO</span>: <b>whonixcheck aborted!</b> (SIGNAL_TYPE: SIGINT)</p> 1 /usr/share/icons/anon-icon-pack/whonix.ico
+      ## /usr/bin/python /usr/lib/msgcollector/msgdispatcher_dispatch_x info systemcheck | Whonix-Workstation | TemplateBased AppVM | Sat Aug 15 02:08:03 UTC 2015 <p><span style=color:#008000>INFO</span>: <b>systemcheck aborted!</b> (SIGNAL_TYPE: SIGINT)</p> 1 /usr/share/icons/anon-icon-pack/whonix.ico
       read -r first second third fourth _ <<< "$args" || return 0
       if [ "/usr/lib/msgcollector/msgdispatcher_dispatch_x" = "$second" ]; then
-         if [ "whonixcheck" = "$fourth" ]; then
-            echo "A whonixcheck result window is already open." >&2
+         if [ "systemcheck" = "$fourth" ]; then
+            echo "A systemcheck result window is already open." >&2
             echo "$first $second still running." >&2
             echo "cmd: $cmd" >&2
             echo "msgdispatcher_dispatch_x_pids: $msgdispatcher_dispatch_x_pids" >&2
@@ -137,13 +137,13 @@ whonixcheck_msgdispatcher_windows_existing() {
    done
 }
 
-whonixcheck_run_function() {
-   case $whonixcheck_skip_functions in
-   *"$@"*) echo "INFO: Skipping $@, because whonixcheck_skip_functions includes it."
+systemcheck_run_function() {
+   case $systemcheck_skip_functions in
+   *"$@"*) echo "INFO: Skipping $@, because systemcheck_skip_functions includes it."
                   return 0
                   ;;
    esac
-   true "INFO: Running $@, because whonixcheck_skip_functions does not include it."
+   true "INFO: Running $@, because systemcheck_skip_functions does not include it."
    "$@"
 }
 
@@ -227,9 +227,9 @@ preparation() {
       qubes_detected="false"
    fi
 
-   whonixcheck_run_function msgdispatcher_init
-   whonixcheck_run_function input_detection
-   whonixcheck_run_function virtualizer_detection
+   systemcheck_run_function msgdispatcher_init
+   systemcheck_run_function input_detection
+   systemcheck_run_function virtualizer_detection
 
    [ -n "$verbose" ] || verbose="0"
 
@@ -273,7 +273,7 @@ preparation() {
       VM="Whonix-Workstation"
       vm_lower_case_short="workstation"
    else
-      VM="whonixcheck script could not determine if this is whonix_gateway or whonix_workstation. Please report this bug."
+      VM="systemcheck script could not determine if this is whonix_gateway or whonix_workstation. Please report this bug."
       vm_lower_case_short="error"
    fi
 
@@ -388,7 +388,7 @@ preparation() {
    $output_x --titlex "$TITLE_X"
    $output_cli --titlecli "$TITLE_CLI"
 
-   ## Only for whonixcheck to make it distinct from other progress bars.
+   ## Only for systemcheck to make it distinct from other progress bars.
    ## Preventing overlapping windows.
    $output_general --lefttop
 
@@ -412,7 +412,7 @@ preparation() {
 
    TIME_START="$(date +%s)"
 
-   whonixcheck_run_function root_check ## root_check
-   whonixcheck_run_function uwt_tool ## help_uwt_tool
-   whonixcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
+   systemcheck_run_function root_check ## root_check
+   systemcheck_run_function uwt_tool ## help_uwt_tool
+   systemcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
 }

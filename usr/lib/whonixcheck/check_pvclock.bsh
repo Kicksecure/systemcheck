@@ -66,19 +66,19 @@ This is non-ideal. A known issue. Contributions happily considered. Read more: <
       return 0
    fi
 
-   ## Variable whonixcheck_virtualizer_detected has been set by check_virtualizer.
+   ## Variable systemcheck_virtualizer_detected has been set by check_virtualizer.
 
    ## Only check for kvm, since this is not yet implemented for other platforms.
    ## Qubes: https://phabricator.whonix.org/T389
    ## VirtualBox: https://phabricator.whonix.org/T437
-   if [ "$whonixcheck_virtualizer_detected" = "kvm" ]; then
+   if [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
       if [ "$current_clocksource" = "kvm-clock" ]; then
          ## Skip this check on Whonix-Gateway.
          ## https://phabricator.whonix.org/T385#7651
          if [ "$vm_lower_case_short" = "gateway" ]; then
             true
          else
-            whonixcheck_run_function pvclock_unwanted_detected
+            systemcheck_run_function pvclock_unwanted_detected
          fi
       fi
    fi

@@ -19,8 +19,8 @@ check_tor_enabled() {
 
    if [ "$TOR_ENABLED" = "0" ]; then
       ## When Tor is not yet enabled, i.e. if "DisableNetwork 0" is set in
-      ## Tor config and whonixcheck is manually started, show the following
-      ## message and exit. Otherwise, if whonixcheck is automatically started
+      ## Tor config and systemcheck is manually started, show the following
+      ## message and exit. Otherwise, if systemcheck is automatically started
       ## just be quit and exit.
 
       local MSG="<p>Tor Check Result:
@@ -32,10 +32,10 @@ Please close this window and enable Tor using Anon Connection Wizard!
 or manually (If you know about the public Tor network!) and open <code>/usr/local/etc/torrc.d/50_user.conf</code> with root rights
 ($start_menu_instructions_system_first_part Tor User Config) and set:
 <blockquote><code>DisableNetwork 0</code></blockquote>
-Then run <code>whonixcheck</code> again.</p>"
+Then run <code>systemcheck</code> again.</p>"
 
-      ## Exit silently when whonixcheck has not been manually started by the
-      ## user to prevent showing a popup by whonixcheck at first boot.
+      ## Exit silently when systemcheck has not been manually started by the
+      ## user to prevent showing a popup by systemcheck at first boot.
       ## (Because by default whonixsetup will be started.)
 
       if [ "$manualrun" = "1" ]; then

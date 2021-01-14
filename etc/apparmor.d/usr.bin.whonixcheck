@@ -3,7 +3,7 @@
 
 #include <tunables/global>
 
-/usr/bin/whonixcheck flags=(attach_disconnected) {
+/usr/bin/systemcheck flags=(attach_disconnected) {
 	#include <abstractions/base>
 	#include <abstractions/bash>
 	#include <abstractions/fonts>
@@ -40,7 +40,7 @@
 
 	/ r,
 
-	/usr/bin/whonixcheck r,
+	/usr/bin/systemcheck r,
 
 	/bin/bash rix,
 	/bin/dash rix,
@@ -229,7 +229,7 @@
 	## sudo
 	@{PROC}/[0-9]*/cgroup r,
 
-	/run/whonixcheck/* mrwcx,
+	/run/systemcheck/* mrwcx,
 	/run/utmp rk,
 	/run/msgcollector/ rwk,
 	/run/msgcollector/** rwk,
@@ -249,15 +249,15 @@
 	/sys/fs/cgroup/systemd/user/debian-tor/** rw,
 	/sys/fs/cgroup/cpuset/cgroup.clone_children r,
 	/sys/fs/cgroup/systemd/cgroup.procs mrwcx,
-	/sys/fs/cgroup/systemd/user/whonixcheck/ rw,
-	/sys/fs/cgroup/systemd/user/whonixcheck/** rw,
+	/sys/fs/cgroup/systemd/user/systemcheck/ rw,
+	/sys/fs/cgroup/systemd/user/systemcheck/** rw,
 	/sys/fs/cgroup/freezer/cgroup.procs rw,
-	/sys/fs/cgroup/freezer/user/whonixcheck/ rw,
-	/sys/fs/cgroup/freezer/user/whonixcheck/** rw,
-	/sys/fs/cgroup/memory/user/whonixcheck/0/ rw,
-	/sys/fs/cgroup/memory/user/whonixcheck/0/** rw,
+	/sys/fs/cgroup/freezer/user/systemcheck/ rw,
+	/sys/fs/cgroup/freezer/user/systemcheck/** rw,
+	/sys/fs/cgroup/memory/user/systemcheck/0/ rw,
+	/sys/fs/cgroup/memory/user/systemcheck/0/** rw,
 	/sys/fs/cgroup/memory/cgroup.procs rw,
-	/sys/fs/cgroup/memory/user/whonixcheck/ rw,
+	/sys/fs/cgroup/memory/user/systemcheck/ rw,
 	/sys/fs/cgroup/memory/user/debian-tor/ rw,
 	/sys/fs/cgroup/memory/user/debian-tor/** rw,
 	/sys/fs/cgroup/systemd/user/root/0/cgroup.procs rw,
@@ -334,7 +334,7 @@
 	/usr/lib/msgcollector/* rix,
 	/usr/lib/sudo/sudoers.so mr,
 	/usr/lib/*-linux-gnu/security/** mr,
-	/usr/lib/whonixcheck/** rix,
+	/usr/lib/systemcheck/** rix,
 	/usr/lib/python*/** mr,
 	/usr/lib/torsocks/* mr,
 	/usr/lib/apt/methods/* rix,
@@ -351,9 +351,9 @@
 	# operation="unlink" requested_mask="d" denied_mask="d"
 	/usr/lib/python*/* rl,
 
-	## Nov 15 13:36:33 host kernel: audit: type=1400 audit(1542288993.054:12): apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/usr/lib/python3.5/__pycache__/" pid=31210 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
-	## Nov 15 13:36:36 host audit[31278]: AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/usr/lib/python3.5/plat-x86_64-linux-gnu/__pycache__/" pid=31278 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
-	## Nov 15 13:36:43 host audit[31466]: AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/usr/lib/python3.5/encodings/__pycache__/" pid=31466 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
+	## Nov 15 13:36:33 host kernel: audit: type=1400 audit(1542288993.054:12): apparmor="DENIED" operation="mkdir" profile="/usr/bin/systemcheck" name="/usr/lib/python3.5/__pycache__/" pid=31210 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
+	## Nov 15 13:36:36 host audit[31278]: AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/systemcheck" name="/usr/lib/python3.5/plat-x86_64-linux-gnu/__pycache__/" pid=31278 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
+	## Nov 15 13:36:43 host audit[31466]: AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/systemcheck" name="/usr/lib/python3.5/encodings/__pycache__/" pid=31466 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
 	/usr/lib/python*/__pycache__/ rw,
 	/usr/lib/python*/__pycache__/** rw,
 
@@ -402,7 +402,7 @@
 	## Required for curl when resolvconf is installed.
 	/run/resolvconf/resolv.conf r,
 
-	/run/sudo/ts/whonixcheck rw,
+	/run/sudo/ts/systemcheck rw,
 
 	## Qubes specific
 	/run/qubes-whonix/ r,
@@ -411,5 +411,5 @@
 	/dev/pts/[0-9]* rw,
 
 	# Site-specific additions and overrides. See local/README for details.
-	#include <local/usr.bin.whonixcheck>
+	#include <local/usr.bin.systemcheck>
 }

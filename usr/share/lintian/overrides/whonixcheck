@@ -2,5 +2,5 @@
 ## See the file COPYING for copying conditions.
 
 ## False positives.
-whonixcheck: uses-dpkg-database-directly etc/apparmor.d/usr.bin.whonixcheck
-whonixcheck: uses-dpkg-database-directly etc/sudoers.d/whonixcheck
+systemcheck: uses-dpkg-database-directly etc/apparmor.d/usr.bin.systemcheck
+systemcheck: uses-dpkg-database-directly etc/sudoers.d/systemcheck

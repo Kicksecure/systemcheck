@@ -136,8 +136,8 @@ check_qubes_settings() {
       return 0
    fi
 
-   whonixcheck_run_function check_qubes_network_interface
-   whonixcheck_run_function check_qubes_vm_type
+   systemcheck_run_function check_qubes_network_interface
+   systemcheck_run_function check_qubes_vm_type
 }
 
 check_qubes_update_proxy_reachability() {

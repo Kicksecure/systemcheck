@@ -7,7 +7,7 @@ set -e
 
 ## provides: sanitize_variable
 source /usr/lib/helper-scripts/sanitize_variable
-source /usr/lib/whonixcheck/uwt_tool.bsh
+source /usr/lib/systemcheck/uwt_tool.bsh
 
 census_preparation() {
    if [ ! "$(whoami)" = "systemcheck" ]; then

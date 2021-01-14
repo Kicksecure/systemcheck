@@ -5,12 +5,12 @@
 
 true "$BASH_SOURCE pid: $$"
 
-if [ -f /etc/default/whonixcheckd ]; then
-   source /etc/default/whonixcheckd
+if [ -f /etc/default/systemcheckd ]; then
+   source /etc/default/systemcheckd
 fi
 
 shopt -s nullglob
-for i in /etc/default/whonixcheckd.d/*.conf /rw/config/default/whonixcheckd.d/*.conf /usr/local/etc/default/whonixcheckd.d/*.conf; do
+for i in /etc/default/systemcheckd.d/*.conf /rw/config/default/systemcheckd.d/*.conf /usr/local/etc/default/systemcheckd.d/*.conf; do
    bash_n_exit_code="0"
    bash_n_output="$(bash -n "$i" 2>&1)" || { bash_n_exit_code="$?" ; true; };
    if [ ! "$bash_n_exit_code" = "0" ]; then
@@ -25,9 +25,9 @@ done
 
 if [ "$debugging" = "true" ]; then
    set -x
-   /usr/bin/whonixcheck --cli --debug
+   /usr/bin/systemcheck --cli --debug
 else
-   /usr/bin/whonixcheck --cli &>/dev/null
+   /usr/bin/systemcheck --cli &>/dev/null
 fi
 
 sleep 3600
@@ -35,9 +35,9 @@ sleep 3600
 while true; do
 
    if [ "$debugging" = "true" ]; then
-      /usr/bin/whonixcheck --cli --debug
+      /usr/bin/systemcheck --cli --debug
    else
-      /usr/bin/whonixcheck --cli &>/dev/null
+      /usr/bin/systemcheck --cli &>/dev/null
    fi
 
    sleep 3600

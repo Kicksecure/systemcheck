@@ -2,8 +2,8 @@
 ## See the file COPYING for copying conditions.
 
 [Unit]
-Description=whonixcheck
-Documentation=https://www.whonix.org/wiki/whonixcheck
+Description=systemcheck
+Documentation=https://www.whonix.org/wiki/systemcheck
 
 After=network.target
 Wants=network.target
@@ -21,7 +21,7 @@ Requires=msgcollector.service
 Type=simple
 User=user
 Group=user
-ExecStart=/usr/lib/whonixcheckdaemon
+ExecStart=/usr/lib/systemcheckdaemon
 SuccessExitStatus=143
 TimeoutSec=30
 Restart=always

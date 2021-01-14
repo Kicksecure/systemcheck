@@ -6,7 +6,7 @@
 set -e
 
 if [ -o xtrace ]; then
-   sudo --non-interactive -u whonixcheck bash -x /usr/lib/whonixcheck/whonixcheck "$@"
+   sudo --non-interactive -u systemcheck bash -x /usr/lib/systemcheck/systemcheck "$@"
 else
-   sudo --non-interactive -u whonixcheck /usr/lib/whonixcheck/whonixcheck "$@"
+   sudo --non-interactive -u systemcheck /usr/lib/systemcheck/systemcheck "$@"
 fi

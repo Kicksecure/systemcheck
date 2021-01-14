@@ -24,7 +24,7 @@ check_ip_forwarding_disabled() {
       if [ ! -f "$file_name" ]; then
          local temp="$file_name does not exist."
          if [ "$file_name" = "/proc/sys/net/ipv6/ip_forward" ]; then
-            ## If /proc/sys/net/ipv4/ip_forward would not exist, whonixcheck
+            ## If /proc/sys/net/ipv4/ip_forward would not exist, systemcheck
             ## would probably run on an unsupported platform.
             ## /proc/sys/net/ipv6/ip_forward not existing is expected, because
             ## Whonix does not enable IPv6 by default yet, because the Tor

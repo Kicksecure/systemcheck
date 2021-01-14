@@ -14,14 +14,14 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_tool_unavailable" = "true" ]; then
-      local MSG="<p>Check Virtualizer Result: $whonixcheck_virt_detection_tool not available. Skipping test.</p>"
+   if [ "$systemcheck_virtualizer_tool_unavailable" = "true" ]; then
+      local MSG="<p>Check Virtualizer Result: $systemcheck_virt_detection_tool not available. Skipping test.</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_detect_success" = "false" ]; then
+   if [ "$systemcheck_virtualizer_detect_success" = "false" ]; then
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
@@ -35,11 +35,11 @@ check_virtualizer() {
 <br></br>- Contact Whonix developers.
 <br></br>
 <br></br>Debugging information:<br />
-<br></br>Running <code>sudo --non-interactive $whonixcheck_virt_detection_tool</code> failed!
+<br></br>Running <code>sudo --non-interactive $systemcheck_virt_detection_tool</code> failed!
 <br></br>qubes_detected: $qubes_detected
-<br></br><code>$whonixcheck_virt_detection_tool</code> output:
+<br></br><code>$systemcheck_virt_detection_tool</code> output:
 
-<blockquote><code>$whonixcheck_virtualizer_detected</code></blockquote>
+<blockquote><code>$systemcheck_virtualizer_detected</code></blockquote>
 
 <br></br>$if_you_know_what_you_are_doing_msg
 </p>"
@@ -50,7 +50,7 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "none" ]; then
+   if [ "$systemcheck_virtualizer_detected" = "none" ]; then
       ## Not running in a Virtual Machine (or none detected).
       local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on <u>bare metal</u>, continuing.</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -60,9 +60,9 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "oracle" ]; then
+   if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>VirtualBox</u> detected, continuing.
-<br></br>$whonixcheck_virt_detection_tool result: <code>$whonixcheck_virtualizer_detected</code></p>"
+<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -70,9 +70,9 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "kvm" ]; then
+   if [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>KVM</u> detected, continuing.
-<br></br>$whonixcheck_virt_detection_tool result: <code>$whonixcheck_virtualizer_detected</code></p>"
+<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -81,9 +81,9 @@ check_virtualizer() {
    fi
 
    ## https://forums.whonix.org/t/whonix-virtualbox-14-0-0-6-6-testers-wanted/4802/2
-   if [ "$whonixcheck_virtualizer_detected" = "qemu" ]; then
+   if [ "$systemcheck_virtualizer_detected" = "qemu" ]; then
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>qemu</u> (KVM?) detected, continuing.
-<br></br>$whonixcheck_virt_detection_tool result: <code>$whonixcheck_virtualizer_detected</code></p>"
+<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -91,9 +91,9 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "qubes" ]; then
+   if [ "$systemcheck_virtualizer_detected" = "qubes" ]; then
       local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
-<br></br>$whonixcheck_virt_detection_tool result: <code>$whonixcheck_virtualizer_detected</code></p>"
+<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -102,7 +102,7 @@ check_virtualizer() {
    fi
 
    if [ "$WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
-      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer <code>$whonixcheck_virtualizer_detected</code> detected, but <code>WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER</code> is set, continuing.</p>"
+      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer <code>$systemcheck_virtualizer_detected</code> detected, but <code>WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER</code> is set, continuing.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -110,7 +110,7 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$whonixcheck_virtualizer_detected" = "vmware" ]; then
+   if [ "$systemcheck_virtualizer_detected" = "vmware" ]; then
       local VMWARE_TEXT="<p>VMware [6] is closed source, therefore security through obscurity [7].</p>"
       local WIKI_LINK="[6] <a href=https://en.wikipedia.org/wiki/Security_through_obscurity>https://en.wikipedia.org/wiki/Security_through_obscurity</a>"
       local VMWARE_LINK="[7] <a href=https://www.whonix.org/wiki/VMware>https://www.whonix.org/wiki/VMware</a>"
@@ -120,7 +120,7 @@ check_virtualizer() {
    fi
 
    local MSG="\
-<p>Virtualizer <code>$whonixcheck_virtualizer_detected</code> unsupported by Whonix developers! Whonixcheck aborted! (qubes_detected: $qubes_detected)<p>
+<p>Virtualizer <code>$systemcheck_virtualizer_detected</code> unsupported by Whonix developers! Whonixcheck aborted! (qubes_detected: $qubes_detected)<p>
 
 <p>Using Virtualizer this together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
 <br></br>It could be made possible, but would require more Whonix contributors.
@@ -128,15 +128,15 @@ check_virtualizer() {
 
 $VMWARE_TEXT
 
-<br></br><code>$whonixcheck_virt_detection_tool</code> output:
+<br></br><code>$systemcheck_virt_detection_tool</code> output:
 
-<blockquote><code>$whonixcheck_virtualizer_detected</code></blockquote>
+<blockquote><code>$systemcheck_virtualizer_detected</code></blockquote>
 
 <p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
-<p>If you wish to ignore this warning and to continue whonixcheck anyway, you can set
+<p>If you wish to ignore this warning and to continue systemcheck anyway, you can set
 <code><blockquote>    WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote></code>
-in <code>/etc/whonix.d/50_whonixcheck_user.conf</code>.</p>
+in <code>/etc/whonix.d/50_systemcheck_user.conf</code>.</p>
 
 <p>Recommended action:
 <br></br>- Shut down.
