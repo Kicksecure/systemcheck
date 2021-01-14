@@ -29,18 +29,23 @@ census_preparation() {
    fi
 
    ## Dedicated onion different from homepage.
-   if [ "$known_virtualizer" = "xen" ] ; then
-      census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_${virtualizer}"
+   if test -f /usr/share/whonix/marker ; then
+      true "INFO: Whonix detected."
+      census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
    else
-      census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/census_unknown"
+      true "INFO: Kicksecure detected."
+      census_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
    fi
 
-   ## Main onion
-   census_api_link="http://api.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/apitest"
+   if [ "$known_virtualizer" = "xen" ] ; then
+      census_api_link="${census_api_link}/census_${virtualizer}"
+   else
+      census_api_link="${census_api_link}/census_unknown"
+   fi
 
    ## TODO
-   ## Dedicated onion.
-   #census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion/apitest"
+   ## Testing.
+   census_api_link="${census_api_link}/apitest"
 
    ## sets: GATEWAY_IP
    eval $(/usr/lib/helper-scripts/settings_echo)
