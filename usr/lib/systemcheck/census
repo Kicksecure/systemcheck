@@ -5,7 +5,6 @@
 
 set -e
 
-## provides: sanitize_variable
 source /usr/lib/systemcheck/uwt_tool.bsh
 
 census_preparation() {
