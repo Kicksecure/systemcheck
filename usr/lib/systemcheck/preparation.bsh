@@ -111,32 +111,6 @@ Create a file <code>/etc/whonix.d/50_systemcheck_user.conf</code> and add:
 <code><blockquote>systemcheck_skip_functions+=\" $1 \"</blockquote></code>"
 }
 
-systemcheck_msgdispatcher_windows_existing() {
-   local msgdispatcher_dispatch_x_pids pid args cmd
-   local first second third fourth
-   cmd="pgrep -f msgdispatcher_dispatch_x"
-   msgdispatcher_dispatch_x_pids="$($cmd)" || return 0
-   for pid in $msgdispatcher_dispatch_x_pids; do
-      args="$(ps ww --no-header -p "$pid" -o 'args')" || return 0
-      ## Example args:
-      ## /usr/bin/python /usr/lib/msgcollector/msgdispatcher_dispatch_x info systemcheck | Whonix-Workstation | TemplateBased AppVM | Sat Aug 15 02:08:03 UTC 2015 <p><span style=color:#008000>INFO</span>: <b>systemcheck aborted!</b> (SIGNAL_TYPE: SIGINT)</p> 1 /usr/share/icons/anon-icon-pack/whonix.ico
-      read -r first second third fourth _ <<< "$args" || return 0
-      if [ "/usr/lib/msgcollector/msgdispatcher_dispatch_x" = "$second" ]; then
-         if [ "systemcheck" = "$fourth" ]; then
-            echo "A systemcheck result window is already open." >&2
-            echo "$first $second still running." >&2
-            echo "cmd: $cmd" >&2
-            echo "msgdispatcher_dispatch_x_pids: $msgdispatcher_dispatch_x_pids" >&2
-            echo "pid: $pid" >&2
-            echo "args: $args" >&2
-            echo "Exiting." >&2
-            EXIT_CODE="125"
-            cleanup
-         fi
-      fi
-   done
-}
-
 systemcheck_run_function() {
    case $systemcheck_skip_functions in
    *"$@"*) echo "INFO: Skipping $@, because systemcheck_skip_functions includes it."
