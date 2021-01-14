@@ -1,0 +1,5 @@
+rm_conffile /etc/whonix.d/30_whonixcheck_default
+rm_conffile /etc/whonix.d/30_whonixcheck_default.conf
+rm_conffile /etc/default/whonixcheckd
+rm_conffile /etc/sudoers.d/whonixcheck
+rm_conffile /etc/apparmor.d/usr.bin.systemcheck
