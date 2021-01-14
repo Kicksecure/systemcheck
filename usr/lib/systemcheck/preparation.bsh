@@ -402,9 +402,6 @@ preparation() {
    shopt -s nullglob
    local i
    for i in \
-      /etc/whonix.d/*.conf \
-      /rw/config/whonix.d/*.conf \
-      /usr/local/etc/whonix.d/*.conf \
       /etc/systemcheck.d/*.conf \
       /usr/local/etc/systemcheck.d/*.conf \
       ; do
