@@ -34,7 +34,7 @@ check_nonfree() {
       break
    done
 
-   local nonfreelink="<a href=https://www.whonix.org/wiki/Avoid_nonfree_software>https://www.whonix.org/wiki/Avoid_nonfree_software</a>"
+   local nonfreelink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_nonfree_software>${PROJECT_HOMEPAGE}/wiki/Avoid_nonfree_software</a>"
 
    if [ "$check_nonfree_result" = "free" ]; then
       local MSG="<p>Check nonfree Result: Ok, no nonfree packages found. For more information, see:

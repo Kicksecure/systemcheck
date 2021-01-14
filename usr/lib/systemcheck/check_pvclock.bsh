@@ -18,9 +18,9 @@ $if_you_know_what_you_are_doing_msg
 <br></br>- If you are using KVM, you probably did not follow $PROJECT_NAME's KVM instructions. [2]</p>
 <br></br>- Or use a different supported $PROJECT_NAME platform. [3]</p>
 
-<p>[1] <a href=https://www.whonix.org/wiki/Dev/TimeSync>https://www.whonix.org/wiki/Dev/TimeSync</a>
-<br></br>[2] <a href=https://www.whonix.org/wiki/KVM>https://www.whonix.org/wiki/KVM</a>
-<br></br>[3] <a href=https://www.whonix.org/wiki/Supported_Platforms>https://www.whonix.org/wiki/Supported_Platforms</a>
+<p>[1] <a href=${PROJECT_HOMEPAGE}/wiki/Dev/TimeSync>${PROJECT_HOMEPAGE}/wiki/Dev/TimeSync</a>
+<br></br>[2] <a href=${PROJECT_HOMEPAGE}/wiki/KVM>${PROJECT_HOMEPAGE}/wiki/KVM</a>
+<br></br>[3] <a href=${PROJECT_HOMEPAGE}/wiki/Supported_Platforms>${PROJECT_HOMEPAGE}/wiki/Supported_Platforms</a>
 </p>"
 
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"

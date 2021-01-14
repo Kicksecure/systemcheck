@@ -44,7 +44,7 @@ check_tor_socks_or_trans_port() {
          local type=info
          local connection_failed_msg="\
 <p><code>SocksPort</code> Test Result: Ok, Tor's <code>SocksPort</code> was not reachable.
-<br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs>https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
+<br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Qubes#Network_in_TemplateVMs>${PROJECT_HOMEPAGE}/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
       elif [ "$VM" = "Whonix-Gateway" ] || [ "$VM" = "Whonix-Workstation" ]; then
          local connection_failed_msg="\
 <p>$test_name Result: <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> was not reachable.
@@ -72,7 +72,7 @@ check_tor_socks_or_trans_port() {
          local type=info
          local connection_failed_msg="\
 <p><code>TransPort</code> Test Result: Ok, Tor's <code>TransPort</code> was not reachable.
-<br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs>https://www.whonix.org/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
+<br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Qubes#Network_in_TemplateVMs>${PROJECT_HOMEPAGE}/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
       elif [ "$VM" = "Whonix-Gateway" ]; then
          local type=info
          local connection_failed_msg="\

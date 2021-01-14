@@ -176,7 +176,7 @@ check_tor_bootstrap_known_failure_cases() {
 <br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
    elif [ "$VM" = "Whonix-Workstation" ]; then
       if [ "$qubes_detected" = "false" ]; then
-         local multiple_whonix_ws_msg="<br></br>- If you're running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=https://www.whonix.org/wiki/Multiple_Whonix-Workstations>https://www.whonix.org/wiki/Multiple_Whonix-Workstations</a>)."
+         local multiple_whonix_ws_msg="<br></br>- If you're running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations>${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations</a>)."
       fi
       local MSG="<p>Tor Connection Result:
 <br></br>Tor's Control Port could not be reached!
@@ -397,7 +397,7 @@ check_tor_bootstrap_give_up_on_connection_issue_maybe() {
 <br></br>- Is the host's internet connection working?
 <br></br>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
 <br></br>- Do you live in a censored area?
-<br></br>- <a href=https://www.whonix.org/wiki/Network_Obstacle>https://www.whonix.org/wiki/Network_Obstacle</a>
+<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
 $anondate_issue</p>
 
 <p>Recommendations:</p>
@@ -430,7 +430,7 @@ $anondate_debugging_information"
 <br></br>- Is the host's internet connection working?
 <br></br>- Whonix-Gateway will need a few moments for connecting to the Tor network.
 <br></br>- Did you start Whonix-Gateway beforehand?
-<br></br>- <a href=https://www.whonix.org/wiki/Network_Obstacle>https://www.whonix.org/wiki/Network_Obstacle</a></p>
+<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a></p>
 
 <p>Recommendations:</p>
 

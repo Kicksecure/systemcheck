@@ -9,8 +9,8 @@ check_operating_system() {
       return 0
    fi
 
-   local update_documentation_link_x="<a href=https://www.whonix.org/wiki/Update>Debian Package Update</a>"
-   local update_documentation_link_cli="( Documentation: https://www.whonix.org/wiki/Update )"
+   local update_documentation_link_x="<a href=${PROJECT_HOMEPAGE}/wiki/Update>Debian Package Update</a>"
+   local update_documentation_link_cli="( Documentation: ${PROJECT_HOMEPAGE}/wiki/Update )"
    local update_command
    if command -v upgrade-nonroot >/dev/null 2>&1 ; then
       update_command="upgrade-nonroot"

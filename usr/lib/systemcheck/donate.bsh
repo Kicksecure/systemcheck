@@ -10,7 +10,7 @@ donate() {
    fi
 
    local MSG="<p>Please donate!
-   See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
+   See: <a href=${PROJECT_HOMEPAGE}/wiki/Donate>${PROJECT_HOMEPAGE}/wiki/Donate</a></p>"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    ## Do not ask for donations if the user has something important to do.
@@ -24,7 +24,7 @@ donate() {
       TYPE="$($output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
       if [ "$TYPE" = "info" ]; then
          local MSG="<p>Please donate!
-         See: <a href=https://www.whonix.org/wiki/Donate>https://www.whonix.org/wiki/Donate</a></p>"
+         See: <a href=${PROJECT_HOMEPAGE}/wiki/Donate>${PROJECT_HOMEPAGE}/wiki/Donate</a></p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       fi
    else

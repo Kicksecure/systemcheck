@@ -113,7 +113,7 @@ check_virtualizer() {
    if [ "$systemcheck_virtualizer_detected" = "vmware" ]; then
       local VMWARE_TEXT="<p>VMware [6] is closed source, therefore security through obscurity [7].</p>"
       local WIKI_LINK="[6] <a href=https://en.wikipedia.org/wiki/Security_through_obscurity>https://en.wikipedia.org/wiki/Security_through_obscurity</a>"
-      local VMWARE_LINK="[7] <a href=https://www.whonix.org/wiki/VMware>https://www.whonix.org/wiki/VMware</a>"
+      local VMWARE_LINK="[7] <a href=${PROJECT_HOMEPAGE}/wiki/VMware>${PROJECT_HOMEPAGE}/wiki/VMware</a>"
    else
       local VMWARE_TEXT=""
       local VMWARE_LINK=""
@@ -145,11 +145,11 @@ in <code>/etc/whonix.d/50_systemcheck_user.conf</code>.</p>
 
 <p>Footnotes:</p>
 
-<p>[1] <a href=https://www.whonix.org/wiki/LeakTests>https://www.whonix.org/wiki/LeakTests</a>
-<br></br>[2] <a href=https://www.whonix.org/wiki/Test>https://www.whonix.org/wiki/Test</a>
-<br></br>[3] <a href=https://www.whonix.org/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection>https://www.whonix.org/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection</a>
-<br></br>[4] <a href=https://www.whonix.org/wiki/Documentation>https://www.whonix.org/wiki/Documentation</a>
-<br></br>[5] <a href=https://www.whonix.org/wiki/Physical_Isolation>https://www.whonix.org/wiki/Physical_Isolation</a>
+<p>[1] <a href=${PROJECT_HOMEPAGE}/wiki/LeakTests>${PROJECT_HOMEPAGE}/wiki/LeakTests</a>
+<br></br>[2] <a href=${PROJECT_HOMEPAGE}/wiki/Test>${PROJECT_HOMEPAGE}/wiki/Test</a>
+<br></br>[3] <a href=${PROJECT_HOMEPAGE}/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection>${PROJECT_HOMEPAGE}/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection</a>
+<br></br>[4] <a href=${PROJECT_HOMEPAGE}/wiki/Documentation>${PROJECT_HOMEPAGE}/wiki/Documentation</a>
+<br></br>[5] <a href=${PROJECT_HOMEPAGE}/wiki/Physical_Isolation>${PROJECT_HOMEPAGE}/wiki/Physical_Isolation</a>
 <br></br>$VMWARE_LINK
 <br></br>$WIKI_LINK</p>
 "

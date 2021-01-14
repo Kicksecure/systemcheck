@@ -45,7 +45,7 @@ Technical information:<br />
 exited with code <code>$spectre_meltdown_checker_exit_code</code>.<br />
 <br />
 Recommendation:<br />
-See <a href=https://www.whonix.org/wiki/Spectre_Meltdown>https://www.whonix.org/wiki/Spectre_Meltdown</a>.<br />
+See <a href=${PROJECT_HOMEPAGE}/wiki/Spectre_Meltdown>${PROJECT_HOMEPAGE}/wiki/Spectre_Meltdown</a>.<br />
 <br />
 $if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"

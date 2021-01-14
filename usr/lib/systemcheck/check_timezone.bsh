@@ -92,7 +92,7 @@ check_timezone() {
 It is generally recommended to keep the default as per $PROJECT_NAME Design. [1]
 If you did not change timezone related settings, please report this $PROJECT_NAME bug.
 <br></br>$if_you_know_what_you_are_doing_msg
-[1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a></p>"
+[1] <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone>${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone</a></p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    fi
