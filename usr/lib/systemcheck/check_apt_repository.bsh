@@ -3,7 +3,7 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-check_whonix_apt_repository() {
+check_apt_repository() {
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
       return 0

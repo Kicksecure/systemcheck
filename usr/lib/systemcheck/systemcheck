@@ -188,7 +188,7 @@ systemcheck_main() {
    systemcheck_progress_main "1"
 
    ## Does not use the network.
-   systemcheck_run_function check_whonix_apt_repository ## check_apt_repository
+   systemcheck_run_function check_apt_repository ## check_apt_repository
    systemcheck_progress_main "1"
 
    ## Local network connection.
