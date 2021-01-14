@@ -6,6 +6,7 @@
 systemd-notify --ready
 
 while true; do
+   echo "$0: INFO: start."
    systemd-notify --status="loop before"
    systemd-notify WATCHDOG=1
 
@@ -13,6 +14,7 @@ while true; do
 
    systemd-notify --status="loop after"
    systemd-notify WATCHDOG=1
+   echo "$0: INFO: end."
 
    ## 1 hour
    sleep 3600
