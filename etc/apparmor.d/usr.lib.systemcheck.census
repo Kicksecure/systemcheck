@@ -9,6 +9,9 @@
 	## curl
 	#include <abstractions/openssl>
 
+	## required by curl_exit_codes
+	/ r,
+
 	/{,usr/}bin/whoami rix,
 	/etc/passwd r,
 	/etc/nsswitch.conf r,
