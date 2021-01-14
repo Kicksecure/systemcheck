@@ -31,21 +31,21 @@ census_preparation() {
    ## Dedicated onion different from homepage.
    if test -f /usr/share/whonix/marker ; then
       true "INFO: Whonix detected."
-      census_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
+      census_base_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
    else
       true "INFO: Kicksecure detected."
-      census_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
+      census_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
    fi
 
    if [ "$known_virtualizer" = "yes" ] ; then
-      census_api_link="${census_api_link}/census_${virtualizer}"
+      census_api_link="${census_base_api_link}/census_${virtualizer}"
    else
-      census_api_link="${census_api_link}/census_unknown"
+      census_api_link="${census_base_api_link}/census_unknown"
    fi
 
    ## TODO
    ## Testing.
-   census_api_link="${census_api_link}/apitest"
+   census_api_link="${census_base_api_link}/apitest"
 
    ## Test
    #census_api_link="https://www.whonix.org"
