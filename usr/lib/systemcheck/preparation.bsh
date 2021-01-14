@@ -409,5 +409,6 @@ preparation() {
    TIME_START="$(date +%s)"
 
    systemcheck_run_function root_check ## root_check
-   systemcheck_run_function uwt_tool ## help_uwt_tool
+
+   source /usr/lib/systemcheck/uwt_tool.bsh
 }
