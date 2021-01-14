@@ -10,8 +10,8 @@ source /usr/lib/helper-scripts/sanitize_variable
 source /usr/lib/systemcheck/uwt_tool.bsh
 
 census_preparation() {
-   if [ ! "$(whoami)" = "systemcheck" ]; then
-      echo "ERROR: Exiting. Must be run under user systemcheck."
+   if [ ! "$(whoami)" = "sal-census" ] && [ ! "$(whoami)" = "systemcheck" ]; then
+      echo "ERROR: Exiting. Must be run under user sal-census or systemcheck."
       exit 1
    fi
 
@@ -23,7 +23,7 @@ census_preparation() {
    elif [ "$virtualizer" = "qemu" ]; then
       known_virtualizer=yes
    fi
-   if command -v qubesdb-read &>/dev/null ; then
+   if test -d /usr/share/qubes ; then
       virtualizer=qubes
       known_virtualizer=yes
    fi
@@ -47,6 +47,9 @@ census_preparation() {
    ## Testing.
    census_api_link="${census_api_link}/apitest"
 
+   ## Test
+   #census_api_link="https://www.whonix.org"
+
    ## sets: GATEWAY_IP
    eval $(/usr/lib/helper-scripts/settings_echo)
 
@@ -64,8 +67,8 @@ check_census_lastrun() {
    ## A day has 86400 seconds.
    local MAX="86400"
 
-   if [ -f "/var/lib/systemcheck/census/last_done" ]; then
-      LASTRUN="$(cat "/var/lib/systemcheck/census/last_done")" || true
+   if [ -f ~/census/last_done ]; then
+      LASTRUN="$(cat ~/census/last_done)" || true
    fi
 
    if [ "$LASTRUN" = "" ]; then
@@ -105,7 +108,7 @@ check_census_lastrun() {
 census_completed() {
    local LASTRUN
    LASTRUN="$(date --utc +%s)"
-   echo "$LASTRUN" | tee "/var/lib/systemcheck/census/last_done" > /dev/null
+   echo "$LASTRUN" | tee ~/census/last_done > /dev/null
 }
 
 census_count_or_not() {
@@ -114,9 +117,10 @@ census_count_or_not() {
       exit 0
    fi
 
-   if command -v qubesdb-read &>/dev/null ; then
-      qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
-   fi
+   ## TODO: not compatible with sandbox-app-launcher
+#    if command -v qubesdb-read &>/dev/null ; then
+#       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
+#    fi
 
    if [ "$qubes_vm_persistence" = "none" ]; then
       echo "INFO: Skip in Qubes DispVM."
@@ -131,10 +135,10 @@ census_count_or_not() {
 }
 
 census_do() {
-   mkdir --parents "/var/lib/systemcheck/census"
+   mkdir --parents ~/census
 
-   #rm -f "/var/lib/systemcheck/census/census_result.txt"
-   #--output "/var/lib/systemcheck/census/census_result.txt"
+   #rm -f ~/census/census_result.txt
+   #--output ~/census/census_result.txt
 
    curl_exit_code="0"
 

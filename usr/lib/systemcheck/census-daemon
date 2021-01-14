@@ -11,6 +11,7 @@ while true; do
    systemd-notify --pid="$$" WATCHDOG=1
 
    /usr/lib/systemcheck/census
+   #sandbox-app-launcher run census
 
    systemd-notify --pid="$$" --status="loop after"
    systemd-notify --pid="$$" WATCHDOG=1
