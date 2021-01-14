@@ -101,8 +101,8 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
-      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer <code>$systemcheck_virtualizer_detected</code> detected, but <code>WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER</code> is set, continuing.</p>"
+   if [ "$NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
+      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer <code>$systemcheck_virtualizer_detected</code> detected, but <code>NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER</code> is set, continuing.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -135,7 +135,7 @@ $VMWARE_TEXT
 <p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
 
 <p>If you wish to ignore this warning and to continue systemcheck anyway, you can set
-<code><blockquote>    WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote></code>
+<code><blockquote>    NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote></code>
 in <code>/etc/whonix.d/50_systemcheck_user.conf</code>.</p>
 
 <p>Recommended action:
