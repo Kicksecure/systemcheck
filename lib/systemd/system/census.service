@@ -2,8 +2,8 @@
 ## See the file COPYING for copying conditions.
 
 [Unit]
-Description=systemcheck
-Documentation=https://www.whonix.org/wiki/systemcheck
+Description=census
+Documentation=https://www.whonix.org/wiki/Census
 
 After=network.target
 Wants=network.target
@@ -13,9 +13,6 @@ After=tor.service
 After=tor@default.service
 After=onion-grater.service
 After=whonix-firewall.service
-After=whonix-firewall-sdwdate-watcher.service
-
-Requires=msgcollector.service
 
 [Service]
 Type=simple
