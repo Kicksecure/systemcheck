@@ -26,7 +26,7 @@ SuccessExitStatus=143
 TimeoutSec=30
 Restart=always
 
-# Hardening.
+## Hardening.
 ## Broken, see:
 ## https://forums.whonix.org/t/apply-systemd-sandboxing-by-default-to-some-services/7590/31
 #ProtectSystem=strict
