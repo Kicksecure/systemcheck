@@ -37,7 +37,7 @@ census_preparation() {
       census_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
    fi
 
-   if [ "$known_virtualizer" = "xen" ] ; then
+   if [ "$known_virtualizer" = "yes" ] ; then
       census_api_link="${census_api_link}/census_${virtualizer}"
    else
       census_api_link="${census_api_link}/census_unknown"
