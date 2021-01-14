@@ -229,8 +229,9 @@ preparation() {
       my_tty="none"
    fi
 
-   user_name="user"
    PROJECT_HOMEPAGE="https://www.whonix.org"
+
+   user_name="user"
    TEMP_DIR="$(mktemp --directory)"
    export TEMP_DIR
 
