@@ -378,10 +378,6 @@ preparation() {
    ## $qubes_name_of_vm is empty in non-Qubes-Whonix.
    TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(date)"
 
-   ## https://www.whonix.org/wiki/Whonixcheck#SSL_Certificate_Pinning
-   TPO_PIN_CERT_FILE="/usr/share/torbrowser-launcher/torproject.pem"
-   CURL_TPO_PIN_CERT="--cacert $TPO_PIN_CERT_FILE"
-
    $output_general --icon "$ICON"
    $output_general --parenttty "$my_tty"
    $output_general --whoami "$who_ami"
@@ -414,5 +410,4 @@ preparation() {
 
    systemcheck_run_function root_check ## root_check
    systemcheck_run_function uwt_tool ## help_uwt_tool
-   systemcheck_run_function pin_tpo_ssl_cert ## pin_ssl_cert
 }
