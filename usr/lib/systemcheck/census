@@ -52,8 +52,6 @@ census_preparation() {
    fi
 
    [ -n "$CURL_PROXY_CENSUS" ] || CURL_PROXY_CENSUS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_CENSUS"
-
-   mkdir --parents "/var/lib/systemcheck/census"
 }
 
 check_census_lastrun() {
@@ -128,6 +126,8 @@ census_count_or_not() {
 }
 
 census_do() {
+   mkdir --parents "/var/lib/systemcheck/census"
+
    rm -f "/var/lib/systemcheck/census/census_result.txt"
 
    curl_exit_code="0"
