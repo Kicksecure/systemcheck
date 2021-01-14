@@ -3,12 +3,12 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-/usr/bin/systemcheck
+/usr/lib/systemcheck/census
 
 sleep 3600
 
 while true; do
-   /usr/bin/systemcheck --cli &>/dev/null
+   /usr/lib/systemcheck/census
 
    sleep 3600
 done
