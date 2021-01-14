@@ -5,7 +5,7 @@
 
 help_cli() {
    echo "$SCRIPTNAME by Whonix
-$WHONIX_HOMEPAGE
+$PROJECT_HOMEPAGE
 
 See:
 man $SCRIPTNAME"

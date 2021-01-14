@@ -230,7 +230,7 @@ preparation() {
    fi
 
    user_name="user"
-   WHONIX_HOMEPAGE="https://www.whonix.org"
+   PROJECT_HOMEPAGE="https://www.whonix.org"
    TEMP_DIR="$(mktemp --directory)"
    export TEMP_DIR
 
