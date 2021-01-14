@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 help_cli() {
-   echo "$SCRIPTNAME by Whonix
+   echo "$SCRIPTNAME by $PROJECT_NAME
 $PROJECT_HOMEPAGE
 
 See:

@@ -26,13 +26,13 @@ check_virtualizer() {
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
       local MSG="\
-<p>Virtualizer detection failed. You might be running a virtualizer unsupported by Whonix developers! Whonixcheck aborted!
+<p>Virtualizer detection failed. You might be running a virtualizer unsupported by $PROJECT_NAME developers! systemcheck aborted!
 <br></br>
 <br></br>This might endanger your anonymity. Do not proceed unless you know what you are doing.
 <br></br>
 <br></br>Recommended action:
 <br></br>- Shut down.
-<br></br>- Contact Whonix developers.
+<br></br>- Contact $PROJECT_NAME developers.
 <br></br>
 <br></br>Debugging information:<br />
 <br></br>Running <code>sudo --non-interactive $systemcheck_virt_detection_tool</code> failed!
@@ -120,10 +120,10 @@ check_virtualizer() {
    fi
 
    local MSG="\
-<p>Virtualizer <code>$systemcheck_virtualizer_detected</code> unsupported by Whonix developers! Whonixcheck aborted! (qubes_detected: $qubes_detected)<p>
+<p>Virtualizer <code>$systemcheck_virtualizer_detected</code> unsupported by $PROJECT_NAME developers! systemcheck aborted! (qubes_detected: $qubes_detected)<p>
 
-<p>Using Virtualizer this together with Whonix is recommended against, because it is rarely tested. [1] [2] [3] \
-<br></br>It could be made possible, but would require more Whonix contributors.
+<p>Using Virtualizer this together with $PROJECT_NAME is recommended against, because it is rarely tested. [1] [2] [3] \
+<br></br>It could be made possible, but would require more $PROJECT_NAME contributors.
 <br></br>It may already work, but is highly experimental.</p>
 
 $VMWARE_TEXT

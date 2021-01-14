@@ -27,7 +27,7 @@ check_timezone() {
       else
          timezone_status_code="3"
          local MSG="<p>Check Timezone Result:
-<br></br><code>$timezone_file_location</code> settings different from Whonix defaults.
+<br></br><code>$timezone_file_location</code> settings different from $PROJECT_NAME defaults.
 <br></br>timezone_file_expected_content: <code>$timezone_file_expected_content</code>
 <br></br>timezone_file_actual_content: <code>$timezone_file_actual_content</code></p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
@@ -53,7 +53,7 @@ check_timezone() {
             fi
          else
             local MSG="<p>Check Timezone Result:
-<br></br>localtime_file_etc <code>$localtime_file_etc</code> settings different from <code>$localtime_file_usr</code>. Different from Whonix defaults.
+<br></br>localtime_file_etc <code>$localtime_file_etc</code> settings different from <code>$localtime_file_usr</code>. Different from $PROJECT_NAME defaults.
 <br></br>localtime_status_code: <code>$localtime_status_code</code>
 <br></br>localtime_result: <code>$localtime_result</code></p>"
             $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
@@ -83,14 +83,14 @@ check_timezone() {
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
       local MSG="<p>Check Timezone Result:
-<br></br><b>Settings different from Whonix defaults. (See above!)</b>
+<br></br><b>Settings different from $PROJECT_NAME defaults. (See above!)</b>
 <br></br>You could try to fix this.
 <blockquote>    $persistent_changes_start_menu_instructions_first_part Konsole</blockquote>
 <blockquote><code>sudo su
 <br></br>echo \"Etc/UTC\" > /etc/timezone
 <br></br>cp \"$localtime_file_usr\" \"$localtime_file_etc\"</code></blockquote>
-It is generally recommended to keep the default as per Whonix Design. [1]
-If you did not change timezone related settings, please report this Whonix bug.
+It is generally recommended to keep the default as per $PROJECT_NAME Design. [1]
+If you did not change timezone related settings, please report this $PROJECT_NAME bug.
 <br></br>$if_you_know_what_you_are_doing_msg
 [1] <a href=https://www.whonix.org/wiki/Dev/Design-Shared#timezone>https://www.whonix.org/wiki/Dev/Design-Shared#timezone</a></p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"

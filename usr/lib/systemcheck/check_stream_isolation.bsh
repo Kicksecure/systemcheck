@@ -76,7 +76,7 @@ check_stream_isolation() {
    else
       if [ "$NOT_USING_TOR" = "1" ]; then
          local MSG="<p>Stream Isolation Test Result: <b>TransPort and SocksPort IPs differ, but Tor not detected!</b>
-         This is normal only if you're using a VPN behind Tor or specifically configured Whonix this way.</p>"
+         This is normal only if you're using a VPN behind Tor or specifically configured $PROJECT_NAME this way.</p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       else

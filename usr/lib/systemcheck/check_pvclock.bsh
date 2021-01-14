@@ -10,13 +10,13 @@ pvclock_unwanted_detected() {
    local MSG="<p>PVClock Test Result:
 
 <br></br>Unwanted PVClock <code>$available_clocksource</code> detected! \
-Using this PVClock together with Whonix is recommended against, because it conflicts with Whonix's TimeSync design [1].</p>
+Using this PVClock together with $PROJECT_NAME is recommended against, because it conflicts with $PROJECT_NAME's TimeSync design [1].</p>
 
 $if_you_know_what_you_are_doing_msg
 
 <p>Recommended action:
-<br></br>- If you are using KVM, you probably did not follow Whonix's KVM instructions. [2]</p>
-<br></br>- Or use a different supported Whonix platform. [3]</p>
+<br></br>- If you are using KVM, you probably did not follow $PROJECT_NAME's KVM instructions. [2]</p>
+<br></br>- Or use a different supported $PROJECT_NAME platform. [3]</p>
 
 <p>[1] <a href=https://www.whonix.org/wiki/Dev/TimeSync>https://www.whonix.org/wiki/Dev/TimeSync</a>
 <br></br>[2] <a href=https://www.whonix.org/wiki/KVM>https://www.whonix.org/wiki/KVM</a>

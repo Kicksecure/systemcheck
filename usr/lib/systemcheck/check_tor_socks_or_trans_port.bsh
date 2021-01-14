@@ -32,13 +32,13 @@ check_tor_socks_or_trans_port() {
    fi
 
    local LINK="https://check.torproject.org/api/ip"
-   local SOCKS_PORT_WHONIXCHECK="9110"
+   local SOCKS_PORT_SYSTEMCHECK="9110"
    local check_result_curl_exit_code="0"
 
    if [ "$1" = "SocksPort" ]; then
       local test_name="<code>SocksPort</code> IP Leak Test"
       local checking_msg="$test_name: Testing Tor's <code>SocksPort</code>..."
-      local CURL_PROXY_WHONIXCHECK="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_WHONIXCHECK"
+      local CURL_PROXY_WHONIXCHECK="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_SYSTEMCHECK"
       local CHECK_TOR_OUT_FILE="check_tpo_tor_socksport.html"
       if test -f /run/qubes/this-is-templatevm ; then
          local type=info
@@ -50,7 +50,7 @@ check_tor_socks_or_trans_port() {
 <p>$test_name Result: <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> was not reachable.
 <br></br>You could check, if you can reach <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> via the Tor Browser Bundle.</p>"
       else
-         local connection_failed_msg="$FUNCNAME: <p>This is neither Whonix-Gateway nor Whonix-Workstation. Please report this bug to the Whonix developers!</p>"
+         local connection_failed_msg="$FUNCNAME: <p>This is neither Whonix-Gateway nor Whonix-Workstation. Please report this bug to the $PROJECT_NAME developers!</p>"
       fi
    elif [ "$1" = "UpdatesProxy" ]; then
       local test_name="<code>UpdatesProxy</code> IP Leak Test"
@@ -85,7 +85,7 @@ check_tor_socks_or_trans_port() {
 <br></br>It is normal for this error to temporarily occur.</p>"
       fi
    else
-      local MSG="<p><code>TransPort</code>/<code>SocksPort</code>/<code>UpdatesProxy</code> Test Error: <b>\$1 is neither TransPort nor <code>SocksPort</code> nor <code>UpdatesProxy</code>.</b> Please report this bug to the Whonix developers!</p>"
+      local MSG="<p><code>TransPort</code>/<code>SocksPort</code>/<code>UpdatesProxy</code> Test Error: <b>\$1 is neither TransPort nor <code>SocksPort</code> nor <code>UpdatesProxy</code>.</b> Please report this bug to the $PROJECT_NAME developers!</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0

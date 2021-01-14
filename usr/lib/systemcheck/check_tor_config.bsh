@@ -73,7 +73,7 @@ $start_menu_instructions_system_first_part Terminal
 
 <p>Restart <code>systemcheck</code> after fixing this error.
 
-<blockquote>    $start_menu_instructions_system_first_part Whonix Check</blockquote>
+<blockquote>    $start_menu_instructions_system_first_part System Check</blockquote>
     <br></br>or in Terminal: <code>systemcheck</code></p>
 
 <p>$if_you_know_what_you_are_doing_msg</p>"

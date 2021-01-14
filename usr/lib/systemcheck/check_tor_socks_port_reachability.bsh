@@ -10,8 +10,8 @@ check_tor_socks_port_reachability() {
       return 0
    fi
 
-   local SOCKS_PORT_WHONIXCHECK
-   SOCKS_PORT_WHONIXCHECK="9110"
+   local SOCKS_PORT_SYSTEMCHECK
+   SOCKS_PORT_SYSTEMCHECK="9110"
 
    true "FUNCNAME: CURL: $CURL"
 

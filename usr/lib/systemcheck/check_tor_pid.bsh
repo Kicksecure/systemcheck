@@ -45,7 +45,7 @@ check_tor_pid() {
 
 <p>Restart systemcheck after fixing this error.
 
-<blockquote>   $start_menu_instructions_system_first_part Whonix Check</blockquote>
+<blockquote>   $start_menu_instructions_system_first_part System Check</blockquote>
     or in Terminal: <code><blockquote>systemcheck</blockquote></code></p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"

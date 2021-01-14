@@ -4,9 +4,9 @@
 [Desktop Entry]
 Type=Application
 Exec=systemcheck
-Name=WhonixCheck
+Name=System Check
 GenericName=System Check
-Comment=Check Tor Connection, Tor Browser Version, Operating System Updates, Whonix Version, Whonix News
+Comment=Check System Security Status
 Categories=System
 Icon=/usr/share/icons/anon-icon-pack/whonix.png
 Keywords=Whonix;system;check

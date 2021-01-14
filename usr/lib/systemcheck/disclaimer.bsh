@@ -9,7 +9,7 @@ disclaimer() {
       return 0
    fi
 
-   local MSG="<p>Whonix is produced independently of, with no guarantee from, The Tor Project. Whonix is a research project. <a href=$PROJECT_HOMEPAGE>$PROJECT_HOMEPAGE</a></p>"
+   local MSG="<p>$PROJECT_NAME is produced independently of, with no guarantee from, The Tor Project. Whonix is a research project. <a href=$PROJECT_HOMEPAGE>$PROJECT_HOMEPAGE</a></p>"
 
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"

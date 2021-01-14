@@ -56,7 +56,7 @@ check_ip_forwarding_disabled() {
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
          ## "IP Forwarding Result:$temp    ## was in MSG below
-         local MSG="<p><b>IP Forwarding enabled! This is unsupported by Whonix developers! Whonixcheck aborted!</b>
+         local MSG="<p><b>IP Forwarding enabled! This is unsupported by $PROJECT_NAME developers! systemcheck aborted!</b>
 <br></br>Using IP Forwarding on Whonix-Gateway is recommended against, due to risks of leaks.
 <br></br>This might endanger your anonymity.
 <br />

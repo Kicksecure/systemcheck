@@ -96,7 +96,7 @@ a non-zero exit code.</b> This is probably a network misconfiguration. See above
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
       local MSG="<p>Check Hostname Result:
-<br></br><b>Hostname settings different from Whonix defaults.</b> (See above.)
+<br></br><b>Hostname settings different from $PROJECT_NAME defaults.</b> (See above.)
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"

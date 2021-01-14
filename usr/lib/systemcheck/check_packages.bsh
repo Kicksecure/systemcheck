@@ -41,7 +41,7 @@ non-qubes-whonix-workstation-cli"
    for meta_package_wanted_item in $meta_package_wanted_list ; do
       if dpkg-query --show "$meta_package_wanted_item" &> /dev/null ; then
          meta_package_installed="$meta_package_wanted_item"
-         local MSG="<p>Whonix Meta Packages Test Result: Meta package <code>$meta_package_installed</code> installed, ok.</p>"
+         local MSG="<p>$PROJECT_NAME Meta Packages Test Result: Meta package <code>$meta_package_installed</code> installed, ok.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -53,7 +53,7 @@ non-qubes-whonix-workstation-cli"
       return 0
    fi
 
-   local MSG="<p>Whonix Meta Packages Test Result: No meta package is installed.<br />
+   local MSG="<p>$PROJECT_NAME Meta Packages Test Result: No meta package is installed.<br />
 Did you accidentally uninstall it?<br />
 <br />
 Make sure any of the following meta packages is installed.<br />
@@ -86,7 +86,7 @@ check_unwanted_packages() {
    done
 
    if [ "$unwanted_packages_counter" = "0" ]; then
-      local MSG="<p>Whonix Unwanted Packages Test Result: None found.</p>"
+      local MSG="<p>$PROJECT_NAME Unwanted Packages Test Result: None found.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -116,7 +116,7 @@ check_unwanted_packages() {
       fi
    fi
 
-   local MSG="<p>Whonix Unwanted Packages Test Result: $unwanted_packages_counter unwanted package(s) installed. \
+   local MSG="<p>$PROJECT_NAME Unwanted Packages Test Result: $unwanted_packages_counter unwanted package(s) installed. \
 It is recommended that you remove them from $update_where.
 $packages_help_msg
 <br />See also: $see_also_link

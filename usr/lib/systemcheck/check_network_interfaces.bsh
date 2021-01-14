@@ -41,7 +41,7 @@ check_network_interfaces() {
       local MSG="<p>check network interfaces Result: network interface eth0 not up!<br />
 <br />
 Recommendation:<br />
-Try to manually start Whonix networking.
+Try to manually start $PROJECT_NAME networking.
 <blockquote>
 <code>sudo systemctl restart networking</code>
 </blockquote>

@@ -69,8 +69,8 @@ check_systemd_clock() {
 <br></br><b>Unexpected results by timedatectl.</b>
 <br></br>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote>
-It is generally recommended to keep the default as per Whonix Design. [1]
-If you did not change timezone related settings, please report this Whonix bug.
+It is generally recommended to keep the default as per $PROJECT_NAME Design. [1]
+If you did not change timezone related settings, please report this $PROJECT_NAME bug.
 If you know what you are doing and changed this on purpose, feel free to
 disable this check. [2]
 <br />
