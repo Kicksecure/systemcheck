@@ -8,7 +8,7 @@ systemd-notify --pid="$$" --ready
 while true; do
    echo "$0: INFO: start."
    systemd-notify --pid="$$" --status="loop before"
-   systemd-notify WATCHDOG=1
+   systemd-notify --pid="$$" WATCHDOG=1
 
    /usr/lib/systemcheck/census
 
