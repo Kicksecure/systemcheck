@@ -158,10 +158,10 @@ census_do() {
    wait "$lastpid" || { curl_exit_code="$?" ; true; };
 
    if [ ! "$curl_exit_code" = "0" ]; then
+      echo "ERROR: Failure."
       local curl_status_message
       curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
-      echo="ERROR: Failure.
-curl exit code: $curl_status_message"
+      echo "curl exit code: $curl_status_message"
       exit 0
    fi
 
