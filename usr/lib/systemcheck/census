@@ -152,10 +152,7 @@ census_do() {
       --request PUT \
       --data "gateway-sign-in" \
       "$census_api_link" \
-      &
-
-   lastpid="$!"
-   wait "$lastpid" || { curl_exit_code="$?" ; true; };
+      || { curl_exit_code="$?" ; true; };
 
    if [ ! "$curl_exit_code" = "0" ]; then
       echo "ERROR: Failure."
