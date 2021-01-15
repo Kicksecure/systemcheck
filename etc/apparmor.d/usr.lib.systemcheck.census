@@ -55,6 +55,7 @@
 	@{PROC}/cmdline r,
 	@{PROC}/*/cmdline r,
 	@{PROC}/[0-9]*/stat r,
+	@{PROC}/sys/kernel/random/uuid r,
 
 	owner /tmp/** mrw,
 	owner /var/tmp/** mrw,

@@ -66,7 +66,9 @@ census_preparation() {
       [ -n "$SOCKS_PORT_CENSUS" ] || SOCKS_PORT_CENSUS="9050"
    fi
 
-   [ -n "$CURL_PROXY_CENSUS" ] || CURL_PROXY_CENSUS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_CENSUS"
+   socks_user_name="$(cat /proc/sys/kernel/random/uuid)"
+
+   [ -n "$CURL_PROXY_CENSUS" ] || CURL_PROXY_CENSUS="--proxy socks5h://${socks_user_name}:password@$GATEWAY_IP:$SOCKS_PORT_CENSUS"
 
    ## Debugging.
    #ls -la ~/
