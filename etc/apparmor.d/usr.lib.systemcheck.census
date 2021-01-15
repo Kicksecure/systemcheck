@@ -23,6 +23,7 @@
 	/{,usr/}bin/curl rix,
 	/{,usr/}bin/sleep rix,
 
+	/etc/group r,
 	/{,usr/}bin/touch rix,
 	/{,usr/}bin/ls rix,
 

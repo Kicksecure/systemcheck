@@ -19,11 +19,14 @@ source /usr/lib/helper-scripts/torsocks-remove-ld-preload
 
 case "$1" in
    configure)
-      adduser --home /var/lib/census --no-create-home --quiet --system --group census || true
-      adduser --home /var/lib/systemcheck --no-create-home --quiet --system --group systemcheck || true
-
       ## Compatibility with anon-ws-disable-stacked-tor.
       addgroup debian-tor 2>/dev/null || true
+
+      adduser --home /var/lib/census --no-create-home --quiet --system --group census || true
+      ## Allow running tor-circuit-established-check.
+      addgroup census debian-tor
+
+      adduser --home /var/lib/systemcheck --no-create-home --quiet --system --group systemcheck || true
 
       ## Add systemcheck to group debian-tor so it can read
       ## /run/tor/control.authcookie which is required to check for Tor
