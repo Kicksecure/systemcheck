@@ -6,6 +6,7 @@
 /usr/lib/systemcheck/census flags=(attach_disconnected) {
 	#include <abstractions/base>
 	#include <abstractions/bash>
+	#include <abstractions/tor-circuit-established-check>
 	## curl
 	#include <abstractions/openssl>
 
@@ -31,7 +32,12 @@
 	/var/lib/systemcheck/census/ rw,
 	/var/lib/systemcheck/census/** rw,
 	/usr/lib/helper-scripts/settings_echo rix,
-	/usr/bin/tor-circuit-established-check rPx,
+
+	## Cannot use:
+	## rPx
+	## Use abstractions above instead.
+	#/usr/bin/tor-circuit-established-check rPx,
+	/usr/bin/tor-circuit-established-check rix,
 
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
@@ -44,6 +50,9 @@
 	@{PROC}/cmdline r,
 	@{PROC}/*/cmdline r,
 	@{PROC}/[0-9]*/stat r,
+
+	owner /tmp/** mrw,
+	owner /var/tmp/** mrw,
 
 	# Site-specific additions and overrides. See local/README for details.
 	#include <local/usr.lib.systemcheck.census>
