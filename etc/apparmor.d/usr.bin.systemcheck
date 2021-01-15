@@ -327,7 +327,6 @@
 	/var/lib/apt/lists/** rwk,
 	/var/lib/apt/extended_states r,
 	/var/lib/systemcheck/** rw,
-	/var/lib/whonix/whonixblog/* rw,
 
 	## For Running 'tor --verify-config'.
 	/usr/share/tor/** r,
