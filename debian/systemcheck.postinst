@@ -7,7 +7,6 @@ if [ -f /usr/lib/helper-scripts/pre.bsh ]; then
    source /usr/lib/helper-scripts/pre.bsh
 fi
 
-set -x
 set -e
 
 true "
