@@ -43,6 +43,7 @@ Restart=always
 ## https://forums.whonix.org/t/apply-systemd-sandboxing-by-default-to-some-services/7590/31
 ProtectSystem=strict
 ProtectHome=true
+ReadWritePaths=/var/lib/census
 ProtectKernelTunables=true
 ProtectKernelModules=true
 ProtectControlGroups=true
