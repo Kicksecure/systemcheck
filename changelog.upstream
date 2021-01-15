@@ -1,3 +1,491 @@
+commit 2e7c64a1a3199574df4ff8efec2fa87aeb71ea72
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 07:30:01 2021 -0500
+
+    readme
+
+commit 92c77ff25fef236bba03626bd178706821ae525f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 03:03:50 2021 -0500
+
+    error handler
+
+commit edeb33d0c286b7abc53560d9fa207c1e8ecf8b32
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 03:01:04 2021 -0500
+
+    Qubes
+
+commit 7ecb8bdbf02d62706691d9d1f8aae581eed8ee32
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:58:29 2021 -0500
+
+    stream isolation
+
+commit 9a772d69d224262c6dbfaaf67b45cb2c287e84b0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:47:56 2021 -0500
+
+    census
+
+commit 4865a56ddc041037523759b02ff514b7b34df475
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:47:14 2021 -0500
+
+    debugging
+
+commit 3bd87816894068b622f68747e75ed9c73ce3b37c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:46:00 2021 -0500
+
+    systemd hardening
+
+commit 05acf476ef037803a27b4d7bf38424e235ee6a80
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:45:20 2021 -0500
+
+    systemd hardening
+
+commit e3f9d2c970ebf1045c5c13630fc7bcdb19c41d27
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:41:27 2021 -0500
+
+    fix
+
+commit 3c6bf12ad0f9bb2fb34fef3a1ef7e8ca7c4ac8aa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:35:05 2021 -0500
+
+    minor
+
+commit 91d6cb4780242dce38355fcd80780ce5cbdf13f4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:34:20 2021 -0500
+
+    copyright
+
+commit e9324cfebb16a7576c42cee5b68a34485fad2d07
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:33:02 2021 -0500
+
+    fix
+
+commit 7f6caab67fcac1eacaba459b978ed6679ca0d897
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:18:14 2021 -0500
+
+    rely on systemd-tmpfiles
+
+commit 79477fb2a10bb60d4fd3e9539c026aea0e54de5e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:15:43 2021 -0500
+
+    cleanup
+
+commit 115df16d8a2c8e3611a83c7f0ab538d32aa78776
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:10:32 2021 -0500
+
+    comment
+
+commit 8267d72f8f9f051b5dd3bf20fbf512cceaf7f78b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:09:49 2021 -0500
+
+    support manual run
+
+commit 14ebfe27ac69f7a98739635017b3c1e29d2bafb7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 02:09:44 2021 -0500
+
+    apparmor
+
+commit 9a41bd3c18eb2827d31c0c29ffd218ad04f54b3c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 01:13:01 2021 -0500
+
+    apparmor
+
+commit 95f53adc337e519685fa8e3ef2830a77d4bc0d9d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 15 01:04:02 2021 -0500
+
+    add Tor circuit established check
+
+commit 8d435e486f609fa2bba9683ba73ff638d91ef8c2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:50:30 2021 -0500
+
+    cleanup
+
+commit 6d830ab160df0e0de183390907f2c7c01384feff
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:44:52 2021 -0500
+
+    comment
+
+commit ea7ccee88b23b57594ce398486de37c70f5ba6fb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:44:33 2021 -0500
+
+    disable SystemCallFilter
+
+commit f1551d9edb1671255426caf8b89a7b82048d46a5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:42:18 2021 -0500
+
+    enable systemd hardening for census
+
+commit 71b8445c4347ad75e62230a7299bbc9be38d1330
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:11:25 2021 -0500
+
+    refactoring
+
+commit ab4645f6311676edc5a97188bcaf7bca1742be0c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:09:45 2021 -0500
+
+    merge
+
+commit f15f7fce52f7cc55aafeafe67cc256e9bca717b8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:07:10 2021 -0500
+
+    remove duplicates
+
+commit 059770144afe92a1e414202b81ea444ffc78702f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 09:00:01 2021 -0500
+
+    apparmor
+
+commit b8bea66d14baae6361ad3893a278c8fa5daa3e33
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 08:29:35 2021 -0500
+
+    refactoring
+
+commit 363901fecf03e2f19f371453f494484203942e87
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 08:18:59 2021 -0500
+
+    refactoring
+
+commit 5a5ad37286ef1c65bf7d849d4aa21095b42b0fef
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 08:17:23 2021 -0500
+
+    Consider running under sandbox-app-launcher.
+
+commit 17024d78e682db8c2dd3c060ba6bf272d9c653fb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:45:47 2021 -0500
+
+    sd_notify watchdog
+
+commit a5b7c8f541501730e831fc04185013d9c7f3a5ef
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:37:25 2021 -0500
+
+    sd_notify watchdog
+
+commit fd6bb7c78eca3bc9f979c9557ffbf27f6c9c0343
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:30:20 2021 -0500
+
+    simplification
+
+commit 9a593ef78c447b529bf69ea87b1bf0c21e584091
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:28:59 2021 -0500
+
+    refactoring
+
+commit e757d4e089240d37fbef154b4f938bfa586b3c4e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:26:53 2021 -0500
+
+    output
+
+commit 33583431b829235944973e081d8b5904180459c8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:25:30 2021 -0500
+
+    comment
+
+commit 67649ced2170cbd548740afb5d88a2767a913a2e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:24:37 2021 -0500
+
+    sd_notify watchdog
+
+commit 8675ec29e8460517109b1d9fbf92c3ce6c5956b2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 07:24:04 2021 -0500
+
+    simplification
+
+commit d0cce42e6cd1db07cedb1df93ffb6b93a452f8a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:54:02 2021 -0500
+
+    fix
+
+commit 51b13447fd5e948048c7860e08986214776f4aee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:52:10 2021 -0500
+
+    kicksecure
+
+commit fc70f208f61317c552efaf8778851d2d9807514f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:43:04 2021 -0500
+
+    hardening
+
+commit c39abe9607114b64256817775d38767a142bd005
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:29:17 2021 -0500
+
+    no longer required to overwrite dh_installsystemd
+    
+    dh_installsystemd --no-start --no-restart-after-upgrade --no-stop-on-upgrade --no-restart-on-upgrade
+
+commit 22288f5952628257a50584ff06ec1dd0724fbdd0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:21:35 2021 -0500
+
+    refactoring
+
+commit e8861e5b119375d6aa3572b4089a5ab90a5ebb5b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:20:15 2021 -0500
+
+    comment
+
+commit c1324efaa13454af74985e83df65fc032dcc8227
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:18:44 2021 -0500
+
+    code simplification
+
+commit c938024afc33c6228aa1cda67c6b8ad1f18609b4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:18:28 2021 -0500
+
+    refactoring
+
+commit 76d004814bcd62ef1f9153ce851316ae87c20d4d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:17:51 2021 -0500
+
+    code simplification
+
+commit b002c66e54888347b009868a32428d211c8b877c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:16:34 2021 -0500
+
+    refactoring, drop legacy config folder in /rw
+
+commit 4262c6bf4ab605a2d20e7cd006ad9d17c9763cd1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:15:31 2021 -0500
+
+    refactoring
+
+commit a039a0075ad5c981530f60c30705da4c2658d0f1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:14:09 2021 -0500
+
+    refactoring
+
+commit afcf80813aed4829ac7a5c2399b460dc41b8d94f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:13:17 2021 -0500
+
+    comment
+
+commit 1d2c4c9bd2b7b82aadcf4aa460a0cb11c533894f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:11:42 2021 -0500
+
+    refactoring
+
+commit 4b952c901f7451e13c4f78ab33dd296cefcd6e10
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:10:02 2021 -0500
+
+    refactoring
+
+commit df41877be8d24cbe1a8800537f2b19db145af4dc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 05:07:28 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit f0fe96564620feee09a301b56ddee88441d3fc3a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:54:59 2021 -0500
+
+    output
+
+commit fafb978ffba1b74140125bbb7273df9eb563c9d0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:54:35 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit c1e318eff393a96d8745092b15e8b36f06b134a0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:53:02 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit 0e1c4baa1a4f803cbd5522da213c884b05c89b47
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:52:40 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit 0c9a564455035698d020f3b35d6be4442636eb58
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:51:44 2021 -0500
+
+    cleanup
+
+commit 31174b5fb1c54c39046213bc47013c33dc79550f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:42:11 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit 2adc33e3b5c72f42639492ebd5a3864eb72317c6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:41:27 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit d541909959331a89aadbcf495d5eb86dcc7d15a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:40:27 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit b0f39c7de8b481e26206a666848bdd1bbd774e5c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:38:53 2021 -0500
+
+    genmkfile manpages
+
+commit 23da9d6875bf5cce3c0a8111df44eed9994760ed
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:38:08 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit f6b9ed1eed000053197f8216219f9282b6a5d2d4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:33:16 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit 7c5c0d7e1ec7e192c050de27ba852fec94259345
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:18:19 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit 02e37a25b72cb81f4612f515eadb53d8d74b363d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:17:49 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit c7fffa6fc341a7c92d0805ddb2a9efba435eeeb6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:16:41 2021 -0500
+
+    refactoring
+
+commit 407dfcdf56573d03b192ebe815eb70e7ea54136c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:16:15 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit 3758f010af8c8fc19ed5211bd11a2d89f4cd9560
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:12:49 2021 -0500
+
+    cleanup
+
+commit ca509d1e180905dae180ec067aa012ff16c32195
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:11:28 2021 -0500
+
+    code simplification
+
+commit e8cfafa7a17fa48519e9c2c2f5452f9e158bcaf6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:10:43 2021 -0500
+
+    variable names renamed, no point to parse legacy config folders
+
+commit c4178df6b81c80517fc508938e178197a4cbecf1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:10:13 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit d2fb2afe84ed154c768ebd9c3825f350abf5a2e5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:08:56 2021 -0500
+
+    refactoring
+
+commit 2d12599428817647a0d0b8e71fb82b01114d89b4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:07:58 2021 -0500
+
+    remove unfinished TPO certificate pinning code
+
+commit 7eee1c00c6e88640a062e48e472fe9571ee6eb45
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:04:58 2021 -0500
+
+    remove deprecated Whonix News leftovers
+
+commit 259984698882d34f0412b07db5bced38688f782d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 04:03:00 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit 66a3e7bdc7e991e7b3b208a7835a5ee716a17254
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 03:55:16 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit e3e8fb5a0a72211f9b3cb1a129cbb4cc24012c60
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 14 03:48:55 2021 -0500
+
+    whonixcheck -> systemcheck
+
+commit a165f6d0f9293cc93acfacd229c3fe2ed5b5a573
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 13 06:17:03 2021 -0500
+
+    update
+
+commit dee6299d8b3381123ec3b55ecaeb45a4f95978cc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 9 08:07:03 2021 -0500
+
+    bumped changelog version
+
 commit 8cf74dc6a8aad4d1e6d706e5d151d7c2a1d9b00e
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 9 07:50:32 2021 -0500
