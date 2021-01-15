@@ -146,9 +146,9 @@ census_count_or_not() {
    fi
 
    ## TODO: not compatible with sandbox-app-launcher
-#    if command -v qubesdb-read &>/dev/null ; then
-#       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
-#    fi
+   if command -v qubesdb-read &>/dev/null ; then
+      qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
+   fi
 
    if [ "$qubes_vm_persistence" = "none" ]; then
       echo "INFO: Skip in Qubes DispVM."
