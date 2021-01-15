@@ -8,6 +8,13 @@ set -e
 
 source /usr/lib/systemcheck/uwt_tool.bsh
 
+error_handler() {
+   echo "ERROR: BASH_COMMAND: $BASH_COMMAND | exit_code: $?"
+   exit 1
+}
+
+trap "error_handler" ERR
+
 census_preparation() {
    if [ ! "$(whoami)" = "sal-census" ] && [ ! "$(whoami)" = "census" ]; then
       echo "ERROR: Exiting. Must be run under user sal-census or census."
