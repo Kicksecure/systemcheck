@@ -1,6 +1,6 @@
 # Anonymity and security check #
 
-Checks many important aspects of Whonix for better security.
+Checks many important aspects for better security.
 
 Only checks things. Does not change things.
 
