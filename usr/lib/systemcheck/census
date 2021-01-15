@@ -68,7 +68,8 @@ census_preparation() {
 
    [ -n "$CURL_PROXY_CENSUS" ] || CURL_PROXY_CENSUS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_CENSUS"
 
-   ls -la ~/
+   ## Debugging.
+   #ls -la ~/
    touch ~/census_last_done
 }
 
