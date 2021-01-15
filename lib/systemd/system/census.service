@@ -17,8 +17,8 @@ After=whonix-firewall.service
 [Service]
 Type=notify
 
-User=systemcheck
-Group=systemcheck
+User=census
+Group=census
 
 ## TODO: Consider running under sandbox-app-launcher.
 ## sudo sandbox-app-launcher run census

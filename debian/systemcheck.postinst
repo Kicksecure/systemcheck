@@ -7,6 +7,7 @@ if [ -f /usr/lib/helper-scripts/pre.bsh ]; then
    source /usr/lib/helper-scripts/pre.bsh
 fi
 
+set -x
 set -e
 
 true "
@@ -19,6 +20,7 @@ source /usr/lib/helper-scripts/torsocks-remove-ld-preload
 
 case "$1" in
    configure)
+      adduser --home /var/lib/census --no-create-home --quiet --system --group census || true
       adduser --home /var/lib/systemcheck --no-create-home --quiet --system --group systemcheck || true
 
       ## Compatibility with anon-ws-disable-stacked-tor.
