@@ -31,16 +31,6 @@ case "$1" in
 
       ## Add systemcheck to group systemd-journal so it can use journalctl.
       addgroup systemcheck systemd-journal
-
-      mkdir -p /var/lib/systemcheck
-      chown systemcheck:systemcheck /var/lib/systemcheck
-      chmod g+w /var/lib/systemcheck
-      chmod o-w /var/lib/systemcheck
-
-      mkdir -p /run/systemcheck
-      chown systemcheck:systemcheck /run/systemcheck
-      chmod g+w /run/systemcheck
-      chmod o-w /run/systemcheck
    ;;
 
    abort-upgrade|abort-remove|abort-deconfigure)
