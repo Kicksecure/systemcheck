@@ -14,6 +14,12 @@ census_preparation() {
       exit 1
    fi
 
+   if [ "$NOTIFY_SOCKET" = "" ]; then
+      systemd_notify="true 'INFO: skip because NOTIFY_SOCKET unset. Probably run manually. SKIP: systemd-notify"
+   else
+      systemd_notify=systemd-notify
+   fi
+
    virtualizer="$(systemd-detect-virt)" || true
    if [ "$virtualizer" = "oracle" ]; then
       known_virtualizer=yes
@@ -63,18 +69,18 @@ census_preparation() {
 
 check_circuit_established() {
    while true; do
-      systemd-notify --pid="$PPID" WATCHDOG=1
+      $systemd_notify --pid="$PPID" WATCHDOG=1
 
       if [ "$(/usr/bin/tor-circuit-established-check)" = "1" ]; then
          break
       fi
 
-      systemd-notify --pid="$PPID" WATCHDOG=1
+      $systemd_notify --pid="$PPID" WATCHDOG=1
 
       ## TODO: increase
       sleep 10
 
-      systemd-notify --pid="$PPID" WATCHDOG=1
+      $systemd_notify --pid="$PPID" WATCHDOG=1
    done
 }
 
