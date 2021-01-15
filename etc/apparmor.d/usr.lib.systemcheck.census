@@ -29,6 +29,10 @@
 
 	/{,usr/}bin/systemd-detect-virt rix,
 	/{,usr/}bin/systemd-notify rix,
+
+	/{,usr/}bin/qubesdb-read rix,
+	/{,usr/}bin/qubesdb-cmd rix,
+
 	/usr/lib/curl-scripts/curl_exit_codes rix,
 	/etc/hosts r,
 	/etc/host.conf r,
