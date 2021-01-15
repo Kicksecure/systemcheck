@@ -20,7 +20,9 @@
 	/{,usr/}bin/cat rix,
 	/{,usr/}bin/tee rix,
 	/{,usr/}bin/curl rix,
+	/{,usr/}bin/sleep rix,
 	/{,usr/}bin/systemd-detect-virt rix,
+	/{,usr/}bin/systemd-notify rix,
 	/usr/lib/curl-scripts/curl_exit_codes rix,
 	/etc/hosts r,
 	/etc/host.conf r,
@@ -29,6 +31,7 @@
 	/var/lib/systemcheck/census/ rw,
 	/var/lib/systemcheck/census/** rw,
 	/usr/lib/helper-scripts/settings_echo rix,
+	/usr/bin/tor-circuit-established-check rCx,
 
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,

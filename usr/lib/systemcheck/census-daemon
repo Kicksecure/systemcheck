@@ -7,13 +7,11 @@ systemd-notify --pid="$$" --ready
 
 while true; do
    echo "$0: INFO: start."
-   systemd-notify --pid="$$" --status="loop before"
    systemd-notify --pid="$$" WATCHDOG=1
 
    /usr/lib/systemcheck/census
    #sandbox-app-launcher run census
 
-   systemd-notify --pid="$$" --status="loop after"
    systemd-notify --pid="$$" WATCHDOG=1
    echo "$0: INFO: end."
 

@@ -3,6 +3,7 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+set -x
 set -e
 
 source /usr/lib/systemcheck/uwt_tool.bsh
@@ -58,6 +59,23 @@ census_preparation() {
    fi
 
    [ -n "$CURL_PROXY_CENSUS" ] || CURL_PROXY_CENSUS="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_CENSUS"
+}
+
+check_circuit_established() {
+   while true; do
+      systemd-notify --pid="$PPID" WATCHDOG=1
+
+      if [ "$(/usr/bin/tor-circuit-established-check)" = "1" ]; then
+         break
+      fi
+
+      systemd-notify --pid="$PPID" WATCHDOG=1
+
+      ## TODO: increase
+      sleep 10
+
+      systemd-notify --pid="$PPID" WATCHDOG=1
+   done
 }
 
 check_census_lastrun() {
@@ -170,6 +188,7 @@ census_do() {
 }
 
 census_preparation
+check_circuit_established
 census_count_or_not
 check_census_lastrun
 census_do
