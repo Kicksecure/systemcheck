@@ -96,6 +96,9 @@ check_tor_bootstrap_init() {
    elif [ -e /run/sdwdate/first_success ]; then
       time_synchronization_status_word="first_success"
       time_synchronization_status_notification="done"
+   elif [ -e /run/sdwdate/sleep_long ]; then
+      time_synchronization_status_word="sleep_long"
+      time_synchronization_status_notification="timeout"
    else
       time_synchronization_status_word="pending"
       time_synchronization_status_notification="not done"
@@ -309,7 +312,11 @@ check_tor_bootstrap_wait_longer_maybe() {
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
-   if [ "$tor_bootstrap_percent" -lt "100" ] || [ "$tor_circuit_established" = "0" ] || [ "$time_synchronization_status_word" = "pending" ]; then
+   if \
+      [ "$tor_bootstrap_percent" -lt "100" ] || \
+      [ "$tor_circuit_established" = "0" ] || \
+      [ "$time_synchronization_status_word" = "timeout" ] || \
+      [ "$time_synchronization_status_word" = "pending" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
