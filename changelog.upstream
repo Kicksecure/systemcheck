@@ -1,3 +1,51 @@
+commit 89564c7a9320549b907a1f5f9e5f779593deba6f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 26 06:50:40 2021 -0500
+
+    census
+
+commit 4ebb014fb16240b0447fd21480554ce00339ac25
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 26 06:49:28 2021 -0500
+
+    census
+
+commit 59e1baff0bfe0eb6ac4ca4c85a4fde37e492db12
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 26 06:45:33 2021 -0500
+
+    census
+
+commit d1a94be5aecf8d8447d49c37cd208f06cee734bf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 26 06:32:55 2021 -0500
+
+    add setting to allow disabling
+
+commit 5ac708ad98a27d5ce6b60ecb5e8a0f37e4363bd1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 26 06:04:14 2021 -0500
+
+    fix
+
+commit 15cdf73fb18e9858857ec55d13087f391fc15c5d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 26 05:58:24 2021 -0500
+
+    legacy settings folder migration
+
+commit 791583273e390223f5288d84064085b97b14d480
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 26 05:48:28 2021 -0500
+
+    legacy settings folder migration
+
+commit 93cf73185b8baf5cea0531e59d1fd64b0eb6823a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 19 19:42:32 2021 -0500
+
+    bumped changelog version
+
 commit 17db49714860bd6a1766647f442f97f9e1f898e3
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Jan 19 01:19:21 2021 -0500
