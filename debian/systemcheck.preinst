@@ -20,6 +20,31 @@ legacy_settings_folder_migrate() {
       return 0
    fi
 
+   shopt -s globstar dotglob nullglob
+
+   for file_name in /etc/whonix.d/* /usr/local/etc/whonix.d/* /rw/config/whonix.d/* ./a ; do
+      search="WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION"
+      replace="NO_EXIT_ON_IP_FORWARDING_DETECTION"
+      str_replace "$search" "$replace" "$file_name"
+      search="WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER"
+      replace="NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER"
+      str_replace "$search" "$replace" "$file_name"
+      search="check_whonix_apt_repository"
+      replace="check_apt_repository"
+      str_replace "$search" "$replace" "$file_name"
+      search="whonixcheck"
+      replace="systemcheck"
+      str_replace "$search" "$replace" "$file_name"
+      search="WHONIXCHECK"
+      search="SYSTEMCHECK"
+      str_replace "$search" "$replace" "$file_name"
+      search="/etc/whonix.d"
+      search="/etc/systemcheck.d"
+      str_replace "$search" "$replace" "$file_name"
+   done
+
+   shopt -u globstar dotglob nullglob
+
    if test -d /etc/whonix.d ; then
       if ! test -d /etc/systemcheck.d ; then
          mv --verbose --no-clobber /etc/whonix.d /etc/systemcheck.d
