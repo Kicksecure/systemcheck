@@ -1,0 +1,62 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+if [ -f /usr/lib/helper-scripts/pre.bsh ]; then
+   source /usr/lib/helper-scripts/pre.bsh
+fi
+
+set -e
+
+true "
+#####################################################################
+## INFO: BEGIN: $DPKG_MAINTSCRIPT_PACKAGE $DPKG_MAINTSCRIPT_NAME $@
+#####################################################################
+"
+
+legacy_settings_folder_migrate() {
+   if [ -f "/var/lib/whonix/do_once/${FUNCNAME}_version_1" ]; then
+      return 0
+   fi
+
+   if test -d /etc/whonix.d ; then
+      if ! test -d /etc/systemcheck.d ; then
+         mv --verbose --no-clobber /etc/whonix.d /etc/systemcheck.d
+      fi
+   fi
+
+   if test -d /usr/local/etc/whonix.d ; then
+      if ! test -d /usr/local/etc/systemcheck.d ; then
+         mv --verbose --no-clobber /usr/local/etc/whonix.d /usr/local/etc/systemcheck.d
+      fi
+   fi
+
+   if test -d /rw/config/whonix.d ; then
+      mkdir -p /usr/local/etc/systemcheck.d
+      mv --verbose --no-clobber /rw/config/whonix.d/* /usr/local/etc/whonix.d/
+   fi
+
+   mkdir --parents "/var/lib/whonix/do_once"
+   touch "/var/lib/whonix/do_once/${FUNCNAME}_version_1"
+}
+
+true "INFO: End configuring $DPKG_MAINTSCRIPT_PACKAGE."
+
+true "INFO: debhelper beginning here."
+
+#DEBHELPER#
+
+true "INFO: Done with debhelper."
+
+## Do after debhelper so this happens after rm_conffile maintscript.
+legacy_settings_folder_migrate
+
+true "
+#####################################################################
+## INFO: END  : $DPKG_MAINTSCRIPT_PACKAGE $DPKG_MAINTSCRIPT_NAME $@
+#####################################################################
+"
+
+## Explicitly "exit 0", so eventually trapped errors can be ignored.
+exit 0
