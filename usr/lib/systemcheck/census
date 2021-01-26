@@ -195,6 +195,12 @@ census_do() {
    #rm -f ~/census_result
    #--output ~/census_result
 
+   if test -f /usr/share/anon-gw-base-files/gateway ; then
+      data="gateway-sign-in"
+   else
+      data="kicksecure-sign-in"
+   fi
+
    curl_exit_code="0"
 
    $CURL \
@@ -209,7 +215,7 @@ census_do() {
       --max-time 180 \
       --output /dev/null \
       --request PUT \
-      --data "gateway-sign-in" \
+      --data "$data" \
       "$census_api_link" \
       || { curl_exit_code="$?" ; true; };
 
