@@ -15,6 +15,26 @@ error_handler() {
 
 trap "error_handler" ERR
 
+config_folders="/etc/systemcheck.d /usr/local/etc/systemcheck.d /rw/config/whonix.d /usr/local/etc/whonix.d /etc/whonix.d"
+
+legacy_disable() {
+   if grep -r -q 'whonixcheck_skip_functions+=" download_whonix_news "' $config_folders  2>/dev/null ; then
+      echo "INFO: Legacy disabled in settings. Doing nothing. Exiting."
+      exit 0
+   fi
+   if grep -r -q 'systemcheck_skip_functions+=" download_whonix_news "' $config_folders 2>/dev/null ; then
+      echo "INFO: Legacy disabled in settings. Doing nothing. Exiting."
+      exit 0
+   fi
+}
+
+disable_new() {
+   if grep -r -q 'census=false' $config_folders 2>/dev/null ; then
+      echo "INFO: Disabled in settings. Doing nothing. Exiting."
+      exit 0
+   fi
+}
+
 census_preparation() {
    if [ ! "$(whoami)" = "sal-census" ] && [ ! "$(whoami)" = "census" ]; then
       echo "ERROR: Exiting. Must be run under user sal-census or census."
@@ -206,6 +226,8 @@ census_do() {
    census_completed
 }
 
+legacy_disable
+disable_new
 census_preparation
 check_circuit_established
 census_count_or_not

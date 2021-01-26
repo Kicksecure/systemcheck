@@ -14,6 +14,7 @@
 	/ r,
 
 	/{,usr/}bin/whoami rix,
+	/{,usr/}bin/grep rix,
 	/etc/passwd r,
 	/etc/nsswitch.conf r,
 	/usr/lib/msgcollector/striphtml rix,
@@ -41,6 +42,18 @@
 	/var/lib/census/ rw,
 	/var/lib/census/** rw,
 	/usr/lib/helper-scripts/settings_echo rix,
+
+	/etc/systemcheck.d/ r,
+	/etc/systemcheck.d/** r,
+	/usr/local/etc/systemcheck.d& r,
+	/usr/local/etc/systemcheck.d/** r,
+	## Legacy.
+	/rw/config/whonix.d& r,
+	/rw/config/whonix.d/** r,
+	/usr/local/etc/whonix.d& r,
+	/usr/local/etc/whonix.d/** r,
+	/etc/whonix.d/ r,
+	/etc/whonix.d/** r,
 
 	## Cannot use:
 	## rPx
