@@ -18,11 +18,11 @@ trap "error_handler" ERR
 config_folders="/etc/systemcheck.d /usr/local/etc/systemcheck.d /rw/config/whonix.d /usr/local/etc/whonix.d /etc/whonix.d"
 
 legacy_disable() {
-   if grep -r -q 'whonixcheck_skip_functions+=" download_whonix_news "' $config_folders  2>/dev/null ; then
+   if grep -r -q '^whonixcheck_skip_functions+=" download_whonix_news "' $config_folders  2>/dev/null ; then
       echo "INFO: Legacy disabled in settings. Doing nothing. Exiting."
       exit 0
    fi
-   if grep -r -q 'systemcheck_skip_functions+=" download_whonix_news "' $config_folders 2>/dev/null ; then
+   if grep -r -q '^systemcheck_skip_functions+=" download_whonix_news "' $config_folders 2>/dev/null ; then
       echo "INFO: Legacy disabled in settings. Doing nothing. Exiting."
       exit 0
    fi
@@ -112,8 +112,7 @@ check_circuit_established() {
 
       $systemd_notify --pid="$PPID" WATCHDOG=1
 
-      ## TODO: increase
-      sleep 10
+      sleep 120
 
       $systemd_notify --pid="$PPID" WATCHDOG=1
    done
@@ -174,7 +173,8 @@ census_count_or_not() {
       exit 0
    fi
 
-   ## TODO: not compatible with sandbox-app-launcher
+   ## XXX: not compatible with sandbox-app-launcher
+   ## https://forums.whonix.org/t/system-wide-sandboxing-framework-sandbox-app-launcher/9008/317
    if command -v qubesdb-read &>/dev/null ; then
       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
    fi
@@ -184,11 +184,11 @@ census_count_or_not() {
       exit 0
    fi
 
-   ## TODO
-#    if ! test -f /usr/share/anon-gw-base-files/gateway ; then
-#       echo "INFO: Skip. Count only gateway."
-#       exit 0
-#    fi
+   ## Count Whonix-Gateway and Kicksecure.
+   if test -f /usr/share/anon-ws-base-files/workstation ; then
+      echo "INFO: Skip. Not counting workstation. Only gateway only."
+      exit 0
+   fi
 }
 
 census_do() {
