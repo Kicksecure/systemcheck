@@ -21,8 +21,11 @@
 	/{,usr/}bin/date rix,
 	/{,usr/}bin/cat rix,
 	/{,usr/}bin/tee rix,
-	/{,usr/}bin/curl rix,
 	/{,usr/}bin/sleep rix,
+
+	## cannot use this syntax since incompatible with alias in file
+	## /etc/apparmor.d/tunables/home.d/anondist
+	/usr/bin/curl rix,
 
 	/etc/group r,
 	/{,usr/}bin/touch rix,
