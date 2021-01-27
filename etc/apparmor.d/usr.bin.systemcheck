@@ -84,6 +84,11 @@
 	/{,usr/}bin/stat rix,
 	/{,usr/}bin/systemd-detect-virt rix,
 	/{,usr/}bin/spectre-meltdown-checker cux,
+
+	## TODO: bullseye use Pux instead after no new privs bug was fixed.
+	#include <abstractions/tor-circuit-established-check>
+	#/{,usr/}tor-circuit-established-check Pux,
+
 	/usr/sbin/getcap rix,
 
 	/sbin/start-stop-daemon rix,
