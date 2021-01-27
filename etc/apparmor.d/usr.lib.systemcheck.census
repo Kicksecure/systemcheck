@@ -76,6 +76,7 @@
 	@{PROC}/*/cmdline r,
 	@{PROC}/[0-9]*/stat r,
 	@{PROC}/sys/kernel/random/uuid r,
+	@{PROC}/1/sched r,
 
 	owner /tmp/** mrw,
 	owner /var/tmp/** mrw,
