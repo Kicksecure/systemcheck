@@ -1,3 +1,15 @@
+commit 2343fc3f5b5441560d47cc4d668d21fc56d04ff7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 27 04:36:38 2021 -0500
+
+    uninstall whonixcheck using Conflicts: apparmor-profile-whonixcheck, whonixcheck
+
+commit 0a8645876c43ab01f93778fc5df8f132f5366563
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 27 04:19:56 2021 -0500
+
+    bumped changelog version
+
 commit 4aa189acaeb1f9f0cddc6e4a54d53020661ea00c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jan 27 04:15:52 2021 -0500
