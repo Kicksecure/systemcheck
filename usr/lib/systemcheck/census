@@ -154,6 +154,7 @@ check_census_lastrun() {
    DIFFERENCE="$(( $CURRENTTIME - $LASTRUN ))"
 
    if [ "$DIFFERENCE" -le "$MAX" ]; then
+      echo "LASTRUN: date --utc --date \"@${LASTRUN}\""
       echo "INFO: No need."
       exit 0
    fi
