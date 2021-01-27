@@ -340,6 +340,7 @@
 
 	## For Running 'tor --verify-config'.
 	/usr/share/tor/** r,
+	## Required for anondate.
 	/var/lib/tor/** r,
 	/{,var/}run/tor/** r,
 	/etc/tor/** r,
