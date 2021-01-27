@@ -5,6 +5,8 @@
 Description=census
 Documentation=https://www.whonix.org/wiki/Census
 
+ConditionPathExists=!/run/qubes/this-is-templatevm
+
 After=network.target
 Wants=network.target
 
