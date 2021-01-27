@@ -19,6 +19,7 @@ Depends: dist-base-files, curl,
  security-misc, spectre-meltdown-checker,
  apparmor-profile-dist, ${misc:Depends}
 Replaces: apparmor-profile-whonixcheck, whonixcheck
+Conflicts: apparmor-profile-whonixcheck, whonixcheck
 Recommends: anon-icon-pack
 Description: Anonymity and security check
  Checks many important aspects for better security.
