@@ -263,11 +263,9 @@
 	/{,usr/}bin/od rix,
 	/{,usr/}bin/id rix,
 	/{,usr/}bin/dirname rix,
-	/{,usr/}bin/apt-get rix,
 	/{,usr/}bin/uwt rix,
 	/usr/lib/uwtwrapper rix,
 	/usr/lib/uwtexec rix,
-	/{,usr/}bin/curl rix,
 	/{,usr/}bin/torsocks rix,
 	/{,usr/}bin/python* rix,
 	/{,usr/}bin/dpkg rix,
@@ -287,6 +285,13 @@
 	/{,usr/}bin/pgrep rix,
 	/{,usr/}bin/bsdtar rix,
 	/{,usr/}bin/vrms rix,
+
+	## cannot use this syntax since incompatible with alias in file
+	## /etc/apparmor.d/tunables/home.d/anondist
+	#/{,usr/}bin/apt-get rix,
+	#/{,usr/}bin/curl rix,
+	/usr/bin/apt-get rix,
+	/usr/bin/curl rix,
 
 	## Required by Qubes.
 	/{,usr/}bin/gdbus rix,
