@@ -96,9 +96,9 @@ check_tor_bootstrap_init() {
    elif [ -e /run/sdwdate/first_success ]; then
       time_synchronization_status_word="first_success"
       time_synchronization_status_notification="done"
-   elif [ -e /run/sdwdate/sleep_long ]; then
-      time_synchronization_status_word="sleep_long"
-      time_synchronization_status_notification="timeout"
+   elif [ -e /run/sdwdate/fail ]; then
+      time_synchronization_status_word="fail"
+      time_synchronization_status_notification="failed"
    else
       time_synchronization_status_word="pending"
       time_synchronization_status_notification="not done"
@@ -387,6 +387,13 @@ check_tor_bootstrap_give_up_on_connection_issue_maybe() {
       return 0
    fi
 
+   if [ "$tor_circuit_established" = "0" ]; then
+      true
+   else
+      ## Keep check_tor_bootstrap loop running. Go to next function in loop.
+      return 0
+   fi
+
    if [ "$VM" = "Whonix-Gateway" ]; then
       check_anondate_do
       ## sets: anondate_issue
@@ -464,11 +471,18 @@ $anondate_debugging_information"
 }
 
 check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
-   if [ "$systemcheck_tor_bootstrap_waited_seconds" -ge "$systemcheck_tor_bootstrap_wait_max" ]; then
+   local sdwdate_wait
+   if [ "$time_synchronization_status_word" = "fail" ]; then
       true
+      sdwdate_wait=""
    else
-      ## Keep check_tor_bootstrap loop running. Go to next function in loop.
-      return 0
+      if [ "$systemcheck_tor_bootstrap_waited_seconds" -ge "$systemcheck_tor_bootstrap_wait_max" ]; then
+         true
+         sdwdate_wait="- sdwdate will need a few more moments for fetching the time."
+      else
+         ## Keep check_tor_bootstrap loop running. Go to next function in loop.
+         return 0
+      fi
    fi
 
    if [ "$tor_circuit_established" = "1" ] && [ "$time_synchronization_status_word" = "pending" ]; then
@@ -490,7 +504,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
 <br></br>
 <br></br>Possible issues:
-<br></br>- sdwdate will need a few more moments for fetching the time.
+<br></br>$sdwdate_wait
 <br></br>- sdwdate time sources might be dysfunctional.
 <br></br>
 <br></br>Apparently you have already reload Whonix-Firewall.
@@ -504,7 +518,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
 <br></br>
 <br></br>Possible issues:
-<br></br>- sdwdate will need a few more moments for fetching the time.
+<br></br>$sdwdate_wait
 <br></br>- sdwdate time sources might be dysfunctional.
 <br></br>
 <br></br>Recommendations:
