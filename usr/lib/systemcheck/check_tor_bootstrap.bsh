@@ -403,7 +403,7 @@ check_tor_bootstrap_give_up_on_connection_issue_maybe() {
 
    if [ "$VM" = "Whonix-Gateway" ]; then
       local MSG="<p>Tor Connection Result:
-<br></br><b>Whonixcheck gave up waiting.</b>
+<br></br><b>systemcheck gave up waiting.</b>
 <br></br>Tor Circuit: $tor_circuit_established_word
 <br></br>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
 
@@ -426,7 +426,7 @@ working on your host. If you cannot get the Tor Browser Bundle to work, you will
 you will need them for Whonix as well.</p>
 
 <p>2)
-<br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
+<br></br>Try again: $start_menu_instructions_system_first_part systemcheck
 <br></br>or in Terminal: <code>systemcheck</code>
 <br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
@@ -437,7 +437,7 @@ or in Terminal: <code>nyx</code></p>
 $anondate_debugging_information"
    elif [ "$VM" = "Whonix-Workstation" ]; then
       local MSG="<p>Tor Connection Result:
-<br></br>Whonixcheck gave up waiting.
+<br></br>systemcheck gave up waiting.
 <br></br>Tor Circuit: <code>$tor_circuit_established_word</code></p>
 
 <p>Possible issues:
@@ -449,7 +449,7 @@ $anondate_debugging_information"
 <p>Recommendations:</p>
 
 <p>1)
-<br></br>Try again: $start_menu_instructions_system_first_part Whonix Check
+<br></br>Try again: $start_menu_instructions_system_first_part systemcheck
 <br></br>           or in Terminal: <code>systemcheck</code>
 <br></br>           or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
@@ -497,7 +497,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 
    if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
       local MSG="<p>Time Synchronization Result:
-<br></br><b>Whonixcheck gave up waiting.</b>
+<br></br><b>systemcheck gave up waiting.</b>
 <br></br>
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
@@ -511,7 +511,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 </p>"
    else
       local MSG="<p>Time Synchronization Result:
-<br></br><b>Whonixcheck gave up waiting.</b>
+<br></br><b>systemcheck gave up waiting.</b>
 <br></br>
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
@@ -524,7 +524,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br>Recommendations:
 <br></br>
 <br></br><b>A)</b> <u>Rerun systemcheck</u>:
-<blockquote>$start_menu_instructions_system_first_part Whonix Check</blockquote>
+<blockquote>$start_menu_instructions_system_first_part systemcheck</blockquote>
 or in Terminal: <code>systemcheck</code>
 <br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code>
 <br></br>

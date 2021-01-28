@@ -61,7 +61,7 @@ which are important for security.
 See /etc/systemcheck.d/30_default.conf
 
 ## WWW
-https://www.whonix.org/wiki/Whonixcheck
+https://www.whonix.org/wiki/systemcheck
 
 ## AUTHOR
 This man page has been written by Patrick Schleizer (adrelanos@riseup.net).

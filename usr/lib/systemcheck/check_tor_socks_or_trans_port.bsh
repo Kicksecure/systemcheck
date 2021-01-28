@@ -268,7 +268,7 @@ check_tor_socks_or_trans_port() {
 <br></br><b>Looks like you are not connected through Tor!</b>
 <br></br>$ip_show_maybe_text</p>
 
-<p>Whonixcheck aborted!</p>
+<p>systemcheck aborted!</p>
 
 <p>Possible reasons:
 <br></br>- There could be something wrong.
