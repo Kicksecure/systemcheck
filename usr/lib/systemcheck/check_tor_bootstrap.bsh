@@ -472,20 +472,30 @@ $anondate_debugging_information"
 
 check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
    local sdwdate_wait
+
+   if [ ! "$tor_circuit_established" = "1" ]; then
+      ## Keep check_tor_bootstrap loop running. Go to next function in loop.
+      return 0
+   fi
+
    if [ "$time_synchronization_status_word" = "fail" ]; then
       true
       sdwdate_wait=""
+      ## No need to wait if time_synchronization_status_word is already set to 'fail'.
    else
+      ## Wait maybe.
       if [ "$systemcheck_tor_bootstrap_waited_seconds" -ge "$systemcheck_tor_bootstrap_wait_max" ]; then
+         ## Waited long enough. Go on with this function.
          true
          sdwdate_wait="- sdwdate will need a few more moments for fetching the time."
       else
+         ## Did not wait long enough yet.
          ## Keep check_tor_bootstrap loop running. Go to next function in loop.
          return 0
       fi
    fi
 
-   if [ "$tor_circuit_established" = "1" ] && [ "$time_synchronization_status_word" = "pending" ]; then
+   if [ "$time_synchronization_status_word" = "pending" ] || [ "$time_synchronization_status_word" = "fail" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
