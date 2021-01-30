@@ -77,11 +77,8 @@ census_preparation() {
       census_api_link="${census_base_api_link}/census_unknown"
    fi
 
-   ## TODO
    ## Testing.
-   census_api_link="${census_base_api_link}/apitest"
-
-   ## Test
+   #census_api_link="${census_base_api_link}/apitest"
    #census_api_link="https://www.whonix.org"
 
    ## sets: GATEWAY_IP
