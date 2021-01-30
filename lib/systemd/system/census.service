@@ -22,16 +22,6 @@ Type=notify
 User=census
 Group=census
 
-## TODO: Consider running under sandbox-app-launcher.
-## sudo sandbox-app-launcher run census
-## xsettingsd: Loaded 17 settings from /home/sandbox-app-launcher-appdata/census/.xsettingsd
-## xsettingsd: Created window 0xa00001 on screen 0 with timestamp 20763163
-## xsettingsd: Selection _XSETTINGS_S0 is owned by 0x0
-## xsettingsd: Took ownership of selection _XSETTINGS_S0
-#User=sal-census
-#Group=sal-census
-#ExecStartPre=+sandbox-app-launcher setup census
-
 ExecStart=/usr/lib/systemcheck/census-daemon
 SuccessExitStatus=143
 TimeoutSec=30

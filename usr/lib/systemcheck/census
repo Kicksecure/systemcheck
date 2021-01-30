@@ -171,8 +171,6 @@ census_count_or_not() {
       exit 0
    fi
 
-   ## XXX: not compatible with sandbox-app-launcher
-   ## https://forums.whonix.org/t/system-wide-sandboxing-framework-sandbox-app-launcher/9008/317
    if command -v qubesdb-read &>/dev/null ; then
       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
    fi
