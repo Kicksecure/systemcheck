@@ -256,8 +256,8 @@ preparation() {
       VM="Whonix-Workstation"
       vm_lower_case_short="workstation"
    else
-      VM="systemcheck script could not determine if this is whonix_gateway or whonix_workstation. Please report this bug."
-      vm_lower_case_short="error"
+      VM="machine"
+      vm_lower_case_short="machine"
    fi
 
    eval $(/usr/lib/helper-scripts/settings_echo)
