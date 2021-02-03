@@ -15,7 +15,7 @@ check_setup_dist_done_do() {
 
    skip_file_list="
       /var/cache/setup-dist/status-files/setup-dist.done
-      /var/cache/setup-dist/status-files/setup-dist.skip
+      /usr/share/setup-dist/status-files/setup-dist.skip
       /var/cache/whonix-setup-wizard/status-files/whonixsetup.done
       /usr/share/whonix-setup-wizard/status-files/whonixsetup.skip
       /var/lib/whonix/do_once/whonixsetup.done
