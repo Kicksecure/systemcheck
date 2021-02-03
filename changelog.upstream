@@ -1,3 +1,41 @@
+commit 2a6dd84a3225f7aa2ced2f07c84ac1d7912a6f80
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 3 08:53:03 2021 -0500
+
+    systemcheck_unwanted_package+=" python3-pip "
+    
+    https://forums.whonix.org/t/more-unwanted-packages/2155/20
+
+commit 80d8f9244d0af51148591fa5d89447ffcce14b50
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 3 08:37:44 2021 -0500
+
+    update path
+
+commit 35d9f2f7ebd93b5e70041a5528edd0615309105a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 3 07:43:34 2021 -0500
+
+    Kicksecure
+
+commit 9dc2b7dc02f82c46444f22712bc71cfd7c6ed1a1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 3 07:36:48 2021 -0500
+
+    comment
+
+commit 92ea89d90c9884a0bec63e8b31149ccd942fc8ea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 3 07:36:28 2021 -0500
+
+    whonixsetup -> setup-dist
+
+commit 5a7ca689fbae8c9170445a8ee1b3197982bd2ca5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 30 01:56:27 2021 -0500
+
+    bumped changelog version
+
 commit 79d60639fd6f01d364781e27b3605bb045c616bd
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 30 01:53:29 2021 -0500
