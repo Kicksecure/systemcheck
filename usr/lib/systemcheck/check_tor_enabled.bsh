@@ -28,7 +28,7 @@ check_tor_enabled() {
 (Debugging information: Could not find <code>DisableNetwork 0</code> in Tor config.)<br /><br />
 Please close this window and enable Tor using Anon Connection Wizard!
 <blockquote>    $start_menu_instructions_system_first_part Anon Connection Wizard</blockquote>
-    or in Terminal: <code>sudo whonixsetup</code><br /><br />
+    or in Terminal: <code>sudo setup-dist</code><br /><br />
 or manually (If you know about the public Tor network!) and open <code>/usr/local/etc/torrc.d/50_user.conf</code> with root rights
 ($start_menu_instructions_system_first_part Tor User Config) and set:
 <blockquote><code>DisableNetwork 0</code></blockquote>
@@ -36,7 +36,7 @@ Then run <code>systemcheck</code> again.</p>"
 
       ## Exit silently when systemcheck has not been manually started by the
       ## user to prevent showing a popup by systemcheck at first boot.
-      ## (Because by default whonixsetup will be started.)
+      ## (Because by default setup-dist will be started.)
 
       if [ "$manualrun" = "1" ]; then
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
