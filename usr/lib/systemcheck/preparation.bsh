@@ -262,7 +262,7 @@ preparation() {
 
    eval $(/usr/lib/helper-scripts/settings_echo)
 
-   if [ -f "/etc/apt/sources.list.d/whonix.list" ]; then
+   if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
       ## Fallback
       whonix_codename="unknown"
 
@@ -274,7 +274,7 @@ preparation() {
             whonix_codename="$third"
             break
          fi
-      done < "/etc/apt/sources.list.d/whonix.list"
+      done < "/etc/apt/sources.list.d/derivative.list"
 
    else
       whonix_codename="No"
