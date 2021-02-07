@@ -26,7 +26,7 @@ You will still be notified when updated $PROJECT_NAME packages are released by
 systemcheck's $PROJECT_NAME News. You are free to manually update from source code.
 If you want to change this, use:</p>"
 
-   if [ -f "/etc/apt/sources.list.d/${PROJECT_NAME_LOWERCASE}.list" ]; then
+   if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
       local MSG="$temp_base_msg_enabled
     $temp_x_tool"
       if [ "$silent" -ge "3" ]; then
@@ -40,7 +40,7 @@ If you want to change this, use:</p>"
 
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-   if [ -f "/etc/apt/sources.list.d/${PROJECT_NAME_LOWERCASE}.list" ]; then
+   if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
       local MSG="$temp_base_msg_enabled
     $temp_cli_tool"
    else
