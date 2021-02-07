@@ -45,7 +45,7 @@ non-qubes-whonix-workstation-cli"
    fi
 
    for meta_package_wanted_item in $meta_package_wanted_list ; do
-      if dpkg-query --show "$meta_package_wanted_item" &> /dev/null ; then
+      if dpkg --status "$meta_package_wanted_item" &> /dev/null ; then
          meta_package_installed="$meta_package_wanted_item"
          local MSG="<p>$PROJECT_NAME Meta Packages Test Result: Meta package <code>$meta_package_installed</code> installed, ok.</p>"
          if [ "$verbose" -ge "1" ]; then
