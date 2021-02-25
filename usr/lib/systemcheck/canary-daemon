@@ -10,7 +10,6 @@ while true; do
    systemd-notify --pid="$$" WATCHDOG=1
 
    /usr/lib/systemcheck/canary
-   #sandbox-app-launcher run canary
 
    systemd-notify --pid="$$" WATCHDOG=1
    echo "$0: INFO: end."

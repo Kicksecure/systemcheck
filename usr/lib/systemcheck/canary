@@ -36,8 +36,8 @@ disable_new() {
 }
 
 canary_preparation() {
-   if [ ! "$(whoami)" = "sal-canary" ] && [ ! "$(whoami)" = "canary" ]; then
-      echo "ERROR: Exiting. Must be run under user sal-canary or canary."
+   if [ ! "$(whoami)" = "canary" ]; then
+      echo "ERROR: Exiting. Must be run under user 'canary'."
       exit 1
    fi
 
