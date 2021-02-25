@@ -2,7 +2,7 @@
 ## See the file COPYING for copying conditions.
 
 [Unit]
-Description=census
+Description=canary
 Documentation=https://www.whonix.org/wiki/Census
 
 ConditionPathExists=!/run/qubes/this-is-templatevm
@@ -19,14 +19,14 @@ After=whonix-firewall.service
 [Service]
 Type=notify
 
-User=census
-Group=census
+User=canary
+Group=canary
 
-ExecStart=/usr/lib/systemcheck/census-daemon
+ExecStart=/usr/lib/systemcheck/canary-daemon
 SuccessExitStatus=143
 TimeoutSec=30
-## /usr/lib/systemcheck/census-daemon uses `sleep 3600`
-## /usr/lib/systemcheck/census uses `curl` with `--max-time 180`
+## /usr/lib/systemcheck/canary-daemon uses `sleep 3600`
+## /usr/lib/systemcheck/canary uses `curl` with `--max-time 180`
 WatchdogSec=4000
 NotifyAccess=all
 Restart=always
@@ -35,7 +35,7 @@ Restart=always
 ## https://forums.whonix.org/t/apply-systemd-sandboxing-by-default-to-some-services/7590/31
 ProtectSystem=full
 ProtectHome=true
-ReadWritePaths=/var/lib/census
+ReadWritePaths=/var/lib/canary
 ProtectKernelTunables=true
 ProtectKernelModules=true
 ProtectControlGroups=true

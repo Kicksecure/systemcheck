@@ -29,15 +29,15 @@ legacy_disable() {
 }
 
 disable_new() {
-   if grep -r -q 'census=false' $config_folders 2>/dev/null ; then
+   if grep -r -q 'canary=false' $config_folders 2>/dev/null ; then
       echo "INFO: Disabled in settings. Doing nothing. Exiting."
       exit 0
    fi
 }
 
-census_preparation() {
-   if [ ! "$(whoami)" = "sal-census" ] && [ ! "$(whoami)" = "census" ]; then
-      echo "ERROR: Exiting. Must be run under user sal-census or census."
+canary_preparation() {
+   if [ ! "$(whoami)" = "sal-canary" ] && [ ! "$(whoami)" = "canary" ]; then
+      echo "ERROR: Exiting. Must be run under user sal-canary or canary."
       exit 1
    fi
 
@@ -65,21 +65,21 @@ census_preparation() {
    ## Dedicated onion different from homepage.
    if test -f /usr/share/whonix/marker ; then
       true "INFO: Whonix detected."
-      census_base_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
+      canary_base_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
    else
       true "INFO: Kicksecure detected."
-      census_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
+      canary_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
    fi
 
    if [ "$known_virtualizer" = "yes" ] ; then
-      census_api_link="${census_base_api_link}/census_${virtualizer}"
+      canary_api_link="${canary_base_api_link}/canary_${virtualizer}"
    else
-      census_api_link="${census_base_api_link}/census_unknown"
+      canary_api_link="${canary_base_api_link}/canary_unknown"
    fi
 
    ## Testing.
-   #census_api_link="${census_base_api_link}/apitest"
-   #census_api_link="https://www.whonix.org"
+   #canary_api_link="${canary_base_api_link}/apitest"
+   #canary_api_link="https://www.whonix.org"
 
    ## sets: GATEWAY_IP
    eval $(/usr/lib/helper-scripts/settings_echo)
@@ -96,7 +96,7 @@ census_preparation() {
 
    ## Debugging.
    #ls -la ~/
-   touch ~/census_last_done
+   touch ~/canary_last_done
 }
 
 check_circuit_established() {
@@ -115,13 +115,13 @@ check_circuit_established() {
    done
 }
 
-check_census_lastrun() {
+check_canary_lastrun() {
    ## One hour has 3600 seconds.
    ## A day has 86400 seconds.
    local MAX="86400"
 
-   if [ -f ~/census_last_done ]; then
-      LASTRUN="$(cat ~/census_last_done)" || true
+   if [ -f ~/canary_last_done ]; then
+      LASTRUN="$(cat ~/canary_last_done)" || true
    fi
 
    if [ "$LASTRUN" = "" ]; then
@@ -133,7 +133,7 @@ check_census_lastrun() {
    else
       echo "ERROR: $FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
       ## Not strictly numeric.
-      ## the census_completed function does almost the same
+      ## the canary_completed function does almost the same
       LASTRUN="$MAX"
    fi
 
@@ -159,13 +159,13 @@ check_census_lastrun() {
    echo "INFO: Attempting to count-in..."
 }
 
-census_completed() {
+canary_completed() {
    local LASTRUN
    LASTRUN="$(date --utc +%s)"
-   echo "$LASTRUN" | tee ~/census_last_done > /dev/null
+   echo "$LASTRUN" | tee ~/canary_last_done > /dev/null
 }
 
-census_count_or_not() {
+canary_count_or_not() {
    if test -f /run/qubes/this-is-templatevm ; then
       echo "INFO: Skip in Qubes TemplateVM"
       exit 0
@@ -187,9 +187,9 @@ census_count_or_not() {
    fi
 }
 
-census_do() {
-   #rm -f ~/census_result
-   #--output ~/census_result
+canary_do() {
+   #rm -f ~/canary_result
+   #--output ~/canary_result
 
    if test -f /usr/share/anon-gw-base-files/gateway ; then
       data="gateway-sign-in"
@@ -212,7 +212,7 @@ census_do() {
       --output /dev/null \
       --request PUT \
       --data "$data" \
-      "$census_api_link" \
+      "$canary_api_link" \
       || { curl_exit_code="$?" ; true; };
 
    if [ ! "$curl_exit_code" = "0" ]; then
@@ -225,13 +225,13 @@ census_do() {
 
    echo "INFO: Success."
 
-   census_completed
+   canary_completed
 }
 
 legacy_disable
 disable_new
-census_preparation
+canary_preparation
 check_circuit_established
-census_count_or_not
-check_census_lastrun
-census_do
+canary_count_or_not
+check_canary_lastrun
+canary_do

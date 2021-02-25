@@ -3,7 +3,7 @@
 
 #include <tunables/global>
 
-/usr/lib/systemcheck/census flags=(attach_disconnected) {
+/usr/lib/systemcheck/canary flags=(attach_disconnected) {
 	#include <abstractions/base>
 	#include <abstractions/bash>
 	#include <abstractions/tor-circuit-established-check>
@@ -42,8 +42,8 @@
 	/etc/host.conf r,
 	/etc/resolv.conf r,
 	/usr/lib/helper-scripts/settings_echo r,
-	/var/lib/census/ rw,
-	/var/lib/census/** rw,
+	/var/lib/canary/ rw,
+	/var/lib/canary/** rw,
 	/usr/lib/helper-scripts/settings_echo rix,
 
 	/etc/systemcheck.d/ r,
@@ -83,5 +83,5 @@
 	owner /var/tmp/** mrw,
 
 	# Site-specific additions and overrides. See local/README for details.
-	#include <local/usr.lib.systemcheck.census>
+	#include <local/usr.lib.systemcheck.canary>
 }

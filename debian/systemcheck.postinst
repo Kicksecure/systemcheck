@@ -22,9 +22,9 @@ case "$1" in
       ## Compatibility with anon-ws-disable-stacked-tor.
       addgroup debian-tor 2>/dev/null || true
 
-      adduser --home /var/lib/census --no-create-home --quiet --system --group census || true
+      adduser --home /var/lib/canary --no-create-home --quiet --system --group canary || true
       ## Allow running tor-circuit-established-check.
-      addgroup census debian-tor
+      addgroup canary debian-tor
 
       adduser --home /var/lib/systemcheck --no-create-home --quiet --system --group systemcheck || true
 
