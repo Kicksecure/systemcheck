@@ -85,14 +85,14 @@ canary_preparation() {
    eval $(/usr/lib/helper-scripts/settings_echo)
 
    if test -e /usr/share/anon-gw-base-files/gateway || test -f /usr/share/anon-ws-base-files/workstation ; then
-      [ -n "$SOCKS_PORT_CENSUS" ] || SOCKS_PORT_CENSUS="9114"
+      [ -n "$SOCKS_PORT_CANARY" ] || SOCKS_PORT_CANARY="9114"
    else
-      [ -n "$SOCKS_PORT_CENSUS" ] || SOCKS_PORT_CENSUS="9050"
+      [ -n "$SOCKS_PORT_CANARY" ] || SOCKS_PORT_CANARY="9050"
    fi
 
    socks_user_name="$(cat /proc/sys/kernel/random/uuid)"
 
-   [ -n "$CURL_PROXY_CENSUS" ] || CURL_PROXY_CENSUS="--proxy socks5h://${socks_user_name}:password@$GATEWAY_IP:$SOCKS_PORT_CENSUS"
+   [ -n "$CURL_PROXY_CANARY" ] || CURL_PROXY_CANARY="--proxy socks5h://${socks_user_name}:password@$GATEWAY_IP:$SOCKS_PORT_CANARY"
 
    ## Debugging.
    #ls -la ~/
@@ -202,7 +202,7 @@ canary_do() {
    $CURL \
       --silent \
       --fail \
-      $CURL_PROXY_CENSUS \
+      $CURL_PROXY_CANARY \
       --location \
       --retry-connrefused \
       --retry 3 \
