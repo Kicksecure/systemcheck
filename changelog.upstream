@@ -1,3 +1,33 @@
+commit 1fbcf28a433c28e2ff671fc781365eb4e7427d2e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 25 13:40:27 2021 -0500
+
+    cleanup
+
+commit 024b2d63d2933d45c33fd342d377b79967e94841
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 25 13:37:41 2021 -0500
+
+    census -> canary
+
+commit e1e5ba2f746e85f947f90d5b1214b2091dc245b5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 25 13:37:07 2021 -0500
+
+    census -> canary
+
+commit b3f90fb68bb4799fd5909f3d8cf0b94ec5105479
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 25 13:33:20 2021 -0500
+
+    census -> canary
+
+commit 5f73b22ddb20e0c03f7c03bdfbe11e976f270886
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 7 14:53:06 2021 -0500
+
+    bumped changelog version
+
 commit 074c61e988da6ae57fcc86adb6259d083548ec66
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Feb 7 14:51:47 2021 -0500
