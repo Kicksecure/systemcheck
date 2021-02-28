@@ -61,6 +61,9 @@ canary_preparation() {
       virtualizer=qubes
       known_virtualizer=yes
    fi
+   if [ ! "$known_virtualizer" = "yes" ]; then
+      virtualizer=unknown
+   fi
 
    ## Dedicated onion different from homepage.
    if test -f /usr/share/whonix/marker ; then
@@ -71,15 +74,12 @@ canary_preparation() {
       canary_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
    fi
 
-   if [ "$known_virtualizer" = "yes" ] ; then
-      canary_api_link="${canary_base_api_link}/canary_${virtualizer}"
-   else
-      canary_api_link="${canary_base_api_link}/canary_unknown"
-   fi
-
    ## Testing.
-   #canary_api_link="${canary_base_api_link}/apitest"
+   ## TODO
+   virtualizer=apitest
    #canary_api_link="https://www.whonix.org"
+
+   canary_api_link="${canary_base_api_link}/canary?virtualizer=${virtualizer}"
 
    ## sets: GATEWAY_IP
    eval $(/usr/lib/helper-scripts/settings_echo)
@@ -156,7 +156,7 @@ check_canary_lastrun() {
       exit 0
    fi
 
-   echo "INFO: Attempting to count-in..."
+   echo "INFO: Attempting to download..."
 }
 
 canary_completed() {
@@ -188,14 +188,7 @@ canary_count_or_not() {
 }
 
 canary_do() {
-   #rm -f ~/canary_result
-   #--output ~/canary_result
-
-   if test -f /usr/share/anon-gw-base-files/gateway ; then
-      data="gateway-sign-in"
-   else
-      data="kicksecure-sign-in"
-   fi
+   rm -f ~/canary.txt.embed.sig
 
    curl_exit_code="0"
 
@@ -209,19 +202,21 @@ canary_do() {
       --retry-delay 3 \
       --retry-max-time 120 \
       --max-time 180 \
-      --output /dev/null \
-      --request PUT \
-      --data "$data" \
+      $curl_extra_args \
+      --output ~/canary.txt.embed.sig \
       "$canary_api_link" \
       || { curl_exit_code="$?" ; true; };
 
    if [ ! "$curl_exit_code" = "0" ]; then
       echo "ERROR: Failure."
+      rm -f ~/canary.txt.embed.sig
       local curl_status_message
       curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
       echo "curl exit code: $curl_status_message"
       exit 0
    fi
+
+   test -f ~/canary.txt.embed.sig
 
    echo "INFO: Success."
 
