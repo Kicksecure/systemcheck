@@ -7,7 +7,7 @@ check_warrant_canary() {
     export LC_TIME="C"
     export TZ="UTC"
 
-    canary_recommendation="\
+    local canary_recommendation="\
 See folder <code>/var/lib/canary/</code>.
 <br />
 * <code>/var/lib/canary/canary-download-output.txt</code>
@@ -15,7 +15,7 @@ See folder <code>/var/lib/canary/</code>.
 <br />
 Check system clock. Recommended to check warrant canary manually."
 
-    warrant_canary_check_link="\
+    local warrant_canary_check_link="\
 <a href=https://www.whonix.org/wiki/Whonixcheck#Warrant_Canary_Check>Warrant Canary Check</a>"
 
     if ! sudo --non-interactive /bin/systemctl --no-pager --no-block status canary &>/dev/null ; then
@@ -40,6 +40,7 @@ $canary_recommendation</p>"
         return 0
     fi
 
+   local canary_unixtime_raw
    if ! canary_unixtime_raw="$(timeout --kill-after="5" "5" cat "/var/lib/canary/canary-unixtime.txt")" ; then
       local MSG="\
 <p>$warrant_canary_check_link: timeout reading file <code>/var/lib/canary/canary-unixtime.txt</code>.
@@ -51,12 +52,12 @@ $canary_recommendation</p>"
       fi
    fi
 
-   max_string_length=10
+   local max_string_length=10
    ## sets:
    ## actual_string_length
    ## sanitize_variable_output
    sanitize_variable "$canary_unixtime_raw"
-   canary_unixtime_sanetized="$sanitize_variable_output"
+   local canary_unixtime_sanetized="$sanitize_variable_output"
 
    if [ ! "$actual_string_length" = "$max_string_length" ]; then
       local MSG="<p><b>$warrant_canary_check_link: Unexpected string length of canary_unixtime_raw variable</b> (expected: <code>$actual_string_length</code> max: <code>$max_string_length</code>).
@@ -82,6 +83,9 @@ $canary_recommendation</p>"
       fi
       return 0
    fi
+
+   local canary_human_readable_time current_unixtime current_human_readable_time
+   local maximum_age canary_expiration_unixtime canary_expiration_human_readable
 
    canary_human_readable_time="$(date --utc --date "@${canary_unixtime_sanetized}")"
 
