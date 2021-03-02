@@ -360,6 +360,8 @@
 	/var/lib/dist-base-files/build_version r,
 	/var/lib/dpkg/lock r,
 
+	/var/lib/canary/canary-unixtime.txt r,
+
 	/run/tor/log r,
 	/run/tor/tor.pid r,
 	/run/log/journal/ r,

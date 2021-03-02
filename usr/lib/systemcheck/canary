@@ -3,7 +3,7 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-#set -x
+set -x
 set -e
 
 source /usr/lib/systemcheck/uwt_tool.bsh
@@ -81,8 +81,8 @@ canary_preparation() {
    canary_api_link="${canary_base_api_link}/canary?virtualizer=${virtualizer}"
 
    ## Debugging.
-   #ls -la ~/
-   touch ~/canary_last_done
+   #ls -la /var/lib/canary/
+   touch /var/lib/canary/canary_last_done
 }
 
 check_circuit_established() {
@@ -106,8 +106,8 @@ check_canary_lastrun() {
    ## A day has 86400 seconds.
    local MAX="86400"
 
-   if [ -f ~/canary_last_done ]; then
-      LASTRUN="$(cat ~/canary_last_done)" || true
+   if [ -f /var/lib/canary/canary_last_done ]; then
+      LASTRUN="$(cat /var/lib/canary/canary_last_done)" || true
    fi
 
    if [ "$LASTRUN" = "" ]; then
@@ -148,7 +148,7 @@ check_canary_lastrun() {
 canary_completed() {
    local LASTRUN
    LASTRUN="$(date --utc +%s)"
-   echo "$LASTRUN" | tee ~/canary_last_done > /dev/null
+   echo "$LASTRUN" | tee /var/lib/canary/canary_last_done > /dev/null
 }
 
 canary_count_or_not() {
@@ -185,7 +185,7 @@ canary_do() {
 
    canary_download_exit_code="0"
 
-   timeout --kill-after="2" "5" \
+   timeout --kill-after="5" "180" \
       /usr/lib/systemcheck/canary-download.py \
       "$canary_api_link" \
       &> "/var/lib/canary/canary-download-output.txt" \

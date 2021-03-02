@@ -40,6 +40,9 @@ systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-fir
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --no-legend --failed
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-units
 
+## required for check_warrant_canary
+systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status canary
+
 ## required for check_tor_pid
 systemcheck ALL=NOPASSWD: /usr/lib/systemcheck/check_tor_pid
 

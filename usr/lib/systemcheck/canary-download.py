@@ -15,17 +15,28 @@ import sys
 sys.dont_write_bytecode = True
 
 import os, time, socks, requests
+import signal
 import re
 import shlex
 import subprocess
 from subprocess import Popen, PIPE
 from subprocess import check_output
 
+
 os.environ['LC_TIME'] = 'C'
 os.environ['TZ'] = 'UTC'
 time.tzset()
 
+
+def canary_download_signal_handler(signum, frame):
+    print("canary_download_signal_handler")
+    sys.exit(144)
+
+
 def main():
+    signal.signal(signal.SIGTERM, canary_download_signal_handler)
+    signal.signal(signal.SIGINT, canary_download_signal_handler)
+
     url = sys.argv[1]
 
     socket_ip ="127.0.0.1"

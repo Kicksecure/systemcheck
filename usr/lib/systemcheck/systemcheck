@@ -216,6 +216,10 @@ systemcheck_main() {
    systemcheck_progress_main "15"
 
    ## Does not use the network.
+   systemcheck_run_function check_warrant_canary ## check_warrant_canary.bsh
+   systemcheck_progress_main "1"
+
+   ## Does not use the network.
    systemcheck_run_function donate ## donate
    systemcheck_progress_main "1"
 
