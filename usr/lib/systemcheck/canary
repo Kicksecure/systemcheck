@@ -124,6 +124,8 @@ check_canary_lastrun() {
    fi
 
    ## good until Sat 20 Nov 2286
+   ## output of `date --utc --date @9999999999`:
+   ## Sat 20 Nov 2286 05:46:39 PM UTC
    expected_string_length="10"
    actual_string_length="${#LASTRUN}"
 
