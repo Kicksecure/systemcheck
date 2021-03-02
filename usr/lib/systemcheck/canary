@@ -196,7 +196,7 @@ canary_do() {
 
    if [ ! "$canary_download_exit_code" = "0" ]; then
       echo "ERROR: Failure."
-      echo "See folder: /var/lib/canary"
+      echo "See: https://www.whonix.org/wiki/Whonixcheck#Warrant_Canary_Check"
       exit 0
    fi
 
