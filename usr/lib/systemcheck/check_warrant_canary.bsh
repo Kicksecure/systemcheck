@@ -15,9 +15,12 @@ See folder <code>/var/lib/canary/</code>.
 <br />
 Check system clock. Recommended to check warrant canary manually."
 
+    warrant_canary_check_link="\
+<a href=https://www.whonix.org/wiki/Whonixcheck#Warrant_Canary_Check>Warrant Canary Check</a>"
+
     if ! sudo --non-interactive /bin/systemctl --no-pager --no-block status canary &>/dev/null ; then
         local MSG="\
-<p>Warrant Canary Check: systemd unit <code>canary</code> not running.</p>"
+<p>$warrant_canary_check_link: systemd unit <code>canary</code> not running.</p>"
         if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -27,7 +30,7 @@ Check system clock. Recommended to check warrant canary manually."
 
     if ! test -f "/var/lib/canary/canary-unixtime.txt" ; then
         local MSG="\
-<p>Warrant Canary Check: file <code>/var/lib/canary/canary-unixtime.txt</code> does not exist yet.
+<p>$warrant_canary_check_link: file <code>/var/lib/canary/canary-unixtime.txt</code> does not exist yet.
 <br />
 $canary_recommendation</p>"
         if [ "$verbose" -ge "1" ]; then
@@ -39,7 +42,7 @@ $canary_recommendation</p>"
 
    if ! canary_unixtime_raw="$(timeout --kill-after="5" "5" cat "/var/lib/canary/canary-unixtime.txt")" ; then
       local MSG="\
-<p>Warrant Canary Check: timeout reading file <code>/var/lib/canary/canary-unixtime.txt</code>.
+<p>$warrant_canary_check_link: timeout reading file <code>/var/lib/canary/canary-unixtime.txt</code>.
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -56,7 +59,7 @@ $canary_recommendation</p>"
    canary_unixtime_sanetized="$sanitize_variable_output"
 
    if [ ! "$actual_string_length" = "$max_string_length" ]; then
-      local MSG="<p><b>$1 Test: Unexpected string length of canary_unixtime_raw variable</b> (expected: <code>$actual_string_length</code> max: <code>$max_string_length</code>).
+      local MSG="<p><b>$warrant_canary_check_link: Unexpected string length of canary_unixtime_raw variable</b> (expected: <code>$actual_string_length</code> max: <code>$max_string_length</code>).
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -70,7 +73,7 @@ $canary_recommendation</p>"
       true "$FUNCNAME: canary_unixtime_sanetized is strictly numeric."
    else
       local MSG="\
-<p>Warrant Canary Check: contents of file <code>/var/lib/canary/canary-unixtime.txt</code> are not numeric.
+<p>$warrant_canary_check_link: contents of file <code>/var/lib/canary/canary-unixtime.txt</code> are not numeric.
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -92,7 +95,7 @@ $canary_recommendation</p>"
    canary_expiration_human_readable="$(date --utc --date "@${canary_expiration_unixtime}")"
 
    local MSG="\
-<p>Warrant Canary Check:
+<p>$warrant_canary_check_link:
 current_unixtime                : <code>$current_unixtime</code>
 current_human_readable_time     : <code>$current_human_readable_time</code>
 <br />
@@ -107,7 +110,7 @@ canary_expiration_human_readable: <code>$canary_expiration_human_readable</code>
    fi
 
    if [ "$current_unixtime" -gt "$canary_expiration_unixtime" ]; then
-      local MSG="<p>Warrant Canary Check: Stale.
+      local MSG="<p>$warrant_canary_check_link: Stale.
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -117,7 +120,7 @@ $canary_recommendation</p>"
       return 0
    fi
 
-   local MSG="<p>Warrant Canary Check: Ok.</p>"
+   local MSG="<p>$warrant_canary_check_link: Ok.</p>"
    if [ "$verbose" -ge "1" ]; then
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
