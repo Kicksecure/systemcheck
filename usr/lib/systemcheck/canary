@@ -115,7 +115,7 @@ check_canary_lastrun() {
    fi
 
    if [[ "$LASTRUN" != *[!0-9]* ]]; then
-      true "$FUNCNAME: LASTRUN is strictly numeric."
+      true "INFO: $FUNCNAME: LASTRUN is strictly numeric."
    else
       echo "ERROR: $FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
       ## Not strictly numeric.
