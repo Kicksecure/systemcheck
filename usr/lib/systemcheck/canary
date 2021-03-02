@@ -6,8 +6,6 @@
 #set -x
 set -e
 
-source /usr/lib/systemcheck/uwt_tool.bsh
-
 error_handler() {
    echo "ERROR: BASH_COMMAND: $BASH_COMMAND | exit_code: $?"
    exit 1
