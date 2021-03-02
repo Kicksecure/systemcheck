@@ -6,12 +6,8 @@
 /usr/lib/systemcheck/canary flags=(attach_disconnected) {
 	#include <abstractions/base>
 	#include <abstractions/bash>
+	#include <abstractions/python>
 	#include <abstractions/tor-circuit-established-check>
-	## curl
-	#include <abstractions/openssl>
-
-	## required by curl_exit_codes
-	/ r,
 
 	/{,usr/}bin/whoami rix,
 	/{,usr/}bin/grep rix,
@@ -21,11 +17,10 @@
 	/{,usr/}bin/date rix,
 	/{,usr/}bin/cat rix,
 	/{,usr/}bin/tee rix,
+	/{,usr/}bin/timeout rix,
+	/{,usr/}bin/rm rix,
+	/{,usr/}bin/signify-openbsd rix,
 	/{,usr/}bin/sleep rix,
-
-	## cannot use this syntax since incompatible with alias in file
-	## /etc/apparmor.d/tunables/home.d/anondist
-	/usr/bin/curl rix,
 
 	/etc/group r,
 	/{,usr/}bin/touch rix,
@@ -37,7 +32,6 @@
 	/{,usr/}bin/qubesdb-read rix,
 	/{,usr/}bin/qubesdb-cmd rix,
 
-	/usr/lib/curl-scripts/curl_exit_codes rix,
 	/etc/hosts r,
 	/etc/host.conf r,
 	/etc/resolv.conf r,
@@ -64,6 +58,8 @@
 	#/usr/bin/tor-circuit-established-check rPx,
 	/usr/bin/tor-circuit-established-check rix,
 
+	/usr/lib/systemcheck/canary-download.py rix,
+
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
 	/sys/hypervisor/type r,
@@ -71,6 +67,8 @@
 	/sys/devices/virtual/dmi/id/sys_vendor r,
 	## For systemd-detect-virt in Qubes.
 	/sys/hypervisor/properties/features r,
+
+	/usr/share/repository-dist/derivative-distribution-signify-key.pub r,
 
 	@{PROC} r,
 	@{PROC}/cmdline r,

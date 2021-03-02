@@ -75,24 +75,10 @@ canary_preparation() {
    fi
 
    ## Testing.
-   ## TODO
+   ## TODO: remove
    virtualizer=apitest
-   #canary_api_link="https://www.whonix.org"
 
    canary_api_link="${canary_base_api_link}/canary?virtualizer=${virtualizer}"
-
-   ## sets: GATEWAY_IP
-   eval $(/usr/lib/helper-scripts/settings_echo)
-
-   if test -e /usr/share/anon-gw-base-files/gateway || test -f /usr/share/anon-ws-base-files/workstation ; then
-      [ -n "$SOCKS_PORT_CANARY" ] || SOCKS_PORT_CANARY="9114"
-   else
-      [ -n "$SOCKS_PORT_CANARY" ] || SOCKS_PORT_CANARY="9050"
-   fi
-
-   socks_user_name="$(cat /proc/sys/kernel/random/uuid)"
-
-   [ -n "$CURL_PROXY_CANARY" ] || CURL_PROXY_CANARY="--proxy socks5h://${socks_user_name}:password@$GATEWAY_IP:$SOCKS_PORT_CANARY"
 
    ## Debugging.
    #ls -la ~/
@@ -187,36 +173,29 @@ canary_count_or_not() {
    fi
 }
 
+canary_files_delete() {
+   rm -f "/var/lib/canary/canary.txt.embed.sig"
+   rm -f "/var/lib/canary/canary-unembed.txt"
+   rm -f "/var/lib/canary/canary-unixtime.txt"
+   rm -f "/var/lib/canary/canary-download-output.txt"
+}
+
 canary_do() {
-   rm -f ~/canary.txt.embed.sig
+   canary_files_delete
 
-   curl_exit_code="0"
+   canary_download_exit_code="0"
 
-   $CURL \
-      --silent \
-      --fail \
-      $CURL_PROXY_CANARY \
-      --location \
-      --retry-connrefused \
-      --retry 3 \
-      --retry-delay 3 \
-      --retry-max-time 120 \
-      --max-time 180 \
-      $curl_extra_args \
-      --output ~/canary.txt.embed.sig \
+   timeout --kill-after="2" "5" \
+      /usr/lib/systemcheck/canary-download.py \
       "$canary_api_link" \
-      || { curl_exit_code="$?" ; true; };
+      &> "/var/lib/canary/canary-download-output.txt" \
+      || { canary_download_exit_code="$?" ; true; };
 
-   if [ ! "$curl_exit_code" = "0" ]; then
+   if [ ! "$canary_download_exit_code" = "0" ]; then
       echo "ERROR: Failure."
-      rm -f ~/canary.txt.embed.sig
-      local curl_status_message
-      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
-      echo "curl exit code: $curl_status_message"
+      echo "See folder: /var/lib/canary"
       exit 0
    fi
-
-   test -f ~/canary.txt.embed.sig
 
    echo "INFO: Success."
 

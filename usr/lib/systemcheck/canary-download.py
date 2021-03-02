@@ -1,0 +1,175 @@
+#!/usr/bin/python3 -u
+
+# Copyright (C) 2015 troubadour <trobador@riseup.net>
+# Copyright (C) 2015 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+# See the file COPYING for copying conditions.
+
+# !/bin/bash
+# Test.
+# timeout --kill-after 1 1 cat /dev/random
+# timeout --kill-after 1 1 cat /dev/random >&2
+# echo abcdefghij
+# exit 0
+
+import sys
+sys.dont_write_bytecode = True
+
+import os, time, socks, requests
+import re
+import shlex
+import subprocess
+from subprocess import Popen, PIPE
+from subprocess import check_output
+
+os.environ['LC_TIME'] = 'C'
+os.environ['TZ'] = 'UTC'
+time.tzset()
+
+def main():
+    url = sys.argv[1]
+
+    socket_ip ="127.0.0.1"
+
+    settings_path = '/usr/lib/helper-scripts/settings_echo'
+    if (os.path.exists('/usr/share/whonix') and
+            os.access(settings_path, os.X_OK)):
+        proxy_settings = check_output(settings_path)
+        socket_ip = re.search(
+            b'GATEWAY_IP="(.*)"',
+            proxy_settings).group(1).decode()
+
+    socket_port="9050"
+    if os.path.exists("/usr/share/anon-gw-base-files/gateway"):
+        socket_port="9114"
+    if os.path.exists("/usr/share/anon-ws-base-files/workstation"):
+        socket_port="9114"
+
+    proxy = 'socks5h://' + socket_ip + ':' + socket_port
+
+    proxies = {
+       'http': proxy,
+       'https': proxy
+    }
+
+    print("url: " + url)
+    print("proxy: " + proxy)
+
+    try:
+        data = requests.get(url, proxies=proxies)
+        #username = ""
+        #password = ""
+        #data = requests.get(url, proxies=proxies, auth=(username, password))
+
+    except Exception as e:
+        print('connect error: {}'.format(e) , file=sys.stderr)
+        sys.exit(5)
+
+    data_content_length = len(data.content)
+    ## example data_content_length:
+    ## 3515
+    print("data_content_length: " + str(data_content_length))
+    if data_content_length > 10000:
+        msg = "data_content_length too large: " + str(data_content_length)
+        print(msg, file=sys.stderr)
+        sys.exit(9)
+
+    # header = data.headers
+    # print("header:")
+    # print(str(header))
+
+    body = data.content
+    body = body.decode("UTF-8")
+
+    canary_txt_embed_sig = "/var/lib/canary/canary.txt.embed.sig"
+    canary_unembed = "/var/lib/canary/canary-unembed.txt"
+    canary_unixtime = "/var/lib/canary/canary-unixtime.txt"
+    signify_openbsd_public_key = "/usr/share/repository-dist/derivative-distribution-signify-key.pub"
+    timeout_seconds = 5
+
+    file_object = open(canary_txt_embed_sig, "w")
+    file_object.write(body)
+    file_object.close()
+
+    if not data.status_code == 200:
+        msg = "invalid data.status_code: " + str(data.status_code)
+        print(msg, file=sys.stderr)
+        sys.exit(10)
+
+    if not re.search('proof of freshness', body, re.IGNORECASE):
+        msg = "/var/lib/canary/canary.txt.embed.sig does not contain 'proof of freshness'"
+        print(msg, file=sys.stderr)
+        sys.exit(11)
+
+    signify_openbsd_cmd = "signify-openbsd -V -e -p " + signify_openbsd_public_key + " -x " + canary_txt_embed_sig + " -m " + canary_unembed
+    print(signify_openbsd_cmd)
+
+    # Avoid Popen shell=True.
+    signify_openbsd_cmd = shlex.split(signify_openbsd_cmd)
+
+    process = subprocess.Popen(
+        signify_openbsd_cmd,
+        stdout=PIPE,
+        stderr=PIPE
+    )
+
+    try:
+        process.wait(timeout_seconds)
+    except subprocess.TimeoutExpired:
+        msg = "canary signify-openbsd verification timeout."
+        print(msg, file=sys.stderr)
+        process.kill()
+        sys.exit(6)
+    except BaseException:
+        error_message = str(sys.exc_info()[0])
+        msg = "canary signify-openbsd unknown error. sys.exc_info: " + error_message
+        print(msg, file=sys.stderr)
+        process.kill()
+        sys.exit(7)
+
+    stdout, stderr = process.communicate(timeout=2)
+    stdout = stdout.decode("UTF-8").strip()
+    stderr = stderr.decode("UTF-8").strip()
+    print("stdout:", str(stdout), file=sys.stderr)
+    print("stderr:", str(stderr), file=sys.stderr)
+
+    if process.returncode == 0:
+        msg = "signify-openbsd verification success."
+    else:
+        msg = "Could not verify canary using signify-openbsd."
+        print(msg, file=sys.stderr)
+        sys.exit(8)
+
+    file_object = open(canary_unembed, "w")
+    file_object.write(body)
+    file_object.close()
+
+    with open(canary_unembed, 'r') as f:
+        last_line = f.readlines()[-1]
+
+    unixtime_maybe = last_line
+    ## Remove new line at the end.
+    unixtime_maybe = unixtime_maybe.strip()
+
+    unixtime_string_length_is = len(unixtime_maybe)
+    unixtime_string_length_max = 10
+
+    if not unixtime_string_length_is == unixtime_string_length_max:
+        print("invalid string length: " + str(unixtime_string_length_is))
+        sys.exit(2)
+
+    try:
+        unixtime_digit = int(unixtime_maybe)
+    except ValueError as e:
+        print('unixtime_digit conversion failed!', file=sys.stderr)
+        sys.exit(3)
+
+    unixtime_str = str(unixtime_digit)
+    print("unixtime: " + unixtime_str)
+
+    file_object = open(canary_unixtime, "w")
+    file_object.write(unixtime_str)
+    file_object.close()
+
+
+if __name__ == "__main__":
+    main()

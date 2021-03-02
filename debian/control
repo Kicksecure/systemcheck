@@ -13,7 +13,7 @@ Standards-Version: 4.3.0
 
 Package: systemcheck
 Architecture: all
-Depends: dist-base-files, curl,
+Depends: dist-base-files, python3, signify-openbsd,
  ca-certificates, msgcollector, psmisc, sudo, vrms,
  bsdtar, helper-scripts, net-tools, systemd, adduser,
  security-misc, spectre-meltdown-checker,
