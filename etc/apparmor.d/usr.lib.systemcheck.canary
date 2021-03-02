@@ -42,12 +42,12 @@
 
 	/etc/systemcheck.d/ r,
 	/etc/systemcheck.d/** r,
-	/usr/local/etc/systemcheck.d& r,
+	/usr/local/etc/systemcheck.d/ r,
 	/usr/local/etc/systemcheck.d/** r,
 	## Legacy.
-	/rw/config/whonix.d& r,
+	/rw/config/whonix.d/ r,
 	/rw/config/whonix.d/** r,
-	/usr/local/etc/whonix.d& r,
+	/usr/local/etc/whonix.d/ r,
 	/usr/local/etc/whonix.d/** r,
 	/etc/whonix.d/ r,
 	/etc/whonix.d/** r,
