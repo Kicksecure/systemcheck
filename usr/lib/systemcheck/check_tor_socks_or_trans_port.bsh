@@ -144,7 +144,6 @@ check_tor_socks_or_trans_port() {
    max_string_length="50"
    ## sets:
    ## actual_string_length
-   ## max_string_length
    ## sanitize_variable_output
    sanitize_variable "$check_tor_out_file_content"
    check_tor_out_file_content="$sanitize_variable_output"
@@ -164,7 +163,6 @@ check_tor_socks_or_trans_port() {
    max_string_length="50"
    ## sets:
    ## actual_string_length
-   ## max_string_length
    ## sanitize_variable_output
    sanitize_variable "$tor_detected"
    tor_detected="$sanitize_variable_output"
@@ -208,7 +206,6 @@ check_tor_socks_or_trans_port() {
 
    ## sets:
    ## actual_string_length
-   ## max_string_length
    ## sanitize_variable_output
    sanitize_variable "$ip"
    ip="$sanitize_variable_output"
