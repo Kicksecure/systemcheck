@@ -15,9 +15,6 @@ check_warrant_canary() {
         return 0
     fi
 
-    export LC_TIME="C"
-    export TZ="UTC"
-
     local canary_recommendation="\
 See folder <code>/var/lib/canary/</code>.
 <br />
@@ -38,6 +35,9 @@ Check system clock. Recommended to check warrant canary manually."
         fi
         return 0
     fi
+
+    export LC_TIME="C"
+    export TZ="UTC"
 
     if ! test -f "/var/lib/canary/canary-unixtime.txt" ; then
         local MSG="\
