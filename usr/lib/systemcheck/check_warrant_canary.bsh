@@ -55,8 +55,8 @@ $canary_recommendation</p>"
    sanitize_variable "$canary_unixtime_raw"
    canary_unixtime_sanetized="$sanitize_variable_output"
 
-   if [ "$actual_string_length" -gt "$max_string_length" ]; then
-      local MSG="<p><b>$1 Test: Excessive string length of canary_unixtime_raw variable</b> (<code>$actual_string_length</code> characters).
+   if [ ! "$actual_string_length" = "$max_string_length" ]; then
+      local MSG="<p><b>$1 Test: Unexpected string length of canary_unixtime_raw variable</b> (expected: <code>$actual_string_length</code> max: <code>$max_string_length</code>).
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then

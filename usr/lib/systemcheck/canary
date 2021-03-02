@@ -123,11 +123,12 @@ check_canary_lastrun() {
       LASTRUN="$MAX"
    fi
 
-   max_string_length="12"
+   ## good until Sat 20 Nov 2286
+   expected_string_length="10"
    actual_string_length="${#LASTRUN}"
 
-   if [ "$actual_string_length" -gt "$max_string_length" ]; then
-      echo "ERROR: $FUNCNAME: excessive string length: $actual_string_length / $max_string_length"
+   if [ ! "$actual_string_length" = "$expected_string_length" ]; then
+      echo "ERROR: $FUNCNAME: invalid string length! actual: $actual_string_length / expected: $expected_string_length"
       exit 1
    fi
 
