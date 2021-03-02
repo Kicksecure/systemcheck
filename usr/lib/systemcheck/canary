@@ -61,8 +61,7 @@ canary_preparation() {
    fi
 
    ## Testing.
-   ## TODO: remove
-   virtualizer=apitest
+   #virtualizer=apitest
 
    canary_api_link="${canary_base_api_link}/canary?virtualizer=${virtualizer}"
 
