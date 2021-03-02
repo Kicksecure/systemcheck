@@ -19,18 +19,18 @@ config_folders="/etc/systemcheck.d /usr/local/etc/systemcheck.d /rw/config/whoni
 
 legacy_disable() {
    if grep -r -q '^whonixcheck_skip_functions+=" download_whonix_news "' $config_folders  2>/dev/null ; then
-      echo "INFO: Legacy disabled in settings. Doing nothing. Exiting."
+      true "INFO: Legacy disabled in settings. Doing nothing. Exiting."
       exit 0
    fi
    if grep -r -q '^systemcheck_skip_functions+=" download_whonix_news "' $config_folders 2>/dev/null ; then
-      echo "INFO: Legacy disabled in settings. Doing nothing. Exiting."
+      true "INFO: Legacy disabled in settings. Doing nothing. Exiting."
       exit 0
    fi
 }
 
 disable_new() {
    if grep -r -q 'canary=false' $config_folders 2>/dev/null ; then
-      echo "INFO: Disabled in settings. Doing nothing. Exiting."
+      true "INFO: Disabled in settings. Doing nothing. Exiting."
       exit 0
    fi
 }
