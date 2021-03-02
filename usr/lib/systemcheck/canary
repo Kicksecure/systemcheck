@@ -93,17 +93,13 @@ check_canary_lastrun() {
       LASTRUN="$(cat /var/lib/canary/canary_last_done)" || true
    fi
 
-   if [ "$LASTRUN" = "" ]; then
-      LASTRUN="$MAX"
-   fi
-
    if [[ "$LASTRUN" != *[!0-9]* ]]; then
       true "INFO: $FUNCNAME: LASTRUN is strictly numeric."
    else
       echo "ERROR: $FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
       ## Not strictly numeric.
       ## the canary_completed function does almost the same
-      LASTRUN="$MAX"
+      LASTRUN="0"
    fi
 
    ## good until Sat 20 Nov 2286
@@ -113,8 +109,7 @@ check_canary_lastrun() {
    actual_string_length="${#LASTRUN}"
 
    if [ ! "$actual_string_length" = "$expected_string_length" ]; then
-      echo "ERROR: $FUNCNAME: invalid string length! actual: $actual_string_length / expected: $expected_string_length"
-      exit 1
+      LASTRUN="0"
    fi
 
    local CURRENTTIME
