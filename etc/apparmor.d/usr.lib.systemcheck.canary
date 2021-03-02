@@ -59,6 +59,7 @@
 	/usr/bin/tor-circuit-established-check rix,
 
 	/usr/lib/systemcheck/canary-download.py rix,
+	/usr/lib/systemcheck/canary-run-or-not rix,
 
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,

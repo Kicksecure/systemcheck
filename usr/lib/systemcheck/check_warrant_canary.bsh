@@ -4,6 +4,17 @@
 ## See the file COPYING for copying conditions.
 
 check_warrant_canary() {
+    source /usr/lib/systemcheck/canary-run-or-not
+    if [ "$canary_run" = "false" ]; then
+        local MSG="\
+<p>$warrant_canary_check_link: Disabled in settings. Doing nothing. Skipping.</p>"
+        if [ "$verbose" -ge "1" ]; then
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+        fi
+        return 0
+    fi
+
     export LC_TIME="C"
     export TZ="UTC"
 

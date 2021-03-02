@@ -15,27 +15,13 @@ error_handler() {
 
 trap "error_handler" ERR
 
-config_folders="/etc/systemcheck.d /usr/local/etc/systemcheck.d /rw/config/whonix.d /usr/local/etc/whonix.d /etc/whonix.d"
-
-legacy_disable() {
-   if grep -r -q '^whonixcheck_skip_functions+=" download_whonix_news "' $config_folders  2>/dev/null ; then
-      true "INFO: Legacy disabled in settings. Doing nothing. Exiting."
-      exit 0
-   fi
-   if grep -r -q '^systemcheck_skip_functions+=" download_whonix_news "' $config_folders 2>/dev/null ; then
-      true "INFO: Legacy disabled in settings. Doing nothing. Exiting."
-      exit 0
-   fi
-}
-
-disable_new() {
-   if grep -r -q 'canary=false' $config_folders 2>/dev/null ; then
-      true "INFO: Disabled in settings. Doing nothing. Exiting."
-      exit 0
-   fi
-}
-
 canary_preparation() {
+    source /usr/lib/systemcheck/canary-run-or-not
+    if [ "$canary_run" = "false" ]; then
+       echo "INFO: Disabled in settings. Doing nothing. Exiting."
+       exit 0
+    fi
+
    if [ ! "$(whoami)" = "canary" ]; then
       echo "ERROR: Exiting. Must be run under user 'canary'."
       exit 1
@@ -205,8 +191,6 @@ canary_do() {
    canary_completed
 }
 
-legacy_disable
-disable_new
 canary_preparation
 check_circuit_established
 canary_count_or_not
