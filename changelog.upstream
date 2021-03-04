@@ -1,3 +1,133 @@
+commit 20011bc8a375d0440d88fe57026c6652bc129c87
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 10:17:43 2021 -0500
+
+    fix
+
+commit 8fbce20769747a6028d170ef98684e941011ed69
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 10:03:50 2021 -0500
+
+    fix
+
+commit 02221f91c356a7b0aed4c6f74f206d847a4d1d17
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 10:01:46 2021 -0500
+
+    cleanup
+
+commit 3e162334a1dfb93cde486ad44f55e83de319adf6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 10:00:16 2021 -0500
+
+    refactoring
+
+commit 50010d82405b0349fac51efaa69b3a81b632c69d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:53:37 2021 -0500
+
+    canary
+
+commit a35c2e9f871d4f1b8dfe5f059eba499be99ed34c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:53:04 2021 -0500
+
+    refactoring canary download disabling
+
+commit 27ecb2faf3e25ff6dbcc06a952a34156d2995261
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:41:52 2021 -0500
+
+    output
+
+commit d0e02a54ee80680f09b732eae074b4df62e17efe
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:40:44 2021 -0500
+
+    canary
+
+commit abb311081bb7e91a1231dcc97e632647fe233725
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:40:24 2021 -0500
+
+    output
+
+commit 3363a6223a7d081c454dd7bef340ad4e0bdf9396
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:39:05 2021 -0500
+
+    local
+
+commit 2005b3ee8c77497ba670042711af91630b26d79d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:37:39 2021 -0500
+
+    refactoring
+
+commit eec84985e627d6c942ac2c2f40e116675a192f6d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:35:18 2021 -0500
+
+    output
+
+commit 2c02e6af92c0ff29ee532fe036eb3bbd442866e5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:34:09 2021 -0500
+
+    output
+
+commit 3e72bad26dd64a9d2bfadcb2d962c732e53b7f53
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:32:33 2021 -0500
+
+    comment
+
+commit 99b77fc95c80f91c0a9ffb54d4aab0f707597468
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:31:31 2021 -0500
+
+    canary
+
+commit 0abdcf88e394fcd362b73c87279c869a18c4dd40
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 09:24:42 2021 -0500
+
+    canary
+
+commit 5beff8594f848ea37836449e0bc16ebe78c91ec8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 08:20:57 2021 -0500
+
+    automated Whonix warrant canary check
+    
+    https://www.whonix.org/wiki/Whonixcheck#Warrant_Canary_Check
+
+commit 53870fdfb221b12798c9e40ace01cc9a5e042c45
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 07:36:56 2021 -0500
+
+    comment
+
+commit ca8017f20576ce7f4aaa811f0da4e03461af7f71
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 2 05:05:39 2021 -0500
+
+    port canary download from curl to python3-requests
+    
+    openbsd-signify verify canary unixtime
+
+commit aab6f91eb8eb5fee60c2f80baafe273cf60b01f8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 28 08:33:01 2021 -0500
+
+    word towards automated canary verification
+
+commit 2b1b8b717b13eb885a2684894b1ecd367d24e0e7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 25 18:00:58 2021 -0500
+
+    bumped changelog version
+
 commit 1fbcf28a433c28e2ff671fc781365eb4e7427d2e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Feb 25 13:40:27 2021 -0500
