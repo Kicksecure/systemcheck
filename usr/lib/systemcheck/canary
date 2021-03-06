@@ -72,7 +72,7 @@ check_circuit_established() {
    while true; do
       $systemd_notify --pid="$PPID" WATCHDOG=1
 
-      if [ "$(/usr/bin/tor-circuit-established-check)" = "1" ]; then
+      if /usr/lib/helper-scripts/onion-time-pre-script &>/dev/null ; then
          break
       fi
 

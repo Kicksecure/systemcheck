@@ -8,6 +8,7 @@
 	#include <abstractions/bash>
 	#include <abstractions/python>
 	#include <abstractions/tor-circuit-established-check>
+	#include <abstractions/timesanitycheck>
 
 	/{,usr/}bin/whoami rix,
 	/{,usr/}bin/grep rix,
@@ -58,6 +59,11 @@
 	#/usr/bin/tor-circuit-established-check rPx,
 	/usr/bin/tor-circuit-established-check rix,
 
+	/usr/lib/helper-scripts/onion-time-pre-script rix,
+	/usr/bin/timesanitycheck rix,
+	/usr/lib/helper-scripts/tor_consensus_valid-after.py rix,
+	/usr/lib/helper-scripts/tor_consensus_valid-until.py rix,
+
 	/usr/lib/systemcheck/canary-download.py rix,
 	/usr/lib/systemcheck/canary-run-or-not rix,
 
@@ -78,8 +84,16 @@
 	@{PROC}/sys/kernel/random/uuid r,
 	@{PROC}/1/sched r,
 
-	owner /tmp/** mrw,
-	owner /var/tmp/** mrw,
+	## https://forums.whonix.org/t/sdwdate-and-sdwdate-gui-development-thread/1137/372
+	deny @{HOME}/** rwm,
+	#deny /home/** rwm,
+	deny /tmp/** rwm,
+	deny /var/tmp/** rwm,
+	#deny /usr/bin/** rwx,
+	deny /sbin/** rwx,
+	deny @{PROC}/** r,
+	deny /usr/bin/python3.7 r,
+	deny /etc/ssl/openssl.cnf r,
 
 	# Site-specific additions and overrides. See local/README for details.
 	#include <local/usr.lib.systemcheck.canary>
