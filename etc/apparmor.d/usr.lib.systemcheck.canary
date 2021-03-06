@@ -77,6 +77,8 @@
 
 	/usr/share/repository-dist/derivative-distribution-signify-key.pub r,
 
+	/run/sdwdate/success r,
+
 	@{PROC} r,
 	@{PROC}/cmdline r,
 	@{PROC}/*/cmdline r,
