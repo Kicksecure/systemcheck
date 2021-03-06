@@ -1,3 +1,39 @@
+commit 3e489a362574777bd10036d90430b5f30874ba8e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 6 06:26:22 2021 -0500
+
+    apparmor
+
+commit 8c87f2efbeaab453d5458bb3fa707fb8a18043f1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 6 06:26:00 2021 -0500
+
+    refactoring
+
+commit d0bc5c6a90d1b04d6bb81b8670853268305152bc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 6 06:24:53 2021 -0500
+
+    canary: also wait for sdwdate success
+
+commit 45fdb7f68298483fcc711ac2d1b8b9344d577ea0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 6 06:22:13 2021 -0500
+
+    refactoring
+
+commit 5c3a721c543af15c19b998d942b097e3ee38d5d1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 6 04:08:34 2021 -0500
+
+    canary
+
+commit 8570c98028ceeeffd8783ec2df441f839610fd1e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 4 07:09:45 2021 -0500
+
+    bumped changelog version
+
 commit 20011bc8a375d0440d88fe57026c6652bc129c87
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Mar 2 10:17:43 2021 -0500
