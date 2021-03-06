@@ -73,7 +73,7 @@ check_circuit_established() {
       $systemd_notify --pid="$PPID" WATCHDOG=1
 
       if /usr/lib/helper-scripts/onion-time-pre-script &>/dev/null ; then
-         if test -f /var/run/sdwdate/success ; then
+         if test -f /run/sdwdate/success ; then
             break
          fi
       fi
