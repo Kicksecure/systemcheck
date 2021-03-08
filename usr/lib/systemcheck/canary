@@ -135,8 +135,13 @@ canary_completed() {
 }
 
 canary_count_or_not() {
+   if grep -qs "boot=live" /proc/cmdline; then
+      echo "INFO: Skip in live mode."
+      exit 0
+   fi
+
    if test -f /run/qubes/this-is-templatevm ; then
-      echo "INFO: Skip in Qubes TemplateVM"
+      echo "INFO: Skip in Qubes TemplateVM."
       exit 0
    fi
 
