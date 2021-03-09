@@ -25,6 +25,16 @@ check_warrant_canary() {
         return 0
     fi
 
+   if grep -qs "boot=live" /proc/cmdline; then
+      local MSG="\
+<p>$warrant_canary_check_link: Skipping in live mode, ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
     local canary_recommendation="\
 See folder <code>/var/lib/canary/</code>.
 <br />
