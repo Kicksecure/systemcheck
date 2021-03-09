@@ -52,10 +52,10 @@ canary_preparation() {
    ## Dedicated onion different from homepage.
    if test -f /usr/share/whonix/marker ; then
       true "INFO: Whonix detected."
-      canary_base_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
+      [ -n "$canary_base_api_link" ] || canary_base_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
    else
       true "INFO: Kicksecure detected."
-      canary_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
+      [ -n "$canary_base_api_link" ] || canary_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
    fi
 
    ## Testing.
