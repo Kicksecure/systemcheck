@@ -1,3 +1,9 @@
+systemcheck (3:19.6-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Tue, 09 Mar 2021 18:53:36 +0000
+
 systemcheck (3:19.5-1) unstable; urgency=medium
 
   * New upstream version (local package).
