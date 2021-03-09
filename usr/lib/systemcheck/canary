@@ -61,7 +61,11 @@ canary_preparation() {
    ## Testing.
    #virtualizer=apitest
 
-   canary_api_link="${canary_base_api_link}/canary?virtualizer=${virtualizer}"
+   canary_api_link=""
+   canary_api_link+="$canary_base_api_link"
+   canary_api_link+="/"
+   canary_api_link+="canary"
+   canary_api_link+="?virtualizer=${virtualizer}"
 
    ## Debugging.
    #ls -la /var/lib/canary/
