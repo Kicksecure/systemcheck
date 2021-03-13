@@ -4,23 +4,24 @@
 ## See the file COPYING for copying conditions.
 
 check_hardened_malloc() {
-    local hardened_malloc_link="\
-<a href=https://www.whonix.org/wiki/Hardened_Malloc>Hardened Malloc</a>"
+   result="$(hardened-malloc-type-test)"
 
-   if hardened-malloc-enabled-test &>/dev/null ; then
-      local MSG="<p>$hardened_malloc_link: Enabled, ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
+   if [ "$result" = "none" ]; then
+      local MSG="<p><a href=https://www.whonix.org/wiki/Hardened_Malloc>Hardened Malloc</a>: Disabled.</p>"
+      type=warning
+   fi
+   if [ "$result" = "kicksecure" ]; then
+      local MSG="<p>Hardened Malloc: <a href=https://www.whonix.org/wiki/Hardened_Malloc_Kicksecure>Hardened Malloc <u>Kicksecure</u></a> version enabled.</p>"
+      type=info
+   fi
+   if [ "$result" = "original" ]; then
+      local MSG="<p>Hardened Malloc: <a href=https://www.whonix.org/wiki/Hardened_Malloc>Hardened Malloc <u>Original</u></a> version enabled.</p>"
+      type=info
    fi
 
-   local MSG="<p>$hardened_malloc_link: Disabled.</p>"
    if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
-
    return 0
 }
