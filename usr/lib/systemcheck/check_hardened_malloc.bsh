@@ -4,6 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_hardened_malloc() {
+   local result
    result="$(hardened-malloc-type-test)"
 
    if [ "$result" = "none" ]; then
@@ -18,10 +19,14 @@ check_hardened_malloc() {
       local MSG="<p>Hardened Malloc: <a href=https://www.whonix.org/wiki/Hardened_Malloc>Hardened Malloc <u>Original</u></a> version enabled.</p>"
       type=info
    fi
+   if [ "$result" = "" ]; then
+      local MSG="<p><a href=https://www.whonix.org/wiki/Hardened_Mallo_Kicksecurec>Hardened Malloc Test</a>: ERROR. result: <code>$result</code></p>"
+      type=error
+   fi
 
    if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
    fi
    return 0
 }
