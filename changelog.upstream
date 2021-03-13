@@ -1,3 +1,27 @@
+commit bd9ef09f481022c5a09d4848eba38e2c129fd7a5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 13 04:02:12 2021 -0500
+
+    apparmor
+
+commit 63efdb062f887991406b858b581315715cbedf63
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 13 04:01:12 2021 -0500
+
+    improve hardened malloc test
+
+commit 14d59d2591cfc11f9b85518376ec0580aeed5bd9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 13 03:15:49 2021 -0500
+
+    check if hardened maloc is enabled when using --verbose
+
+commit 343571553a254f80f491d2f8b5a2b7aaf568c4b7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 11 14:33:41 2021 -0500
+
+    bumped changelog version
+
 commit f0189f7a134c48d69724fa4c40a967f29c47c135
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Mar 11 13:27:40 2021 -0500
