@@ -76,6 +76,9 @@ systemcheck_main() {
    systemcheck_run_function show_versions ## show_versions
 
    ## Does not use the network.
+   systemcheck_run_function check_hardened_malloc ## check_hardened_malloc
+
+   ## Does not use the network.
    systemcheck_run_function check_spectre_meltdown ## check_spectre_meltdown
 
    ## Does not use the network.
