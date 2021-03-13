@@ -5,7 +5,7 @@
 
 check_hardened_malloc() {
    local result
-   result="$(hardened-malloc-type-test)"
+   result="$(hardened-malloc-type-test)" || true
 
    if [ "$result" = "none" ]; then
       local MSG="<p><a href=https://www.whonix.org/wiki/Hardened_Malloc>Hardened Malloc</a>: Disabled.</p>"
