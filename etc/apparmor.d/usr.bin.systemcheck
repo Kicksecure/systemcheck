@@ -83,6 +83,8 @@
 	/{,usr/}bin/sort rix,
 	/{,usr/}bin/stat rix,
 	/{,usr/}bin/systemd-detect-virt rix,
+	/{,usr/}bin/hardened-malloc-type-test rix,
+
 	/{,usr/}bin/spectre-meltdown-checker cux,
 
 	## TODO: bullseye use Pux instead after no new privs bug was fixed.
