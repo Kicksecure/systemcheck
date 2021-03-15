@@ -128,7 +128,7 @@ check_tor_socks_or_trans_port() {
    fi
 
    local bug_maybe_msg
-   bug_maybe_msg="Could be a Whonix bug, check.torproject.org change, bug or compromise. Please report this bug to the Whonix developers!"
+   bug_maybe_msg="Could be a $PROJECT_NAME bug, check.torproject.org change, bug or compromise. Please report this bug to the $PROJECT_NAME developers!"
 
    ## grep exit codes:
    ## 0 found
