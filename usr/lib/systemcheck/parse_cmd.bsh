@@ -79,6 +79,11 @@ parse_cmd_options() {
                leak_tests="true"
                shift
                ;;
+           --test-connect)
+               leak_tests="true"
+               test_connect="true"
+               shift
+               ;;
            --)
                shift
                break

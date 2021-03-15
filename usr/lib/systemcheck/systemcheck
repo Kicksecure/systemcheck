@@ -69,6 +69,15 @@ systemcheck_main() {
    ## command line parameter. Then exit.
    systemcheck_run_function function_manual_run ## function_manual_run
 
+   if [ "$test_connect" = "true" ]; then
+      ## Only connects to Whonix-Gateway.
+      systemcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
+      ## Uses the network.
+      systemcheck_run_function check_tor_connectivity ## check_tor_socks_or_trans_port
+      ## Does not use the network.
+      systemcheck_run_function cleanup ## cleanup
+   fi
+
    ## Does not use the network.
    systemcheck_run_function check_sudo ## check_sudo
 
@@ -199,15 +208,7 @@ systemcheck_main() {
    systemcheck_progress_main "3"
 
    ## Uses the network.
-   systemcheck_run_function check_tor_socks_port ## check_tor_socks_or_trans_port
-   systemcheck_progress_main "15"
-
-   ## Uses the network.
-   systemcheck_run_function check_tor_trans_port ## check_tor_socks_or_trans_port
-   systemcheck_progress_main "15"
-
-   ## Uses the network.
-   systemcheck_run_function check_qubes_updates_proxy ## check_tor_socks_or_trans_port
+   systemcheck_run_function check_tor_connectivity ## check_tor_socks_or_trans_port
    systemcheck_progress_main "15"
 
    ## Does not use the network.
