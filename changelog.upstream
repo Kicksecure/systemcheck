@@ -1,3 +1,27 @@
+commit 2dae4f0e6d42b2dc8a672d1c52f146083180596c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 07:25:30 2021 -0400
+
+    systemcheck --test-connect
+
+commit 816d01940e00b40b96359c11914ff14f835f47d4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 07:01:12 2021 -0400
+
+    output
+
+commit acd0dfbdb164175de351235192552fb69a2b7d3e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 06:58:37 2021 -0400
+
+    implement `--test-connect`
+
+commit b57b9c27954de9b7f0ed75e046f4739bf1af1410
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 06:48:03 2021 -0400
+
+    bumped changelog version
+
 commit e834669b4d4438d1cbcc7dd9dcedd1adade768af
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 15 06:45:36 2021 -0400
