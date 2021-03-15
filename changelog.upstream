@@ -1,3 +1,30 @@
+commit e834669b4d4438d1cbcc7dd9dcedd1adade768af
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 06:45:36 2021 -0400
+
+    apparmor
+
+commit d3c23d18ae0381a45f4bff5b1c214951b2cdf37b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 06:43:50 2021 -0400
+
+    refactoring
+
+commit 37afefa1035077f3584e1dd9a54339abed3248c0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 06:38:55 2021 -0400
+
+    apparmor
+    
+    AVC apparmor="DENIED" operation="open" profile="/usr/bin/whonixcheck" name="/sys/fs/cgroup/cpuset/cgroup.clone_children" comm="sudo" requested_mask="wc" denied_mask="wc"
+    AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/sys/fs/cgroup/systemd/user/" comm="sudo" requested_mask="c" denied_mask="c"
+
+commit e6aefb8f03a4ef2c0e24be4cd4bb3adf9ccc7386
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 13 16:46:44 2021 -0500
+
+    bumped changelog version
+
 commit 18ccd61ebd789413746dfc0fd4cdb6db0fb3b97e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Mar 13 16:46:32 2021 -0500
