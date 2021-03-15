@@ -72,14 +72,12 @@ canary_preparation() {
    touch /var/lib/canary/canary_last_done
 }
 
-check_circuit_established() {
+connectivity_wait() {
    while true; do
       $systemd_notify --pid="$PPID" WATCHDOG=1
 
       if test -f /run/sdwdate/success ; then
-         if [ "$(/usr/bin/tor-circuit-established-check)" = "1" ]; then
-            break
-         fi
+         break
       fi
 
       $systemd_notify --pid="$PPID" WATCHDOG=1
@@ -195,7 +193,7 @@ canary_do() {
 }
 
 canary_preparation
-check_circuit_established
+connectivity_wait
 canary_count_or_not
 check_canary_lastrun
 canary_do
