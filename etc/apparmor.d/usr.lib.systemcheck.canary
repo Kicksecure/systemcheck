@@ -7,8 +7,6 @@
 	#include <abstractions/base>
 	#include <abstractions/bash>
 	#include <abstractions/python>
-	#include <abstractions/tor-circuit-established-check>
-	#include <abstractions/timesanitycheck>
 
 	/{,usr/}bin/whoami rix,
 	/{,usr/}bin/grep rix,
@@ -52,17 +50,6 @@
 	/usr/local/etc/whonix.d/** r,
 	/etc/whonix.d/ r,
 	/etc/whonix.d/** r,
-
-	## Cannot use:
-	## rPx
-	## Use abstractions above instead.
-	#/usr/bin/tor-circuit-established-check rPx,
-	/usr/bin/tor-circuit-established-check rix,
-
-	/usr/lib/helper-scripts/onion-time-pre-script rix,
-	/usr/bin/timesanitycheck rix,
-	/usr/lib/helper-scripts/tor_consensus_valid-after.py rix,
-	/usr/lib/helper-scripts/tor_consensus_valid-until.py rix,
 
 	/usr/lib/systemcheck/canary-download.py rix,
 	/usr/lib/systemcheck/canary-run-or-not rix,
