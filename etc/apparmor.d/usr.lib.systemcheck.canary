@@ -66,12 +66,17 @@
 
 	/run/sdwdate/success r,
 
+	## For systemd-detect-virt.
 	@{PROC} r,
 	@{PROC}/cmdline r,
 	@{PROC}/*/cmdline r,
 	@{PROC}/[0-9]*/stat r,
+	@{PROC}/[0-9]*/mounts r,
 	@{PROC}/sys/kernel/random/uuid r,
 	@{PROC}/1/sched r,
+	@{PROC}/filesystems r,
+	@{PROC}/[0-9]*/fd/ r,
+	@{PROC}/[0-9]*/fd/** r,
 
 	## https://forums.whonix.org/t/sdwdate-and-sdwdate-gui-development-thread/1137/372
 	deny @{HOME}/** rwm,
@@ -80,7 +85,7 @@
 	deny /var/tmp/** rwm,
 	#deny /usr/bin/** rwx,
 	deny /sbin/** rwx,
-	deny @{PROC}/** r,
+	#audit deny @{PROC}/** r,
 	deny /usr/bin/python3.7 r,
 	deny /etc/ssl/openssl.cnf r,
 
