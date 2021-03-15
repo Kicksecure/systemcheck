@@ -215,9 +215,10 @@
 	/sys/devices/virtual/dmi/id/sys_vendor r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/ r,
 	/sys/fs/cgroup/systemd/system.slice/whonix-firewall.service/** r,
+	/sys/fs/cgroup/systemd/user/ rw,
 	/sys/fs/cgroup/systemd/user/debian-tor/ rw,
 	/sys/fs/cgroup/systemd/user/debian-tor/** rw,
-	/sys/fs/cgroup/cpuset/cgroup.clone_children r,
+	/sys/fs/cgroup/cpuset/cgroup.clone_children rw,
 	/sys/fs/cgroup/systemd/cgroup.procs mrwcx,
 	/sys/fs/cgroup/systemd/user/systemcheck/ rw,
 	/sys/fs/cgroup/systemd/user/systemcheck/** rw,
@@ -241,6 +242,11 @@
 	/sys/fs/cgroup/freezer/user/debian-tor/** rw,
 	/sys/fs/cgroup/memory/user/root/ rw,
 	/sys/fs/cgroup/memory/user/root/** rw,
+
+
+
+
+
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
 	/sys/hypervisor/type r,
