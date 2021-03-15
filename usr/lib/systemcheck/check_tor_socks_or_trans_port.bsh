@@ -32,12 +32,21 @@ check_tor_socks_or_trans_port() {
    fi
 
    local LINK="https://check.torproject.org/api/ip"
-   local SOCKS_PORT_SYSTEMCHECK="9110"
    local check_result_curl_exit_code="0"
 
+   local SOCKS_PORT_SYSTEMCHECK="9110"
+   local test_word
+   if [ "$VM" = "machine" ]; then
+      SOCKS_PORT_SYSTEMCHECK="9050"
+      test_word="Connectivity Test"
+   else
+      SOCKS_PORT_SYSTEMCHECK="9110"
+      test_word="IP Leak Test"
+   fi
+
    if [ "$1" = "SocksPort" ]; then
-      local test_name="<code>SocksPort</code> IP Leak Test"
-      local checking_msg="$test_name: Testing Tor's <code>SocksPort</code>..."
+      local test_name="<code>SocksPort</code> $test_word"
+      local checking_msg="$test_name: Testing Tor's <code>SocksPort</code> (SOCKS_PORT_SYSTEMCHECK: <code>$SOCKS_PORT_SYSTEMCHECK</code>)..."
       local CURL_PROXY_SYSTEMCHECK="--proxy socks5h://user:password@$GATEWAY_IP:$SOCKS_PORT_SYSTEMCHECK"
       local CHECK_TOR_OUT_FILE="check_tpo_tor_socksport.html"
       if test -f /run/qubes/this-is-templatevm ; then
@@ -49,11 +58,15 @@ check_tor_socks_or_trans_port() {
          local connection_failed_msg="\
 <p>$test_name Result: <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> was not reachable.
 <br></br>You could check, if you can reach <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> via the Tor Browser Bundle.</p>"
+      elif [ "$VM" = "machine" ]; then
+         local connection_failed_msg="\
+<p>$test_name Result: <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> was not reachable.
+<br></br>You could check, if you can reach <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> via the Tor Browser Bundle.</p>"
       else
          local connection_failed_msg="$FUNCNAME: <p>This is neither Whonix-Gateway nor Whonix-Workstation. Please report this bug to the $PROJECT_NAME developers!</p>"
       fi
    elif [ "$1" = "UpdatesProxy" ]; then
-      local test_name="<code>UpdatesProxy</code> IP Leak Test"
+      local test_name="<code>UpdatesProxy</code> $test_word"
       local checking_msg="$test_name: Testing Qubes' <code>UpdatesProxy</code>..."
 
       source /usr/lib/qubes-whonix/utility_functions.sh
@@ -61,31 +74,36 @@ check_tor_socks_or_trans_port() {
 
       local CHECK_TOR_OUT_FILE="check_tpo_tor_transport.html"
       local connection_failed_msg="\
-<p><code>UpdatesProxy</code> IP Leak Test: Qubes' <code>UpdatesProxy</code> was not reachable.</p>"
+<p><code>UpdatesProxy</code> $test_word: Qubes' <code>UpdatesProxy</code> was not reachable.</p>"
    elif [ "$1" = "TransPort" ]; then
-      local test_name="<code>TransPort</code> IP Leak Test"
-      local checking_msg="$test_name: Testing Tor's <code>TransPort</code>..."
+      local test_name="system default networking $test_word"
+      local checking_msg="$test_name: ${test_name}..."
       local CURL_PROXY_SYSTEMCHECK=""
       local CHECK_TOR_OUT_FILE="check_updates_proxy.html"
 
       if test -f /run/qubes/this-is-templatevm ; then
          local type=info
          local connection_failed_msg="\
-<p><code>TransPort</code> Test Result: Ok, Tor's <code>TransPort</code> was not reachable.
+<p>$test_name Test Result: Ok, Tor's <code>TransPort</code> was not reachable.
 <br></br>This is expected in default configuration of TemplateVMs in Qubes R4.0 and above, see <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Qubes#Network_in_TemplateVMs>${PROJECT_HOMEPAGE}/wiki/Dev/Qubes#Network_in_TemplateVMs</a>.</p>"
       elif [ "$VM" = "Whonix-Gateway" ]; then
          local type=info
          local connection_failed_msg="\
-<p><code>TransPort</code> Test Result: Ok, Tor's <code>TransPort</code> was not reachable.
+<p>$test_name Test Result: Ok, Tor's <code>TransPort</code> was not reachable.
 <br></br>This is expected on Whonix-Gateway's default configuration.</p>"
+
+      elif [ "$VM" = "machine" ]; then
+         local connection_failed_msg="\
+<p>$test_name Test Result: Ok, Tor's <code>TransPort</code> was not reachable.</p>"
+
       else
          local type=error
          local connection_failed_msg="\
-<p><code>TransPort</code> Test Result: Tor's <code>TransPort</code> was not reachable.
+<p>$test_name Test Result: Tor's <code>TransPort</code> was not reachable.
 <br></br>It is normal for this error to temporarily occur.</p>"
       fi
    else
-      local MSG="<p><code>TransPort</code>/<code>SocksPort</code>/<code>UpdatesProxy</code> Test Error: <b>\$1 is neither TransPort nor <code>SocksPort</code> nor <code>UpdatesProxy</code>.</b> Please report this bug to the $PROJECT_NAME developers!</p>"
+      local MSG="<p><code>TransPort</code>/<code>SocksPort</code>/<code>UpdatesProxy</code> Test Error: <b>\<code>$1</code> is neither <code>TransPort</code> nor <code>SocksPort</code> nor <code>UpdatesProxy</code>.</b> Please report this bug to the $PROJECT_NAME developers!</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
@@ -260,7 +278,12 @@ check_tor_socks_or_trans_port() {
    exornator_msg="You could try to find out if this IP is/was a Tor exit node using a search engine or ExoneraTor:
 <br></br><a href=https://metrics.torproject.org/exonerator.html>https://metrics.torproject.org/exonerator.html</a>"
 
-   local not_using_msg_tor="\
+   if [ "$VM" = "machine" ]; then
+      local not_using_msg_tor="\
+<p>$test_name Result: Success.
+<br></br>$ip_show_maybe_text</p>"
+   else
+      local not_using_msg_tor="\
 <p>$test_name Result:
 <br></br><b>Looks like you are not connected through Tor!</b>
 <br></br>$ip_show_maybe_text</p>
@@ -270,29 +293,38 @@ check_tor_socks_or_trans_port() {
 <p>Possible reasons:
 <br></br>- There could be something wrong.
 <br></br>- It's a false positive. <a href=https://check.torproject.org/api/ip>https://check.torproject.org/api/ip</a> fails in some cases to detect exit nodes.</p>"
+   fi
 
-   if [ "$1" = "SocksPort" ]; then
-      local not_using_msg_tor="$not_using_msg_tor"
-   elif [ "$1" = "UpdatesProxy" ]; then
-      local not_using_msg_tor="$not_using_msg_tor"
-   elif [ "$1" = "TransPort" ]; then
-      local not_using_msg_tor="$not_using_msg_tor
+   local type
+   if [ "$VM" = "machine" ]; then
+      type=info
+   else
+      type=error
+      if [ "$1" = "TransPort" ]; then
+         local not_using_msg_tor="$not_using_msg_tor
 
 <p>Other in this case common reasons:
 <br></br>- You added a VPN.
 <br></br>- You added a transproxy.</p>"
-   fi
+      fi
 
-   not_using_msg_tor="$not_using_msg_tor
+      not_using_msg_tor="$not_using_msg_tor
 
 <p>$exornator_msg</p>"
+   fi
 
    local MSG="$not_using_msg_tor"
 
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-   EXIT_CODE="1"
-   cleanup "1"
+   $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
+
+   if [ "$VM" = "machine" ]; then
+      true
+   else
+      EXIT_CODE="1"
+      cleanup "1"
+   fi
+
    return 0
 }
 
