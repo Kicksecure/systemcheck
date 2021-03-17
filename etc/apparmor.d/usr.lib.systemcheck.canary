@@ -79,15 +79,19 @@
 	@{PROC}/[0-9]*/fd/** r,
 
 	## https://forums.whonix.org/t/sdwdate-and-sdwdate-gui-development-thread/1137/372
-	deny @{HOME}/** rwm,
+	#deny /var/lib/canary/#* rwm,
+	#deny @{HOME}/** rwm,
 	#deny /home/** rwm,
-	deny /tmp/** rwm,
-	deny /var/tmp/** rwm,
-	#deny /usr/bin/** rwx,
+	#deny /tmp/** rwm,
+	#deny /var/tmp/** rwm,
+	#deny /dev/shm/** rwm,
+	#deny /dev/mqueue/** rwm,
+	deny /usr/bin/*-gnu-* rx,
 	deny /sbin/** rwx,
 	#audit deny @{PROC}/** r,
 	deny /usr/bin/python3.7 r,
 	deny /etc/ssl/openssl.cnf r,
+	owner /tmp/** rwm,
 
 	# Site-specific additions and overrides. See local/README for details.
 	#include <local/usr.lib.systemcheck.canary>
