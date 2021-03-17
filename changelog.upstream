@@ -1,3 +1,15 @@
+commit 071fac4d40bdf0f9a6ff4badf23cb164d3942c85
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 13:36:43 2021 -0400
+
+    add missing dependency curl
+
+commit 03717d6fb716ac3e2618e3f42f014f8a09bf4ffa
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 13:33:29 2021 -0400
+
+    bumped changelog version
+
 commit 331eaa3bf46e9944ddab41882ddf720d447edc6e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Mar 17 13:33:07 2021 -0400
