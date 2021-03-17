@@ -2,7 +2,7 @@ systemcheck(1) -- checks security status
 =============================================
 
 <span class="comment">
-# Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+# Copyright (C) 2012 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 # See the file COPYING for copying conditions.
 </span>
 
@@ -64,4 +64,4 @@ See /etc/systemcheck.d/30_default.conf
 https://www.whonix.org/wiki/systemcheck
 
 ## AUTHOR
-This man page has been written by Patrick Schleizer (adrelanos@riseup.net).
+This man page has been written by Patrick Schleizer (adrelanos@whonix.org).
