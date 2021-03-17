@@ -73,6 +73,9 @@
 	/{,usr/}bin/readlink rix,
 	/{,usr/}bin/fuser rix,
 
+	## TODO: Debian bullseye: use Pux instead after no new privs bug was fixed.
+	#/{,usr/}bin/man Pux,
+
 	/{,usr/}bin/zenity rix,
 	/{,usr/}bin/dbus-daemon rix,
 	/{,usr/}bin/wmctrl rix,
@@ -87,7 +90,7 @@
 
 	/{,usr/}bin/spectre-meltdown-checker cux,
 
-	## TODO: bullseye use Pux instead after no new privs bug was fixed.
+	## TODO: Debian bullseye; use Pux instead after no new privs bug was fixed.
 	#include <abstractions/tor-circuit-established-check>
 	#/{,usr/}tor-circuit-established-check Pux,
 
