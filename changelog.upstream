@@ -1,3 +1,27 @@
+commit 331eaa3bf46e9944ddab41882ddf720d447edc6e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 13:33:07 2021 -0400
+
+    apparmor
+
+commit 16421d9fcf50a4272aa4e806b8ba3c2cafb0d493
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 13:03:42 2021 -0400
+
+    disable check_man due to apparmor issues
+
+commit c5763c4bc149557c949ab03cca9ad8eee5ad9dd3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 12:59:20 2021 -0400
+
+    check if `man` is functional
+
+commit b1e3aa044a41adea4e5eff1149e62f0a755b3e30
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 12:37:09 2021 -0400
+
+    bumped changelog version
+
 commit 0eb890bde64831176342cb22a60617923d47d377
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Mar 17 09:45:22 2021 -0400
