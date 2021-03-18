@@ -42,7 +42,7 @@ check_setup_dist_done() {
    check_setup_dist_done_do
 
    if [ "$setup_dist_done" = "0" ]; then
-      local MSG="<p>Please close this window and finish setup-dist! <blockquote>$start_menu_instructions_system_first_part Anon Connection Wizard</blockquote></p>
+      local MSG="<p>Please close this window and finish setup-dist! <blockquote>$start_menu_instructions_system_first_part Setup Wizard Distribution</blockquote></p>
 <p>or in Terminal: <blockquote><code>sudo setup-dist</code></blockquote></p>"
 
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
