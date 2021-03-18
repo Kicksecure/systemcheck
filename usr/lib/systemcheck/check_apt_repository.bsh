@@ -13,7 +13,7 @@ check_apt_repository() {
    local temp_cli_tool="<code><blockquote>sudo ${PROJECT_NAME_LOWERCASE}_repository</blockquote></code>"
 
    local temp_base_msg_enabled="<p>$PROJECT_NAME APT Repository: <u>Enabled</u>.
-When the $PROJECT_NAME team releases $whonix_codename_uppercase updates,
+When the $PROJECT_NAME team releases <code>$whonix_codename_uppercase</code> updates,
 they will be AUTOMATICALLY installed (when you run apt-get dist-upgrade)
 along with updated packages from the Debian team. Please
 read <a href=${PROJECT_HOMEPAGE}/wiki/Trust>${PROJECT_HOMEPAGE}/wiki/Trust</a> to understand the risk.
