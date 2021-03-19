@@ -371,6 +371,7 @@
 	/var/lib/dist-base-files/build_version r,
 	/var/lib/dpkg/lock r,
 
+	/var/lib/canary/canary_last_done r,
 	/var/lib/canary/canary-unixtime.txt r,
 
 	/run/tor/log r,

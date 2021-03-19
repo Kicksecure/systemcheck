@@ -115,13 +115,19 @@ $canary_recommendation</p>"
       return 0
    fi
 
-   local canary_human_readable_time current_unixtime current_human_readable_time
+   local canary_download_unixtime canary_download_human_readable
+   if [ -f /var/lib/canary/canary_last_done ]; then
+      canary_download_unixtime="$(cat /var/lib/canary/canary_last_done)" || true
+      canary_download_human_readable="$(date --utc --date "@${canary_download_unixtime}")" || true
+   fi
+
+   local canary_human_readable current_unixtime current_human_readable
    local maximum_age canary_expiration_unixtime canary_expiration_human_readable
 
-   canary_human_readable_time="$(date --utc --date "@${canary_unixtime_sanetized}")"
+   canary_human_readable="$(date --utc --date "@${canary_unixtime_sanetized}")"
 
    current_unixtime="$(date --utc "+%s")"
-   current_human_readable_time="$(date --utc --date "@${current_unixtime}")"
+   current_human_readable="$(date --utc --date "@${current_unixtime}")"
 
    ## 4 weeks = 2419200
    maximum_age=2419200
@@ -130,12 +136,16 @@ $canary_recommendation</p>"
    canary_expiration_human_readable="$(date --utc --date "@${canary_expiration_unixtime}")"
 
    local MSG="\
-<p>$warrant_canary_check_link:
+<p>$warrant_canary_check_link: Debugging information:
+<br />
+<br />canary_download_unixtime        : <code>$canary_download_unixtime</code>
+<br />canary_download_human_readable  : <code>$canary_download_human_readable</code>
+<br />
 <br />current_unixtime                : <code>$current_unixtime</code>
-<br />current_human_readable_time     : <code>$current_human_readable_time</code>
+<br />current_human_readable          : <code>$current_human_readable</code>
 <br />
 <br />canary_unixtime_sanetized       : <code>$canary_unixtime_sanetized</code>
-<br />canary_human_readable_time      : <code>$canary_human_readable_time</code>
+<br />canary_human_readable           : <code>$canary_human_readable</code>
 <br />
 <br />canary_expiration_unixtime      : <code>$canary_expiration_unixtime</code>
 <br />canary_expiration_human_readable: <code>$canary_expiration_human_readable</code></p>"
