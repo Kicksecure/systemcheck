@@ -137,10 +137,10 @@ $canary_recommendation</p>"
 
    local MSG="\
 <p>$warrant_canary_check_link: Debugging information:
-<br />canary_download_human_readable  : <code>$canary_download_human_readable</code>
-<br />current_human_readable          : <code>$current_human_readable</code>
-<br />canary_human_readable           : <code>$canary_human_readable</code>
-<br />canary_expiration_human_readable: <code>$canary_expiration_human_readable</code></p>"
+<br />Canary Download Time  : <code>$canary_download_human_readable</code>
+<br />Current Time          : <code>$current_human_readable</code>
+<br />Canary Signature Time : <code>$canary_human_readable</code>
+<br />Canary Expiration Time: <code>$canary_expiration_human_readable</code></p>"
    if [ "$verbose" -ge "1" ]; then
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
