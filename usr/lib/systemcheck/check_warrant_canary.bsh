@@ -71,8 +71,8 @@ $canary_recommendation</p>"
         return 0
     fi
 
-   local canary_unixtime_raw
-   if ! canary_unixtime_raw="$(timeout --kill-after="5" "5" cat "/var/lib/canary/canary-unixtime.txt")" ; then
+   local canary_signed_unixtime_raw
+   if ! canary_signed_unixtime_raw="$(timeout --kill-after="5" "5" cat "/var/lib/canary/canary-unixtime.txt")" ; then
       local MSG="\
 <p>$warrant_canary_check_link: timeout reading file <code>/var/lib/canary/canary-unixtime.txt</code>.
 <br />
@@ -87,11 +87,11 @@ $canary_recommendation</p>"
    ## sets:
    ## actual_string_length
    ## sanitize_variable_output
-   sanitize_variable "$canary_unixtime_raw"
-   local canary_unixtime_sanetized="$sanitize_variable_output"
+   sanitize_variable "$canary_signed_unixtime_raw"
+   local canary_signature_unixtime_sanetized="$sanitize_variable_output"
 
    if [ ! "$actual_string_length" = "$max_string_length" ]; then
-      local MSG="<p><b>$warrant_canary_check_link: Unexpected string length of <code>canary_unixtime_raw</code> variable</b> (expected: <code>$actual_string_length</code> max: <code>$max_string_length</code>).
+      local MSG="<p><b>$warrant_canary_check_link: Unexpected string length of <code>canary_signed_unixtime_raw</code> variable</b> (expected: <code>$actual_string_length</code> max: <code>$max_string_length</code>).
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -101,8 +101,8 @@ $canary_recommendation</p>"
       return 0
    fi
 
-   if [[ "$canary_unixtime_sanetized" != *[!0-9]* ]]; then
-      true "$FUNCNAME: canary_unixtime_sanetized is strictly numeric."
+   if [[ "$canary_signature_unixtime_sanetized" != *[!0-9]* ]]; then
+      true "$FUNCNAME: canary_signature_unixtime_sanetized is strictly numeric."
    else
       local MSG="\
 <p>$warrant_canary_check_link: contents of file <code>/var/lib/canary/canary-unixtime.txt</code> are not numeric.
@@ -121,17 +121,17 @@ $canary_recommendation</p>"
       canary_download_human_readable="$(date --utc --date "@${canary_download_unixtime}")" || true
    fi
 
-   local canary_human_readable current_unixtime current_human_readable
+   local canary_signature_unixtime_human_readable current_unixtime current_human_readable
    local maximum_age canary_expiration_unixtime canary_expiration_human_readable
 
-   canary_human_readable="$(date --utc --date "@${canary_unixtime_sanetized}")"
+   canary_signature_unixtime_human_readable="$(date --utc --date "@${canary_signature_unixtime_sanetized}")"
 
    current_unixtime="$(date --utc "+%s")"
    current_human_readable="$(date --utc --date "@${current_unixtime}")"
 
    ## 4 weeks = 2419200
    maximum_age=2419200
-   canary_expiration_unixtime=$(( $canary_unixtime_sanetized + $maximum_age ))
+   canary_expiration_unixtime=$(( $canary_signature_unixtime_sanetized + $maximum_age ))
 
    canary_expiration_human_readable="$(date --utc --date "@${canary_expiration_unixtime}")"
 
@@ -139,7 +139,7 @@ $canary_recommendation</p>"
 <p>$warrant_canary_check_link: Debugging information:
 <br />Canary Download Time  : <code>$canary_download_human_readable</code>
 <br />Current Time          : <code>$current_human_readable</code>
-<br />Canary Signature Time : <code>$canary_human_readable</code>
+<br />Canary Signature Time : <code>$canary_signature_unixtime_human_readable</code>
 <br />Canary Expiration Time: <code>$canary_expiration_human_readable</code></p>"
    if [ "$verbose" -ge "1" ]; then
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
