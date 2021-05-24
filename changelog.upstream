@@ -1,3 +1,15 @@
+commit 6a928ddd1345decc552db1391742d46ca54fe482
+Author: Jeremy Rand <jeremyrand@airmail.cc>
+Date:   Mon May 24 05:12:58 2021 +0000
+
+    Fix AppArmor profile for ppc64le
+
+commit dd18865756cafa866c96bb2e83fb663c0162026a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Apr 5 11:59:29 2021 -0400
+
+    bumped changelog version
+
 commit 577da7d2e5aa122b2ac0fd87ade605c9747f181d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Apr 5 09:34:14 2021 -0400
