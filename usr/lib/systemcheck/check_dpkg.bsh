@@ -1,0 +1,40 @@
+#!/bin/bash
+
+## Copyright (C) 2021 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+check_dpkg() {
+   ## dpkg --audit does not exit with a non-zero exit code if something is wrong.
+   ## dpkg --audit does not return anything, if everything is fine.
+   ## Therefore we see if dpkg has to say something, and if yes, the system is
+   ## broken and we abort.
+   dpkg_audit_output="$(dpkg --audit 2>&1)" || true
+
+   if [ "$dpkg_audit_output" = "" ]; then
+      local MSG="<p>Package Manager Consistency Check Result: Output of command <code>dpkg --audit</code> was empty, ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   local MSG="<p>Package Manager Consistency Check Result: Failed.
+<br />
+<br />Was an <code>apt dist-upgrade</code> interrupted?
+<br />
+<br /><u>Recommendation</u>:
+<br />
+<br />Try to complete the upgrade process. Run the following command:
+<br /><blockquote><code>sudo dpkg --configure -a</code></blockquote>
+<br /><u>Debugging information</u>:
+<br />
+<br />Output of command <blockquote><code>dpkg --audit</code></blockquote> was non-empty!
+<br />
+<br />dpkg_audit_output:<blockquote><code>
+$dpkg_audit_output</code></blockquote></p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   fi
+}
