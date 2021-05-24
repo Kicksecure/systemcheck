@@ -4,6 +4,10 @@
 ## See the file COPYING for copying conditions.
 
 check_timezone() {
+   if [ "$vm_lower_case_short" = "machine" ]; then
+      return 0
+   fi
+
    local timezone_file_location timezone_file_expected_content timezone_file_actual_content timezone_status_code timezone_check_result
    local localtime_file_etc localtime_result localtime_status_code
 

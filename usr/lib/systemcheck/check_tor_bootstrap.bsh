@@ -52,7 +52,7 @@ check_tor_bootstrap_init() {
    ## sets: tor_circuit_established_word
    source /usr/lib/helper-scripts/tor_bootstrap_check.bsh
 
-   if [ "$vm_lower_case_short" = "gateway" ]; then
+   if [ "$vm_lower_case_short" = "gateway" ] || [ "$vm_lower_case_short" = "machine" ]; then
       check_tor_bootstrap_status
    fi
 
@@ -455,8 +455,43 @@ $anondate_debugging_information"
 
 <p>2)
 <br></br>Run systemcheck on Whonix-Gateway as well.</p>"
+
+   elif [ "$VM" = "machine" ]; then
+      local MSG="<p>Tor Connection Result:
+<br></br><b>systemcheck gave up waiting.</b>
+<br></br>Tor Circuit: $tor_circuit_established_word
+<br></br>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
+
+<p>Possible issues:
+<br></br>- Is the host's internet connection working?
+<br></br>- $VM will need a few moments for bootstrapping the Tor network.
+<br></br>- Do you live in a censored area?
+<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
+$anondate_issue</p>
+
+<p>Recommendations:</p>
+
+$anondate_recommendation
+
+<p>1)
+<br></br>Try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
+working on your host. If you cannot get the Tor Browser Bundle to work, you will most certainly not get system Tor to work either.</p>
+
+<p>The Tor Browser Bundle is great for testing if you live in a censored area. If you need bridges for the Tor Browser Bundle,
+you will need them for system Tor as well.</p>
+
+<p>2)
+<br></br>Try again: $start_menu_instructions_system_first_part systemcheck
+<br></br>or in Terminal: <code>systemcheck</code>
+<br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
+
+<p>3)
+<br></br>Use Nyx, connection page two, to see if Tor is connected:
+<blockquote>$start_menu_instructions_system_first_part Nyx</blockquote>
+or in Terminal: <code>nyx</code></p>
+$anondate_debugging_information"
    else
-      local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this $PROJECT_NAME bug!"
+      local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation nor machine. Please report this $PROJECT_NAME bug!"
    fi
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then

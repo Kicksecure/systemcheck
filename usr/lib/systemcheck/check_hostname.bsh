@@ -4,6 +4,10 @@
 ## See the file COPYING for copying conditions.
 
 check_hostname() {
+   if [ "$vm_lower_case_short" = "machine" ]; then
+      return 0
+   fi
+
    ## Initialize local variables and fallbacks.
    local hostname_exit_code_was_non_zero="false"
    local hostname_discouraged_setting_detected="false"
