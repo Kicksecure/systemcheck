@@ -11,14 +11,14 @@ check_tor_pid_do() {
 
    ## Only check on Whonix-Gateway.
    if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
-      tor_pid_message="Not running on Whonix-Gateway."
+      tor_pid_message="Not running on Whonix-Gateway, ok."
       tor_pid_exit_code="0"
       return 0
    fi
 
    ## Skip in Qubes-Whonix-Gateway TemplateVM, because Tor is not running there.
    if test -f /run/qubes/this-is-templatevm ; then
-      tor_pid_message="Not running in Qubes-Whonix-Gateway TemplateVM."
+      tor_pid_message="Not running in Qubes-Whonix-Gateway TemplateVM, ok."
       tor_pid_exit_code="0"
       return 0
    fi
@@ -53,7 +53,7 @@ check_tor_pid() {
       cleanup "1"
       return 0
    else
-      local MSG="<p>Tor Pid Check Result: $tor_pid_message, ok.</p>"
+      local MSG="<p>Tor Pid Check Result: $tor_pid_message</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
