@@ -1,3 +1,36 @@
+commit 23e6e868ae756036d16c0cb514f9ecdccc95b7da
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 24 04:08:03 2021 -0400
+
+    output
+
+commit 9f661f5fcdfc5e318001a6ad086e8d33a43fcb00
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 24 04:04:48 2021 -0400
+
+    Kicksecure
+
+commit 7f006875d930004295a9d7eed1cfdb0522d27586
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 24 03:49:27 2021 -0400
+
+    Added Package Manager Consistency Check.
+    
+    Report if output of command `dpkg --audit` is non-empty, which would indicate
+    in most cases a previously interrupted upgrade.
+
+commit a1be8de3360d0377073acc9298d68d79b70f5543
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 24 02:39:14 2021 -0400
+
+    reorder tests
+
+commit eab21ca91664a41821af234866b4c10b4656fea9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 24 02:03:16 2021 -0400
+
+    bumped changelog version
+
 commit 6a928ddd1345decc552db1391742d46ca54fe482
 Author: Jeremy Rand <jeremyrand@airmail.cc>
 Date:   Mon May 24 05:12:58 2021 +0000
