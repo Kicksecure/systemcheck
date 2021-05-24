@@ -100,7 +100,7 @@ systemcheck_main() {
    systemcheck_run_function check_journal ## check_services
 
    ## Does not use the network.
-   systemcheck_run_function check_whonix_firewall_systemd_status ## check_services
+   systemcheck_run_function check_network_interfaces ## check_network_interfaces
 
    ## Does not use the network.
    systemcheck_run_function check_qubes_settings ## check_qubes
@@ -109,7 +109,7 @@ systemcheck_main() {
    systemcheck_run_function check_kernel_messages ## check_systemd_clock
 
    ## Does not use the network.
-   systemcheck_run_function check_network_interfaces ## check_network_interfaces
+   systemcheck_run_function check_whonix_firewall_systemd_status ## check_services
 
    ## Does not use the network.
    systemcheck_run_function check_setup_dist_done ## check_setup_dist_done
