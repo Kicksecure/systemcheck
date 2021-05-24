@@ -59,6 +59,8 @@
 	/sys/hypervisor/type r,
 	/sys/devices/*/net/*/carrier r,
 	/sys/devices/virtual/dmi/id/sys_vendor r,
+	## For systemd-detect-virt on ppc64le pseries.
+	/sys/firmware/devicetree/base/hypervisor/compatible r,
 	## For systemd-detect-virt in Qubes.
 	/sys/hypervisor/properties/features r,
 
