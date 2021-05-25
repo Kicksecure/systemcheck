@@ -34,14 +34,8 @@ or manually (If you know about the public Tor network!) and open <code>/usr/loca
 <blockquote><code>DisableNetwork 0</code></blockquote>
 Then run <code>systemcheck</code> again.</p>"
 
-      ## Exit silently when systemcheck has not been manually started by the
-      ## user to prevent showing a popup by systemcheck at first boot.
-      ## (Because by default setup-dist will be started.)
-
-      if [ "$manualrun" = "1" ]; then
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      fi
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
 
       EXIT_CODE="1"
       cleanup "1"
