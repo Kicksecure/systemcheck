@@ -1,3 +1,15 @@
+commit 2703fc9f692115c04d1525ad36c9ff22dde20b76
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue May 25 11:12:42 2021 -0400
+
+    fix telling if Tor is disabled
+
+commit a9fbdff61e65afe075f347eed8bad8b13add2823
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 24 04:47:02 2021 -0400
+
+    bumped changelog version
+
 commit 23e6e868ae756036d16c0cb514f9ecdccc95b7da
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon May 24 04:08:03 2021 -0400
