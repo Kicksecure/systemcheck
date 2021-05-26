@@ -1,3 +1,131 @@
+commit a931e1a4e0e085ce3cd37828083bbfa07e74a903
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 06:25:03 2021 -0400
+
+    output
+
+commit a70e92f312dff56578283b79447a19a98b38a557
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 06:06:07 2021 -0400
+
+    minor
+
+commit a266da7e665e2486c6b57da93a63c53a4d7977e9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 06:05:44 2021 -0400
+
+    fix
+
+commit 7055915b3f9efd037e7958776087543dfeb2c191
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 06:04:13 2021 -0400
+
+    comment
+
+commit fa28f533b77b0232342dac81bd8b437cb01418ae
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 06:01:48 2021 -0400
+
+    add check for deprecated derivative (Whonix or Kicksecure) versions
+    
+    https://forums.whonix.org/t/one-time-popup-notification-of-whonix-15-deprecation-once-whonix-16-was-released/11720
+
+commit 453b47e0ff08457eeccc9cb51897b760787a923d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:51:15 2021 -0400
+
+    refactoring
+
+commit 4f84af958354831221909b2953056815bb9a8bed
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:45:27 2021 -0400
+
+    output
+
+commit 331e2549aa115552086a25a4d47e7da9ef6f105e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:40:59 2021 -0400
+
+    refactoring
+
+commit 255ca24a7eb0d2ee43bf26e3c64bca4cffc4985a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:39:55 2021 -0400
+
+    refactoring
+
+commit 04c9483482d764083b5687e769ca4f8f7bcec532
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:39:08 2021 -0400
+
+    Kicksecure
+
+commit 4350efebeaf71ad437e2b920c3b927157033bd71
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:35:14 2021 -0400
+
+    output
+
+commit d035ce730a7655fbee12c713a2576b868bceba66
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:32:39 2021 -0400
+
+    Kicksecure
+
+commit b43c0634ecc1106499ff8168aabaa098bacfa9f2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:28:48 2021 -0400
+
+    output
+
+commit 407dacd582f8d574b5b38662e66c56bcbdecb95c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:25:25 2021 -0400
+
+    Kicksecure
+
+commit c022042d7e3af50dce16f9e990e20c243c82508f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:21:40 2021 -0400
+
+    refactoring
+
+commit 8dd0ec64e3cee0c32b105d344ae76c6b2e2316df
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:20:34 2021 -0400
+
+    Kicksecure
+
+commit 00453e832fed1c376b24b161ef886dc2714ea6f8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:08:53 2021 -0400
+
+    comment
+
+commit efff2d88298cec37d333094797f842838c68c7cc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:07:25 2021 -0400
+
+    output
+
+commit f2b1ec08c1b8542a4e5512f9321a934b05c0d9fb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:04:41 2021 -0400
+
+    refactoring; output
+
+commit db42d07e07be7c682145d10a556f0534f80e2a06
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 05:01:39 2021 -0400
+
+    output; refactoring
+
+commit cd37577958d954d5caf20791275617b4f6369a68
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue May 25 11:17:14 2021 -0400
+
+    bumped changelog version
+
 commit 2703fc9f692115c04d1525ad36c9ff22dde20b76
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue May 25 11:12:42 2021 -0400
