@@ -151,7 +151,7 @@ systemcheck_run_function() {
    "$@"
 }
 
-get_local_whonix_version() {
+get_local_derivative_version() {
    ## fallback
    derivative_deb_package_version="Could not detect derivative debian version. (Code: 1) Please report this bug!"
    derivative_deb_package_version_detection_success="false"
@@ -277,7 +277,7 @@ preparation() {
    export TEMP_DIR
 
    ## returns: derivative_deb_package_version
-   get_local_whonix_version
+   get_local_derivative_version
 
    ## Prepare temporary directory.
    chmod 700 "$TEMP_DIR"
