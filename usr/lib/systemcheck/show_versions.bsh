@@ -22,3 +22,28 @@ show_versions() {
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }
+
+show_deprecation_notice() {
+   ## https://forums.whonix.org/t/one-time-popup-notification-of-whonix-15-deprecation-once-whonix-16-was-released/11720
+   [ -n "$derivative_deprecated_major_release_versions_list" ] || derivative_deprecated_major_release_versions_list="14"
+
+   local deprecated_version
+   for deprecated_version in $derivative_deprecated_major_release_versions_list ; do
+      if [ "$derivative_major_release_version" = "$deprecated_version" ]; then
+         deprecated_derivative=true
+      fi
+   done
+   if [ ! "$deprecated_derivative" = "true" ]; then
+      local MSG="<p>$PROJECT_NAME Deprecation status of this major version: not deprecated, ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+   local MSG="<p>$PROJECT_NAME Deprecation status of this major version: Deprecated!</p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   fi
+}
