@@ -51,6 +51,22 @@ stdin not connected to terminal, probably run in graphical environment, ok.</p>"
    fi
 }
 
+input_notification() {
+   local MSG
+   MSG="$input_msg"
+   if [ "$verbose" -ge "2" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}
+
+show_systemcheck_header() {
+   if [ "$verbose" -ge "1" ] || [ "$qubes_detected" = "true" ]; then
+      local MSG="$TITLE_CLI"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}
+
 virtualizer_detection() {
    [ -n "$systemcheck_virt_detection_tool" ] || systemcheck_virt_detection_tool="systemd-detect-virt"
 
@@ -371,17 +387,6 @@ preparation() {
    ## Preventing overlapping windows.
    $output_general --lefttop
 
-   if [ "$verbose" -ge "1" ] || [ "$qubes_detected" = "true" ]; then
-      local MSG="$TITLE_CLI"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
-
-   MSG="$input_msg"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
-
    shopt -s nullglob
    local i
    for i in \
@@ -391,8 +396,6 @@ preparation() {
          bash -n "$i"
          source "$i"
    done
-
-   systemcheck_run_function root_check ## root_check
 
    source /usr/lib/systemcheck/uwt_tool.bsh
 }

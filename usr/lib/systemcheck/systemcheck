@@ -69,6 +69,10 @@ systemcheck_main() {
    ## command line parameter. Then exit.
    systemcheck_run_function function_manual_run ## function_manual_run
 
+   systemcheck_run_function root_check ## root_check
+   systemcheck_run_function show_systemcheck_header ## preparation
+   systemcheck_run_function input_notification ## preparation
+
    if [ "$test_connect" = "true" ]; then
       ## Only connects to Whonix-Gateway.
       systemcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability

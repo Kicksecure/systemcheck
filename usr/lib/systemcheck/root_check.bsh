@@ -7,7 +7,7 @@ root_check() {
    if [ ! "$ROOT_CHECK" = "0" ]; then
       if [ "$(id -u)" != "0" ]; then
          local MSG="<p>Root Check Result: Ok, not running as root.</p>"
-         if [ "$verbose" -ge "1" ]; then
+         if [ "$verbose" -ge "2" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
