@@ -153,8 +153,8 @@ systemcheck_run_function() {
 
 get_local_whonix_version() {
    ## fallback
-   whonix_deb_package_version="Could not detect derivative debian version. (Code: 1) Please report this bug!"
-   whonix_deb_package_version_detection_success="false"
+   derivative_deb_package_version="Could not detect derivative debian version. (Code: 1) Please report this bug!"
+   derivative_deb_package_version_detection_success="false"
    derivative_deb_package_name="undetected"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
@@ -167,33 +167,33 @@ get_local_whonix_version() {
 
    local dpkg_query_exit_code
    dpkg_query_exit_code="0"
-   whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$derivative_deb_package_name" 2>/dev/null)" || { dpkg_query_exit_code="$?" ; true; };
+   derivative_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$derivative_deb_package_name" 2>/dev/null)" || { dpkg_query_exit_code="$?" ; true; };
 
    if [ "$dpkg_query_exit_code" = "0" ]; then
-      whonix_deb_package_version_detection_success="true"
+      derivative_deb_package_version_detection_success="true"
    else
-      whonix_deb_package_version_detection_success="false"
-      whonix_deb_package_version="Could not detect derivative derivative_deb_package_name version. (Code: 2) Probably because package $derivative_deb_package_name is not installed."
+      derivative_deb_package_version_detection_success="false"
+      derivative_deb_package_version="Could not detect derivative derivative_deb_package_name version. (Code: 2) Probably because package $derivative_deb_package_name is not installed."
    fi
 
-   ## Example: whonix_deb_package_version="2:6-debpackage1"
+   ## Example: derivative_deb_package_version="2:6-debpackage1"
 
-   if [ "$whonix_deb_package_version_detection_success" = "true" ]; then
-      ## Remove epoch from whonix_deb_package_version.
-      whonix_deb_package_version="$(echo "$whonix_deb_package_version" | awk -F ":" '{ print $2 }')"
+   if [ "$derivative_deb_package_version_detection_success" = "true" ]; then
+      ## Remove epoch from derivative_deb_package_version.
+      derivative_deb_package_version="$(echo "$derivative_deb_package_version" | awk -F ":" '{ print $2 }')"
    fi
 
-   ## Example: whonix_deb_package_version="6-debpackage1"
+   ## Example: derivative_deb_package_version="6-debpackage1"
 
    ## fallback
-   if [ "$whonix_deb_package_version" = "" ]; then
-      whonix_deb_package_version_detection_success="false"
-      whonix_deb_package_version="Could not detect derivative $derivative_deb_package_name version. (Code: 2) Please report this bug!"
+   if [ "$derivative_deb_package_version" = "" ]; then
+      derivative_deb_package_version_detection_success="false"
+      derivative_deb_package_version="Could not detect derivative $derivative_deb_package_name version. (Code: 2) Please report this bug!"
    fi
 
    ## fallback
-   whonix_build_version="Could not read derivative Build Version File. (Code: 3) Please report this bug!"
-   whonix_build_version_detection_success="false"
+   derivative_build_version="Could not read derivative Build Version File. (Code: 3) Please report this bug!"
+   derivative_build_version_detection_success="false"
 
    local build_version_file
    if [ -f "/usr/share/whonix/build_version" ]; then
@@ -207,19 +207,19 @@ get_local_whonix_version() {
    fi
 
    if [ "$build_version_file" = "" ]; then
-      whonix_build_version_detection_success="false"
-      whonix_build_version="There is no derivative Build Version File. (Code: 4) Please report this bug!"
+      derivative_build_version_detection_success="false"
+      derivative_build_version="There is no derivative Build Version File. (Code: 4) Please report this bug!"
    else
       if [ -f "$build_version_file" ]; then
-         whonix_build_version="$(cat "$build_version_file")"
-         whonix_build_version_detection_success="true"
+         derivative_build_version="$(cat "$build_version_file")"
+         derivative_build_version_detection_success="true"
       fi
    fi
 
    ## fallback
-   if [ "$whonix_build_version" = "" ]; then
-      whonix_build_version_detection_success="false"
-      whonix_build_version="Could not read derivative Build Version File. (Code: 5) Please report this bug!"
+   if [ "$derivative_build_version" = "" ]; then
+      derivative_build_version_detection_success="false"
+      derivative_build_version="Could not read derivative Build Version File. (Code: 5) Please report this bug!"
    fi
 }
 
@@ -276,7 +276,7 @@ preparation() {
    TEMP_DIR="$(mktemp --directory)"
    export TEMP_DIR
 
-   ## returns: whonix_deb_package_version
+   ## returns: derivative_deb_package_version
    get_local_whonix_version
 
    ## Prepare temporary directory.
