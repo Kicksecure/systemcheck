@@ -156,6 +156,7 @@ get_local_derivative_version() {
    derivative_deb_package_version="Could not detect derivative debian version. (Code: 1) Please report this bug!"
    derivative_deb_package_version_detection_success="false"
    derivative_deb_package_name="(package detection failed)"
+   derivative_major_release_version="(could not detect derivative_major_release_version)"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       derivative_deb_package_name="whonix-gateway-packages-dependencies-cli"
@@ -220,6 +221,10 @@ get_local_derivative_version() {
    if [ "$derivative_build_version" = "" ]; then
       derivative_build_version_detection_success="false"
       derivative_build_version="Could not read derivative Build Version File. (Code: 5) Please report this bug!"
+   fi
+
+   if test -f "/etc/${PROJECT_NAME_LOWERCASE}_version" ; then
+      derivative_major_release_version="$(cat "/etc/${PROJECT_NAME_LOWERCASE}_version")" || true
    fi
 }
 

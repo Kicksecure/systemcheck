@@ -18,7 +18,7 @@ show_versions() {
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
-   local MSG="<p>/etc/${PROJECT_NAME_LOWERCASE}_version: <code>$(cat "/etc/${PROJECT_NAME_LOWERCASE}_version")</code></p>" || true
+   local MSG="<p>derivative_major_release_version /etc/${PROJECT_NAME_LOWERCASE}_version: <code>$derivative_major_release_version</code></p>" || true
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }
