@@ -8,7 +8,7 @@ check_meta_packages() {
 
    local if_you_know_what_you_are_doing_msg see_also_link
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-   see_also_link="<a href=${PROJECT_HOMEPAGE}/wiki/Whonix_Debian_Packages>${PROJECT_HOMEPAGE}/wiki/{PROJECT_NAME}_Debian_Packages</a>"
+   see_also_link="<a href=${PROJECT_HOMEPAGE}/wiki/Whonix_Debian_Packages>${PROJECT_HOMEPAGE}/wiki/${PROJECT_NAME}_Debian_Packages</a>"
 
    if [ "$qubes_detected" = "true" ]; then
       meta_package_wanted_list="<code>qubes-whonix-gateway</code> or <code>qubes-whonix-workstation</code>"
