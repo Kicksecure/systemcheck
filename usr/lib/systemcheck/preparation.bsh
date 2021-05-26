@@ -170,7 +170,7 @@ get_local_whonix_version() {
       whonix_deb_package_version_detection_success="true"
    else
       whonix_deb_package_version_detection_success="false"
-      whonix_deb_package_version="Could not detect Whonix $whonix_deb_package_name version. (Code: 2) Probably because package $whonix_deb_package_name is not installed."
+      whonix_deb_package_version="Could not detect Whonix whonix_deb_package_name version. (Code: 2) Probably because package $whonix_deb_package_name is not installed."
    fi
 
    ## Example: whonix_deb_package_version="2:6-debpackage1"
