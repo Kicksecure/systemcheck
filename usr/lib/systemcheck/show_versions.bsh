@@ -43,8 +43,6 @@ show_deprecation_notice() {
       return 0
    fi
    local MSG="<p>$PROJECT_NAME Deprecation status of this major version: Deprecated!</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-   fi
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
 }
