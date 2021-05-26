@@ -155,11 +155,14 @@ get_local_whonix_version() {
    ## fallback
    whonix_deb_package_version="Could not detect Whonix debian version. (Code: 1) Please report this bug!"
    whonix_deb_package_version_detection_success="false"
+   whonix_deb_package_name="undetected"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       whonix_deb_package_name="whonix-gateway-packages-dependencies-cli"
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
       whonix_deb_package_name="whonix-workstation-packages-dependencies-cli"
+   elif [ -f "/usr/share/kicksecure/marker" ]; then
+      whonix_deb_package_name="kicksecure-dependencies-cli"
    fi
 
    local dpkg_query_exit_code
