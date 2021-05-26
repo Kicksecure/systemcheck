@@ -35,8 +35,14 @@ show_deprecation_notice() {
       fi
    done
 
+   ## Any package could drop a snippet /etc/systemcheck.d/40_deprecation.conf with content:
+   ## deprecated_derivative=true
+
+   ## TODO remove
+   #deprecated_derivative=true
+
    if [ ! "$deprecated_derivative" = "true" ]; then
-      local MSG="<p>$PROJECT_NAME Deprecation status of this major version: not deprecated, ok.</p>"
+      local MSG="<p>$PROJECT_NAME Support Status of this Major Version: not deprecated, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -44,8 +50,22 @@ show_deprecation_notice() {
       return 0
    fi
 
-   local MSG="<p>$PROJECT_NAME Deprecation status of this major version: Deprecated!</p>"
+   local MSG="<p>$PROJECT_NAME Support Status of this Major Version: <b>Deprecated!</b>
+<br />
+<br />$PROJECT_NAME major release version <u><code>$derivative_major_release_version</code></u> has been deprecated!
+<br />
+<br />There will be no more security and user support.
+<br />
+<br /><b><u><a href=${PROJECT_HOMEPAGE}/wiki/Release_Upgrade>Release Upgrade</a> is highly recommended!</u></b>
+<br />
+<br /><u>Recommendations</u>:
+<br />
+<br />Stay tuned! Follow $PROJECT_NAME News!
+<br />
+<br /><a href=${PROJECT_HOMEPAGE}/wiki/Stay_Tuned>${PROJECT_HOMEPAGE}/wiki/Stay_Tuned</a>
+<br />
+<br />It is <a href=${PROJECT_HOMEPAGE}/wiki/Stay_Tuned#Reason>absolutely crucial</a> to subscribe to and read the latest $PROJECT_NAME news category 'important-news' to stay in touch with ongoing developments. This way users benefit from notifications concerning important security advisories, potential upgrade issues and improved releases which address identified issues, like those affecting the updater or other core elements.</p>"
 
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }
