@@ -154,6 +154,7 @@
 	/etc/ssl/certs/ca-certificates.crt r,
 	/etc/perl/sitecustomize.pl r,
 	/etc/whonix_version r,
+	/etc/kicksecure_version r,
 
 	/etc/dbus-1/session.d/ r,
 	/etc/dbus-1/session.d/** r,

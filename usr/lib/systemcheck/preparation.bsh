@@ -155,25 +155,25 @@ get_local_whonix_version() {
    ## fallback
    whonix_deb_package_version="Could not detect derivative debian version. (Code: 1) Please report this bug!"
    whonix_deb_package_version_detection_success="false"
-   whonix_deb_package_name="undetected"
+   derivative_deb_package_name="undetected"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      whonix_deb_package_name="whonix-gateway-packages-dependencies-cli"
+      derivative_deb_package_name="whonix-gateway-packages-dependencies-cli"
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-      whonix_deb_package_name="whonix-workstation-packages-dependencies-cli"
+      derivative_deb_package_name="whonix-workstation-packages-dependencies-cli"
    elif [ -f "/usr/share/kicksecure/marker" ]; then
-      whonix_deb_package_name="kicksecure-dependencies-cli"
+      derivative_deb_package_name="kicksecure-dependencies-cli"
    fi
 
    local dpkg_query_exit_code
    dpkg_query_exit_code="0"
-   whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$whonix_deb_package_name" 2>/dev/null)" || { dpkg_query_exit_code="$?" ; true; };
+   whonix_deb_package_version="$(dpkg-query --show --showformat='${Version}' "$derivative_deb_package_name" 2>/dev/null)" || { dpkg_query_exit_code="$?" ; true; };
 
    if [ "$dpkg_query_exit_code" = "0" ]; then
       whonix_deb_package_version_detection_success="true"
    else
       whonix_deb_package_version_detection_success="false"
-      whonix_deb_package_version="Could not detect derivative whonix_deb_package_name version. (Code: 2) Probably because package $whonix_deb_package_name is not installed."
+      whonix_deb_package_version="Could not detect derivative derivative_deb_package_name version. (Code: 2) Probably because package $derivative_deb_package_name is not installed."
    fi
 
    ## Example: whonix_deb_package_version="2:6-debpackage1"
@@ -188,7 +188,7 @@ get_local_whonix_version() {
    ## fallback
    if [ "$whonix_deb_package_version" = "" ]; then
       whonix_deb_package_version_detection_success="false"
-      whonix_deb_package_version="Could not detect derivative $whonix_deb_package_name version. (Code: 2) Please report this bug!"
+      whonix_deb_package_version="Could not detect derivative $derivative_deb_package_name version. (Code: 2) Please report this bug!"
    fi
 
    ## fallback

@@ -14,11 +14,11 @@ show_versions() {
 
    xx="$(/usr/lib/msgcollector/striphtml "$whonix_deb_package_version")"
 
-   local MSG="<p>$whonix_deb_package_name: <code>$xx</code></p>"
+   local MSG="<p>$derivative_deb_package_name: <code>$xx</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
-   local MSG="<p>/etc/whonix_version: <code>$(cat /etc/whonix_version)</code></p>" || true
+   local MSG="<p>/etc/${PROJECT_NAME_LOWERCASE}_version: <code>$(cat "/etc/${PROJECT_NAME_LOWERCASE}_version")</code></p>" || true
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }
