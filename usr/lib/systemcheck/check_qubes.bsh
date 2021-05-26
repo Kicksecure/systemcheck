@@ -268,10 +268,6 @@ check_qubes_update_proxy() {
       return 0
    fi
 
-   ## sets: PROXY_SERVER
-   ## sets: PROXY_META
-   source /usr/lib/qubes-whonix/utility_functions.sh
-
    if [ -f /run/qubes/this-is-netvm ] || [ -f /run/qubes/this-is-proxyvm ]; then
       PROXY_SERVER="${PROXY_SERVER/10.137.255.254/127.0.0.1}"
    fi

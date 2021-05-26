@@ -317,6 +317,15 @@ preparation() {
    ARCH="$(uname --machine)"
 
    if [ "$qubes_detected" = "true" ]; then
+      if test -f /usr/lib/qubes-whonix/utility_functions.sh ; then
+         ## sets: PROXY_SERVER
+         ## sets: PROXY_META
+         source /usr/lib/qubes-whonix/utility_functions.sh
+      else
+         PROXY_SERVER='http://127.0.0.1:8082/'
+         PROXY_META="text/html"
+      fi
+
       ## Overwrite with || true to prevent failing just because of this.
       ## '/name' outputs for example:
       ## sys-whonix
