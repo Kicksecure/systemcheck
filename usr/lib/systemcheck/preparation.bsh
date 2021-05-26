@@ -155,7 +155,7 @@ get_local_derivative_version() {
    ## fallback
    derivative_deb_package_version="Could not detect derivative debian version. (Code: 1) Please report this bug!"
    derivative_deb_package_version_detection_success="false"
-   derivative_deb_package_name="undetected"
+   derivative_deb_package_name="(package detection failed)"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       derivative_deb_package_name="whonix-gateway-packages-dependencies-cli"
