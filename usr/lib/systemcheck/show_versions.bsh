@@ -34,6 +34,7 @@ show_deprecation_notice() {
          deprecated_derivative=true
       fi
    done
+
    if [ ! "$deprecated_derivative" = "true" ]; then
       local MSG="<p>$PROJECT_NAME Deprecation status of this major version: not deprecated, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -42,7 +43,9 @@ show_deprecation_notice() {
       fi
       return 0
    fi
+
    local MSG="<p>$PROJECT_NAME Deprecation status of this major version: Deprecated!</p>"
+
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
 }
