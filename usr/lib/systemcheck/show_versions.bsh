@@ -38,7 +38,7 @@ show_deprecation_notice() {
    ## Any package could drop a snippet /etc/systemcheck.d/40_deprecation.conf with content:
    ## deprecated_derivative=true
 
-   ## TODO remove
+   ## Testing.
    #deprecated_derivative=true
 
    if [ ! "$deprecated_derivative" = "true" ]; then
