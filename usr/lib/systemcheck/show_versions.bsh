@@ -54,11 +54,11 @@ show_deprecation_notice() {
 <br />
 <br />$PROJECT_NAME major release version <u><code>$derivative_major_release_version</code></u> has been deprecated!
 <br />
-<br />There will be no more security and user support.
+<br />No more security and user support will be provided.
 <br />
-<br /><b><u><a href=${PROJECT_HOMEPAGE}/wiki/Release_Upgrade>Release Upgrade</a> is highly recommended!</u></b>
+<br /><b>A <u><a href=${PROJECT_HOMEPAGE}/wiki/Release_Upgrade>Release Upgrade</a> is strongly recommended!</u></b>
 <br />
-<br /><u>Recommendations</u>:
+<br /><u>Further Recommendations</u>:
 <br />
 <br />Stay tuned! Follow $PROJECT_NAME News!
 <br />
