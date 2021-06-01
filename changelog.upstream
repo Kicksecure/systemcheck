@@ -1,3 +1,31 @@
+commit 6cf82d6b8d3a0ee6d86f5540128b9b6dbb9a3fd6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 31 03:12:26 2021 -0400
+
+    output
+
+commit 5c4eaa861cae15eebc8880139221bbc29c333419
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 31 03:11:45 2021 -0400
+
+    comment
+
+commit 41fd10a4929448e820533910a3bdd5026199afe4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 31 03:09:36 2021 -0400
+
+    improved text
+    
+    Thanks to @torjunkie!
+    
+    https://forums.whonix.org/t/one-time-popup-notification-of-whonix-15-deprecation-once-whonix-16-was-released/11720/3
+
+commit f3f3f51d1fd14f2eaf04e71899c169a5f70476af
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 26 14:24:55 2021 -0400
+
+    bumped changelog version
+
 commit a931e1a4e0e085ce3cd37828083bbfa07e74a903
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 26 06:25:03 2021 -0400
