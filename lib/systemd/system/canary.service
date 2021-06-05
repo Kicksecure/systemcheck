@@ -6,6 +6,7 @@ Description=canary
 Documentation=https://www.whonix.org/wiki/Census
 
 ConditionPathExists=!/run/qubes/this-is-templatevm
+ConditionPathExists=!/usr/share/anon-ws-base-files/workstation
 
 After=network.target
 Wants=network.target
@@ -24,7 +25,6 @@ Group=canary
 
 ExecStart=/usr/lib/systemcheck/canary-daemon
 SuccessExitStatus=143
-TimeoutSec=30
 ## /usr/lib/systemcheck/canary-daemon uses `sleep 3600`
 ## /usr/lib/systemcheck/canary uses `curl` with `--max-time 180`
 WatchdogSec=4000

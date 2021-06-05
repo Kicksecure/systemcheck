@@ -33,18 +33,20 @@ canary_preparation() {
       systemd_notify=systemd-notify
    fi
 
-   virtualizer="$(systemd-detect-virt)" || true
-   if [ "$virtualizer" = "oracle" ]; then
-      known_virtualizer=yes
-   elif [ "$virtualizer" = "kvm" ]; then
-      known_virtualizer=yes
-   elif [ "$virtualizer" = "qemu" ]; then
-      known_virtualizer=yes
-   fi
    if test -d /usr/share/qubes ; then
       virtualizer=qubes
       known_virtualizer=yes
+   else
+      virtualizer="$(systemd-detect-virt)" || true
+      if [ "$virtualizer" = "oracle" ]; then
+         known_virtualizer=yes
+      elif [ "$virtualizer" = "kvm" ]; then
+         known_virtualizer=yes
+      elif [ "$virtualizer" = "qemu" ]; then
+         known_virtualizer=yes
+      fi
    fi
+
    if [ ! "$known_virtualizer" = "yes" ]; then
       virtualizer=unknown
    fi
