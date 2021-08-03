@@ -34,10 +34,10 @@
 	/etc/hosts r,
 	/etc/host.conf r,
 	/etc/resolv.conf r,
-	/usr/lib/helper-scripts/settings_echo r,
+	/usr/libexec/helper-scripts/settings_echo r,
 	/var/lib/canary/ rw,
 	/var/lib/canary/** rw,
-	/usr/lib/helper-scripts/settings_echo rix,
+	/usr/libexec/helper-scripts/settings_echo rix,
 
 	/etc/systemcheck.d/ r,
 	/etc/systemcheck.d/** r,

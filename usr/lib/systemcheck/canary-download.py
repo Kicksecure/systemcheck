@@ -41,7 +41,7 @@ def main():
 
     socket_ip ="127.0.0.1"
 
-    settings_path = '/usr/lib/helper-scripts/settings_echo'
+    settings_path = '/usr/libexec/helper-scripts/settings_echo'
     if (os.path.exists('/usr/share/whonix') and
             os.access(settings_path, os.X_OK)):
         proxy_settings = check_output(settings_path)

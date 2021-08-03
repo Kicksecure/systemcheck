@@ -320,7 +320,7 @@
 	/usr/lib/torsocks/* mr,
 	/usr/lib/apt/methods/* rix,
 	/usr/lib/curl-scripts/curl_exit_codes rix,
-	/usr/lib/helper-scripts/* rix,
+	/usr/libexec/helper-scripts/* rix,
 
 	## Allow running 'apt-get update' unconfined so it can also initially
 	## create /var/cache/apt/archives/.

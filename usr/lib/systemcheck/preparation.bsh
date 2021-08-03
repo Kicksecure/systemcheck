@@ -6,7 +6,7 @@
 source /usr/lib/systemcheck/uwt_tool.bsh
 
 ## provides: sanitize_variable
-source /usr/lib/helper-scripts/sanitize_variable
+source /usr/libexec/helper-scripts/sanitize_variable
 
 source_config() {
    shopt -s nullglob
@@ -298,7 +298,7 @@ preparation() {
       vm_lower_case_short="machine"
    fi
 
-   eval $(/usr/lib/helper-scripts/settings_echo)
+   eval $(/usr/libexec/helper-scripts/settings_echo)
 
    if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
       ## Fallback
