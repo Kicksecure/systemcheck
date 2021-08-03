@@ -324,7 +324,7 @@
 
 	## Allow running 'apt-get update' unconfined so it can also initially
 	## create /var/cache/apt/archives/.
-	/usr/lib/security-misc/apt-get-update rUx,
+	/usr/libexec/security-misc/apt-get-update rUx,
 
 	/usr/sbin/anondate rix,
 

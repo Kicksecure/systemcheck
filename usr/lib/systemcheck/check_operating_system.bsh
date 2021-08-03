@@ -24,11 +24,11 @@ check_operating_system() {
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    local apt_get_exit_code
    apt_get_exit_code="0"
-   ## /usr/lib/security-misc/apt-get-update is timeout protected.
+   ## /usr/libexec/security-misc/apt-get-update is timeout protected.
    if [ "$verbose" -ge "1" ]; then
-      sudo --non-interactive "/usr/lib/security-misc/apt-get-update" &
+      sudo --non-interactive "/usr/libexec/security-misc/apt-get-update" &
    else
-      sudo --non-interactive "/usr/lib/security-misc/apt-get-update" >/dev/null &
+      sudo --non-interactive "/usr/libexec/security-misc/apt-get-update" >/dev/null &
    fi
    apt_get_update_pid="$!"
    wait "$apt_get_update_pid" || { apt_get_exit_code="$?" ; true; };

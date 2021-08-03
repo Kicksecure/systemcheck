@@ -15,7 +15,7 @@ systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status onion-grat
 
 ## /usr/bin/systemcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
-systemcheck ALL=NOPASSWD: /usr/lib/security-misc/apt-get-update
+systemcheck ALL=NOPASSWD: /usr/libexec/security-misc/apt-get-update
 systemcheck ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-simulate
 systemcheck ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-kill-helper
 systemcheck ALL=NOPASSWD: /usr/sbin/anondate
