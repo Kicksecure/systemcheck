@@ -55,7 +55,7 @@ check_services() {
    fi
 
    systemctl_output_with_legend="$(sudo --non-interactive /bin/systemctl --no-pager --no-block --failed list-units)"
-   systemctl_output_with_legend="$(/usr/lib/msgcollector/br_add "$systemctl_output_with_legend")"
+   systemctl_output_with_legend="$(/usr/libexec/msgcollector/br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
@@ -107,11 +107,11 @@ check_journal() {
       return 0
    fi
 
-   grep_warn_output="$(/usr/lib/msgcollector/br_add "$grep_warn_output")"
-   grep_fail_output="$(/usr/lib/msgcollector/br_add "$grep_fail_output")"
-   grep_error_output="$(/usr/lib/msgcollector/br_add "$grep_error_output")"
-   grep_denied_output="$(/usr/lib/msgcollector/br_add "$grep_denied_output")"
-   grep_ordering_output="$(/usr/lib/msgcollector/br_add "$grep_ordering_output")"
+   grep_warn_output="$(/usr/libexec/msgcollector/br_add "$grep_warn_output")"
+   grep_fail_output="$(/usr/libexec/msgcollector/br_add "$grep_fail_output")"
+   grep_error_output="$(/usr/libexec/msgcollector/br_add "$grep_error_output")"
+   grep_denied_output="$(/usr/libexec/msgcollector/br_add "$grep_denied_output")"
+   grep_ordering_output="$(/usr/libexec/msgcollector/br_add "$grep_ordering_output")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
@@ -194,7 +194,7 @@ check_whonix_firewall_systemd_status() {
       wait "$lastpid" || true
    done
 
-   systemctl_status_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
+   systemctl_status_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then
       local MSG="<p>Whonix firewall systemd unit check Result: Ok.</p>"
@@ -206,7 +206,7 @@ check_whonix_firewall_systemd_status() {
    fi
 
    journalctl_whonix_firewall_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager -u whonix-firewall)" || true
-   journalctl_whonix_firewall_output="$(/usr/lib/msgcollector/br_add "$journalctl_whonix_firewall_output")"
+   journalctl_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$journalctl_whonix_firewall_output")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"

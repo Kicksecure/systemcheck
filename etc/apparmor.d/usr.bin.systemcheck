@@ -312,7 +312,7 @@
 	/{,usr/}bin/qubesdb-read rix,
 	/{,usr/}bin/qubesdb-cmd rix,
 
-	/usr/lib/msgcollector/* rix,
+	/usr/libexec/msgcollector/* rix,
 	/usr/lib/sudo/sudoers.so mr,
 	/usr/lib/*-linux-gnu/security/** mr,
 	/usr/lib/systemcheck/** rix,

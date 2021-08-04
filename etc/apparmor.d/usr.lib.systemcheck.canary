@@ -12,7 +12,7 @@
 	/{,usr/}bin/grep rix,
 	/etc/passwd r,
 	/etc/nsswitch.conf r,
-	/usr/lib/msgcollector/striphtml rix,
+	/usr/libexec/msgcollector/striphtml rix,
 	/{,usr/}bin/date rix,
 	/{,usr/}bin/cat rix,
 	/{,usr/}bin/tee rix,

@@ -25,13 +25,13 @@ IDENTIFIER="$SCRIPTNAME"
 ## Debugging with bashdb.
 #IDENTIFIER="systemcheck"
 
-bash -n /usr/lib/msgcollector/error_handler
-source /usr/lib/msgcollector/error_handler
-trap "error_handler" ERR ## /usr/lib/msgcollector/error_handler
+bash -n /usr/libexec/msgcollector/error_handler
+source /usr/libexec/msgcollector/error_handler
+trap "error_handler" ERR ## /usr/libexec/msgcollector/error_handler
 set +e
 
-bash -n /usr/lib/msgcollector/msgdispatcher_run_check
-source /usr/lib/msgcollector/msgdispatcher_run_check
+bash -n /usr/libexec/msgcollector/msgdispatcher_run_check
+source /usr/libexec/msgcollector/msgdispatcher_run_check
 
 bash -n /usr/libexec/helper-scripts/tor_enabled_check
 source /usr/libexec/helper-scripts/tor_enabled_check

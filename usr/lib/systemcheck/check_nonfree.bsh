@@ -8,7 +8,7 @@ check_nonfree() {
 
    ## Human readable output.
    vrms_output="$(vrms 2>&1)" || true
-   vrms_output="$(/usr/lib/msgcollector/br_add "$vrms_output")"
+   vrms_output="$(/usr/libexec/msgcollector/br_add "$vrms_output")"
 
    ## For machine readable output.
    vrms_result="$(vrms --quiet --sparse 2>&1)" || true

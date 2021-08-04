@@ -79,7 +79,7 @@ $qubes_update_help</p>"
    check_os_exit_code="0"
    ## /usr/libexec/helper-scripts/apt-get-update-simulate is timeout protected.
    check_os_output="$(sudo --non-interactive /usr/libexec/helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
-   check_os_output_show="$(/usr/lib/msgcollector/br_add "$check_os_output")"
+   check_os_output_show="$(/usr/libexec/msgcollector/br_add "$check_os_output")"
 
    if [ "$verbose" -ge "1" ]; then
       local MSG="<p><code>sudo apt-get dist-upgrade --simulate</code> output:

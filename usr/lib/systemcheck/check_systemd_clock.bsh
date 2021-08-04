@@ -36,7 +36,7 @@ check_systemd_clock() {
    ## Not checking for 'Time zone: DST active: n/a'. This is left to check_timezone.
 
    timedatectl_output_original="$(timedatectl)"
-   timedatectl_output_pretty="$(/usr/lib/msgcollector/br_add "$timedatectl_output_original")"
+   timedatectl_output_pretty="$(/usr/libexec/msgcollector/br_add "$timedatectl_output_original")"
 
    local timedatectl_ok_counter_actual="0"
    local timedatectl_ok_counter_expected="3"

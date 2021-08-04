@@ -12,7 +12,7 @@ show_versions() {
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
-   xx="$(/usr/lib/msgcollector/striphtml "$derivative_deb_package_version")"
+   xx="$(/usr/libexec/msgcollector/striphtml "$derivative_deb_package_version")"
 
    local MSG="<p>$derivative_deb_package_name: <code>$xx</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
