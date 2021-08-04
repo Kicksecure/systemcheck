@@ -315,7 +315,7 @@
 	/usr/libexec/msgcollector/* rix,
 	/usr/lib/sudo/sudoers.so mr,
 	/usr/lib/*-linux-gnu/security/** mr,
-	/usr/lib/systemcheck/** rix,
+	/usr/libexec/systemcheck/** rix,
 	/usr/lib/python*/** mr,
 	/usr/lib/torsocks/* mr,
 	/usr/lib/apt/methods/* rix,

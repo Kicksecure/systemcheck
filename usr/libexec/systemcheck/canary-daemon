@@ -9,7 +9,7 @@ while true; do
    echo "$0: INFO: start."
    systemd-notify --pid="$$" WATCHDOG=1
 
-   /usr/lib/systemcheck/canary
+   /usr/libexec/systemcheck/canary
 
    systemd-notify --pid="$$" WATCHDOG=1
    echo "$0: INFO: end."

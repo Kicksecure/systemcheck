@@ -38,7 +38,7 @@ source /usr/libexec/helper-scripts/tor_enabled_check
 bash -n /usr/libexec/helper-scripts/pkg_manager_running_check
 source /usr/libexec/helper-scripts/pkg_manager_running_check
 
-for i in /usr/lib/systemcheck/*.bsh; do
+for i in /usr/libexec/systemcheck/*.bsh; do
    bash -n "$i"
    source "$i"
 done

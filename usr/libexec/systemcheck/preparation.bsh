@@ -3,7 +3,7 @@
 ## Copyright (C) 2012 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-source /usr/lib/systemcheck/uwt_tool.bsh
+source /usr/libexec/systemcheck/uwt_tool.bsh
 
 ## provides: sanitize_variable
 source /usr/libexec/helper-scripts/sanitize_variable

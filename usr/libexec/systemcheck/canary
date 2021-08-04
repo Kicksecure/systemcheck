@@ -14,7 +14,7 @@ error_handler() {
 trap "error_handler" ERR
 
 canary_preparation() {
-    source /usr/lib/systemcheck/canary-run-or-not
+    source /usr/libexec/systemcheck/canary-run-or-not
     if [ "$canary_run" = "false" ]; then
        echo "INFO: Disabled in settings. Doing nothing. Exiting."
        exit 0
@@ -178,7 +178,7 @@ canary_do() {
    canary_download_exit_code="0"
 
    timeout --kill-after="5" "180" \
-      /usr/lib/systemcheck/canary-download.py \
+      /usr/libexec/systemcheck/canary-download.py \
       "$canary_api_link" \
       &> "/var/lib/canary/canary-download-output.txt" \
       || { canary_download_exit_code="$?" ; true; };

@@ -3,7 +3,7 @@
 
 #include <tunables/global>
 
-/usr/lib/systemcheck/canary flags=(attach_disconnected) {
+/usr/libexec/systemcheck/canary flags=(attach_disconnected) {
 	#include <abstractions/base>
 	#include <abstractions/bash>
 	#include <abstractions/python>
@@ -51,8 +51,8 @@
 	/etc/whonix.d/ r,
 	/etc/whonix.d/** r,
 
-	/usr/lib/systemcheck/canary-download.py rix,
-	/usr/lib/systemcheck/canary-run-or-not rix,
+	/usr/libexec/systemcheck/canary-download.py rix,
+	/usr/libexec/systemcheck/canary-run-or-not rix,
 
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,

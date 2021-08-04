@@ -24,7 +24,7 @@ check_tor_pid_do() {
    fi
 
    tor_pid_exit_code="0"
-   tor_pid_message="$(sudo --non-interactive /usr/lib/systemcheck/check_tor_pid)" || { tor_pid_exit_code="$?" ; true; };
+   tor_pid_message="$(sudo --non-interactive /usr/libexec/systemcheck/check_tor_pid)" || { tor_pid_exit_code="$?" ; true; };
    return 0
 }
 
