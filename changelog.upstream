@@ -1,3 +1,81 @@
+commit 9bfe17057b5d0d503086d581a88edde387b53a90
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 18:39:07 2021 -0400
+
+    lintian
+
+commit 79b46cafc5a9775a549535074e65270a3db73ee0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 07:44:05 2021 -0400
+
+    update path
+
+commit e114ab0d1be190be11b14b9639c6775e1851a71e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 07:01:59 2021 -0400
+
+    move usr/lib/systemcheck to usr/libexec/systemcheck as per lintian FHS
+
+commit de1633aeba7e1fb6064ff12f202a4040095a2b40
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 06:59:04 2021 -0400
+
+    libexec lintian FHS
+
+commit 2b4010ee5370b4a0ef0b11dcf350d647b33be443
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 06:42:12 2021 -0400
+
+    move /usr/lib/msgcollector to /usr/libexec/msgcollector as per lintian FHS
+
+commit c751d56d8c29a501847ccec6dee876c5d7f929f0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 12:56:31 2021 -0400
+
+    move /usr/lib/security-misc to /usr/libexec/security-misc as per lintian FHS
+
+commit f178d1b1505765234ab791ca6a725455d3d22560
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 12:48:57 2021 -0400
+
+    move /usr/lib/helper-scripts and /usr/lib/curl-scripts to /usr/libexec/helper-scripts as per lintian FHS
+
+commit aaaa46d9c7f7bf2ea96c0c6b7534ca1333079da0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 12:20:17 2021 -0400
+
+    replace no longer required `/usr/lib/security-misc/apt-get-wrapper` with `apt-get --error-on=any`
+
+commit 4f9d46f11be92c8d1f961e975dbdf16577d696f8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 11:47:35 2021 -0400
+
+    re-generate man pages (generated using "genmkfile manpages")
+
+commit 09b92a4c1aa9aa282f7b647135ee26dcb6b2fddb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 11:44:03 2021 -0400
+
+    man page
+
+commit a666c6ee9ed615b999aad421a3c979d563c08683
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 05:48:27 2021 -0400
+
+    bullseye
+
+commit 2152df99679295bdd6eebe6eab8a2a20312cba75
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 1 16:24:43 2021 -0400
+
+    readme
+
+commit 4da0423cbbc01f025d0aacb70ca23f28bfbe398f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jun 5 17:49:02 2021 -0400
+
+    bumped changelog version
+
 commit 0b8d04579ee347ccbb0c632cfdf17524480f2269
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Jun 5 17:47:05 2021 -0400
