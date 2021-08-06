@@ -91,7 +91,7 @@
 	deny /usr/bin/*-gnu-* rx,
 	deny /sbin/** rwx,
 	#audit deny @{PROC}/** r,
-	deny /usr/bin/python3.7 r,
+	deny /usr/bin/python3.9 r,
 	deny /etc/ssl/openssl.cnf r,
 	owner /tmp/** rwm,
 
