@@ -132,7 +132,7 @@ check_tor_socks_or_trans_port() {
 
    if [ ! "$check_result_curl_exit_code" = "0" ]; then
       local curl_status_message
-      curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_result_curl_exit_code")"
+      curl_status_message="$(/usr/libexec/helper-scripts/curl_exit_codes "$check_result_curl_exit_code")"
 
       local MSG="$connection_failed_msg
 (curl exit code: $curl_status_message)</p>"

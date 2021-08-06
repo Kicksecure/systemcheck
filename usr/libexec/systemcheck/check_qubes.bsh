@@ -162,7 +162,7 @@ check_qubes_update_proxy_reachability() {
    wait "$lastpid" || { curl_exit_code="$?" ; true; };
 
    local curl_status_message
-   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
+   curl_status_message="$(/usr/libexec/helper-scripts/curl_exit_codes "$curl_exit_code")"
 
    qubes_update_proxy_test_result_torified="none"
 
@@ -233,7 +233,7 @@ check_qubes_update_proxy_functionality() {
    wait "$lastpid" || { curl_exit_code="$?" ; true; };
 
    local curl_status_message
-   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$curl_exit_code")"
+   curl_status_message="$(/usr/libexec/helper-scripts/curl_exit_codes "$curl_exit_code")"
 
    if [ "$curl_exit_code" = "22" ]; then
       local MSG="<p>Qubes Update Proxy Functionality Result: Failed. (Filtered.) \

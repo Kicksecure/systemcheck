@@ -34,7 +34,7 @@ check_tor_socks_port_reachability() {
    wait "$lastpid" || { check_socks_port_open_test="$?" ; true; };
 
    local curl_status_message
-   curl_status_message="$(/usr/lib/curl-scripts/curl_exit_codes "$check_socks_port_open_test")"
+   curl_status_message="$(/usr/libexec/helper-scripts/curl_exit_codes "$check_socks_port_open_test")"
 
    if [ "$check_socks_port_open_test" = "22" ]; then
       local MSG="<p>Tor SocksPort Reachability Test Result: Reachable. \

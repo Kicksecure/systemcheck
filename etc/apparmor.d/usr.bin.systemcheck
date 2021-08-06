@@ -120,6 +120,7 @@
 	/etc/default/nss r,
 	/etc/group r,
 	/etc/sudoers r,
+	/etc/sudo.conf r,
 	/etc/sudoers.d/ r,
 	/etc/sudoers.d/* r,
 	/etc/pam.d/* r,
@@ -315,11 +316,12 @@
 	/usr/libexec/msgcollector/* rix,
 	/usr/lib/sudo/sudoers.so mr,
 	/usr/lib/*-linux-gnu/security/** mr,
+	/usr/libexec/systemcheck/ r,
 	/usr/libexec/systemcheck/** rix,
 	/usr/lib/python*/** mr,
 	/usr/lib/torsocks/* mr,
 	/usr/lib/apt/methods/* rix,
-	/usr/lib/curl-scripts/curl_exit_codes rix,
+	/usr/libexec/helper-scripts/curl_exit_codes rix,
 	/usr/libexec/helper-scripts/* rix,
 
 	## Allow running 'apt-get update' unconfined so it can also initially
