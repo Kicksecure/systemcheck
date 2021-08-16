@@ -1,3 +1,15 @@
+commit 0acf98f71b91bff962a8c6c30ade1d52015baee5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 16 16:06:07 2021 -0400
+
+    @{PROC}/sys/kernel/osrelease r,
+
+commit 38eba9a2e6d33a0d81b4165463e1ff7eaf849777
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Aug 6 19:22:57 2021 -0400
+
+    bumped changelog version
+
 commit eff420499780659725687d0a789b1fac3febae76
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Aug 6 19:22:46 2021 -0400
