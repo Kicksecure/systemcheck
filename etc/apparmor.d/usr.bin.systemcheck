@@ -248,10 +248,6 @@
 	/sys/fs/cgroup/memory/user/root/ rw,
 	/sys/fs/cgroup/memory/user/root/** rw,
 
-
-
-
-
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
 	/sys/hypervisor/type r,
