@@ -321,8 +321,6 @@
 	/usr/libexec/helper-scripts/ r,
 	/usr/libexec/helper-scripts/* rix,
 
-	/usr/bin/tor-circuit-established-check rUx,
-
 	## Allow running 'apt-get update' unconfined so it can also initially
 	## create /var/cache/apt/archives/.
 	/usr/libexec/security-misc/apt-get-update rUx,
