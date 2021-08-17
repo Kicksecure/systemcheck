@@ -1,3 +1,21 @@
+commit 83244c59499cd9e593bc4ee1849ec887e0d781fe
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 17 12:20:19 2021 -0400
+
+    apparmor bullseye
+
+commit 18f17202ca1d99e477dfbcf722c7eb9900822517
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 17 12:14:17 2021 -0400
+
+    fix
+
+commit d8bc170188bcaf464257edf6c60571957470a2b2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 16 16:22:05 2021 -0400
+
+    bumped changelog version
+
 commit 0acf98f71b91bff962a8c6c30ade1d52015baee5
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Aug 16 16:06:07 2021 -0400
