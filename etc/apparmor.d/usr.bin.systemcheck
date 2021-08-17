@@ -204,7 +204,7 @@
 	@{PROC}/[0-9]*/cgroup r,
 	/etc/shadow r,
 
-	/run/systemcheck/* mrwcx,
+	/run/systemcheck/** mrwcx,
 	/run/utmp rk,
 	/run/msgcollector/ rwk,
 	/run/msgcollector/** rwk,
@@ -313,6 +313,7 @@
 	/{,usr/}bin/qubesdb-read rix,
 	/{,usr/}bin/qubesdb-cmd rix,
 
+	/usr/libexec/msgcollector/ r,
 	/usr/libexec/msgcollector/* rix,
 	/usr/lib/sudo/sudoers.so mr,
 	/usr/lib/*-linux-gnu/security/** mr,
@@ -323,6 +324,8 @@
 	/usr/lib/apt/methods/* rix,
 	/usr/libexec/helper-scripts/ r,
 	/usr/libexec/helper-scripts/* rix,
+
+	/usr/bin/tor-circuit-established-check rUx,
 
 	## Allow running 'apt-get update' unconfined so it can also initially
 	## create /var/cache/apt/archives/.
