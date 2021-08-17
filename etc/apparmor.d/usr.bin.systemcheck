@@ -321,7 +321,7 @@
 	/usr/lib/python*/** mr,
 	/usr/lib/torsocks/* mr,
 	/usr/lib/apt/methods/* rix,
-	/usr/libexec/helper-scripts/curl_exit_codes rix,
+	/usr/libexec/helper-scripts/ r,
 	/usr/libexec/helper-scripts/* rix,
 
 	## Allow running 'apt-get update' unconfined so it can also initially
