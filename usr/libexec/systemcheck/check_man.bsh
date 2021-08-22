@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_man() {
-   if man --pager=cat str_replace >/dev/null ; then
+   if man --pager=cat LANG=C str_replace >/dev/null ; then
       local MSG="<p>Check manual page (man) Result: Ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
