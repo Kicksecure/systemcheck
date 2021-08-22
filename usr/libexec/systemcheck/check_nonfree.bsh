@@ -7,11 +7,11 @@ check_nonfree() {
    local vrms_output vrms_result line expected_package check_nonfree_result continue
 
    ## Human readable output.
-   vrms_output="$(vrms 2>&1)" || true
+   vrms_output="$(LANG=C vrms 2>&1)" || true
    vrms_output="$(/usr/libexec/msgcollector/br_add "$vrms_output")"
 
    ## For machine readable output.
-   vrms_result="$(vrms --quiet --sparse 2>&1)" || true
+   vrms_result="$(LANG=C vrms --quiet --sparse 2>&1)" || true
 
    check_nonfree_result=free
    for line in $vrms_result ; do
