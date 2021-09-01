@@ -75,6 +75,9 @@ systemcheck_main() {
    systemcheck_run_function show_systemcheck_header ## preparation
    systemcheck_run_function input_notification ## preparation
 
+   ## Does not use the network.
+   systemcheck_run_function check_sudo ## check_sudo
+
    if [ "$test_connect" = "true" ]; then
       ## Only connects to Whonix-Gateway.
       systemcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
@@ -83,9 +86,6 @@ systemcheck_main() {
       ## Does not use the network.
       systemcheck_run_function cleanup ## cleanup
    fi
-
-   ## Does not use the network.
-   systemcheck_run_function check_sudo ## check_sudo
 
    ## Does not use the network.
    systemcheck_run_function show_versions ## show_versions
