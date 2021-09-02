@@ -228,7 +228,7 @@ check_tor_bootstrap_unknown_failure_cases() {
 <br></br>(tor_bootstrap_status: $tor_bootstrap_status)
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(Tor Circuit: $tor_circuit_established_word)
-<br></br>Please report this $PROJECT_NAME bug!</p>"
+<br></br>Please report this $PROJECT_NAME usability bug! (Not a security bug.)</p>"
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
    fi
