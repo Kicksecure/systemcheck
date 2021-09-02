@@ -211,8 +211,10 @@ $multiple_whonix_ws_msg
 }
 
 check_tor_bootstrap_unknown_failure_cases() {
-   if [ "$tor_circuit_established_check_exit_code" -gt "100" ] || \
-   [ "$tor_circuit_established_check_exit_code" -lt "0" ]; then
+   if \
+   [ "$tor_circuit_established_check_exit_code" -gt "100" ] || \
+   [ "$tor_circuit_established_check_exit_code" -lt "0" ]
+   then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
