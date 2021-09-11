@@ -306,10 +306,10 @@ preparation() {
 
       local i
       while read -r i; do
-         local first second third fourth
-         read -r first second third fourth _ <<< "$i"
+         local first second third fourth sixt
+         read -r first second third fourth sixt _ <<< "$i"
          if [ "$first" = "deb" ]; then
-            derivative_codename="$third"
+            derivative_codename="$fourth"
             break
          fi
       done < "/etc/apt/sources.list.d/derivative.list"
