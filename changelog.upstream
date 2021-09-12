@@ -1,3 +1,23 @@
+commit 5ac0a09063e7a90d2e340f25b7e6bc854f376b1e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Sep 11 18:06:43 2021 -0400
+
+    update path APT `signed-by`
+    
+    https://forums.whonix.org/t/apt-repository-signing-keys-per-apt-sources-list-signed-by/12302
+
+commit e189f883b840abd085cadb0f8946cd02e094d31c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Sep 11 16:31:41 2021 -0400
+
+    readme
+
+commit f7d4da2b54acbaca4799c258102b7298c86e5b99
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Sep 2 15:45:17 2021 -0400
+
+    bumped changelog version
+
 commit 75c2999748d4819ba170331e5d1bc60ad84ad045
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Sep 2 15:35:01 2021 -0400
