@@ -94,7 +94,7 @@ def main():
     canary_txt_embed_sig = "/var/lib/canary/canary.txt.embed.sig"
     canary_unembed = "/var/lib/canary/canary-unembed.txt"
     canary_unixtime = "/var/lib/canary/canary-unixtime.txt"
-    signify_openbsd_public_key = "/usr/share/repository-dist/derivative-distribution-signify-key.pub"
+    signify_openbsd_public_key = "/usr/share/keyrings/derivative.pub"
     timeout_seconds = 5
 
     file_object = open(canary_txt_embed_sig, "w")

@@ -65,7 +65,7 @@
 	## For systemd-detect-virt in Qubes.
 	/sys/hypervisor/properties/features r,
 
-	/usr/share/repository-dist/derivative-distribution-signify-key.pub r,
+	/usr/share/keyrings/derivative.pub r,
 
 	/run/sdwdate/success r,
 
