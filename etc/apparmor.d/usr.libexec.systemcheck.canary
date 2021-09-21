@@ -49,8 +49,13 @@
 	/etc/whonix.d/ r,
 	/etc/whonix.d/** r,
 
-	/usr/libexec/systemcheck/ r,
-	/usr/libexec/systemcheck/** r,
+	## Does not work.
+	## AVC apparmor="DENIED" operation="open" profile="/usr/libexec/systemcheck/canary" name="/usr/libexec/systemcheck/" comm="canary-download" requested_mask="r" denied_mask="r"
+	#/usr/libexec/systemcheck/ r,
+	#/usr/libexec/systemcheck/** r,
+	## Using deny instead since not needed anyhow.
+	deny /usr/libexec/systemcheck/ r,
+
 	/usr/libexec/systemcheck/canary r,
 	/usr/libexec/systemcheck/canary-download rix,
 	/usr/libexec/systemcheck/canary-run-or-not rix,
