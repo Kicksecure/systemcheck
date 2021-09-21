@@ -52,7 +52,7 @@
 	/etc/whonix.d/** r,
 
 	/usr/libexec/systemcheck/canary r,
-	/usr/libexec/systemcheck/canary-download.py rix,
+	/usr/libexec/systemcheck/canary-download rix,
 	/usr/libexec/systemcheck/canary-run-or-not rix,
 
 	## For systemd-detect-virt.

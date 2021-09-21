@@ -178,7 +178,7 @@ canary_do() {
    canary_download_exit_code="0"
 
    timeout --kill-after="5" "180" \
-      /usr/libexec/systemcheck/canary-download.py \
+      /usr/libexec/systemcheck/canary-download \
       "$canary_api_link" \
       &> "/var/lib/canary/canary-download-output.txt" \
       || { canary_download_exit_code="$?" ; true; };
