@@ -12,7 +12,6 @@
 	/{,usr/}bin/grep rix,
 	/etc/passwd r,
 	/etc/nsswitch.conf r,
-	/usr/libexec/msgcollector/striphtml rix,
 	/{,usr/}bin/date rix,
 	/{,usr/}bin/cat rix,
 	/{,usr/}bin/tee rix,
@@ -60,6 +59,7 @@
 	/usr/libexec/systemcheck/canary-download rix,
 	/usr/libexec/systemcheck/canary-run-or-not rix,
 	/usr/libexec/helper-scripts/settings_echo rix,
+	/usr/libexec/msgcollector/striphtml rix,
 
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
