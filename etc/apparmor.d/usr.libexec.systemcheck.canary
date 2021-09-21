@@ -34,7 +34,6 @@
 	/etc/hosts r,
 	/etc/host.conf r,
 	/etc/resolv.conf r,
-	/usr/libexec/helper-scripts/settings_echo r,
 	/var/lib/canary/ rw,
 	/var/lib/canary/** rw,
 	/usr/libexec/helper-scripts/settings_echo rix,
