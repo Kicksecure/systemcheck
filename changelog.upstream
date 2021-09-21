@@ -1,3 +1,21 @@
+commit 001fa395bf22f62a12296b719600b06fbf56c944
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 21 03:39:37 2021 -0400
+
+    usr/libexec/systemcheck/canary-download.py -> usr/libexec/systemcheck/canary-download
+
+commit 8e8b0854a37f19626e2f017457a67d4e8ce506e0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 21 03:35:36 2021 -0400
+
+    etc/apparmor.d/usr.lib.systemcheck.canary -> etc/apparmor.d/usr.libexec.systemcheck.canary
+
+commit ceb9bff1065d07fd2973b1903c01ddef66ed0485
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Sep 18 04:53:19 2021 -0400
+
+    bumped changelog version
+
 commit 50b3e9a52f947cefc0ef6546c9e81e7aa86b4b2e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Sep 18 04:52:03 2021 -0400
