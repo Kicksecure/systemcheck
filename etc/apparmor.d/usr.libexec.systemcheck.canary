@@ -36,7 +36,6 @@
 	/etc/resolv.conf r,
 	/var/lib/canary/ rw,
 	/var/lib/canary/** rw,
-	/usr/libexec/helper-scripts/settings_echo rix,
 
 	/etc/systemcheck.d/ r,
 	/etc/systemcheck.d/** r,
@@ -55,6 +54,7 @@
 	/usr/libexec/systemcheck/canary r,
 	/usr/libexec/systemcheck/canary-download rix,
 	/usr/libexec/systemcheck/canary-run-or-not rix,
+	/usr/libexec/helper-scripts/settings_echo rix,
 
 	## For systemd-detect-virt.
 	/sys/devices/virtual/dmi/id/product_name r,
