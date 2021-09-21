@@ -51,6 +51,7 @@
 	/etc/whonix.d/** r,
 
 	/usr/libexec/systemcheck/ r,
+	/usr/libexec/systemcheck/** r,
 	/usr/libexec/systemcheck/canary r,
 	/usr/libexec/systemcheck/canary-download rix,
 	/usr/libexec/systemcheck/canary-run-or-not rix,
