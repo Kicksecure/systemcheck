@@ -7,3 +7,4 @@ rm_conffile /etc/systemcheck.d/30_whonixcheck_default.conf
 rm_conffile /etc/default/whonixcheckd
 rm_conffile /etc/sudoers.d/whonixcheck
 rm_conffile /etc/apparmor.d/usr.bin.whonixcheck
+rm_conffile /etc/apparmor.d/usr.lib.systemcheck.canary
