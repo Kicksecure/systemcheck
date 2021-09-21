@@ -10,8 +10,6 @@
 
 	/{,usr/}bin/whoami rix,
 	/{,usr/}bin/grep rix,
-	/etc/passwd r,
-	/etc/nsswitch.conf r,
 	/{,usr/}bin/date rix,
 	/{,usr/}bin/cat rix,
 	/{,usr/}bin/tee rix,
@@ -19,20 +17,20 @@
 	/{,usr/}bin/rm rix,
 	/{,usr/}bin/signify-openbsd rix,
 	/{,usr/}bin/sleep rix,
-
-	/etc/group r,
 	/{,usr/}bin/touch rix,
 	/{,usr/}bin/ls rix,
-
 	/{,usr/}bin/systemd-detect-virt rix,
 	/{,usr/}bin/systemd-notify rix,
-
 	/{,usr/}bin/qubesdb-read rix,
 	/{,usr/}bin/qubesdb-cmd rix,
 
+	/etc/passwd r,
+	/etc/nsswitch.conf r,
+	/etc/group r,
 	/etc/hosts r,
 	/etc/host.conf r,
 	/etc/resolv.conf r,
+
 	/var/lib/canary/ rw,
 	/var/lib/canary/** rw,
 
