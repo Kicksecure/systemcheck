@@ -103,5 +103,5 @@
 	owner /tmp/** rwm,
 
 	# Site-specific additions and overrides. See local/README for details.
-	#include <local/usr.lib.systemcheck.canary>
+	#include <local/usr.libexec.systemcheck.canary>
 }
