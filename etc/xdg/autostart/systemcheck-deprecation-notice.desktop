@@ -1,0 +1,10 @@
+## Copyright (C) 2020 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+[Desktop Entry]
+Name=Distribution Deprecation Boot Popup
+Comment=dismissible popup
+Type=Application
+Terminal=false
+Exec=/usr/lib/systemcheck/deprecation-popup
+#NotShowIn=QUBES;
