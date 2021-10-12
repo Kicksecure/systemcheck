@@ -1,3 +1,27 @@
+commit c386903d01577bb41399a51f3244dbd08e4d074a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:19:09 2021 -0400
+
+    show deprecation notice during package upgrade
+
+commit 65ee72f285c5369ccf4dc88968a33a651f8bd639
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:18:12 2021 -0400
+
+    fix
+
+commit 18352a28dc0f27b6317a2f00277dc1b452eeefec
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:17:24 2021 -0400
+
+    add deprecation notice popup
+
+commit ed142fbb9d13f675da528094f49ad3722e5dc685
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 09:11:11 2021 -0400
+
+    bumped changelog version
+
 commit 3917085fdca8ad26b019f57ced0e42f70f79ba8c
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Oct 12 07:28:40 2021 -0400
