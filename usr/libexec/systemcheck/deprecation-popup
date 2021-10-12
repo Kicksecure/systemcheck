@@ -13,6 +13,8 @@ derivative_major_release_version="16"
 PROJECT_NAME="Whonix"
 PROJECT_HOMEPAGE="https://www.whonix.org"
 
+status_file=~/.config/systemcheck/deprecation-notice/dismissed-version-16
+
 title="DEPRECATION NOTICE"
 
 text="<p>$PROJECT_NAME Support Status of this Major Version: <b>Deprecated!</b>
@@ -27,4 +29,4 @@ text="<p>$PROJECT_NAME Support Status of this Major Version: <b>Deprecated!</b>
 <br />${PROJECT_HOMEPAGE}/wiki/Release_Upgrade
 </p>"
 
-/usr/lib/msgcollector/one-time-popup ~/.config/systemcheck/deprecation-notice/dismissed-version-16 "$title" "$text"
+/usr/lib/msgcollector/one-time-popup "$status_file" "$title" "$text"
