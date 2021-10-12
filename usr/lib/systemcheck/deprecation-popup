@@ -1,0 +1,29 @@
+#!/bin/bash
+
+## Copyright (C) 2020 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+## https://forums.whonix.org/t/one-time-popup-notification-of-whonix-15-deprecation-once-whonix-16-was-released/11720
+## https://forums.whonix.org/t/do-not-show-this-message-again-generic-one-time-popup/8066
+
+derivative_major_release_version=15
+PROJECT_NAME="Whonix"
+PROJECT_HOMEPAGE="https://www.whonix.org"
+
+title="DEPRECATION NOTICE"
+
+text="<p>$PROJECT_NAME Support Status of this Major Version: <b>Deprecated!</b>
+<br />
+<br />$PROJECT_NAME major release version <u><code>$derivative_major_release_version</code></u> deprecation date: 14 November 2021.
+<br />
+<br />No more security support will be provided.
+<br />
+<br /><b>A Release Upgrade is strongly recommended!</u></b>
+<br />
+<br />${PROJECT_HOMEPAGE}/wiki/Stay_Tuned
+<br />${PROJECT_HOMEPAGE}/wiki/Release_Upgrade
+</p>"
+
+mkdir -p ~/.config/systemcheck/deprecation-notice
+/usr/lib/msgcollector/one-time-popup ~/.config/systemcheck/deprecation-notice/dismissed-version-1 "$title" "$text"
+
