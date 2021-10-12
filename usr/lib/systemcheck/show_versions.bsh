@@ -26,7 +26,7 @@ show_versions() {
 ## systemcheck --gui --cli --function show_deprecation_notice
 show_deprecation_notice() {
    ## https://forums.whonix.org/t/one-time-popup-notification-of-whonix-15-deprecation-once-whonix-16-was-released/11720
-   [ -n "$derivative_deprecated_major_release_versions_list" ] || derivative_deprecated_major_release_versions_list="14"
+   [ -n "$derivative_deprecated_major_release_versions_list" ] || derivative_deprecated_major_release_versions_list="14 15"
 
    local deprecated_version
    for deprecated_version in $derivative_deprecated_major_release_versions_list ; do
