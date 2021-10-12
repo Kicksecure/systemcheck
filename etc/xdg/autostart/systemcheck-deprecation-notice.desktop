@@ -6,5 +6,5 @@ Name=Distribution Deprecation Boot Popup
 Comment=dismissible popup
 Type=Application
 Terminal=false
-Exec=/usr/lib/systemcheck/deprecation-popup
+Exec=/usr/libexec/systemcheck/deprecation-popup
 #NotShowIn=QUBES;
