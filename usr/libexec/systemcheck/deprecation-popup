@@ -27,5 +27,4 @@ text="<p>$PROJECT_NAME Support Status of this Major Version: <b>Deprecated!</b>
 <br />${PROJECT_HOMEPAGE}/wiki/Release_Upgrade
 </p>"
 
-mkdir -p ~/.config/systemcheck/deprecation-notice
 /usr/lib/msgcollector/one-time-popup ~/.config/systemcheck/deprecation-notice/dismissed-version-15 "$title" "$text"
