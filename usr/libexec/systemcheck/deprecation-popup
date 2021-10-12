@@ -9,9 +9,9 @@
 true "INFO: This version is not yet deprecated."
 exit 0
 
-derivative_major_release_version="16"
-PROJECT_NAME="Whonix"
-PROJECT_HOMEPAGE="https://www.whonix.org"
+if test -x /usr/libexec/helper-scripts/origins-parser ; then
+   source /usr/libexec/helper-scripts/origins-parser
+fi
 
 status_file=~/.config/systemcheck/deprecation-notice/dismissed-version-16
 

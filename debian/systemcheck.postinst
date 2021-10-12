@@ -65,9 +65,9 @@ deprecation_notice() {
    true "INFO: This version is not yet deprecated."
    return 0
 
-   derivative_major_release_version=15
-   PROJECT_NAME="Whonix"
-   PROJECT_HOMEPAGE="https://www.whonix.org"
+   if test -x /usr/libexec/helper-scripts/origins-parser ; then
+      source /usr/libexec/helper-scripts/origins-parser
+   fi
 
    echo "DEPRECATION NOTICE
 
