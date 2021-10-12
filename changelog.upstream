@@ -1,3 +1,63 @@
+commit c11d1b0695d314cbfcd804133e763c5e56903a3c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 12:01:30 2021 -0400
+
+    refactoring
+
+commit d4010b83bfc43ddac0ea77572f799e1f71210ef8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:42:55 2021 -0400
+
+    refactoring
+
+commit 37fe83169103ac07066185fa33bcb717fd4b86a9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:42:00 2021 -0400
+
+    fix
+
+commit fa1d36b38db27ff388014ff92e653edae5f998cf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:41:45 2021 -0400
+
+    cleanup
+
+commit 078eb326852c504640fc12c0dcff0fca35ee74ed
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:33:42 2021 -0400
+
+    move
+
+commit 687ff917e9243a2cd17fd7f19526710379731569
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:32:40 2021 -0400
+
+    fix
+
+commit e3a5ee7d47f761b7c920e80ac0e15fd25cd24536
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:19:09 2021 -0400
+
+    show deprecation notice during package upgrade
+
+commit 9b80381bbf13fdd81947e7f804d3ed9d2814f8b9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:18:12 2021 -0400
+
+    fix
+
+commit 5f0c7deab97101c0217af07e4cf62cf2c45c8b06
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 12 11:17:24 2021 -0400
+
+    add deprecation notice popup
+
+commit c14a6cc2abf9d45eccdb468062e0305a530c8040
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 24 11:10:53 2021 -0400
+
+    bumped changelog version
+
 commit 11588672c702889d6efe99c2841cce17a3011b63
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Sep 24 10:32:30 2021 -0400
