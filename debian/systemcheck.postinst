@@ -61,23 +61,30 @@ true "INFO: debhelper beginning here."
 
 true "INFO: Done with debhelper."
 
-derivative_major_release_version=15
-PROJECT_NAME="Whonix"
-PROJECT_HOMEPAGE="https://www.whonix.org"
+deprecation_notice() {
+   true "INFO: This version is not yet deprecated."
+   return 0
 
-echo "DEPRECATION NOTICE
+   derivative_major_release_version=15
+   PROJECT_NAME="Whonix"
+   PROJECT_HOMEPAGE="https://www.whonix.org"
 
-$PROJECT_NAME Support Status of this Major Version: Deprecated!
+   echo "DEPRECATION NOTICE
 
-$PROJECT_NAME major release version '$derivative_major_release_version' deprecation date: 14 November 2021.
+   $PROJECT_NAME Support Status of this Major Version: Deprecated!
 
-No more security support will be provided.
+   $PROJECT_NAME major release version '$derivative_major_release_version' deprecation date: 14 November 2021.
 
-A Release Upgrade is strongly recommended!
+   No more security support will be provided.
 
-${PROJECT_HOMEPAGE}/wiki/Stay_Tuned
+   A Release Upgrade is strongly recommended!
 
-https://forums.whonix.org/t/whonix-15-end-of-security-support-and-deprecation-notice-all-users-should-move-to-whonix-16/12473"
+   ${PROJECT_HOMEPAGE}/wiki/Stay_Tuned
+
+   https://forums.whonix.org/t/whonix-15-end-of-security-support-and-deprecation-notice-all-users-should-move-to-whonix-16/12473"
+}
+
+deprecation_notice
 
 true "
 #####################################################################
