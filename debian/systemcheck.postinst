@@ -61,6 +61,24 @@ true "INFO: debhelper beginning here."
 
 true "INFO: Done with debhelper."
 
+derivative_major_release_version=15
+PROJECT_NAME="Whonix"
+PROJECT_HOMEPAGE="https://www.whonix.org"
+
+echo "DEPRECATION NOTICE
+
+$PROJECT_NAME Support Status of this Major Version: Deprecated!
+
+$PROJECT_NAME major release version '$derivative_major_release_version' deprecation date: 14 November 2021.
+
+No more security support will be provided.
+
+A Release Upgrade is strongly recommended!
+
+${PROJECT_HOMEPAGE}/wiki/Stay_Tuned
+
+https://forums.whonix.org/t/whonix-15-end-of-security-support-and-deprecation-notice-all-users-should-move-to-whonix-16/12473"
+
 true "
 #####################################################################
 ## INFO: END  : $DPKG_MAINTSCRIPT_PACKAGE $DPKG_MAINTSCRIPT_NAME $@
