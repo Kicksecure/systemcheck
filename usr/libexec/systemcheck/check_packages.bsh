@@ -31,7 +31,7 @@ non-qubes-whonix-workstation-cli"
       elif [ "$vm_lower_case_short" = "machine" ]; then
          meta_package_wanted_list="\
 kicksecure-xfce
-kicksecure-xfce-cli"
+kicksecure-cli"
       fi
    fi
 
