@@ -17,7 +17,9 @@ check_meta_packages() {
       elif [ "$vm_lower_case_short" = "workstation" ]; then
          meta_package_wanted_list="qubes-whonix-workstation"
       elif [ "$vm_lower_case_short" = "machine" ]; then
-         meta_package_wanted_list="kicksecure-cli-qubes"
+         meta_package_wanted_list="\
+kicksecure-qubes-cli
+kicksecure-qubes-gui"
       fi
    else
       if [ "$vm_lower_case_short" = "gateway" ]; then
@@ -31,9 +33,7 @@ non-qubes-whonix-workstation-cli"
       elif [ "$vm_lower_case_short" = "machine" ]; then
          meta_package_wanted_list="\
 kicksecure-xfce
-kicksecure-cli
-kicksecure-qubes-cli
-kicksecure-qubes-gui"
+kicksecure-cli"
       fi
    fi
 
