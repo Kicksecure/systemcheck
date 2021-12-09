@@ -195,6 +195,8 @@ check_qubes_update_proxy_reachability() {
 
    qubes_update_proxy_test_result_torified="false"
    local MSG="<p>Qubes Update Proxy Reachability Result: Ok, <u>non</u>-torified update proxy reachable.
+curl_status_message: <blockquote>$curl_status_message</blockquote>
+PROXY_META: <blockquote>${PROXY_META}</blockquote>
 curl_output: <blockquote>$curl_output</blockquote></p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
