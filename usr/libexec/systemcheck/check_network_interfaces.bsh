@@ -6,6 +6,10 @@
 #set -x
 
 check_network_interfaces() {
+   if [ "$vm_lower_case_short" = "machine" ]; then
+      return 0
+   fi
+
    if test -f /run/qubes/this-is-templatevm ; then
       return 0
    fi
