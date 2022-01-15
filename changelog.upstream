@@ -1,3 +1,15 @@
+commit 4051ffb6afc07dddee329117e93e3656d971d6d3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jan 15 14:15:10 2022 -0500
+
+    fix, skip check_network_interfaces eth0 on Kicksecure
+
+commit ce74dd0f4a17048fa555e784b2c1bf2b4bcd1713
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jan 8 05:45:01 2022 -0500
+
+    bumped changelog version
+
 commit 930f01dd1ef7fc614d6dc93352e3cba18dc0d253
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Jan 8 03:01:41 2022 -0500
