@@ -8,19 +8,19 @@ check_hardened_malloc() {
    result="$(hardened-malloc-type-test)" || true
 
    if [ "$result" = "none" ]; then
-      local MSG="<p><a href=https://www.whonix.org/wiki/Hardened_Malloc>Hardened Malloc</a>: Disabled.</p>"
+      local MSG="<p><a href=https://www.kicksecure.com/wiki/Hardened_Malloc>Hardened Malloc</a>: Disabled.</p>"
       type=warning
    fi
-   if [ "$result" = "kicksecure" ]; then
-      local MSG="<p>Hardened Malloc: <a href=https://www.whonix.org/wiki/Hardened_Malloc_Kicksecure>Hardened Malloc <u>Kicksecure</u></a> version enabled.</p>"
+   if [ "$result" = "light" ]; then
+      local MSG="<p>Hardened Malloc: <a href=https://www.kicksecure.com/wiki/Hardened_Malloc_Light>Hardened Malloc <u>Light</u></a> version enabled.</p>"
       type=info
    fi
    if [ "$result" = "original" ]; then
-      local MSG="<p>Hardened Malloc: <a href=https://www.whonix.org/wiki/Hardened_Malloc>Hardened Malloc <u>Original</u></a> version enabled.</p>"
+      local MSG="<p>Hardened Malloc: <a href=https://www.kicksecure.com/wiki/Hardened_Malloc>Hardened Malloc <u>Original</u></a> version enabled.</p>"
       type=info
    fi
    if [ "$result" = "" ]; then
-      local MSG="<p><a href=https://www.whonix.org/wiki/Hardened_Mallo_Kicksecurec>Hardened Malloc Test</a>: ERROR. result: <code>$result</code></p>"
+      local MSG="<p><a href=https://www.kicksecure.com/wiki/Hardened_Malloc_Light>Hardened Malloc Test</a>: ERROR. result: <code>$result</code></p>"
       type=error
    fi
 
