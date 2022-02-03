@@ -4,6 +4,10 @@
 ## See the file COPYING for copying conditions.
 
 check_stream_isolation() {
+   if [ "$vm_lower_case_short" = "machine" ]; then
+      return 0
+   fi
+
    if [ ! "$leak_tests" = "true" ]; then
       local MSG="\
 <p>$FUNCNAME $1: Skipped, because not using <code>--leak-tests</code> (<code>--show-ip</code>), ok.</p>"
