@@ -5,7 +5,7 @@
 
 disclaimer() {
    if [ "$qubes_detected" = "true" ]; then
-      true "qubes_detected is $qubes_detected. Skipping $FUNCNAME."
+      true "INFO: qubes_detected is $qubes_detected, therefore skipping $FUNCNAME."
       return 0
    fi
 
