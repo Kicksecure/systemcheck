@@ -80,38 +80,49 @@ $if_you_know_what_you_are_doing_msg</p>"
    return 0
 }
 
+br_add_to_file() {
+   local file_name="$1"
+
+   test -f "${file_name}"
+   rm -f "${file_name}_br"
+   touch "${file_name}_br"
+   while IFS= read -r line ; do
+      echo "$line<br />" | tee -a "${file_name}_br" >/dev/null
+   done < "${file_name}"
+}
+
 check_journal() {
    if [ "$verbose" -lt "1" ]; then
       return 0
    fi
 
+   test -w "$TEMP_DIR"
+
    local journalctl_output grep_warn_output grep_error_output grep_denied_output grep_ordering_output
 
    ## '--priority=0..4'
    ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
-   journalctl_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager --priority=0..4)" || true
+   sudo --non-interactive /bin/journalctl --boot --no-pager | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
-   grep_warn_output="$(echo "$journalctl_output" | grep -i "warn")" || true
-   grep_fail_output="$(echo "$journalctl_output" | grep -i "fail")" || true
-   grep_error_output="$(echo "$journalctl_output" | grep -i "error")" || true
-   grep_denied_output="$(echo "$journalctl_output" | grep -i "denied")" || true
-   grep_ordering_output="$(echo "$journalctl_output" | grep -i "ordering cycle")" || true
+   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "warn" | tee "$TEMP_DIR/journalctl_warn.txt" >/dev/null || true
+   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "fail" | tee "$TEMP_DIR/journalctl_fail.txt" >/dev/null || true
+   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "error" | tee "$TEMP_DIR/journalctl_error.txt" >/dev/null || true
+   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "denied" | tee "$TEMP_DIR/journalctl_denied.txt" >/dev/null || true
+   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "ordering cycle" | tee "$TEMP_DIR/journalctl_orderingcycle.txt" >/dev/null || true
 
-   if \
-   [ "$grep_warn_output" = "" ] && \
-   [ "$grep_fail_output" = "" ] && \
-   [ "$grep_error_output" = "" ] && \
-   [ "$grep_denied_output" = "" ] && \
-   [ "$grep_ordering_output" = "" ]; then
-      return 0
-   fi
+   ## Cannot use /usr/libexec/msgcollector/br_add due to 'getconf ARG_MAX' limit.
+   br_add_to_file "$TEMP_DIR/journalctl_warn.txt"
+   br_add_to_file "$TEMP_DIR/journalctl_fail.txt"
+   br_add_to_file "$TEMP_DIR/journalctl_error.txt"
+   br_add_to_file "$TEMP_DIR/journalctl_denied.txt"
+   br_add_to_file "$TEMP_DIR/journalctl_orderingcycle.txt"
 
-   grep_warn_output="$(/usr/libexec/msgcollector/br_add "$grep_warn_output")"
-   grep_fail_output="$(/usr/libexec/msgcollector/br_add "$grep_fail_output")"
-   grep_error_output="$(/usr/libexec/msgcollector/br_add "$grep_error_output")"
-   grep_denied_output="$(/usr/libexec/msgcollector/br_add "$grep_denied_output")"
-   grep_ordering_output="$(/usr/libexec/msgcollector/br_add "$grep_ordering_output")"
+   grep_warn_output="$(cat "$TEMP_DIR/journalctl_warn.txt_br")"
+   grep_fail_output="$(cat "$TEMP_DIR/journalctl_fail.txt_br")"
+   grep_error_output="$(cat "$TEMP_DIR/journalctl_error.txt_br")"
+   grep_denied_output="$(cat "$TEMP_DIR/journalctl_denied.txt_br")"
+   grep_ordering_output="$(cat "$TEMP_DIR/journalctl_orderingcycle.txt_br")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"

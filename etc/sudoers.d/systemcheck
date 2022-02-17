@@ -34,6 +34,7 @@ systemcheck ALL=NOPASSWD: /bin/dmesg
 systemcheck ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid
 
 ## required for check_services
+systemcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager
 systemcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager --priority=0..4
 systemcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager -u whonix-firewall
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-firewall
