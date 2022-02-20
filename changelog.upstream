@@ -1,3 +1,15 @@
+commit c21224b5aeff1f9cc4a95819bde4b4ef8fa86e9b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 17 08:47:50 2022 -0500
+
+    fix check journal if journal is longer then operating system ARG_MAX limit
+
+commit 76b9b4bc25af61a17c3b1cde5cc850460744db3a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Feb 16 15:30:00 2022 -0500
+
+    bumped changelog version
+
 commit 0037eec13b288cf08543e10a57e098571ddfdb22
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Feb 16 08:30:50 2022 -0500
