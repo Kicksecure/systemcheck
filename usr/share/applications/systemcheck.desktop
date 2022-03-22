@@ -8,5 +8,5 @@ Name=System Check
 GenericName=System Check
 Comment=Check System Security Status
 Categories=System
-Icon=/usr/share/icons/anon-icon-pack/whonix.png
+Icon=/usr/share/icons/icon-pack-dist/whonix.png
 Keywords=Whonix;system;check

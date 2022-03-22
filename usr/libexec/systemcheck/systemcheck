@@ -17,7 +17,7 @@ set -o errtrace
 NOTIFY_MSG="Checking System Status...
 This will happen in the background and will take approximately three minutes..."
 
-ICON="/usr/share/icons/anon-icon-pack/whonix.ico"
+ICON="/usr/share/icons/icon-pack-dist/whonix.ico"
 
 SCRIPTNAME="$(basename "$BASH_SOURCE")"
 IDENTIFIER="$SCRIPTNAME"

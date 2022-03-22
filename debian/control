@@ -21,7 +21,7 @@ Depends: dist-base-files, python3, signify-openbsd, curl,
  apparmor-profile-dist, ${misc:Depends}
 Replaces: apparmor-profile-whonixcheck, whonixcheck
 Conflicts: apparmor-profile-whonixcheck, whonixcheck
-Recommends: anon-icon-pack
+Recommends: icon-pack-dist
 Description: Anonymity and security check
  Checks many important aspects for better security.
  .
