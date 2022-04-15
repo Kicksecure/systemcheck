@@ -15,8 +15,8 @@ check_hardened_malloc() {
       local MSG="<p>Hardened Malloc: <a href=https://www.kicksecure.com/wiki/Hardened_Malloc_Light>Hardened Malloc <u>Light</u></a> version enabled.</p>"
       type=info
    fi
-   if [ "$result" = "original" ]; then
-      local MSG="<p>Hardened Malloc: <a href=https://www.kicksecure.com/wiki/Hardened_Malloc>Hardened Malloc <u>Original</u></a> version enabled.</p>"
+   if [ "$result" = "full" ]; then
+      local MSG="<p>Hardened Malloc: <a href=https://www.kicksecure.com/wiki/Hardened_Malloc>Hardened Malloc <u>Full</u></a> version enabled.</p>"
       type=info
    fi
    if [ "$result" = "" ]; then
