@@ -1,0 +1,13 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2022 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+check_arg_max() {
+   local MSG="$(printf '=%.0s' {1..1000000})"
+
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+   return 0
+}
