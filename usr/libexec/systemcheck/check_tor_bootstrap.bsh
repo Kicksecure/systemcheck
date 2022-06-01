@@ -197,7 +197,19 @@ $multiple_whonix_ws_msg
 <br></br>(check_socks_port_open_test: $check_socks_port_open_test)
 <br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
    else
-      local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation. Please report this $PROJECT_NAME bug!"
+      local MSG="<p>Tor Connection Result:
+<br></br>Tor's Control Port could not be reached!
+<br></br>
+<br></br>Troubleshooting:
+<br></br>- Confirm that Tor is running.
+<br></br>- Rerun <code>systemcheck</code>
+<br></br>
+<br></br>(Technical information:)
+<br></br>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
+<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
+<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
+<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
+<br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
    fi
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
@@ -495,7 +507,7 @@ you will need them for system Tor as well.</p>
 or in Terminal: <code>nyx</code></p>
 $anondate_debugging_information"
    else
-      local MSG="$FUNCNAME: This is neither Whonix-Gateway nor Whonix-Workstation nor machine. Please report this $PROJECT_NAME bug!"
+      local MSG="$FUNCNAME: Machine detection failed. Please report this $PROJECT_NAME bug!"
    fi
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
