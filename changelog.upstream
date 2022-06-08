@@ -1,3 +1,31 @@
+commit 6e3bca659be7fcf627ddbe04ee946539e6d397b8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 8 09:04:16 2022 -0400
+
+    remove unicode
+
+commit ccefa210292e14e20a79678d9e6619c5f843eb6a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 1 15:36:03 2022 -0400
+
+    add new test check_arg_max
+
+commit 98c70f4fb8e3b44f3ef396024befda318fa5a254
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 1 11:38:33 2022 -0400
+
+    improve message if Tor control connection failed
+    
+    Thanks to @nurmagoz for the bug report!
+    
+    https://forums.kicksecure.com/t/make-systemcheck-gui-give-better-message-when-no-tor-connection-detected/61
+
+commit bcdc9eb126c3471dd11eee79be80afa155101ffa
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 25 06:07:21 2022 -0400
+
+    bumped changelog version
+
 commit ca43e10e3428d0f5306967bdd2119ac7333f32e2
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri May 20 15:27:11 2022 -0400
