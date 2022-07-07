@@ -4,7 +4,9 @@
 ## See the file COPYING for copying conditions.
 
 exit_function() {
+   echo ""
    echo "output of 'sudo /bin/systemctl --no-pager --no-block status tor@default':"
+   echo ""
    /bin/systemctl --no-pager --no-block status tor@default
    exit "$exit_code"
 }

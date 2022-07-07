@@ -50,6 +50,7 @@ Restart <code>systemcheck</code> after fixing this error.
    or in Terminal: <code><blockquote>systemcheck</blockquote></code>
 
 Debugging information:
+<br>
 <br>$tor_pid_message</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
