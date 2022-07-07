@@ -5,7 +5,7 @@
 
 #set -x
 
-check_tor_pid_do() {
+check_tor_running_do() {
    ## Fallback.
    tor_pid_exit_code="1"
 
@@ -29,9 +29,9 @@ check_tor_pid_do() {
    return 0
 }
 
-check_tor_pid() {
+check_tor_running() {
    ## returns: tor_pid_exit_code, tor_pid_message
-   check_tor_pid_do
+   check_tor_running_do
 
    if [ ! "$tor_pid_exit_code" = "0" ]; then
       local MSG="<p>\

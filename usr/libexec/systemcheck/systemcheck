@@ -135,7 +135,7 @@ systemcheck_main() {
    systemcheck_run_function check_tor_config ## check_tor_config
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
-   systemcheck_run_function check_tor_pid ## check_tor_pid
+   systemcheck_run_function check_tor_running ## check_tor_running
 
    ## Does not use the network. (Runs only on Whonix-Gateway.)
    systemcheck_run_function check_control_port_filter_running ## check_control_port_filter
