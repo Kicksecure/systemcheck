@@ -3,9 +3,16 @@
 ## Copyright (C) 2012 - 2022 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+exit_function() {
+   echo "output of 'sudo /bin/systemctl --no-pager --no-block status tor@default':"
+   /bin/systemctl --no-pager --no-block status tor@default
+   exit "$exit_code"
+}
+
 if [ ! -f "/run/tor/tor.pid" ]; then
-   echo "Pid file /run/tor/tor.pid does not exist."
-   exit 1
+   echo "Pid file '/run/tor/tor.pid' does not exist."
+   exit_code=1
+   exit_function
 fi
 
 ## override with || true to avoid race condition.
@@ -13,16 +20,18 @@ pid="$(cat "/run/tor/tor.pid")" || true
 
 if [ "$pid" = "" ]; then
    echo "Pid file /run/tor/tor.pid is empty."
-   exit 2
+   exit_code=2
+   exit_function
 fi
 
 ps_p_exit_code="0"
 ps -p "$pid" >/dev/null 2>/dev/null || { ps_p_exit_code="$?" ; true; };
 
 if [ ! "$ps_p_exit_code" = "0" ]; then
-   echo "Pid $pid is not running."
-   exit 3
+   echo "Pid '$pid' is not running."
+   exit_code=3
+   exit_function
 fi
 
-echo "Pid $pid running."
-exit 0
+echo "Pid '$pid' running."
+

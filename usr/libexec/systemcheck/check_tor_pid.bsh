@@ -24,7 +24,8 @@ check_tor_pid_do() {
    fi
 
    tor_pid_exit_code="0"
-   tor_pid_message="$(sudo --non-interactive /usr/libexec/systemcheck/check_tor_pid)" || { tor_pid_exit_code="$?" ; true; };
+   tor_pid_output="$(sudo --non-interactive /usr/libexec/systemcheck/check_tor_pid)" || { tor_pid_exit_code="$?" ; true; };
+   tor_pid_message="$(/usr/libexec/msgcollector/br_add "$tor_pid_output")"
    return 0
 }
 
@@ -34,21 +35,22 @@ check_tor_pid() {
 
    if [ ! "$tor_pid_exit_code" = "0" ]; then
       local MSG="<p>\
-Tor Pid Check Result:
-<br></br><b>Tor not running.</b>
-<br></br>(tor_pid_message: $tor_pid_message)
+Tor Pid Check Result: <b>Tor not running.</b>
 <br>
 <br>You have to fix this error, before you can use Tor.
 <br>
 <br>Please restart Tor after fixing this error.
 
 <blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
-    or in Terminal: <code><blockquote>sudo service tor@default restart</blockquote></code></p>
+    or in Terminal: <blockquote><code>sudo service tor@default restart</code></blockquote>
 
-<br>Restart <code>systemcheck</code> after fixing this error.
+Restart <code>systemcheck</code> after fixing this error.
 
 <blockquote>   $start_menu_instructions_system_first_part System Check</blockquote>
-    or in Terminal: <code><blockquote>systemcheck</blockquote></code></p>"
+   or in Terminal: <code><blockquote>systemcheck</blockquote></code>
+
+Debugging information:
+<br>$tor_pid_message</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
