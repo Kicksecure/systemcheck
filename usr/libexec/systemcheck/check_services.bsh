@@ -171,8 +171,8 @@ $if_you_know_what_you_are_doing_msg</p>"
 
 check_whonix_firewall_systemd_status() {
    if [ "$vm_lower_case_short" = "machine" ]; then
-       return 0
-    fi
+      return 0
+   fi
 
    local extra_text systemctl_status_whonix_firewall_exit_code systemctl_status_whonix_firewall_output
 
