@@ -61,7 +61,7 @@ See also:
       cleanup "1"
       return 0
    else
-      local MSG="<p>Tor Pid Check Result: $tor_pid_message</p>"
+      local MSG="<p>Tor Running Check Result: $tor_pid_message</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
