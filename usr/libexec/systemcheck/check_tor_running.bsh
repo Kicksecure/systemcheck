@@ -49,7 +49,10 @@ Restart <code>systemcheck</code> after fixing this error.
 <blockquote>   $start_menu_instructions_system_first_part System Check</blockquote>
    or in Terminal: <code><blockquote>systemcheck</blockquote></code>
 
-Debugging information:
+See also:
+<br><a href=${PROJECT_HOMEPAGE}/wiki/Tor#Tor_not_running>${PROJECT_HOMEPAGE}/wiki/Tor#Tor_not_running</a>
+<br>
+<br>Debugging information:
 <br>
 <br>$tor_pid_message</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
