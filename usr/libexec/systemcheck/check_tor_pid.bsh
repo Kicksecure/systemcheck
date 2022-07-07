@@ -35,7 +35,7 @@ check_tor_running() {
 
    if [ ! "$tor_pid_exit_code" = "0" ]; then
       local MSG="<p>\
-Tor Pid Check Result: <b>Tor not running.</b>
+Tor Running Check Result: <b>Tor not running.</b>
 <br>
 <br>You have to fix this error, before you can use Tor.
 <br>
