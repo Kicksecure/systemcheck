@@ -1,3 +1,81 @@
+commit 71cf9b27f2cdca159247d252186df14156c75d64
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 15:55:50 2022 -0400
+
+    output
+
+commit 0b38efaf20da4b2d814675a2e7764be853cec506
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 15:11:23 2022 -0400
+
+    output
+
+commit 27f2ed288ad56e5ab19ee23d7d877f1be7253391
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 15:01:20 2022 -0400
+
+    output
+
+commit 4b08b5903e46f33e83d8fb515363e12042616dd9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:59:46 2022 -0400
+
+    refactoring
+
+commit 59aced5b21deb59c05047fb9c4df3156be1b2bf6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:55:23 2022 -0400
+
+    rename
+
+commit 8c3306ee99b8b700c89a86d8166a56e93f025ebd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:54:54 2022 -0400
+
+    refactoring
+
+commit b07d0c442191ae2edce47157ffffdd260907d9ec
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:54:30 2022 -0400
+
+    output
+
+commit 4b7cac9edcd75fa8ae75ea5a10dfcaa7b0bfb381
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:54:04 2022 -0400
+
+    refactoring
+
+commit 240a1aac06fed10dc2d055cfee7db480ff9bbec5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:50:45 2022 -0400
+
+    output
+
+commit 23d60ead8c229536abdab149a2e01c3b05394fa3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:48:54 2022 -0400
+
+    improve Tor running check error message
+
+commit 775150a4b82949a51e35422862f415ec116b7210
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:07:10 2022 -0400
+
+    minor
+
+commit 6d9ce8def63269ef4b6b7031ee2a17e649ad8140
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 14:06:48 2022 -0400
+
+    output
+
+commit 0a9f3aa49638b41edc45beaaa0dce7cb1ed2f8ef
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 8 11:05:29 2022 -0400
+
+    bumped changelog version
+
 commit 6e3bca659be7fcf627ddbe04ee946539e6d397b8
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jun 8 09:04:16 2022 -0400
