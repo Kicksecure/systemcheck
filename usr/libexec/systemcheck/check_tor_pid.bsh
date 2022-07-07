@@ -33,17 +33,19 @@ check_tor_pid() {
    check_tor_pid_do
 
    if [ ! "$tor_pid_exit_code" = "0" ]; then
-      local MSG="<p>Tor Pid Check Result:
-<br></br><b>Tor not running.</b> (tor_pid_message: $tor_pid_message)</p>
-
-<p>You have to fix this error, before you can use Tor.</p>
-
-<p>Please restart Tor after fixing this error.</p>
+      local MSG="<p>\
+Tor Pid Check Result:
+<br></br><b>Tor not running.</b>
+<br></br>(tor_pid_message: $tor_pid_message)
+<br>
+<br>You have to fix this error, before you can use Tor.
+<br>
+<br>Please restart Tor after fixing this error.
 
 <blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
     or in Terminal: <code><blockquote>sudo service tor@default restart</blockquote></code></p>
 
-<p>Restart systemcheck after fixing this error.
+<br>Restart <code>systemcheck</code> after fixing this error.
 
 <blockquote>   $start_menu_instructions_system_first_part System Check</blockquote>
     or in Terminal: <code><blockquote>systemcheck</blockquote></code></p>"
