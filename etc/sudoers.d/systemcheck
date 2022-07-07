@@ -41,15 +41,13 @@ systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-fir
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --no-legend --failed
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-units
 
-## required for check_tor_pid
+## required for check_tor_running
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor@default
+systemcheck ALL=NOPASSWD: /usr/libexec/systemcheck/check_tor_running
 
 ## required for check_warrant_canary
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status canary
-
-## required for check_tor_pid
-systemcheck ALL=NOPASSWD: /usr/libexec/systemcheck/check_tor_pid
 
 ## required for check_network_interfaces if /sys is restricted to root
 systemcheck ALL=NOPASSWD: /bin/cat /sys/class/net/eth0/carrier
