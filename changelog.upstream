@@ -1,3 +1,27 @@
+commit bd4370d0a59939d4b32cf1abd3f4bb5aa9274c4d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 9 10:58:54 2022 -0400
+
+    refactoring
+
+commit 6455fb93a7e35498e8c510e0581252b1dffb8e4c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 9 10:55:46 2022 -0400
+
+    report if /var/lib/systemcheck/.msgcollector/msgdispatcher-error.log exists
+
+commit 2e9ac13722c679c5295e14c5e5f5435f4febcf49
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 9 10:41:51 2022 -0400
+
+    report if /run/systemcheck/.msgcollector/msgdispatcher-error.log exists
+
+commit 31b1452c50389dc4484617537d19cb3ca977cc20
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 7 17:42:00 2022 -0400
+
+    bumped changelog version
+
 commit 71cf9b27f2cdca159247d252186df14156c75d64
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jul 7 15:55:50 2022 -0400
