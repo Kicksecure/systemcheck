@@ -1,3 +1,49 @@
+commit 5dc40ca5bcc762057138e3fe8e93da0d8cf404e4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 13 08:25:32 2022 -0400
+
+    AppArmor actually do not allow /usr/local/lib/python*/
+    
+    https://forums.whonix.org/t/sdwdate-suddenly-dies/14150
+
+commit 710dcf6a9bdd0d69772604e6e3305a4abc1feaab
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 13 08:24:27 2022 -0400
+
+    refactoring
+
+commit 3ab2ff055512533138c394737aeae6d455a118e8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 13 08:18:34 2022 -0400
+
+    refactoring
+
+commit 66cbb3412acaee6f1000a17eec2e2f8c2f0bf906
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 13 08:17:33 2022 -0400
+
+    refactoring
+
+commit 11c6faf53c7205f91f1c0c43bfb321fb79120480
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 13 08:11:42 2022 -0400
+
+    refactoring
+
+commit ced0b6a873660cf2bd9e9de6446532069561ddb6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 13 08:10:16 2022 -0400
+
+    AppArmor: /usr/local/lib/python*/** mr,
+    
+    https://forums.whonix.org/t/sdwdate-suddenly-dies/14150/2
+
+commit 6d5b8cda36c0ba02b68a84d9eb6d9732fa93aa1a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 9 11:28:35 2022 -0400
+
+    bumped changelog version
+
 commit bd4370d0a59939d4b32cf1abd3f4bb5aa9274c4d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Jul 9 10:58:54 2022 -0400
