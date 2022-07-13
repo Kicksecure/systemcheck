@@ -334,9 +334,12 @@
 	/usr/lib/python*/__pycache__/ rw,
 	/usr/lib/python*/__pycache__/** rw,
 
-	/usr/local/lib/python*/** mrl,
-	/usr/local/lib/python*/dist-packages/ r,
-	/usr/local/lib/python*/dist-packages/* r,
+	## Only required if custom software is installed since systemcheck itself
+	## not use /usr/local/lib. Therefore not allowing.
+	## https://forums.whonix.org/t/sdwdate-suddenly-dies/14150
+	#/usr/local/lib/python*/** mrl,
+	#/usr/local/lib/python*/dist-packages/ r,
+	#/usr/local/lib/python*/dist-packages/* r,
 
 	/usr/share/** r,
 
