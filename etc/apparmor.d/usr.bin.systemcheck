@@ -315,8 +315,9 @@
 	/usr/lib/*-linux-gnu/security/** mr,
 	/usr/libexec/systemcheck/ r,
 	/usr/libexec/systemcheck/** rix,
-	/usr/lib/python*/** mr,
-	/usr/local/lib/python*/** mr,
+	# operation="unlink" requested_mask="d" denied_mask="d"
+	/usr/lib/python*/** mrl,
+	/usr/local/lib/python*/** mrl,
 	/usr/lib/torsocks/* mr,
 	/usr/lib/apt/methods/* rix,
 	/usr/libexec/helper-scripts/ r,
@@ -327,9 +328,6 @@
 	/usr/libexec/security-misc/apt-get-update rUx,
 
 	/usr/sbin/anondate rix,
-
-	# operation="unlink" requested_mask="d" denied_mask="d"
-	/usr/lib/python*/* rl,
 
 	## Nov 15 13:36:33 host kernel: audit: type=1400 audit(1542288993.054:12): apparmor="DENIED" operation="mkdir" profile="/usr/bin/systemcheck" name="/usr/lib/python3.5/__pycache__/" pid=31210 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
 	## Nov 15 13:36:36 host audit[31278]: AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/systemcheck" name="/usr/lib/python3.5/plat-x86_64-linux-gnu/__pycache__/" pid=31278 comm="striphtml" requested_mask="c" denied_mask="c" fsuid=112 ouid=112
