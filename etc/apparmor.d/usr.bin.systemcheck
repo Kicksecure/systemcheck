@@ -316,6 +316,7 @@
 	/usr/libexec/systemcheck/ r,
 	/usr/libexec/systemcheck/** rix,
 	/usr/lib/python*/** mr,
+	/usr/local/lib/python*/** mr,
 	/usr/lib/torsocks/* mr,
 	/usr/lib/apt/methods/* rix,
 	/usr/libexec/helper-scripts/ r,
