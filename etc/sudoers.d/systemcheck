@@ -1,6 +1,9 @@
 ## Copyright (C) 2012 - 2022 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## check_tor_bootstrap.bsh
+systemcheck ALL=(sdwdate) NOPASSWD: /usr/libexec/helper-scripts/onion-time-pre-script
+
 ## required for /usr/bin/systemcheck running /usr/libexec/systemcheck/systemcheck
 ## under user 'systemcheck'.
 user ALL=(systemcheck) NOPASSWD: /usr/libexec/systemcheck/systemcheck
