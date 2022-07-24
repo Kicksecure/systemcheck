@@ -122,7 +122,10 @@ check_tor_bootstrap_init() {
       whonix_firewall_status_word="pending"
    fi
 
-   onion_time_pre_script_output=$(timeout --kill-after="5" "5" sudo --non-interactive -u sdwdate /usr/libexec/helper-scripts/onion-time-pre-script) || true
+   onion_time_pre_script_output=$(timeout --kill-after="5" "5" sudo --non-interactive -u sdwdate /usr/libexec/helper-scripts/onion-time-pre-script 2>&1) || true
+   if [ "$onion_time_pre_script_output" = "" ]; then
+      onion_time_pre_script_output="onion-time-pre-script did not return any output."
+   fi
 }
 
 check_tor_bootstrap_grace() {
