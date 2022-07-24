@@ -1,3 +1,51 @@
+commit 45106467fc0c369311dacd977d8763b96e036aea
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 24 08:03:58 2022 -0400
+
+    fix
+
+commit 4d749eb4ed5cc6655ba2426367415b63cf06bd61
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 24 07:58:05 2022 -0400
+
+            /usr/libexec/helper-scripts/curl_exit_codes rix,
+
+commit 3498d20f2d127092d920fdcb8a6ec377f7442cbc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 24 07:53:14 2022 -0400
+
+    fix
+
+commit f410cf85f036275f7831db3c7fe09d92daa5037e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 24 07:44:24 2022 -0400
+
+    fix
+
+commit 114fbb2747d4d10c7fc8d2fef28a4363dc1ba1e4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 24 07:42:43 2022 -0400
+
+    fix
+
+commit 442cbf99214025b335e25b01f2b7a22999f497fb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 24 07:41:34 2022 -0400
+
+    fix
+
+commit 30885b22bdc4e1bcc678c96b9b657c049266ccc9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 24 07:36:38 2022 -0400
+
+    Tor connectivity test: add output of `onion-time-pre-script`
+
+commit 972bca88d9d84f2c7442bf8df27bd6a538d5ebf7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 13 08:30:11 2022 -0400
+
+    bumped changelog version
+
 commit 5dc40ca5bcc762057138e3fe8e93da0d8cf404e4
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jul 13 08:25:32 2022 -0400
