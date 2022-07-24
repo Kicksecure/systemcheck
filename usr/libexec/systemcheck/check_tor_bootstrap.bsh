@@ -121,6 +121,8 @@ check_tor_bootstrap_init() {
    else
       whonix_firewall_status_word="pending"
    fi
+
+   onion_time_pre_script_output=$(timeout --kill-after="5" "5" onion-time-pre-script) || true
 }
 
 check_tor_bootstrap_grace() {
@@ -283,7 +285,8 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
    local MSG="<p>Time Synchronization Result: Ok.
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
-<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code></p>"
+<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
+<br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
    if [ "$verbose" -ge "1" ]; then
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -365,13 +368,15 @@ check_tor_bootstrap_wait_longer_maybe() {
 - Tor Circuit: $tor_circuit_established_word.
 - Tor reports: $tor_bootstrap_status
 - Timesync status: $time_synchronization_status_notification.
-- sdwdate reports: $time_synchronization_msg</p>"
+- sdwdate reports: $time_synchronization_msg
+- onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
    else
       local MSG="<p>Tor Connection Result:
 - Connecting for $systemcheck_tor_bootstrap_waited_seconds seconds.
 - Tor Circuit: $tor_circuit_established_word.
 - Timesync status: $time_synchronization_status_notification.
-- sdwdate reports: $time_synchronization_msg</p>"
+- sdwdate reports: $time_synchronization_msg
+- onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
    fi
 
    TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
@@ -563,6 +568,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
 <br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
+<br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
 <br></br>
 <br></br>Possible issues:
 <br></br>$sdwdate_wait
@@ -577,6 +583,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
 <br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
+<br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
 <br></br>
 <br></br>Possible issues:
 <br></br>$sdwdate_wait
