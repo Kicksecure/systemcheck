@@ -126,6 +126,9 @@ check_tor_bootstrap_init() {
    if [ "$onion_time_pre_script_output" = "" ]; then
       onion_time_pre_script_output="onion-time-pre-script did not return any output."
    fi
+   onion_time_pre_script_output="$(/usr/libexec/msgcollector/br_add "$onion_time_pre_script_output")"
+
+   return 0
 }
 
 check_tor_bootstrap_grace() {
