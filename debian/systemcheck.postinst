@@ -20,21 +20,21 @@ source /usr/libexec/helper-scripts/torsocks-remove-ld-preload
 case "$1" in
    configure)
       ## Compatibility with anon-ws-disable-stacked-tor.
-      addgroup debian-tor 2>/dev/null || true
+      adduser debian-tor 2>/dev/null || true
 
       adduser --home /var/lib/canary --no-create-home --quiet --system --group canary || true
       ## Allow running tor-circuit-established-check.
-      addgroup canary debian-tor
+      adduser canary debian-tor
 
       adduser --home /var/lib/systemcheck --no-create-home --quiet --system --group systemcheck || true
 
       ## Add systemcheck to group debian-tor so it can read
       ## /run/tor/control.authcookie which is required to check for Tor
       ## bootstrap test.
-      addgroup systemcheck debian-tor
+      adduser systemcheck debian-tor
 
       ## Add systemcheck to group systemd-journal so it can use journalctl.
-      addgroup systemcheck systemd-journal
+      adduser systemcheck systemd-journal
    ;;
 
    abort-upgrade|abort-remove|abort-deconfigure)
