@@ -38,7 +38,7 @@ check_tor_bootstrap_sleep() {
 check_tor_bootstrap_init() {
    [ -n "$systemcheck_tor_bootstrap_waited_seconds" ] || systemcheck_tor_bootstrap_waited_seconds="0"
    [ -n "$systemcheck_tor_bootstrap_between_attempts" ] || systemcheck_tor_bootstrap_between_attempts="2"
-   [ -n "$systemcheck_tor_bootstrap_wait_max" ] || systemcheck_tor_bootstrap_wait_max="150"
+   [ -n "$systemcheck_tor_bootstrap_wait_max" ] || systemcheck_tor_bootstrap_wait_max="300"
    [ -n "$systemcheck_tor_bootstrap_error_counter" ] || systemcheck_tor_bootstrap_error_counter="0"
    [ -n "$systemcheck_tor_bootstrap_error_max" ] || systemcheck_tor_bootstrap_error_max="5"
 
