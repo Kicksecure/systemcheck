@@ -1,3 +1,15 @@
+commit 5c581482ab30509e8126a0182d10eb5f1a07af43
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 24 06:53:02 2022 -0500
+
+    systemcheck_tor_bootstrap_wait_max="300"
+
+commit 98b82087724281f0695d997247098baaa8f7c89a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 24 06:34:30 2022 -0500
+
+    bumped changelog version
+
 commit c72f8bae082272fdd585cfaf245eb795cb6d86f4
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Nov 24 06:33:45 2022 -0500
