@@ -61,11 +61,9 @@
 	/usr/libexec/msgcollector/striphtml rix,
 
 	## For systemd-detect-virt.
-	/sys/devices/virtual/dmi/id/product_name r,
 	/sys/hypervisor/type r,
 	/sys/devices/*/net/*/carrier r,
-	/sys/devices/virtual/dmi/id/sys_vendor r,
-	/sys/devices/virtual/dmi/id/board_vendor r,
+	/sys/devices/virtual/dmi/id/** r,
 	## For systemd-detect-virt on ppc64le pseries.
 	/sys/firmware/devicetree/base/hypervisor/compatible r,
 	## For systemd-detect-virt in Qubes.
