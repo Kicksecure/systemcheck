@@ -137,6 +137,11 @@ check_journal() {
 <br></br>$apparmorinfo_output
 <br></br>########################################
 <br></br>
+<br></br>secomp:
+<br></br>########################################
+<br></br>$grep_seccomp_output
+<br></br>########################################
+<br></br>
 <br></br>warnings:
 <br></br>########################################
 <br></br>$grep_warn_output
@@ -155,11 +160,6 @@ check_journal() {
 <br></br>ordering cycle:
 <br></br>########################################
 <br></br>$grep_ordering_output
-<br></br>########################################
-<br></br>
-<br></br>secomp:
-<br></br>########################################
-<br></br>$grep_seccomp_output
 <br></br>########################################
 <br></br>
 <br></br>To see this for yourself...
