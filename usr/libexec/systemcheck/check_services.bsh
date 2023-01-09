@@ -98,13 +98,14 @@ check_journal() {
 
    test -w "$TEMP_DIR"
 
-   local journalctl_output grep_warn_output grep_error_output grep_denied_output grep_ordering_output
+   local journalctl_output grep_warn_output grep_error_output grep_denied_output grep_ordering_output grep_seccomp_output
 
    ## '--priority=0..4'
    ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
    sudo --non-interactive /bin/journalctl --boot --no-pager | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
+   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "SECCOMP" | grep 'syscall=' | tee "$TEMP_DIR/journalctl_seccomp.txt" >/dev/null || true
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "warn" | tee "$TEMP_DIR/journalctl_warn.txt" >/dev/null || true
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "fail" | tee "$TEMP_DIR/journalctl_fail.txt" >/dev/null || true
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "error" | tee "$TEMP_DIR/journalctl_error.txt" >/dev/null || true
@@ -112,12 +113,14 @@ check_journal() {
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "ordering cycle" | tee "$TEMP_DIR/journalctl_orderingcycle.txt" >/dev/null || true
 
    ## Cannot use /usr/libexec/msgcollector/br_add due to 'getconf ARG_MAX' limit.
+   br_add_to_file "$TEMP_DIR/journalctl_seccomp.txt"
    br_add_to_file "$TEMP_DIR/journalctl_warn.txt"
    br_add_to_file "$TEMP_DIR/journalctl_fail.txt"
    br_add_to_file "$TEMP_DIR/journalctl_error.txt"
    br_add_to_file "$TEMP_DIR/journalctl_denied.txt"
    br_add_to_file "$TEMP_DIR/journalctl_orderingcycle.txt"
 
+   grep_seccomp_output="$(cat "$TEMP_DIR/journalctl_orderingcycle.txt_br")"
    grep_warn_output="$(cat "$TEMP_DIR/journalctl_warn.txt_br")"
    grep_fail_output="$(cat "$TEMP_DIR/journalctl_fail.txt_br")"
    grep_error_output="$(cat "$TEMP_DIR/journalctl_error.txt_br")"
@@ -154,13 +157,19 @@ check_journal() {
 <br></br>$grep_ordering_output
 <br></br>########################################
 <br></br>
+<br></br>secomp:
+<br></br>########################################
+<br></br>$grep_seccomp_output
+<br></br>########################################
+<br></br>
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br></br>5. Run. <blockquote><code>sudo journalctl --boot | grep -i syscall=</code></blockquote>
 <br></br>2. Run. <blockquote><code>sudo journalctl --boot | grep -i warn</code></blockquote>
 <br></br>3. Run. <blockquote><code>sudo journalctl --boot | grep -i fail</code></blockquote>
 <br></br>4. Run. <blockquote><code>sudo journalctl --boot | grep -i error</code></blockquote>
 <br></br>5. Run. <blockquote><code>sudo journalctl --boot | grep -i denied</code></blockquote>
-<br></br>6. Run. <blockquote><code>sudo journalctl --boot | grep -i \"ordering cycle\"</code></blockquote>
+<br></br>6. Run. <blockquote><code>sudo journalctl --boot | grep -i \"ordering cycle\"</code>
 
 $if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
