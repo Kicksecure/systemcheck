@@ -132,11 +132,12 @@ check_journal() {
 
    local MSG
    MSG="<p>systemd journal check Result:
-<br></br>warnings:
+<br></br>AppArmor:
 <br></br>########################################
 <br></br>$apparmorinfo_output
 <br></br>########################################
 <br></br>
+<br></br>warnings:
 <br></br>########################################
 <br></br>$grep_warn_output
 <br></br>########################################
