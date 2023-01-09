@@ -82,6 +82,7 @@
 
 	/{,usr/}bin/tor rix,
 	/usr/sbin/tor rix,
+	/usr/sbin/apparmor-info rix,
 	/{,usr/}bin/mkfifo rix,
 	/{,usr/}bin/sort rix,
 	/{,usr/}bin/stat rix,
