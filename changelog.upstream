@@ -1,3 +1,51 @@
+commit c9f5925974e8a3ad7a80a24eb4d78687be11b253
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 9 05:29:15 2023 -0500
+
+    fix
+
+commit fe5474d30e18d85edd935630c440c8fe86752134
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 9 05:28:30 2023 -0500
+
+    fix
+
+commit 3817cb06612c86809ff261f3b79b4b3c049df077
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 9 05:22:31 2023 -0500
+
+    apparmor
+
+commit dedec5a7bc821d32a888b35c8f235c53f3c2cadb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 9 05:19:56 2023 -0500
+
+    fix
+
+commit b446a2d8145983fc961aaa45dbc07787d92ef857
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 9 05:19:25 2023 -0500
+
+    fix
+
+commit dfc1c4190887bd22e3183a6ce9ec36ba7fd4d1df
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 9 05:14:21 2023 -0500
+
+    show output of `sudo apparmor-info` when using `--verbose`
+
+commit 95ca4faf7e54a31175f2d8b1ea0321a3959102a1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 9 05:07:42 2023 -0500
+
+    show seccomp issues when using --verbose
+
+commit 162d2c86df5ec32b514639dcaa56649a892652d0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 24 06:53:22 2022 -0500
+
+    bumped changelog version
+
 commit 5c581482ab30509e8126a0182d10eb5f1a07af43
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Nov 24 06:53:02 2022 -0500
