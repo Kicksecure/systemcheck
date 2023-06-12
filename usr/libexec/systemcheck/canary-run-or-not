@@ -3,7 +3,7 @@
 ## Copyright (C) 2012 - 2022 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-canary_config_folders="/etc/systemcheck.d /usr/local/etc/systemcheck.d /rw/config/whonix.d /usr/local/etc/whonix.d /etc/whonix.d"
+canary_config_folders="/etc/systemcheck.d /usr/local/etc/systemcheck.d /usr/local/etc/whonix.d /etc/whonix.d"
 
 if grep -r -q '^whonixcheck_skip_functions+=" download_whonix_news "' $canary_config_folders  2>/dev/null ; then
     true "INFO: Legacy disabled in settings. Doing nothing. Exiting."

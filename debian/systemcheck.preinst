@@ -22,7 +22,7 @@ legacy_settings_folder_migrate() {
 
    shopt -s globstar dotglob nullglob
 
-   for file_name in /etc/whonix.d/* /usr/local/etc/whonix.d/* /rw/config/whonix.d/* ; do
+   for file_name in /etc/whonix.d/* /usr/local/etc/whonix.d/* ; do
       search="WHONIXCHECK_NO_EXIT_ON_IP_FORWARDING_DETECTION"
       replace="NO_EXIT_ON_IP_FORWARDING_DETECTION"
       LANG=C str_replace "$search" "$replace" "$file_name"
@@ -55,11 +55,6 @@ legacy_settings_folder_migrate() {
       if ! test -d /usr/local/etc/systemcheck.d ; then
          mv --verbose --no-clobber /usr/local/etc/whonix.d /usr/local/etc/systemcheck.d
       fi
-   fi
-
-   if test -d /rw/config/whonix.d ; then
-      mkdir -p /usr/local/etc/systemcheck.d
-      mv --verbose --no-clobber /rw/config/whonix.d/* /usr/local/etc/whonix.d/
    fi
 
    mkdir --parents "/var/lib/whonix/do_once"
