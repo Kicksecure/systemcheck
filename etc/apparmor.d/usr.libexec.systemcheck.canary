@@ -1,103 +1,78 @@
+# Last Modified: Sat Jun 17 13:25:21 2023
+include <tunables/global>
+
 ## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-#include <tunables/global>
 
 /usr/libexec/systemcheck/canary flags=(attach_disconnected) {
-	#include <abstractions/base>
-	#include <abstractions/bash>
-	#include <abstractions/python>
+  include <abstractions/apache2-common>
+  include <abstractions/base>
+  include <abstractions/bash>
+  include <abstractions/python>
+  include <local/usr.libexec.systemcheck.canary>
 
-	/{,usr/}bin/whoami rix,
-	/{,usr/}bin/grep rix,
-	/{,usr/}bin/date rix,
-	/{,usr/}bin/cat rix,
-	/{,usr/}bin/tee rix,
-	/{,usr/}bin/timeout rix,
-	/{,usr/}bin/rm rix,
-	/{,usr/}bin/signify-openbsd rix,
-	/{,usr/}bin/sleep rix,
-	/{,usr/}bin/touch rix,
-	/{,usr/}bin/ls rix,
-	/{,usr/}bin/systemd-detect-virt rix,
-	/{,usr/}bin/systemd-notify rix,
-	/{,usr/}bin/qubesdb-read rix,
-	/{,usr/}bin/qubesdb-cmd rix,
+  deny /etc/ssl/openssl.cnf r,
+  deny /sbin/** rwx,
+  deny /usr/bin/*-gnu-* rx,
+  deny /usr/bin/python3.9 r,
+  deny /usr/libexec/systemcheck r,
+  deny /usr/libexec/systemcheck/ r,
 
-	/etc/passwd r,
-	/etc/nsswitch.conf r,
-	/etc/group r,
-	/etc/hosts r,
-	/etc/host.conf r,
-	/etc/resolv.conf r,
+  /etc/group r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/resolv.conf r,
+  /etc/systemcheck.d/ r,
+  /etc/systemcheck.d/** r,
+  /etc/whonix.d/ r,
+  /etc/whonix.d/** r,
+  /run/sdwdate/success r,
+  /sys/devices/*/net/*/carrier r,
+  /sys/devices/virtual/dmi/id/** r,
+  /sys/firmware/devicetree/base/hypervisor/compatible r,
+  /sys/hypervisor/properties/features r,
+  /sys/hypervisor/type r,
+  /usr/libexec/helper-scripts/settings_echo rix,
+  /usr/libexec/msgcollector/striphtml rix,
+  /usr/libexec/systemcheck/canary r,
+  /usr/libexec/systemcheck/canary-download rix,
+  /usr/libexec/systemcheck/canary-run-or-not rix,
+  /usr/local/etc/systemcheck.d/ r,
+  /usr/local/etc/systemcheck.d/** r,
+  /usr/local/etc/whonix.d/ r,
+  /usr/local/etc/whonix.d/** r,
+  /usr/share/keyrings/derivative.pub r,
+  /var/lib/canary/ rw,
+  /var/lib/canary/** rw,
+  /{,usr/}bin/cat rix,
+  /{,usr/}bin/date rix,
+  /{,usr/}bin/grep rix,
+  /{,usr/}bin/ls rix,
+  /{,usr/}bin/qubesdb-cmd rix,
+  /{,usr/}bin/qubesdb-read rix,
+  /{,usr/}bin/rm rix,
+  /{,usr/}bin/signify-openbsd rix,
+  /{,usr/}bin/sleep rix,
+  /{,usr/}bin/systemd-detect-virt rix,
+  /{,usr/}bin/systemd-notify rix,
+  /{,usr/}bin/tee rix,
+  /{,usr/}bin/timeout rix,
+  /{,usr/}bin/touch rix,
+  /{,usr/}bin/whoami rix,
+  @{PROC} r,
+  @{PROC}/*/cmdline r,
+  @{PROC}/1/sched r,
+  @{PROC}/[0-9]*/fd/ r,
+  @{PROC}/[0-9]*/fd/** r,
+  @{PROC}/[0-9]*/mounts r,
+  @{PROC}/[0-9]*/stat r,
+  @{PROC}/cmdline r,
+  @{PROC}/filesystems r,
+  @{PROC}/sys/kernel/osrelease r,
+  @{PROC}/sys/kernel/random/uuid r,
+  owner /tmp/** mrw,
 
-	/var/lib/canary/ rw,
-	/var/lib/canary/** rw,
-
-	/etc/systemcheck.d/ r,
-	/etc/systemcheck.d/** r,
-	/usr/local/etc/systemcheck.d/ r,
-	/usr/local/etc/systemcheck.d/** r,
-	/usr/local/etc/whonix.d/ r,
-	/usr/local/etc/whonix.d/** r,
-	/etc/whonix.d/ r,
-	/etc/whonix.d/** r,
-
-	## Does not work.
-	## AVC apparmor="DENIED" operation="open" profile="/usr/libexec/systemcheck/canary" name="/usr/libexec/systemcheck/" comm="canary-download" requested_mask="r" denied_mask="r"
-	#/usr/libexec/systemcheck/ r,
-	#/usr/libexec/systemcheck/** r,
-	## Using deny instead since not needed anyhow.
-	deny /usr/libexec/systemcheck/ r,
-	deny /usr/libexec/systemcheck r,
-
-	/usr/libexec/systemcheck/canary r,
-	/usr/libexec/systemcheck/canary-download rix,
-	/usr/libexec/systemcheck/canary-run-or-not rix,
-	/usr/libexec/helper-scripts/settings_echo rix,
-	/usr/libexec/msgcollector/striphtml rix,
-
-	## For systemd-detect-virt.
-	/sys/hypervisor/type r,
-	/sys/devices/*/net/*/carrier r,
-	/sys/devices/virtual/dmi/id/** r,
-	## For systemd-detect-virt on ppc64le pseries.
-	/sys/firmware/devicetree/base/hypervisor/compatible r,
-	## For systemd-detect-virt in Qubes.
-	/sys/hypervisor/properties/features r,
-
-	/usr/share/keyrings/derivative.pub r,
-
-	/run/sdwdate/success r,
-
-	## For systemd-detect-virt.
-	@{PROC} r,
-	@{PROC}/cmdline r,
-	@{PROC}/*/cmdline r,
-	@{PROC}/[0-9]*/stat r,
-	@{PROC}/[0-9]*/mounts r,
-	@{PROC}/sys/kernel/random/uuid r,
-	@{PROC}/sys/kernel/osrelease r,
-	@{PROC}/1/sched r,
-	@{PROC}/filesystems r,
-	@{PROC}/[0-9]*/fd/ r,
-	@{PROC}/[0-9]*/fd/** r,
-
-	## https://forums.whonix.org/t/sdwdate-and-sdwdate-gui-development-thread/1137/372
-	#deny /var/lib/canary/#* rwm,
-	#deny @{HOME}/** rwm,
-	#deny /home/** rwm,
-	#deny /tmp/** rwm,
-	#deny /var/tmp/** rwm,
-	#deny /dev/shm/** rwm,
-	#deny /dev/mqueue/** rwm,
-	deny /usr/bin/*-gnu-* rx,
-	deny /sbin/** rwx,
-	#audit deny @{PROC}/** r,
-	deny /usr/bin/python3.9 r,
-	deny /etc/ssl/openssl.cnf r,
-	owner /tmp/** rwm,
-
-	# Site-specific additions and overrides. See local/README for details.
-	#include <local/usr.libexec.systemcheck.canary>
 }
