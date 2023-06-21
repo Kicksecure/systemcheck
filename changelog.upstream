@@ -1,3 +1,15 @@
+commit 4d42468bc78e634722f784658e00f386efc1465b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 21 12:55:23 2023 +0000
+
+    add firmware and microcode packages to list of expected nonfreeodm packages
+
+commit 1d14c04f1378a7d45cc0df774031c5aaf0ae86e7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 21 09:37:57 2023 +0000
+
+    bumped changelog version
+
 commit 0e76459bad99fcb56290024e6d12e5fcc9485bac
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jun 21 09:11:31 2023 +0000
