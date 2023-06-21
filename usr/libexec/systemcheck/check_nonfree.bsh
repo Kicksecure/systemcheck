@@ -22,15 +22,13 @@ check_nonfree() {
       for expected_package in $systemcheck_expected_nonfree_package ; do
          if [ "$line" = "$expected_package" ]; then
             check_nonfree_result=expected
-            continue=true
-            break 2
+            continue 2
          fi
       done
       for expected_grep in $systemcheck_expected_nonfree_grep_package ; do
          if echo "$line" | grep -q "$expected_grep" ; then
             check_nonfree_result=expected
-            continue=true
-            break 2
+            continue 2
          fi
       done
       check_nonfree_result=nonfree
