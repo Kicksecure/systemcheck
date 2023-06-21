@@ -15,20 +15,24 @@ check_nonfree() {
 
    check_nonfree_result=free
    for line in $vrms_result ; do
+      true "line: $line"
       if [ "$line" = "" ]; then
          continue
       fi
       for expected_package in $systemcheck_expected_nonfree_package ; do
-         if [ "$line" = "" ] || [ "$line" = "$expected_package" ]; then
+         if [ "$line" = "$expected_package" ]; then
             check_nonfree_result=expected
             continue=true
-            break
+            break 2
          fi
       done
-      if [ "$continue" = "true" ]; then
-         unset continue
-         continue
-      fi
+      for expected_grep in $systemcheck_expected_nonfree_grep_package ; do
+         if echo "$line" | grep -q "$expected_grep" ; then
+            check_nonfree_result=expected
+            continue=true
+            break 2
+         fi
+      done
       check_nonfree_result=nonfree
       true "nonfree found: line: $line"
       break
