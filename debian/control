@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 13), debhelper-compat (= 13), dh-apparmor
 Homepage: https://www.whonix.org/wiki/systemcheck
 Vcs-Browser: https://github.com/Whonix/systemcheck
 Vcs-Git: https://github.com/Whonix/systemcheck.git
-Standards-Version: 4.6.1.0
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
 
 Package: systemcheck
