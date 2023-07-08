@@ -1,3 +1,15 @@
+commit 81ebbdb5e8c13501654431ac1620efd14d3559db
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jul 7 20:09:29 2023 -0400
+
+    skip messages that include "faillog"
+
+commit a250746ca760138b6aa42d632f1c28a81096e93c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 23 09:41:52 2023 +0000
+
+    bumped changelog version
+
 commit 22dd6dc8b28400959452e8c1e4df2e5da0ad8652
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Jun 23 09:41:42 2023 +0000
