@@ -108,7 +108,7 @@ check_journal() {
    ## grep will exit 1 if no match, therefore overwrite with || true.
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "SECCOMP" | grep 'syscall=' | tee "$TEMP_DIR/journalctl_seccomp.txt" >/dev/null || true
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "warn" | tee "$TEMP_DIR/journalctl_warn.txt" >/dev/null || true
-   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "fail" | tee "$TEMP_DIR/journalctl_fail.txt" >/dev/null || true
+   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "fail" | grep --invert-match "faillock" | tee "$TEMP_DIR/journalctl_fail.txt" >/dev/null || true
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "error" | tee "$TEMP_DIR/journalctl_error.txt" >/dev/null || true
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "ordering cycle" | tee "$TEMP_DIR/journalctl_orderingcycle.txt" >/dev/null || true
 
