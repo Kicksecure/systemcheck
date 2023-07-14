@@ -1,4 +1,4 @@
-# Last Modified: Fri Jun 16 11:24:43 2023
+# Last Modified: Fri Jul 14 07:13:46 2023
 include <tunables/global>
 
 ## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
@@ -329,6 +329,7 @@ include <tunables/global>
   owner /etc/security/limits.d/** r,
   owner /proc/*/limits r,
   owner /proc/sys/kernel/seccomp/actions_avail r,
+  owner /sys/firmware/dmi/entries/** r,
   owner /usr/libexec/sudo/libsudo_util.so.* mr,
   owner /usr/libexec/sudo/sudoers.so mr,
   owner /{,var/}run/utmp rwk,
