@@ -52,7 +52,9 @@ Try to manually start $PROJECT_NAME networking.
 Or reboot.<br />
 <br />
 Debugging information:<br />
-Command <code>sudo --non-interactive cat /sys/class/net/eth0/carrier</code> failed.<br />
+Command<br />
+<code>sudo --non-interactive cat /sys/class/net/eth0/carrier</code><br />
+failed.<br />
 <br />
 If this error happens only during upgrading or is transient this error can be safely ignored.
 <br />
