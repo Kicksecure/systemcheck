@@ -42,7 +42,7 @@ check_network_interfaces() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    if [ "$eth0_failed" = "true" ]; then
-      local MSG="<p>check network interfaces Result: network interface eth0 not up!<br />
+      local MSG="<p>check network interfaces Result: network interface <code>eth0</code> not up!<br />
 <br />
 Recommendation:<br />
 Try to manually start $PROJECT_NAME networking.
@@ -71,7 +71,7 @@ $if_you_know_what_you_are_doing_msg</p>"
          local qubes_extra_message="This might happen because you did not check mark the 'provides network' box for this VM?"
       fi
 
-      local MSG="<p>check network interfaces Result: network interface eth1 not up!
+      local MSG="<p>check network interfaces Result: network interface <code>eth1</code> not up!
 
 $qubes_extra_message
 
