@@ -67,7 +67,13 @@ $if_you_know_what_you_are_doing_msg</p>"
    fi
 
    if [ "$eth1_failed" = "true" ]; then
+      if [ "$qubes_detected" = "true" ]; then
+         local qubes_extra_message="This might happen because you did not check mark the 'provides network' box for this VM?"
+      fi
+
       local MSG="<p>check network interfaces Result: network interface eth1 not up!
+
+$qubes_extra_message
 
 $if_you_know_what_you_are_doing_msg
 
