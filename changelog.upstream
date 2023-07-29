@@ -1,3 +1,33 @@
+commit a940c2b58aadce756444f69de216d4bdc82c13d7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 27 16:32:23 2023 -0400
+
+    output
+
+commit 2b5943cf77ed2c833ec0dd6ff84ea681dc650f3f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 27 16:31:08 2023 -0400
+
+    Qubes-Whonix: hint if "provides network" box might be unchecked
+
+commit 22902a2f7a7b29fe6fcb944eda311ae05c316d32
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 27 16:28:19 2023 -0400
+
+    output
+
+commit 31aa6f7a22300d71794f7d633bbe1bf261f9db81
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 27 16:26:52 2023 -0400
+
+    output
+
+commit 042e0906be1ba72e29afe88bbb33bbe0d24c66b1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jul 17 11:49:37 2023 -0400
+
+    bumped changelog version
+
 commit 2fa7b1ad449c30203db81390d28f86016f08b77e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Jul 17 11:19:38 2023 -0400
