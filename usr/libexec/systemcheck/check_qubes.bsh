@@ -223,7 +223,7 @@ check_qubes_update_proxy_reachability() {
       qubes_update_proxy_test_result_torified="true"
       local MSG="<p>Qubes UpdatesProxy Reachability Result: Ok, torified update proxy reachable.</p>"
       #$output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
