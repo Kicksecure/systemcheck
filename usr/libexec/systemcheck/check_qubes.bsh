@@ -202,7 +202,8 @@ check_qubes_update_proxy_reachability() {
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          return 0
       fi
-      local MSG="<p>Qubes UpdatesProxy Reachability Result: UpdatesProxy not reachable. This is ok and to be expected because not running in Template, ok.</p>"
+      local MSG="<p>Qubes UpdatesProxy Reachability Result: Ok, UpdatesProxy was not reachable.
+This is expected because not running in Template.</p>"
       #$output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
