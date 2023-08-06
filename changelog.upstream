@@ -1,3 +1,33 @@
+commit 6a6da0a17eae3b932a9373d7abce242a3fabf610
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 6 12:58:58 2023 -0400
+
+    output
+
+commit b8e3ef0a7a806962912ee66b3e26551c547cfba4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 6 12:55:56 2023 -0400
+
+    fix
+
+commit 19b443d1f3f30b77d28151925e3c5c05ef5b255e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 6 12:51:50 2023 -0400
+
+    improve Qubes UpdatesProxy checks
+
+commit b4327e70cbd9282d6f3f2c1a6de0b6df03a59c2b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 6 12:49:34 2023 -0400
+
+    improve Qubes UpdatesProxy checks
+
+commit 838ba5ca11b788dc1d3e0daca1997f56c0ddf692
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 29 08:08:21 2023 -0400
+
+    bumped changelog version
+
 commit a940c2b58aadce756444f69de216d4bdc82c13d7
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jul 27 16:32:23 2023 -0400
