@@ -62,8 +62,8 @@ Also refer to the installation instructions of Qubes-Whonix.
 <br></br>(qubes_vm_type: <code>$qubes_vm_type</code>)
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0
@@ -140,8 +140,36 @@ check_qubes_settings() {
    systemcheck_run_function check_qubes_vm_type
 }
 
+check_qubes_update_proxy_status_files_check() {
+   if ! test -f /run/qubes/this-is-templatevm ; then
+      true "INFO: Qubes UpdatesProxy Status Files Check: Skip, because not running in Template, ok."
+      return 0
+   fi
+
+   if test -f /run/updatesproxycheck/whonix-secure-proxy-check-done ; then
+      if test -f /run/updatesproxycheck/whonix-secure-proxy ; then
+         local MSG="<p>Qubes UpdatesProxy Status Files Check: Ok.</p>"
+         if [ "$verbose" -ge "1" ]; then
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+         return 0
+      fi
+   fi
+
+   local MSG="<p>Qubes UpdatesProxy Status Files Check: Failed!
+
+Debugging information:
+File /run/updatesproxycheck/whonix-secure-proxy-check-done exists but file /run/updatesproxycheck/whonix-secure-proxy does not exist. Check:
+<blockquote>sudo journalctl --boot --output cat -u qubes-whonix-torified-updates-proxy-check.service</blockquote>
+   </p>"
+
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+}
+
 check_qubes_update_proxy_reachability() {
-   local MSG="<p>Qubes Update Proxy Reachability Test: Trying to reach Qubes update proxy... PROXY_SERVER: $PROXY_SERVER</p>"
+   local MSG="<p>Qubes UpdatesProxy Reachability Test: Trying to reach local Qubes UpdatesProxy... PROXY_SERVER: $PROXY_SERVER</p>"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    #qubes_update_proxy_ip="10.137.255.254"
@@ -167,18 +195,24 @@ check_qubes_update_proxy_reachability() {
    qubes_update_proxy_test_result_torified="none"
 
    if [ "$curl_exit_code" = "7" ]; then
-      local MSG="<p>Qubes Update Proxy Reachability Result: Failed. (Update proxy not reachable.) \
-(curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      if test -f /run/qubes/this-is-templatevm ; then
+         local MSG="<p>Qubes UpdatesProxy Reachability Result: Failed. (UpdatesProxy not reachable.) \
+   (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         return 0
+      fi
+      local MSG="<p>Qubes UpdatesProxy Reachability Result: UpdatesProxy not reachable. This is ok and to be expected because not running in Template, ok.</p>"
+      #$output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
    if [ ! "$curl_exit_code" = "0" ]; then
-      local MSG="<p>Qubes Update Proxy Reachability Result: Failed. (Unknown issue.) \
+      local MSG="<p>Qubes UpdatesProxy Reachability Result: Failed. (Unknown issue.) \
 (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -187,14 +221,14 @@ check_qubes_update_proxy_reachability() {
 
    if echo "$curl_output" | grep -q "${PROXY_META}" ; then
       qubes_update_proxy_test_result_torified="true"
-      local MSG="<p>Qubes Update Proxy Reachability Result: Ok, torified update proxy reachable.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      local MSG="<p>Qubes UpdatesProxy Reachability Result: Ok, torified update proxy reachable.</p>"
+      #$output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
    qubes_update_proxy_test_result_torified="false"
-   local MSG="<p>Qubes Update Proxy Reachability Result: Ok, <u>non</u>-torified update proxy reachable.
+   local MSG="<p>Qubes UpdatesProxy Reachability Result: Ok, <u>non</u>-torified update proxy reachable.
 curl_status_message: <blockquote>$curl_status_message</blockquote>
 PROXY_META: <blockquote>${PROXY_META}</blockquote>
 curl_output: <blockquote>$curl_output</blockquote></p>"
@@ -203,14 +237,21 @@ curl_output: <blockquote>$curl_output</blockquote></p>"
 }
 
 check_qubes_update_proxy_functionality() {
+   if [ ! "$leak_tests" = "true" ]; then
+      local MSG="<p>Qubes UpdatesProxy Functionality Test: Skipped, because not using --leak-tests (--show-ip), ok.</p>"
+      #$output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
    if [ ! "$qubes_update_proxy_test_result_torified" = "true" ]; then
-      local MSG="<p>Qubes Update Proxy Functionality Result: Skipped.</p>"
+      local MSG="<p>Qubes UpdatesProxy Functionality Result: Skipped.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
-   local MSG="<p>Qubes Update Proxy Functionality Test: Trying to use Qubes update proxy... PROXY_SERVER: $PROXY_SERVER</p>"
+   local MSG="<p>Qubes UpdatesProxy Functionality Test: Trying to use Qubes update proxy... PROXY_SERVER: $PROXY_SERVER</p>"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
    local curl_exit_code
@@ -238,7 +279,7 @@ check_qubes_update_proxy_functionality() {
    curl_status_message="$(/usr/libexec/helper-scripts/curl_exit_codes "$curl_exit_code")"
 
    if [ "$curl_exit_code" = "22" ]; then
-      local MSG="<p>Qubes Update Proxy Functionality Result: Failed. (Filtered.) \
+      local MSG="<p>Qubes UpdatesProxy Functionality Result: Failed. (Filtered.) \
 (curl exit code: curl_exit_code | curl status message: $curl_status_message)</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -246,27 +287,21 @@ check_qubes_update_proxy_functionality() {
    fi
 
    if [ ! "$curl_exit_code" = "0" ]; then
-      local MSG="<p>Qubes Update Proxy Functionality Result: Unknown issue. \
+      local MSG="<p>Qubes UpdatesProxy Functionality Result: Unknown issue. \
 (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
-   local MSG="<p>Qubes Update Proxy Functionality Result: Ok, functional.</p>"
+   local MSG="<p>Qubes UpdatesProxy Functionality Result: Ok, functional.</p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }
 
 check_qubes_update_proxy() {
-   if [ ! "$verbose" -ge "1" ]; then
-      return 0
-   fi
-
    if [ ! "$qubes_detected" = "true" ]; then
-      local MSG="<p>Qubes Update Proxy Test Result: Skipped, because Qubes not detected.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      local MSG="<p>Qubes UpdatesProxy Test Result: Skipped, because Qubes not detected.</p>"
       return 0
    fi
 
@@ -274,6 +309,7 @@ check_qubes_update_proxy() {
       PROXY_SERVER="${PROXY_SERVER/10.137.255.254/127.0.0.1}"
    fi
 
+   check_qubes_update_proxy_status_files_check
    check_qubes_update_proxy_reachability
    check_qubes_update_proxy_functionality
 }
