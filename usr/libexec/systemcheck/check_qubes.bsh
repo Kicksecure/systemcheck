@@ -141,6 +141,11 @@ check_qubes_settings() {
 }
 
 check_qubes_update_proxy_status_files_check() {
+   if test -f /usr/share/whonix/marker ; then
+      true "INFO: Qubes UpdatesProxy Status Files Check: Skip, because not running in Whonix, ok."
+      return 0
+   fi
+
    if ! test -f /run/qubes/this-is-templatevm ; then
       true "INFO: Qubes UpdatesProxy Status Files Check: Skip, because not running in Template, ok."
       return 0
