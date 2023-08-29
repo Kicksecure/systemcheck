@@ -1,3 +1,17 @@
+commit 1c99d4f591368e1c7d9c6432ed9ad413e4c27c36
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 16:59:45 2023 -0400
+
+    run `apparmor-info` with `--boot`
+    
+    to avoid showing already fixed apparmor issues from previous boots
+
+commit e84618b6a4de6c05280d9fcf7e9751d351567b35
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 16:30:28 2023 -0400
+
+    bumped changelog version
+
 commit 310650450517da364d60bd99262d71b9fc14e83d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 29 16:30:20 2023 -0400
