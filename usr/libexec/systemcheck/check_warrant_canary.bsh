@@ -69,7 +69,13 @@ Check system clock. Recommended to check warrant canary manually."
     export LC_TIME="C"
     export TZ="UTC"
 
-    if ! test -w "/var/lib/canary" ; then
+    if ! test -d "/var/lib/canary" ; then
+      canary_folder_permission_issues
+      return 0
+    fi
+    local canary_unixtime_file_owner
+    canary_unixtime_file_owner=$(stat -c "%U" "/var/lib/canary/canary-unixtime.txt")
+    if [ "$canary_unixtime_file_owner" = "canary" ]; then
       canary_folder_permission_issues
       return 0
     fi
