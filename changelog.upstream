@@ -1,3 +1,27 @@
+commit 310650450517da364d60bd99262d71b9fc14e83d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 16:30:20 2023 -0400
+
+    fix
+
+commit 4be1827ce8898f06d238e385129af5c29f92b70a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 16:26:19 2023 -0400
+
+    /var/lib/canary permission check
+
+commit d82cf03ed66220e40a2bdda24a805f7295b7d433
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 16:18:26 2023 -0400
+
+    /var/lib/canary permission check
+
+commit 2d22961b8afcafc3e9b9ed114e3a326f7c6ac5ad
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 16:08:40 2023 -0400
+
+    bumped changelog version
+
 commit dfc1f5b195be2e21a000e0e6892c2e10d8ddfbf2
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 29 16:02:12 2023 -0400
