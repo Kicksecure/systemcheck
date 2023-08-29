@@ -3,6 +3,16 @@
 ## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+canary_folder_permission_issues() {
+   local MSG="\
+<p>$warrant_canary_check_link: Folder <code>/var/lib/canary</code> permissions issue.</p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+   return 0
+}
+
 check_warrant_canary() {
     local warrant_canary_check_link="\
 <a href=https://www.whonix.org/wiki/Whonixcheck#Warrant_Canary_Check>Warrant Canary Check</a>"
@@ -58,6 +68,11 @@ Check system clock. Recommended to check warrant canary manually."
 
     export LC_TIME="C"
     export TZ="UTC"
+
+    if ! test -w "/var/lib/canary" ; then
+      canary_folder_permission_issues
+      return 0
+    fi
 
     if ! test -f "/var/lib/canary/canary-unixtime.txt" ; then
         local MSG="\
