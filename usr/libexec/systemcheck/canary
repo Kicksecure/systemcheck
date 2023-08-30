@@ -5,6 +5,7 @@
 
 #set -x
 set -e
+set -o pipefail
 
 error_handler() {
    echo "ERROR: BASH_COMMAND: $BASH_COMMAND | exit_code: $?"
@@ -178,8 +179,8 @@ canary_do() {
 
    timeout --kill-after="5" "180" \
       /usr/libexec/systemcheck/canary-download \
-      "$canary_api_link" \
-      &> "/var/lib/canary/canary-download-output.txt" \
+      "$canary_api_link" 2>&1 \
+      | tee "/var/lib/canary/canary-download-output.txt" > /dev/null\
       || { canary_download_exit_code="$?" ; true; };
 
    if [ ! "$canary_download_exit_code" = "0" ]; then
