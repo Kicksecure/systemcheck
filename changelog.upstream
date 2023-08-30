@@ -1,3 +1,35 @@
+commit 7e02f1cf14ce2d8907fb100d5c18cadd57f870ac
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 30 06:00:38 2023 -0400
+
+    fix
+
+commit 6c5ef03d5322d0dcd0cd00bcea7ea82c5ca9e43a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 30 05:55:02 2023 -0400
+
+    use `tee` instead of bash redirection
+    
+    for better error handling
+
+commit 7ee2a27b6584ab7a26b0e8fe52e7515393eaaf90
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 30 05:53:40 2023 -0400
+
+    sanity test
+
+commit 82372dcf97f8cc50365d4cb8ef0ddcfe765d760c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 30 05:52:44 2023 -0400
+
+    cleanup
+
+commit 8a7447638d5708f293ce6de3f1711a54e1475e54
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 17:00:45 2023 -0400
+
+    bumped changelog version
+
 commit 1c99d4f591368e1c7d9c6432ed9ad413e4c27c36
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 29 16:59:45 2023 -0400
