@@ -68,6 +68,9 @@ canary_preparation() {
    canary_api_link+="/"
    canary_api_link+="canary"
    canary_api_link+="?virtualizer=${virtualizer}"
+
+   ## Sanity test.
+   test -w /var/lib/canary
 }
 
 connectivity_wait() {
