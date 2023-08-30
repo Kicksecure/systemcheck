@@ -68,10 +68,6 @@ canary_preparation() {
    canary_api_link+="/"
    canary_api_link+="canary"
    canary_api_link+="?virtualizer=${virtualizer}"
-
-   ## Debugging.
-   #ls -la /var/lib/canary/
-   touch /var/lib/canary/canary_last_done
 }
 
 connectivity_wait() {
