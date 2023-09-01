@@ -73,12 +73,6 @@ Check system clock. Recommended to check warrant canary manually."
       canary_folder_permission_issues
       return 0
     fi
-    local canary_unixtime_file_owner
-    canary_unixtime_file_owner=$(stat -c "%U" "/var/lib/canary/canary-unixtime.txt")
-    if [ ! "$canary_unixtime_file_owner" = "canary" ]; then
-      canary_folder_permission_issues
-      return 0
-    fi
 
     if ! test -f "/var/lib/canary/canary-unixtime.txt" ; then
         local MSG="\
@@ -90,6 +84,13 @@ $canary_recommendation</p>"
             $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
         fi
         return 0
+    fi
+
+    local canary_unixtime_file_owner
+    canary_unixtime_file_owner=$(stat -c "%U" "/var/lib/canary/canary-unixtime.txt")
+    if [ ! "$canary_unixtime_file_owner" = "canary" ]; then
+      canary_folder_permission_issues
+      return 0
     fi
 
    local canary_signed_unixtime_raw
