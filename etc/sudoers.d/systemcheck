@@ -15,6 +15,7 @@ systemcheck ALL=(debian-tor) NOPASSWD: /usr/bin/tor --verify-config
 systemcheck ALL=(debian-tor) NOPASSWD: /usr/sbin/tor --verify-config
 
 systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status onion-grater
+systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status qubes-updates-proxy.service
 
 ## /usr/bin/systemcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
