@@ -32,12 +32,12 @@ $if_you_know_what_you_are_doing_msg</p>"
       EXIT_CODE="1"
       cleanup "1"
       return 0
-   else
-      local MSG="<p>Qubes qubes-db Test Result: Connection to local qubes-db daemon succeeded, ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+   fi
+
+   local MSG="<p>Qubes qubes-db Test Result: Connection to local qubes-db daemon succeeded, ok.</p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ "$GATEWAY_IP" = "qubesdb_read_failed" ] || [ ! "$qubesdb_read_qubes_ip_exit_code" = "0" ] ; then
@@ -67,12 +67,12 @@ Also refer to the installation instructions of Qubes-Whonix.
       EXIT_CODE="1"
       cleanup "1"
       return 0
-   else
-      local MSG="<p>Qubes Settings Test Result: Ok. (GATEWAY_IP: <code>$GATEWAY_IP</code>)</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+   fi
+
+   local MSG="<p>Qubes Settings Test Result: Ok. (GATEWAY_IP: <code>$GATEWAY_IP</code>)</p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 }
 
