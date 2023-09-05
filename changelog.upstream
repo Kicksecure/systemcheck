@@ -1,3 +1,21 @@
+commit 8a5bf517391eff040fe005e1d6b4ab5f46890789
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 4 05:45:18 2023 -0400
+
+    refactoring
+
+commit b7e5a480bb5606b0effe24f8ddcbd39a6a3f7d7e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 4 05:36:19 2023 -0400
+
+    add check to see if qubes-updates-proxy.service is running in sys-whonix
+
+commit db026378ab1eb6a970d0294428cb3ed77412ce9e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 1 05:23:24 2023 -0400
+
+    bumped changelog version
+
 commit 3ec6ff7bb0cb7219055c57b0e25203ab75bfb061
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Sep 1 05:23:14 2023 -0400
