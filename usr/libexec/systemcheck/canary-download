@@ -28,9 +28,9 @@ os.environ['TZ'] = 'UTC'
 time.tzset()
 
 
-def canary_download_signal_handler(signum, frame):
+def canary_download_signal_handler(sig, frame):
     print("canary_download_signal_handler")
-    sys.exit(144)
+    sys.exit(128 + sig)
 
 
 def main():
