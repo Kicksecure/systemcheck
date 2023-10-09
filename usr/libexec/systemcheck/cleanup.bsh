@@ -52,10 +52,6 @@ cleanup_files() {
       if [ -d "$TEMP_DIR" ]; then
          rm --recursive "$TEMP_DIR"
       fi
-
-      rm --force "/run/systemcheck/${IDENTIFIER}_running"
-      rm --force "/run/systemcheck/${IDENTIFIER}_waiting"
-      #rm --force "/run/systemcheck/${IDENTIFIER}_pid"
    fi
 }
 
@@ -179,8 +175,6 @@ trap "trap_sigusr2" SIGUSR2 ## msgcollector, zenity cancel button
 
 cleanup() {
    true "$FUNCNAME..."
-
-   touch "/run/systemcheck/${IDENTIFIER}_done"
 
    sync
 
