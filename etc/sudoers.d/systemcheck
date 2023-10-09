@@ -2,68 +2,62 @@
 ## See the file COPYING for copying conditions.
 
 ## check_tor_bootstrap.bsh
-systemcheck ALL=(sdwdate) NOPASSWD: /usr/libexec/helper-scripts/onion-time-pre-script
-
-## required for /usr/bin/systemcheck running /usr/libexec/systemcheck/systemcheck
-## under user 'systemcheck'.
-user ALL=(systemcheck) NOPASSWD: /usr/libexec/systemcheck/systemcheck
-user ALL=(systemcheck) NOPASSWD: /bin/bash -x /usr/libexec/systemcheck/systemcheck
-user ALL=NOPASSWD: /bin/bash -x /usr/bin/systemcheck
+user ALL=(sdwdate) NOPASSWD: /usr/libexec/helper-scripts/onion-time-pre-script
 
 ## Required for systemcheck running "tor --verify-config".
-systemcheck ALL=(debian-tor) NOPASSWD: /usr/bin/tor --verify-config
-systemcheck ALL=(debian-tor) NOPASSWD: /usr/sbin/tor --verify-config
+user ALL=(debian-tor) NOPASSWD: /usr/bin/tor --verify-config
+user ALL=(debian-tor) NOPASSWD: /usr/sbin/tor --verify-config
 
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status onion-grater
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status qubes-updates-proxy.service
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status onion-grater
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status qubes-updates-proxy.service
 
 ## /usr/bin/systemcheck depends on the following line for check_operating_system
 ## allows running apt-get update as user (non-root)
-systemcheck ALL=NOPASSWD: /usr/libexec/security-misc/apt-get-update
-systemcheck ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-simulate
-systemcheck ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-kill-helper
-systemcheck ALL=NOPASSWD: /usr/sbin/anondate
+user ALL=NOPASSWD: /usr/libexec/security-misc/apt-get-update
+user ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-simulate
+user ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-kill-helper
+user ALL=NOPASSWD: /usr/sbin/anondate
 
 ## check_package_manager_running_helper
-systemcheck ALL=NOPASSWD: /bin/fuser /var/lib/dpkg/lock /var/cache/apt/archives/lock
+user ALL=NOPASSWD: /bin/fuser /var/lib/dpkg/lock /var/cache/apt/archives/lock
 
 ## required for check_network_interfaces
-systemcheck ALL=NOPASSWD: /sbin/ifconfig eth0
-systemcheck ALL=NOPASSWD: /sbin/ifconfig eth1
+user ALL=NOPASSWD: /sbin/ifconfig eth0
+user ALL=NOPASSWD: /sbin/ifconfig eth1
 
 ## required for check_kernel_messages
-systemcheck ALL=NOPASSWD: /bin/dmesg
+user ALL=NOPASSWD: /bin/dmesg
 
 ## required for check_spectre_meltdown
-systemcheck ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid
+user ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid
 
 ## required for check_services
-systemcheck ALL=NOPASSWD: /usr/sbin/apparmor-info --boot
-systemcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager
-systemcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager --priority=0..4
-systemcheck ALL=NOPASSWD: /bin/journalctl --boot --no-pager -u whonix-firewall
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-firewall
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --no-legend --failed
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-units
+user ALL=NOPASSWD: /usr/sbin/apparmor-info --boot
+user ALL=NOPASSWD: /bin/journalctl --boot --no-pager
+user ALL=NOPASSWD: /bin/journalctl --boot --no-pager --priority=0..4
+user ALL=NOPASSWD: /bin/journalctl --boot --no-pager -u whonix-firewall
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-firewall
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --no-legend --failed
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-units
 
 ## required for check_tor_running
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor@default
-systemcheck ALL=NOPASSWD: /usr/libexec/systemcheck/check_tor_running
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor@default
+user ALL=NOPASSWD: /usr/libexec/systemcheck/check_tor_running
 
 ## required for check_warrant_canary
-systemcheck ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status canary
+user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status canary
 
 ## required for check_network_interfaces if /sys is restricted to root
-systemcheck ALL=NOPASSWD: /bin/cat /sys/class/net/eth0/carrier
-systemcheck ALL=NOPASSWD: /bin/cat /sys/class/net/eth1/carrier
+user ALL=NOPASSWD: /bin/cat /sys/class/net/eth0/carrier
+user ALL=NOPASSWD: /bin/cat /sys/class/net/eth1/carrier
 
 ## required for check_pvclock if /sys is restricted to root
-systemcheck ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/current_clocksource
-systemcheck ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/available_clocksource
+user ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/current_clocksource
+user ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/available_clocksource
 
 ## required for check_virtualizer if /sys is restricted to root
-systemcheck ALL=NOPASSWD: /usr/bin/systemd-detect-virt
+user ALL=NOPASSWD: /usr/bin/systemd-detect-virt
 
 ## required for check_sudo
-systemcheck ALL=NOPASSWD: /usr/bin/test -x /usr/bin/test
+user ALL=NOPASSWD: /usr/bin/test -x /usr/bin/test
