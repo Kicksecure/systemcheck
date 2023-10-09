@@ -1,3 +1,15 @@
+commit 02749c57e19511a9a452bb1041ea0b0c44b3dfd4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 9 10:17:03 2023 -0400
+
+    move deprecation-popup to legacy-dist
+
+commit 17e52a6f201ad8ac51c391f23a544269c4f70641
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 9 00:35:12 2023 -0400
+
+    bumped changelog version
+
 commit 57309aa0417cc6c657b0689ab1860963f4caa5d9
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Oct 9 00:24:42 2023 -0400
