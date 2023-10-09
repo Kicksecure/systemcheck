@@ -6,7 +6,7 @@
 set -e
 
 if [ -o xtrace ]; then
-   sudo --non-interactive -u systemcheck bash -x /usr/libexec/systemcheck/systemcheck "$@"
+   bash -x /usr/libexec/systemcheck/systemcheck "$@"
 else
-   sudo --non-interactive -u systemcheck /usr/libexec/systemcheck/systemcheck "$@"
+   /usr/libexec/systemcheck/systemcheck "$@"
 fi
