@@ -1,3 +1,23 @@
+commit 6c2562cb2cf258cd9dda102e17eb39ccea25bd7f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Oct 11 05:39:42 2023 -0400
+
+    fix killing apt-get background process when pressing ctrl +c (signal sigint)
+    
+    use `setsid` use `sudo` with `--`
+
+commit 11ac6b8c3114f5365073c75a8ddffd3c1c8976bf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Oct 11 03:33:39 2023 -0400
+
+    wayland
+
+commit 17c3edd951db5e7cf44ff65f767b33bed4e12a5d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 9 14:19:19 2023 -0400
+
+    bumped changelog version
+
 commit 4ba34d541a9847a6db8c2e9e35f0c0dd1c37fcfc
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Oct 9 14:16:52 2023 -0400
