@@ -42,6 +42,9 @@ check_tor_bootstrap_init() {
    [ -n "$systemcheck_tor_bootstrap_error_counter" ] || systemcheck_tor_bootstrap_error_counter="0"
    [ -n "$systemcheck_tor_bootstrap_error_max" ] || systemcheck_tor_bootstrap_error_max="5"
 
+   ## used by /usr/libexec/helper-scripts/tor_bootstrap_check.bsh
+   [ -n "$check_bootstrap_run_as" ] || check_bootstrap_run_as="sudo --non-interactive --user debian-tor"
+
    ## sets: check_bootstrap_script
    ## sets: lastpid
    ## sets: tor_bootstrap_percent

@@ -8,6 +8,15 @@ user ALL=(sdwdate) NOPASSWD: /usr/libexec/helper-scripts/onion-time-pre-script
 user ALL=(debian-tor) NOPASSWD: /usr/bin/tor --verify-config
 user ALL=(debian-tor) NOPASSWD: /usr/sbin/tor --verify-config
 
+## tor_bootstrap_check.bsh
+## Run by /usr/libexec/helper-scripts/tor_bootstrap_check.bsh
+## check_bootstrap_helper_script
+user ALL=(debian-tor) NOPASSWD: /usr/libexec/helper-scripts/tor_bootstrap_check.py
+user ALL=(debian-tor) NOPASSWD: /usr/bin/tor-circuit-established-check
+user ALL=(debian-tor) NOPASSWD: /usr/libexec/helper-scripts/tor_consensus_valid-after.py
+user ALL=(debian-tor) NOPASSWD: /usr/libexec/helper-scripts/tor_consensus_valid-until.py
+user ALL=(debian-tor) NOPASSWD: /usr/bin/tor-circuit-established-check
+
 user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status onion-grater
 user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status qubes-updates-proxy.service
 
