@@ -48,13 +48,13 @@ check_services() {
 <br></br>$line"
          fi
       fi
-   done < <( sudo --non-interactive /bin/systemctl --no-pager --no-block --no-legend --failed )
+   done < <( setsid -- sudo --non-interactive -- /bin/systemctl --no-pager --no-block --no-legend --failed )
 
    if [ "$counter" = "0" ]; then
       return 0
    fi
 
-   systemctl_output_with_legend="$(sudo --non-interactive /bin/systemctl --no-pager --no-block --failed list-units)"
+   systemctl_output_with_legend="$(setsid -- sudo --non-interactive -- /bin/systemctl --no-pager --no-block --failed list-units)"
    systemctl_output_with_legend="$(/usr/libexec/msgcollector/br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
@@ -100,10 +100,10 @@ check_journal() {
 
    local apparmorinfo_output journalctl_output grep_warn_output grep_error_output grep_ordering_output grep_seccomp_output
 
-   sudo --non-interactive /usr/sbin/apparmor-info --boot | tee "$TEMP_DIR/apparmor-info.txt" >/dev/null || true
+   setsid -- sudo --non-interactive -- /usr/sbin/apparmor-info --boot | tee "$TEMP_DIR/apparmor-info.txt" >/dev/null || true
    ## '--priority=0..4'
    ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
-   sudo --non-interactive /bin/journalctl --boot --no-pager | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
+   setsid -- sudo --non-interactive -- /bin/journalctl --boot --no-pager | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
    ## grep will exit 1 if no match, therefore overwrite with || true.
    cat "$TEMP_DIR/journalctl_output.txt" | grep -i "SECCOMP" | grep 'syscall=' | tee "$TEMP_DIR/journalctl_seccomp.txt" >/dev/null || true
@@ -198,7 +198,7 @@ check_whonix_firewall_systemd_status() {
    max="30"
    while true ; do
       systemctl_status_whonix_firewall_exit_code="0"
-      systemctl_status_whonix_firewall_output="$(sudo --non-interactive /bin/systemctl --no-pager --no-block status whonix-firewall 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
+      systemctl_status_whonix_firewall_output="$(setsid -- sudo --non-interactive -- /bin/systemctl --no-pager --no-block status whonix-firewall 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
       if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ]; then
          break
       else
@@ -225,7 +225,7 @@ check_whonix_firewall_systemd_status() {
       return 0
    fi
 
-   journalctl_whonix_firewall_output="$(sudo --non-interactive /bin/journalctl --boot --no-pager -u whonix-firewall)" || true
+   journalctl_whonix_firewall_output="$(setsid -- sudo --non-interactive -- /bin/journalctl --boot --no-pager -u whonix-firewall)" || true
    journalctl_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$journalctl_whonix_firewall_output")"
 
    local if_you_know_what_you_are_doing_msg

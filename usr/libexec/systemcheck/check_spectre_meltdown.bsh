@@ -29,10 +29,10 @@ check_spectre_meltdown() {
    timeout_after="10"
    kill_after="10"
 
-   spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" sudo --non-interactive spectre-meltdown-checker --paranoid)" || { spectre_meltdown_checker_exit_code="$?"; };
+   spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" setsid -- sudo --non-interactive -- spectre-meltdown-checker --paranoid)" || { spectre_meltdown_checker_exit_code="$?"; };
 
    if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
-      local MSG="<p>Spectre Meltdown Test Result: not vulerable, ok.</p>"
+      local MSG="<p>Spectre Meltdown Test Result: not vulnerable, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"

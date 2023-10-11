@@ -24,12 +24,16 @@ check_operating_system() {
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    local apt_get_exit_code
    apt_get_exit_code="0"
+
    ## /usr/libexec/security-misc/apt-get-update is timeout protected.
+   ## setsid:
+   ## https://stackoverflow.com/questions/48029094/sudo-ignores-sigterm-sent-from-same-script
    if [ "$verbose" -ge "1" ]; then
-      sudo --non-interactive "/usr/libexec/security-misc/apt-get-update" &
+      setsid -- sudo --non-interactive -- "/usr/libexec/security-misc/apt-get-update" &
    else
-      sudo --non-interactive "/usr/libexec/security-misc/apt-get-update" >/dev/null &
+      setsid -- sudo --non-interactive -- "/usr/libexec/security-misc/apt-get-update" >/dev/null &
    fi
+
    apt_get_update_pid="$!"
    wait "$apt_get_update_pid" || { apt_get_exit_code="$?" ; true; };
    unset apt_get_update_pid
@@ -78,7 +82,7 @@ $qubes_update_help</p>"
    local check_os_output check_os_output_show check_os_exit_code
    check_os_exit_code="0"
    ## /usr/libexec/helper-scripts/apt-get-update-simulate is timeout protected.
-   check_os_output="$(sudo --non-interactive /usr/libexec/helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
+   check_os_output="$(setsid -- sudo --non-interactive -- /usr/libexec/helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
    check_os_output_show="$(/usr/libexec/msgcollector/br_add "$check_os_output")"
 
    if [ "$verbose" -ge "1" ]; then

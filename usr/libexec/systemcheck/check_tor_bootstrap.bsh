@@ -43,7 +43,7 @@ check_tor_bootstrap_init() {
    [ -n "$systemcheck_tor_bootstrap_error_max" ] || systemcheck_tor_bootstrap_error_max="5"
 
    ## used by /usr/libexec/helper-scripts/tor_bootstrap_check.bsh
-   [ -n "$check_bootstrap_run_as" ] || check_bootstrap_run_as="sudo --non-interactive --user debian-tor"
+   [ -n "$check_bootstrap_run_as" ] || check_bootstrap_run_as="setsid -- sudo --non-interactive --user debian-tor --"
 
    ## sets: check_bootstrap_script
    ## sets: lastpid
@@ -125,7 +125,7 @@ check_tor_bootstrap_init() {
       whonix_firewall_status_word="pending"
    fi
 
-   onion_time_pre_script_output=$(timeout --kill-after="5" "5" sudo --non-interactive -u sdwdate /usr/libexec/helper-scripts/onion-time-pre-script 2>&1) || true
+   onion_time_pre_script_output=$(timeout --kill-after="5" "5" setsid -- sudo --non-interactive --user sdwdate -- /usr/libexec/helper-scripts/onion-time-pre-script 2>&1) || true
    if [ "$onion_time_pre_script_output" = "" ]; then
       onion_time_pre_script_output="onion-time-pre-script did not return any output."
    fi

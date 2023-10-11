@@ -17,13 +17,13 @@ check_network_interfaces() {
    local failed eth0_failed eth1_failed
 
    failed=false
-   if ! sudo --non-interactive cat /sys/class/net/eth0/carrier &>/dev/null ; then
+   if ! setsid -- sudo --non-interactive -- cat /sys/class/net/eth0/carrier &>/dev/null ; then
       eth0_failed=true
       failed=true
    fi
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if ! sudo --non-interactive cat /sys/class/net/eth1/carrier &>/dev/null ; then
+      if ! setsid -- sudo --non-interactive -- cat /sys/class/net/eth1/carrier &>/dev/null ; then
          eth1_failed=true
          failed=true
       fi
