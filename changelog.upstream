@@ -1,3 +1,21 @@
+commit b62d7855d570147c3d66a1cd0e3ce61502410138
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Oct 21 12:43:29 2023 -0400
+
+    apparmor
+
+commit 612da4f9636320783abf751747902704d6ae5d65
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Oct 21 12:41:28 2023 -0400
+
+    rm_conffile /etc/xdg/autostart/systemcheck-deprecation-notice.desktop
+
+commit 3ddc23b17e37b5175ca21e50b0bb84607a47b4a2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Oct 21 11:30:19 2023 -0400
+
+    bumped changelog version
+
 commit 3dfb5f043ba4a6a2c674d1dc22b887a734c9e63e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Oct 21 11:24:53 2023 -0400
