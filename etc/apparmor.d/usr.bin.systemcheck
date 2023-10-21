@@ -11,7 +11,6 @@ include <tunables/global>
   include <abstractions/dbus-session>
   include <abstractions/dbus>
   include <abstractions/fonts>
-  include <abstractions/lightdm>
   include <abstractions/tor-circuit-established-check>
   include <abstractions/tor>
   include <abstractions/totem>
