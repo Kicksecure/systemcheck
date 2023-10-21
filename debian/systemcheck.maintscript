@@ -8,3 +8,4 @@ rm_conffile /etc/default/whonixcheckd
 rm_conffile /etc/sudoers.d/whonixcheck
 rm_conffile /etc/apparmor.d/usr.bin.whonixcheck
 rm_conffile /etc/apparmor.d/usr.lib.systemcheck.canary
+rm_conffile /etc/xdg/autostart/systemcheck-deprecation-notice.desktop
