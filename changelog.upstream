@@ -1,3 +1,17 @@
+commit 2c06a04cdf6a6ce5c4da0fb1adfeefa0b06d7b20
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 5 18:17:40 2023 -0500
+
+    apparmor
+    
+    https://github.com/Kicksecure/security-misc/pull/147#issuecomment-1793877727
+
+commit 67a535481fe6fe694cf602d87abf78e638adfbe5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Oct 21 12:54:27 2023 -0400
+
+    bumped changelog version
+
 commit d5f1e6a1d607d8c0cbc392fc8d7f5e95c5786173
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Oct 21 12:54:03 2023 -0400
