@@ -1,3 +1,21 @@
+commit aa95c59431aab9f1722d47835f1ebc7dc565c74e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 26 03:21:12 2024 -0500
+
+    disable disclaimer
+
+commit 1a413fca06520adcbc97853a6d79bad2a2f63fb3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 26 03:19:13 2024 -0500
+
+    check_whonixsetup_done.bsh -> check_setup_dist_done.bsh
+
+commit c5e316d21dd4c2b6a43bf6a3bb5e3f352641ddec
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jan 22 12:46:24 2024 +0000
+
+    bumped changelog version
+
 commit d8effbfafd906de8ba0787d64e557fb32947708c
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Jan 22 07:16:35 2024 -0500
