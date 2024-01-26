@@ -33,6 +33,9 @@ check_setup_dist_done_do() {
 }
 
 check_setup_dist_done() {
+   ## Disabled disclaimer.
+   return 0
+
    if [ ! "$VM" = "Whonix-Gateway" ]; then
       true "Do not enforce running dist-setup unless run on Whonix-Gateway."
       return 0
