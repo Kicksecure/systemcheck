@@ -1,3 +1,15 @@
+commit 5c6d545f8439647ce587a5c09e8c6fc927098140
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 18 10:59:23 2024 -0400
+
+    disable hardened malloc check since deprecated in Kicksecure
+
+commit a5874b120f7231d15cbb19397def7e11fe34d115
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 2 12:38:03 2024 +0000
+
+    bumped changelog version
+
 commit 750f2699e59b222cb418bc7fd90133f1aeee2716
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Feb 2 07:32:44 2024 -0500
