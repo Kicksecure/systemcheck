@@ -92,7 +92,7 @@ systemcheck_main() {
    systemcheck_run_function show_deprecation_notice ## show_versions
 
    ## Does not use the network.
-   systemcheck_run_function check_hardened_malloc ## check_hardened_malloc
+   #systemcheck_run_function check_hardened_malloc ## check_hardened_malloc
 
    ## Does not use the network.
    #systemcheck_run_function check_man ## check_man
