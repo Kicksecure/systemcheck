@@ -76,6 +76,9 @@ systemcheck_main() {
    systemcheck_run_function input_notification ## preparation
 
    ## Does not use the network.
+   systemcheck_run_function check_environment_variables ## check_environment_variables
+
+   ## Does not use the network.
    systemcheck_run_function check_sudo ## check_sudo
 
    if [ "$test_connect" = "true" ]; then

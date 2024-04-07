@@ -1,0 +1,28 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+check_environment_variables() {
+      if [ "$vm_lower_case_short" = "gateway" ] || [ "$vm_lower_case_short" = "workstation" ]; then
+         if [ ! "$WHONIX" = "1" ]; then
+            local MSG="<p>Environment variables test result: Missing environment variable WHONIX=1. This indicates that other environment variables might be missing as well.</p>"
+            $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+            return 0
+         fi
+      elif [ "$vm_lower_case_short" = "machine" ]; then
+         if [ ! "$KICKSECURE" = "1" ]; then
+            local MSG="<p>Environment variables test result: Missing environment variable KICKSECURE=1. This indicates that other environment variables might be missing as well.</p>"
+            $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+            return 0
+         fi
+      fi
+
+   local MSG="<p>Environment variables test result: Ok.</p>"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}
