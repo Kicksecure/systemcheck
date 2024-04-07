@@ -1,3 +1,16 @@
+commit e5183f7a9879f1e173b79a700dc6cb5c48b91558
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Apr 7 03:09:15 2024 -0400
+
+    check environment variable `KICKSECURE=1` is set
+    (or `WHONIX=1` is set)
+
+commit 791f636a9fa74b3d54a5c734ba413869b1acfb66
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 18 15:11:03 2024 +0000
+
+    bumped changelog version
+
 commit 5c6d545f8439647ce587a5c09e8c6fc927098140
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 18 10:59:23 2024 -0400
