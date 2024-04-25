@@ -1,3 +1,15 @@
+commit 5b8eabbdfc793ef9deea2a1a2966fb2e926fd99f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 25 08:28:54 2024 -0400
+
+    Recommends: msgcollector-gui
+
+commit 62bcf9643f24c59acec199eb320eeb08ec555352
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Apr 7 08:03:04 2024 +0000
+
+    bumped changelog version
+
 commit e5183f7a9879f1e173b79a700dc6cb5c48b91558
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Apr 7 03:09:15 2024 -0400
