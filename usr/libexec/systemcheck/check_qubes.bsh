@@ -208,8 +208,6 @@ check_qubes_update_proxy_reachability() {
    local MSG="<p>Qubes UpdatesProxy Reachability Test: Trying to reach local Qubes UpdatesProxy... PROXY_SERVER: $PROXY_SERVER</p>"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
-   #qubes_update_proxy_ip="10.137.255.254"
-
    local curl_exit_code
    curl_exit_code="0"
 
@@ -294,7 +292,7 @@ check_qubes_update_proxy_connectivity() {
    local curl_exit_code
    curl_exit_code="0"
 
-   ## UWT_DEV_PASSTHROUGH=1 curl --connect-timeout 3 http://10.137.255.254:8082/
+   ## UWT_DEV_PASSTHROUGH=1 curl --connect-timeout 3 http://127.0.0.1:8082/
    UWT_DEV_PASSTHROUGH="1" \
       curl \
          --fail \
@@ -340,10 +338,6 @@ check_qubes_update_proxy() {
    if [ ! "$qubes_detected" = "true" ]; then
       local MSG="<p>Qubes UpdatesProxy Test Result: Skipped, because Qubes not detected.</p>"
       return 0
-   fi
-
-   if [ -f /run/qubes/this-is-netvm ] || [ -f /run/qubes/this-is-proxyvm ]; then
-      PROXY_SERVER="${PROXY_SERVER/10.137.255.254/127.0.0.1}"
    fi
 
    check_qubes_update_proxy_status_files_check
