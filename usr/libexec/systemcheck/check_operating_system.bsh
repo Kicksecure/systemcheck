@@ -173,7 +173,7 @@ $debugging_information</p>"
 $qubes_update_help</p>"
    else
       local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
-<br></br>Please update Whonix-Gateway and Whonix-Workstation:
+<br></br>Please update $update_where:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>$update_command</blockquote></code></p>"
    fi
