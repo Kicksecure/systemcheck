@@ -1,3 +1,28 @@
+commit 8a6e278be92ee180ea83374a9ef5f48d3d00d5ef
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 6 07:05:09 2024 -0400
+
+    systemcheck warning against GeoClue
+    
+    privacy concerns associated with GeoClue
+    https://gitlab.freedesktop.org/geoclue/geoclue/-/issues/177
+    https://github.com/Kicksecure/developer-meta-files/issues/3
+    https://github.com/Whonix/anon-meta-packages/commit/d9c96fcda6e8dd8ed147d57c71843e003d898d47
+    
+    systemcheck_unwanted_package+=" geoclue-2.0 "
+
+commit db9fd4e9ba20f54528b34a90f8a7906db0697352
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 6 07:03:12 2024 -0400
+
+    comment
+
+commit 316db08284fc4214c12a06a2595441e34e5c21a3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 28 20:50:58 2024 +0000
+
+    bumped changelog version
+
 commit e5bacca29ded12883412c96929d9cc3dbe1f4a4d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Jul 28 12:28:32 2024 -0400
