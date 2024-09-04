@@ -125,9 +125,6 @@ systemcheck_main() {
    systemcheck_run_function check_whonix_firewall_systemd_status ## check_services
 
    ## Does not use the network.
-   systemcheck_run_function check_setup_dist_done ## check_setup_dist_done
-
-   ## Does not use the network.
    ## Own Progress Bar: Yes
    systemcheck_run_function check_package_manager_running ## check_package_manager_running
 
