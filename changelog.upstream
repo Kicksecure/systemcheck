@@ -1,3 +1,21 @@
+commit 184d7e1de4cfb8ce605ac8fb00eafba4049ea25a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Sep 4 07:55:53 2024 -0400
+
+    no longer check if setup-dist was done
+    
+    since no longer required
+    
+    since auto connecting to public Tor network nowadays
+    
+    https://forums.whonix.org/t/connect-to-public-tor-network-by-default-avoid-anon-connection-wizard-acw-popup-at-first-boot/17848
+
+commit 8164547ad2f5898319d6552621df8535d35fea9f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 2 21:23:34 2024 +0000
+
+    bumped changelog version
+
 commit fe6e44800e66a9ba6b2956392854a21821bf9194
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Sep 2 17:12:45 2024 -0400
