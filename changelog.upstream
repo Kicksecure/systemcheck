@@ -1,3 +1,15 @@
+commit 57b1db1134d9ddc07bc49626b321a316b49e720f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Oct 11 06:02:36 2024 -0400
+
+    change icon
+
+commit 0218c92f0ad4620ffd4c08b625c68a1f84928d4a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Sep 4 13:39:30 2024 +0000
+
+    bumped changelog version
+
 commit 184d7e1de4cfb8ce605ac8fb00eafba4049ea25a
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Sep 4 07:55:53 2024 -0400
