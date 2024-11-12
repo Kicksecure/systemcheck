@@ -410,7 +410,6 @@ preparation() {
 
    $output_general --icon "$ICON"
    $output_general --parenttty "$my_tty"
-   $output_general --whoami "$who_ami"
    $output_x --titlex "$TITLE_X"
    $output_cli --titlecli "$TITLE_CLI"
 
