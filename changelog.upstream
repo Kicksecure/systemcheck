@@ -1,3 +1,40 @@
+commit 3d7f14eb8055ab4c070cc02f4dc6c67113249488
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 25 15:58:45 2024 -0500
+
+    comment
+
+commit 68adb5e4a9e41dcf2baaa8f84ee927f90d405324
+Merge: 2f304ed 9f4296e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 25 15:35:49 2024 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/sudoers'
+
+commit 9f4296e93e5d31778ddc8b0aef00e0697c7e5640
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Nov 21 20:12:48 2024 -0600
+
+    Remove obsolete argument to apt-get-update-kill-helper, revise comments
+
+commit 0a0248eaeab6691bb62625aeef35d26ac824afe5
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Nov 21 19:48:01 2024 -0600
+
+    Only allow dmesg to be run without a password if run without arguments
+
+commit 07b9148d447e41dc2c2d38fb5faae8d5fd68b7e2
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Nov 21 19:27:53 2024 -0600
+
+    Remove duplicate sudoers config line
+
+commit 2f304edde679e898292f574bc1ea86d0555a7d17
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 12 16:59:38 2024 +0000
+
+    bumped changelog version
+
 commit fa2727b81c0c0c58a1ed194803a798e06a352ae0
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Nov 12 11:59:28 2024 -0500
