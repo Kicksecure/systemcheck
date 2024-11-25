@@ -12,7 +12,6 @@ user ALL=(debian-tor) NOPASSWD: /usr/sbin/tor --verify-config
 ## Run by /usr/libexec/helper-scripts/tor_bootstrap_check.bsh
 ## check_bootstrap_helper_script
 user ALL=(debian-tor) NOPASSWD: /usr/libexec/helper-scripts/tor_bootstrap_check.py
-user ALL=(debian-tor) NOPASSWD: /usr/bin/tor-circuit-established-check
 user ALL=(debian-tor) NOPASSWD: /usr/libexec/helper-scripts/tor_consensus_valid-after.py
 user ALL=(debian-tor) NOPASSWD: /usr/libexec/helper-scripts/tor_consensus_valid-until.py
 user ALL=(debian-tor) NOPASSWD: /usr/bin/tor-circuit-established-check
@@ -35,7 +34,7 @@ user ALL=NOPASSWD: /sbin/ifconfig eth0
 user ALL=NOPASSWD: /sbin/ifconfig eth1
 
 ## required for check_kernel_messages
-user ALL=NOPASSWD: /bin/dmesg
+user ALL=NOPASSWD: /bin/dmesg ""
 
 ## required for check_spectre_meltdown
 user ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid

@@ -22,8 +22,7 @@ maybe_kill_apt_get_update() {
       return 0
    fi
 
-   ## Can not use `kill`, must use `ps`, because kill will always return a
-   ## a non-zero exit code if the process is owned by a different user.
+   ## Check if apt-get-update has already terminated.
    local ps_p_exit_code
    ps_p_exit_code="0"
    ps -p "$apt_get_update_pid" >/dev/null 2>/dev/null || { ps_p_exit_code="$?" ; true; };
@@ -41,7 +40,10 @@ maybe_kill_apt_get_update() {
    ## There is an exception in /etc/sudoers.d/.
    ## "|| true", to avoid an error when systemcheck receives a sigterm signal
    ## while running this command (such as when systemcheckd gets stopped).
-   setsid -- sudo --non-interactive -- "/usr/libexec/helper-scripts/apt-get-update-kill-helper" "$apt_get_update_pid" || true
+   ## This command will kill the PID listed in
+   ## /tmp/security-misc-apt-get-update-pid, which is saved by apt-get-update
+   ## itself.
+   setsid -- sudo --non-interactive -- "/usr/libexec/helper-scripts/apt-get-update-kill-helper" || true
 }
 ## }}
 
