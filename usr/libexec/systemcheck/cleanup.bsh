@@ -41,7 +41,7 @@ maybe_kill_apt_get_update() {
    ## "|| true", to avoid an error when systemcheck receives a sigterm signal
    ## while running this command (such as when systemcheckd gets stopped).
    ## This command will kill the PID listed in
-   ## /tmp/security-misc-apt-get-update-pid, which is saved by apt-get-update
+   ## "$TMP/security-misc-apt-get-update-pid", which is saved by apt-get-update
    ## itself.
    setsid -- sudo --non-interactive -- "/usr/libexec/helper-scripts/apt-get-update-kill-helper" || true
 }
