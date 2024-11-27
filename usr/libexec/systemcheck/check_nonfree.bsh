@@ -36,7 +36,7 @@ check_non_freedom() {
       break
    done
 
-   local non_freedomlink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_non_freedom_software>${PROJECT_HOMEPAGE}/wiki/Avoid_non_freedom_software</a>"
+   local non_freedomlink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_nonfreedom_software>${PROJECT_HOMEPAGE}/wiki/Avoid_nonfreedom_software</a>"
 
    if [ "$check_non_freedom_result" = "free" ]; then
       local MSG="<p>Check non-freedom Result: Ok, no non-freedom packages found. For more information, see:
