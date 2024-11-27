@@ -32,14 +32,14 @@ check_non_freedom() {
          fi
       done
       check_non_freedom_result=non_freedom
-      true "non_freedom found: line: $line"
+      true "non-freedom package found: line: $line"
       break
    done
 
    local non_freedomlink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_non_freedom_software>${PROJECT_HOMEPAGE}/wiki/Avoid_non_freedom_software</a>"
 
    if [ "$check_non_freedom_result" = "free" ]; then
-      local MSG="<p>Check non_freedom Result: Ok, no non_freedom packages found. For more information, see:
+      local MSG="<p>Check non-freedom Result: Ok, no non-freedom packages found. For more information, see:
 <br />$non_freedomlink</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -47,7 +47,7 @@ check_non_freedom() {
       fi
    elif [ "$check_non_freedom_result" = "expected" ]; then
       non_freedom_packages_detected=expected
-      local MSG="<p>Check non_freedom Result: Ok, only expected non_freedom packages found. For more information, see:
+      local MSG="<p>Check non-freedom Result: Ok, only expected non-freedom packages found. For more information, see:
 <br />$non_freedomlink
 <br />
 <br />vrms_output:
@@ -59,7 +59,7 @@ check_non_freedom() {
    else
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-      local MSG="<p>Check non_freedom Result: non_freedom packages found. This is non-ideal but okay if you know what you are doing. For more information, see:
+      local MSG="<p>Check non-freedom Result: non-freedom packages found. This is non-ideal but okay if you know what you are doing. For more information, see:
 <br />$non_freedomlink
 <br />
 <br />vrms_output:
