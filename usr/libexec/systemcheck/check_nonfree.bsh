@@ -32,7 +32,10 @@ check_non_freedom() {
          fi
       done
       check_non_freedom_result=non_freedom
-      true "non-freedom package found: line: $line"
+      local MSG="<p>Check non-freedom Result: non-freedom package found: '$line'</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
       break
    done
 
