@@ -1,3 +1,39 @@
+commit bf1175b7d13a3a8d77f4b7eb5eace34750dbf2dd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 27 09:47:38 2024 -0500
+
+    output
+
+commit d17af05b2eb1b0c5fe7c302456baadddd77d22d8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 27 09:46:04 2024 -0500
+
+    update link
+
+commit 535c6fdb77b5a4d1940758e81bcf89ac43ef32ae
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 27 09:45:12 2024 -0500
+
+    output
+
+commit e37d5b929963cd7adffef5a31eae9eff7a264869
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 27 09:43:20 2024 -0500
+
+    nonfree -> non_freedom
+
+commit 4955110dcda64e7e4d0819e0875a575ca0a1e689
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 27 09:39:19 2024 -0500
+
+    ignore non-freedom firmware in check_nonfree (ISO)
+
+commit f5214126ec94ea20ed179e893fc9aff39db6e760
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 25 21:08:05 2024 +0000
+
+    bumped changelog version
+
 commit 3d7f14eb8055ab4c070cc02f4dc6c67113249488
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Nov 25 15:58:45 2024 -0500
