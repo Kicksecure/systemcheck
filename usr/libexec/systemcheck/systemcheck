@@ -209,7 +209,7 @@ systemcheck_main() {
    systemcheck_progress_main "1"
 
    ## Does not use the network.
-   systemcheck_run_function check_nonfree ## check_nonfree
+   systemcheck_run_function check_non_freedom ## check_non_freedom
    systemcheck_progress_main "1"
 
    ## Does not use the network.

@@ -3,8 +3,8 @@
 ## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-check_nonfree() {
-   local vrms_output vrms_result line expected_package check_nonfree_result continue
+check_non_freedom() {
+   local vrms_output vrms_result line expected_package check_non_freedom_result continue
 
    ## Human readable output.
    vrms_output="$(LANG=C vrms 2>&1)" || true
@@ -13,42 +13,42 @@ check_nonfree() {
    ## For machine readable output.
    vrms_result="$(LANG=C vrms --quiet --sparse 2>&1)" || true
 
-   check_nonfree_result=free
+   check_non_freedom_result=free
    for line in $vrms_result ; do
       true "line: $line"
       if [ "$line" = "" ]; then
          continue
       fi
-      for expected_package in $systemcheck_expected_nonfree_package ; do
+      for expected_package in $systemcheck_expected_non_freedom_package ; do
          if [ "$line" = "$expected_package" ]; then
-            check_nonfree_result=expected
+            check_non_freedom_result=expected
             continue 2
          fi
       done
-      for expected_grep in $systemcheck_expected_nonfree_grep_package ; do
+      for expected_grep in $systemcheck_expected_non_freedom_grep_package ; do
          if echo "$line" | grep -q "$expected_grep" ; then
-            check_nonfree_result=expected
+            check_non_freedom_result=expected
             continue 2
          fi
       done
-      check_nonfree_result=nonfree
-      true "nonfree found: line: $line"
+      check_non_freedom_result=non_freedom
+      true "non_freedom found: line: $line"
       break
    done
 
-   local nonfreelink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_nonfree_software>${PROJECT_HOMEPAGE}/wiki/Avoid_nonfree_software</a>"
+   local non_freedomlink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_non_freedom_software>${PROJECT_HOMEPAGE}/wiki/Avoid_non_freedom_software</a>"
 
-   if [ "$check_nonfree_result" = "free" ]; then
-      local MSG="<p>Check nonfree Result: Ok, no nonfree packages found. For more information, see:
-<br />$nonfreelink</p>"
+   if [ "$check_non_freedom_result" = "free" ]; then
+      local MSG="<p>Check non_freedom Result: Ok, no non_freedom packages found. For more information, see:
+<br />$non_freedomlink</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-   elif [ "$check_nonfree_result" = "expected" ]; then
-      nonfree_packages_detected=expected
-      local MSG="<p>Check nonfree Result: Ok, only expected nonfree packages found. For more information, see:
-<br />$nonfreelink
+   elif [ "$check_non_freedom_result" = "expected" ]; then
+      non_freedom_packages_detected=expected
+      local MSG="<p>Check non_freedom Result: Ok, only expected non_freedom packages found. For more information, see:
+<br />$non_freedomlink
 <br />
 <br />vrms_output:
 <br /><code>$vrms_output</code></p>"
@@ -59,8 +59,8 @@ check_nonfree() {
    else
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-      local MSG="<p>Check nonfree Result: nonfree packages found. This is non-ideal but okay if you know what you are doing. For more information, see:
-<br />$nonfreelink
+      local MSG="<p>Check non_freedom Result: non_freedom packages found. This is non-ideal but okay if you know what you are doing. For more information, see:
+<br />$non_freedomlink
 <br />
 <br />vrms_output:
 <br /><code>$vrms_output</code>
