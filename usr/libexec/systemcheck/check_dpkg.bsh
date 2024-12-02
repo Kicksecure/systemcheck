@@ -4,7 +4,6 @@
 ## See the file COPYING for copying conditions.
 
 check_dpkg() {
-   ## dpkg --audit does not exit with a non-zero exit code if something is wrong.
    ## dpkg --audit does not return anything, if everything is fine.
    ## Therefore we see if dpkg has to say something, and if yes, the system is
    ## broken and we abort.
