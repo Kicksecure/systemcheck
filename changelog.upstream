@@ -1,3 +1,21 @@
+commit 011d9e88bee36c3eb109d128f88d81f8bf887caf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 6 10:34:18 2024 -0500
+
+    fix systemcheck start from start menu
+
+commit 66aea547ee6912bf937cec340f769994908cf18e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 6 10:29:29 2024 -0500
+
+    comments
+
+commit 86dfbbf55aa7a9e2ec092abca6688f7d51a5ea16
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Dec 2 13:21:29 2024 +0000
+
+    bumped changelog version
+
 commit 625598784310f7af3c450ec8c6498fa19ef1342e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Dec 2 07:13:45 2024 -0500
