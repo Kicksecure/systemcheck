@@ -239,8 +239,8 @@ preparation() {
       qubes_detected="false"
    fi
 
-   systemcheck_run_function msgdispatcher_init
    systemcheck_run_function input_detection
+   systemcheck_run_function msgdispatcher_init
    systemcheck_run_function virtualizer_detection
 
    [ -n "$verbose" ] || verbose="0"
