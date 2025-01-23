@@ -11,7 +11,7 @@ check_kernel_messages() {
 "Bad RAM detected"
 )
 
-   dmesg_output="$(setsid -- sudo --non-interactive -- dmesg)" || true
+   dmesg_output="$(setsid -- leaprun read-dmesg-logs)" || true
 
    OIFS="$IFS"
    IFS=$(echo -en "\n\b")

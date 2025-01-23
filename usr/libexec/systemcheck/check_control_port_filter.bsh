@@ -19,7 +19,7 @@ check_control_port_filter_running() {
 
    local i
    i="0"
-   while ! setsid -- sudo --non-interactive -- /bin/systemctl --no-pager --no-block status onion-grater >/dev/null 2>&1 ; do
+   while ! setsid -- leaprun onion-grater-status >/dev/null 2>&1 ; do
       local MSG="<p>Control Port Filter Proxy Test: \
 onion-grater service not running. Waiting up to 30 seconds.<\p>"
       if [ "$silent" -le "2" ]; then

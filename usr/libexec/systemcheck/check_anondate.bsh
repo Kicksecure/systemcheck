@@ -25,9 +25,9 @@ check_anondate_do() {
 
    type=info
 
-   if setsid -- sudo --non-interactive -- /usr/sbin/anondate --verified-only --has-consensus ; then
+   if setsid -- leaprun anondate-verified-only-has-consensus ; then
       tor_consensus_status=verified
-   elif setsid -- sudo --non-interactive -- /usr/sbin/anondate --unverified-only --has-consensus ; then
+   elif setsid -- leaprun anondate-unverified-only-has-consensus ; then
       tor_consensus_status=unverified
       type=warning
    else
@@ -36,7 +36,7 @@ check_anondate_do() {
    fi
 
    if [ ! "$tor_consensus_status" = "none" ]; then
-      if setsid -- sudo --non-interactive -- /usr/sbin/anondate --${tor_consensus_status}-only --current-time-in-valid-range ; then
+      if setsid -- leaprun anon-date-${tor_consensus_status}-only-current-time-in-valid-range ; then
          current_time_in_valid_range=true
       else
          current_time_in_valid_range=false
@@ -57,16 +57,16 @@ check_anondate_do() {
    ## Check valid-after, valid-until and middle-range if we got an either
    ## verified or unverified Tor consensus.
    if [ ! "$tor_consensus_status" = "none" ]; then
-      tor_consensus_valid_after="$(setsid -- sudo --non-interactive -- /usr/sbin/anondate --${tor_consensus_status}-only --show-valid-after)" || true
-      tor_consensus_valid_until="$(setsid -- sudo --non-interactive -- /usr/sbin/anondate --${tor_consensus_status}-only --show-valid-until)" || true
-      tor_consensus_middle_range="$(setsid -- sudo --non-interactive -- /usr/sbin/anondate --${tor_consensus_status}-only --show-middle-range)" || true
-      tor_consensus_user_permission="$(setsid -- sudo --non-interactive -- /usr/sbin/anondate --${tor_consensus_status}-only --user-permission)" || true
-      tor_consensus_group_permission="$(setsid -- sudo --non-interactive -- /usr/sbin/anondate --${tor_consensus_status}-only --group-permission)" || true
+      tor_consensus_valid_after="$(setsid -- leaprun anondate-${tor_consensus_status}-only-show-valid-after)" || true
+      tor_consensus_valid_until="$(setsid -- leaprun anondate-${tor_consensus_status}-only-show-valid-until)" || true
+      tor_consensus_middle_range="$(setsid -- leaprun anondate-${tor_consensus_status}-only-show-middle-range)" || true
+      tor_consensus_user_permission="$(setsid -- leaprun anondate-${tor_consensus_status}-only-user-permission)" || true
+      tor_consensus_group_permission="$(setsid -- leaprun anondate-${tor_consensus_status}-only-group-permission)" || true
    fi
 
-   if tor_cert_lifetime_output="$(setsid -- sudo --non-interactive -- /usr/sbin/anondate --tor-cert-lifetime-valid)" ; then
+   if tor_cert_lifetime_output="$(setsid -- leaprun anondate-tor-cert-lifetime-valid)" ; then
       tor_cert_lifetime_valid=true
-      tor_cert_valid_after="$(setsid -- sudo --non-interactive -- /usr/sbin/anondate --tor-cert-valid-after)" || true
+      tor_cert_valid_after="$(setsid -- leaprun anondate-tor-cert-valid-after)" || true
       type=warning
    else
       tor_cert_lifetime_valid=false

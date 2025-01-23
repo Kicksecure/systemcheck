@@ -252,6 +252,7 @@ include <tunables/global>
   /{,usr/}bin/id rix,
   /{,usr/}bin/install rix,
   /{,usr/}bin/journalctl rix,
+  /{,usr/}bin/leaprun rix,
   /{,usr/}bin/lspci rix,
   /{,usr/}bin/mawk rix,
   /{,usr/}bin/mkdir rix,

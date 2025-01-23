@@ -18,7 +18,7 @@ check_operating_system() {
       update_command="sudo apt-get update && sudo apt-get dist-upgrade"
    fi
    ## Running apt-get update as user (non-root).
-   ## Depends on exception set in /etc/sudoers.d/.
+   ## Depends on exception set in /etc/privleap/conf.d/systemcheck.conf.
    ## Minimal custom script.
    local MSG="Debian Package Update Check: Checking for software updates via apt-get... $update_documentation_link_cli"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -29,9 +29,9 @@ check_operating_system() {
    ## setsid:
    ## https://stackoverflow.com/questions/48029094/sudo-ignores-sigterm-sent-from-same-script
    if [ "$verbose" -ge "1" ]; then
-      setsid -- sudo --non-interactive -- "/usr/libexec/security-misc/apt-get-update" &
+      setsid -- leaprun apt-get-update &
    else
-      setsid -- sudo --non-interactive -- "/usr/libexec/security-misc/apt-get-update" >/dev/null &
+      setsid -- leaprun apt-get-update >/dev/null &
    fi
 
    apt_get_update_pid="$!"
@@ -82,11 +82,11 @@ $qubes_update_help</p>"
    local check_os_output check_os_output_show check_os_exit_code
    check_os_exit_code="0"
    ## /usr/libexec/helper-scripts/apt-get-update-simulate is timeout protected.
-   check_os_output="$(setsid -- sudo --non-interactive -- /usr/libexec/helper-scripts/apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
+   check_os_output="$(setsid -- leaprun apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
    check_os_output_show="$(/usr/libexec/msgcollector/br_add "$check_os_output")"
 
    if [ "$verbose" -ge "1" ]; then
-      local MSG="<p><code>sudo apt-get dist-upgrade --simulate</code> output:
+      local MSG="<p><code>apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>$check_os_output_show</blockquote></code></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -98,8 +98,8 @@ $qubes_update_help</p>"
 
       local debugging_information resolve_attempt_commands
       debugging_information="<b>Debugging information:</b><br />
-<code>sudo apt-get dist-upgrade --simulate</code> exit code: <code>$check_os_exit_code</code><br />
-<code>sudo apt-get dist-upgrade --simulate</code> output:
+<code>apt-get dist-upgrade --simulate</code> exit code: <code>$check_os_exit_code</code><br />
+<code>apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>
 $check_os_output_show
 </blockquote></code>

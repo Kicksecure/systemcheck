@@ -56,7 +56,7 @@ See folder <code>/var/lib/canary/</code>.
 <br />
 Check system clock. Recommended to check warrant canary manually."
 
-    if ! setsid -- sudo --non-interactive -- /bin/systemctl --no-pager --no-block status canary &>/dev/null ; then
+    if ! setsid -- leaprun check-warrant-canary &>/dev/null ; then
         local MSG="\
 <p>$warrant_canary_check_link: systemd unit <code>canary</code> not running.</p>"
         if [ "$verbose" -ge "1" ]; then

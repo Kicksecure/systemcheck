@@ -96,7 +96,7 @@ virtualizer_detection() {
       return 0
    fi
 
-   if systemcheck_virtualizer_detected="$(setsid -- sudo --non-interactive -- "$systemcheck_virt_detection_tool" 2>&1)" ; then
+   if systemcheck_virtualizer_detected="$(setsid -- leaprun systemd-detect-virt 2>&1)" ; then
       systemcheck_virtualizer_detect_success=true
       true "INFO: No error reported from running $systemcheck_virt_detection_tool"
 
