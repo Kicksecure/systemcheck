@@ -16,8 +16,8 @@ Package: systemcheck
 Architecture: all
 Depends: dist-base-files, python3, signify-openbsd, curl,
  ca-certificates, msgcollector, psmisc, sudo, vrms,
- libarchive-tools, helper-scripts, net-tools, systemd, adduser,
- security-misc, spectre-meltdown-checker,
+ libarchive-tools, helper-scripts, net-tools, privleap, systemd,
+ adduser, security-misc, spectre-meltdown-checker,
  apparmor-profile-dist, ${misc:Depends}
 Replaces: apparmor-profile-whonixcheck, whonixcheck
 Conflicts: apparmor-profile-whonixcheck, whonixcheck
