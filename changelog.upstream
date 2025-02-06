@@ -1,3 +1,15 @@
+commit 2b7dc915e14e8cd8d812bc848deb4d754f585360
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 16:36:15 2025 -0500
+
+    /run/privleap/pid r,
+
+commit 2dd759a88d319c9e873f71ad55cb1b1d470f2978
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 16:22:55 2025 +0000
+
+    bumped changelog version
+
 commit 9c7aff7b43344ac28dabf79fd43d4b28a817dbad
 Merge: f055058 c8a8b12
 Author: Patrick Schleizer <adrelanos@whonix.org>
