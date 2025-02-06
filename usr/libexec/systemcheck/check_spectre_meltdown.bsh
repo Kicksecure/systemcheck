@@ -29,7 +29,7 @@ check_spectre_meltdown() {
    timeout_after="10"
    kill_after="10"
 
-   spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" setsid -- sudo --non-interactive -- spectre-meltdown-checker --paranoid)" || { spectre_meltdown_checker_exit_code="$?"; };
+   spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" setsid -- leaprun spectre-meltdown-checker)" || { spectre_meltdown_checker_exit_code="$?"; };
 
    if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
       local MSG="<p>Spectre Meltdown Test Result: not vulnerable, ok.</p>"
@@ -41,7 +41,7 @@ check_spectre_meltdown() {
       local MSG="<p>Spectre Meltdown Test Result: Vulnerable.<br />
 <br />
 Technical information:<br />
-<code>sudo spectre-meltdown-checker --paranoid</code><br />
+<code>spectre-meltdown-checker --paranoid</code><br />
 exited with code <code>$spectre_meltdown_checker_exit_code</code>.<br />
 <br />
 Recommendation:<br />

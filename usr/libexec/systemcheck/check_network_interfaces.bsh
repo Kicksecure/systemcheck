@@ -17,13 +17,13 @@ check_network_interfaces() {
    local failed eth0_failed eth1_failed
 
    failed=false
-   if ! setsid -- sudo --non-interactive -- cat /sys/class/net/eth0/carrier &>/dev/null ; then
+   if ! setsid -- leaprun eth0-carrier &>/dev/null ; then
       eth0_failed=true
       failed=true
    fi
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if ! setsid -- sudo --non-interactive -- cat /sys/class/net/eth1/carrier &>/dev/null ; then
+      if ! setsid -- leaprun eth1-carrier &>/dev/null ; then
          eth1_failed=true
          failed=true
       fi
@@ -53,7 +53,7 @@ Or reboot.<br />
 <br />
 Debugging information:<br />
 Command<br />
-<code>sudo --non-interactive cat /sys/class/net/eth0/carrier</code><br />
+<code>cat /sys/class/net/eth0/carrier</code><br />
 failed.<br />
 <br />
 If this error happens only during upgrading or is transient this error can be safely ignored.
@@ -79,7 +79,7 @@ $if_you_know_what_you_are_doing_msg
 
 Debugging information:
 Command
-<code>sudo --non-interactive cat /sys/class/net/eth1/carrier</code>
+<code>cat /sys/class/net/eth1/carrier</code>
 failed.</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"

@@ -7,7 +7,7 @@ check_sudo() {
    local exit_code sudo_output
 
    exit_code=0
-   sudo_output="$(setsid -- sudo --non-interactive -- /usr/bin/test -x /usr/bin/test 2>&1)" || { exit_code="$?" ; true; };
+   sudo_output="$(setsid -- leaprun check-privleap 2>&1)" || { exit_code="$?" ; true; };
 
    if [ "$exit_code" = "0" ] ; then
       sudo_ok=true
@@ -28,7 +28,7 @@ check_sudo() {
    else
       local MSG="<p>Check sudo Result: System misconfiguration. No panic. No severe issue. Because of this other tests might be malfunctioning too. Command
 <blockquote>
-setsid -- sudo -- /usr/bin/test -x /usr/bin/test ; echo \$?
+setsid -- leaprun check-privleap ; echo \$?
 </blockquote>
 did not output nothing with exit code zero. Something else happened.
 

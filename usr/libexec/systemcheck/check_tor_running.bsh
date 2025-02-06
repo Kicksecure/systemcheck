@@ -24,7 +24,7 @@ check_tor_running_do() {
    fi
 
    tor_pid_exit_code="0"
-   tor_pid_output="$(setsid -- sudo --non-interactive -- /usr/libexec/systemcheck/check_tor_running)" || { tor_pid_exit_code="$?" ; true; };
+   tor_pid_output="$(setsid -- leaprun check-tor-running)" || { tor_pid_exit_code="$?" ; true; };
    tor_pid_message="$(/usr/libexec/msgcollector/br_add "$tor_pid_output")"
    return 0
 }
