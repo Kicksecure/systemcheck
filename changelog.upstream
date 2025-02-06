@@ -1,3 +1,41 @@
+commit 9c7aff7b43344ac28dabf79fd43d4b28a817dbad
+Merge: f055058 c8a8b12
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 10:55:25 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/sudoless-privleap'
+
+commit c8a8b128ea5e7c6b4cc9121916f74676cbe22d30
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Feb 3 21:32:42 2025 -0600
+
+    Add privleap as a dependency
+
+commit c70366d67a86dc71621e0752f962f43b13b88902
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Feb 2 16:39:37 2025 -0600
+
+    Move sdwdate persistent user config to sdwdate package
+
+commit 743b8c8eb600dabddd700f4b6c78c26175e9d71e
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sat Feb 1 22:10:51 2025 -0600
+
+    Add sdwdate as a persistent user in privleap config
+
+commit 6b680b595a4aa6b6feb2a0517274152b49d51971
+Merge: efcb255 f055058
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sat Feb 1 19:28:09 2025 -0600
+
+    Merge branch 'master' into arraybolt3/sudoless-privleap
+
+commit f055058e1ed7468f47078fdf222d42d552bfe844
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 30 12:59:11 2025 +0000
+
+    bumped changelog version
+
 commit c89e6796b6ee4bf4ea85265073d1015a8aca51e6
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jan 30 07:53:11 2025 -0500
@@ -21,6 +59,12 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jan 23 11:12:41 2025 -0500
 
     copyright
+
+commit efcb25587b444e00dd15fe4b7842a560d906158e
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Jan 22 22:21:43 2025 -0600
+
+    Port to privleap (wip)
 
 commit 6a7e25d2bbec25c8e74766c9c32dc80473fbd4f5
 Author: Patrick Schleizer <adrelanos@whonix.org>
