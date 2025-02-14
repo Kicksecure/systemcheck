@@ -29,6 +29,9 @@ check_privilege_escalation_tool_do() {
    local privilege_escalation_tool_first_argument privilege_escalation_tool_command exit_code privilege_escalation_tool_output
 
    privilege_escalation_tool_first_argument="$1"
+   if [ "$privilege_escalation_tool_first_argument" = "leaprun" ]; then
+      privilege_escalation_tool_first_argument="$1 $2"
+   fi
    privilege_escalation_tool_command="$@"
 
    exit_code=0
@@ -45,13 +48,13 @@ check_privilege_escalation_tool_do() {
    fi
 
    if [ "$privilege_escalation_tool_ok" = "true" ]; then
-      local MSG="<p>Check <code>$privilege_escalation_tool_first_argument</code> Result: OK</p>"
+      local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' Result: OK</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
-      local MSG="<p>Check <code>$privilege_escalation_tool_first_argument</code> Result: System misconfiguration. No panic. No severe issue. Because of this other tests might be malfunctioning too. Command
+      local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' Result: System misconfiguration. No panic. No severe issue. Because of this other tests might be malfunctioning too. Command
 <blockquote>
 setsid -- $privilege_escalation_tool_command ; echo \$?
 </blockquote>
