@@ -3,14 +3,35 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## Not actually used. But useful as a test.
 # shellcheck source=../libexec/helper-scripts/use_leaprun.sh
 source /usr/libexec/helper-scripts/use_leaprun.sh
 
+# shellcheck source=../libexec/helper-scripts/use_sudo.sh
+source /usr/libexec/helper-scripts/use_sudo.sh
+
 check_sudo() {
-   local exit_code sudo_output
+   ## leaprun is mandatory for systemcheck.
+   ## systemcheck has been fully ported to systemcheck.
+   ## privleap is a dependency of systemcheck.
+   ## Therefore test leaprun in any case.
+   check_sudo_do leaprun check-privleap
+
+   if [ ! "$use_sudo" = "yes" ]; then
+      return 0
+   fi
+
+   check_sudo_do sudo --non-interactive -- /usr/bin/test -x /usr/bin/test
+}
+
+check_sudo_do() {
+   local sudo_first_argument sudo_command exit_code sudo_output
+
+   sudo_first_argument="$1"
+   sudo_command="$@"
 
    exit_code=0
-   sudo_output="$(setsid -- leaprun check-privleap 2>&1)" || { exit_code="$?" ; true; };
+   sudo_output="$(setsid -- $sudo_command 2>&1)" || { exit_code="$?" ; true; };
 
    if [ "$exit_code" = "0" ] ; then
       sudo_ok=true
@@ -23,15 +44,15 @@ check_sudo() {
    fi
 
    if [ "$sudo_ok" = "true" ]; then
-      local MSG="<p>Check sudo Result: OK</p>"
+      local MSG="<p>Check <code>$sudo_first_argument</code> Result: OK</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
-      local MSG="<p>Check sudo Result: System misconfiguration. No panic. No severe issue. Because of this other tests might be malfunctioning too. Command
+      local MSG="<p>Check <code>$sudo_first_argument</code> Result: System misconfiguration. No panic. No severe issue. Because of this other tests might be malfunctioning too. Command
 <blockquote>
-setsid -- leaprun check-privleap ; echo \$?
+setsid -- $sudo_command ; echo \$?
 </blockquote>
 did not output nothing with exit code zero. Something else happened.
 
