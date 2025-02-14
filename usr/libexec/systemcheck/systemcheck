@@ -79,7 +79,7 @@ systemcheck_main() {
    systemcheck_run_function check_environment_variables ## check_environment_variables
 
    ## Does not use the network.
-   systemcheck_run_function check_privilege_escalation_tools ## check_sudo
+   systemcheck_run_function check_privilege_escalation_tools ## check_privilege_escalation_tool
 
    if [ "$test_connect" = "true" ]; then
       ## Only connects to Whonix-Gateway.
