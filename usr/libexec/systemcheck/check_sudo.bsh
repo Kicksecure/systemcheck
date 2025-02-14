@@ -54,16 +54,15 @@ check_privilege_escalation_tool_do() {
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
-      local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' Result: System misconfiguration. No panic. No severe issue. Because of this other tests might be malfunctioning too. Command
-<blockquote>
-setsid -- $privilege_escalation_tool_command ; echo \$?
-</blockquote>
-did not output nothing with exit code zero. Something else happened.
-
-<br></br><code>exit_code</code> output: <code>$exit_code</code>
-
-<br></br><code>privilege_escalation_tool_output</code> output:
-
+      local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' result: System misconfiguration detected. No need to panic. This is not a severe issue. However, other tests may be affected due to this.
+<br><br>
+The following command:
+<blockquote>setsid -- $privilege_escalation_tool_command ; echo \$?</blockquote>
+did not produce an empty output with an exit code of zero, indicating an unexpected result.
+<br><br>
+exit_code: <code>$exit_code</code>
+<br><br>
+<code>privilege_escalation_tool_output</code>:
 <blockquote><code>$privilege_escalation_tool_output</code></blockquote>
 </p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
