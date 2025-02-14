@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+# shellcheck source=../libexec/helper-scripts/use_leaprun.sh
+source /usr/libexec/helper-scripts/use_leaprun.sh
+
 check_sudo() {
    local exit_code sudo_output
 
