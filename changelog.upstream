@@ -1,3 +1,51 @@
+commit 8ccc81f584fb21776687e2acd7b8692c91cd2546
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 15:18:56 2025 -0500
+
+    rename
+
+commit 28ff6cde4003ceca805bf51b6cf13a8fe489b87c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 15:17:41 2025 -0500
+
+    output
+
+commit 2d2e89e62a69687dfc69b1d5dd56e9da562a1f66
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 15:11:31 2025 -0500
+
+    output
+
+commit e96777c5f5e1ffffbd7942bd8af7118f98e11cee
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 15:06:32 2025 -0500
+
+    check sudo using privleap
+
+commit 88be6fc2d3ca38876c4b4e5bebec7533255e38e7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 15:02:22 2025 -0500
+
+    refactoring
+
+commit 4980c4bd3b0d0ad1d204beb29f0336e1ebc0a6f6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 14:47:21 2025 -0500
+
+    test both, `sudo` and `leaprun`
+
+commit 5b62ba3977815aa511989ebcffa24ee608391fbf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 12:25:07 2025 -0500
+
+    use use_leaprun.sh
+
+commit 28bb82b6860bc3c047e2c357f414f4a0673a91e0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 14 01:14:16 2025 +0000
+
+    bumped changelog version
+
 commit 99eab9f15154bd2d840f2074b751e416aa46ba1b
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Feb 13 20:14:00 2025 -0500
