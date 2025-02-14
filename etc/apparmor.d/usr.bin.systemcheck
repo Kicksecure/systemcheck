@@ -111,7 +111,7 @@ include <tunables/global>
   /lib/*-linux-gnu/** mr,
   /lib/*/security/** mr,
   /lib/security/* mr,
-  /run/privleap/pid r,
+  /run/privleapd/pid r,
   /run/log/journal/ r,
   /run/log/journal/** r,
   /run/*/[0-9]*/msgcollector/ rwk,
