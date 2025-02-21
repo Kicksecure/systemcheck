@@ -36,7 +36,7 @@ check_anondate_do() {
    fi
 
    if [ ! "$tor_consensus_status" = "none" ]; then
-      if setsid -- leaprun anon-date-${tor_consensus_status}-only-current-time-in-valid-range ; then
+      if setsid -- leaprun anondate-${tor_consensus_status}-only-current-time-in-valid-range ; then
          current_time_in_valid_range=true
       else
          current_time_in_valid_range=false
