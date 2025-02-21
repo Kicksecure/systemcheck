@@ -1,3 +1,51 @@
+commit dc5a1dc88f8e161724a5e91c75aa7fd6e8c5474a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 09:52:26 2025 -0500
+
+    ignore additional expected journal messages
+
+commit a8fe991fbfd97d23847c5f8f38aa5207873bf50c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 09:46:15 2025 -0500
+
+    improve check journal function
+
+commit 56494b421dddeb1f3b2326959e4bf57f7f96146f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 09:38:39 2025 -0500
+
+    refactoring
+
+commit 3c3b90a0c51a0cb2334eef9314e8b7d8fe4765cd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 09:33:43 2025 -0500
+
+    setsid no longer required
+
+commit b6343000b8dd79647dd6918a6585e623448c3850
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 08:18:15 2025 -0500
+
+    ignore expected journal messages
+
+commit 8e27f56dcda8fd3ba070d6c55e617362932abc7d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 08:12:25 2025 -0500
+
+    prepare ignore patterns
+
+commit abf4703cbeed8bb0944f867d474b4cc7c9d60478
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 07:47:28 2025 -0500
+
+    refactoring
+
+commit 92b5a463ff198bd48fc35d16052ae04e2f2ed282
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 11:24:39 2025 +0000
+
+    bumped changelog version
+
 commit 91f84c679982efdc388fc580c8450da724231cf5
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Feb 21 06:23:09 2025 -0500
