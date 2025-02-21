@@ -1,3 +1,27 @@
+commit f15069bce77f23b143fd91f183efbf1858a2e2c8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 05:57:26 2025 -0500
+
+    remove superfluous privleap configuration entries
+
+commit c5e7c491655f5689e4897005c70e47b941f19eed
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 05:37:32 2025 -0500
+
+    usrmerge
+
+commit 7802102abc632c3629ba13345f12112e6fc060e9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 05:35:14 2025 -0500
+
+    usrmerge
+
+commit 6c3eadb5f1cb3bdfe82713cd1b6d5d559f868b54
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 09:56:46 2025 +0000
+
+    bumped changelog version
+
 commit 228f6244d09cd0eda6de3b185b4f7b406e414f8a
 Merge: 0b1d564 9e05aae
 Author: Patrick Schleizer <adrelanos@whonix.org>
