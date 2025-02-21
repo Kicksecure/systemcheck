@@ -100,32 +100,45 @@ check_journal() {
 
    local apparmorinfo_output journalctl_output grep_warn_output grep_error_output grep_ordering_output grep_seccomp_output
 
-   setsid -- leaprun read-apparmor-info | tee "$TEMP_DIR/apparmor-info.txt" >/dev/null || true
+   declare -A log_files=(
+      [apparmor_info]="apparmor-info.txt"
+      [seccomp]="journalctl_seccomp.txt"
+      [warn]="journalctl_warn.txt"
+      [fail]="journalctl_fail.txt"
+      [error]="journalctl_error.txt"
+      [ordering_cycle]="journalctl_orderingcycle.txt"
+   )
+
+   setsid -- leaprun read-apparmor-info | tee "$TEMP_DIR/${log_files[apparmor_info]}" >/dev/null || true
    ## '--priority=0..4'
    ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
    setsid -- leaprun read-journalctl-logs | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
-   ## grep will exit 1 if no match, therefore overwrite with || true.
-   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "SECCOMP" | grep 'syscall=' | tee "$TEMP_DIR/journalctl_seccomp.txt" >/dev/null || true
-   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "warn" | tee "$TEMP_DIR/journalctl_warn.txt" >/dev/null || true
-   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "fail" | grep --invert-match "faillock" | tee "$TEMP_DIR/journalctl_fail.txt" >/dev/null || true
-   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "error" | tee "$TEMP_DIR/journalctl_error.txt" >/dev/null || true
-   cat "$TEMP_DIR/journalctl_output.txt" | grep -i "ordering cycle" | tee "$TEMP_DIR/journalctl_orderingcycle.txt" >/dev/null || true
+   declare -A pattern_list=(
+      [seccomp]="SECCOMP.*syscall="
+      [warn]="warn"
+      [fail]="fail"
+      [error]="error"
+      [ordering_cycle]="ordering cycle"
+   )
 
-   ## Cannot use /usr/libexec/msgcollector/br_add due to 'getconf ARG_MAX' limit.
-   br_add_to_file "$TEMP_DIR/apparmor-info.txt"
-   br_add_to_file "$TEMP_DIR/journalctl_seccomp.txt"
-   br_add_to_file "$TEMP_DIR/journalctl_warn.txt"
-   br_add_to_file "$TEMP_DIR/journalctl_fail.txt"
-   br_add_to_file "$TEMP_DIR/journalctl_error.txt"
-   br_add_to_file "$TEMP_DIR/journalctl_orderingcycle.txt"
+   local pattern_item
+   for pattern_item in "${!pattern_list[@]}"; do
+      grep -i "${pattern_list[$pattern_item]}" "$TEMP_DIR/journalctl_output.txt" \
+         | grep --invert-match "faillock" \
+         | tee "$TEMP_DIR/${log_files[$pattern_item]}" >/dev/null || true
+   done
 
-   apparmorinfo_output="$(cat "$TEMP_DIR/apparmor-info.txt")"
-   grep_seccomp_output="$(cat "$TEMP_DIR/journalctl_seccomp.txt")"
-   grep_warn_output="$(cat "$TEMP_DIR/journalctl_warn.txt_br")"
-   grep_fail_output="$(cat "$TEMP_DIR/journalctl_fail.txt_br")"
-   grep_error_output="$(cat "$TEMP_DIR/journalctl_error.txt_br")"
-   grep_ordering_output="$(cat "$TEMP_DIR/journalctl_orderingcycle.txt_br")"
+   for file_name in "${log_files[@]}"; do
+      br_add_to_file "$TEMP_DIR/$file_name"
+   done
+
+   ## Read log files and handle empty outputs
+   declare -A log_outputs
+   for pattern_item in "${!log_files[@]}"; do
+      log_outputs[$pattern_item]="$(cat "$TEMP_DIR/${log_files[$pattern_item]}_br" 2>/dev/null)"
+      [[ -z "${log_outputs[$pattern_item]}" ]] && log_outputs[$pattern_item]="Nothing remarkable."
+   done
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
@@ -134,32 +147,32 @@ check_journal() {
    MSG="<p>systemd journal check Result:
 <br></br>AppArmor:
 <br></br>########################################
-<br></br>$apparmorinfo_output
+<br></br>${log_outputs[apparmor_info]}
 <br></br>########################################
 <br></br>
 <br></br>secomp:
 <br></br>########################################
-<br></br>$grep_seccomp_output
+<br></br>${log_outputs[seccomp]}
 <br></br>########################################
 <br></br>
 <br></br>warnings:
 <br></br>########################################
-<br></br>$grep_warn_output
+<br></br>${log_outputs[warn]}
 <br></br>########################################
 <br></br>
 <br></br>failed:
 <br></br>########################################
-<br></br>$grep_fail_output
+<br></br>${log_outputs[fail]}
 <br></br>########################################
 <br></br>
 <br></br>errors:
 <br></br>########################################
-<br></br>$grep_error_output
+<br></br>${log_outputs[error]}
 <br></br>########################################
 <br></br>
 <br></br>ordering cycle:
 <br></br>########################################
-<br></br>$grep_ordering_output
+<br></br>${log_outputs[ordering_cycle]}
 <br></br>########################################
 <br></br>
 <br></br>To see this for yourself...
