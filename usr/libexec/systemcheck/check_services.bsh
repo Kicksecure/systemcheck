@@ -93,6 +93,15 @@ br_add_to_file() {
    done < "${file_name}"
 }
 
+ignore_pattern_add() {
+   if [ "$ignore_pattern" = "" ]; then
+      ignore_patterns="$@"
+   else
+      ignore_patterns+="|"
+      ignore_patterns+="$@"
+   fi
+}
+
 check_journal() {
    if [ "$verbose" -lt "1" ]; then
       return 0
@@ -100,50 +109,29 @@ check_journal() {
 
    test -w "$TEMP_DIR"
 
-   local apparmorinfo_output journalctl_output grep_warn_output grep_error_output grep_ordering_output grep_seccomp_output
-
-   declare -A log_files=(
-      [apparmor_info]="apparmor-info.txt"
-      [seccomp]="journalctl_seccomp.txt"
-      [warn]="journalctl_warn.txt"
-      [fail]="journalctl_fail.txt"
-      [error]="journalctl_error.txt"
-      [ordering_cycle]="journalctl_orderingcycle.txt"
-   )
-
-   leaprun read-apparmor-info | tee "$TEMP_DIR/${log_files[apparmor_info]}" >/dev/null || true
-   ## '--priority=0..4'
-   ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
+   leaprun read-apparmor-info   | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
    leaprun read-journalctl-logs | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
-   declare -A pattern_list=(
-      [seccomp]="SECCOMP.*syscall="
-      [warn]="warn"
-      [fail]="fail"
-      [error]="error"
-      [ordering_cycle]="ordering cycle"
-   )
+   pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
 
-   ignore_patterns=(
-      "obsolete config item"
-      "Tor bootstrap not done"
-      "FocusIn: Window .* data not initialized"
-      "DEBCONF_NOWARNINGS"
-      "Fast TSC calibration failed"
-      "swapon failed: Device or resource busy"
-      "ACPI: _OSC evaluation for CPUs failed"
-      "Failed to retrieve the maximum number of cpus"
-      "No such device"
-      "Failed to connect to bus"
-      "Tor Consensus Time Sanity Check failed"
-      "failed_urls: .* allowed_failures"
-      "No handler or method for GPE"
-      "error while preloading HID BPF dispatcher"
-      "AT-SPI: Error retrieving accessibility bus address"
-      "WM_HINTS"
-      "WM_NORMAL_HINTS"
-      "Connection unexpectedly closed"
-   )
+   ignore_pattern_add "obsolete config item"
+   ignore_pattern_add "Tor bootstrap not done"
+   ignore_pattern_add "FocusIn: Window .* data not initialized"
+   ignore_pattern_add "DEBCONF_NOWARNINGS"
+   ignore_pattern_add "Fast TSC calibration failed"
+   ignore_pattern_add "swapon failed: Device or resource busy"
+   ignore_pattern_add "ACPI: _OSC evaluation for CPUs failed"
+   ignore_pattern_add "Failed to retrieve the maximum number of cpus"
+   ignore_pattern_add "No such device"
+   ignore_pattern_add "Failed to connect to bus"
+   ignore_pattern_add "Tor Consensus Time Sanity Check failed"
+   ignore_pattern_add "failed_urls: .* allowed_failures"
+   ignore_pattern_add "No handler or method for GPE"
+   ignore_pattern_add "error while preloading HID BPF dispatcher"
+   ignore_pattern_add "AT-SPI: Error retrieving accessibility bus address"
+   ignore_pattern_add "WM_HINTS"
+   ignore_pattern_add "WM_NORMAL_HINTS"
+   ignore_pattern_add "Connection unexpectedly closed"
 
    local pattern_item line
    for pattern_item in "${!pattern_list[@]}"; do
