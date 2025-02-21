@@ -35,7 +35,7 @@ check_privilege_escalation_tool_do() {
    privilege_escalation_tool_command="$@"
 
    exit_code=0
-   privilege_escalation_tool_output="$(setsid -- $privilege_escalation_tool_command 2>&1)" || { exit_code="$?" ; true; };
+   privilege_escalation_tool_output="$($privilege_escalation_tool_command 2>&1)" || { exit_code="$?" ; true; };
 
    if [ "$exit_code" = "0" ] ; then
       privilege_escalation_tool_ok=true
@@ -57,7 +57,7 @@ check_privilege_escalation_tool_do() {
       local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' result: System misconfiguration detected. No need to panic. This is not a severe issue. However, other tests may be affected due to this.
 <br><br>
 The following command:
-<blockquote>setsid -- $privilege_escalation_tool_command ; echo \$?</blockquote>
+<blockquote>$privilege_escalation_tool_command ; echo \$?</blockquote>
 did not produce an empty output with an exit code of zero, indicating an unexpected result.
 <br><br>
 exit_code: <code>$exit_code</code>

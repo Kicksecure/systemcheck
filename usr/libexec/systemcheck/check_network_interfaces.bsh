@@ -17,13 +17,13 @@ check_network_interfaces() {
    local failed eth0_failed eth1_failed
 
    failed=false
-   if ! setsid -- leaprun eth0-carrier &>/dev/null ; then
+   if ! leaprun eth0-carrier &>/dev/null ; then
       eth0_failed=true
       failed=true
    fi
 
    if [ "$vm_lower_case_short" = "gateway" ]; then
-      if ! setsid -- leaprun eth1-carrier &>/dev/null ; then
+      if ! leaprun eth1-carrier &>/dev/null ; then
          eth1_failed=true
          failed=true
       fi

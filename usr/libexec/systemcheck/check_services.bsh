@@ -48,13 +48,13 @@ check_services() {
 <br></br>$line"
          fi
       fi
-   done < <( setsid -- leaprun read-systemctl-logs-failed-units)
+   done < <( leaprun read-systemctl-logs-failed-units)
 
    if [ "$counter" = "0" ]; then
       return 0
    fi
 
-   systemctl_output_with_legend="$(setsid -- leaprun read-systemctl-logs-failed-units-pretty)"
+   systemctl_output_with_legend="$(leaprun read-systemctl-logs-failed-units-pretty)"
    systemctl_output_with_legend="$(/usr/libexec/msgcollector/br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
@@ -111,10 +111,10 @@ check_journal() {
       [ordering_cycle]="journalctl_orderingcycle.txt"
    )
 
-   setsid -- leaprun read-apparmor-info | tee "$TEMP_DIR/${log_files[apparmor_info]}" >/dev/null || true
+   leaprun read-apparmor-info | tee "$TEMP_DIR/${log_files[apparmor_info]}" >/dev/null || true
    ## '--priority=0..4'
    ## "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4)
-   setsid -- leaprun read-journalctl-logs | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
+   leaprun read-journalctl-logs | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
    declare -A pattern_list=(
       [seccomp]="SECCOMP.*syscall="
@@ -240,7 +240,7 @@ check_whonix_firewall_systemd_status() {
    max="30"
    while true ; do
       systemctl_status_whonix_firewall_exit_code="0"
-      systemctl_status_whonix_firewall_output="$(setsid -- leaprun whonix-firewall-status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
+      systemctl_status_whonix_firewall_output="$(leaprun whonix-firewall-status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
       if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ]; then
          break
       else
@@ -267,7 +267,7 @@ check_whonix_firewall_systemd_status() {
       return 0
    fi
 
-   journalctl_whonix_firewall_output="$(setsid -- leaprun read-journalctl-logs-whonix-firewall)" || true
+   journalctl_whonix_firewall_output="$(leaprun read-journalctl-logs-whonix-firewall)" || true
    journalctl_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$journalctl_whonix_firewall_output")"
 
    local if_you_know_what_you_are_doing_msg

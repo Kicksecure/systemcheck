@@ -11,7 +11,7 @@ check_kernel_messages() {
 "Bad RAM detected"
 )
 
-   dmesg_output="$(setsid -- leaprun read-dmesg-logs)" || true
+   dmesg_output="$(leaprun read-dmesg-logs)" || true
 
    OIFS="$IFS"
    IFS=$(echo -en "\n\b")

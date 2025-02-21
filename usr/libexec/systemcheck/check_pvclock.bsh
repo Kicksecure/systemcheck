@@ -53,8 +53,8 @@ This is non-ideal. A known issue. Contributions happily considered. Read more: <
    fi
 
    local current_clocksource available_clocksource
-   current_clocksource="$(setsid -- leaprun sys-current-clocksource)" || true
-   available_clocksource="$(setsid -- leaprun sys-available-clocksource)" || true
+   current_clocksource="$(leaprun sys-current-clocksource)" || true
+   available_clocksource="$(leaprun sys-available-clocksource)" || true
 
    if [ "$current_clocksource" = "xen" ]; then
       local MSG="<p>PVClock Result: <code>/sys/devices/system/clocksource/clocksource0/current_clocksource</code> exist, is <code>$current_clocksource</code>. \
