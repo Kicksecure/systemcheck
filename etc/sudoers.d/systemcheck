@@ -27,42 +27,42 @@ user ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-kill-helper
 user ALL=NOPASSWD: /usr/sbin/anondate
 
 ## check_package_manager_running_helper
-user ALL=NOPASSWD: /bin/fuser /var/lib/dpkg/lock /var/cache/apt/archives/lock
+user ALL=NOPASSWD: /usr/bin/fuser /var/lib/dpkg/lock /var/cache/apt/archives/lock
 
 ## required for check_network_interfaces
-user ALL=NOPASSWD: /sbin/ifconfig eth0
-user ALL=NOPASSWD: /sbin/ifconfig eth1
+user ALL=NOPASSWD: /usr/sbin/ifconfig eth0
+user ALL=NOPASSWD: /usr/sbin/ifconfig eth1
 
 ## required for check_kernel_messages
-user ALL=NOPASSWD: /bin/dmesg ""
+user ALL=NOPASSWD: /usr/bin/dmesg ""
 
 ## required for check_spectre_meltdown
 user ALL=NOPASSWD: /usr/bin/spectre-meltdown-checker --paranoid
 
 ## required for check_services
 user ALL=NOPASSWD: /usr/sbin/apparmor-info --boot
-user ALL=NOPASSWD: /bin/journalctl --boot --no-pager
-user ALL=NOPASSWD: /bin/journalctl --boot --no-pager --priority=0..4
-user ALL=NOPASSWD: /bin/journalctl --boot --no-pager -u whonix-firewall
-user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status whonix-firewall
-user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --no-legend --failed
-user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block --failed list-units
+user ALL=NOPASSWD: /usr/bin/journalctl --boot --no-pager
+user ALL=NOPASSWD: /usr/bin/journalctl --boot --no-pager --priority=0..4
+user ALL=NOPASSWD: /usr/bin/journalctl --boot --no-pager -u whonix-firewall
+user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block status whonix-firewall
+user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block --no-legend --failed
+user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block --failed list-units
 
 ## required for check_tor_running
-user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor
-user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status tor@default
+user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block status tor
+user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block status tor@default
 user ALL=NOPASSWD: /usr/libexec/systemcheck/check_tor_running
 
 ## required for check_warrant_canary
-user ALL=NOPASSWD: /bin/systemctl --no-pager --no-block status canary
+user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block status canary
 
 ## required for check_network_interfaces if /sys is restricted to root
-user ALL=NOPASSWD: /bin/cat /sys/class/net/eth0/carrier
-user ALL=NOPASSWD: /bin/cat /sys/class/net/eth1/carrier
+user ALL=NOPASSWD: /usr/bin/cat /sys/class/net/eth0/carrier
+user ALL=NOPASSWD: /usr/bin/cat /sys/class/net/eth1/carrier
 
 ## required for check_pvclock if /sys is restricted to root
-user ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/current_clocksource
-user ALL=NOPASSWD: /bin/cat /sys/devices/system/clocksource/clocksource0/available_clocksource
+user ALL=NOPASSWD: /usr/bin/cat /sys/devices/system/clocksource/clocksource0/current_clocksource
+user ALL=NOPASSWD: /usr/bin/cat /sys/devices/system/clocksource/clocksource0/available_clocksource
 
 ## required for check_virtualizer if /sys is restricted to root
 user ALL=NOPASSWD: /usr/bin/systemd-detect-virt

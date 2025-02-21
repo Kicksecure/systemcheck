@@ -131,7 +131,7 @@ include <tunables/global>
   /run/utmp rk,
   /usr/bin/safe-rm rix,
   /sbin/getcap rix,
-  /sbin/ifconfig rix,
+  /usr/sbin/ifconfig rix,
   /sbin/start-stop-daemon rix,
   /sys/bus/pci/devices/ r,
   /sys/bus/pci/slots/ r,

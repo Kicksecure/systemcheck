@@ -5,9 +5,9 @@
 
 exit_function() {
    echo ""
-   echo "output of '/bin/systemctl --no-pager --no-block status tor@default':"
+   echo "output of '/usr/bin/systemctl --no-pager --no-block status tor@default':"
    echo ""
-   /bin/systemctl --no-pager --no-block status tor@default
+   /usr/bin/systemctl --no-pager --no-block status tor@default
    exit "$exit_code"
 }
 
