@@ -123,9 +123,11 @@ check_journal() {
    ignore_pattern_add "swapon failed: Device or resource busy"
    ignore_pattern_add "ACPI: _OSC evaluation for CPUs failed"
    ignore_pattern_add "Failed to retrieve the maximum number of cpus"
-   ignore_pattern_add "No such device"
+   ignore_pattern_add "Could not attach device: Failed to open device '/sys/devices/platform/pcspkr/input/"
    ignore_pattern_add "Failed to connect to bus"
    ignore_pattern_add "Tor Consensus Time Sanity Check failed"
+   ignore_pattern_add "Tor Consensus Time Sanity Check: Consensus time sanity check failed."
+   ignore_pattern_add "WARNING: Could not determine Tor consensus time middle range."
    ignore_pattern_add "failed_urls: .* allowed_failures"
    ignore_pattern_add "No handler or method for GPE"
    ignore_pattern_add "error while preloading HID BPF dispatcher"
@@ -133,6 +135,13 @@ check_journal() {
    ignore_pattern_add "WM_HINTS"
    ignore_pattern_add "WM_NORMAL_HINTS"
    ignore_pattern_add "Connection unexpectedly closed"
+   ignore_pattern_add "XGetWindowAttributes"
+   ignore_pattern_add "Failed to get window dump for window"
+   ignore_pattern_add "kernel:  warn_alloc"
+   ignore_pattern_add "RAS: Correctable Errors collector initialized."
+   ignore_pattern_add "gcc /usr/src/sdwdate/sclockadj.c -o /usr/libexec/sdwdate/sclockadj"
+   ignore_pattern_add "kernel: xen-balloon: vmemmap alloc failure:"
+   ignore_pattern_add "Failed to load the 'mdraid' libblockdev plugin"
 
    grep -Ei "$pattern_list" "$TEMP_DIR/journalctl_output.txt" | tee "$TEMP_DIR/journalctl_matched.txt" >/dev/null ||  true
    grep -vEi "$ignore_patterns" "$TEMP_DIR/journalctl_matched.txt" | tee "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
