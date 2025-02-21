@@ -86,6 +86,8 @@ br_add_to_file() {
    test -f "${file_name}"
    rm -f "${file_name}_br"
    touch "${file_name}_br"
+
+   local line
    while IFS= read -r line ; do
       echo "$line<br />" | tee -a "${file_name}_br" >/dev/null
    done < "${file_name}"
@@ -143,10 +145,17 @@ check_journal() {
       "Connection unexpectedly closed"
    )
 
-   local pattern_item
+   local pattern_item line
    for pattern_item in "${!pattern_list[@]}"; do
-      grep --invert-match "${pattern_list[$pattern_item]}" "$TEMP_DIR/journalctl_output.txt" \
-         | tee "$TEMP_DIR/${log_files[$pattern_item]}" >/dev/null || true
+      grep --invert-match "${pattern_list[$pattern_item]}" "$TEMP_DIR/journalctl_output.txt" |
+      while IFS= read -r line; do
+         for ignore in "${ignore_patterns[@]}"; do
+            if [[ "$line" =~ $ignore ]]; then
+               continue 2  # Skip this line and move to the next one
+            fi
+         done
+         echo "$line"
+      done | tee "$TEMP_DIR/${log_files[$pattern_item]}" >/dev/null || true
    done
 
    local file_name
