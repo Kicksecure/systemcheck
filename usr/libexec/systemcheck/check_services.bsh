@@ -122,18 +122,38 @@ check_journal() {
       [ordering_cycle]="ordering cycle"
    )
 
+   ignore_patterns=(
+      "obsolete config item"
+      "Tor bootstrap not done"
+      "FocusIn: Window .* data not initialized"
+      "DEBCONF_NOWARNINGS"
+      "Fast TSC calibration failed"
+      "swapon failed: Device or resource busy"
+      "ACPI: _OSC evaluation for CPUs failed"
+      "Failed to retrieve the maximum number of cpus"
+      "No such device"
+      "Failed to connect to bus"
+      "Tor Consensus Time Sanity Check failed"
+      "failed_urls: .* allowed_failures"
+      "No handler or method for GPE"
+      "error while preloading HID BPF dispatcher"
+      "AT-SPI: Error retrieving accessibility bus address"
+      "WM_HINTS"
+      "WM_NORMAL_HINTS"
+      "Connection unexpectedly closed"
+   )
+
    local pattern_item
    for pattern_item in "${!pattern_list[@]}"; do
-      grep -i "${pattern_list[$pattern_item]}" "$TEMP_DIR/journalctl_output.txt" \
-         | grep --invert-match "faillock" \
+      grep --invert-match "${pattern_list[$pattern_item]}" "$TEMP_DIR/journalctl_output.txt" \
          | tee "$TEMP_DIR/${log_files[$pattern_item]}" >/dev/null || true
    done
 
+   local file_name
    for file_name in "${log_files[@]}"; do
       br_add_to_file "$TEMP_DIR/$file_name"
    done
 
-   ## Read log files and handle empty outputs
    declare -A log_outputs
    for pattern_item in "${!log_files[@]}"; do
       log_outputs[$pattern_item]="$(cat "$TEMP_DIR/${log_files[$pattern_item]}_br" 2>/dev/null)"
