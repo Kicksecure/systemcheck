@@ -1,3 +1,57 @@
+commit ed4858af29eba6930593048cce7abcba9bd92d8b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:58:01 2025 -0500
+
+    output
+
+commit dbe6eda8dfc78c22951b5953c2302a614c1eb249
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:56:59 2025 -0500
+
+    end of options
+
+commit 76f016b1da30e7b7294cc47ad340a779748df662
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:55:59 2025 -0500
+
+    check journal: exclude more patterns
+
+commit 0b9ee810a91748c12d5d71afd95ea94ba579faf0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:55:06 2025 -0500
+
+    end of options
+
+commit 7f9af2fff148353bb9281e5d4938dd2d2f2a095d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:53:37 2025 -0500
+
+    minor
+
+commit 997b0e4818c7a8ae9b7f5a872b530ae400571e4b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:52:45 2025 -0500
+
+    minor
+
+commit 08ed1f5d764c42f91673eeea15cb68e7c9721421
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:51:57 2025 -0500
+
+    check journal: exclude more patterns
+
+commit 1f76d41b94ffdc41f288b1c7519fb0c93c624ff9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 01:48:14 2025 -0500
+
+    check journal: exclude more patterns
+
+commit 6d4330c3adf1329d00ee37454a94a609836a1b6d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 21 14:53:58 2025 +0000
+
+    bumped changelog version
+
 commit dc5a1dc88f8e161724a5e91c75aa7fd6e8c5474a
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Feb 21 09:52:26 2025 -0500
