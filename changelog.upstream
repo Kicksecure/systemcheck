@@ -1,3 +1,51 @@
+commit da5d354c8a653938c4f744cdf5cc8e0172122cf0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 05:55:42 2025 -0500
+
+    apparmor
+
+commit 32f2698d7af928da6205ac1d616a38eee120516b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 04:55:14 2025 -0500
+
+    output
+
+commit ea2f12c09720102bda03ad1cd85f8865e9fe9919
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 04:54:35 2025 -0500
+
+    comment
+
+commit 4f0150440e90c020c50887b50e17210bc94cf2f1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 04:54:03 2025 -0500
+
+    fix
+
+commit e483c986f9664366423f84316ff20dc123f9b043
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 04:50:47 2025 -0500
+
+    check journal: exclude more patterns
+
+commit 0614425f6dee58de704fd06c994be4de23962fc7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 04:47:48 2025 -0500
+
+    fix
+
+commit 50f06b7d63636d775f7a24e298fa74779ebc9616
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 04:47:26 2025 -0500
+
+    check privleap configuration
+
+commit d3a5c035fc5c73ebd4fc5edaf3be5c369efe31c7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 08:23:04 2025 +0000
+
+    bumped changelog version
+
 commit ed4858af29eba6930593048cce7abcba9bd92d8b
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Feb 22 01:58:01 2025 -0500
