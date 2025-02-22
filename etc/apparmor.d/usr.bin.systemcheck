@@ -84,6 +84,7 @@ include <tunables/global>
   /etc/pam.d/* r,
   /etc/passwd r,
   /etc/perl/sitecustomize.pl r,
+  /etc/privleap/** r,
   /etc/python*/sitecustomize.py r,
   /etc/resolv.conf r,
   /etc/safe-rm.conf r,
