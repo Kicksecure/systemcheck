@@ -154,7 +154,7 @@ check_journal() {
    br_add_to_file "$TEMP_DIR/journalctl_filtered.txt"
 
    local log_output
-   log_output="$(cat "$TEMP_DIR/journalctl_filtered.txt_br")"
+   log_output="$(cat -- "$TEMP_DIR/journalctl_filtered.txt_br")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
