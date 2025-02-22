@@ -171,7 +171,7 @@ check_journal() {
 <br></br>########################################
 <br></br><code>$log_output</code>
 <br></br>########################################
-$if_you_know_what_you_are_doing_msg</p>"
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
