@@ -109,8 +109,11 @@ check_journal() {
 
    test -w "$TEMP_DIR"
 
-   leaprun read-apparmor-info   | tee -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
-   leaprun read-journalctl-logs | tee -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
+   safe-rm -f "$TEMP_DIR/journalctl_output.txt"
+   touch "$TEMP_DIR/journalctl_output.txt"
+
+   leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
+   leaprun read-journalctl-logs | tee --append -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
    local pattern_list
    pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
