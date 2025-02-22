@@ -142,6 +142,11 @@ check_journal() {
    ignore_pattern_add "gcc /usr/src/sdwdate/sclockadj.c -o /usr/libexec/sdwdate/sclockadj"
    ignore_pattern_add "kernel: xen-balloon: vmemmap alloc failure:"
    ignore_pattern_add "Failed to load the 'mdraid' libblockdev plugin"
+   ignore_pattern_add "failed to load module mdraid: libbd_mdraid.so.2: cannot open shared object file: No such file or directory"
+   ignore_pattern_add "kernel.panic_on_warn"
+   ignore_pattern_add "Tor reports: WARN"
+   ignore_pattern_add "read-systemctl-logs-failed-units"
+   ignore_pattern_add "can't connect to the SCdaemon: IPC connect call failed"
 
    grep -Ei "$pattern_list" "$TEMP_DIR/journalctl_output.txt" | tee "$TEMP_DIR/journalctl_matched.txt" >/dev/null ||  true
    grep -vEi "$ignore_patterns" "$TEMP_DIR/journalctl_matched.txt" | tee "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
