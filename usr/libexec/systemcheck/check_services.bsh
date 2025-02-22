@@ -153,6 +153,7 @@ check_journal() {
 
    grep -Ei  "$pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
 
+   ## Output by 'apparmor-info' is already de-duplicated.
    leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_matched.txt" >/dev/null || true
 
    grep -vEi "$ignore_patterns" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
