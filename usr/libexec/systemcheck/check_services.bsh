@@ -112,7 +112,6 @@ check_journal() {
    safe-rm -f "$TEMP_DIR/journalctl_output.txt"
    touch "$TEMP_DIR/journalctl_output.txt"
 
-   leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
    leaprun read-journalctl-logs | tee --append -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
    local pattern_list
@@ -153,6 +152,9 @@ check_journal() {
    ignore_pattern_add "Discarding this circuit."
 
    grep -Ei  "$pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
+
+   leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_matched.txt" >/dev/null || true
+
    grep -vEi "$ignore_patterns" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
 
    br_add_to_file "$TEMP_DIR/journalctl_filtered.txt"
