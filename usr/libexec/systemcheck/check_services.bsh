@@ -161,7 +161,6 @@ check_journal() {
 
    local MSG
    MSG="<p>systemd journal check Result:
-
 <br></br>########################################
 <br></br><code>$log_output</code>
 <br></br>########################################
