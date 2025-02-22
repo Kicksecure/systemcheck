@@ -15,6 +15,7 @@ check_privilege_escalation_tools() {
    ## systemcheck has been fully ported to systemcheck.
    ## privleap is a dependency of systemcheck.
    ## Therefore test leaprun in any case.
+   check_privilege_escalation_tool_do privleapd --check-config
    check_privilege_escalation_tool_do leaprun check-privleap
    check_privilege_escalation_tool_do leaprun check-sudo
 
