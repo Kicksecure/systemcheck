@@ -135,6 +135,7 @@ check_journal() {
    ignore_pattern_add "WM_NORMAL_HINTS"
    ignore_pattern_add "Connection unexpectedly closed"
    ignore_pattern_add "XGetWindowAttributes"
+   ignore_pattern_add "WARNING handle_focus: FocusOut: Window"
    ignore_pattern_add "Failed to get window dump for window"
    ignore_pattern_add "kernel:  warn_alloc"
    ignore_pattern_add "RAS: Correctable Errors collector initialized."
