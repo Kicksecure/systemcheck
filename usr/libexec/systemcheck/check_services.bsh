@@ -109,8 +109,8 @@ check_journal() {
 
    test -w "$TEMP_DIR"
 
-   leaprun read-apparmor-info   | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
-   leaprun read-journalctl-logs | tee "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
+   leaprun read-apparmor-info   | tee -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
+   leaprun read-journalctl-logs | tee -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
    local pattern_list
    pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
@@ -147,8 +147,8 @@ check_journal() {
    ignore_pattern_add "read-systemctl-logs-failed-units"
    ignore_pattern_add "can't connect to the SCdaemon: IPC connect call failed"
 
-   grep -Ei  "$pattern_list"    "$TEMP_DIR/journalctl_output.txt"  | tee "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
-   grep -vEi "$ignore_patterns" "$TEMP_DIR/journalctl_matched.txt" | tee "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
+   grep -Ei  "$pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
+   grep -vEi "$ignore_patterns" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
 
    br_add_to_file "$TEMP_DIR/journalctl_filtered.txt"
 
