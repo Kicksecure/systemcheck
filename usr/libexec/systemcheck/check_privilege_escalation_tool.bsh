@@ -30,7 +30,7 @@ check_privilege_escalation_tool_do() {
    local privilege_escalation_tool_first_argument privilege_escalation_tool_command exit_code privilege_escalation_tool_output
 
    privilege_escalation_tool_first_argument="$1"
-   if [ "$privilege_escalation_tool_first_argument" = "leaprun" ]; then
+   if [ ! "$privilege_escalation_tool_first_argument" = "sudo" ]; then
       privilege_escalation_tool_first_argument="$1 $2"
    fi
    privilege_escalation_tool_command="$@"
