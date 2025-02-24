@@ -8,17 +8,6 @@ check_virtualizer() {
       return 0
    fi
 
-   ## sudo hostname wrong-hostname
-   ## sudo test
-   ## sudo: unable to resolve host wrong-hostname: Temporary failure in name resolution
-   if [ "$sudo_ok" = "false" ]; then
-      local MSG="<p>Check Virtualizer Result: Skipping test, because previous sudo test failed.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-      EXIT_CODE="1"
-      return 0
-   fi
-
    if [ "$systemcheck_virtualizer_tool_unavailable" = "true" ]; then
       local MSG="<p>Check Virtualizer Result: $systemcheck_virt_detection_tool not available. Skipping test.</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
