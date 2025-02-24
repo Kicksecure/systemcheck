@@ -117,6 +117,10 @@ check_journal() {
    local pattern_list
    pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
 
+   if [ "$qubes_detected" = "true" ]; then
+      ignore_pattern_add "virtualbox"
+   fi
+
    ignore_pattern_add "obsolete config item"
    ignore_pattern_add "Tor bootstrap not done"
    ignore_pattern_add "FocusIn: Window .* data not initialized"
