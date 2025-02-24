@@ -18,11 +18,12 @@ check_initializer() {
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
-   else
-      if [ "$verbose" -ge "1" ]; then
-         local MSG="<p>Check Initializer Result: <code>$fail_file</code> does not exist, ok.</p>"
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      return 0
+   fi
+
+   if [ "$verbose" -ge "1" ]; then
+      local MSG="<p>Check Initializer Result: <code>$fail_file</code> does not exist, ok.</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 }
