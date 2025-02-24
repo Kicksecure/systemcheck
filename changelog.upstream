@@ -1,3 +1,135 @@
+commit 247520f73de43fafac282c85adb2ed80bbb35004
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:41:29 2025 -0500
+
+    catch stderr output of spectre-meltdown-checker
+
+commit c0a35a137a57a7eb78b9c48dea68ed1b158cd1d5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:38:44 2025 -0500
+
+    show output of `vrms` only if using verbose level 2 and above
+
+commit 4ea61e0ea498f37b282c832d356889abd38a012e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:36:17 2025 -0500
+
+    output
+
+commit 8fb71cb1830de47a9677a31bdd424804e78c89a4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:34:01 2025 -0500
+
+    minor
+
+commit b62111ffbbad0113b653a52dfdcfd3183088058b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:33:47 2025 -0500
+
+    exit non-zero in more cases of warnings and errors
+
+commit 54948ec88d6c495c1e722f1472039c58b0b75de1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:28:28 2025 -0500
+
+    code simplification
+
+commit c5fbf6931f3e0f5a7f73bed2c98012c75ab03ca5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:27:59 2025 -0500
+
+    exit non-zero in more cases of warnings and errors
+
+commit ddfda5a1b444211c2b1aac0cf9097ab4c09ba5bb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:25:09 2025 -0500
+
+    code simplification
+
+commit 7cd6d5a13b1f574ed7e26f4b366df1d426691fcb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 02:24:07 2025 -0500
+
+    exit non-zero in more cases of warnings and errors
+
+commit 94c9227ebed45fa651960cf6cca3466bdd63c6c7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:59:19 2025 -0500
+
+    hide pid from output
+
+commit 01337c0ed7cc9b5359b95d50dacaca67fb73d7de
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:58:25 2025 -0500
+
+    minor
+
+commit ee4c202f089bd8311bbd5bde39677e36235a8a78
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:56:45 2025 -0500
+
+    output
+
+commit fd4ab6bf7486ab57c7ae25e33b2ce482a5f6af43
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:56:15 2025 -0500
+
+    exit non-zero in more cases of warnings and errors
+
+commit 36ef346a6b91ccebd59fddd73e77902adcc7ad4c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:52:23 2025 -0500
+
+    cleanup
+
+commit 5135fa45ab743697ec39d26d0df7444a4bca6df5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:51:49 2025 -0500
+
+    exit non-zero in more cases of warnings and errors
+
+commit ca12f1d94583ca6ffe89a508146c90b4747f6a02
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:47:45 2025 -0500
+
+    minor
+
+commit 56e1f021cd8bead299d29dbe1428f6602af073b8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:44:15 2025 -0500
+
+    ignore more expected journal error messages
+
+commit 68bbd9e9749588fa394c940d74a8f6416189910e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:39:42 2025 -0500
+
+    ignore more expected journal error messages
+
+commit e2c917917dad7e7b74136834562e1fe83df01eb5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:38:06 2025 -0500
+
+    exit non-zero in case using `--verbose` and in case unexpected error log files exist
+
+commit af47d15856bf7d44f7adf686733b911f5ed92a7e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:36:34 2025 -0500
+
+    exit non-zero in case using `--verbose` and in case there are unexpected messages in systemd journal
+
+commit 79d3b4b4518193bcc400a8c6cb6a04e2dd73f789
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 01:34:42 2025 -0500
+
+    improve output of check journal (when using `--verbose`)
+
+commit a40e6fc32eb0d72312228b91f54ca40d3d9b1bfb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Feb 22 10:55:55 2025 +0000
+
+    bumped changelog version
+
 commit da5d354c8a653938c4f744cdf5cc8e0172122cf0
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Feb 22 05:55:42 2025 -0500
