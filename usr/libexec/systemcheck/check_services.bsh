@@ -155,6 +155,11 @@ check_journal() {
    ignore_pattern_add "can't connect to the SCdaemon: IPC connect call failed"
    ignore_pattern_add "Discarding this circuit."
 
+   ## https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1076861
+   ignore_pattern_add "wireplumber.service: Bound to unit pipewire.service, but unit isn't active."
+   ignore_pattern_add "Dependency failed for wireplumber.service - Multimedia Service Session Manager."
+   ignore_pattern_add "wireplumber.service: Job wireplumber.service/start failed with result 'dependency'."
+
    grep -Ei  "$pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
 
    ## Output by 'apparmor-info' is already de-duplicated.
