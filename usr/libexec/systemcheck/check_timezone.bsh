@@ -36,6 +36,7 @@ check_timezone() {
 <br></br>timezone_file_actual_content: <code>$timezone_file_actual_content</code></p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         EXIT_CODE="1"
       fi
    else
       timezone_status_code="2"
@@ -62,6 +63,7 @@ check_timezone() {
 <br></br>localtime_result: <code>$localtime_result</code></p>"
             $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            EXIT_CODE="1"
          fi
       else
          localtime_status_code="2"
@@ -69,6 +71,7 @@ check_timezone() {
          local MSG="<p>Check Timezone Result: $localtime_result</p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         EXIT_CODE="1"
       fi
    else
       localtime_status_code="3"
@@ -76,6 +79,7 @@ check_timezone() {
       local MSG="<p>Check Timezone Result: $localtime_result</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 
    if [ ! "$localtime_status_code" = "0" ]; then
@@ -99,5 +103,6 @@ If you did not change timezone related settings, please report this $PROJECT_NAM
 [1] <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone>${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone</a></p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 }

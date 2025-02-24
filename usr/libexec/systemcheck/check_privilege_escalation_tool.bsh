@@ -68,6 +68,7 @@ exit_code: <code>$exit_code</code>
 </p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 
    ## sudo hostname wrong-hostname
