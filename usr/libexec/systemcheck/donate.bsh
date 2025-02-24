@@ -6,7 +6,7 @@
 donate() {
    ## Do not ask for donations if a bug occurred. More important things have to be sorted out.
    if [ "$BUG" = "1" ]; then
-      return
+      return 0
    fi
 
    local MSG="<p>Please donate!
