@@ -36,4 +36,3 @@ if [ ! "$ps_p_exit_code" = "0" ]; then
 fi
 
 echo "Pid '$pid' running."
-
