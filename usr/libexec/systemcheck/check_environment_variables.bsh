@@ -9,6 +9,7 @@ check_environment_variables() {
             local MSG="<p>Environment variables test result: Missing environment variable WHONIX=1. This indicates that other environment variables might be missing as well.</p>"
             $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+            EXIT_CODE="1"
             return 0
          fi
       elif [ "$vm_lower_case_short" = "machine" ]; then
@@ -16,6 +17,7 @@ check_environment_variables() {
             local MSG="<p>Environment variables test result: Missing environment variable KICKSECURE=1. This indicates that other environment variables might be missing as well.</p>"
             $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+            EXIT_CODE="1"
             return 0
          fi
       fi

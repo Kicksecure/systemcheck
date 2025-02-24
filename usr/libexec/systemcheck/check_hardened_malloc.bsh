@@ -10,6 +10,7 @@ check_hardened_malloc() {
    if [ "$result" = "none" ]; then
       local MSG="<p><a href=https://www.kicksecure.com/wiki/Hardened_Malloc>Hardened Malloc</a>: Disabled.</p>"
       type=warning
+      #EXIT_CODE="1"
    fi
    if [ "$result" = "light" ]; then
       local MSG="<p>Hardened Malloc: <a href=https://www.kicksecure.com/wiki/Hardened_Malloc_Light>Hardened Malloc <u>Light</u></a> version enabled.</p>"
@@ -22,6 +23,7 @@ check_hardened_malloc() {
    if [ "$result" = "" ]; then
       local MSG="<p><a href=https://www.kicksecure.com/wiki/Hardened_Malloc_Light>Hardened Malloc Test</a>: ERROR. result: <code>$result</code></p>"
       type=error
+      #EXIT_CODE="1"
    fi
 
    if [ "$verbose" -ge "1" ]; then

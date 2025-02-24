@@ -29,6 +29,7 @@ check_hostname() {
 \"host.localdomain\", it is \"$hostname_fqdn_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 
    local hostname_exit_code="0"
@@ -48,6 +49,7 @@ check_hostname() {
 it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 
    local hostname_exit_code="0"
@@ -67,6 +69,7 @@ it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
 \"127.0.0.1\", it is \"$hostname_ip_address_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 
    local hostname_exit_code="0"
@@ -86,6 +89,7 @@ it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
 \"localdomain\"</b>, it is \"$hostname_domain_output\". (hostname_exit_code: $hostname_exit_code)</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 
    if [ "$hostname_exit_code_was_non_zero" = "true" ]; then
@@ -94,6 +98,7 @@ it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
 a non-zero exit code.</b> This is probably a network misconfiguration. See above.</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 
    if [ "$hostname_discouraged_setting_detected" = "true" ]; then
@@ -105,5 +110,6 @@ a non-zero exit code.</b> This is probably a network misconfiguration. See above
 <br />$if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
    fi
 }
