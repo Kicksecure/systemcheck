@@ -30,9 +30,9 @@ ps_p_exit_code="0"
 ps -p "$pid" >/dev/null 2>/dev/null || { ps_p_exit_code="$?" ; true; };
 
 if [ ! "$ps_p_exit_code" = "0" ]; then
-   echo "Pid '$pid' is not running."
+   echo "Pid is not running."
    exit_code=3
    exit_function
 fi
 
-echo "Pid '$pid' running."
+echo "Pid running."
