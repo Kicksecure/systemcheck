@@ -51,11 +51,14 @@ check_non_freedom() {
    elif [ "$check_non_freedom_result" = "expected" ]; then
       non_freedom_packages_detected=expected
       local MSG="<p>Check non-freedom Result: Ok, only expected non-freedom packages found. For more information, see:
-<br />$non_freedomlink
-<br />
-<br />vrms_output:
-<br /><code>$vrms_output</code></p>"
+<br />$non_freedomlink</p>"
       if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      local MSG="<p><br />vrms_output:
+<br /><code>$vrms_output</code></p>"
+      if [ "$verbose" -ge "2" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
