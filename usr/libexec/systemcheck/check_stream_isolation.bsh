@@ -41,6 +41,7 @@ check_stream_isolation() {
          fi
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         EXIT_CODE="1"
       fi
       return 0
    fi

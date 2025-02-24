@@ -25,6 +25,7 @@ $if_you_know_what_you_are_doing_msg
 
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   EXIT_CODE="1"
 
    return 0
 }
