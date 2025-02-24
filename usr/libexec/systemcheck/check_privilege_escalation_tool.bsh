@@ -54,8 +54,10 @@ check_privilege_escalation_tool_do() {
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-   else
-      local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' result: System misconfiguration detected. No need to panic. This is not a severe issue. However, other tests may be affected due to this.
+      return 0
+   fi
+
+   local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' result: System misconfiguration detected. No need to panic. This is not a severe issue. However, other tests may be affected due to this.
 <br><br>
 The following command:
 <blockquote>$privilege_escalation_tool_command ; echo \$?</blockquote>
@@ -66,10 +68,10 @@ exit_code: <code>$exit_code</code>
 <code>privilege_escalation_tool_output</code>:
 <blockquote><code>$privilege_escalation_tool_output</code></blockquote>
 </p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-   fi
+
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
 
    ## sudo hostname wrong-hostname
    ## sudo test
