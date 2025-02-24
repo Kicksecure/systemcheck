@@ -105,6 +105,7 @@ check_tor_socks_or_trans_port() {
       local MSG="<p><code>TransPort</code>/<code>SocksPort</code>/<code>UpdatesProxy</code> Test Error: <b>\<code>$1</code> is neither <code>TransPort</code> nor <code>SocksPort</code> nor <code>UpdatesProxy</code>.</b> Please report this bug to the $PROJECT_NAME developers!</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
       return 0
    fi
 
@@ -139,6 +140,7 @@ check_tor_socks_or_trans_port() {
 (curl exit code: $curl_status_message)</p>"
       if [ "$type" = "" ]; then
          type=error
+         EXIT_CODE="1"
       fi
       $output_x ${output_opts[@]} --messagex --typex "$type" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "$type" --message "$MSG"
@@ -200,6 +202,7 @@ check_tor_socks_or_trans_port() {
          local MSG="<p>$test_name Result: tor_detected is neither True nor False. $bug_maybe_msg</p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         EXIT_CODE="1"
          return 0
       fi
    fi
@@ -216,6 +219,7 @@ check_tor_socks_or_trans_port() {
       local MSG="<p>$test_name Result: <b>json_ip_exit_code: $json_ip_exit_code.</b> $bug_maybe_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
       return 0
    fi
 
@@ -232,6 +236,7 @@ check_tor_socks_or_trans_port() {
       local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> (<code>$actual_string_length</code> characters).</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      EXIT_CODE="1"
       return 0
    fi
 
@@ -300,6 +305,7 @@ check_tor_socks_or_trans_port() {
       type=info
    else
       type=error
+      EXIT_CODE="1"
       if [ "$1" = "TransPort" ]; then
          local not_using_msg_tor="$not_using_msg_tor
 

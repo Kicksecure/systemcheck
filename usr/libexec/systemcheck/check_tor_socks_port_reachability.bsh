@@ -54,6 +54,7 @@ Either user has run <code>sudo service tor@default stop</code> or Gateway is sti
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         EXIT_CODE="1"
       fi
    elif [ "$check_socks_port_open_test" = "28" ]; then
       if [ "$VM" = "Whonix-Gateway" ]; then
@@ -67,6 +68,7 @@ Gateway likely powered off. \
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         EXIT_CODE="1"
       fi
    else
       local MSG="<p>Tor SocksPort Reachability Test Result: Unreachable! \
@@ -75,6 +77,7 @@ Unexpected error! \
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         EXIT_CODE="1"
       fi
    fi
 }
