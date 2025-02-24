@@ -21,7 +21,7 @@ fi
 pid="$(cat "/run/tor/tor.pid")" || true
 
 if [ "$pid" = "" ]; then
-   echo "Pid file /run/tor/tor.pid is empty."
+   echo "Pid file '/run/tor/tor.pid' is empty."
    exit_code=2
    exit_function
 fi
