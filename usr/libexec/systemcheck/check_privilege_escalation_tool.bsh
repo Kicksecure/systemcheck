@@ -17,6 +17,7 @@ check_privilege_escalation_tools() {
    ## Therefore test leaprun in any case.
    check_privilege_escalation_tool_do privleapd --check-config
    check_privilege_escalation_tool_do leaprun check-privleap
+   check_privilege_escalation_tool_do leaprun check-privleap-environment-variables
    check_privilege_escalation_tool_do leaprun check-sudo
 
    if [ ! "$use_sudo" = "yes" ]; then

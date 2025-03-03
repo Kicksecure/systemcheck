@@ -1,0 +1,25 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+set -e
+
+true "$0: START."
+
+if [ ! "$(id -u)" = "0" ]; then
+   echo "$0: ERROR: Must be run as root!" >&2
+   exit 1
+fi
+
+if [ ! "$TMP" = "/tmp/user/0" ]; then
+   echo "$0: ERROR: Variable 'TMP' is not set to '/tmp/user/0'!" >&2
+   exit 1
+fi
+
+if [ ! "$TMPDIR" = "/tmp/user/0" ]; then
+   echo "$0: ERROR: Variable 'TMPDIR' is not set to '/tmp/user/0'!" >&2
+   exit 1
+fi
+
+true "$0: OK."
