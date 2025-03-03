@@ -1,3 +1,15 @@
+commit a394a9f1df987f9ccd383bbaf15a5cabd345c50b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 3 05:54:38 2025 -0500
+
+    add a new test to check if TMP and TMPDIR environment variable is correctly set when running privleap
+
+commit dc755944a3bea352d58d5e6f7a1a698276419b8e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 24 12:24:02 2025 +0000
+
+    bumped changelog version
+
 commit 60dc1bf64af7e3b99ba8c1ff565bb874daa8997a
 Merge: 573e300 c2b6f29
 Author: Patrick Schleizer <adrelanos@whonix.org>
