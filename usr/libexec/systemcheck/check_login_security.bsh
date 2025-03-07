@@ -1,0 +1,150 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+source /usr/libexec/helper-scripts/get_colors.sh
+
+check_login_security() {
+   local user_list password_status_list autologin_status_list \
+      longest_username_len user table_user_barrier_entry \
+      table_user_space_entry counter table_users table_settings_gui \
+      table_settings_cli table_users_entry table_settings_gui_entry \
+      table_settings_cli_entry table_str_gui table_str_cli
+   if [ "$silent" -ge "4" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
+   local base_msg_gui="<p>$PROJECT_NAME Login Security Check:</p>
+XXX_LOGIN_SEC_TABLE_XXX
+<p>You can adjust these settings using \"Manage Passwords\" and \"Manage Autologin\"
+in the System Maintenance Panel. See
+<a href=\"https://www.kicksecure.com/wiki/Sysmaint\">https://www.kicksecure.com/wiki/Sysmaint</a>
+for more information."
+   local base_msg_cli="${base_msg_gui}"
+   readarray -t user_list < <(/usr/libexec/helper-scripts/get-user-list)
+   readarray -t password_status_list < <(leaprun get-password-status-list)
+   readarray -t autologin_status_list < <(
+      for user in "${user_list[@]}"; do
+         ## User sysmaint requires special handling.
+         if [ "${user}" = 'sysmaint' ]; then
+            if [ -f /etc/user-sysmaint-split.conf ]; then
+               if grep -q '^sysmaint-autologin=y$' /etc/user-sysmaint-split.conf; then
+                  echo 'Enabled'
+               else
+                  echo 'Disabled'
+               fi
+            fi
+            continue
+         fi
+
+         if grep -qr "^autologin-user=\s*${user}$" /etc/lightdm; then
+            echo 'Enabled'
+         else
+            echo 'Disabled'
+         fi
+      done
+   )
+
+   ## Format the retrieved info into a convenient table.
+   ## The table is formatted like this:
+   ##
+   ## +-----------------+----------------------+
+   ## |                 | Settings             |   
+   ## |                 | Password   Autologin |
+   ## +-----------------+----------+-----------+
+   ## | Users  aaron    | Present  | Disabled  |
+   ## |        user     | Absent   | Disabled  |
+   ## |        bob      | Absent   | Enabled   |   
+   ## |        sysmaint | Absent   | Enabled   |   
+   ## +-----------------+----------+-----------+
+   ##
+   ## The table is generated line by line. The table is divided vertically
+   ## into two halves, one for the "Users" section on the left, and one for
+   ## the "Settings" section and the actual table of entries on the right. The
+   ## "Settings" half is always 24 characters wide, and makes up this part of
+   ## the table:
+   ##
+   ## +----------------------+
+   ## | Settings             |
+   ## | Password   Autologin |
+   ## +----------+-----------+
+   ## | ...      | ...       |
+   ## +----------+-----------+
+   ## The "Users" half is 10 characters wide plus the length of the longest
+   ## username. It makes up this part of the table:
+   ##
+   ## +------------
+   ## |            
+   ## |            
+   ## +------------
+   ## | Users  ... 
+   ## +------------
+   ##
+   ## (Note that it does NOT include the separator line on the right, as that
+   ## belongs to the "Settings" half.) All text is left-justified.
+
+   longest_username_len=0
+   for user in "${user_list[@]}"; do
+      if (( ${#user} > longest_username_len )); then
+         longest_username_len="${#user}"
+      fi
+   done
+   table_user_barrier_entry='+---------'
+   table_user_space_entry='|         '
+   for (( counter=0; counter < longest_username_len; counter++ )); do
+      table_user_barrier_entry+='-'
+      table_user_space_entry+=' '
+   done
+   table_users=(
+      "${table_user_barrier_entry}"
+      "${table_user_space_entry}"
+      "${table_user_space_entry}"
+      "${table_user_barrier_entry}"
+   )
+   table_settings_gui=(
+      '+----------------------+'
+      '| Settings             |'
+      '| Password   Autologin |'
+      '+----------+-----------+'
+   )
+   table_settings_cli=( "${table_settings_gui[@]}" )
+   for (( counter=0; counter < ${#user_list[@]}; counter++ )); do
+      if [ "${counter}" = '0' ]; then
+         printf -v table_users_entry "| Users  %-${longest_username_len}s " "${user_list[counter]}"
+      else
+         printf -v table_users_entry "|        %-${longest_username_len}s " "${user_list[counter]}"
+      fi
+      table_users+=( "${table_users_entry}" )
+      printf -v table_settings_gui_entry "| %-8s | %-9s |" "${password_status_list[counter]}" "${autologin_status_list[counter]}"
+      table_settings_cli_entry="${table_settings_gui_entry}"
+      table_settings_gui_entry="${table_settings_gui_entry//'Present'/'<font color="green">Present</font>'}"
+      table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="orange">Absent</font>'}"
+      table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
+      table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
+      table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
+      table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${yellow}Absent${nocolor}"}"
+      table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
+      table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
+      table_settings_gui+=( "${table_settings_gui_entry}" )
+      table_settings_cli+=( "${table_settings_cli_entry}" )
+   done
+   table_users+=( "${table_user_barrier_entry}" )
+   table_settings_gui+=( '+----------+-----------+' )
+   table_settings_cli+=( '+----------+-----------+' )
+   table_str_gui='<pre>'$'\n'
+   table_str_cli=''
+   for (( counter=0; counter < ${#table_users[@]}; counter++ )); do
+      table_str_gui+="${table_users[counter]}${table_settings_gui[counter]}"$'\n'
+      table_str_cli+="${table_users[counter]}${table_settings_cli[counter]}"$'\n'
+   done
+   table_str_gui+='</pre>'
+   base_msg_gui="${base_msg_gui//XXX_LOGIN_SEC_TABLE_XXX/"${table_str_gui}"}"
+   base_msg_cli="${base_msg_cli//XXX_LOGIN_SEC_TABLE_XXX/"${table_str_cli}"}"
+
+   MSG="${base_msg_gui}"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   MSG="${base_msg_cli}"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+}
