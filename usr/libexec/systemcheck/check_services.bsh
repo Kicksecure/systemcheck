@@ -159,6 +159,11 @@ check_journal() {
    ignore_pattern_add "wireplumber.service: Bound to unit pipewire.service, but unit isn't active."
    ignore_pattern_add "Dependency failed for wireplumber.service - Multimedia Service Session Manager."
    ignore_pattern_add "wireplumber.service: Job wireplumber.service/start failed with result 'dependency'."
+   # false positives
+   ignore_pattern_add "audit\\[[0-9]*\\]: CRED_.* res=success"
+   ignore_pattern_add "AVC apparmor=\"ALLOWED\""
+   ignore_pattern_add "INFO.*Whonix firewall timesync-fail-closed mode"
+   ignore_pattern_add "audit: CONFIG_CHANGE op=set audit_failure=1"
 
    grep -Ei  "$pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
 
