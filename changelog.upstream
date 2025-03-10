@@ -1,3 +1,41 @@
+commit 5fe85b68652ea2f50434d6a0cccd3af6ec416666
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 10 04:43:20 2025 -0400
+
+    exit non-zero when unexpected non-freedom packages are found
+    
+    (function `check_non_freedom` only runs when using `--verbose`)
+
+commit e18a8711ff85abf39a8f740c2fc29c930791366e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 10 04:42:12 2025 -0400
+
+    local
+
+commit 227337c5b9adab7f11a749033cd807da39ab4c15
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 10 04:39:08 2025 -0400
+
+    refactoring
+
+commit 0a2e3708f1181af9af094c7d9fc600dec3cb9036
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 10 04:37:30 2025 -0400
+
+    refactoring
+
+commit dde7ef74941da8ed53aec2c7903aad1c7b85ab42
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 10 04:36:57 2025 -0400
+
+    exit non-zero if derivative repository is disabled
+
+commit 30ced422d967fc73384832551d8b3d9c39bb3d3d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 10 07:42:32 2025 +0000
+
+    bumped changelog version
+
 commit fde97dba7245ec10ceae7672d8873cf0fcea65fa
 Merge: d9045df 2fa94cf
 Author: Patrick Schleizer <adrelanos@whonix.org>
