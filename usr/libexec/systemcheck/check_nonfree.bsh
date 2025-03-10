@@ -73,6 +73,7 @@ check_non_freedom() {
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
       if [ "$verbose" -ge "1" ]; then
+         EXIT_CODE="1"
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
