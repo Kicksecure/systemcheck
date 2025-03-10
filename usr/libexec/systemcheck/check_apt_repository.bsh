@@ -29,12 +29,12 @@ You are free to manually update from source code.
 If you want to change this, use:</p>"
 
    if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
-      local MSG="$temp_base_msg_enabled
-    $temp_x_tool"
       if [ "$silent" -ge "3" ]; then
          true "silent is $silent. Not reporting that repository is enabled."
          return 0
       fi
+      local MSG="$temp_base_msg_enabled
+    $temp_x_tool"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    else
       local MSG="$temp_base_msg_disabled
