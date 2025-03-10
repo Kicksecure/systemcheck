@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_non_freedom() {
-   local vrms_output vrms_result line expected_package check_non_freedom_result continue
+   local vrms_output vrms_result line expected_package expected_grep check_non_freedom_result continue
 
    ## Human readable output.
    vrms_output="$(LC_ALL=C vrms 2>&1)" || true
