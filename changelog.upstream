@@ -1,3 +1,33 @@
+commit fde97dba7245ec10ceae7672d8873cf0fcea65fa
+Merge: d9045df 2fa94cf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 8 22:10:20 2025 -0500
+
+    Merge remote-tracking branch 'github-kicksecure/master'
+
+commit 2fa94cf8e27f4be734d03188cb5ea4eebb511c25
+Merge: d9045df 5129c96
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 8 22:08:42 2025 -0500
+
+    Merge pull request #2 from marmarek/ignores
+    
+    Ignore false positive log messages
+
+commit 5129c96f904403e5932d0128c76b442b4740e07e
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Sat Mar 8 21:29:13 2025 +0100
+
+    Ignore false positive log messages
+    
+    https://forums.whonix.org/t/systemcheck-fails-for-unclear-reason/21424/2
+
+commit d9045df3b26868f3ec3ab4b5a516ed2e7ab84495
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 3 10:55:46 2025 +0000
+
+    bumped changelog version
+
 commit a394a9f1df987f9ccd383bbaf15a5cabd345c50b
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 3 05:54:38 2025 -0500
