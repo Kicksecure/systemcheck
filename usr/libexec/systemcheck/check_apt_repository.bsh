@@ -9,6 +9,9 @@ check_apt_repository() {
       return 0
    fi
 
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
    local temp_x_tool="<blockquote>$persistent_changes_start_menu_instructions_first_part Derivative Repository</blockquote>"
    local temp_cli_tool="<code><blockquote>sudo repository-dist</blockquote></code>"
 
@@ -26,26 +29,31 @@ You are free to manually update from source code.
 If you want to change this, use:</p>"
 
    if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
-      local MSG="$temp_base_msg_enabled
-    $temp_x_tool"
       if [ "$silent" -ge "3" ]; then
          true "silent is $silent. Not reporting that repository is enabled."
          return 0
       fi
-   else
-      local MSG="$temp_base_msg_disabled
+
+      local MSG="$temp_base_msg_enabled
     $temp_x_tool"
-   fi
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-   if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
       local MSG="$temp_base_msg_enabled
     $temp_cli_tool"
-   else
-      local MSG="$temp_base_msg_disabled
-    $temp_cli_tool"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
+      return 0
    fi
 
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   EXIT_CODE="1"
+
+   local MSG="$temp_base_msg_disabled
+    $temp_x_tool
+<p>$if_you_know_what_you_are_doing_msg</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+
+   local MSG="$temp_base_msg_disabled
+    $temp_cli_tool
+<p>$if_you_know_what_you_are_doing_msg</p>"
+$output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }

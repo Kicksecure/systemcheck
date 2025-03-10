@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_non_freedom() {
-   local vrms_output vrms_result line expected_package check_non_freedom_result continue
+   local vrms_output vrms_result line expected_package expected_grep check_non_freedom_result continue
 
    ## Human readable output.
    vrms_output="$(LC_ALL=C vrms 2>&1)" || true
@@ -73,6 +73,7 @@ check_non_freedom() {
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
       if [ "$verbose" -ge "1" ]; then
+         EXIT_CODE="1"
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       fi
