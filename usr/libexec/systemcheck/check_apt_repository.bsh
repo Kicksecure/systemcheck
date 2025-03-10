@@ -9,6 +9,9 @@ check_apt_repository() {
       return 0
    fi
 
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
    local temp_x_tool="<blockquote>$persistent_changes_start_menu_instructions_first_part Derivative Repository</blockquote>"
    local temp_cli_tool="<code><blockquote>sudo repository-dist</blockquote></code>"
 
@@ -32,20 +35,24 @@ If you want to change this, use:</p>"
          true "silent is $silent. Not reporting that repository is enabled."
          return 0
       fi
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    else
       local MSG="$temp_base_msg_disabled
-    $temp_x_tool"
+    $temp_x_tool
+<p>$if_you_know_what_you_are_doing_msg</p>"
+      EXIT_CODE="1"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    fi
-
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
    if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
       local MSG="$temp_base_msg_enabled
     $temp_cli_tool"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
       local MSG="$temp_base_msg_disabled
-    $temp_cli_tool"
+    $temp_cli_tool
+<p>$if_you_know_what_you_are_doing_msg</p>"
+      EXIT_CODE="1"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    fi
-
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }
