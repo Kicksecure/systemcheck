@@ -114,14 +114,14 @@ check_journal() {
 
    leaprun read-journalctl-logs | tee --append -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
-   local pattern_list
-   pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
+   local journal_search_pattern_list
+   journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
 
    if [ "$qubes_detected" = "true" ]; then
       journal_ignore_pattern_add "virtualbox"
    fi
 
-   grep -Ei  "$pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
+   grep -Ei  "$journal_search_pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
 
    ## Output by 'apparmor-info' is already de-duplicated.
    leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_matched.txt" >/dev/null || true
