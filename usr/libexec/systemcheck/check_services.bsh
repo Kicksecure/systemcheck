@@ -93,12 +93,12 @@ br_add_to_file() {
    done < "${file_name}"
 }
 
-ignore_pattern_add() {
-   if [ "$ignore_patterns" = "" ]; then
-      ignore_patterns="$@"
+journal_ignore_pattern_add() {
+   if [ "$journal_ignore_patterns_list" = "" ]; then
+      journal_ignore_patterns_list="$@"
    else
-      ignore_patterns+="|"
-      ignore_patterns+="$@"
+      journal_ignore_patterns_list+="|"
+      journal_ignore_patterns_list+="$@"
    fi
 }
 
@@ -114,63 +114,30 @@ check_journal() {
 
    leaprun read-journalctl-logs | tee --append -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
 
-   local pattern_list
-   pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
+   local journal_search_pattern_list
+   journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
 
    if [ "$qubes_detected" = "true" ]; then
-      ignore_pattern_add "virtualbox"
+      journal_ignore_pattern_add "virtualbox"
    fi
 
-   ignore_pattern_add "obsolete config item"
-   ignore_pattern_add "Tor bootstrap not done"
-   ignore_pattern_add "FocusIn: Window .* data not initialized"
-   ignore_pattern_add "DEBCONF_NOWARNINGS"
-   ignore_pattern_add "Fast TSC calibration failed"
-   ignore_pattern_add "swapon failed: Device or resource busy"
-   ignore_pattern_add "ACPI: _OSC evaluation for CPUs failed"
-   ignore_pattern_add "Failed to retrieve the maximum number of cpus"
-   ignore_pattern_add "Could not attach device: Failed to open device '/sys/devices/platform/pcspkr/input/"
-   ignore_pattern_add "Failed to connect to bus"
-   ignore_pattern_add "Tor Consensus Time"
-   ignore_pattern_add "WARNING: Could not determine Tor consensus time middle range."
-   ignore_pattern_add "failed_urls: .* allowed_failures"
-   ignore_pattern_add "No handler or method for GPE"
-   ignore_pattern_add "error while preloading HID BPF dispatcher"
-   ignore_pattern_add "AT-SPI: Error retrieving accessibility bus address"
-   ignore_pattern_add "WM_HINTS"
-   ignore_pattern_add "WM_NORMAL_HINTS"
-   ignore_pattern_add "Connection unexpectedly closed"
-   ignore_pattern_add "XGetWindowAttributes"
-   ignore_pattern_add "WARNING handle_focus: FocusOut: Window"
-   ignore_pattern_add "Failed to get window dump for window"
-   ignore_pattern_add "kernel:  warn_alloc"
-   ignore_pattern_add "RAS: Correctable Errors collector initialized."
-   ignore_pattern_add "gcc /usr/src/sdwdate/sclockadj.c -o /usr/libexec/sdwdate/sclockadj"
-   ignore_pattern_add "kernel: xen-balloon: vmemmap alloc failure:"
-   ignore_pattern_add "Failed to load the 'mdraid' libblockdev plugin"
-   ignore_pattern_add "failed to load module mdraid: libbd_mdraid.so.2: cannot open shared object file: No such file or directory"
-   ignore_pattern_add "kernel.panic_on_warn"
-   ignore_pattern_add "Tor reports: WARN"
-   ignore_pattern_add "read-systemctl-logs-failed-units"
-   ignore_pattern_add "can't connect to the SCdaemon: IPC connect call failed"
-   ignore_pattern_add "Discarding this circuit."
-
-   ## https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1076861
-   ignore_pattern_add "wireplumber.service: Bound to unit pipewire.service, but unit isn't active."
-   ignore_pattern_add "Dependency failed for wireplumber.service - Multimedia Service Session Manager."
-   ignore_pattern_add "wireplumber.service: Job wireplumber.service/start failed with result 'dependency'."
-   # false positives
-   ignore_pattern_add "audit\\[[0-9]*\\]: CRED_.* res=success"
-   ignore_pattern_add "AVC apparmor=\"ALLOWED\""
-   ignore_pattern_add "INFO.*Whonix firewall timesync-fail-closed mode"
-   ignore_pattern_add "audit: CONFIG_CHANGE op=set audit_failure=1"
-
-   grep -Ei  "$pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
+   grep -Ei  "$journal_search_pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
 
    ## Output by 'apparmor-info' is already de-duplicated.
    leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_matched.txt" >/dev/null || true
 
-   grep -vEi "$ignore_patterns" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
+   local counter patterns
+   counter=0
+
+   IFS='|' read -ra patterns <<< "$journal_ignore_patterns_list"
+
+   for journal_ignore_pattern_item in "${patterns[@]}"; do
+      counter=$(( counter + 1 ))
+      ## Debugging.
+      echo "$counter: '$journal_ignore_pattern_item'" >/dev/null
+   done
+
+   grep -vEi "$journal_ignore_patterns_list" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
 
    br_add_to_file "$TEMP_DIR/journalctl_filtered.txt"
 

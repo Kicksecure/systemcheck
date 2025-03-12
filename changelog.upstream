@@ -1,3 +1,53 @@
+commit fb805fa0965d031c635a478d33efcd24b80f96ca
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 12 13:08:35 2025 -0400
+
+    debugging
+
+commit 58b3a302359abe85ed9c80e78ad57747e4b6f9ca
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 12 13:00:28 2025 -0400
+
+    refactoring
+
+commit 415e1a6e68cb0d0b20c54e674be8689a5e385e39
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 12 12:59:37 2025 -0400
+
+    fix
+
+commit 4d9ac299d08ecd1de737f57406d6d246d6e0b4ee
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 12 16:55:56 2025 +0000
+
+    bumped changelog version
+
+commit 34fdec22cefa15e11b1354c769e92735fa80fb32
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 12 12:50:32 2025 -0400
+
+    add more journal ignore patterns
+
+commit 0091b8ca2904a60d6c112b5c08ecd68dfdc3291b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 12 12:43:07 2025 -0400
+
+    move journal ignore pattern to configuration
+    
+    https://forums.whonix.org/t/systemcheck-fails-for-unclear-reason/21424/9
+
+commit 22d09ba941c36cd66d562db1b8dbb03a29d30e55
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 12 12:39:57 2025 -0400
+
+    refactoring
+
+commit d403f033e3aec82c535eafa125e28ca97b6610a3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 10 09:21:36 2025 +0000
+
+    bumped changelog version
+
 commit 5fe85b68652ea2f50434d6a0cccd3af6ec416666
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 10 04:43:20 2025 -0400
