@@ -94,11 +94,11 @@ br_add_to_file() {
 }
 
 journal_ignore_pattern_add() {
-   if [ "$journal_ignore_patterns" = "" ]; then
-      journal_ignore_patterns="$@"
+   if [ "$journal_ignore_patterns_list" = "" ]; then
+      journal_ignore_patterns_list="$@"
    else
-      journal_ignore_patterns+="|"
-      journal_ignore_patterns+="$@"
+      journal_ignore_patterns_list+="|"
+      journal_ignore_patterns_list+="$@"
    fi
 }
 
@@ -126,7 +126,18 @@ check_journal() {
    ## Output by 'apparmor-info' is already de-duplicated.
    leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_matched.txt" >/dev/null || true
 
-   grep -vEi "$journal_ignore_patterns" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
+   local counter patterns
+   counter=0
+
+   IFS='|' read -ra patterns <<< "$journal_ignore_patterns_list"
+
+   for journal_ignore_pattern_item in "${patterns[@]}"; do
+      counter=$(( counter + 1 ))
+      ## Debugging.
+      echo "$counter: '$journal_ignore_pattern_item'" >/dev/null
+   done
+
+   grep -vEi "$journal_ignore_patterns_list" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
 
    br_add_to_file "$TEMP_DIR/journalctl_filtered.txt"
 
