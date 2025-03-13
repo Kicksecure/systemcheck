@@ -29,12 +29,14 @@ for more information."
       for user in "${user_list[@]}"; do
          ## User sysmaint requires special handling.
          if [ "${user}" = 'sysmaint' ]; then
-            if [ -f /etc/user-sysmaint-split.conf ]; then
-               if grep -q '^sysmaint-autologin=y$' /etc/user-sysmaint-split.conf; then
+            if [ -x /usr/libexec/user-sysmaint-split/sysmaint-boot ]; then
+               if [ "$(/usr/libexec/user-sysmaint-split/sysmaint-boot query-sysmaint-autologin 2>/dev/null)" = 'yes' ]; then
                   echo 'Enabled'
                else
                   echo 'Disabled'
                fi
+            else
+              echo 'Error'
             fi
             continue
          fi
@@ -123,10 +125,12 @@ for more information."
       table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="orange">Absent</font>'}"
       table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
       table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
+      table_settings_gui_entry="${table_settings_gui_entry//'Error'/'<font color="red">Error</font>'}"
       table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
       table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${yellow}Absent${nocolor}"}"
       table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
       table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
+      table_settings_cli_entry="${table_settings_cli_entry//'Error'/"${red}Error${nocolor}"}"
       table_settings_gui+=( "${table_settings_gui_entry}" )
       table_settings_cli+=( "${table_settings_cli_entry}" )
    done
