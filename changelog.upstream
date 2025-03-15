@@ -1,3 +1,22 @@
+commit e846a67bbebeae92ce00777c1223f8a4da346fad
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 15 06:21:07 2025 -0400
+
+    improved error handling
+
+commit a1f876c2cfdbbcb54e6471df5760d7a2034f242d
+Merge: 6b9954c daf659e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 15 06:19:57 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/autologin'
+
+commit 6b9954c9c5727fca6fcce7cf277b048167d8cf8b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 14 09:03:48 2025 +0000
+
+    bumped changelog version
+
 commit d3b563d900d1b62e98b7eedf210956492e02c174
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Mar 14 04:59:31 2025 -0400
@@ -15,6 +34,19 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Mar 14 03:27:37 2025 -0400
 
     add more journal ignore patterns
+
+commit daf659ec977dca7fe57c0af2215921adf33c5f14
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Mar 12 19:14:53 2025 -0500
+
+    Adjust to work with helper-scripts and user-sysmaint-split refactors
+
+commit 6f7eaaa7eb1d6d77d5949efdcb848709678a8564
+Merge: fd48928 a9d6a21
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Mar 12 15:16:58 2025 -0500
+
+    Merge branch 'master' into arraybolt3/autologin
 
 commit a9d6a21bad9c6764e6d4edaa52f6d7b3d6399c88
 Author: Patrick Schleizer <adrelanos@whonix.org>
@@ -65,6 +97,13 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Mar 12 12:39:57 2025 -0400
 
     refactoring
+
+commit fd48928f7fc8f76e85989801f7200ca738d071ca
+Merge: fb501a9 d403f03
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Mar 10 14:56:41 2025 -0500
+
+    Merge branch 'master' into arraybolt3/autologin
 
 commit d403f033e3aec82c535eafa125e28ca97b6610a3
 Author: Patrick Schleizer <adrelanos@whonix.org>
@@ -133,6 +172,12 @@ Date:   Sat Mar 8 21:29:13 2025 +0100
     Ignore false positive log messages
     
     https://forums.whonix.org/t/systemcheck-fails-for-unclear-reason/21424/2
+
+commit fb501a9f62210f2485dea83f6b7d27dc783a389f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Mar 6 21:28:49 2025 -0600
+
+    Add check_login_security step, fix running systemcheck under sysmaint mode
 
 commit d9045df3b26868f3ec3ab4b5a516ed2e7ab84495
 Author: Patrick Schleizer <adrelanos@whonix.org>
