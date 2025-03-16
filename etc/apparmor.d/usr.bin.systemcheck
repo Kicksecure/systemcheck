@@ -204,6 +204,7 @@ include <tunables/global>
   /usr/libexec/uwt/uwtwrapper rix,
   /usr/local/etc/torrc.d/ r,
   /usr/local/etc/torrc.d/* r,
+  /usr/sbin/autologinchange rix,
   /usr/sbin/anondate rix,
   /usr/sbin/apparmor-info rix,
   /usr/sbin/pam-tmpdir-helper mrix,
