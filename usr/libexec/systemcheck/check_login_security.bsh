@@ -10,9 +10,14 @@ check_login_security() {
       longest_username_len user table_user_barrier_entry \
       table_user_space_entry counter table_users table_settings_gui \
       table_settings_cli table_users_entry table_settings_gui_entry \
-      table_settings_cli_entry table_str_gui table_str_cli
+      table_settings_cli_entry table_str_gui table_str_cli user_list_str \
+      password_status_list_str
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+   if [ -f '/usr/share/qubes/marker-vm' ]; then
+      true "Qubes VM detected. Skipping $FUNCNAME."
       return 0
    fi
 
@@ -23,31 +28,29 @@ in the System Maintenance Panel. See
 <a href=\"https://www.kicksecure.com/wiki/Sysmaint\">https://www.kicksecure.com/wiki/Sysmaint</a>
 for more information."
    local base_msg_cli="${base_msg_gui}"
-   readarray -t user_list < <(/usr/libexec/helper-scripts/get-user-list)
-   readarray -t password_status_list < <(leaprun get-password-status-list)
-   readarray -t autologin_status_list < <(
-      for user in "${user_list[@]}"; do
-         ## User sysmaint requires special handling.
-         if [ "${user}" = 'sysmaint' ]; then
-            if [ -x /usr/libexec/user-sysmaint-split/sysmaint-boot ]; then
-               if [ "$(/usr/libexec/user-sysmaint-split/sysmaint-boot query-sysmaint-autologin 2>/dev/null)" = 'yes' ]; then
-                  echo 'Enabled'
-               else
-                  echo 'Disabled'
-               fi
-            else
-              echo 'Error'
-            fi
-            continue
-         fi
-
-         if grep -qr "^autologin-user=\s*${user}$" /etc/lightdm; then
-            echo 'Enabled'
+   user_list_str="$(/usr/libexec/helper-scripts/get-user-list)"
+   readarray -t user_list <<< "$user_list_str"
+   password_status_list_str="$(leaprun get-password-status-list)"
+   readarray -t password_status_list <<< "$password_status_list_str"
+   autologin_status_list=()
+   for user in "${user_list[@]}"; do
+      ## Account 'sysmaint' requires special handling if sysmaint-boot is
+      ## available.
+      if [ "${user}" = 'sysmaint' ] && [ -x /usr/libexec/user-sysmaint-split/sysmaint-boot ]; then
+         if [ "$(/usr/libexec/user-sysmaint-split/sysmaint-boot query-sysmaint-autologin 2>/dev/null)" = 'yes' ]; then
+            autologin_status_list+=( 'Enabled' )
          else
-            echo 'Disabled'
+            autologin_status_list+=( 'Disabled' )
          fi
-      done
-   )
+         continue
+      fi
+
+      if /usr/sbin/autologinchange -c "${user}" ; then
+         autologin_status_list+=( 'Enabled' )
+      else
+         autologin_status_list+=( 'Disabled' )
+      fi
+   done
 
    ## Format the retrieved info into a convenient table.
    ## The table is formatted like this:
