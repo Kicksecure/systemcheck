@@ -1,3 +1,22 @@
+commit 37d7da6a629b3059b2495aa2a7c134eabda70a69
+Merge: 84095e4 2f4ad80
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 17 05:03:49 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/autologin'
+
+commit 2f4ad805b2820d784f79677603127db17de8f064
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Mar 16 13:43:57 2025 -0500
+
+    Bugfixes and refactoring
+
+commit 84095e4bbcf4d5b32e25bf39b39f7dc1dc5c3671
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Mar 16 10:37:54 2025 +0000
+
+    bumped changelog version
+
 commit 08302231dec31b514bb248b5cd04fd51c9fb76ab
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Mar 16 06:36:57 2025 -0400
