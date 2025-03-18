@@ -51,8 +51,8 @@ check_warrant_canary() {
     local canary_recommendation="\
 See folder <code>/var/lib/canary/</code>.
 <br />
-* <code>/var/lib/canary/canary-download-output.txt</code>
-* <code>/var/lib/canary/canary.txt.embed.sig</code>
+* <code>/var/lib/canary/canary-download-output.txt</code><br />
+* <code>/var/lib/canary/canary.txt.embed.sig</code><br />
 <br />
 Check system clock. Recommended to check warrant canary manually."
 
