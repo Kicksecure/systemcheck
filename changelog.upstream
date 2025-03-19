@@ -1,3 +1,22 @@
+commit ca265a830e485231ca5adf3c5fa7cb65609a3813
+Merge: 2a125a2 5cf7818
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 19 07:29:13 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/autologin'
+
+commit 5cf78182ecc183071f02f7dad514fdf04b4bfc11
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Mar 18 17:58:42 2025 -0500
+
+    Improve login security table
+
+commit 2a125a22343094116874ae3757a608ef0abf28e1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 18 11:21:25 2025 +0000
+
+    bumped changelog version
+
 commit 5063c1d9b50b4577aa44839586ab097445853f4f
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Mar 18 07:21:05 2025 -0400
