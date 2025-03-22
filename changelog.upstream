@@ -1,3 +1,15 @@
+commit 56efef4ee40b6c7bc81d0bc19a09e5184eba4170
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 22 08:47:05 2025 -0400
+
+    OCSP is deprecated upstream
+
+commit 01d52030f519db0f9155036b9358f62941d435ca
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 19 11:30:27 2025 +0000
+
+    bumped changelog version
+
 commit ca265a830e485231ca5adf3c5fa7cb65609a3813
 Merge: 2a125a2 5cf7818
 Author: Patrick Schleizer <adrelanos@whonix.org>
