@@ -25,7 +25,7 @@ check_login_security() {
 XXX_LOGIN_SEC_TABLE_XXX
 <p>You can adjust these settings using \"Manage Passwords\" and \"Manage GUI Autologin\"
 in the System Maintenance Panel. See
-<a href=\"https://www.kicksecure.com/wiki/Sysmaint\">https://www.kicksecure.com/wiki/Sysmaint</a>
+<a href=\"https://www.kicksecure.com/wiki/Login\">https://www.kicksecure.com/wiki/Login</a>
 for more information."
    local base_msg_cli="${base_msg_gui}"
    user_list_str="$(/usr/libexec/helper-scripts/get-user-list)"
@@ -60,8 +60,8 @@ for more information."
    ## +----------+--------------------------+
    ## | aaron    | Present    Disabled      |
    ## | user     | Absent     Disabled      |
-   ## | bob      | Absent     Enabled       |   
-   ## | sysmaint | Absent     Enabled       |   
+   ## | bob      | Absent     Enabled       |
+   ## | sysmaint | Absent     Enabled       |
    ## +----------+--------------------------+
    ##
    ## The table is generated line by line. The table is divided vertically
@@ -81,7 +81,7 @@ for more information."
    ## +-------
    ## | Users
    ## +-------
-   ## | ...  
+   ## | ...
    ## +-------
    ##
    ## (Note that it does NOT include the separator line on the right, as that
