@@ -1,3 +1,22 @@
+commit 87a977bb44110c8338c0e0e7f392e9cc0af45233
+Merge: 06fa0bd 122ff34
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 26 04:39:35 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/login-security'
+
+commit 122ff3471ce39e7752351cef476a66fe5786b737
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Mar 25 23:25:34 2025 -0500
+
+    Clean up trailing whitespace, point to the login wiki page in check_login_security rather than the sysmaint page
+
+commit 06fa0bd6757b9fd64f416d6fbf6b3e7667717290
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 22 12:48:36 2025 +0000
+
+    bumped changelog version
+
 commit 56efef4ee40b6c7bc81d0bc19a09e5184eba4170
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Mar 22 08:47:05 2025 -0400
