@@ -1,0 +1,24 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+set -o errexit
+set -o nounset
+set -o errtrace
+set -o pipefail
+
+systemd-notify --pid="$$" --ready
+
+while true; do
+   echo "$0: INFO: start."
+   systemd-notify --pid="$$" WATCHDOG=1
+
+   /usr/libexec/systemcheck/updatecheck
+
+   systemd-notify --pid="$$" WATCHDOG=1
+   echo "$0: INFO: end."
+
+   ## 6 hours
+   sleep 21600
+done
