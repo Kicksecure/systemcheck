@@ -111,12 +111,9 @@ $canary_recommendation</p>"
       fi
    fi
 
+   local actual_string_length
    local max_string_length=10
-   ## sets:
-   ## actual_string_length
-   ## sanitize_variable_output
-   sanitize_variable "$canary_signed_unixtime_raw"
-   local canary_signature_unixtime_sanetized="$sanitize_variable_output"
+   actual_string_length="${#canary_signed_unixtime_raw}"
 
    if [ ! "$actual_string_length" = "$max_string_length" ]; then
       local MSG="<p><b>$warrant_canary_check_link: Unexpected string length of <code>canary_signed_unixtime_raw</code> variable</b> (expected: <code>$actual_string_length</code> max: <code>$max_string_length</code>).
@@ -129,6 +126,9 @@ $canary_recommendation</p>"
       fi
       return 0
    fi
+
+   local canary_signature_unixtime_sanetized
+   canary_signature_unixtime_sanetized="$(max_string_length=10 sanitize_variable "$canary_signed_unixtime_raw")"
 
    if [[ "$canary_signature_unixtime_sanetized" != *[!0-9]* ]]; then
       true "$FUNCNAME: canary_signature_unixtime_sanetized is strictly numeric."
