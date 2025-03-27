@@ -1,3 +1,69 @@
+commit 59c3fa1ff9cb0f0b209615c53e1230629083d487
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 07:23:19 2025 -0400
+
+    apparmor
+
+commit 047906003191026a7f49cc8d3961354546ea35b0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 07:14:53 2025 -0400
+
+    refactoring
+
+commit 127bc33ee440e00e78d3a138594a1cca084dff89
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 06:46:37 2025 -0400
+
+    end-of-options
+
+commit 074f0e4646c8c9884d0c95dc872160b0a28dea44
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 06:44:34 2025 -0400
+
+    quotes
+
+commit a66af3b20bf5aa9f5d6af9d866eef7005d1ce7e4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 06:26:49 2025 -0400
+
+    end-of-options
+
+commit fb4addef6320ae1b0e8b841709c84be923b28bd3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 06:22:19 2025 -0400
+
+    output
+
+commit d9ff1b0ef8ceb3416fa150ee7ca0c9b2d83b5716
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 06:11:48 2025 -0400
+
+    output
+
+commit e38ba0f3a597bf8ec1c609286a3dcc7834e068f0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 05:49:07 2025 -0400
+
+    improve live mode detection
+
+commit a7032a454f1b0a276bc875d50281b4c3b1ea5d9c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 05:09:14 2025 -0400
+
+    improve live mode detection
+
+commit 378fd3bb255426814f8cec492e0c8deeaddfdd19
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 05:07:07 2025 -0400
+
+    output
+
+commit a79d0e2b06f1ae6386242a4fa1281e12d20fa6ee
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 08:44:01 2025 +0000
+
+    bumped changelog version
+
 commit a99a05e4689b10499bcd9b58483a42888a58c53d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Mar 27 04:20:15 2025 -0400
