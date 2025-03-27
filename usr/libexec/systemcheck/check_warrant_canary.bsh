@@ -80,7 +80,9 @@ Check system clock. Recommended to check warrant canary manually."
         local MSG="\
 <p>$warrant_canary_check_link: file <code>/var/lib/canary/canary-unixtime.txt</code> does not exist yet.
 <br />
-$canary_recommendation</p>"
+$canary_recommendation<br />
+<br />
+If this warning happens only after boot or is transient it can be safely ignored.</p>"
         if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
