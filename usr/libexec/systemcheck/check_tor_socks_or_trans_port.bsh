@@ -157,7 +157,7 @@ check_tor_socks_or_trans_port() {
    local tor_detected check_tor_out_file_content
    tor_detected="Unknown"
 
-   check_tor_out_file_content="$(cat $TEMP_DIR/$CHECK_TOR_OUT_FILE)"
+   check_tor_out_file_content="$(cat "$TEMP_DIR/$CHECK_TOR_OUT_FILE")"
    ## read by sanitize_variable
    ## An IPv6 IP is 39 characters long. Add a few for more for the "[ ]" and...?
    max_string_length="50"
