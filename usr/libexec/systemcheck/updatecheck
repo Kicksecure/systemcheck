@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+set -o errexit
+set -o nounset
+set -o errtrace
+set -o pipefail
+
+leaprun apt-get-update || true
+update_package_count="$(apt list --upgradable | wc -l)" || true
+(( update_package_count-- )) || true
+
+if (( update_package_count > 0 )); then
+   update_notify_title='Software updates available'
+   update_notify_body="${update_package_count}"
+   if (( update_package_count > 1 )); then
+      update_notify_body+=' packages have'
+   else
+      update_notify_body+=' package has'
+   fi
+   update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
+
+   notify-send --app-name='updatecheck' "${update_notify_title}" "${update_notify_body}" || true
+fi
