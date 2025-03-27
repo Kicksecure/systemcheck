@@ -58,7 +58,7 @@ See folder <code>/var/lib/canary/</code>.
 <br />
 Check system clock. Recommended to check warrant canary manually."
 
-    if ! leaprun check-warrant-canary &>/dev/null ; then
+    if ! leaprun -- check-warrant-canary &>/dev/null ; then
         local MSG="\
 <p>$warrant_canary_check_link: systemd unit <code>canary</code> not running.</p>"
         if [ "$verbose" -ge "1" ]; then
@@ -92,14 +92,14 @@ If this warning happens only after boot or is transient it can be safely ignored
     fi
 
     local canary_unixtime_file_owner
-    canary_unixtime_file_owner=$(stat -c "%U" "/var/lib/canary/canary-unixtime.txt")
+    canary_unixtime_file_owner=$(stat -c "%U" -- "/var/lib/canary/canary-unixtime.txt")
     if [ ! "$canary_unixtime_file_owner" = "canary" ]; then
       canary_folder_permission_issues
       return 0
     fi
 
    local canary_signed_unixtime_raw
-   if ! canary_signed_unixtime_raw="$(timeout --kill-after="5" "5" cat "/var/lib/canary/canary-unixtime.txt")" ; then
+   if ! canary_signed_unixtime_raw="$(timeout --kill-after="5" "5" cat -- "/var/lib/canary/canary-unixtime.txt")" ; then
       local MSG="\
 <p>$warrant_canary_check_link: timeout reading file <code>/var/lib/canary/canary-unixtime.txt</code>.
 <br />
@@ -147,7 +147,7 @@ $canary_recommendation</p>"
 
    local canary_download_unixtime canary_download_human_readable
    if [ -f /var/lib/canary/canary_last_done ]; then
-      canary_download_unixtime="$(cat /var/lib/canary/canary_last_done)" || true
+      canary_download_unixtime="$(cat -- /var/lib/canary/canary_last_done)" || true
       canary_download_human_readable="$(date --utc --date "@${canary_download_unixtime}")" || true
    fi
 
