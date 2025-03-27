@@ -3,6 +3,8 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+source /usr/libexec/helper-scripts/live-mode.sh
+
 canary_folder_permission_issues() {
    local MSG="\
 <p>$warrant_canary_check_link: Folder <code>/var/lib/canary</code> permissions issue.</p>"
@@ -38,7 +40,7 @@ check_warrant_canary() {
         return 0
     fi
 
-   if grep -qs "boot=live" /proc/cmdline; then
+   if [ "$live_status_detected" = 'true' ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in live mode, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
