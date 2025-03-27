@@ -17,7 +17,7 @@ canary_folder_permission_issues() {
 
 check_warrant_canary() {
     local warrant_canary_check_link="\
-<a href=https://www.whonix.org/wiki/Whonixcheck#Warrant_Canary_Check>Warrant Canary Check</a>"
+<a href=https://www.whonix.org/wiki/Systemcheck#Warrant_Canary_Check>Warrant Canary Check</a>"
 
     source /usr/libexec/systemcheck/canary-run-or-not
     if [ "$canary_run" = "false" ]; then
