@@ -35,6 +35,14 @@ case "$1" in
 
       ## Add systemcheck to group systemd-journal so it can use journalctl.
       adduser systemcheck systemd-journal
+
+      ## updatecheck no longer uses a systemd WantedBy= line to autostart,
+      ## inform the system of this
+      if [ ! -x "$(command -v systemctl)" ]; then
+         true "INFO: systemctl command unavailable."
+         return 0
+      fi
+      systemctl --global disable updatecheck.service
    ;;
 
    abort-upgrade|abort-remove|abort-deconfigure)

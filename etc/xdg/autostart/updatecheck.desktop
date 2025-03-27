@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=System update checker
+Exec=systemctl --user start updatecheck.service
+StartupNotify=false
+NoDisplay=true
