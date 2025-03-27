@@ -14,6 +14,8 @@ error_handler() {
 
 trap "error_handler" ERR
 
+source /usr/libexec/helper-scripts/live-mode.sh
+
 canary_preparation() {
     source /usr/libexec/systemcheck/canary-run-or-not
     if [ "$canary_run" = "false" ]; then
@@ -139,7 +141,7 @@ canary_completed() {
 }
 
 canary_count_or_not() {
-   if grep -qs "boot=live" /proc/cmdline; then
+   if [ "$live_status_detected" = "true" ]; then
       echo "INFO: Skip in live mode."
       exit 0
    fi
