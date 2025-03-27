@@ -135,6 +135,7 @@ include <tunables/global>
   /run/tor/tor.pid r,
   /run/utmp rk,
   /usr/bin/safe-rm rix,
+  /usr/bin/stecho rix,
   /usr/sbin/getcap rix,
   /usr/sbin/ifconfig rix,
   /usr/sbin/start-stop-daemon rix,
