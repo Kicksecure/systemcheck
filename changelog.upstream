@@ -1,3 +1,64 @@
+commit e95c1df56a7df32c8b02b6bae372078eec043f48
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 10:07:31 2025 -0400
+
+    local
+
+commit f521d286f081e4059c4ba39f6cfe2e83c87920a5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 10:06:21 2025 -0400
+
+    refactoring
+
+commit cbb23a6cca01431f823cc66b3d9a9a1310e48c7c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 10:03:44 2025 -0400
+
+    refactoring
+
+commit e13404ecf7e8dbe0e542e502a15935b8c481ea17
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 09:58:31 2025 -0400
+
+    harden max string length
+
+commit d450f17f1aff81b598dfa491415bd761f22560aa
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 09:24:19 2025 -0400
+
+    comment
+
+commit b6272835b288733639b34896ed05971c899e84c2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 09:21:40 2025 -0400
+
+    refactoring
+
+commit e5933b11884da2f7c099650a0c01d272fe9d3c6f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 09:17:18 2025 -0400
+
+    refactoring
+
+commit 8fb6e2c2f9a9fa4fc6698069b84e56c6845e9407
+Merge: c7ff492 7810fb8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 09:10:53 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/fix-updatecheck'
+
+commit 7810fb8ac4738f4dfb0636c4c3a0f86a3f12990e
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Mar 27 18:50:26 2025 -0500
+
+    Prevent updatecheck from running in sysmaint sessions
+
+commit c7ff492e893e9c62d4697b3282a7a8dbc93261c2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 27 12:39:35 2025 +0000
+
+    bumped changelog version
+
 commit 59c3fa1ff9cb0f0b209615c53e1230629083d487
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Mar 27 07:23:19 2025 -0400
