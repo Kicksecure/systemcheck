@@ -128,7 +128,7 @@ $canary_recommendation</p>"
    fi
 
    local canary_signature_unixtime_sanetized
-   canary_signature_unixtime_sanetized="$(max_string_length=10 sanitize_variable "$canary_signed_unixtime_raw")"
+   canary_signature_unixtime_sanetized="$(max_string_length="$max_string_length" sanitize_variable "$canary_signed_unixtime_raw")"
 
    if [[ "$canary_signature_unixtime_sanetized" != *[!0-9]* ]]; then
       true "$FUNCNAME: canary_signature_unixtime_sanetized is strictly numeric."
