@@ -239,6 +239,7 @@ check_tor_socks_or_trans_port() {
       return 0
    fi
 
+   local ip_sanitized
    ip_sanitized="$(max_string_length="$max_string_length" sanitize_variable "$ip_raw")"
 
    ## Store IP for later use in memory.
