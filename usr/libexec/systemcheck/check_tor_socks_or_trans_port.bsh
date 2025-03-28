@@ -205,11 +205,11 @@ check_tor_socks_or_trans_port() {
       fi
    fi
 
-   local json_ip_exit_code ip
+   local json_ip_exit_code ip_raw
    json_ip_exit_code="0"
-   ip="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "import sys, json; print(json.load(sys.stdin)['IP'])")" || { json_ip_exit_code="$?" ; true; };
+   ip_raw="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "import sys, json; print(json.load(sys.stdin)['IP'])")" || { json_ip_exit_code="$?" ; true; };
 
-   ## example ip:
+   ## example ip_raw:
    ## 94.242.204.74
 
    if [ ! "$json_ip_exit_code" = "0" ]; then
@@ -222,7 +222,7 @@ check_tor_socks_or_trans_port() {
    fi
 
    ## Test excessive string length.
-   #ip="Your IP address appears to be: <b>2001:0db8:85a3:0042:1000:8a2e:0370:7334 \$f(do) \`this\` ... xxx ... xxx </b><br>"
+   #ip_raw="Your IP address appears to be: <b>2001:0db8:85a3:0042:1000:8a2e:0370:7334 \$f(do) \`this\` ... xxx ... xxx </b><br>"
 
    ## An IPv6 IP is 45 characters long. Add a few for more for the "[ ]" and...?
    ## https://stackoverflow.com/questions/166132/maximum-length-of-the-textual-representation-of-an-ipv6-address
@@ -232,27 +232,27 @@ check_tor_socks_or_trans_port() {
    actual_string_length="${#ip}"
 
    if [ "$actual_string_length" -gt "$max_string_length" ]; then
-      local MSG="<p><b>$1 Test: Excessive string length of IP variable</b> (<code>$actual_string_length</code> characters).</p>"
+      local MSG="<p><b>$1 Test: Excessive string length of ip_raw variable</b> (<code>$actual_string_length</code> characters).</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
       return 0
    fi
 
-   ip="$(max_string_length="$max_string_length" sanitize_variable "$ip")"
+   ip_sanitized="$(max_string_length="$max_string_length" sanitize_variable "$ip_raw")"
 
    ## Store IP for later use in memory.
    if [ "$1" = "SocksPort" ]; then
-      IP_SOCKS_PORT="$ip"
+      IP_SOCKS_PORT="$ip_sanitized"
    elif [ "$1" = "UpdatesProxy" ]; then
-      IP_UPDATES_PROXY="$ip"
+      IP_UPDATES_PROXY="$ip_sanitized"
    elif [ "$1" = "TransPort" ]; then
-      IP_TRANS_PORT="$ip"
+      IP_TRANS_PORT="$ip_sanitized"
    fi
 
    local ip_show_maybe_text
    if [ "$show_ip" = "true" ]; then
-      ip_show_maybe_text="IP: <code>$ip</code>"
+      ip_show_maybe_text="IP: <code>$ip_sanitized</code>"
    else
       ip_show_maybe_text=""
    fi
