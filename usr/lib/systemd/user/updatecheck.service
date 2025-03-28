@@ -11,6 +11,3 @@ ExecStart=/usr/libexec/systemcheck/updatecheck-daemon
 WatchdogSec=25200
 NotifyAccess=all
 Restart=always
-
-[Install]
-WantedBy=default.target
