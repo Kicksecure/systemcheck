@@ -155,47 +155,49 @@ check_tor_socks_or_trans_port() {
    ## 1 otherwise
    ## 2 if an error occurred
 
-   local tor_detected check_tor_out_file_content
-   tor_detected="Unknown"
+   local tor_detected_raw check_tor_out_file_content_raw
+   tor_detected_raw="Unknown"
 
    local max_string_length
    max_string_length=68
 
-   check_tor_out_file_content="$(cat -- "$TEMP_DIR/$CHECK_TOR_OUT_FILE")"
-   ## example check_tor_out_file_content - in practice:
+   check_tor_out_file_content_raw="$(cat -- "$TEMP_DIR/$CHECK_TOR_OUT_FILE")"
+   ## example check_tor_out_file_content_raw - in practice:
    # {"IsTor":true,"IP":"5.255.99.5"}
-   ## example check_tor_out_file_content - in theory:
+   ## example check_tor_out_file_content_raw - in theory:
    # {"IsTor":true,"IP":"0000:0000:0000:0000:0000:ffff:192.168.100.228"}
    ## Manual testing.
-   #check_tor_out_file_content='{"IsTor":true,"IP":"0000:0000:0000:0000:0000:ffff:192.168.100.228"}'
+   #check_tor_out_file_content_raw='{"IsTor":true,"IP":"0000:0000:0000:0000:0000:ffff:192.168.100.228"}'
 
-   check_tor_out_file_content="$(max_string_length="$max_string_length" sanitize_variable "$check_tor_out_file_content")"
+   local check_tor_out_file_content_sanitized
+   check_tor_out_file_content_sanitized="$(max_string_length="$max_string_length" sanitize_variable "$check_tor_out_file_content_raw")"
 
    if [ "$verbose" -ge "2" ]; then
       local MSG="\
-<p>$FUNCNAME $1: <code>check_tor_out_file_content:</code>
-<blockquote>$check_tor_out_file_content</blockquote></p>"
+<p>$FUNCNAME $1: <code>check_tor_out_file_content_sanitized:</code>
+<blockquote>$check_tor_out_file_content_sanitized</blockquote></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   tor_detected="$(printf "%s" "$check_tor_out_file_content" | python3 -c "import sys, json; print(json.load(sys.stdin)['IsTor'])")" || { tor_detected="$?" ; true; };
-   ## example tor_detected:
+   tor_detected_raw="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "import sys, json; print(json.load(sys.stdin)['IsTor'])")" || { tor_detected_raw="$?" ; true; };
+   ## example tor_detected_raw:
    # True
-   ## example tor_detected:
+   ## example tor_detected_raw:
    # False
    ## example output of python3 in case of an error:
    #Traceback (most recent call last):
    #  File "<string>", line 1, in <module>
    #KeyError: 'name'
 
-   max_string_length="4"
-   tor_detected="$(max_string_length="$max_string_length" sanitize_variable "$tor_detected")"
+   max_string_length="5"
+   local tor_detected_sanitized
+   tor_detected_sanitized="$(max_string_length="$max_string_length" sanitize_variable "$tor_detected_raw")"
 
-   if [ ! "$tor_detected" = "False" ]; then
-      if [ ! "$tor_detected" = "True" ]; then
+   if [ ! "$tor_detected_sanitized" = "False" ]; then
+      if [ ! "$tor_detected_sanitized" = "True" ]; then
          ## an error occurred
-         local MSG="<p>$test_name Result: tor_detected is neither True nor False. $bug_maybe_msg</p>"
+         local MSG="<p>$test_name Result: tor_detected_sanitized is neither True nor False. $bug_maybe_msg</p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
@@ -205,7 +207,7 @@ check_tor_socks_or_trans_port() {
 
    local json_ip_exit_code ip
    json_ip_exit_code="0"
-   ip="$(printf "%s" "$check_tor_out_file_content" | python3 -c "import sys, json; print(json.load(sys.stdin)['IP'])")" || { json_ip_exit_code="$?" ; true; };
+   ip="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "import sys, json; print(json.load(sys.stdin)['IP'])")" || { json_ip_exit_code="$?" ; true; };
 
    ## example ip:
    ## 94.242.204.74
@@ -257,15 +259,15 @@ check_tor_socks_or_trans_port() {
 
    ## Check if connected to Tor or not,
    ## and choose which message to show.
-   if [ "$tor_detected" = "True" ]; then
+   if [ "$tor_detected_sanitized" = "True" ]; then
       ## Tor detected.
 
       if [ "$1" = "SocksPort" ]; then
-         CHECK_TOR_RESULT_SOCKS_PORT="$tor_detected"
+         CHECK_TOR_RESULT_SOCKS_PORT="$tor_detected_sanitized"
       elif [ "$1" = "UpdatesProxy" ]; then
-         CHECK_TOR_RESULT_UPDATES_PROXY="$tor_detected"
+         CHECK_TOR_RESULT_UPDATES_PROXY="$tor_detected_sanitized"
       elif [ "$1" = "TransPort" ]; then
-         CHECK_TOR_RESULT_TRANS_PORT="$tor_detected"
+         CHECK_TOR_RESULT_TRANS_PORT="$tor_detected_sanitized"
       fi
 
       local MSG="<p>$test_name: Connected to Tor. $ip_show_maybe_text</p>"
