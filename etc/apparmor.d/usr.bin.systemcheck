@@ -319,7 +319,7 @@ include <tunables/global>
   @{HOME}/tor-browser_en-US/Docs/sources/versions r,
   @{HOME}/tor-browser_en-US/Docs/version r,
   @{HOME}/.config/safe-rm r,
-  @{HOME}/.sudo_as_admin_successful rwc,
+  @{HOME}/.sudo_as_admin_successful rw,
   @{PROC} r,
   @{PROC}/*/cmdline r,
   @{PROC}/*/mountinfo r,
