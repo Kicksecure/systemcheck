@@ -53,19 +53,25 @@ fi
 ## 'wc' can core dump. Example:
 ## zsh: illegal hardware instruction (core dumped) wc -l
 ## https://github.com/rspamd/rspamd/issues/5137
+true "$0: INFO: Testing wc command..."
 if ! printf "%s" | wc -l ; then
   send_notification_wait_exit "Software updates check failure" "Command 'printf \"%s\" | wc -l' failed."
 fi
 
+true "$0: INFO: Count upgrades using wc command..."
 ## Cannot use 'apt-get list --upgradable' because it leads to error:
 ## > E: Command line option --upgradable is not understood in combination with the other options
 if ! update_package_count="$(LC_ALL=C apt list --upgradable | wc -l)" ; then
   send_notification_wait_exit "Software updates check failure" "Command 'apt list --upgradable' failed."
 fi
 
+if [[ "$update_package_count" = *[!0-9]* ]]; then
+  send_notification_wait_exit "Software updates check failure" "Variable update_package_count is not strictly numeric."
+fi
+
 ## Remove first counted line by 'apt':
 ## > Listing... Done
-(( update_package_count-- )) || true
+(( update_package_count-- ))
 
 if [ "$update_package_count" = "0" ]; then
    true "$0: INFO: No updates available."
