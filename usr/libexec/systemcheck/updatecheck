@@ -16,6 +16,10 @@ close_notification() {
     "$notification_id"
 }
 
+send_notification() {
+  notification_id="$(notify-send --print-id --app-name='updatecheck' -- "$@")" || true
+}
+
 ## TODO:/usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
 leaprun apt-get-update || true
 
@@ -41,4 +45,4 @@ else
 fi
 update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
 
-notification_id="$(notify-send --print-id --app-name='updatecheck' "${update_notify_title}" "${update_notify_body}")" || true
+send_notification "${update_notify_title}" "${update_notify_body}"
