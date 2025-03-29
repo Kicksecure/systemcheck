@@ -29,6 +29,7 @@ send_notification_wait_exit() {
   notification_id="$(notify-send --print-id --wait --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$@")" || true
 
   sleep infinity &
+  ## Listen for signals.
   wait "$!"
   true "$0: end of script: END"
   exit 0
