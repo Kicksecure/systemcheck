@@ -1,3 +1,123 @@
+commit 19ff8ad597e05ddb064b4c5f91b66157ca12acbb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 05:07:49 2025 -0400
+
+    also grep for `Err:`
+
+commit 9302408619d1a418fae864989cbf04f0261272a1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 05:04:46 2025 -0400
+
+    notify if apt-get output contains errors
+
+commit 4321cb4417ef7e3db0574a84b709adb49fcea472
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:53:34 2025 -0400
+
+    comment
+
+commit 1e398b2ab08d5758d62f4f4e570c5ceeaf88c6cc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:52:55 2025 -0400
+
+    check that update_package_count is numeric
+
+commit 46cea2b3f33144c1fee912733b812ba8c20d62e0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:47:23 2025 -0400
+
+    comment
+
+commit ef6165a3f345f2a1c72c6e9725676873062da772
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:45:50 2025 -0400
+
+    handle failures of `apt list --upgradable`
+
+commit 7c8e3fc89b183f54e5902bc01c0b9999d0965d7c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:44:19 2025 -0400
+
+    handle failures of `wc`
+
+commit 4c9efcd1f3fa3d930086596a1cad245c83f029ee
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:39:50 2025 -0400
+
+    handle leaprun apt-get-update failures
+
+commit 2c876f5211f4207b73927ef775e74d7aa1c240c1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:33:42 2025 -0400
+
+    comment
+
+commit 21d8628e5c0c0358644898b19ba487f49f19209c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:33:08 2025 -0400
+
+    fix
+
+commit 90a014336a6074b5dd27e65774114fc14a20ce7a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:31:12 2025 -0400
+
+    LC_ALL=C
+
+commit fe08ead4c2b889a3415a205becf4802b98531372
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:29:34 2025 -0400
+
+    updatecheck: clear old notifications
+
+commit 8674b808559a0a322ddfc1f736fe5e0174914321
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 04:00:54 2025 -0400
+
+    refactoring
+
+commit 053a9791ae36b6b4de5d71e6bef135ba001dde49
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 03:59:01 2025 -0400
+
+    code simplification
+
+commit 1673fcc890e86fe032fe4b0d474718d79a22c999
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 03:55:09 2025 -0400
+
+    todo
+
+commit 47490689b464b4b46177529f61ffc1e221828bd5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 03:42:56 2025 -0400
+
+    minor
+
+commit a3efa03fa4eedde2b0eeabdd9696bdc8c2ec52bc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 03:24:25 2025 -0400
+
+    comment
+
+commit 2fb295e4907f8383354648bb231ea598303eaa84
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 03:23:04 2025 -0400
+
+    apparmor
+
+commit e992dfb1621d90e52e8496c7cb1243e23b2fffb0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 29 03:12:17 2025 -0400
+
+    record notification id
+
+commit c3fcd1eaa0ed4f8496bec8f26bd5d79ae02e9c99
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Mar 28 17:46:48 2025 +0000
+
+    bumped changelog version
+
 commit 70cb6085641b3b93e80a1d31c563bcee677f3053
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Mar 28 13:46:37 2025 -0400
