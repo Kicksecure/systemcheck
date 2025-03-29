@@ -26,5 +26,5 @@ if (( update_package_count > 0 )); then
    fi
    update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
 
-   notify-send --app-name='updatecheck' "${update_notify_title}" "${update_notify_body}" || true
+   notification_id="$(notify-send --print-id --app-name='updatecheck' "${update_notify_title}" "${update_notify_body}")" || true
 fi
