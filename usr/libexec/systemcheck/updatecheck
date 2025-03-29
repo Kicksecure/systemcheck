@@ -23,10 +23,15 @@ close_notification() {
     "$notification_id"
 }
 
-send_notification() {
+send_notification_wait_exit() {
   ## 6 hours
   sleep_milliseconds=$(( $sleep_seconds * 1000 ))
   notification_id="$(notify-send --print-id --wait --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$@")" || true
+
+  sleep infinity &
+  wait "$!"
+  true "$0: end of script: END"
+  exit 0
 }
 
 sigterm_trap() {
@@ -40,7 +45,9 @@ sigterm_trap() {
 trap "sigterm_trap" SIGTERM SIGINT
 
 ## TODO: /usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
-leaprun apt-get-update || true
+if ! leaprun apt-get-update ; then
+  send_notification_wait_exit "Software updates check failure" "Command 'leaprun apt-get-update' failed."
+fi
 
 ## Cannot use 'apt-get list --upgradable' because it leads to error:
 ## > E: Command line option --upgradable is not understood in combination with the other options
@@ -64,8 +71,4 @@ else
 fi
 update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
 
-send_notification "${update_notify_title}" "${update_notify_body}"
-
-sleep infinity &
-wait "$!"
-true "$0: end of script: END"
+send_notification_wait_exit "${update_notify_title}" "${update_notify_body}"
