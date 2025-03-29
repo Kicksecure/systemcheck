@@ -8,6 +8,14 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
+## TODO
+close_notification() {
+  qdbus org.freedesktop.Notifications \
+    /org/freedesktop/Notifications \
+    org.freedesktop.Notifications.CloseNotification \
+    "$notification_id"
+}
+
 ## TODO:/usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
 leaprun apt-get-update || true
 
