@@ -58,7 +58,9 @@ fi
 
 ## Cannot use 'apt-get list --upgradable' because it leads to error:
 ## > E: Command line option --upgradable is not understood in combination with the other options
-update_package_count="$(LC_ALL=C apt list --upgradable | wc -l)" || true
+if ! update_package_count="$(LC_ALL=C apt list --upgradable | wc -l)" ; then
+  send_notification_wait_exit "Software updates check failure" "Command 'apt list --upgradable' failed."
+fi
 
 ## Remove first counted line by 'apt':
 ## > Listing... Done
