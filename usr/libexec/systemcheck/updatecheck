@@ -12,6 +12,11 @@ set -o pipefail
 
 ## TODO
 close_notification() {
+  [[ -v notification_id ]] || notification_id=""
+  if [ "$notification_id" = "" ]; then
+    return 0
+  fi
+
   qdbus org.freedesktop.Notifications \
     /org/freedesktop/Notifications \
     org.freedesktop.Notifications.CloseNotification \
