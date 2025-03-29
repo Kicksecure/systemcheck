@@ -69,7 +69,7 @@ if [[ "$update_package_count" = *[!0-9]* ]]; then
   send_notification_wait_exit "Software updates check failure" "Variable update_package_count is not strictly numeric."
 fi
 
-## Remove first counted line by 'apt':
+## Remove first counted line by 'apt list --upgradable':
 ## > Listing... Done
 (( update_package_count-- ))
 
