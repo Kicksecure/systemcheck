@@ -49,6 +49,13 @@ if ! leaprun apt-get-update ; then
   send_notification_wait_exit "Software updates check failure" "Command 'leaprun apt-get-update' failed."
 fi
 
+## 'wc' can core dump. Example:
+## zsh: illegal hardware instruction (core dumped) wc -l
+## https://github.com/rspamd/rspamd/issues/5137
+if ! printf "%s" | wc -l ; then
+  send_notification_wait_exit "Software updates check failure" "Command 'printf \"%s\" | wc -l' failed."
+fi
+
 ## Cannot use 'apt-get list --upgradable' because it leads to error:
 ## > E: Command line option --upgradable is not understood in combination with the other options
 update_package_count="$(LC_ALL=C apt list --upgradable | wc -l)" || true
