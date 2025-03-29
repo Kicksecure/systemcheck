@@ -27,15 +27,18 @@ update_package_count="$(apt list --upgradable | wc -l)" || true
 ## > Listing... Done
 (( update_package_count-- )) || true
 
-if (( update_package_count > 0 )); then
-   update_notify_title='Software updates available'
-   update_notify_body="${update_package_count}"
-   if (( update_package_count > 1 )); then
-      update_notify_body+=' packages have'
-   else
-      update_notify_body+=' package has'
-   fi
-   update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
-
-   notification_id="$(notify-send --print-id --app-name='updatecheck' "${update_notify_title}" "${update_notify_body}")" || true
+if [ "$update_package_count" = "0" ]; then
+   true "$0: INFO: No updates available."
+   exit 0
 fi
+
+update_notify_title='Software updates available'
+update_notify_body="${update_package_count}"
+if (( update_package_count > 1 )); then
+   update_notify_body+=' packages have'
+else
+   update_notify_body+=' package has'
+fi
+update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
+
+notification_id="$(notify-send --print-id --app-name='updatecheck' "${update_notify_title}" "${update_notify_body}")" || true
