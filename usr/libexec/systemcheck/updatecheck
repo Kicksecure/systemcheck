@@ -10,8 +10,8 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
-## TODO
 close_notification() {
+  ## notification_id might be unset if signal sigterm is received very quickly.
   [[ -v notification_id ]] || notification_id=""
   if [ "$notification_id" = "" ]; then
     return 0
