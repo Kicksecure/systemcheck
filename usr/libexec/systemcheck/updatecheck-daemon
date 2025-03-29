@@ -3,22 +3,53 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## Developer test command:
+#sudo genmkfile install && sleep_seconds=10 bash -x /usr/libexec/systemcheck/updatecheck-daemon
+
+echo "$0: INFO: start."
+
 set -o errexit
 set -o nounset
 set -o errtrace
 set -o pipefail
 
-systemd-notify --pid="$$" --ready
+## 6 hours
+[[ -v sleep_seconds ]] || sleep_seconds="21600"
+export sleep_seconds
+[[ -v NOTIFY_SOCKET ]] || NOTIFY_SOCKET=""
+
+if [ "$NOTIFY_SOCKET" = "" ]; then
+   ## Support manual run from command line.
+   ## I.e. when run not through systemd unit.
+   systemd_notify="true 'INFO: skip because NOTIFY_SOCKET unset. Probably run manually. SKIP: systemd-notify"
+else
+   systemd_notify=systemd-notify
+fi
+
+$systemd_notify --pid="$$" --ready
 
 while true; do
-   echo "$0: INFO: start."
-   systemd-notify --pid="$$" WATCHDOG=1
+   echo "$0: INFO: loop start."
+   $systemd_notify --pid="$$" WATCHDOG=1
 
-   /usr/libexec/systemcheck/updatecheck
+   if [ -o xtrace ]; then
+      bash -x /usr/libexec/systemcheck/updatecheck &
+   else
+      /usr/libexec/systemcheck/updatecheck &
+   fi
 
-   systemd-notify --pid="$$" WATCHDOG=1
-   echo "$0: INFO: end."
+   updatecheck_pid="$!"
 
-   ## 6 hours
-   sleep 21600
+   $systemd_notify --pid="$$" WATCHDOG=1
+
+   sleep "$sleep_seconds"
+
+   if kill -0 -- "$updatecheck_pid"; then
+      kill -s sigterm -- "$updatecheck_pid" 2>/dev/null || true
+   fi
+   sleep 10
+   if kill -0 -- "$updatecheck_pid"; then
+      kill -s sigkill -- "$updatecheck_pid" 2>/dev/null || true
+   fi
+   echo "$0: INFO: loop end."
 done

@@ -3,6 +3,8 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+true "$0: START"
+
 set -o errexit
 set -o nounset
 set -o errtrace
@@ -17,10 +19,22 @@ close_notification() {
 }
 
 send_notification() {
-  notification_id="$(notify-send --print-id --app-name='updatecheck' -- "$@")" || true
+  ## 6 hours
+  sleep_milliseconds=$(( $sleep_seconds * 1000 ))
+  notification_id="$(notify-send --print-id --wait --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$@")" || true
 }
 
-## TODO:/usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
+sigterm_trap() {
+  close_notification
+  true "$0: sigterm_trap: END"
+  exit 0
+}
+
+[[ -v sleep_seconds ]] || sleep_seconds="21600"
+
+trap "sigterm_trap" SIGTERM SIGINT
+
+## TODO: /usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
 leaprun apt-get-update || true
 
 ## Cannot use 'apt-get list --upgradable' because it leads to error:
@@ -46,3 +60,7 @@ fi
 update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
 
 send_notification "${update_notify_title}" "${update_notify_body}"
+
+sleep infinity &
+wait "$!"
+true "$0: end of script: END"

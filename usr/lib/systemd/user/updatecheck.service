@@ -8,6 +8,7 @@ ConditionPathExists=!/usr/share/qubes/marker-vm
 [Service]
 Type=notify
 ExecStart=/usr/libexec/systemcheck/updatecheck-daemon
+## 7 hours.
 WatchdogSec=25200
 NotifyAccess=all
 Restart=always
