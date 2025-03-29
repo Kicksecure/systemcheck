@@ -39,7 +39,7 @@ leaprun apt-get-update || true
 
 ## Cannot use 'apt-get list --upgradable' because it leads to error:
 ## > E: Command line option --upgradable is not understood in combination with the other options
-update_package_count="$(apt list --upgradable | wc -l)" || true
+update_package_count="$(LC_ALL=C apt list --upgradable | wc -l)" || true
 
 ## Remove first counted line by 'apt':
 ## > Listing... Done
