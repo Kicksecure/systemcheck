@@ -8,7 +8,9 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
+## TODO:/usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
 leaprun apt-get-update || true
+
 ## Cannot use 'apt-get list --upgradable' because it leads to error:
 ## > E: Command line option --upgradable is not understood in combination with the other options
 update_package_count="$(apt list --upgradable | wc -l)" || true
