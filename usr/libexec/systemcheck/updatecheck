@@ -41,14 +41,27 @@ sigterm_trap() {
   exit 0
 }
 
+update_output_check() {
+  ## Example update_output:
+  ## > E: Malformed line 1 in source list /etc/apt/sources.list.d/debian.list (type)
+  ## > E: The list of sources could not be read.
+  if printf '%s' "$update_output" | grep --quiet --ignore-case -E -- '^Error:|^E:'; then
+    send_notification_wait_exit "Software updates check failure" "Output of command 'leaprun apt-get-update' contained error messages."
+  fi
+}
+
 [[ -v sleep_seconds ]] || sleep_seconds="21600"
 
 trap "sigterm_trap" SIGTERM SIGINT
 
 ## TODO: /usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
-if ! leaprun apt-get-update ; then
-  send_notification_wait_exit "Software updates check failure" "Command 'leaprun apt-get-update' failed."
+if ! update_output="$(leaprun apt-get-update 2>&1)" ; then
+  update_output_check
+  send_notification_wait_exit "Software updates check failure" "Command 'leaprun apt-get-update' failed (non-zero exit code)."
 fi
+
+## 'leaprun apt-get-update' might exit 0 but update_output might still contain errors.
+update_output_check
 
 ## 'wc' can core dump. Example:
 ## zsh: illegal hardware instruction (core dumped) wc -l
