@@ -45,7 +45,10 @@ update_output_check() {
   ## Example update_output:
   ## > E: Malformed line 1 in source list /etc/apt/sources.list.d/debian.list (type)
   ## > E: The list of sources could not be read.
-  if printf '%s' "$update_output" | grep --quiet --ignore-case -E -- '^Error:|^E:'; then
+  ##
+  ## Err:4 http://HTTPS///fasttrack.debian.net/debian bullseye-fasttrack InRelease
+  ## 500  SSL error: wrong version number [IP: 127.0.0.1 3142]
+  if printf '%s' "$update_output" | grep --quiet --ignore-case -E -- '^Error:|^E:|^Err:'; then
     send_notification_wait_exit "Software updates check failure" "Output of command 'leaprun apt-get-update' contained error messages."
   fi
 }
