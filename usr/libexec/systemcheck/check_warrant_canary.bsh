@@ -21,26 +21,26 @@ check_warrant_canary() {
 
    ## same conditions as in /usr/libexec/systemcheck/canary
 
-    source /usr/libexec/systemcheck/canary-run-or-not
-    if [ "$canary_run" = "false" ]; then
-        local MSG="\
+   source /usr/libexec/systemcheck/canary-run-or-not
+   if [ "$canary_run" = "false" ]; then
+      local MSG="\
 <p>$warrant_canary_check_link: Disabled in settings. Doing nothing. Skipping.</p>"
-        if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-        fi
-        return 0
-    fi
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+         return 0
+   fi
 
-    if [ "$vm_lower_case_short" = "workstation" ]; then
-        local MSG="\
+   if [ "$vm_lower_case_short" = "workstation" ]; then
+      local MSG="\
 <p>$warrant_canary_check_link: Skipping on $VM, ok.</p>"
-        if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-        fi
-        return 0
-    fi
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
 
    if [ "$live_status_detected" = 'true' ]; then
       local MSG="\
