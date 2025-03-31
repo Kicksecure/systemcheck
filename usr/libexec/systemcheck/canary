@@ -9,12 +9,12 @@ error_handler() {
 }
 
 canary_preparation() {
-    source /usr/libexec/helper-scripts/live-mode.sh
-    source /usr/libexec/systemcheck/canary-run-or-not
-    if [ "$canary_run" = "false" ]; then
-       echo "INFO: Disabled in settings. Doing nothing. Exiting."
-       exit 0
-    fi
+   source /usr/libexec/helper-scripts/live-mode.sh
+   source /usr/libexec/systemcheck/canary-run-or-not
+   if [ "$canary_run" = "false" ]; then
+      echo "INFO: Disabled in settings. Doing nothing. Exiting."
+      exit 0
+   fi
 
    if [ ! "$(whoami)" = "canary" ]; then
       echo "ERROR: Exiting. Must be run under user 'canary'."
