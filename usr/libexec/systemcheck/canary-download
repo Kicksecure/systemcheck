@@ -4,6 +4,7 @@
 # Copyright (C) 2015 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 # See the file COPYING for copying conditions.
 
+## Test script:
 # !/bin/bash
 # Test.
 # timeout --kill-after 1 1 cat /dev/random
