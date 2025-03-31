@@ -3,20 +3,13 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-#set -x
-set -e
-set -o pipefail
-
 error_handler() {
    echo "ERROR: BASH_COMMAND: $BASH_COMMAND | exit_code: $?"
    exit 1
 }
 
-trap "error_handler" ERR
-
-source /usr/libexec/helper-scripts/live-mode.sh
-
 canary_preparation() {
+    source /usr/libexec/helper-scripts/live-mode.sh
     source /usr/libexec/systemcheck/canary-run-or-not
     if [ "$canary_run" = "false" ]; then
        echo "INFO: Disabled in settings. Doing nothing. Exiting."
@@ -205,3 +198,11 @@ canary_main() {
 }
 
 canary_main
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+   set -x
+   set -e
+   set -o pipefail
+   trap "error_handler" ERR
+   canary_main
+fi
