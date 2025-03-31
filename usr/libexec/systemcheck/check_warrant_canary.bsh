@@ -19,6 +19,8 @@ check_warrant_canary() {
     local warrant_canary_check_link="\
 <a href=https://www.whonix.org/wiki/Systemcheck#Warrant_Canary_Check>Warrant Canary Check</a>"
 
+   ## same conditions as in /usr/libexec/systemcheck/canary
+
     source /usr/libexec/systemcheck/canary-run-or-not
     if [ "$canary_run" = "false" ]; then
         local MSG="\
@@ -43,6 +45,26 @@ check_warrant_canary() {
    if [ "$live_status_detected" = 'true' ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in live mode, ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   if test -f /run/qubes/this-is-templatevm ; then
+      local MSG="\
+<p>$warrant_canary_check_link: Skipping in Template, ok.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
+
+   if [ "$qubes_vm_persistence" = "none" ]; then
+      local MSG="\
+<p>$warrant_canary_check_link: Skipping in DispVM, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
