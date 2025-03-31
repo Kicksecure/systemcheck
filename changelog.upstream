@@ -1,3 +1,15 @@
+commit 7bba06882c8ffd206afc918675115ecd1385a2f4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 12:06:23 2025 -0400
+
+    add more ignore patterns
+
+commit b522ffe724fc32659866d1e7b6bc8e5c5963b098
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 15:45:22 2025 +0000
+
+    bumped changelog version
+
 commit ac7e4a0b9529d3d0de0a588d8c5d6fcf77aaded3
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 31 11:45:08 2025 -0400
