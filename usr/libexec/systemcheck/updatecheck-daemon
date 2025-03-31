@@ -18,7 +18,8 @@ set -o pipefail
 ## 6 hours
 [[ -v sleep_seconds ]] || sleep_seconds="21600"
 [[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
-export sleep_seconds
+export sleep_seconds initial_wait_minutes
+
 [[ -v NOTIFY_SOCKET ]] || NOTIFY_SOCKET=""
 
 if [ "$NOTIFY_SOCKET" = "" ]; then

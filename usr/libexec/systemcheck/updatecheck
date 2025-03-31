@@ -66,6 +66,7 @@ update_output_check() {
 }
 
 [[ -v sleep_seconds ]] || sleep_seconds="21600"
+[[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
 
 trap "sigterm_trap" SIGTERM SIGINT
 
@@ -80,6 +81,25 @@ https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_
   /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "$msg"
   exit 0
 fi
+
+onion_time_pre_script_attempts=5
+for ((i=1; i<=onion_time_pre_script_attempts; i++)) ; do
+  true "$0: INFO: onion-time-pre-script check loop iteration: $i"
+  if onion_time_pre_script_output="$(leaprun onion-time-pre-script)" ; then
+    true "$0: INFO: leaprun onion-time-pre-script - success. Proceeding."
+    break
+  fi
+  if [ "$i" -ge "$onion_time_pre_script_attempts" ]; then
+    true "$0: INFO: leaprun onion-time-pre-script - failed. Giving up after $onion_time_pre_script_attempts attempts."
+    printf "%s\n" "$onion_time_pre_script_output"
+    send_notification_wait_exit "Software updates check failure" "Command 'leaprun onion-time-pre-script' failed. Command output has been logged to journal. Please run systemcheck."
+    ## Avoid indefinite loop. Not really needed. Just in case.
+    break
+  fi
+  true "$0: INFO: leaprun onion-time-pre-script - failed. Sleep and try again."
+  sleep -- "${initial_wait_minutes}m" &
+  wait -- "$!"
+done
 
 ## TODO: /usr/libexec/security-misc/apt-get-update duplicate pidfile write_pid_file
 if ! update_output="$(leaprun apt-get-update 2>&1)" ; then
