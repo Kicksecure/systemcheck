@@ -6,7 +6,9 @@
 ## Developer test command:
 #sudo genmkfile install && sleep_seconds=10 bash -x /usr/libexec/systemcheck/updatecheck-daemon
 
-echo "$0: INFO: start."
+set -x
+
+printf "%s\n" "$0: INFO: start."
 
 set -o errexit
 set -o nounset
@@ -28,8 +30,11 @@ fi
 
 $systemd_notify --pid="$$" --ready
 
+printf "%s\n" "$0: INFO: First start. Therefore waiting for 2 minutes for first updatecheck."
+sleep 2m
+
 while true; do
-   echo "$0: INFO: loop start."
+   printf "%s\n" "$0: INFO: loop start."
    $systemd_notify --pid="$$" WATCHDOG=1
 
    if [ -o xtrace ]; then
@@ -51,5 +56,6 @@ while true; do
    if kill -0 -- "$updatecheck_pid"; then
       kill -s sigkill -- "$updatecheck_pid" 2>/dev/null || true
    fi
-   echo "$0: INFO: loop end."
+
+   printf "%s\n" "$0: INFO: loop end."
 done

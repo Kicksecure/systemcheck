@@ -3,6 +3,8 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+set -x
+
 true "$0: START"
 
 set -o errexit
@@ -29,6 +31,8 @@ close_notification() {
 send_notification_wait_exit() {
   ## 6 hours
   sleep_milliseconds=$(( $sleep_seconds * 1000 ))
+
+  printf "%s\n" "$@"
   notification_id="$(notify-send --print-id --wait --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$@")" || true
 
   sleep infinity &
@@ -52,7 +56,11 @@ update_output_check() {
   ## Err:4 http://HTTPS///fasttrack.debian.net/debian bullseye-fasttrack InRelease
   ## 500  SSL error: wrong version number [IP: 127.0.0.1 3142]
   if printf '%s' "$update_output" | grep --quiet --ignore-case -E -- '^Error:|^E:|^Err:'; then
-    send_notification_wait_exit "Software updates check failure" "Output of command 'leaprun apt-get-update' contained error messages."
+    send_notification_wait_exit "Software updates check failure" "Output of command 'leaprun apt-get-update' contained error messages and has been logged to journal."
+    printf "%s\n" "output of 'leaprun apt-get-update':"
+    printf "%s\n" "---------------------------------------------"
+    printf "%s\n" "$update_output"
+    printf "%s\n" "---------------------------------------------"
   fi
 }
 
@@ -60,9 +68,11 @@ update_output_check() {
 
 trap "sigterm_trap" SIGTERM SIGINT
 
+who_ami="$(whoami)"
+
 if ! leaprun_check_output="$(leaprun --check -- apt-get-update 2>&1)" ; then
   mkdir --parents ~/.systemcheck/status-files
-  /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "Test Message"
+  /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "Account '$who_ami' lacks privleap permission."
   exit 0
 fi
 
@@ -70,7 +80,11 @@ fi
 if ! update_output="$(leaprun apt-get-update 2>&1)" ; then
   update_output_check
   ## 'leaprun apt-get-update' might exit non-zero but update_output might not contain errors.
-  send_notification_wait_exit "Software updates check failure" "Command 'leaprun apt-get-update' failed (non-zero exit code)."
+  send_notification_wait_exit "Software updates check failure" "Command 'leaprun apt-get-update' failed (non-zero exit code). Command output has been logged to journal."
+  printf "%s\n" "output of 'leaprun apt-get-update':"
+  printf "%s\n" "---------------------------------------------"
+  printf "%s\n" "$update_output"
+  printf "%s\n" "---------------------------------------------"
 fi
 
 ## 'leaprun apt-get-update' might exit 0 but update_output might still contain errors.
@@ -100,7 +114,7 @@ fi
 (( update_package_count-- ))
 
 if [ "$update_package_count" = "0" ]; then
-   true "$0: INFO: No updates available."
+   printf "%s\n" "$0: INFO: No updates available."
    exit 0
 fi
 
