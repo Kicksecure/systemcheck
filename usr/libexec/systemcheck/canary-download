@@ -183,4 +183,8 @@ def main():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: {} <url>".format(sys.argv[0]), file=sys.stderr)
+        sys.exit(1)
+    url = sys.argv[1]
     main()
