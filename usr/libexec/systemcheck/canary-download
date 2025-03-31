@@ -100,6 +100,7 @@ def main():
 
     file_object = open(canary_txt_embed_sig, "w")
     file_object.write(url_body)
+    #file_object.write("extraneous content test")
     file_object.close()
 
     if not data.status_code == 200:
