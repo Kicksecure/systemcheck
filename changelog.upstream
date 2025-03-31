@@ -1,3 +1,75 @@
+commit cc8a5dbe6cf212c8b11bd05e219e8c3d529cffe0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 07:54:25 2025 -0400
+
+    comment
+
+commit df54a20e48f44b9d566e8edd75ac996327298cf8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 07:53:38 2025 -0400
+
+    comment
+
+commit 34712e86810c9fa9d77a24ba54818d9e4c2009c7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 07:49:01 2025 -0400
+
+    wait if another APT is already running
+
+commit 3aeee3d87e10b59785172924f8c854904a9faf53
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 07:32:04 2025 -0400
+
+    recommend to run systemcheck
+
+commit 4d0a7417e00f55b9c7bdac563b4a960d510e2634
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 07:28:44 2025 -0400
+
+    wait for sdwdate to complete
+
+commit 27bc79e0170d290fdea372e255308eaf4a5338cc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 07:14:58 2025 -0400
+
+    use onion-time-pre-script
+
+commit f911e160f6c1e3d521b67b7f3de96c0ce3ffc8b8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 06:55:27 2025 -0400
+
+    comment
+
+commit 08b3f40004db8900f6c4ebb68276a957e7a0239f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 06:53:53 2025 -0400
+
+    output
+
+commit a93872862481143f71f3171507e910c0379bfdb1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 06:49:24 2025 -0400
+
+    fix
+
+commit 8869e0144dba2e80f814eead8122e64931a6832b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 06:43:36 2025 -0400
+
+    debugging
+
+commit e18a9d99d1e83e9c80c79f378b5fba010c99bb95
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 06:41:13 2025 -0400
+
+    debugging
+
+commit 9c3a59071e2e64a74d6e755a09bbae00dbdcd36f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 10:20:30 2025 +0000
+
+    bumped changelog version
+
 commit c68aa425751d237abad8c01d1e6c720030038871
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 31 06:16:16 2025 -0400
