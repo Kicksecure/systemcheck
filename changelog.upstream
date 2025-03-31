@@ -1,3 +1,69 @@
+commit ac7e4a0b9529d3d0de0a588d8c5d6fcf77aaded3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 11:45:08 2025 -0400
+
+    minor
+
+commit 9eac60fe428e6c4cb85f3fc2534db59597f5f993
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 11:44:04 2025 -0400
+
+    fix
+
+commit 2406902c66e4063d3f38b4bb1d777038ee7646b0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 11:36:54 2025 -0400
+
+    comment
+
+commit 83bc9449b87b1da52120ff53cf8a2a6dc9ddab4b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 11:35:52 2025 -0400
+
+    comment
+
+commit 114d1fe65369c598f2fc624b72d531d3fbcd5b38
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 11:34:47 2025 -0400
+
+    fix
+
+commit 0a9d42fdf5d016c48cce3d2a10c0d9dc6e98df40
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 11:28:44 2025 -0400
+
+    error out on missing parameter
+
+commit 37d66d86a0c4c5ce06ba9a35fe75be240d6143a1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 11:00:29 2025 -0400
+
+    minor
+
+commit fd0677fc39b89b050eb5f6cb0b5396f6344c7d66
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 10:59:54 2025 -0400
+
+    refactoring
+
+commit f4e07d51a01d8761dd63879bb083b6308e40131f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 10:57:08 2025 -0400
+
+    refactoring
+
+commit c5c8c3a6ac7cc4a5c6fc3adfece1b183db2b4ecd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 10:52:09 2025 -0400
+
+    link
+
+commit 323aee433614585470a43650e576789093762b54
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 14:36:10 2025 +0000
+
+    bumped changelog version
+
 commit bb69ee9064f74ec98581612e278847507026100f
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 31 10:35:35 2025 -0400
