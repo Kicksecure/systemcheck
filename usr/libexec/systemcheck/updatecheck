@@ -73,7 +73,11 @@ who_ami="$(whoami)"
 
 if ! leaprun_check_output="$(leaprun --check -- apt-get-update 2>&1)" ; then
   mkdir --parents ~/.systemcheck/status-files
-  /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "Account '$who_ami' lacks privleap permission."
+  msg="\
+Account '$who_ami' lacks privleap permission. See:
+https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_user"
+  printf "%s\n" "$msg"
+  /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "$msg"
   exit 0
 fi
 
