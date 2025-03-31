@@ -82,21 +82,42 @@ https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_
   exit 0
 fi
 
-onion_time_pre_script_attempts=5
-for ((i=1; i<=onion_time_pre_script_attempts; i++)) ; do
+check_attempts=5
+for ((i=1; i<=check_attempts; i++)) ; do
   true "$0: INFO: onion-time-pre-script check loop iteration: $i"
   if onion_time_pre_script_output="$(leaprun onion-time-pre-script)" ; then
     true "$0: INFO: leaprun onion-time-pre-script - success. Proceeding."
     break
   fi
-  if [ "$i" -ge "$onion_time_pre_script_attempts" ]; then
-    true "$0: INFO: leaprun onion-time-pre-script - failed. Giving up after $onion_time_pre_script_attempts attempts."
+  if [ "$i" -ge "$check_attempts" ]; then
+    true "$0: INFO: leaprun onion-time-pre-script - failed. Giving up after $check_attempts attempts."
     printf "%s\n" "$onion_time_pre_script_output"
     send_notification_wait_exit "Software updates check failure" "Command 'leaprun onion-time-pre-script' failed. Command output has been logged to journal. Please run systemcheck."
     ## Avoid indefinite loop. Not really needed. Just in case.
     break
   fi
   true "$0: INFO: leaprun onion-time-pre-script - failed. Sleep and try again."
+  sleep -- "${initial_wait_minutes}m" &
+  wait -- "$!"
+done
+
+check_attempts=3
+for ((i=1; i<=check_attempts; i++)) ; do
+  true "$0: INFO: sdwdate check loop iteration: $i"
+  if [ -e /run/sdwdate/success ]; then
+    true "$0: INFO: sdwdate /run/sdwdate/success OK."
+    break
+  elif [ -e /run/sdwdate/first_success ]; then
+    true "$0: INFO: sdwdate /run/sdwdate/first_success OK."
+    break
+  fi
+  if [ "$i" -ge "$check_attempts" ]; then
+    true "$0: INFO: sdwdate did not complete yet. Giving up after $check_attempts attempts."
+    send_notification_wait_exit "Software updates check failure" "sdwdate did not complete yet. Please run systemcheck."
+    ## Avoid indefinite loop. Not really needed. Just in case.
+    break
+  fi
+  true "$0: INFO: sdwdate check failed. Sleep and try again."
   sleep -- "${initial_wait_minutes}m" &
   wait -- "$!"
 done
