@@ -196,8 +196,12 @@ canary_do() {
    canary_completed
 }
 
-canary_preparation
-connectivity_wait
-canary_count_or_not
-check_canary_lastrun
-canary_do
+canary_main() {
+   canary_preparation
+   connectivity_wait
+   canary_count_or_not
+   check_canary_lastrun
+   canary_do
+}
+
+canary_main
