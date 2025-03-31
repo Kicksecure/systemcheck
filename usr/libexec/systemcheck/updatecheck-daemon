@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 ## Developer test command:
-#sudo genmkfile install && sleep_seconds=10 bash -x /usr/libexec/systemcheck/updatecheck-daemon
+#sudo genmkfile install && initial_wait_minutes=0 sleep_seconds=10 bash -x /usr/libexec/systemcheck/updatecheck-daemon
 
 set -x
 
@@ -17,6 +17,7 @@ set -o pipefail
 
 ## 6 hours
 [[ -v sleep_seconds ]] || sleep_seconds="21600"
+[[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
 export sleep_seconds
 [[ -v NOTIFY_SOCKET ]] || NOTIFY_SOCKET=""
 
@@ -30,8 +31,8 @@ fi
 
 $systemd_notify --pid="$$" --ready
 
-printf "%s\n" "$0: INFO: First start. Therefore waiting for 2 minutes for first updatecheck."
-sleep 2m
+printf "%s\n" "$0: INFO: First start. Therefore waiting for ${initial_wait_minutes} minutes for first updatecheck."
+sleep -- "${initial_wait_minutes}m"
 
 while true; do
    printf "%s\n" "$0: INFO: loop start."
