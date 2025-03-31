@@ -3,7 +3,7 @@
 
 [Unit]
 Description=canary
-Documentation=https://www.whonix.org/wiki/Census
+Documentation=https://www.kicksecure.com/wiki/Systemcheck#Warrant_Canary_Check
 
 ConditionPathExists=!/run/qubes/this-is-templatevm
 ConditionPathExists=!/usr/share/anon-ws-base-files/workstation
