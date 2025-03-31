@@ -29,12 +29,16 @@ close_notification() {
 }
 
 send_notification_wait_exit() {
+  local sleep_milliseconds
   ## 6 hours
   sleep_milliseconds=$(( $sleep_seconds * 1000 ))
 
-  printf "%s\n" "$@"
+  local message
+  message="$@ Please run systemcheck."
+
+  printf "%s\n" "$message"
   ## Not using '--wait' otherwise notify-send will wait until notification has been dismissed.
-  notification_id="$(notify-send --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$@")" || true
+  notification_id="$(notify-send --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$message")" || true
 
   sleep infinity &
   ## Listen for signals.
@@ -92,7 +96,7 @@ for ((i=1; i<=check_attempts; i++)) ; do
   if [ "$i" -ge "$check_attempts" ]; then
     true "$0: INFO: leaprun onion-time-pre-script - failed. Giving up after $check_attempts attempts."
     printf "%s\n" "$onion_time_pre_script_output"
-    send_notification_wait_exit "Software updates check failure" "Command 'leaprun onion-time-pre-script' failed. Command output has been logged to journal. Please run systemcheck."
+    send_notification_wait_exit "Software updates check failure" "Command 'leaprun onion-time-pre-script' failed. Command output has been logged to journal."
     ## Avoid indefinite loop. Not really needed. Just in case.
     break
   fi
@@ -113,7 +117,7 @@ for ((i=1; i<=check_attempts; i++)) ; do
   fi
   if [ "$i" -ge "$check_attempts" ]; then
     true "$0: INFO: sdwdate did not complete yet. Giving up after $check_attempts attempts."
-    send_notification_wait_exit "Software updates check failure" "sdwdate did not complete yet. Please run systemcheck."
+    send_notification_wait_exit "Software updates check failure" "sdwdate did not complete yet."
     ## Avoid indefinite loop. Not really needed. Just in case.
     break
   fi
