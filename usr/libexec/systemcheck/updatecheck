@@ -12,8 +12,7 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
-## TODO:
-## - what if APT is already running
+source /usr/libexec/helper-scripts/pkg_manager_running_check
 
 close_notification() {
   ## notification_id might be unset if signal sigterm is received very quickly.
@@ -122,6 +121,25 @@ for ((i=1; i<=check_attempts; i++)) ; do
     break
   fi
   true "$0: INFO: sdwdate check failed. Sleep and try again."
+  sleep -- "${initial_wait_minutes}m" &
+  wait -- "$!"
+done
+
+check_attempts=10
+for ((i=1; i<=check_attempts; i++)) ; do
+  true "$0: INFO: check_package_manager_running_helper check loop iteration: $i"
+  check_package_manager_running_helper
+  if [ "$check_apt_get_exit_code" = "0" ]; then
+    true "$0: INFO: check_package_manager_running_helper success. No package manager running. Ok."
+    break
+  fi
+  if [ "$i" -ge "$check_attempts" ]; then
+    true "$0: INFO: check_package_manager_running_helper did not complete yet. Giving up after $check_attempts attempts."
+    send_notification_wait_exit "Software updates check failure" "Package update database is locked. Is APT already running?"
+    ## Avoid indefinite loop. Not really needed. Just in case.
+    break
+  fi
+  true "$0: INFO: check_package_manager_running_helper check failed. Sleep and try again."
   sleep -- "${initial_wait_minutes}m" &
   wait -- "$!"
 done
