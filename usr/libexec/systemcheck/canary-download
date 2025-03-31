@@ -88,8 +88,8 @@ def main():
     # print("header:")
     # print(str(header))
 
-    body = data.content
-    body = body.decode("UTF-8")
+    url_body = data.content
+    url_body = url_body.decode("UTF-8")
 
     canary_txt_embed_sig = "/var/lib/canary/canary.txt.embed.sig"
     canary_unembed = "/var/lib/canary/canary-unembed.txt"
@@ -98,7 +98,7 @@ def main():
     timeout_seconds = 5
 
     file_object = open(canary_txt_embed_sig, "w")
-    file_object.write(body)
+    file_object.write(url_body)
     file_object.close()
 
     if not data.status_code == 200:
@@ -106,7 +106,7 @@ def main():
         print(msg, file=sys.stderr)
         sys.exit(10)
 
-    if not re.search('proof of freshness', body, re.IGNORECASE):
+    if not re.search('proof of freshness', url_body, re.IGNORECASE):
         msg = "/var/lib/canary/canary.txt.embed.sig does not contain 'proof of freshness'"
         print(msg, file=sys.stderr)
         sys.exit(11)
@@ -143,16 +143,10 @@ def main():
     print("stdout:", str(stdout), file=sys.stderr)
     print("stderr:", str(stderr), file=sys.stderr)
 
-    if process.returncode == 0:
-        msg = "signify-openbsd verification success."
-    else:
+    if process.returncode != 0:
         msg = "Could not verify canary using signify-openbsd."
         print(msg, file=sys.stderr)
         sys.exit(8)
-
-    file_object = open(canary_unembed, "w")
-    file_object.write(body)
-    file_object.close()
 
     with open(canary_unembed, 'r') as f:
         last_line = f.readlines()[-1]
