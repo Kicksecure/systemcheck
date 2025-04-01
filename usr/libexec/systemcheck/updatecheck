@@ -213,6 +213,6 @@ if (( update_package_count > 1 )); then
 else
    update_notify_body+=' package has'
 fi
-update_notify_body+=' updates available. You can install them at your convenience using the System Maintenance Panel.'
+update_notify_body+=' updates available.'
 
 send_notification_wait_exit "${update_notify_title}" "${update_notify_body}"
