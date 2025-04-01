@@ -1,3 +1,27 @@
+commit 8f37281e8b3d21b4492e11fb6ac0febb1afc4f73
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 1 07:47:18 2025 -0400
+
+    refactoring
+
+commit 64b8f7bd18c29543bec24196ad6f5d07b856ea58
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 1 07:33:52 2025 -0400
+
+    debugging
+
+commit 2c377aeba4fd8abcf0c251fd3119edbc4826f2f9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 1 07:20:07 2025 -0400
+
+    `notify-send --wait` to keep the passive popup open until dismissed by the user or removed by updatecheck.
+
+commit bad7d4432d9d68cf874222cc319385bf3cf0eb66
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 31 16:06:42 2025 +0000
+
+    bumped changelog version
+
 commit 7bba06882c8ffd206afc918675115ecd1385a2f4
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 31 12:06:23 2025 -0400
