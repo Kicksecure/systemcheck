@@ -36,8 +36,8 @@ send_notification_wait_exit() {
   message="$@ Please run systemcheck."
 
   printf "%s\n" "$message"
-  ## Not using '--wait' otherwise notify-send will wait until notification has been dismissed.
-  notification_id="$(notify-send --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$message")" || true
+  ## Using '--wait' to keep the passive popup open until dismissed by the user or removed by updatecheck.
+  notification_id="$(notify-send --wait --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$message")"
 
   sleep infinity &
   ## Listen for signals.
