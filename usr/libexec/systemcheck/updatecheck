@@ -60,7 +60,7 @@ sigterm_trap() {
   exit 0
 }
 
-sigterm_exit() {
+exit_trap() {
   true "$0: $FUNCNAME: end of script: END"
   exit 0
 }
@@ -85,7 +85,7 @@ update_output_check() {
 [[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
 
 trap "sigterm_trap" SIGTERM SIGINT
-trap "sigterm_exit" EXIT
+trap "exit_trap" EXIT
 
 who_ami="$(whoami)"
 
