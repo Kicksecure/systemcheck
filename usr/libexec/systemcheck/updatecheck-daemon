@@ -49,15 +49,26 @@ while true; do
 
    $systemd_notify --pid="$$" WATCHDOG=1
 
-   sleep "$sleep_seconds"
+   true "$0: INFO: sleep $sleep_seconds... (1/2)"
+   sleep -- "$sleep_seconds"
+   true "$0: INFO: Completed sleep $sleep_seconds. (1/2)"
 
+   true "$0: INFO: Check if updatecheck is still running. (1/2)"
    if kill -0 -- "$updatecheck_pid"; then
+      true "$0: INFO: updatecheck is still running. Sending signal sigterm... (1/2)"
       kill -s sigterm -- "$updatecheck_pid" 2>/dev/null || true
    fi
-   sleep 10
+   true "$0: INFO: sleep 10..."
+   sleep -- 10
+   true "$0: INFO: Completed sleep 10."
+   true "$0: INFO: Check if updatecheck is still running. (2/2)"
    if kill -0 -- "$updatecheck_pid"; then
+      true "$0: INFO: updatecheck is still running. Sending signal sigkill... (2/2)"
       kill -s sigkill -- "$updatecheck_pid" 2>/dev/null || true
    fi
 
    printf "%s\n" "$0: INFO: loop end."
+
+   ## Debugging.
+   #exit 0
 done

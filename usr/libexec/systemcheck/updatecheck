@@ -15,9 +15,11 @@ set -o pipefail
 source /usr/libexec/helper-scripts/pkg_manager_running_check
 
 close_notification() {
+  true "$0: $FUNCNAME: START"
   ## notification_id might be unset if signal sigterm is received very quickly.
   [[ -v notification_id ]] || notification_id=""
   if [ "$notification_id" = "" ]; then
+    true "$0: $FUNCNAME: notification_id is unset. return 0"
     return 0
   fi
 
@@ -25,12 +27,16 @@ close_notification() {
     /org/freedesktop/Notifications \
     org.freedesktop.Notifications.CloseNotification \
     "$notification_id"
+
+  true "$0: $FUNCNAME: END"
 }
 
 send_notification_wait_exit() {
   local sleep_milliseconds
   ## 6 hours
   sleep_milliseconds=$(( $sleep_seconds * 1000 ))
+  ## Debugging.
+  #sleep_milliseconds=1000
 
   local message
   message="$@ Please run systemcheck."
@@ -38,17 +44,24 @@ send_notification_wait_exit() {
   printf "%s\n" "$message"
   ## Using '--wait' to keep the passive popup open until dismissed by the user or removed by updatecheck.
   notification_id="$(notify-send --wait --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$message")"
+  ## Might receive for example "notification_id=38" + trap_sigterm.
+  ## Might not continue from here.
 
   sleep infinity &
   ## Listen for signals.
   wait "$!"
-  true "$0: end of script: END"
   exit 0
 }
 
 sigterm_trap() {
+  true "$0: $FUNCNAME: START"
   close_notification
-  true "$0: sigterm_trap: END"
+  true "$0: $FUNCNAME: END"
+  exit 0
+}
+
+sigterm_exit() {
+  true "$0: $FUNCNAME: end of script: END"
   exit 0
 }
 
@@ -72,6 +85,7 @@ update_output_check() {
 [[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
 
 trap "sigterm_trap" SIGTERM SIGINT
+trap "sigterm_exit" EXIT
 
 who_ami="$(whoami)"
 
