@@ -224,7 +224,7 @@ check_tor_socks_or_trans_port() {
    ## Test excessive string length.
    #ip_raw="Your IP address appears to be: <b>2001:0db8:85a3:0042:1000:8a2e:0370:7334 \$f(do) \`this\` ... xxx ... xxx </b><br>"
 
-   ## An IPv6 IP is 45 characters long. Add a few for more for the "[ ]" and...?
+   ## An IPv6 IP is 45 characters long.
    ## https://stackoverflow.com/questions/166132/maximum-length-of-the-textual-representation-of-an-ipv6-address
    max_string_length=45
 
