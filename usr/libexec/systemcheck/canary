@@ -197,8 +197,6 @@ canary_main() {
    canary_do
 }
 
-canary_main
-
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
    set -x
    set -e
