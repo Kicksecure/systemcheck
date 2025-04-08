@@ -1,3 +1,22 @@
+commit f70ca03f5793075be1677e4d92bc82ce7d52a66f
+Merge: fecae82 a3c160b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 8 08:05:08 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/updatecheck-polish'
+
+commit a3c160bfd872ea80344892fff14e1ef9345aa9e1
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Apr 6 19:36:20 2025 -0500
+
+    updatecheck: don't assume Internet access, fix notifications
+
+commit fecae820a59a1095daa1d8f9f21c3e3a25ea3bc7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 2 18:16:20 2025 +0000
+
+    bumped changelog version
+
 commit cb1ed628695a7cc864217c4529936a2b04c53fc6
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Apr 2 13:45:23 2025 -0400
