@@ -38,12 +38,19 @@ send_notification_wait_exit() {
   ## Debugging.
   #sleep_milliseconds=1000
 
+  local title
+  title="$1"
   local message
-  message="$@ Please run systemcheck."
+  message="$2"
+  local suppress_systemcheck_info
+  suppress_systemcheck_info="${3:-}"
+  if [ "$suppress_systemcheck_info" != 'yes' ]; then
+    message+=" Please run systemcheck."
+  fi
 
   printf "%s\n" "$message"
   ## Using '--wait' to keep the passive popup open until dismissed by the user or removed by updatecheck.
-  notification_id="$(notify-send --wait --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$message")"
+  notification_id="$(notify-send --wait --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$title" "$message")"
   ## Might receive for example "notification_id=38" + trap_sigterm.
   ## Might not continue from here.
 
@@ -98,6 +105,28 @@ https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_
   /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "$msg"
   exit 0
 fi
+
+check_attempts=10
+for ((i=1; i<=check_attempts; i++)) ; do
+  network_ip_data="$(
+    ip a \
+      | grep inet \
+      | grep -vE '(127.0.0.1|::1)'
+  )" || true
+  if [ -n "${network_ip_data}" ]; then
+    true "$0: INFO: Non-loopback IP address found - success. Proceeding."
+    break
+  fi
+  if [ "$i" -ge "$check_attempts" ]; then
+    true "$0: INFO: Non-loopback IP address not found - failed. Giving up after $check_attempts attempts."
+    # Do not send an error notification in this instance, the user probably
+    # just doesn't have an Internet connection.
+    exit
+  fi
+  true "$0: INFO: Non-loopback IP address not found - failed. Sleep and try again."
+  sleep -- "${initial_wait_minutes}m" &
+  wait -- "$!"
+done
 
 check_attempts=5
 for ((i=1; i<=check_attempts; i++)) ; do
@@ -215,4 +244,4 @@ else
 fi
 update_notify_body+=' updates available.'
 
-send_notification_wait_exit "${update_notify_title}" "${update_notify_body}"
+send_notification_wait_exit "${update_notify_title}" "${update_notify_body}" 'yes'
