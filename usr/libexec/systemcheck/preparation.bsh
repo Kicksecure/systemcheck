@@ -406,7 +406,7 @@ preparation() {
 
    ## No need to add $IDENTIFIER to output, because msgcollector already does that.
    ## $qubes_name_of_vm is empty in non-Qubes-Whonix.
-   TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(date)"
+   TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(date --utc)"
 
    $output_general --icon "$ICON"
    $output_general --parenttty "$my_tty"
