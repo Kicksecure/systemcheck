@@ -1,3 +1,22 @@
+commit cfa06c60586850f28e6b52f280ff706797544a12
+Merge: 8d5ea82 664224e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 9 09:18:08 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/updatecheck'
+
+commit 664224e6c0f70088343340d413635599ee4782c9
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Apr 8 20:07:43 2025 -0500
+
+    updatecheck: Print debugging information before exiting
+
+commit 8d5ea824447e94f1ef930d42c5c89caec4cd7ee3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 8 14:09:05 2025 +0000
+
+    bumped changelog version
+
 commit f70ca03f5793075be1677e4d92bc82ce7d52a66f
 Merge: fecae82 a3c160b
 Author: Patrick Schleizer <adrelanos@whonix.org>
