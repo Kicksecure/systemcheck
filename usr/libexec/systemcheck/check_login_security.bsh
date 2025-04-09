@@ -144,6 +144,7 @@ for more information."
    base_msg_gui="${base_msg_gui//XXX_LOGIN_SEC_TABLE_XXX/"${table_str_gui}"}"
    base_msg_cli="${base_msg_cli//XXX_LOGIN_SEC_TABLE_XXX/"${table_str_cli}"}"
 
+   local MSG
    MSG="${base_msg_gui}"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    MSG="${base_msg_cli}"
