@@ -198,7 +198,7 @@ canary_main() {
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-   set -x
+   #set -x
    set -e
    set -o pipefail
    trap "error_handler" ERR
