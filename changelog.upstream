@@ -1,3 +1,36 @@
+commit 7e50a3490fcc2098839bbdc89fba07ec712e61df
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 10 06:15:50 2025 -0400
+
+    check if a bootloader password has been set,
+    if running on host operating system only (not inside VMs)
+    
+    https://www.kicksecure.com/wiki/Protection_Against_Physical_Attacks#Bootloader_Password
+
+commit 7c4035de4156d28560f8dde6803c19a88a964a2f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 9 17:48:09 2025 -0400
+
+    local
+
+commit 2945fc4bb6bda1bbf98a8d01f6d02322c276efed
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 9 17:40:21 2025 -0400
+
+    improve output header
+
+commit c9fd65bfb7f536fbc10c0d8947d3abde0a94d9e5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 9 17:29:25 2025 -0400
+
+    show date in header in UTC
+
+commit f1ef559b9c52d9fac1da85c22f09c3b8fd82b8d9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 9 21:23:56 2025 +0000
+
+    bumped changelog version
+
 commit 74c9c5420412fa8f900a22de51c1c83dcea50e7f
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Apr 9 17:22:55 2025 -0400
