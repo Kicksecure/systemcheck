@@ -1,0 +1,45 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+source /usr/libexec/helper-scripts/get_colors.sh
+
+check_grub_security() {
+   if [ -f '/usr/share/qubes/marker-vm' ]; then
+      true "Qubes VM detected. Skipping $FUNCNAME."
+      return 0
+   fi
+
+   if [ "$systemcheck_virtualizer_detect_success" = "false" ]; then
+      true "VM detected. Skipping $FUNCNAME."
+      return 0
+   fi
+
+   local link_cli link_gui MSG
+   link_cli="https://www.kicksecure.com/wiki/Protection_Against_Physical_Attacks#Bootloader_Password"
+   link_gui="<a href=\"$link_cli\">Bootloader Password</a>"
+
+   if grub_password_status_check_output="$(leaprun grub-password-status-check 2>&1)"; then
+      MSG="<p>GRUB $link_gui: <font color=\"green\">Enabled</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="GRUB bootloader password: ${green}Enabled${nocolor}
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   else
+      MSG="<p>GRUB $link_gui: <font color=\"orange\">Absent</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="GRUB bootloader password: ${yellow}Absent${nocolor}
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
+   if [ "$verbose" -ge "1" ]; then
+      MSG="<p><code>leaprun grub-password-status-check</code> output:
+<blockquote><code>$grub_password_status_check_output</code></blockquote></p>"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   fi
+}
