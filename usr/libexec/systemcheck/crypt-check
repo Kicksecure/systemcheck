@@ -1,0 +1,23 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+set -o errexit
+set -o nounset
+set -o errtrace
+set -o pipefail
+
+readarray -t crypt_dev_list < <(
+  blkid \
+  | grep 'crypto_LUKS' \
+  | cut -d':' -f1
+) || true
+
+if (( ${#crypt_dev_list[@]} == 0 )) || [ -z "${crypt_dev_list[0]}" ]; then
+  printf "%s\n" "$0: INFO: No encrypted storage devices are present in the system." >&2
+  exit 1
+fi
+
+printf "%s\n" "$0: INFO: Encrypted storage devices are present in the system."
+exit 0

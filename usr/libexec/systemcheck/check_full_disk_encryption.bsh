@@ -1,0 +1,45 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+source /usr/libexec/helper-scripts/get_colors.sh
+
+check_full_disk_encryption() {
+   if [ -f '/usr/share/qubes/marker-vm' ]; then
+      true "Qubes VM detected. Skipping $FUNCNAME."
+      return 0
+   fi
+
+   if [ "$systemcheck_virtualizer_detect_success" = "false" ]; then
+      true "VM detected. Skipping $FUNCNAME."
+      return 0
+   fi
+
+   local link_cli link_gui MSG
+   link_cli="https://www.kicksecure.com/wiki/Full_Disk_Encryption"
+   link_gui="<a href=\"$link_cli\">Full Disk Encryption (FDE)</a>"
+
+   if crypt_check_output="$(leaprun crypt-check 2>&1)"; then
+      MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="Full Disk Encryption (FDE): ${green}Enabled${nocolor}
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   else
+      MSG="<p>$link_gui: <font color=\"orange\">Absent</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="Full Disk Encryption (FDE): ${yellow}Absent${nocolor}
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
+   if [ "$verbose" -ge "1" ]; then
+      MSG="<p><code>leaprun crypt-check</code> output:
+<blockquote><code>$crypt_check_output</code></blockquote></p>"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   fi
+}

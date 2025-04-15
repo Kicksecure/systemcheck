@@ -213,6 +213,10 @@ systemcheck_main() {
    systemcheck_progress_main "1"
 
    ## Does not use the network.
+   systemcheck_run_function check_full_disk_encryption ## check_full_disk_encryption
+   systemcheck_progress_main "1"
+
+   ## Does not use the network.
    systemcheck_run_function check_grub_security ## check_grub_security
    systemcheck_progress_main "1"
 
