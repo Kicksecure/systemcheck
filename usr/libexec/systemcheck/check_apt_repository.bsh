@@ -9,6 +9,14 @@ check_apt_repository() {
       return 0
    fi
 
+   local wiki_trust_link_cli wiki_trust_link_gui
+   wiki_trust_link_cli="${PROJECT_HOMEPAGE}/wiki/Trust"
+   wiki_trust_link_gui="<a href=\"$wiki_trust_link_cli\">Trust</a>"
+
+   local risk_cli_msg risk_gui_msg
+   risk_cli_msg="Please read $wiki_trust_link_cli to understand the risk."
+   risk_gui_msg="Please read $wiki_trust_link_gui to understand the risk."
+
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
@@ -17,14 +25,12 @@ check_apt_repository() {
 
    local temp_base_msg_enabled="<p>$PROJECT_NAME APT Repository: <u>Enabled</u>.
 When the $PROJECT_NAME team releases <code>$derivative_codename_uppercase</code> updates,
-they will be AUTOMATICALLY installed (when you run apt-get dist-upgrade)
-along with updated packages from the Debian team. Please
-read <a href=${PROJECT_HOMEPAGE}/wiki/Trust>${PROJECT_HOMEPAGE}/wiki/Trust</a> to understand the risk.
+they will be AUTOMATICALLY installed (when you run <code>apt-get dist-upgrade</code>)
+along with updated packages from the Debian team. ${risk_cli_msg} ${risk_gui_msg}
 If you want to change this, use:</p>"
-
    local temp_base_msg_disabled="<p>$PROJECT_NAME APT Repository: <u>Disabled</u>.
 When the $PROJECT_NAME team releases an update, it will be NOT be installed.
-Please read <a href=${PROJECT_HOMEPAGE}/wiki/Trust>${PROJECT_HOMEPAGE}/wiki/Trust</a> to understand the risk.
+${risk_cli_msg} ${risk_gui_msg}
 You are free to manually update from source code.
 If you want to change this, use:</p>"
 
@@ -36,10 +42,12 @@ If you want to change this, use:</p>"
 
       local MSG="$temp_base_msg_enabled
     $temp_x_tool"
+      MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_cli_msg" "")"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
       local MSG="$temp_base_msg_enabled
     $temp_cli_tool"
+      MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_gui_msg" "")"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 
       return 0
@@ -50,10 +58,12 @@ If you want to change this, use:</p>"
    local MSG="$temp_base_msg_disabled
     $temp_x_tool
 <p>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_cli_msg" "")"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
 
    local MSG="$temp_base_msg_disabled
     $temp_cli_tool
 <p>$if_you_know_what_you_are_doing_msg</p>"
+   MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_gui_msg" "")"
 $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }

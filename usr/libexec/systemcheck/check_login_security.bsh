@@ -21,13 +21,12 @@ check_login_security() {
       return 0
    fi
 
-   local base_msg_gui="<p>$PROJECT_NAME Login Security Check:</p>
+   local base_msg_gui="<p>$PROJECT_NAME <a href=\"https://www.kicksecure.com/wiki/Login\">Login</a> Security Check:</p>
 XXX_LOGIN_SEC_TABLE_XXX
 <p>You can adjust these settings using \"Manage Passwords\" and \"Manage GUI Autologin\"
-in the System Maintenance Panel. See
-<a href=\"https://www.kicksecure.com/wiki/Login\">https://www.kicksecure.com/wiki/Login</a>
-for more information."
-   local base_msg_cli="${base_msg_gui}"
+in the System Maintenance Panel."
+   local base_msg_cli="${base_msg_gui}
+See also: https://www.kicksecure.com/wiki/Login"
    user_list_str="$(/usr/libexec/helper-scripts/get-user-list)"
    readarray -t user_list <<< "$user_list_str"
    password_status_list_str="$(leaprun get-password-status-list)"
