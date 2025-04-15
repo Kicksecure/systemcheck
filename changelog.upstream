@@ -1,3 +1,21 @@
+commit 421cfa360c22876d4da1d0759e84e0b9c478fb72
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 15 18:00:39 2025 -0400
+
+    use hyperlinks
+
+commit 1b9f24b0e6923a49dea6c0834fad0fc5a97ac8af
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 15 17:32:31 2025 -0400
+
+    check if full disk encryption (FDE) is enabled
+
+commit b32c8eceef78d00c7669f8fb9d719b08fdbabf0f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 10 12:14:37 2025 +0000
+
+    bumped changelog version
+
 commit b6492bdff374d6bd58b455a6670388da2e4138db
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Apr 10 07:44:40 2025 -0400
