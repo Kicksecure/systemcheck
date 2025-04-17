@@ -1,3 +1,15 @@
+commit bb96f751834639db74975c5d51c597c169246f36
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 16 20:31:16 2025 -0400
+
+    add more journal ignore patterns
+
+commit 095a4e576d683338a914e1268d871764c27d8412
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 15 22:00:58 2025 +0000
+
+    bumped changelog version
+
 commit 421cfa360c22876d4da1d0759e84e0b9c478fb72
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Apr 15 18:00:39 2025 -0400
