@@ -40,9 +40,6 @@ maybe_kill_apt_get_update() {
    ## There is an exception in /etc/sudoers.d/.
    ## "|| true", to avoid an error when systemcheck receives a sigterm signal
    ## while running this command (such as when systemcheckd gets stopped).
-   ## This command will kill the PID listed in
-   ## "$TMP/security-misc-apt-get-update-pid", which is saved by apt-get-update
-   ## itself.
    leaprun apt-get-update-kill-helper || true
 }
 ## }}
