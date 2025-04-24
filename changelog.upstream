@@ -1,3 +1,15 @@
+commit 507fb6f8658ed561dcdbfeb7f772fdba9e0eddd8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 23 22:52:11 2025 -0400
+
+    updatecheck: improve error handling in case privleap is dysfunctional
+
+commit 2fdecf5ced59ee3867fd51f0fedd0fd93a956a51
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Apr 19 17:34:22 2025 +0000
+
+    bumped changelog version
+
 commit 1d37ee923f5c2c54ce9021cfd8cdbc1285fab40e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Apr 19 12:36:43 2025 -0400
