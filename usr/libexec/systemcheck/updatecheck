@@ -12,6 +12,9 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
+## sets: use_leaprun
+#source /usr/libexec/helper-scripts/use_leaprun.sh
+## also does source above script
 source /usr/libexec/helper-scripts/pkg_manager_running_check
 
 close_notification() {
@@ -95,6 +98,14 @@ trap "sigterm_trap" SIGTERM SIGINT
 trap "exit_trap" EXIT
 
 who_ami="$(whoami)"
+
+if [ "$use_leaprun" = "no" ]; then
+  send_notification_wait_exit "Software updates check failure" "privleap issue.
+
+Debugging information:
+- use_leaprun: '$use_leaprun'
+- leaprun_useable_result: '$leaprun_useable_result'"
+fi
 
 if ! leaprun_check_output="$(leaprun --check -- apt-get-update 2>&1)" ; then
   mkdir --parents ~/.systemcheck/status-files
