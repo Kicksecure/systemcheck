@@ -1,3 +1,45 @@
+commit d926cdd6734d7824b90ec754bf358fe8f2739800
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Apr 25 02:49:22 2025 -0400
+
+    output
+
+commit 7d0602c91d17a3248cb151c3d26b69f0fc0e78d5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Apr 25 02:43:08 2025 -0400
+
+    output
+
+commit e8fa628e2d975c2bd6b2e697b38c2eb67a154435
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Apr 25 02:32:37 2025 -0400
+
+    comments
+
+commit 387ab34d0fc8b44de618c9f25ab2446d1cd7f4ef
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Apr 25 01:55:06 2025 -0400
+
+    better error handling in case file `/etc/apt/sources.list.d/derivative.list` is unreadable due to permission issues (umask)
+
+commit fb6f363bf4e40772b95500c704e82880a98c55df
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Apr 25 01:34:35 2025 -0400
+
+    refactoring
+
+commit 0d478a8491559b362cfb29e7ee86017363290f7c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Apr 25 01:32:02 2025 -0400
+
+    test pkexec
+
+commit 34ab207af2edf65c52cce9a6eaa026c1ce4ccf6a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 24 03:09:47 2025 +0000
+
+    bumped changelog version
+
 commit 507fb6f8658ed561dcdbfeb7f772fdba9e0eddd8
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Apr 23 22:52:11 2025 -0400
