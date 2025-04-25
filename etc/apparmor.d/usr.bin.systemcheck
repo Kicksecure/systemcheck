@@ -52,6 +52,8 @@ include <tunables/global>
   /dev/null rw,
   /dev/pts/[0-9]* rw,
   /dev/tty rw,
+  /etc/environment r,
+  /etc/default/locale r,
   /etc/X11/default-display-manager r,
   /etc/adduser.conf r,
   /etc/apparmor.d/ r,
