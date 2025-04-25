@@ -23,8 +23,7 @@ donate() {
    if [ "$output_status_exit_code" = "0" ]; then
       TYPE="$($output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
       if [ "$TYPE" = "info" ]; then
-         local MSG="<p>Please donate!
-         See: <a href=${PROJECT_HOMEPAGE}/wiki/Donate>${PROJECT_HOMEPAGE}/wiki/Donate</a></p>"
+         local MSG="<p>Please <a href=${PROJECT_HOMEPAGE}/wiki/Donate>donate</a>!</p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       fi
    else
