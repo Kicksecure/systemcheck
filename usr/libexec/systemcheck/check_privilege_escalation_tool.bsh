@@ -26,7 +26,10 @@ check_privilege_escalation_tools() {
    if [ "$use_sudo" = "yes" ]; then
       check_privilege_escalation_tool_do sudo --non-interactive -- /usr/bin/test -x /usr/bin/test
    fi
+
    if [ "$use_pkexec" = "yes" ]; then
+      ## sudo systemctl restart polkit.service
+      ## /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
       check_privilege_escalation_tool_do pkexec /usr/libexec/systemcheck/pkexec-test
    fi
 }
