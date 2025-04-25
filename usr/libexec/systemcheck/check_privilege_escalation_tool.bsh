@@ -10,6 +10,9 @@ source /usr/libexec/helper-scripts/use_leaprun.sh
 # shellcheck source=../libexec/helper-scripts/use_sudo.sh
 source /usr/libexec/helper-scripts/use_sudo.sh
 
+# shellcheck source=../libexec/helper-scripts/use_pkexec.sh
+source /usr/libexec/helper-scripts/use_pkexec.sh
+
 check_privilege_escalation_tools() {
    ## leaprun is mandatory for systemcheck.
    ## systemcheck has been fully ported to systemcheck.
@@ -20,11 +23,12 @@ check_privilege_escalation_tools() {
    check_privilege_escalation_tool_do leaprun check-privleap-environment-variables
    check_privilege_escalation_tool_do leaprun check-sudo
 
-   if [ ! "$use_sudo" = "yes" ]; then
-      return 0
+   if [ "$use_sudo" = "yes" ]; then
+      check_privilege_escalation_tool_do sudo --non-interactive -- /usr/bin/test -x /usr/bin/test
    fi
-
-   check_privilege_escalation_tool_do sudo --non-interactive -- /usr/bin/test -x /usr/bin/test
+   if [ "$use_pkexec" = "yes" ]; then
+      check_privilege_escalation_tool_do pkexec /usr/libexec/systemcheck/pkexec-test
+   fi
 }
 
 check_privilege_escalation_tool_do() {
