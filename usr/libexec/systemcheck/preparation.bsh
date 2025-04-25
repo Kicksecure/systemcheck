@@ -300,26 +300,6 @@ preparation() {
 
    eval $(/usr/libexec/helper-scripts/settings_echo)
 
-   if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
-      ## Fallback
-      derivative_codename="unknown"
-
-      local i
-      while read -r i; do
-         local first second third fourth sixt
-         read -r first second third fourth sixt _ <<< "$i"
-         if [ "$first" = "deb" ]; then
-            derivative_codename="$fourth"
-            break
-         fi
-      done < "/etc/apt/sources.list.d/derivative.list"
-
-   else
-      derivative_codename="No"
-   fi
-
-   derivative_codename_uppercase="${derivative_codename^^}"
-
    ## ARCH="x86_64"
    ## ARCH="i686"
    ARCH="$(uname --machine)"

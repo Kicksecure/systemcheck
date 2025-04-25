@@ -9,6 +9,26 @@ check_apt_repository() {
       return 0
    fi
 
+   if [ -f "/etc/apt/sources.list.d/derivative.list" ]; then
+      ## Fallback
+      derivative_codename="unknown"
+
+      local i
+      while read -r i; do
+         local first second third fourth sixt
+         read -r first second third fourth sixt _ <<< "$i"
+         if [ "$first" = "deb" ]; then
+            derivative_codename="$fourth"
+            break
+         fi
+      done < "/etc/apt/sources.list.d/derivative.list"
+
+   else
+      derivative_codename="No"
+   fi
+
+   derivative_codename_uppercase="${derivative_codename^^}"
+
    local wiki_trust_link_cli wiki_trust_link_gui
    wiki_trust_link_cli="${PROJECT_HOMEPAGE}/wiki/Trust"
    wiki_trust_link_gui="<a href=\"$wiki_trust_link_cli\">Trust</a>"
