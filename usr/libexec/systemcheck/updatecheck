@@ -52,7 +52,7 @@ send_notification_wait_exit() {
     message+=" Please run systemcheck."
   fi
 
-  printf "%s\n" "$message"
+  printf "%s\n" "$title: $message"
 
   ## If not using '--wait' there is no feedback when the notification has been dismissed.
   ## If using '--wait' we don't get the notification ID.
