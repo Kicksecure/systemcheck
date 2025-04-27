@@ -6,7 +6,7 @@
 ## Developer test command:
 #sudo genmkfile install && initial_wait_minutes=0 sleep_seconds=10 bash -x /usr/libexec/systemcheck/updatecheck-daemon
 
-set -x
+#set -x
 
 printf "%s\n" "$0: INFO: start."
 
