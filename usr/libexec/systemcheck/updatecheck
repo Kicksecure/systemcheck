@@ -52,7 +52,7 @@ send_notification_wait_exit() {
     message+=" Please run systemcheck."
   fi
 
-  printf "%s\n" "$title: $message"
+  printf "%s\n" "$0: $title: $message"
 
   ## If not using '--wait' there is no feedback when the notification has been dismissed.
   ## If using '--wait' we don't get the notification ID.
@@ -122,7 +122,7 @@ update_output_check() {
   ## Err:4 http://HTTPS///fasttrack.debian.net/debian bullseye-fasttrack InRelease
   ## 500  SSL error: wrong version number [IP: 127.0.0.1 3142]
   if printf '%s' "$update_output" | grep --quiet --ignore-case -E -- '^Error:|^E:|^Err:'; then
-    printf "%s\n" "output of 'leaprun apt-get-update':"
+    printf "%s\n" "$0: WARNING: output of 'leaprun apt-get-update':"
     printf "%s\n" "---------------------------------------------"
     printf "%s\n" "$update_output"
     printf "%s\n" "---------------------------------------------"
@@ -151,7 +151,7 @@ if ! leaprun_check_output="$(leaprun --check -- apt-get-update 2>&1)" ; then
   msg="\
 Account '$who_ami' lacks privleap permission. See:
 https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_user"
-  printf "%s\n" "$msg"
+  printf "%s\n" "$0: ERROR: $msg"
   /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "$msg"
   exit 0
 fi
@@ -187,7 +187,7 @@ for ((i=1; i<=check_attempts; i++)) ; do
   fi
   if [ "$i" -ge "$check_attempts" ]; then
     true "$0: INFO: leaprun onion-time-pre-script - failed. Giving up after $check_attempts attempts."
-    printf "%s\n" "$onion_time_pre_script_output"
+    printf "%s\n" "$0: INFO: onion_time_pre_script_output: $onion_time_pre_script_output"
     send_notification_wait_exit "Software updates check failure" "Command 'leaprun onion-time-pre-script' failed. Command output has been logged to journal."
     ## Avoid indefinite loop. Not really needed. Just in case.
     break
@@ -244,7 +244,7 @@ done
 if ! update_output="$(leaprun apt-get-update 2>&1)" ; then
   update_output_check
   ## 'leaprun apt-get-update' might exit non-zero but update_output might not contain errors.
-  printf "%s\n" "output of 'leaprun apt-get-update':"
+  printf "%s\n" "$0: ERROR: output of 'leaprun apt-get-update':"
   printf "%s\n" "---------------------------------------------"
   printf "%s\n" "$update_output"
   printf "%s\n" "---------------------------------------------"
