@@ -26,7 +26,8 @@ close_notification() {
     return 0
   fi
 
-  qdbus org.freedesktop.Notifications \
+  qdbus \
+    org.freedesktop.Notifications \
     /org/freedesktop/Notifications \
     org.freedesktop.Notifications.CloseNotification \
     "$notification_id"
