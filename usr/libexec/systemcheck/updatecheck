@@ -75,8 +75,22 @@ send_notification_wait_exit() {
           "$message"
   }
 
-  read -r notification_id <& "${notify_send_coproc[0]}"
+  coproc_stdout_fd="${notify_send_coproc[0]}"
+  coproc_stderr_fd="${notify_send_coproc[1]}"
+
+  test -e "/proc/$$/fd/${coproc_stdout_fd}"
+  test -e "/proc/$$/fd/${coproc_stderr_fd}"
+
+  read -r notification_id <& "${coproc_stdout_fd}"
   true "INFO: notification_id: $notification_id"
+
+  true "INFO: exec {coproc_stdout_fd}>&-"
+  exec {coproc_stdout_fd}>&-
+  true "INFO: exec {coproc_stderr_fd}>&-"
+  exec {coproc_stderr_fd}>&-
+
+  ! test -e "/proc/$$/fd/${coproc_stdout_fd}"
+  ! test -e "/proc/$$/fd/${coproc_stderr_fd}"
 
   ## 'coproc' sets variable notify_send_coproc_PID.
   true "INFO: notify_send_coproc_PID: $notify_send_coproc_PID"
