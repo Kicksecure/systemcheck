@@ -227,8 +227,8 @@ true "$0: INFO: Count upgrades using wc command..."
 ## > E: Command line option --upgradable is not understood in combination with the other options
 ##
 ## Using 'printf' with '>/dev/null' with xtrace (set -x) output.
-printf "%s\n" "$0: INFO: ignore warning 'WARNING: apt does not have a stable CLI interface. Use with caution in scripts.'" >/dev/null
-if ! update_package_count="$(LC_ALL=C apt list --upgradable | wc -l)" ; then
+## Use '2>/dev/null' to ignore warning 'WARNING: apt does not have a stable CLI interface. Use with caution in scripts.'
+if ! update_package_count="$(LC_ALL=C apt list --upgradable 2>/dev/null | wc -l)" ; then
   send_notification_wait_exit "Software updates check failure" "Command 'apt list --upgradable' failed."
 fi
 
