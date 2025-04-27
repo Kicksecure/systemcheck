@@ -54,7 +54,7 @@ while true; do
    true "$0: INFO: Completed sleep $sleep_seconds. (1/2)"
 
    true "$0: INFO: Check if updatecheck is still running. (1/2)"
-   if kill -0 -- "$updatecheck_pid"; then
+   if kill -0 -- "$updatecheck_pid" 2>/dev/null; then
       true "$0: INFO: updatecheck is still running. Sending signal sigterm... (1/2)"
       kill -s sigterm -- "$updatecheck_pid" 2>/dev/null || true
    fi
@@ -64,7 +64,7 @@ while true; do
    true "$0: INFO: Completed sleep 10."
 
    true "$0: INFO: Check if updatecheck is still running. (2/2)"
-   if kill -0 -- "$updatecheck_pid"; then
+   if kill -0 -- "$updatecheck_pid" 2>/dev/null; then
       true "$0: INFO: updatecheck is still running. Sending signal sigkill... (2/2)"
       kill -s sigkill -- "$updatecheck_pid" 2>/dev/null || true
    fi
