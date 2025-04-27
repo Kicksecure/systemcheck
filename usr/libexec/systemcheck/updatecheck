@@ -43,7 +43,7 @@ send_notification_wait_exit() {
   #sleep_milliseconds=1000
 
   local title
-  title="$1"
+  title="updatecheck: $1"
   local message
   message="$2"
   local suppress_systemcheck_info
