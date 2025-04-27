@@ -53,13 +53,39 @@ send_notification_wait_exit() {
   fi
 
   printf "%s\n" "$message"
-  true "INFO: pid: $$"
-  notification_id="$(notify-send --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$title" "$message")"
-  ## Might receive for example "notification_id=38" + trap_sigterm.
 
-  sleep infinity &
-  ## Listen for signals.
-  wait "$!"
+  ## If not using '--wait' there is no feedback when the notification has been dismissed.
+  ## If using '--wait' we don't get the notification ID.
+  ## If launching 'notify-send' into the background, we cannot capture the notification ID.
+  #notification_id="$(notify-send --wait --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$title" "$message")" &
+
+  ## Launch notify-send in a background coprocess so we can
+  ## 'read' the ID straight away but still let '--wait' keep running.
+  coproc notify_send_coproc {
+    stdbuf \
+      --output=L \
+      -- \
+        notify-send \
+          --wait \
+          --print-id \
+          --expire-time="100000" \
+          --app-name='updatecheck' \
+          -- \
+          "$title" \
+          "$message"
+  }
+
+  read -r notification_id <& "${notify_send_coproc[0]}"
+  true "INFO: notification_id: $notification_id"
+
+  ## 'coproc' sets variable notify_send_coproc_PID.
+  true "INFO: notify_send_coproc_PID: $notify_send_coproc_PID"
+  true "INFO: Waiting for notify_send_coproc_PID..."
+  wait "$notify_send_coproc_PID" || true "INFO: coproc exit code: $?"
+  true "INFO: Done waiting for notify_send_coproc_PID."
+
+  ## Exit in case no signal was received and notification has been dismissed.
+  exit 0
 }
 
 sigterm_trap() {
