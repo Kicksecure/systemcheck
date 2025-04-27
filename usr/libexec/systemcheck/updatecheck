@@ -53,15 +53,13 @@ send_notification_wait_exit() {
   fi
 
   printf "%s\n" "$message"
-  ## Using '--wait' to keep the passive popup open until dismissed by the user or removed by updatecheck.
-  notification_id="$(notify-send --wait --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$title" "$message")"
+  true "INFO: pid: $$"
+  notification_id="$(notify-send --print-id --expire-time="$sleep_milliseconds" --app-name='updatecheck' -- "$title" "$message")"
   ## Might receive for example "notification_id=38" + trap_sigterm.
-  ## Might not continue from here.
 
   sleep infinity &
   ## Listen for signals.
   wait "$!"
-  exit 0
 }
 
 sigterm_trap() {
