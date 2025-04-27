@@ -258,8 +258,8 @@ update_output_check
 ## zsh: illegal hardware instruction (core dumped) wc -l
 ## https://github.com/rspamd/rspamd/issues/5137
 true "$0: INFO: Testing wc command..."
-if ! printf "%s" | wc -l >/dev/null ; then
-  send_notification_wait_exit "Software updates check failure" "Command 'printf \"%s\" | wc -l' failed."
+if ! printf '%s\n' | wc -l >/dev/null ; then
+  send_notification_wait_exit "Software updates check failure" "Command 'printf '%s\n' | wc -l' failed."
 fi
 
 true "$0: INFO: Count upgrades using wc command..."
