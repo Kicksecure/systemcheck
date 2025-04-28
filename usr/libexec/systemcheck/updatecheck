@@ -161,7 +161,7 @@ for ((i=1; i<=check_attempts; i++)) ; do
   network_ip_data="$(
     ip a \
       | grep inet \
-      | grep -vE '(127.0.0.1|::1)'
+      | grep --invert-match --extended-regexp -- '(127.0.0.1|::1)'
   )" || true
   if [ -n "${network_ip_data}" ]; then
     true "$0: INFO: Non-loopback IP address found - success. Proceeding."
