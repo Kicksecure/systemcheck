@@ -1,3 +1,27 @@
+commit f698eeccc4413f7b9a9cd311808f29163cd493ca
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Apr 28 05:56:35 2025 -0400
+
+    updatecheck: fix: do not allow IPv6 localhost to be recognized as internet connectivity
+
+commit b141d6bb16f0229af11622fbf9d2ae18545872d4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Apr 28 05:52:45 2025 -0400
+
+    fix
+
+commit e32d29c3a6a10c8cec8f372fc85defbbcbb304dd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Apr 28 05:46:33 2025 -0400
+
+    refactoring
+
+commit 706fe9bcae4712c2c9dd07e9142cd11cb1274bfa
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Apr 27 20:19:56 2025 +0000
+
+    bumped changelog version
+
 commit 3adfa6a74ed51c55142563c55ecf4d84c2bdc6fd
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Apr 27 15:15:55 2025 -0400
