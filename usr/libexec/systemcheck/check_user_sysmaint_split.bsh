@@ -3,16 +3,6 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-## Not actually used. But useful as a test.
-# shellcheck source=../libexec/helper-scripts/use_leaprun.sh
-source /usr/libexec/helper-scripts/use_leaprun.sh
-
-# shellcheck source=../libexec/helper-scripts/use_sudo.sh
-source /usr/libexec/helper-scripts/use_sudo.sh
-
-# shellcheck source=../libexec/helper-scripts/use_pkexec.sh
-source /usr/libexec/helper-scripts/use_pkexec.sh
-
 check_user_sysmaint_split() {
    check_user_sysmaint_split_package
 }
