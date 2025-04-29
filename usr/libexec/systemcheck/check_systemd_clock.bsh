@@ -78,7 +78,6 @@ disable this check. [2]
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
-      cleanup "1"
       return 0
    fi
 }

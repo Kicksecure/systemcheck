@@ -158,6 +158,7 @@ fi
 
 check_attempts=10
 for ((i=1; i<=check_attempts; i++)) ; do
+  ## similar code in: systemcheck
   network_ip_data="$(
     ip -o addr show scope global \
     | awk '{print $4}'

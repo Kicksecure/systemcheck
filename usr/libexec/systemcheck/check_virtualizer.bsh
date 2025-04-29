@@ -41,7 +41,6 @@ check_virtualizer() {
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
-      cleanup "1"
       return 0
    fi
 
@@ -152,6 +151,5 @@ in <code>/etc/systemcheck.d/50_user.conf</code>.</p>
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
-   cleanup "1"
    return 0
 }

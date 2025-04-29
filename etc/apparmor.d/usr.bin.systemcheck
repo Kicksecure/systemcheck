@@ -212,6 +212,8 @@ include <tunables/global>
   /usr/sbin/autologinchange rix,
   /usr/sbin/getcap rix,
   /usr/sbin/ifconfig rix,
+  /usr/sbin/ip rix,
+  /usr/bin/ip rix,
   /usr/sbin/pam-tmpdir-helper mrix,
   /usr/sbin/start-stop-daemon rix,
   /usr/sbin/tor rix,

@@ -9,6 +9,13 @@ check_operating_system() {
       return 0
    fi
 
+   if [ "$systemcheck_external_network_found" = "false" ]; then
+      local MSG="<p>Debian Package Update Check Result: Skipped. (Because no external network interface detected.)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
    local update_documentation_link_x="<a href=${PROJECT_HOMEPAGE}/wiki/Update>Debian Package Update</a>"
    local update_documentation_link_cli="( Documentation: ${PROJECT_HOMEPAGE}/wiki/Update )"
    local update_command
