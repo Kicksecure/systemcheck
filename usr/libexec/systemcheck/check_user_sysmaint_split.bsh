@@ -14,6 +14,10 @@ source /usr/libexec/helper-scripts/use_sudo.sh
 source /usr/libexec/helper-scripts/use_pkexec.sh
 
 check_user_sysmaint_split() {
+   check_user_sysmaint_split_package
+}
+
+check_user_sysmaint_split_package() {}
    local link_cli link_gui
 
    link_cli="https://www.kicksecure.com/wiki/sysmaint"
