@@ -11,6 +11,7 @@ check_network_interfaces() {
    fi
 
    if test -f /run/qubes/this-is-templatevm ; then
+      ## Qubes Templates are non-networked as per Qubes default.
       return 0
    fi
 
