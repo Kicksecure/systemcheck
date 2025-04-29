@@ -1,0 +1,37 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+## Not actually used. But useful as a test.
+# shellcheck source=../libexec/helper-scripts/use_leaprun.sh
+source /usr/libexec/helper-scripts/use_leaprun.sh
+
+# shellcheck source=../libexec/helper-scripts/use_sudo.sh
+source /usr/libexec/helper-scripts/use_sudo.sh
+
+# shellcheck source=../libexec/helper-scripts/use_pkexec.sh
+source /usr/libexec/helper-scripts/use_pkexec.sh
+
+check_user_sysmaint_split() {
+   local link_cli link_gui
+
+   link_cli="https://www.kicksecure.com/wiki/sysmaint"
+   link_gui="<a href=\"$link_cli\">user-sysmaint-split</a>"
+
+   if leaprun user-sysmaint-split-check &>/dev/null ; then
+      local MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      MSG="\
+user-sysmaint-split-check: ${green}Enabled${nocolor}
+$link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   else
+      local MSG="<p>$link_gui: <font color=\"orange\">Absent</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      MSG="\
+user-sysmaint-split-check: ${yellow}Absent${nocolor}
+$link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}
