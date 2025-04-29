@@ -5,6 +5,7 @@
 
 check_user_sysmaint_split() {
    check_user_sysmaint_split_package
+   check_user_sysmaint_split_boot_mode
 }
 
 check_user_sysmaint_split_package() {
@@ -19,7 +20,7 @@ check_user_sysmaint_split_package() {
       MSG="<p>$link_gui: <font color=\"orange\">Absent</font></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       MSG="\
-user-sysmaint-split-check: ${yellow}Absent${nocolor}
+user-sysmaint-split-check installation check result: ${yellow}Absent${nocolor}
 $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
@@ -28,8 +29,19 @@ $link_cli"
    MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
    MSG="\
-user-sysmaint-split-check: ${green}Enabled${nocolor}
+user-sysmaint-split-check installation check result: ${green}Enabled${nocolor}
 $link_cli"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    return 0
+}
+
+check_user_sysmaint_split_boot_mode() {
+   if ! [[ "${kernel_cmdline}" =~ 'boot-role=sysmaint' ]]; then
+      MSG="<p>user-sysmaint-split session detection result: USER Session.</p>"
+   else
+      MSG="<p>user-sysmaint-split session detection result: SYSMAINT Session.</p>"
+   fi
+
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }
