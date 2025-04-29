@@ -36,6 +36,8 @@ $link_cli"
 }
 
 check_user_sysmaint_split_boot_mode() {
+   local kernel_cmdline
+   kernel_cmdline="$(cat -- /proc/cmdline)" || true
    if ! [[ "${kernel_cmdline}" =~ 'boot-role=sysmaint' ]]; then
       MSG="<p>user-sysmaint-split session detection result: USER Session.</p>"
    else
