@@ -19,19 +19,23 @@ check_user_sysmaint_split() {
    link_cli="https://www.kicksecure.com/wiki/sysmaint"
    link_gui="<a href=\"$link_cli\">user-sysmaint-split</a>"
 
-   if leaprun user-sysmaint-split-check &>/dev/null ; then
-      local MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      MSG="\
-user-sysmaint-split-check: ${green}Enabled${nocolor}
-$link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   else
-      local MSG="<p>$link_gui: <font color=\"orange\">Absent</font></p>"
+   local MSG
+
+   if ! leaprun user-sysmaint-split-check &>/dev/null ; then
+      MSG="<p>$link_gui: <font color=\"orange\">Absent</font></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       MSG="\
 user-sysmaint-split-check: ${yellow}Absent${nocolor}
 $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
    fi
+
+   MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   MSG="\
+user-sysmaint-split-check: ${green}Enabled${nocolor}
+$link_cli"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   return 0
 }
