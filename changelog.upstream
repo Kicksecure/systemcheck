@@ -1,3 +1,70 @@
+commit 7e7d437290f829026f676a7eb76c6a93afa53123
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 04:16:04 2025 -0400
+
+    detect user versus sysmaint session
+
+commit 906c49d779386be3b196cf2bd24d772e01f734bd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 03:58:13 2025 -0400
+
+    fix
+
+commit 68794e1d8177bb3a546819d24e9d9061d0a0b20a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 03:57:51 2025 -0400
+
+    cleanup
+
+commit 7dbeab7fd25794c10546396c7b103c97e5bbbc92
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 03:57:35 2025 -0400
+
+    refactoring
+
+commit 88dc240102bdbd677c95620d3960e7aa487b083a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 03:55:12 2025 -0400
+
+    refactoring
+
+commit 2cf0bd7dbc55d5de16f5a1c10bd9f9afdbdf228d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 02:44:07 2025 -0400
+
+    check if user-sysmaint-split is installed
+
+commit 45a208748a27537766525a482fcaa30c5bb135c5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 01:14:06 2025 -0400
+
+    improve offline support (for example if networking has not been set up yet):
+    
+    - check if external network interface can be detected
+    - this is done by checking the output of command `ip -o addr show scope global`
+    - this is only a local command does not connect to any servers on the internet
+    - this avoids waiting for a long systemcheck timeout
+    - if there is an external network interface but actual internet connectivity is broken (for example due to router issues), this is not detected yet
+    
+    no longer terminate early if:
+    - unsupported virtualizer has been detected
+    - control port filter proxy could not be found
+    - clock issues
+    - firewall issues
+    - Tor not running
+
+commit 4b777e25cbe2c4a66c32b21ffb25e5affcf5e21c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 00:37:34 2025 -0400
+
+    comment
+
+commit 880423ff22b10dc3f26c9b4203fc8b855acc3e52
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Apr 28 10:39:50 2025 +0000
+
+    bumped changelog version
+
 commit f698eeccc4413f7b9a9cd311808f29163cd493ca
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Apr 28 05:56:35 2025 -0400
