@@ -182,6 +182,7 @@ include <tunables/global>
   /usr/bin/check-dfsg-status r,
   /usr/bin/check-dfsg-status ux,
   /usr/bin/curl rix,
+  /usr/bin/mount rix,
   /usr/bin/safe-rm rix,
   /usr/bin/setsid mrix,
   /usr/bin/stecho rix,
