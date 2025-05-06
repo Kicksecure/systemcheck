@@ -8,6 +8,9 @@ source /usr/libexec/systemcheck/uwt_tool.bsh
 ## provides: sanitize_variable
 source /usr/libexec/helper-scripts/sanitize_variable
 
+## provides: pkg_installed
+source /usr/libexec/helper-scripts/package_installed_check.bsh
+
 source_config() {
    shopt -s nullglob
    local i
@@ -133,6 +136,21 @@ virtualizer_detection() {
    fi
 }
 
+sysmaint_state_detection() {
+   user_sysmaint_split_installed='false'
+   booted_in_sysmaint_session='false'
+
+   if pkg_installed user-sysmaint-split; then
+      user_sysmaint_split_installed='true'
+   fi
+
+   local kernel_cmdline
+   kernel_cmdline="$(cat -- /proc/cmdline)" || true
+   if [[ "$kernel_cmdline" =~ 'boot-role=sysmaint' ]]; then
+      booted_in_sysmaint_session='true'
+   fi
+}
+
 if_you_know_what_you_are_doing_funct() {
    ## $1 - $FUNCNAME
    echo "\
@@ -242,6 +260,7 @@ preparation() {
    systemcheck_run_function input_detection
    systemcheck_run_function msgdispatcher_init
    systemcheck_run_function virtualizer_detection
+   systemcheck_run_function sysmaint_state_detection
 
    [ -n "$verbose" ] || verbose="0"
 

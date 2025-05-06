@@ -76,10 +76,24 @@ check_operating_system() {
 <br></br><u><b>Please manually check inside $update_where.</u></b>
 $qubes_update_help</p>"
       else
-         local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
+         if [ "$booted_in_sysmaint_session" = 'true' ]; then
+            local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
+<br></br>Please manually check:
+<br></br>Click on the System Maintenance Panel, then click \"Open Terminal\", then run:
+<code><blockquote>$update_command</blockquote></code></p>"
+         else
+            if [ "$user_sysmaint_split_installed" = 'true' ]; then
+               local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
+<br></br>Please manually check:
+<br></br>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:
+<code><blockquote>$update_command</blockquote></code></p>"
+            else
+               local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
 <br></br>Please manually check:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>$update_command</blockquote></code></p>"
+            fi
+         fi
       fi
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
@@ -122,11 +136,27 @@ $if_you_know_what_you_are_doing_msg"
 $resolve_attempt_commands
 $debugging_information</p>"
       else
-         local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
+         if [ "$booted_in_sysmaint_session" = 'true' ]; then
+            local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
+<br/><b><u>To fix, try:</u></b>
+<br/>Click on the System Maintenance Panel, then click \"Open Terminal\", then run:
+$resolve_attempt_commands
+$debugging_information</p>"
+         else
+            if [ "$user_sysmaint_split_installed" = 'true' ]; then
+               local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
+<br/><b><u>To fix, try:</u></b>
+<br/>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Termina\" in the System Maintenance Panel, and run:
+$resolve_attempt_commands
+$debugging_information</p>"
+            else
+               local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
 <br/><b><u>To fix, try running these commands:</u></b>
 <br/>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 $resolve_attempt_commands
 $debugging_information</p>"
+            fi
+         fi
       fi
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
@@ -179,10 +209,23 @@ $debugging_information</p>"
 <br></br><b><u>Please update $update_where.</u></b>
 $qubes_update_help</p>"
    else
-      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
+      if [ "$booted_in_sysmaint_session" = 'true' ]; then
+         local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
+<br></br>Please update $update_where:
+<br></br>Click on the System Maintenance Panel, and click \"Install Updates\". Alternatively, click \"Open Terminal\" and run:
+<code><blockquote>$update_command</blockquote></code></p>"
+      else
+         if [ "$user_sysmaint_split_installed" = 'true' ]; then
+            local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
+<br></br>Please update $update_where:
+<br></br>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code> and click \"Install Updates\" in the System Maintenance Panel."
+         else
+            local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
 <br></br>Please update $update_where:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>$update_command</blockquote></code></p>"
+         fi
+      fi
    fi
 
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
