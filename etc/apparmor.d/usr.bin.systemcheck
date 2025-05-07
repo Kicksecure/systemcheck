@@ -79,6 +79,7 @@ include <tunables/global>
   /etc/group r,
   /etc/host.conf r,
   /etc/hosts r,
+  /etc/iproute2/** r,
   /etc/kicksecure_version r,
   /etc/ld.so.cache r,
   /etc/lightdm/** r,
