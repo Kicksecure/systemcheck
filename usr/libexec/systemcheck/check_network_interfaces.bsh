@@ -11,6 +11,7 @@ check_network_interfaces() {
 
    local network_ip_data
 
+   ## Kicksecure.
    if [ "$vm_lower_case_short" = "machine" ]; then
       ## similar code in: /usr/libexec/systemcheck/updatecheck
       network_ip_data="$(
@@ -50,6 +51,8 @@ $if_you_know_what_you_are_doing_msg</p>"
       EXIT_CODE="1"
       return 0
    fi
+
+   ## Whonix.
 
    if test -f /run/qubes/this-is-templatevm ; then
       systemcheck_external_network_found="unknown"
