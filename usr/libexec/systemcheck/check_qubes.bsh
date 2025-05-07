@@ -270,9 +270,9 @@ This is expected because not running in Template.</p>"
    fi
 
    local curl_output
-   curl_output="$(cat "$TEMP_DIR/qubes_update_proxy_reachability_file")" || true
+   curl_output="$(stcat -- "$TEMP_DIR/qubes_update_proxy_reachability_file")" || true
 
-   if echo "$curl_output" | grep -q "${PROXY_META}" ; then
+   if printf '%s\n' "$curl_output" | grep -q -- "${PROXY_META}" ; then
       qubes_update_proxy_test_result_torified="true"
       local MSG="<p>Qubes UpdatesProxy Reachability Result: Ok, torified update proxy reachable.</p>"
       #$output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
