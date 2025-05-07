@@ -1,3 +1,27 @@
+commit b2bf1ac30591f3108032f761a026be1cf3e5a324
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 12:36:00 2025 -0400
+
+    refactoring
+
+commit 525e004444b175bfa80460e536eb5ff3db53b8e0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 12:33:37 2025 -0400
+
+    avoid whonix-secure-proxy-test race condition
+
+commit 309b10a4c4b966f16f0921113bfbb18f4d3b962b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 11:53:30 2025 -0400
+
+    fix apparmor for network availability test
+
+commit b56eaa38be851dd370c19b30eb3406bd2e1f0925
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 11:10:03 2025 +0000
+
+    bumped changelog version
+
 commit 5b71a87faa1a187a6582c40527bb7a322b06ee75
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 7 06:12:16 2025 -0400
