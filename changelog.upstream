@@ -1,3 +1,28 @@
+commit a96b2b480f85c2a72984527e76b71cea33758291
+Merge: e3ff240 dd26115
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 00:41:40 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/fix-apt-update-msg'
+
+commit dd261150b6134d07f11647865d5ab6ea5d5745f4
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon May 5 23:46:19 2025 -0500
+
+    Fix software update messaging when user-sysmaint-split is installed
+
+commit 02ddd241eb6ce70a9721ab1759d3fc09da932e92
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun May 4 22:55:38 2025 -0500
+
+    Allow running live-mode.sh which now uses /usr/bin/mount
+
+commit e3ff2405ebd4e964986f0f10d530212baf201af2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Apr 29 09:02:30 2025 +0000
+
+    bumped changelog version
+
 commit f1f2107ee50c7095d78b35ae2e5434262b58523b
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Apr 29 05:01:43 2025 -0400
