@@ -9,6 +9,12 @@ check_network_interfaces() {
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
+   if test -f /run/qubes/this-is-templatevm ; then
+      systemcheck_external_network_found="unknown"
+      ## Qubes Templates are non-networked as per Qubes default.
+      return 0
+   fi
+
    local network_ip_data
 
    ## Kicksecure.
@@ -53,12 +59,6 @@ $if_you_know_what_you_are_doing_msg</p>"
    fi
 
    ## Whonix.
-
-   if test -f /run/qubes/this-is-templatevm ; then
-      systemcheck_external_network_found="unknown"
-      ## Qubes Templates are non-networked as per Qubes default.
-      return 0
-   fi
 
    local failed eth0_failed eth1_failed
 
