@@ -16,7 +16,9 @@ show_versions() {
 
    local MSG="<p>$PROJECT_NAME $link: <code>$derivative_build_version</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "\
+$MSG
+$link_raw"
 
    local temp
    temp="$(/usr/libexec/msgcollector/striphtml "$derivative_deb_package_version")"
