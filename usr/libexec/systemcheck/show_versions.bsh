@@ -8,8 +8,11 @@ show_versions() {
       return 0
    fi
 
+   local link_raw
+   link_raw="${PROJECT_HOMEPAGE}/wiki/Systemcheck#Build_Version"
+
    local link
-   link="<a href=${PROJECT_HOMEPAGE}/wiki/Systemcheck#Build_Version>build version</a>"
+   link="<a href=$link_raw>build version</a>"
 
    local MSG="<p>$PROJECT_NAME $link: <code>$derivative_build_version</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
