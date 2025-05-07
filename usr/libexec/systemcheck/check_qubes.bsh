@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## provides: is_whole_number
+source /usr/libexec/helper-scripts/strings.bsh
+
 check_qubes_network_interface() {
    if test -f /run/qubes/this-is-templatevm ; then
       return 0
@@ -151,23 +154,38 @@ check_qubes_update_proxy_status_files_check() {
       return 0
    fi
 
-   if test -f /run/updatesproxycheck/whonix-secure-proxy-check-done ; then
-      if test -f /run/updatesproxycheck/whonix-secure-proxy ; then
+   local exit_code unit_name max_wait_seconds counter
+   unit_name="qubes-whonix-torified-updates-proxy-check.service"
+   max_wait_seconds=5
+   counter=0
+
+   while (( counter < max_wait_seconds )); do
+      exit_code="$(systemctl show -p ExecMainStatus --value "$unit_name")"
+
+      if ! is_whole_number "$exit_code"; then
+         true
+      elif [ "$exit_code" = 0 ]; then
          local MSG="<p>Qubes UpdatesProxy Status Files Check: Ok.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
          fi
          return 0
+      else
+         break
       fi
-   fi
+
+      sleep -- 1
+      counter=$(( counter + 1 ))
+   done
 
    local MSG="<p>Qubes UpdatesProxy Status Files Check: Failed!
 
 Debugging information:
-File /run/updatesproxycheck/whonix-secure-proxy-check-done exists but file /run/updatesproxycheck/whonix-secure-proxy does not exist. Check:
-<blockquote>sudo journalctl --boot --output cat -u qubes-whonix-torified-updates-proxy-check.service</blockquote>
-   </p>"
+$unit_name did not complete after $max_wait_seconds seconds or failed.
+
+<blockquote>sudo journalctl --boot --output cat -u $unit_name</blockquote>
+</p>"
 
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
