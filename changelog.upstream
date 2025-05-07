@@ -1,3 +1,23 @@
+commit 02a76a89d867f7f5202569ace63514362f93e5e0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 13:27:30 2025 -0400
+
+    fix: do not report non-networked Qubes Templates as issue
+    
+    because Qubes Templates are non-networked by default
+
+commit 83ae31e5280b35ccce8bac3df63683ffaf1feef9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 13:21:52 2025 -0400
+
+    comments
+
+commit 045116c53b088b83ddc4ba0048021088ef6631ee
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 16:57:31 2025 +0000
+
+    bumped changelog version
+
 commit d54938374e157953707d8e7783c6bc3acbd02a5d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 7 12:55:56 2025 -0400
