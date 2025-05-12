@@ -1,3 +1,9 @@
+systemcheck (3:38.7-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@whonix.org>  Mon, 12 May 2025 09:56:34 +0000
+
 systemcheck (3:38.6-1) unstable; urgency=medium
 
   * New upstream version (local package).
