@@ -100,9 +100,6 @@ virtualizer_detection() {
    fi
 
    if systemcheck_virtualizer_detected="$(leaprun systemd-detect-virt 2>&1)" ; then
-      ## in case of bare metal:
-      ## systemcheck_virtualizer_detected=none
-
       systemcheck_virtualizer_detect_success=true
       true "INFO: No error reported from running $systemcheck_virt_detection_tool"
 
@@ -112,8 +109,9 @@ virtualizer_detection() {
          fi
       fi
    else
-      true "INFO: leaprun systemd-detect-virt failed, falling back to systemcheck_virtualizer_detected=unknown"
-      systemcheck_virtualizer_detected="unknown"
+      true "INFO: leaprun systemd-detect-virt non-zero exit code. Expected on bare metal."
+      ## in case of bare metal:
+      ## systemcheck_virtualizer_detected=none
    fi
 
    if [ "$systemcheck_virtualizer_detected" = "" ]; then
