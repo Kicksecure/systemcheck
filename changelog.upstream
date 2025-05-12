@@ -1,3 +1,17 @@
+commit 21e6160b9829871f79d97746ec4d805dc76ac863
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 12 08:02:41 2025 -0400
+
+    fix: show GRUB password and FDE enable/disable status
+    
+    by fixing VM vs bare metal detection
+
+commit 7a97960e62a28d2e13f14b9d99ed978b38b16208
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 12 10:45:01 2025 +0000
+
+    bumped changelog version
+
 commit 2dc0f0286ff70aa5dd5f73f0c2cce7832db98f1f
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon May 12 06:44:48 2025 -0400
