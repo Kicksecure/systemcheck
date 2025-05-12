@@ -112,10 +112,12 @@ virtualizer_detection() {
          fi
       fi
    else
+      true "INFO: leaprun systemd-detect-virt failed, falling back to systemcheck_virtualizer_detected=unknown"
       systemcheck_virtualizer_detected="unknown"
    fi
 
    if [ "$systemcheck_virtualizer_detected" = "" ]; then
+      true "INFO: Variable systemcheck_virtualizer_detected is empty, falling back to systemcheck_virtualizer_detected=unknown"
       systemcheck_virtualizer_detected="unknown"
    fi
 
