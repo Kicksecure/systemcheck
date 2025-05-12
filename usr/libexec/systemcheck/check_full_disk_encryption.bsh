@@ -11,7 +11,7 @@ check_full_disk_encryption() {
       return 0
    fi
 
-   if [ "$systemcheck_virtualizer_detect_success" = "false" ]; then
+   if [ ! "$systemcheck_virtualizer_detected" = "none" ]; then
       true "VM detected. Skipping $FUNCNAME."
       return 0
    fi
