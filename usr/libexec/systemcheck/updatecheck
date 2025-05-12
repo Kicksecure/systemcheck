@@ -49,7 +49,12 @@ send_notification_wait_exit() {
   local suppress_systemcheck_info
   suppress_systemcheck_info="${3:-}"
   if [ "$suppress_systemcheck_info" != 'yes' ]; then
-    message+=" Please run systemcheck."
+    message+="
+To view log, run:
+
+journalctl --boot --user -u updatecheck.service
+
+Please run systemcheck."
   fi
 
   printf "%s\n" "$0: $title: $message"
