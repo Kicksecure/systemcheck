@@ -1,4 +1,4 @@
-# Last Modified: Mon May 12 10:33:01 2025
+# Last Modified: Mon May 12 10:39:20 2025
 include <tunables/global>
 
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
@@ -52,8 +52,6 @@ include <tunables/global>
   /dev/null rw,
   /dev/pts/[0-9]* rw,
   /dev/tty rw,
-  /etc/environment r,
-  /etc/default/locale r,
   /etc/X11/default-display-manager r,
   /etc/adduser.conf r,
   /etc/apparmor.d/ r,
@@ -70,12 +68,14 @@ include <tunables/global>
   /etc/dbus-1/session.d/ r,
   /etc/dbus-1/session.d/** r,
   /etc/default/locale r,
+  /etc/default/locale r,
   /etc/default/nss r,
   /etc/default/rcS r,
   /etc/default/sdwdate r,
   /etc/dpkg/dpkg.cfg r,
   /etc/dpkg/dpkg.cfg.d/ r,
   /etc/dpkg/dpkg.cfg.d/** r,
+  /etc/environment r,
   /etc/environment r,
   /etc/gai.conf r,
   /etc/group r,
@@ -147,6 +147,8 @@ include <tunables/global>
   /sys/devices/pci0000:00/** r,
   /sys/devices/system/clocksource/clocksource0/available_clocksource r,
   /sys/devices/system/clocksource/clocksource0/current_clocksource r,
+  /sys/devices/virtual/block/dm-0/dm/name r,
+  /sys/devices/virtual/block/dm-1/dm/name r,
   /sys/devices/virtual/dmi/id/** r,
   /sys/firmware/devicetree/base/hypervisor/compatible r,
   /sys/fs/cgroup/cpuset/cgroup.clone_children rw,
