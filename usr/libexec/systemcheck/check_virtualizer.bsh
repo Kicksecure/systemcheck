@@ -4,8 +4,12 @@
 ## See the file COPYING for copying conditions.
 
 check_virtualizer() {
+   local MSG
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
    if [ "$systemcheck_virtualizer_tool_unavailable" = "true" ]; then
-      local MSG="<p>Check Virtualizer Result: $systemcheck_virt_detection_tool not available. Skipping test.</p>"
+      MSG="<p>Check Virtualizer Result: $systemcheck_virt_detection_tool not available. Skipping test.</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
@@ -13,10 +17,13 @@ check_virtualizer() {
    fi
 
    if [ "$systemcheck_virtualizer_detect_success" = "false" ]; then
-      local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-
-      local MSG="\
+      if [ "$vm_lower_case_short" = "machine" ]; then
+         MSG="<p>Check Virtualizer Result: Virtualizer detection failed.</p>"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         EXIT_CODE="1"
+      else
+         MSG="\
 <p>Virtualizer detection failed. You might be running a virtualizer unsupported by $PROJECT_NAME developers! systemcheck aborted!
 <br></br>
 <br></br>This might endanger your anonymity. Do not proceed unless you know what you are doing.
@@ -29,123 +36,65 @@ check_virtualizer() {
 <br></br>Running <code>sudo --non-interactive $systemcheck_virt_detection_tool</code> failed!
 <br></br>qubes_detected: $qubes_detected
 <br></br><code>$systemcheck_virt_detection_tool</code> output:
-
 <blockquote><code>$systemcheck_virtualizer_detected</code></blockquote>
-
-<br></br>$if_you_know_what_you_are_doing_msg
+$if_you_know_what_you_are_doing_msg
 </p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         EXIT_CODE="1"
+      fi
       return 0
    fi
 
    if [ "$systemcheck_virtualizer_detected" = "none" ]; then
       ## Not running in a Virtual Machine (or none detected).
-      local MSG="<p>Check Virtualizer Result: No Virtualizer detected, probably running on <u>bare metal</u>, continuing.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
-   fi
-
-   if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
-      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>VirtualBox</u> detected, continuing.
+      MSG="<p>Check Virtualizer Result: No virtualizer detected, probably running on <u>bare metal</u>.</p>"
+   elif [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
+      MSG="<p>Check Virtualizer Result: Supported virtualizer <u>VirtualBox</u> detected.
 <br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
-   fi
-
-   if [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
-      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>KVM</u> detected, continuing.
+   elif [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
+      MSG="<p>Check Virtualizer Result: Supported virtualizer <u>KVM</u> detected.
 <br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
-   fi
-
-   ## https://forums.whonix.org/t/whonix-virtualbox-14-0-0-6-6-testers-wanted/4802/2
-   if [ "$systemcheck_virtualizer_detected" = "qemu" ]; then
-      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>qemu</u> (KVM?) detected, continuing.
+   elif [ "$systemcheck_virtualizer_detected" = "qubes" ]; then
+      MSG="<p>Check Virtualizer Result: Supported virtualizer <u>Qubes</u> detected.
 <br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
-   fi
-
-   if [ "$systemcheck_virtualizer_detected" = "qubes" ]; then
-      local MSG="<p>Check Virtualizer Result: Supported Virtualizer <u>Qubes</u> detected, continuing.
-<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
-   fi
-
-   if [ "$NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER" = "1" ]; then
-      local MSG="<p>Check Virtualizer Result: Unsupported Virtualizer <code>$systemcheck_virtualizer_detected</code> detected, but <code>NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER</code> is set, continuing.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
-   fi
-
-   if [ "$systemcheck_virtualizer_detected" = "vmware" ]; then
-      local VMWARE_TEXT="<p>VMware [6] is closed source, therefore security through obscurity [7].</p>"
-      local WIKI_LINK="[6] <a href=https://en.wikipedia.org/wiki/Security_through_obscurity>https://en.wikipedia.org/wiki/Security_through_obscurity</a>"
-      local VMWARE_LINK="[7] <a href=${PROJECT_HOMEPAGE}/wiki/VMware>${PROJECT_HOMEPAGE}/wiki/VMware</a>"
    else
-      local VMWARE_TEXT=""
-      local VMWARE_LINK=""
+      if [ "$vm_lower_case_short" = "machine" ]; then
+         MSG="\
+<p>Check Virtualizer Result: Supported virtualizer <u>$systemcheck_virtualizer_detected</u> detected.
+<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
+      else
+         MSG="\
+<p>Virtualizer <code>$systemcheck_virtualizer_detected</code> is unsupported by $PROJECT_NAME developers!
+<br></br>
+<br></br>Using Virtualizer this together with $PROJECT_NAME is recommended against.
+<br></br>
+<br></br><code>$systemcheck_virt_detection_tool</code> output:
+<blockquote><code>$systemcheck_virtualizer_detected</code></blockquote>
+This might endanger your anonymity. Do not proceed unless you know what you are doing.
+<br></br>
+Recommended action:
+<br></br>- Shut down.
+<br></br>- Read $PROJECT_NAME documentation.
+<br></br>- Use $PROJECT_NAME on a supported platform.
+<br></br>
+<br></br>Links:
+<br></br>
+<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Leak_Tests>Leak Tests</a>
+<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection>Protocol Leak Protection and Fingerprinting Protection</a>
+<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Documentation>Documentation</a>
+<br></br>
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
+         EXIT_CODE="1"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         return 0
+      fi
    fi
 
-   local MSG="\
-<p>Virtualizer <code>$systemcheck_virtualizer_detected</code> unsupported by $PROJECT_NAME developers! systemcheck aborted! (qubes_detected: $qubes_detected)<p>
-
-<p>Using Virtualizer this together with $PROJECT_NAME is recommended against, because it is rarely tested. [1] [2] [3] \
-<br></br>It could be made possible, but would require more $PROJECT_NAME contributors.
-<br></br>It may already work, but is highly experimental.</p>
-
-$VMWARE_TEXT
-
-<br></br><code>$systemcheck_virt_detection_tool</code> output:
-
-<blockquote><code>$systemcheck_virtualizer_detected</code></blockquote>
-
-<p>This might endanger your anonymity. Do not proceed unless you know what you are doing.</p>
-
-<p>If you wish to ignore this warning and to continue systemcheck anyway, you can set
-<code><blockquote>    NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER=\"1\"</blockquote></code>
-in <code>/etc/systemcheck.d/50_user.conf</code>.</p>
-
-<p>Recommended action:
-<br></br>- Shut down.
-<br></br>- Read Whonix documentation [4].
-<br></br>- Use Whonix with a supported virtualizer or Physical Isolation [5].</p>
-
-<p>Footnotes:</p>
-
-<p>[1] <a href=${PROJECT_HOMEPAGE}/wiki/LeakTests>${PROJECT_HOMEPAGE}/wiki/LeakTests</a>
-<br></br>[2] <a href=${PROJECT_HOMEPAGE}/wiki/Test>${PROJECT_HOMEPAGE}/wiki/Test</a>
-<br></br>[3] <a href=${PROJECT_HOMEPAGE}/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection>${PROJECT_HOMEPAGE}/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection</a>
-<br></br>[4] <a href=${PROJECT_HOMEPAGE}/wiki/Documentation>${PROJECT_HOMEPAGE}/wiki/Documentation</a>
-<br></br>[5] <a href=${PROJECT_HOMEPAGE}/wiki/Physical_Isolation>${PROJECT_HOMEPAGE}/wiki/Physical_Isolation</a>
-<br></br>$VMWARE_LINK
-<br></br>$WIKI_LINK</p>
-"
-
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-   EXIT_CODE="1"
+   if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
    return 0
 }
