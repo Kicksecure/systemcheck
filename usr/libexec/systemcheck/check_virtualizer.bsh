@@ -4,10 +4,6 @@
 ## See the file COPYING for copying conditions.
 
 check_virtualizer() {
-   if [ "$vm_lower_case_short" = "machine" ]; then
-      return 0
-   fi
-
    if [ "$systemcheck_virtualizer_tool_unavailable" = "true" ]; then
       local MSG="<p>Check Virtualizer Result: $systemcheck_virt_detection_tool not available. Skipping test.</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
