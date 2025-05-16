@@ -1,3 +1,29 @@
+commit 41a681ca6563051ec6a10d2a37bcd079d86a4791
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 14 13:43:35 2025 -0400
+
+    cleanup
+
+commit 15fef7f6252b496a9206ff8dffff33445c079f56
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 14 13:42:53 2025 -0400
+
+    simplify virtualizer check
+    remove qemu from supported virtualizer list
+    NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER
+
+commit 0fd9cc6d8d04d54c8aaadb15969fe04195f92185
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 14 13:15:43 2025 -0400
+
+    show virtualizer if using Kicksecure and --verbose
+
+commit f64f73fea5524a1a0b809df8b13cef4b5baefeef
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon May 12 13:06:17 2025 +0000
+
+    bumped changelog version
+
 commit 6006a29d74af7cfcf46918579c63014b5bd229c5
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon May 12 09:06:03 2025 -0400
