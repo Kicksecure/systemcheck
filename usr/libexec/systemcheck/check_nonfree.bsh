@@ -26,7 +26,7 @@ check_non_freedom() {
          fi
       done
       for expected_grep in $systemcheck_expected_non_freedom_grep_package ; do
-         if echo "$line" | grep -q "$expected_grep" ; then
+         if printf '%s\n' "$line" | grep -- "$expected_grep" >/dev/null 2>/dev/null ; then
             check_non_freedom_result=expected
             continue 2
          fi
