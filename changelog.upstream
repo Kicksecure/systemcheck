@@ -1,3 +1,33 @@
+commit d553a2381bf40746e38aa04b50fc67950f893c41
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jun 3 10:03:21 2025 -0400
+
+    ignore more journal messages
+
+commit 73ec0ed6ead45e589de2c425f9119b48414eaaaa
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jun 3 10:01:54 2025 -0400
+
+    add support for ignoring journal messages using `grep --fixed-strings`
+
+commit 8682d30307ec8fa0773edf712ff3bf15e418bf7e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jun 3 09:39:27 2025 -0400
+
+    sort into literal and non-literal grep
+
+commit 8a3062f95d5b6795128b5208e4248507ebc2f2e3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jun 3 09:33:56 2025 -0400
+
+    refactoring
+
+commit 74899fe94d7c9eb18655732794676f4726dc4fc6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jun 3 13:05:55 2025 +0000
+
+    bumped changelog version
+
 commit b07cb6cbeb30ea579bf5c892d49f32eb64e5412f
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Jun 3 09:02:45 2025 -0400
