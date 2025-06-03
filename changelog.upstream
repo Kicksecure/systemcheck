@@ -1,3 +1,19 @@
+commit b07cb6cbeb30ea579bf5c892d49f32eb64e5412f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jun 3 09:02:45 2025 -0400
+
+    fix apparmor issue
+    
+    https://forums.whonix.org/t/systemcheck-gui-fails-with-error-arg-max-exceeded/21715
+    
+    Thanks to @marmarek for the bug report and fix suggestion!
+
+commit aa9ecbb07ffe39c0f1291c083af30cb5f412f691
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 28 13:48:35 2025 +0000
+
+    bumped changelog version
+
 commit 139ba23aac4bc09a03f8bc03f60b7ff3773337cd
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 28 09:47:17 2025 -0400
