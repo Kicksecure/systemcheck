@@ -259,6 +259,7 @@ include <tunables/global>
   /{,usr/}bin/dpkg rix,
   /{,usr/}bin/dpkg-query rix,
   /{,usr/}bin/echo rix,
+  /{,usr/}bin/true rix,
   /{,usr/}bin/env rix,
   /{,usr/}bin/fuser rix,
   /{,usr/}bin/gawk rix,
