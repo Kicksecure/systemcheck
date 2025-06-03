@@ -137,7 +137,7 @@ check_journal() {
       echo "$counter: '$journal_ignore_pattern_item'" >/dev/null
    done
 
-   grep -vEi "$journal_ignore_patterns_list" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
+   grep --invert-match --extended-regexp --ignore-case "$journal_ignore_patterns_list" -- "$TEMP_DIR/journalctl_matched.txt" | tee -- "$TEMP_DIR/journalctl_filtered.txt" >/dev/null || true
 
    br_add_to_file "$TEMP_DIR/journalctl_filtered.txt"
 
