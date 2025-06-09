@@ -1,0 +1,33 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+source /usr/libexec/helper-scripts/get_colors.sh
+
+check_tirdad_module() {
+   local link_cli link_gui MSG
+   if [ "$silent" -ge "4" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+
+   link_cli="https://github.com/Kicksecure/tirdad"
+   link_gui="<a href=\"$link_cli\">TCP ISN CPU Information Leak Protection</a>"
+
+   if grep --ignore-case --fixed-strings -- "tirdad" >/dev/null < <(lsmod); then
+      MSG="<p>$link_gui: <font color=\"green\">Enabled</font> (kernel module 'tirdad' is loaded)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="TCP ISN CPU Information Leak Protection: ${green}Enabled${nocolor} (kernel module 'tirdad' is loaded)
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   else
+      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font> (kernel module 'tirdad' is NOT loaded)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="TCP ISN CPU Information Leak Protection: ${yellow}Disabled${nocolor} (kernel module 'tirdad' is NOT loaded)
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}

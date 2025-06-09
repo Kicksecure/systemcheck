@@ -1,0 +1,98 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+source /usr/libexec/helper-scripts/get_colors.sh
+
+warn_unknown_eol_date() {
+   MSG="<p>$link_gui: <font color=\"orange\">Unknown</font> (could not determine OS end-of-life date)</p>"
+   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+   MSG="OS support status: ${yellow}Unknown${nocolor} (could not determine OS end-of-life date)
+See also: $link_cli"
+   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+}
+
+check_debian_eol() {
+   local link_cli link_gui os_version os_info_line os_info_bit_list \
+      os_eol_date os_lts_eol_date os_eol_timestamp os_lts_eol_timestamp \
+      current_timestamp MSG
+
+   link_cli="https://www.kicksecure.com/wiki/Operating_System_Software_and_Updates#End-of-life_Software"
+   link_gui="<a href=\"$link_cli\">OS support status</a>"
+
+   os_version="$(
+      cut -d'=' -f2 < <(grep 'VERSION_ID' /etc/os-release) \
+         | sed 's/\"//g'
+   )"
+   if [ -z "${os_version}" ]; then
+      MSG="<p>$link_gui: <font color=\"orange\">Unknown</font> (could not determine OS version)</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="OS support status: ${yellow}Unknown${nocolor} (could not determine OS version)
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   fi
+
+   os_info_line="$(grep "^${os_version}," /usr/share/distro-info/debian.csv)"
+   if [ -z "${os_info_line}" ]; then
+      warn_unknown_eol_date
+      return 0
+   fi
+
+   IFS=',' read -r -a os_info_bit_list <<< "${os_info_line}"
+   if (( ${#os_info_bit_list[@]} < 8 )); then
+      warn_unknown_eol_date
+      return 0
+   fi
+
+   ## Fields are version,codename,series,created,release,eol,eol-lts,eol-elts
+   ## ELTS has very limited security support and is therefore ignored.
+   ## Zero-indexed field 5 = EOL, 6 = LTS EOL
+   os_eol_date="${os_info_bit_list[5]}"
+   os_eol_timestamp="$(date --date="${os_eol_date}" '+%s')"
+   if [ -z "${os_eol_timestamp}" ]; then
+      warn_unknown_eol_date
+      return 0
+   fi
+
+   os_lts_eol_date="${os_info_bit_list[6]}"
+   os_lts_eol_timestamp="$(date --date="${os_lts_eol_date}" '+%s')"
+   if [ -z "${os_lts_eol_timestamp}" ]; then
+      true "warn: could not determine LTS EOL timestamp"
+      os_lts_eol_timestamp="${os_eol_timestamp}"
+   fi
+
+   current_timestamp="$(date '+%s')"
+   if (( current_timestamp < os_eol_timestamp )); then
+      MSG="<p>$link_gui: <font color=\"green\">Supported</font> (until ${os_eol_date})</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="OS support status: ${green}Supported${nocolor} (until ${os_eol_date})
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      return 0
+   elif (( current_timestamp < os_lts_eol_timestamp )); then
+      MSG="<p>$link_gui: <font color=\"orange\">LTS support</font> (until ${os_lts_eol_date})<br>
+You should consider upgrading to a newer version of $PROJECT_NAME soon.</p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="OS support status: ${yellow}LTS support${nocolor} (until ${os_lts_eol_date})
+You should consider upgrading to a newer version of $PROJECT_NAME soon.
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   else
+      MSG="<p>$link_gui: <font color=\"red\">Unsupported</font> (as of ${os_lts_eol_date})<br>
+<b>Your system is likely vulnerable to malware infection due to missing security updates.</b><br>
+Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.<br></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="OS support status: ${red}Unsupported${nocolor} (as of ${os_lts_eol_date})
+Your system is likely vulnerable to malware infection due to missing security updates.
+Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}
