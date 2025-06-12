@@ -123,6 +123,7 @@ include <tunables/global>
   /lib/security/* mr,
   /run/*/[0-9]*/msgcollector/ rwk,
   /run/*/[0-9]*/msgcollector/** rwk,
+  /run/desktop-config-dist/livecheck-lsblk r,
   /run/log/journal/ r,
   /run/log/journal/** r,
   /run/onion-grater/pid r,
