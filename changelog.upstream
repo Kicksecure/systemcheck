@@ -1,3 +1,22 @@
+commit f61891cdb7d228e5fe26b12ddd332d08861faf3f
+Merge: 10d3ef8 2467591
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 13 14:51:52 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/apparmor'
+
+commit 2467591b0e829c913eda6f0f79dbabb5f2b6943f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Jun 12 11:31:35 2025 -0500
+
+    Don't block the livecheck-lsblk file in the apparmor policy
+
+commit 10d3ef8da02a900a9ef09bdb4d490b92730d3d25
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 11 19:16:28 2025 +0000
+
+    bumped changelog version
+
 commit 7bca80fcc43cdae6fbf89750f65ed8492f578eb4
 Merge: dd714b2 5466d29
 Author: Patrick Schleizer <adrelanos@whonix.org>
