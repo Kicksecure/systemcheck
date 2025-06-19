@@ -6,22 +6,34 @@
 source /usr/libexec/helper-scripts/get_colors.sh
 
 check_secure_boot() {
-   local mokutil_output link_cli link_gui MSG
+   local mokutil_output link_cli link_gui MSG reason
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
-      return 0
-   fi
-   if [ -f '/usr/share/qubes/marker-vm' ]; then
-      true "Qubes VM detected. Skipping $FUNCNAME."
-      return 0
-   fi
-   if ! [ -d /sys/firmware/efi ]; then
-      true "Not booted in EFI mode. Skipping $FUNCNAME."
       return 0
    fi
 
    link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
    link_gui="<a href=\"$link_cli\">Secure Boot</a>"
+
+   if [ -f '/usr/share/qubes/marker-vm' ]; then
+      reason="Qubes detected.<br/>
+Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/5241>https://github.com/QubesOS/qubes-issues/issues/5241</a>"
+   else
+      reason="Not booted in EFI mode."
+   fi
+
+   if ! [ -d /sys/firmware/efi ]; then
+      true "Secure Boot test: Unavailable. Reason: $reason"
+      if [ "$verbose" -ge "1" ]; then
+         MSG="<p>$link_gui: <font color=\"orange\">Unavailable</font> <br/>Reason: $reason"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="Secure Boot: ${yellow}Unavailable${nocolor} Reason: $reason
+See also: $link_cli"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      return 0
+   fi
 
    if mokutil_output="$(leaprun mokutil-sb-state 2>&1)"; then
       if [[ "${mokutil_output}" = *enabled* ]]; then
