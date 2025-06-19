@@ -19,7 +19,7 @@ check_tirdad_module() {
       only_if_verbose=true
       help_msg="<br/>
 - Reason: Qubes detected.<br/>
-- Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a><br/>
+- Known Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a><br/>
 - No need to report this."
    ## Variable 'secure_boot_status_enabled' is set in 'check_secure_boot.bsh'.
    elif [ "$secure_boot_status_enabled" = "true" ]; then
@@ -30,18 +30,18 @@ check_tirdad_module() {
          help_msg="\
 <br/>
 - Reason: kernel module 'tirdad' is NOT loaded.<br/>
-- This is only relevant if using the internet.<br/>
-- Secure boot is enabled. Therefore, Secure Boot DKMS Signing Key Enrollment likely required.<br/>
-- See Kicksecure wiki page: $help_link_gui<br/>
-- No need to report this. Read the wiki page."
+- This only matters if internet connectivity is used.<br/>
+- Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.<br/>
+- Refer to the Kicksecure wiki: $help_link_gui<br/>
+- No need to report this. Please read the documentation."
       else
          help_msg="\
 <br/>
 - Reason: kernel module 'tirdad' is NOT loaded.<br/>
-- This is only relevant if using the internet.<br/>
-- Secure boot is enabled. Therefore, Secure Boot DKMS Signing Key Enrollment likely required.<br/>
-- See Kicksecure wiki page: $help_link_gui<br/>
-- No need to report this. Read the wiki page."
+- This only matters if internet connectivity is used.<br/>
+- Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.<br/>
+- Refer to the Kicksecure wiki: $help_link_gui<br/>
+- No need to report this. Please read the documentation."
       fi
    else
       only_if_verbose=false
@@ -54,14 +54,14 @@ check_tirdad_module() {
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
       MSG="$link_gui: ${green}Enabled${nocolor}
-See also: $link_cli"
+For details, see: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
       if [ "$only_if_verbose" = "true" ]; then
          if [ "$verbose" -ge "1" ]; then
             true "OK"
          else
-            true "Skip tirdad warning because Qubes detected and not running in verbose mode."
+            true "Skipping tirdad warning: Qubes detected and not in verbose mode."
             return 0
          fi
       fi
