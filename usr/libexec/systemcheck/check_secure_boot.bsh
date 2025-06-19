@@ -23,7 +23,7 @@ check_secure_boot() {
    link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
    link_gui="<a href=\"$link_cli\">Secure Boot</a>"
 
-   if mokutil_output="$(sudo mokutil --sb-state 2>&1)"; then
+   if mokutil_output="$(leaprun mokutil-sb-state 2>&1)"; then
       if [[ "${mokutil_output}" = *enabled* ]]; then
          MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
