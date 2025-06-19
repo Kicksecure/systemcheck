@@ -9,7 +9,7 @@ warn_unknown_eol_date() {
    MSG="<p>$link_gui: <font color=\"orange\">Unknown</font> (could not determine OS end-of-life date)</p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-   MSG="Operating system (OS) support status: ${yellow}Unknown${nocolor} (could not determine OS end-of-life date)
+   MSG="Operating system (OS) (Debian) support status: ${yellow}Unknown${nocolor} (could not determine OS end-of-life date)
 See also: $link_cli"
    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
 }
@@ -20,7 +20,7 @@ check_debian_eol() {
       current_timestamp MSG
 
    link_cli="https://www.kicksecure.com/wiki/Operating_System_Software_and_Updates#End-of-life_Software"
-   link_gui="<a href=\"$link_cli\">OS support status</a>"
+   link_gui="<a href=\"$link_cli\">Operating system (OS) (Debian) support status</a>"
 
    os_version="$(
       cut -d'=' -f2 < <(grep 'VERSION_ID' /etc/os-release) \
@@ -30,7 +30,7 @@ check_debian_eol() {
       MSG="<p>$link_gui: <font color=\"orange\">Unknown</font> (could not determine OS version)</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="Operating system (OS) support status: ${yellow}Unknown${nocolor} (could not determine OS version)
+      MSG="Operating system (OS) (Debian) support status: ${yellow}Unknown${nocolor} (could not determine OS version)
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
@@ -70,7 +70,7 @@ See also: $link_cli"
       MSG="<p>$link_gui: <font color=\"green\">Supported</font> (until ${os_eol_date})</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="OS support status: ${green}Supported${nocolor} (until ${os_eol_date})
+      MSG="Operating system (OS) (Debian) support status: ${green}Supported${nocolor} (until ${os_eol_date})
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
@@ -79,7 +79,7 @@ See also: $link_cli"
 You should consider upgrading to a newer version of $PROJECT_NAME soon.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="Operating system (OS) support status: ${yellow}LTS support${nocolor} (until ${os_lts_eol_date})
+      MSG="Operating system (OS) (Debian) support status: ${yellow}LTS support${nocolor} (until ${os_lts_eol_date})
 You should consider upgrading to a newer version of $PROJECT_NAME soon.
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -89,7 +89,7 @@ See also: $link_cli"
 Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.<br></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="Operating system (OS) support status: ${red}Unsupported${nocolor} (as of ${os_lts_eol_date})
+      MSG="Operating system (OS) (Debian) support status: ${red}Unsupported${nocolor} (as of ${os_lts_eol_date})
 Your system is likely vulnerable to malware infection due to missing security updates.
 Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.
 See also: $link_cli"
