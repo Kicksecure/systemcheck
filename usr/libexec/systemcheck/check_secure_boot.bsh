@@ -60,6 +60,10 @@ See also: $link_cli"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
+      ## Not exiting with non-zero exit code until there is full verified boot and
+      ## booting without Microsoft's key in the UEFI root of trust.
+      #EXIT_CODE="1"
+
       MSG="<p>$link_gui: <font color=\"orange\">Disabled</font>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 

@@ -66,6 +66,8 @@ For details, see: $link_cli"
          fi
       fi
 
+      EXIT_CODE="1"
+
       MSG="<p>$link_gui: <font color=\"orange\">Disabled</font> $help_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
 

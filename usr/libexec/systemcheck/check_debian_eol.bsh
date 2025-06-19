@@ -67,14 +67,18 @@ See also: $link_cli"
 
    current_timestamp="$(date '+%s')"
    if (( current_timestamp < os_eol_timestamp )); then
-      MSG="<p>$link_gui: <font color=\"green\">Supported</font> (until ${os_eol_date})</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      if [ "$verbose" -ge "1" ]; then
+         MSG="<p>$link_gui: <font color=\"green\">Supported</font> (until ${os_eol_date})</p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="Operating system (OS) (Debian) support status: ${green}Supported${nocolor} (until ${os_eol_date})
-See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         MSG="Operating system (OS) (Debian) support status: ${green}Supported${nocolor} (until ${os_eol_date})
+   See also: $link_cli"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
       return 0
    elif (( current_timestamp < os_lts_eol_timestamp )); then
+      EXIT_CODE="1"
+
       MSG="<p>$link_gui: <font color=\"orange\">LTS support</font> (until ${os_lts_eol_date})<br>
 You should consider upgrading to a newer version of $PROJECT_NAME soon.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -84,6 +88,8 @@ You should consider upgrading to a newer version of $PROJECT_NAME soon.
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
+      EXIT_CODE="1"
+
       MSG="<p>$link_gui: <font color=\"red\">Unsupported</font> (as of ${os_lts_eol_date})<br>
 <b>Your system is likely vulnerable to malware infection due to missing security updates.</b><br>
 Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.<br></p>"
