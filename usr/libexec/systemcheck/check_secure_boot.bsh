@@ -1,0 +1,57 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+source /usr/libexec/helper-scripts/get_colors.sh
+
+check_secure_boot() {
+   local mokutil_output link_cli link_gui MSG
+   if [ "$silent" -ge "4" ]; then
+      true "silent is $silent. Skipping $FUNCNAME."
+      return 0
+   fi
+   if [ -f '/usr/share/qubes/marker-vm' ]; then
+      true "Qubes VM detected. Skipping $FUNCNAME."
+      return 0
+   fi
+   if ! [ -d /sys/firmware/efi ]; then
+      true "Not booted in EFI mode. Skipping $FUNCNAME."
+      return 0
+   fi
+
+   link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
+   link_gui="<a href=\"$link_cli\">Secure Boot</a>"
+
+   if mokutil_output="$(sudo mokutil --sb-state 2>&1)"; then
+      if [[ "${mokutil_output}" = *enabled* ]]; then
+         MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="Secure Boot: ${green}Enabled${nocolor}
+See also: $link_cli"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      elif [[ "${mokutil_output}" = *disabled* ]]; then
+         MSG="<p>$link_gui: <font color=\"orange\">Disabled</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="Secure Boot: ${yellow}Disabled${nocolor}
+See also: $link_cli"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      else
+         MSG="<p>$link_gui: <font color=\"orange\">Unknown</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="Secure Boot: ${yellow}Unknown${nocolor}
+See also: $link_cli"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   else
+      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="Secure Boot: ${yellow}Disabled${nocolor}
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+}
