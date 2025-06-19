@@ -6,28 +6,71 @@
 source /usr/libexec/helper-scripts/get_colors.sh
 
 check_tirdad_module() {
-   local link_cli link_gui MSG
+   local link_cli link_gui MSG help_msg only_if_verbose
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
       return 0
    fi
 
    link_cli="https://github.com/Kicksecure/tirdad"
-   link_gui="<a href=\"$link_cli\">TCP ISN CPU Information Leak Protection</a>"
+   link_gui="<a href=\"$link_cli\">tirdad - TCP ISN CPU Information Leak Protection</a>"
+
+   if [ -f '/usr/share/qubes/marker-vm' ]; then
+      only_if_verbose=true
+      help_msg="<br/>
+- Reason: Qubes detected.<br/>
+- Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a><br/>
+- No need to report this."
+   ## Variable 'secure_boot_status_enabled' is set in 'check_secure_boot.bsh'.
+   elif [ "$secure_boot_status_enabled" = "true" ]; then
+      only_if_verbose=false
+      help_link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
+      help_link_gui="<a href=\"$help_link_cli\">Secure Boot</a>"
+      if live-status-detected ; then
+         help_msg="\
+<br/>
+- Reason: kernel module 'tirdad' is NOT loaded.<br/>
+- This is only relevant if using the internet.<br/>
+- Secure boot is enabled. Therefore, Secure Boot DKMS Signing Key Enrollment likely required.<br/>
+- See Kicksecure wiki page: $help_link_gui<br/>
+- No need to report this. Read the wiki page."
+      else
+         help_msg="\
+<br/>
+- Reason: kernel module 'tirdad' is NOT loaded.<br/>
+- This is only relevant if using the internet.<br/>
+- Secure boot is enabled. Therefore, Secure Boot DKMS Signing Key Enrollment likely required.<br/>
+- See Kicksecure wiki page: $help_link_gui<br/>
+- No need to report this. Read the wiki page."
+      fi
+   else
+      only_if_verbose=false
+      help_msg="<br />
+- Reason: kernel module 'tirdad' is NOT loaded."
+   fi
 
    if grep --ignore-case --fixed-strings -- "tirdad" >/dev/null < <(lsmod); then
-      MSG="<p>$link_gui: <font color=\"green\">Enabled</font> (kernel module 'tirdad' is loaded)</p>"
+      MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="TCP ISN CPU Information Leak Protection: ${green}Enabled${nocolor} (kernel module 'tirdad' is loaded)
+      MSG="$link_gui: ${green}Enabled${nocolor}
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
-      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font> (kernel module 'tirdad' is NOT loaded)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      if [ "$only_if_verbose" = "true" ]; then
+         if [ "$verbose" -ge "1" ]; then
+            true "OK"
+         else
+            true "Skip tirdad warning because Qubes detected and not running in verbose mode."
+            return 0
+         fi
+      fi
 
-      MSG="TCP ISN CPU Information Leak Protection: ${yellow}Disabled${nocolor} (kernel module 'tirdad' is NOT loaded)
-See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font> $help_msg</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+
+      MSG="$link_gui: ${yellow}Disabled${nocolor}
+$help_msg"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    fi
 }
