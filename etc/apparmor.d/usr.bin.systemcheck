@@ -184,6 +184,7 @@ include <tunables/global>
   /sys/hypervisor/type r,
   /tmp/** rwlcix,
   /usr/bin/apt-get rix,
+  /usr/bin/getconf rix,
   /usr/bin/live-status-detected rix,
   /usr/bin/check-dfsg-status r,
   /usr/bin/check-dfsg-status ux,
