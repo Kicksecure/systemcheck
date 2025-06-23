@@ -1,3 +1,66 @@
+commit 0c9f5ad71bba88ab1cda78a2f0c083c9c5261566
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jun 22 16:21:44 2025 -0400
+
+    apparmor
+
+commit 2c2f0e8f6b324cd23d2a2ffb52113a18e8625eea
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 10:10:33 2025 -0400
+
+    - non-zero exit code if tirdad kernel module is not load (Non-Qubes only)
+    - non-zero exit code if Debian is LTS or EOL
+    - show Debian still supported message only in verbose mode
+
+commit 93bc6babdbab2ce6dcb47532e221a151000e4248
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 09:40:06 2025 -0400
+
+    output
+
+commit 3846c163cb211abcba284ab92102f41cd8b1a935
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 09:38:11 2025 -0400
+
+    output
+
+commit 5bdd7296ff74960e5c1844532ed47e8992a5713b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 09:17:32 2025 -0400
+
+    output
+
+commit a9351d6b351f7d1c375d9c842588a821a67cd07b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 09:15:50 2025 -0400
+
+    improve tirdad kernel module loaded test help output
+
+commit 5066a869bb93868a85dc030f5b6f7e5a72c24ebd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 08:37:36 2025 -0400
+
+    output more information about Secure Boot status when not booted into EFI mode and when using Qubes
+
+commit 1ba2a10531ff334effd47078de2e3c4cb9dc054e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 08:26:57 2025 -0400
+
+    leaprun
+
+commit d5bbe988be70d31ecd1bfecff236af66030d341f
+Merge: 4fd1c1e 0ed31da
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 19 08:22:25 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/enhancements'
+
+commit 4fd1c1e9fe4689a8e811fed01c69ecdcbd9e21a7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jun 14 11:52:11 2025 +0000
+
+    bumped changelog version
+
 commit f61891cdb7d228e5fe26b12ddd332d08861faf3f
 Merge: 10d3ef8 2467591
 Author: Patrick Schleizer <adrelanos@whonix.org>
@@ -5,11 +68,25 @@ Date:   Fri Jun 13 14:51:52 2025 -0400
 
     Merge remote-tracking branch 'ArrayBolt3/arraybolt3/apparmor'
 
+commit 0ed31da5f7194a8db7eb1c9154b50fb9600866b0
+Merge: e4b17b2 2467591
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Jun 12 11:31:56 2025 -0500
+
+    Merge branch 'arraybolt3/apparmor' into arraybolt3/enhancements
+
 commit 2467591b0e829c913eda6f0f79dbabb5f2b6943f
 Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
 Date:   Thu Jun 12 11:31:35 2025 -0500
 
     Don't block the livecheck-lsblk file in the apparmor policy
+
+commit e4b17b2b67735a958d758a601f1df392273157e6
+Merge: fc9ae1d 10d3ef8
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Jun 12 11:29:57 2025 -0500
+
+    Merge branch 'master' into arraybolt3/enhancements
 
 commit 10d3ef8da02a900a9ef09bdb4d490b92730d3d25
 Author: Patrick Schleizer <adrelanos@whonix.org>
@@ -23,6 +100,12 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jun 11 15:06:27 2025 -0400
 
     Merge remote-tracking branch 'ArrayBolt3/arraybolt3/privleap'
+
+commit fc9ae1d4bb49726a07c56d657e5fb5ab803b5f62
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Jun 8 21:10:53 2025 -0500
+
+    Skip user-sysmaint-split check in Whonix-Gateway if package is not installed, add new checks
 
 commit 5466d2914ead13fccddbf36e39786b15c5c08f56
 Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
