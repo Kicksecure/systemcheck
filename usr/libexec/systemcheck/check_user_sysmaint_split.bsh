@@ -21,7 +21,7 @@ check_user_sysmaint_split_package() {
    if ! leaprun user-sysmaint-split-check &>/dev/null ; then
       if [ -e /usr/share/anon-gw-base-files/gateway ]; then
          ## On Whonix-Gateway, we expect user-sysmaint-split to be missing.
-         ## Skip quietly and inform check_user_sysmaint_pslit that we should
+         ## Skip quietly and inform check_user_sysmaint_split that we should
          ## not run the boot mode check.
          return 1
       fi
