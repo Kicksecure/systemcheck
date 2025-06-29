@@ -39,7 +39,7 @@ include <tunables/global>
   /sys/hypervisor/type r,
   /usr/libexec/helper-scripts/live-mode.sh r,
   /usr/libexec/helper-scripts/settings_echo rix,
-  /usr/libexec/msgcollector/striphtml rix,
+  /usr/libexec/helper-scripts/strip-html rix,
   /usr/libexec/systemcheck/canary r,
   /usr/libexec/systemcheck/canary-download rix,
   /usr/libexec/systemcheck/canary-run-or-not rix,
