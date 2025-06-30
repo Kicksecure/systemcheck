@@ -5,9 +5,6 @@
 
 source /usr/libexec/systemcheck/uwt_tool.bsh
 
-## provides: sanitize_variable
-source /usr/libexec/helper-scripts/sanitize_variable
-
 ## provides: pkg_installed
 source /usr/libexec/helper-scripts/package_installed_check.bsh
 
