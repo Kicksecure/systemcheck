@@ -14,8 +14,8 @@ include <tunables/global>
 
   deny /etc/ssl/openssl.cnf r,
   deny /sbin/** rwx,
-  deny /usr/bin/*-gnu-* rx,
-  deny /usr/bin/python3.9 r,
+  deny /{,usr/}bin/*-gnu-* rx,
+  deny /{,usr/}bin/python3.9 r,
   deny /usr/libexec/systemcheck r,
   deny /usr/libexec/systemcheck/ r,
 
@@ -39,7 +39,7 @@ include <tunables/global>
   /sys/hypervisor/type r,
   /usr/libexec/helper-scripts/live-mode.sh r,
   /usr/libexec/helper-scripts/settings_echo rix,
-  /usr/libexec/helper-scripts/strip-html rix,
+  /usr/libexec/helper-scripts/sanitize-string rix,
   /usr/libexec/systemcheck/canary r,
   /usr/libexec/systemcheck/canary-download rix,
   /usr/libexec/systemcheck/canary-run-or-not rix,
