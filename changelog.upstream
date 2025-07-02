@@ -1,3 +1,40 @@
+commit 5c148654faeb2d6f2640f3c878af5f2567a5b373
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 2 14:06:52 2025 -0400
+
+    todo
+
+commit b52bc66cdeb8425438578184c4fab5e527e3836a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 2 14:03:48 2025 -0400
+
+    fix
+
+commit 554e14bc19be03fe48fb0c5a26851e9223b63e61
+Merge: 7bc7d11 0d9ae5b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jul 2 14:01:06 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/sanitize-plus-apparmor'
+
+commit 0d9ae5bb0e269731a18ad7e4d253822cf3a8a962
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Jun 29 19:01:51 2025 -0500
+
+    Port sanitize_variable calls to sanitize-string
+
+commit 6ec069706e3157b2a7d9888bed720c09574a3a11
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Jun 29 18:19:15 2025 -0500
+
+    Port strip-html calls to sanitize-string, make apparmor config handle both /bin and /usr/bin properly
+
+commit 7bc7d111469718b8bee88f11673b56f6a335e1f6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jun 29 17:44:24 2025 +0000
+
+    bumped changelog version
+
 commit 3a83bbd63a4bb5b56b9f10ab19e29f64bf41e27c
 Merge: 05bd2e8 54acf9d
 Author: Patrick Schleizer <adrelanos@whonix.org>
