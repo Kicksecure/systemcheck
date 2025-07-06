@@ -129,29 +129,54 @@ See also: https://www.kicksecure.com/wiki/Login"
       elif [[ "${table_settings_gui_entry}" =~ 'Present' ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Present'/'<font color="green">Present</font>'}"
       elif [[ "${table_settings_gui_entry}" =~ 'Absent' ]]; then
-        table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="orange">Absent</font>'}"
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="red">Absent</font>'}"
+        else
+          table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="orange">Absent</font>'}"
+        fi
       fi
-      table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
-      table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
-      table_settings_gui_entry="${table_settings_gui_entry//'Error'/'<font color="red">Error</font>'}"
 
+      if [[ "${table_settings_gui_entry}" =~ 'Disabled' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Enabled' ]]; then
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="red">Enabled</font>'}"
+        else
+          table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
+        fi
+      elif [[ "${table_settings_gui_entry}" =~ 'Error' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Error'/'<font color="red">Error</font>'}"
+      fi
 
-      if [[ "${table_settings_gui_entry}" =~ 'Locked (Present)' ]]; then
+      if [[ "${table_settings_cli_entry}" =~ 'Locked (Present)' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Locked (Present)'/"${green}Locked (Present)${nocolor}"}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Restricted (Present)' ]]; then
+      elif [[ "${table_settings_cli_entry}" =~ 'Restricted (Present)' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Restricted (Present)'/"${green}Restricted (Present)${nocolor}"}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Locked' ]]; then
+      elif [[ "${table_settings_cli_entry}" =~ 'Locked' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Locked'/"${green}Locked${nocolor}"}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Restricted' ]]; then
+      elif [[ "${table_settings_cli_entry}" =~ 'Restricted' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Restricted'/"${green}Restricted${nocolor}"}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Present' ]]; then
+      elif [[ "${table_settings_cli_entry}" =~ 'Present' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Absent' ]]; then
-        table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${yellow}Absent${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Absent' ]]; then
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${red}Absent${nocolor}"}"
+        else
+          table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${yellow}Absent${nocolor}"}"
+        fi
       fi
-      table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
-      table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
-      table_settings_cli_entry="${table_settings_cli_entry//'Error'/"${red}Error${nocolor}"}"
+
+      if [[ "${table_settings_cli_entry}" =~ 'Disabled' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Enabled' ]]; then
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${red}Enabled${nocolor}"}"
+        else
+          table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
+        fi
+      elif [[ "${table_settings_cli_entry}" =~ 'Error' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Error'/"${red}Error${nocolor}"}"
+      fi
 
       table_settings_gui+=( "${table_settings_gui_entry}" )
       table_settings_cli+=( "${table_settings_cli_entry}" )
