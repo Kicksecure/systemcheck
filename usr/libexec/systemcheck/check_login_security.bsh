@@ -54,26 +54,27 @@ See also: https://www.kicksecure.com/wiki/Login"
    ## Format the retrieved info into a convenient table.
    ## The table is formatted like this:
    ##
-   ## +----------+--------------------------+
-   ## | Users    | Password   GUI Autologin |
-   ## +----------+--------------------------+
-   ## | aaron    | Present    Disabled      |
-   ## | user     | Absent     Disabled      |
-   ## | bob      | Absent     Enabled       |
-   ## | sysmaint | Absent     Enabled       |
-   ## +----------+--------------------------+
+   ## +----------+--------------------------------------+
+   ## | Users    | Password               GUI Autologin |
+   ## +----------+--------------------------------------+
+   ## | root     | Locked (Enabled)       Disabled      |
+   ## | aaron    | Present                Disabled      |
+   ## | user     | Absent                 Disabled      |
+   ## | bob      | Absent                 Enabled       |
+   ## | sysmaint | Absent                 Enabled       |
+   ## +----------+--------------------------------------+
    ##
    ## The table is generated line by line. The table is divided vertically
    ## into two halves, one for the "Users" section on the left, and one for
    ## the "Settings" section and the actual table of entries on the right. The
-   ## "Settings" half is always 28 characters wide, and makes up this part of
+   ## "Settings" half is always 40 characters wide, and makes up this part of
    ## the table:
    ##
-   ## +--------------------------+
-   ## | Password   GUI Autologin |
-   ## +----------+---------------+
-   ## | ...        ...           |
-   ## +----------+---------------+
+   ## +--------------------------------------+
+   ## | Password               GUI Autologin |
+   ## +--------------------------------------+
+   ## | ...                    ...           |
+   ## +--------------------------------------+
    ## The "Users" half is 3 characters wide plus the length of the longest
    ## username, with a minimum width of 8 characters. It makes up this part of the table:
    ##
@@ -107,32 +108,82 @@ See also: https://www.kicksecure.com/wiki/Login"
       "${table_user_barrier_entry}"
    )
    table_settings_gui=(
-      '+--------------------------+'
-      '| Password   GUI Autologin |'
-      '+--------------------------+'
+      '+--------------------------------------+'
+      '| Password               GUI Autologin |'
+      '+--------------------------------------+'
    )
    table_settings_cli=( "${table_settings_gui[@]}" )
    for (( counter=0; counter < ${#user_list[@]}; counter++ )); do
       printf -v table_users_entry "| %-${users_column_width}s " "${user_list[counter]}"
       table_users+=( "${table_users_entry}" )
-      printf -v table_settings_gui_entry "| %-8s   %-13s |" "${password_status_list[counter]}" "${autologin_status_list[counter]}"
+      printf -v table_settings_gui_entry "| %-20s   %-13s |" "${password_status_list[counter]}" "${autologin_status_list[counter]}"
       table_settings_cli_entry="${table_settings_gui_entry}"
-      table_settings_gui_entry="${table_settings_gui_entry//'Present'/'<font color="green">Present</font>'}"
-      table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="orange">Absent</font>'}"
-      table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
-      table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
-      table_settings_gui_entry="${table_settings_gui_entry//'Error'/'<font color="red">Error</font>'}"
-      table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
-      table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${yellow}Absent${nocolor}"}"
-      table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
-      table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
-      table_settings_cli_entry="${table_settings_cli_entry//'Error'/"${red}Error${nocolor}"}"
+      if [[ "${table_settings_gui_entry}" =~ 'Locked (Present)' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Locked (Present)'/'<font color="green">Locked (Present)</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Restricted (Present)' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Restricted (Present)'/'<font color="green">Restricted (Present)</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Locked' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Locked'/'<font color="green">Locked</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Restricted' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Restricted'/'<font color="green">Restricted</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Present' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Present'/'<font color="green">Present</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Absent' ]]; then
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="red">Absent</font>'}"
+        else
+          table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="orange">Absent</font>'}"
+        fi
+      fi
+
+      if [[ "${table_settings_gui_entry}" =~ 'Disabled' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Enabled' ]]; then
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="red">Enabled</font>'}"
+        else
+          table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
+        fi
+      elif [[ "${table_settings_gui_entry}" =~ 'Error' ]]; then
+        table_settings_gui_entry="${table_settings_gui_entry//'Error'/'<font color="red">Error</font>'}"
+      fi
+
+      if [[ "${table_settings_cli_entry}" =~ 'Locked (Present)' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Locked (Present)'/"${green}Locked (Present)${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Restricted (Present)' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Restricted (Present)'/"${green}Restricted (Present)${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Locked' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Locked'/"${green}Locked${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Restricted' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Restricted'/"${green}Restricted${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Present' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Absent' ]]; then
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${red}Absent${nocolor}"}"
+        else
+          table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${yellow}Absent${nocolor}"}"
+        fi
+      fi
+
+      if [[ "${table_settings_cli_entry}" =~ 'Disabled' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Enabled' ]]; then
+        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+          table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${red}Enabled${nocolor}"}"
+        else
+          table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
+        fi
+      elif [[ "${table_settings_cli_entry}" =~ 'Error' ]]; then
+        table_settings_cli_entry="${table_settings_cli_entry//'Error'/"${red}Error${nocolor}"}"
+      fi
+
       table_settings_gui+=( "${table_settings_gui_entry}" )
       table_settings_cli+=( "${table_settings_cli_entry}" )
    done
    table_users+=( "${table_user_barrier_entry}" )
-   table_settings_gui+=( '+--------------------------+' )
-   table_settings_cli+=( '+--------------------------+' )
+   table_settings_gui+=( '+--------------------------------------+' )
+   table_settings_cli+=( '+--------------------------------------+' )
    table_str_gui='<pre>'$'\n'
    table_str_cli=''
    for (( counter=0; counter < ${#table_users[@]}; counter++ )); do
