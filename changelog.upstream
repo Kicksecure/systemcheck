@@ -1,3 +1,34 @@
+commit 66559b772aab9f3a24aceadc7dbf3a79b4fb078b
+Merge: 68f0284 1c52f2f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jul 11 08:06:48 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/root-login-check'
+
+commit 1c52f2fc9c49fa741448d67f680b39d2bf436d28
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Jul 6 17:17:04 2025 -0500
+
+    Fix check_login_security regexes, increase warning severity for root password and autologin issues
+
+commit 15afd5eaece8ebe9658a7cf87666cf9ba53fa376
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Jul 6 17:08:45 2025 -0500
+
+    Add 'Locked (Present)' and 'Restricted (Present)' password statuses
+
+commit ca60077922692e4431385fdc13f50a1104e79d4c
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Jul 6 16:35:53 2025 -0500
+
+    Add additional checks for locked and disabled (restricted) passwords
+
+commit 68f0284d1f1226b0c270486a26f27c8f77368807
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jul 4 08:56:09 2025 +0000
+
+    bumped changelog version
+
 commit 5db2426a5eef6e660ad37ff171e610f80a6506ae
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jul 3 11:09:22 2025 -0400
