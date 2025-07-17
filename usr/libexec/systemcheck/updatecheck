@@ -163,12 +163,7 @@ fi
 
 check_attempts=10
 for ((i=1; i<=check_attempts; i++)) ; do
-  ## similar code in: systemcheck
-  network_ip_data="$(
-    ip -o addr show scope global \
-    | awk '{print $4}'
-  )" || true
-  if [ -n "${network_ip_data}" ]; then
+  if /usr/libexec/helper-scripts/check-network-access; then
     true "$0: INFO: Non-loopback IP address found - success. Proceeding."
     break
   fi
