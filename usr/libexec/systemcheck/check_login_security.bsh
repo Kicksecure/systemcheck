@@ -129,7 +129,7 @@ See also: https://www.kicksecure.com/wiki/Login"
       elif [[ "${table_settings_gui_entry}" =~ 'Present' ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Present'/'<font color="green">Present</font>'}"
       elif [[ "${table_settings_gui_entry}" =~ 'Absent' ]]; then
-        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+        if [ "${user_list[counter]}" = "root" ]; then
           table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="red">Absent</font>'}"
         else
           table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="orange">Absent</font>'}"
@@ -139,7 +139,7 @@ See also: https://www.kicksecure.com/wiki/Login"
       if [[ "${table_settings_gui_entry}" =~ 'Disabled' ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
       elif [[ "${table_settings_gui_entry}" =~ 'Enabled' ]]; then
-        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+        if [ "${user_list[counter]}" = "root" ]; then
           table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="red">Enabled</font>'}"
         else
           table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
@@ -159,7 +159,7 @@ See also: https://www.kicksecure.com/wiki/Login"
       elif [[ "${table_settings_cli_entry}" =~ 'Present' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
       elif [[ "${table_settings_cli_entry}" =~ 'Absent' ]]; then
-        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+        if [ "${user_list[counter]}" = "root" ]; then
           table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${red}Absent${nocolor}"}"
         else
           table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${yellow}Absent${nocolor}"}"
@@ -169,7 +169,7 @@ See also: https://www.kicksecure.com/wiki/Login"
       if [[ "${table_settings_cli_entry}" =~ 'Disabled' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
       elif [[ "${table_settings_cli_entry}" =~ 'Enabled' ]]; then
-        if [[ "${table_users[counter]}" =~ ^"| root" ]]; then
+        if [ "${user_list[counter]}" = "root" ]; then
           table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${red}Enabled${nocolor}"}"
         else
           table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
