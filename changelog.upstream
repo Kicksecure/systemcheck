@@ -1,3 +1,28 @@
+commit 198010e262c7f735d446edb06c09c6f7deea2453
+Merge: 1e0fe84 3f7c5c1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 19 02:59:38 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/refactor-network-check'
+
+commit 3f7c5c13436e266b25d3606112f91eab31020958
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Jul 16 22:44:06 2025 -0500
+
+    Split out network access check code into helper-scripts
+
+commit 6ae6c5569c75dc78bc8f5e2fa24e2e1970deeb1f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Jul 16 22:37:14 2025 -0500
+
+    Fix color for root login security warnings
+
+commit 1e0fe8459fcd14d86a18d0527dca7264c45433e1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jul 11 12:07:44 2025 +0000
+
+    bumped changelog version
+
 commit 66559b772aab9f3a24aceadc7dbf3a79b4fb078b
 Merge: 68f0284 1c52f2f
 Author: Patrick Schleizer <adrelanos@whonix.org>
