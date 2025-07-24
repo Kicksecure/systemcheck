@@ -1,3 +1,28 @@
+commit af0cdf6e591340d87dd095339d2ba1cd44b16d9d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 24 02:43:56 2025 -0400
+
+    comment
+
+commit 076070fa0383b9463fcc8385258b9688ff5f6868
+Merge: 15585d1 51b9a52
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 24 02:16:45 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/warn-fix'
+
+commit 51b9a520f0fdd9a22b039e71b769c28f4cba9b2a
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Jul 23 19:47:08 2025 -0500
+
+    Silence spurious warnings, fix AppArmor issues
+
+commit 15585d123377fa34739e68a4e476305923639ffb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 19 09:47:55 2025 +0000
+
+    bumped changelog version
+
 commit 198010e262c7f735d446edb06c09c6f7deea2453
 Merge: 1e0fe84 3f7c5c1
 Author: Patrick Schleizer <adrelanos@whonix.org>
