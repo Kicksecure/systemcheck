@@ -1,0 +1,31 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+check_su_access() {
+  local stat_output MSG link_cli link_gui
+
+  link_cli="https://www.kicksecure.com/wiki/Dev/Strong_Linux_User_Account_Isolation#su_restrictions"
+  link_gui="<a href=\"https://www.kicksecure.com/wiki/Dev/Strong_Linux_User_Account_Isolation#su_restrictions\">su access check</a>"
+
+  stat_output="$(stat --format='%a %u:%g' /usr/bin/su)"
+
+  if [ "${stat_output}" = '744 0:0' ]; then
+    MSG="<p>$link_gui: <font color=\"green\">Locked down</font> - only account <code>root</code> can use <code>su</code>.</p>"
+    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+    MSG="\
+su access check: ${green}Locked down${nocolor} - only account root can use su.
+See also: $link_cli"
+    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+    return 0
+  fi
+
+  MSG="<p>$link_gui: <font color=\"orange\">Not locked down</font> - accounts other than <code>root</code> may be able to use <code>su</code>.</p>"
+  $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+  MSG="\
+su access check: ${yellow}Not locked down${nocolor} - accounts other than root may be able to use su.
+See also: $link_cli"
+  $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+  return 0
+}

@@ -233,6 +233,10 @@ systemcheck_main() {
    systemcheck_progress_main "1"
 
    ## Does not use the network.
+   systemcheck_run_function check_su_access ## check_su_access
+   systemcheck_progress_main "1"
+
+   ## Does not use the network.
    systemcheck_run_function check_secure_boot ## check_secure_boot
    systemcheck_progress_main "1"
 
