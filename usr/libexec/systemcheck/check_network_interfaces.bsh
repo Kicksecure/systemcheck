@@ -20,16 +20,7 @@ check_network_interfaces() {
    ## {{{ Kicksecure
 
    if [ "$vm_lower_case_short" = "machine" ]; then
-      ## similar code in: /usr/libexec/systemcheck/updatecheck
-      network_ip_data="$(
-         ip -o addr show scope global \
-         | awk '{print $4}'
-      )" || true
-
-      ## Debugging
-      #network_ip_data=""
-
-      if [ -n "${network_ip_data}" ]; then
+      if /usr/libexec/helper-scripts/check-network-access; then
          systemcheck_external_network_found=true
          local MSG="<p>check network interfaces Result: External network interface found."
          if [ "$verbose" -ge "1" ]; then
