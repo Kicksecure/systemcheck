@@ -11,13 +11,9 @@ check_login_security() {
       table_user_header_entry counter table_users table_settings_gui \
       table_settings_cli table_users_entry table_settings_gui_entry \
       table_settings_cli_entry table_str_gui table_str_cli user_list_str \
-      password_status_list_str
+      password_status_list_str qubes_default_user
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
-      return 0
-   fi
-   if [ -f '/usr/share/qubes/marker-vm' ]; then
-      true "Qubes VM detected. Skipping $FUNCNAME."
       return 0
    fi
 
@@ -32,7 +28,31 @@ See also: https://www.kicksecure.com/wiki/Login"
    password_status_list_str="$(leaprun get-password-status-list)"
    readarray -t password_status_list <<< "$password_status_list_str"
    autologin_status_list=()
+   if [ -f '/usr/share/qubes/marker-vm' ]; then
+      qubes_default_user="$(qubesdb-read '/default-user')" \
+         || qubes_default_user=''
+   else
+      qubes_default_user=''
+   fi
+
    for user in "${user_list[@]}"; do
+      ## Autologin is always "enabled" for "sysmaint" and the account pointed
+      ## to by qubesdb's '/default-user' key under Qubes OS. Note that this
+      ## isn't true GUI autologin from a technical perspective, it just
+      ## provides a similar experience to the end user and comes with somewhat
+      ## similar security concerns, thus why this is not implemented in
+      ## helper-scripts /usr/sbin/autologinchange.
+      if [ -f '/usr/share/qubes/marker-vm' ]; then
+         if [ "${user}" = "${qubes_default_user}" ] \
+            || [ "${user}" = 'sysmaint' ]; then
+            autologin_status_list+=( 'Enabled' )
+         else
+            autologin_status_list+=( 'Disabled' )
+         fi
+
+         continue
+      fi
+
       ## Account 'sysmaint' requires special handling if sysmaint-boot is
       ## available.
       if [ "${user}" = 'sysmaint' ] && [ -x /usr/libexec/user-sysmaint-split/sysmaint-boot ]; then
