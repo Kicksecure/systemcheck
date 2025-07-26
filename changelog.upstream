@@ -1,3 +1,78 @@
+commit ea6c4a63c089fb4128238f42f7b8c79f4a8db375
+Merge: c54effa 327d074
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 26 04:51:49 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/login-locked-absent'
+
+commit c54effaef85603690ddfb10b467ba8133933c4d0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 26 04:23:19 2025 -0400
+
+    show passed su access check result only when using --verbose
+
+commit 259597e1439ce64589e0d1298fe00e593ccd52a8
+Merge: ff9e2d7 b06a292
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 26 04:21:29 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/su-test'
+
+commit ff9e2d7ef60171ca0f70f007b0c442c198975d71
+Merge: bc403a9 2a48c96
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 26 04:19:54 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/qubes-login-security'
+
+commit 327d0741124b98fa6065471c07894ea20acc0c28
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Fri Jul 25 19:45:02 2025 -0500
+
+    Warn about absent locked or restricted passwords for the sysmaint account
+
+commit 9152d140f64b3834cfcb3937b1386102c3074f1c
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Fri Jul 25 19:20:51 2025 -0500
+
+    Move get-password-status-list to helper-scripts
+
+commit bc403a94df741e964d88541eb84a73d1b347cce5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 24 23:18:31 2025 -0400
+
+    refactoring
+
+commit 6dd323fa4e01791ded8cf3b976ed590cc111a29e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 24 23:16:59 2025 -0400
+
+    minor
+
+commit 5df7817c1e0ba6c002c34089cb062d2d5073857d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 24 23:14:28 2025 -0400
+
+    output
+
+commit b06a292a64cdfa70803a44815c1408cf1aa1e6f2
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Jul 24 18:37:46 2025 -0500
+
+    Add su permissions check
+
+commit 2a48c9645110ff09ea38a35452294df82a50c410
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Jul 24 17:43:50 2025 -0500
+
+    Enable check_login_security on Qubes OS, fix autologin check
+
+commit 52f4eb2311faa151bda0f9681b55028e7108058d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 24 06:45:56 2025 +0000
+
+    bumped changelog version
+
 commit af0cdf6e591340d87dd095339d2ba1cd44b16d9d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jul 24 02:43:56 2025 -0400
