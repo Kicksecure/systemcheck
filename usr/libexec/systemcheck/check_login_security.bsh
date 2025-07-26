@@ -142,10 +142,18 @@ See also: https://www.kicksecure.com/wiki/Login"
         table_settings_gui_entry="${table_settings_gui_entry//'Locked (Present)'/'<font color="green">Locked (Present)</font>'}"
       elif [[ "${table_settings_gui_entry}" =~ 'Restricted (Present)' ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Restricted (Present)'/'<font color="green">Restricted (Present)</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Locked' ]]; then
-        table_settings_gui_entry="${table_settings_gui_entry//'Locked'/'<font color="green">Locked</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Restricted' ]]; then
-        table_settings_gui_entry="${table_settings_gui_entry//'Restricted'/'<font color="green">Restricted</font>'}"
+      elif [[ "${table_settings_gui_entry}" =~ 'Locked (Absent)' ]]; then
+        if [ "${user_list[counter]}" = 'sysmaint' ]; then
+          table_settings_gui_entry="${table_settings_gui_entry//'Locked (Absent)'/'<font color="orange">Locked (Absent)</font>'}"
+        else
+          table_settings_gui_entry="${table_settings_gui_entry//'Locked (Absent)'/'<font color="green">Locked (Absent)</font>'}"
+        fi
+      elif [[ "${table_settings_gui_entry}" =~ 'Restricted (Absent)' ]]; then
+        if [ "${user_list[counter]}" = 'sysmaint' ]; then
+          table_settings_gui_entry="${table_settings_gui_entry//'Restricted (Absent)'/'<font color="orange">Restricted (Absent)</font>'}"
+        else
+          table_settings_gui_entry="${table_settings_gui_entry//'Restricted (Absent)'/'<font color="green">Restricted (Absent)</font>'}"
+        fi
       elif [[ "${table_settings_gui_entry}" =~ 'Present' ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Present'/'<font color="green">Present</font>'}"
       elif [[ "${table_settings_gui_entry}" =~ 'Absent' ]]; then
@@ -172,10 +180,18 @@ See also: https://www.kicksecure.com/wiki/Login"
         table_settings_cli_entry="${table_settings_cli_entry//'Locked (Present)'/"${green}Locked (Present)${nocolor}"}"
       elif [[ "${table_settings_cli_entry}" =~ 'Restricted (Present)' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Restricted (Present)'/"${green}Restricted (Present)${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Locked' ]]; then
-        table_settings_cli_entry="${table_settings_cli_entry//'Locked'/"${green}Locked${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Restricted' ]]; then
-        table_settings_cli_entry="${table_settings_cli_entry//'Restricted'/"${green}Restricted${nocolor}"}"
+      elif [[ "${table_settings_cli_entry}" =~ 'Locked (Absent)' ]]; then
+        if [ "${user_list[counter]}" = 'sysmaint' ]; then
+          table_settings_cli_entry="${table_settings_cli_entry//'Locked (Absent)'/"${yellow}Locked (Absent)${nocolor}"}"
+        else
+          table_settings_cli_entry="${table_settings_cli_entry//'Locked (Absent)'/"${green}Locked (Absent)${nocolor}"}"
+        fi
+      elif [[ "${table_settings_cli_entry}" =~ 'Restricted (Absent)' ]]; then
+        if [ "${user_list[counter]}" = 'sysmaint' ]; then
+          table_settings_cli_entry="${table_settings_cli_entry//'Restricted (Absent)'/"${yellow}Restricted (Absent)${nocolor}"}"
+        else
+          table_settings_cli_entry="${table_settings_cli_entry//'Restricted (Absent)'/"${green}Restricted (Absent)${nocolor}"}"
+        fi
       elif [[ "${table_settings_cli_entry}" =~ 'Present' ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
       elif [[ "${table_settings_cli_entry}" =~ 'Absent' ]]; then
