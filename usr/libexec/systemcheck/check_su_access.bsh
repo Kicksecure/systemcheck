@@ -13,11 +13,15 @@ check_su_access() {
 
   if [ "${stat_output}" = '744 0:0' ]; then
     MSG="<p>$link_gui: <font color=\"green\">Locked down</font> - only account <code>root</code> can use <code>su</code>.</p>"
-    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+    if [ "$verbose" -ge "1" ]; then
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+    fi
     MSG="\
 su access check: ${green}Locked down${nocolor} - only account root can use su.
 See also: $link_cli"
-    $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+    if [ "$verbose" -ge "1" ]; then
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+    fi
     return 0
   fi
 
