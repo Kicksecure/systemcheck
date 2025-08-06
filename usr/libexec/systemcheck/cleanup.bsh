@@ -52,7 +52,7 @@ cleanup_files() {
 
 ## {{ ex_funct
 
-## This function gets called by trap_sigterm (ex: zenity cancel button),
+## This function gets called by trap_sigterm (ex: yad cancel button),
 ## trap_sigint (ex: ctrl + c) and error_handler.
 
 ex_funct() {
@@ -166,7 +166,7 @@ trap_sigusr2() {
    ex_funct
 }
 
-trap "trap_sigusr2" SIGUSR2 ## msgcollector, zenity cancel button
+trap "trap_sigusr2" SIGUSR2 ## msgcollector, yad cancel button
 
 cleanup() {
    true "$FUNCNAME..."
