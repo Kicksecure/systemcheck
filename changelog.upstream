@@ -1,3 +1,21 @@
+commit fce3a43c2c75b26dbb4171d2e707319940b78a16
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 10 03:27:31 2025 -0400
+
+    output
+
+commit b5feeb0bd1e5fdac21d3f047607f775621f9e6d6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 10 03:25:58 2025 -0400
+
+    fix: in `--verbose` mode, in Qubes: do exit non-zero when missing tirdad kernel module
+
+commit 5e547407b5cb1c9dc34400b72a2b32a618bc412a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Aug 9 10:04:00 2025 +0000
+
+    bumped changelog version
+
 commit e2a6b1f808be5d2ebeb0f36edc96b452e060b57d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Aug 9 05:49:04 2025 -0400

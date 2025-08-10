@@ -66,7 +66,14 @@ For details, see: $link_cli"
          fi
       fi
 
-      EXIT_CODE="1"
+      if [ -f '/usr/share/qubes/marker-vm' ]; then
+         reason="Qubes detected.<br/>
+   Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570
+</a>"
+      else
+         reason="Not booted in EFI mode."
+         EXIT_CODE="1"
+      fi
 
       MSG="<p>$link_gui: <font color=\"orange\">Disabled</font> $help_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
