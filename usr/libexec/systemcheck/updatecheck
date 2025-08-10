@@ -238,7 +238,7 @@ for ((i=1; i<=check_attempts; i++)) ; do
 done
 
 ## There should be no issue with duplicate pidfile creation in script
-## /usr/libexec/security-misc/apt-get-update by function 'write_pid_file'.
+## /usr/libexec/helper-scripts/apt-get-update by function 'write_pid_file'.
 ## This is because above it is being checked, that APT is not already running.
 ## There is a small risk for TOCTOU.
 if ! update_output="$(leaprun apt-get-update 2>&1)" ; then

@@ -197,7 +197,7 @@ include <tunables/global>
   /usr/libexec/helper-scripts/onion-time-pre-script rUx,
   /usr/libexec/msgcollector/ r,
   /usr/libexec/msgcollector/* rix,
-  /usr/libexec/security-misc/apt-get-update rUx,
+  /usr/libexec/helper-scripts/apt-get-update rUx,
   /usr/libexec/systemcheck/ r,
   /usr/libexec/systemcheck/** rix,
   /usr/libexec/user-sysmaint-split/sysmaint-boot rix,
