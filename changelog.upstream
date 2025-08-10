@@ -1,3 +1,20 @@
+commit e2a6b1f808be5d2ebeb0f36edc96b452e060b57d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Aug 9 05:49:04 2025 -0400
+
+    new unwanted package: `stardict`
+    
+    privacy concerns associated with stardict
+    https://www.kicksecure.com/wiki/Dev/Debian#startdict
+    
+    https://www.kicksecure.com/wiki/Systemcheck#Unwanted_Packages_Check
+
+commit 9965c301645f242ede6af1333ee590072a398774
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jul 26 09:07:58 2025 +0000
+
+    bumped changelog version
+
 commit ea6c4a63c089fb4128238f42f7b8c79f4a8db375
 Merge: c54effa 327d074
 Author: Patrick Schleizer <adrelanos@whonix.org>
