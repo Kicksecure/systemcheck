@@ -68,7 +68,8 @@ For details, see: $link_cli"
 
       if [ -f '/usr/share/qubes/marker-vm' ]; then
          reason="Qubes detected.<br/>
-   Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/5241>https://github.com/QubesOS/qubes-issues/issues/5241</a>"
+   Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570
+</a>"
       else
          reason="Not booted in EFI mode."
          EXIT_CODE="1"
