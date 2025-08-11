@@ -14,17 +14,12 @@ check_apt_repository() {
 
    ## Fallback
    derivative_codename="unknown"
-   if test -f "/etc/apt/sources.list.d/derivative.list" ; then
-      if test -r "/etc/apt/sources.list.d/derivative.list" ; then
-         local i
-         while read -r i; do
-            local first second third fourth sixt
-            read -r first second third fourth sixt _ <<< "$i"
-            if [ "$first" = "deb" ]; then
-               derivative_codename="$fourth"
-               break
-            fi
-         done < "/etc/apt/sources.list.d/derivative.list"
+   if test -f "/etc/apt/sources.list.d/derivative.sources" ; then
+      if test -r "/etc/apt/sources.list.d/derivative.sources" ; then
+         local derivative_info_line
+         derivative_info_line="$(grep '^Suites:' /etc/apt/sources.list.d/derivative.sources)"
+         derivative_info_line="$(head -n1 <<< "${derivative_info_line}")"
+         derivative_codename="$(cut -d' ' -f2 <<< "${derivative_info_line}")"
       else
          derivative_codename="No"
 
@@ -32,10 +27,10 @@ check_apt_repository() {
 
          local permission_issues_msg
          permission_issues_msg="\
-<p>$PROJECT_NAME APT Repository: File <code>/etc/apt/sources.list.d/derivative.list</code> exists but is unreadable.
+<p>$PROJECT_NAME APT Repository: File <code>/etc/apt/sources.list.d/derivative.sources</code> exists but is unreadable.
 Permission issues?
 To fix, try run:
-<blockquote><code>sudo chmod o+r /etc/apt/sources.list.d/derivative.list</code></blockquote></p>"
+<blockquote><code>sudo chmod o+r /etc/apt/sources.list.d/derivative.sources</code></blockquote></p>"
 
          local MSG
          MSG="$permission_issues_msg
@@ -74,7 +69,7 @@ ${risk_cli_msg} ${risk_gui_msg}
 You are free to manually update from source code.
 If you want to change this, use:</p>"
 
-   if test -r "/etc/apt/sources.list.d/derivative.list" ; then
+   if test -r "/etc/apt/sources.list.d/derivative.sources" ; then
       if [ "$silent" -ge "3" ]; then
          true "silent is $silent. Not reporting that repository is enabled."
          return 0
