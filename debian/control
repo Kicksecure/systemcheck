@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 13.11.6), debhelper-compat (= 13), dh-apparmor
 Homepage: https://www.kicksecure.com/wiki/systemcheck
 Vcs-Browser: https://github.com/Kicksecure/systemcheck
 Vcs-Git: https://github.com/Kicksecure/systemcheck.git
-Standards-Version: 4.6.2
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 
 Package: systemcheck
