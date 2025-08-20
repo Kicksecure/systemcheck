@@ -19,9 +19,6 @@ user ALL=(debian-tor) NOPASSWD: /usr/bin/tor-circuit-established-check
 user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block status onion-grater
 user ALL=NOPASSWD: /usr/bin/systemctl --no-pager --no-block status qubes-updates-proxy.service
 
-## /usr/bin/systemcheck depends on the following line for check_operating_system
-## allows running apt-get update as user (non-root)
-user ALL=NOPASSWD: /usr/libexec/security-misc/apt-get-update
 user ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-simulate
 user ALL=NOPASSWD: /usr/libexec/helper-scripts/apt-get-update-kill-helper
 user ALL=NOPASSWD: /usr/sbin/anondate
