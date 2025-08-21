@@ -340,7 +340,6 @@ include <tunables/global>
   /{,usr/}bin/wc rix,
   /{,usr/}bin/which rix,
   /{,usr/}bin/whoami rix,
-  /{,usr/}bin/wmctrl rix,
   /{,usr/}bin/xz rix,
   /{,usr/}bin/yad rix,
   /{,var/}run/tor/** r,
