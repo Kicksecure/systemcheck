@@ -3,6 +3,8 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+source /usr/libexec/helper-scripts/light_sleep.bsh
+
 systemd-notify --pid="$$" --ready
 
 while true; do
@@ -15,5 +17,5 @@ while true; do
    echo "$0: INFO: end."
 
    ## 1 hour
-   sleep 3600
+   light_sleep 3600
 done

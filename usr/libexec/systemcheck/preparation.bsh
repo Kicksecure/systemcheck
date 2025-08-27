@@ -264,14 +264,6 @@ preparation() {
 
    [ -n "$verbose" ] || verbose="0"
 
-   if [ "$display" = "" ]; then
-      if [ "$DISPLAY" = "" ]; then
-         display=":0"
-      else
-         display="$DISPLAY"
-      fi
-   fi
-
    local my_tty
    local my_tty_exit_code
    my_tty_exit_code="0"
@@ -414,5 +406,6 @@ preparation() {
 
    ## Only for systemcheck to make it distinct from other progress bars.
    ## Preventing overlapping windows.
-   $output_general --lefttop
+   ## Out-commented. Wayland no longer allows this to work.
+   #$output_general --lefttop
 }

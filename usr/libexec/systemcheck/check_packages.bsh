@@ -24,15 +24,15 @@ kicksecure-qubes-gui"
    else
       if [ "$vm_lower_case_short" = "gateway" ]; then
          meta_package_wanted_list="\
-non-qubes-whonix-gateway-xfce
+non-qubes-whonix-gateway-lxqt
 non-qubes-whonix-gateway-cli"
       elif [ "$vm_lower_case_short" = "workstation" ]; then
          meta_package_wanted_list="\
-non-qubes-whonix-workstation-xfce
+non-qubes-whonix-workstation-lxqt
 non-qubes-whonix-workstation-cli"
       elif [ "$vm_lower_case_short" = "machine" ]; then
          meta_package_wanted_list="\
-kicksecure-xfce
+kicksecure-lxqt
 kicksecure-cli"
       fi
    fi
@@ -40,9 +40,9 @@ kicksecure-cli"
    ## Fallback if neither gateway nor workstation was detected.
    if [ "$meta_package_wanted_list" = "" ]; then
       meta_package_wanted_list="\
-non-qubes-whonix-gateway-xfce
+non-qubes-whonix-gateway-lxqt
 non-qubes-whonix-gateway-cli
-non-qubes-whonix-workstation-xfce
+non-qubes-whonix-workstation-lxqt
 non-qubes-whonix-workstation-cli"
    fi
 
