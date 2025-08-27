@@ -1,3 +1,59 @@
+commit 4d2ea32c618b8569241124d973da5e749a080475
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 26 05:18:47 2025 -0400
+
+    re-generate man pages (generated using "genmkfile manpages")
+
+commit 51eaecfb06da8c050db9a3e722940bb493c299f5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 20 10:47:31 2025 -0400
+
+    ignore more journal messages
+
+commit 34437fedf2cb31c03f62b2c97a947c70494e4b1a
+Merge: e6c3c54 93eb4b3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 20 09:51:49 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit e6c3c54a3330f420b4d34c5359a45d52ecb39650
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 20 06:57:30 2025 -0400
+
+    bumped Standards-Version
+
+commit aa28171e7e343b4a4342c8eeffeacfb9fed61c53
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 20 06:25:36 2025 -0400
+
+    readme
+
+commit 93eb4b3308b48b4572bcac3911fecb5f45e721a6
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Aug 10 20:06:27 2025 -0500
+
+    Switch to using deb822 sources
+
+commit f10896c5690fec50057ed5c41cfe19b501b753f1
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Aug 10 15:24:15 2025 -0500
+
+    Move security-misc/apt-get-update* to helper-scripts
+
+commit 55a55bdcf692eb2622289160de51f80e2e68d673
+Merge: cb103e3 927c76f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Aug 10 14:11:13 2025 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit 927c76fa664ec088c1825e9ab182d6e25569d4cb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 10 07:28:57 2025 +0000
+
+    bumped changelog version
+
 commit fce3a43c2c75b26dbb4171d2e707319940b78a16
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Aug 10 03:27:31 2025 -0400
@@ -9,6 +65,13 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Aug 10 03:25:58 2025 -0400
 
     fix: in `--verbose` mode, in Qubes: do exit non-zero when missing tirdad kernel module
+
+commit cb103e3b7630ac98f8210ffd072318f5a9cdaa66
+Merge: 983c52e 5e54740
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sat Aug 9 21:32:06 2025 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
 
 commit 5e547407b5cb1c9dc34400b72a2b32a618bc412a
 Author: Patrick Schleizer <adrelanos@whonix.org>
@@ -26,6 +89,12 @@ Date:   Sat Aug 9 05:49:04 2025 -0400
     https://www.kicksecure.com/wiki/Dev/Debian#startdict
     
     https://www.kicksecure.com/wiki/Systemcheck#Unwanted_Packages_Check
+
+commit 983c52e0c5c759b471495f1fc726f229cc2e6b43
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Aug 5 22:58:08 2025 -0500
+
+    Port to Trixie.
 
 commit 9965c301645f242ede6af1333ee590072a398774
 Author: Patrick Schleizer <adrelanos@whonix.org>
