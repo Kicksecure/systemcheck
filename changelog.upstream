@@ -1,8 +1,47 @@
+commit 4e481b122248045db20d7817e8e68f747b21319d
+Merge: 73fbe12 9de75d6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 27 04:33:17 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 9de75d66dae6fa1bf38a6e140ce7a65e897453b7
+Merge: 0febf95 73fbe12
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Aug 26 19:20:56 2025 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit 73fbe128008e05d41da45fefd30dcaa0ef196971
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 26 09:18:49 2025 +0000
+
+    bumped changelog version
+
 commit 4d2ea32c618b8569241124d973da5e749a080475
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 26 05:18:47 2025 -0400
 
     re-generate man pages (generated using "genmkfile manpages")
+
+commit 0febf95bc78a6a0097e52f7435152c4dd1783a33
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Fri Aug 22 17:55:12 2025 -0500
+
+    Switch to using light_sleep in canary-daemon
+
+commit ed15cbfd71c2ad1d09c65e836a3d9afc17601b7e
+Merge: 317ca9d 51eaecf
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Aug 21 20:14:25 2025 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit 317ca9d683ccfaebe06cf3846dd0b40254efdfa9
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Aug 21 18:47:51 2025 -0500
+
+    Adjust for Wayland and LXQt compatibility
 
 commit 51eaecfb06da8c050db9a3e722940bb493c299f5
 Author: Patrick Schleizer <adrelanos@whonix.org>
