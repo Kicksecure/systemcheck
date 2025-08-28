@@ -13,37 +13,51 @@ check_meta_packages() {
    if [ "$qubes_detected" = "true" ]; then
       meta_package_wanted_list="<code>qubes-whonix-gateway</code> or <code>qubes-whonix-workstation</code>"
       if [ "$vm_lower_case_short" = "gateway" ]; then
-         meta_package_wanted_list="qubes-whonix-gateway"
+         meta_package_wanted_list="\
+whonix-gateway-qubes-gui-lxqt \
+whonix-gateway-qubes-server"
       elif [ "$vm_lower_case_short" = "workstation" ]; then
-         meta_package_wanted_list="qubes-whonix-workstation"
+         meta_package_wanted_list="\
+whonix-workstation-qubes-gui-lxqt \
+whonix-workstation-qubes-server"
       elif [ "$vm_lower_case_short" = "machine" ]; then
          meta_package_wanted_list="\
-kicksecure-qubes-cli
-kicksecure-qubes-gui"
+kicksecure-qubes-gui-lxqt \
+kicksecure-qubes-server"
       fi
    else
       if [ "$vm_lower_case_short" = "gateway" ]; then
          meta_package_wanted_list="\
-non-qubes-whonix-gateway-lxqt
-non-qubes-whonix-gateway-cli"
+whonix-gateway-vm-gui-lxqt \
+whonix-gateway-vm-server \
+whonix-gateway-baremetal-gui-lxqt \
+whonix-gateway-baremetal-server"
       elif [ "$vm_lower_case_short" = "workstation" ]; then
          meta_package_wanted_list="\
-non-qubes-whonix-workstation-lxqt
-non-qubes-whonix-workstation-cli"
+whonix-workstation-vm-gui-lxqt \
+whonix-workstation-vm-server \
+whonix-workstation-baremetal-gui-lxqt \
+whonix-workstation-baremetal-server"
       elif [ "$vm_lower_case_short" = "machine" ]; then
          meta_package_wanted_list="\
-kicksecure-lxqt
-kicksecure-cli"
+kicksecure-vm-gui-lxqt \
+kicksecure-vm-server \
+kicksecure-baremetal-gui-lxqt \
+kicksecure-baremetal-server"
       fi
    fi
 
    ## Fallback if neither gateway nor workstation was detected.
    if [ "$meta_package_wanted_list" = "" ]; then
       meta_package_wanted_list="\
-non-qubes-whonix-gateway-lxqt
-non-qubes-whonix-gateway-cli
-non-qubes-whonix-workstation-lxqt
-non-qubes-whonix-workstation-cli"
+whonix-gateway-vm-gui-lxqt \
+whonix-gateway-vm-server \
+whonix-gateway-baremetal-gui-lxqt \
+whonix-gateway-baremetal-server \
+whonix-workstation-vm-gui-lxqt \
+whonix-workstation-vm-server \
+whonix-workstation-baremetal-gui-lxqt \
+whonix-workstation-baremetal-server"
    fi
 
    for meta_package_wanted_item in $meta_package_wanted_list ; do
