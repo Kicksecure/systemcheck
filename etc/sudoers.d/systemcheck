@@ -66,5 +66,5 @@ user ALL=NOPASSWD: /usr/bin/systemd-detect-virt
 
 ## required for check_sudo
 user ALL=NOPASSWD: /usr/bin/test -x /usr/bin/test
-## TODO: Consider removing hardcoded user 'user' from here?
+## TODO: Consider removing hardcoded account 'user' from here?
 sysmaint ALL=NOPASSWD: /usr/bin/test -x /usr/bin/test
