@@ -161,10 +161,10 @@ canary_count_or_not() {
 }
 
 canary_files_delete() {
-   rm -f "/var/lib/canary/canary.txt.embed.sig"
-   rm -f "/var/lib/canary/canary-unembed.txt"
-   rm -f "/var/lib/canary/canary-unixtime.txt"
-   rm -f "/var/lib/canary/canary-download-output.txt"
+   safe-rm -f -- "/var/lib/canary/canary.txt.embed.sig"
+   safe-rm -f -- "/var/lib/canary/canary-unembed.txt"
+   safe-rm -f -- "/var/lib/canary/canary-unixtime.txt"
+   safe-rm -f -- "/var/lib/canary/canary-download-output.txt"
 }
 
 canary_do() {

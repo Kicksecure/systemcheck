@@ -45,7 +45,7 @@ cleanup_files() {
       echo "$SCRIPTNAME: Not deleting TEMP_DIR: $TEMP_DIR"
    else
       if [ -d "$TEMP_DIR" ]; then
-         rm --recursive "$TEMP_DIR"
+         safe-rm --recursive -- "$TEMP_DIR"
       fi
    fi
 }
