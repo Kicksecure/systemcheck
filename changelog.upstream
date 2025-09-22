@@ -1,3 +1,15 @@
+commit 9de399bf8b05070fd4a61c055fd06f12f3caf34e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 22 13:38:38 2025 -0400
+
+    safe-rm
+
+commit fe4dc974e13319cd4e54ac24ca1f3c7400a9422c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 22 17:26:26 2025 +0000
+
+    bumped changelog version
+
 commit 7e75ec971b035d4d0c115f80dec9a53ed908a64b
 Merge: 61ffc5d bf8b4d4
 Author: Patrick Schleizer <adrelanos@whonix.org>
