@@ -42,7 +42,7 @@ case "$1" in
          true "INFO: systemctl command unavailable."
          return 0
       fi
-      systemctl --global disable updatecheck.service
+      systemctl --global disable updatecheck.service >/dev/null || true
    ;;
 
    abort-upgrade|abort-remove|abort-deconfigure)
