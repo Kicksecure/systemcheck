@@ -1,3 +1,43 @@
+commit 208ccc85f6d332620a483f7723476ea874b10c67
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 23 10:03:28 2025 -0400
+
+    move deprecation notice to legacy-dist
+
+commit 031170d93bedbf9ca5fd0720a5c263ef2a17fe74
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 23 10:03:05 2025 -0400
+
+    comments
+
+commit 08e1828f3bc316a3ec4ccbc2f61ea32261033bd2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 23 09:57:21 2025 -0400
+
+    hide confusing output by `systemctl --global disable updatecheck.service`
+    
+    ```
+    The unit files have no installation config (WantedBy=, RequiredBy=, UpheldBy=,
+    Also=, or Alias= settings in the [Install] section, and DefaultInstance= for
+    template units). This means they are not meant to be enabled or disabled using systemctl.
+    
+    Possible reasons for having these kinds of units are:
+    • A unit may be statically enabled by being symlinked from another unit's
+      .wants/, .requires/, or .upholds/ directory.
+    • A unit's purpose may be to act as a helper for some other unit which has
+      a requirement dependency on it.
+    • A unit may be started when needed via activation (socket, path, timer,
+      D-Bus, udev, scripted systemctl call, ...).
+    • In case of template units, the unit is meant to be enabled with some
+      instance name specified.
+    ```
+
+commit e397251ad5f35fe2c0162a3d68bce75de2984194
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 22 17:43:36 2025 +0000
+
+    bumped changelog version
+
 commit 9de399bf8b05070fd4a61c055fd06f12f3caf34e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Sep 22 13:38:38 2025 -0400
