@@ -1,3 +1,21 @@
+commit e0c5c97c1c8900748e88bcf7ee2e0ddf0063be43
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 26 05:32:12 2025 -0400
+
+    fix Qubes network settings check inside Qubes `sys-net`
+
+commit 5fbc39aeb6391a882e960799c79bac957de47c8c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 26 04:04:07 2025 -0400
+
+    fix
+
+commit a6d90f0f6503f4045bd85161117be7babf422b79
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Sep 24 14:11:20 2025 +0000
+
+    bumped changelog version
+
 commit 208ccc85f6d332620a483f7723476ea874b10c67
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Sep 23 10:03:28 2025 -0400
