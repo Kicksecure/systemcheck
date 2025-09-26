@@ -309,6 +309,9 @@ preparation() {
       vm_lower_case_short="machine"
    fi
 
+   ## sets: GATEWAY_IP
+   ## sets: GATEWAY_IP6
+   ## sets: gateway_control_port
    eval $(/usr/libexec/helper-scripts/settings_echo)
 
    ## ARCH="x86_64"
