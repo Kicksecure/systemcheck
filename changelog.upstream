@@ -1,3 +1,28 @@
+commit 6ded4c7f502d57eca63b2a7d44e62ef62ec2ca39
+Merge: 60b1a1d bb8e778
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Sep 28 07:16:53 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit bb8e7787cbba949fa046c95a4934bd5240fb4e4f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Sep 28 00:53:11 2025 -0500
+
+    Document USB module load order issue under VirtualBox and silence the corresponding warning
+
+commit ddd9230be53491e626b1ea96894f437e17b49823
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sat Sep 27 23:24:35 2025 -0500
+
+    Silence more bogus journal warnings
+
+commit 60b1a1dab7603b67f4dec8e56a2b1c7fa7ac3e4e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 26 09:33:04 2025 +0000
+
+    bumped changelog version
+
 commit e0c5c97c1c8900748e88bcf7ee2e0ddf0063be43
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Sep 26 05:32:12 2025 -0400
