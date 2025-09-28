@@ -1,3 +1,22 @@
+commit f9ef7124fce139995baedff8069666633f1ee687
+Merge: 8864582 5b47515
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Sep 28 17:01:29 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 5b475157c49cdf6f3e3b6e915c0de0bd838e600d
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Sep 28 12:43:02 2025 -0500
+
+    Remove virtualizer success check, because systemd-detect-virt exits non-zero on bare metal
+
+commit 88645820fd549eed88c85bd60d5c8ec07403268a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Sep 28 11:17:36 2025 +0000
+
+    bumped changelog version
+
 commit 6ded4c7f502d57eca63b2a7d44e62ef62ec2ca39
 Merge: 60b1a1d bb8e778
 Author: Patrick Schleizer <adrelanos@whonix.org>
