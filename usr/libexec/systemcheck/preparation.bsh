@@ -88,7 +88,6 @@ virtualizer_detection() {
    ## (Used by check_pvclock.)
 
    systemcheck_platform_or_virtualizer_known=false
-   systemcheck_virtualizer_detect_success=false
 
    if ! command -v "$systemcheck_virt_detection_tool" >/dev/null 2>&1 ; then
       systemcheck_virtualizer_tool_unavailable="true"
@@ -97,7 +96,6 @@ virtualizer_detection() {
    fi
 
    if systemcheck_virtualizer_detected="$(leaprun systemd-detect-virt 2>&1)" ; then
-      systemcheck_virtualizer_detect_success=true
       true "INFO: No error reported from running $systemcheck_virt_detection_tool"
 
       if [ "$systemcheck_virtualizer_detected" = "xen" ]; then
