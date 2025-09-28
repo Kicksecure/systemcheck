@@ -16,36 +16,6 @@ check_virtualizer() {
       return 0
    fi
 
-   if [ "$systemcheck_virtualizer_detect_success" = "false" ]; then
-      if [ "$vm_lower_case_short" = "machine" ]; then
-         MSG="<p>Check Virtualizer Result: Virtualizer detection failed.</p>"
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-         EXIT_CODE="1"
-      else
-         MSG="\
-<p>Virtualizer detection failed. You might be running a virtualizer unsupported by $PROJECT_NAME developers! systemcheck aborted!
-<br></br>
-<br></br>This might endanger your anonymity. Do not proceed unless you know what you are doing.
-<br></br>
-<br></br>Recommended action:
-<br></br>- Shut down.
-<br></br>- Contact $PROJECT_NAME developers.
-<br></br>
-<br></br>Debugging information:<br />
-<br></br>Running <code>sudo --non-interactive $systemcheck_virt_detection_tool</code> failed!
-<br></br>qubes_detected: $qubes_detected
-<br></br><code>$systemcheck_virt_detection_tool</code> output:
-<blockquote><code>$systemcheck_virtualizer_detected</code></blockquote>
-$if_you_know_what_you_are_doing_msg
-</p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         EXIT_CODE="1"
-      fi
-      return 0
-   fi
-
    if [ "$systemcheck_virtualizer_detected" = "none" ]; then
       ## Not running in a Virtual Machine (or none detected).
       MSG="<p>Check Virtualizer Result: No virtualizer detected, probably running on <u>bare metal</u>.</p>"
