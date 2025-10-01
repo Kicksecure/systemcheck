@@ -8,16 +8,58 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
-readarray -t crypt_dev_list < <(
-  blkid \
-  | grep 'crypto_LUKS' \
-  | cut -d':' -f1
-) || true
+lsblk_report="$(lsblk --raw --output=TYPE,MOUNTPOINTS | tail -n+2)"
+readarray -t lsblk_crypt_mount_data < <(grep '^crypt ' <<< "${lsblk_report}" | cut -d' ' -f2)
+readarray -t lsblk_all_mount_data < <(cut -d' ' -f2 <<< "${lsblk_report}")
+found_root='false'
+found_home='false'
+home_is_separate='false'
 
-if (( ${#crypt_dev_list[@]} == 0 )) || [ -z "${crypt_dev_list[0]}" ]; then
-  printf "%s\n" "$0: INFO: No encrypted storage devices are present in the system." >&2
+for mount_data_line in "${lsblk_all_mount_data[@]}"; do
+  if [ -z "${mount_data_line}" ]; then
+    continue
+  fi
+
+  readarray -t mount_split_list < <(printf '%b\n' "${mount_data_line}")
+  for mount_item in "${mount_split_list[@]}"; do
+    if [ "${mount_item}" = '/home' ]; then
+      home_is_separate='true'
+      break
+    fi
+  done
+done
+
+for crypt_data_line in "${lsblk_crypt_mount_data[@]}"; do
+  readarray -t crypt_mount_split_list < <(printf '%b\n' "${crypt_data_line}")
+
+  for crypt_mount_item in "${crypt_mount_split_list[@]}"; do
+    if [ "${crypt_mount_item}" = '/' ]; then
+      found_root='true'
+    elif [ "${crypt_mount_item}" = '/home' ]; then
+      found_home='true'
+    fi
+  done
+done
+
+if [ "${found_root}" = 'true' ] && [ "${found_home}" = 'true' ]; then
+  printf "%s\n" "$0: INFO: Both root and home partitions are encrypted." >&2
+  exit 0
+elif [ "${found_root}" = 'false' ] && [ "${found_home}" = 'true' ]; then
+  printf "%s\n" "$0: INFO: Home partition is encrypted, but root partition is not." >&2
   exit 1
+elif [ "${found_root}" = 'true' ] && [ "${found_home}" = 'false' ]; then
+  if [ "${home_is_separate}" = 'true' ]; then
+    printf "%s\n" "$0: INFO: Root partition is encrypted, but home partition is not." >&2
+    exit 1
+  else
+    printf "%s\n" "$0: INFO: Root partition is encrypted." >&2
+    exit 0
+  fi
+else
+  if [ "${home_is_separate}" = 'true' ]; then
+    printf "%s\n" "$0: WARN: Neither root nor home partitions are encrypted." >&2
+  else
+    printf "%s\n" "$0: WARN: Root partition is not encrypted." >&2
+  fi
+  exit 2
 fi
-
-printf "%s\n" "$0: INFO: Encrypted storage devices are present in the system."
-exit 0

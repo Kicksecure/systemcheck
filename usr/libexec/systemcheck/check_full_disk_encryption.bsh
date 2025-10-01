@@ -20,11 +20,21 @@ check_full_disk_encryption() {
    link_cli="https://www.kicksecure.com/wiki/Full_Disk_Encryption"
    link_gui="<a href=\"$link_cli\">Full Disk Encryption (FDE)</a>"
 
-   if crypt_check_output="$(leaprun crypt-check 2>&1)"; then
+   crypt_check_return_code="0"
+   crypt_check_output="$(/usr/libexec/systemcheck/crypt-check 2>&1)" || crypt_check_return_code="$?"
+
+   if [ "${crypt_check_return_code}" = '0' ]; then
       MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
       MSG="Full Disk Encryption (FDE): ${green}Enabled${nocolor}
+See also: $link_cli"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   elif [ "${crypt_check_return_code}" = '1' ]; then
+      MSG="<p>$link_gui: <font color=\"orange\">Partial</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+      MSG="Full Disk Encryption (FDE): ${yellow}Partial${nocolor}
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
