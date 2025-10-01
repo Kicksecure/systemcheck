@@ -1,3 +1,35 @@
+commit f8267315541d776ed72fd394e8f7790dd8bfa025
+Merge: fe92235 488aabf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Oct 1 05:39:47 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 488aabfd69e039eb89a3a7d66e89f5400d2992d2
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Sep 29 18:08:02 2025 -0500
+
+    Make disk encryption check substantially more robust
+
+commit 29661845910e95e823ed72d23ec2184885f81696
+Merge: 7c423cc fe92235
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Sep 29 17:10:36 2025 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit 7c423cc13eccec98aea023a05eecfa181af82d61
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Sep 28 20:01:59 2025 -0500
+
+    Silence more journal warnings
+
+commit fe92235fbd72231f6d915f681815b3975748f4a6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Sep 28 21:10:47 2025 +0000
+
+    bumped changelog version
+
 commit f9ef7124fce139995baedff8069666633f1ee687
 Merge: 8864582 5b47515
 Author: Patrick Schleizer <adrelanos@whonix.org>
