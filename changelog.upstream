@@ -1,3 +1,22 @@
+commit c658570aa4fd32a8297addda1aa0e0446e46bd28
+Merge: 9633212 b1ed725
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 13 09:25:50 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit b1ed7254e51423466efcdee07c8fad9839818e73
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Oct 12 12:29:39 2025 -0500
+
+    Isolate log checking code so that less privileged users cannot leak journal and dmesg logs
+
+commit 96332120ad4c64f9f8ee7b6851dd026034127454
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Oct 3 19:29:22 2025 +0000
+
+    bumped changelog version
+
 commit f3d7c28f7495ff036ceded4d366207e1163e2d89
 Merge: 966709f 8d33208
 Author: Patrick Schleizer <adrelanos@whonix.org>
