@@ -93,91 +93,18 @@ br_add_to_file() {
    done < "${file_name}"
 }
 
-journal_ignore_fixed_add() {
-   if [ "$journal_ignore_fixed_list" = "" ]; then
-      journal_ignore_fixed_list=("$@")
-   else
-      journal_ignore_fixed_list+=("$@")
-   fi
-}
-
-journal_ignore_pattern_add() {
-   if [ "$journal_ignore_patterns_list" = "" ]; then
-      journal_ignore_patterns_list="$@"
-   else
-      journal_ignore_patterns_list+="|"
-      journal_ignore_patterns_list+="$@"
-   fi
-}
-
 check_journal() {
    if [ "$verbose" -lt "1" ]; then
       return 0
    fi
 
-   test -w "$TEMP_DIR"
-
-   safe-rm -f "$TEMP_DIR/journalctl_output.txt"
-   touch "$TEMP_DIR/journalctl_output.txt"
-
-   leaprun read-journalctl-logs | tee --append -- "$TEMP_DIR/journalctl_output.txt" >/dev/null || true
-
-   local journal_search_pattern_list
-   journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
+   local log_output
 
    if [ "$qubes_detected" = "true" ]; then
-      journal_ignore_pattern_add "virtualbox"
+      log_output="$(leaprun log-checker-service-onqubes)"
+   else
+      log_output="$(leaprun log-checker-service)"
    fi
-
-   grep -Ei  "$journal_search_pattern_list"    -- "$TEMP_DIR/journalctl_output.txt"  | tee -- "$TEMP_DIR/journalctl_matched.txt"  >/dev/null || true
-
-   ## Output by 'apparmor-info' is already de-duplicated.
-   leaprun read-apparmor-info   | tee --append -- "$TEMP_DIR/journalctl_matched.txt" >/dev/null || true
-
-   local counter fixed_item patterns
-   counter=0
-
-
-   local grep_ignore_fixed_items_command
-
-   grep_ignore_fixed_items_command=()
-   grep_ignore_fixed_items_command+=("grep")
-   grep_ignore_fixed_items_command+=("--invert-match")
-   grep_ignore_fixed_items_command+=("--fixed-strings")
-   grep_ignore_fixed_items_command+=("--ignore-case")
-
-   local journal_ignore_fixed_item
-   for journal_ignore_fixed_item in "${journal_ignore_fixed_list[@]}"; do
-      counter=$(( counter + 1 ))
-      ## Debugging.
-      printf '%s\n' "$counter: '$journal_ignore_fixed_item'" >/dev/null
-
-      grep_ignore_fixed_items_command+=("-e")
-      grep_ignore_fixed_items_command+=("$journal_ignore_fixed_item")
-   done
-
-   IFS='|' read -ra patterns <<< "$journal_ignore_patterns_list"
-
-   counter=0
-   local journal_ignore_pattern_item
-   for journal_ignore_pattern_item in "${patterns[@]}"; do
-      counter=$(( counter + 1 ))
-      ## Debugging.
-      printf '%s\n' "$counter: '$journal_ignore_pattern_item'" >/dev/null
-   done
-
-   "${grep_ignore_fixed_items_command[@]}" -- "$TEMP_DIR/journalctl_matched.txt" | \
-   tee -- "$TEMP_DIR/journalctl_fixed_filtered.txt" >/dev/null \
-   || true
-
-   grep --invert-match --extended-regexp --ignore-case "$journal_ignore_patterns_list" -- "$TEMP_DIR/journalctl_fixed_filtered.txt" | \
-   tee -- "$TEMP_DIR/journalctl_match_filtered.txt" >/dev/null \
-   || true
-
-   br_add_to_file "$TEMP_DIR/journalctl_match_filtered.txt"
-
-   local log_output
-   log_output="$(cat -- "$TEMP_DIR/journalctl_match_filtered.txt_br")"
 
    if [ "$log_output" = "" ]; then
       local MSG
@@ -231,7 +158,7 @@ check_whonix_firewall_systemd_status() {
          local MSG="<p>Whonix firewall systemd unit check Result: Waiting $i of $max.</p>"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-      i="$(( $i + 1 ))"
+      (( i++ )) || true
       if [ "$i" -ge "$max" ]; then
          break
       fi
