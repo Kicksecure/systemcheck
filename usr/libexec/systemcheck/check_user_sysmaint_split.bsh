@@ -4,9 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_user_sysmaint_split() {
-   if ! check_user_sysmaint_split_package; then
-      return 0
-   fi
+   check_user_sysmaint_split_package
    check_user_sysmaint_split_boot_mode
 }
 
@@ -19,13 +17,6 @@ check_user_sysmaint_split_package() {
    local MSG
 
    if ! leaprun user-sysmaint-split-check &>/dev/null ; then
-      if [ -e /usr/share/anon-gw-base-files/gateway ]; then
-         ## On Whonix-Gateway, we expect user-sysmaint-split to be missing.
-         ## Skip quietly and inform check_user_sysmaint_split that we should
-         ## not run the boot mode check.
-         return 1
-      fi
-
       MSG="<p>$link_gui: <font color=\"orange\">Absent</font></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       MSG="\
