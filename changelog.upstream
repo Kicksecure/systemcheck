@@ -1,3 +1,28 @@
+commit 80726bcc519d22a55d041805a73ef6f110a3ca5b
+Merge: 046ca2c 42f122c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Oct 18 04:45:46 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 046ca2c8afa84ba01301a1c28dc8ec6a2d94e557
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Oct 18 04:39:40 2025 -0400
+
+    apparmor
+
+commit 42f122c4cdb0c2b6389abc77279db2e4836b8d8f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Fri Oct 17 17:24:45 2025 -0500
+
+    Remove user-sysmaint-split exception for Whonix-Gateway
+
+commit 6ca1c7afbea7befc17b7c01113078857878fc07e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 13 13:54:05 2025 +0000
+
+    bumped changelog version
+
 commit c658570aa4fd32a8297addda1aa0e0446e46bd28
 Merge: 9633212 b1ed725
 Author: Patrick Schleizer <adrelanos@whonix.org>
