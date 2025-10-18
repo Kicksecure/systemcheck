@@ -61,6 +61,7 @@ include <tunables/global>
   /{,usr/}bin/qubesdb-cmd rix,
   /{,usr/}bin/qubesdb-read rix,
   /{,usr/}bin/rm rix,
+  /{,usr/}bin/safe-rm rix,
   /{,usr/}bin/sanitize-string rix,
   /{,usr/}bin/signify-openbsd rix,
   /{,usr/}bin/sleep rix,
