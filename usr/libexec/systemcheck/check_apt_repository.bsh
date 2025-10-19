@@ -70,9 +70,9 @@ You are free to manually update from source code.
 If you want to change this, use:</p>"
    local temp_base_msg_legacy="<p>$PROJECT_NAME APT Repository: <u>Legacy</u>. (<code>release-upgrade</code>d system)<br />
 <br />
-Very minor issue: This system is still using APT sources list file <code>/etc/apt/sources.list.d/derivative.list</code> instead of <code>/etc/apt/sources.list.d/derivative.sources</code>.<br />
+Very minor issue: This system is still using derivative APT sources list file <code>/etc/apt/sources.list.d/derivative.list</code> instead of <code>/etc/apt/sources.list.d/derivative.sources</code>.<br />
 <br />
-If fix this, to update your APT sources list file to the new format, use:</p>"
+If fix this, to update your derivative APT sources list file to the new format, use:</p>"
 
    if test -e "/etc/apt/sources.list.d/derivative.list" ; then
       EXIT_CODE="1"
