@@ -94,7 +94,7 @@ check_service_logs() {
   journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
 
   if [ "$qubes_detected" = "true" ]; then
-    journal_ignore_pattern_add "virtualbox"
+    journal_ignore_patterns_list+=( "virtualbox" )
   fi
 
   grep -Ei "$journal_search_pattern_list" -- "$TMPDIR/journalctl_output.txt" \
