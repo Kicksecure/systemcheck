@@ -68,8 +68,29 @@ When the $PROJECT_NAME team releases an update, it will be NOT be installed.
 ${risk_cli_msg} ${risk_gui_msg}
 You are free to manually update from source code.
 If you want to change this, use:</p>"
+   local temp_base_msg_legacy="<p>$PROJECT_NAME APT Repository: <u>Legacy</u>. (<code>release-upgrade</code>d system)<br />
+<br />
+Very minor issue: This system is still using APT sources list file <code>/etc/apt/sources.list.d/derivative.list</code> instead of <code>/etc/apt/sources.list.d/derivative.sources</code>.<br />
+<br />
+If fix this, to update your APT sources list file to the new format, use:</p>"
 
-   if test -r "/etc/apt/sources.list.d/derivative.sources" ; then
+   if test -e "/etc/apt/sources.list.d/derivative.list" ; then
+      EXIT_CODE="1"
+
+      local MSG="$temp_base_msg_legacy
+    $temp_x_tool
+<p>$if_you_know_what_you_are_doing_msg</p>"
+   MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_cli_msg" "")"
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+
+      local MSG="$temp_base_msg_legacy
+    $temp_cli_tool
+<p>$if_you_know_what_you_are_doing_msg</p>"
+   MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_gui_msg" "")"
+$output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+
+      return 0
+   elif test -r "/etc/apt/sources.list.d/derivative.sources" ; then
       if [ "$silent" -ge "3" ]; then
          true "silent is $silent. Not reporting that repository is enabled."
          return 0
