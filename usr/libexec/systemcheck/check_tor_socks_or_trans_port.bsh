@@ -78,7 +78,7 @@ check_tor_socks_or_trans_port() {
       local test_name="<code>UpdatesProxy</code> $test_word"
       local checking_msg="$test_name: Testing Qubes' <code>UpdatesProxy</code>..."
       CURL_PROXY_SYSTEMCHECK=(
-         '--proxy' "socks5h://$GATEWAY_IP:$SOCKS_PORT_SYSTEMCHECK"
+         '--proxy' "$PROXY_SERVER"
       )
       local CHECK_TOR_OUT_FILE="check_tpo_tor_transport.html"
       local connection_failed_msg="\
