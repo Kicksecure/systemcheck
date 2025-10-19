@@ -41,7 +41,7 @@ check_kernel_logs() {
    OIFS="$IFS"
    IFS=$(printf '%s\n' -en "\n\b")
    for remarkable_kernel_messages_item in "${remarkable_kernel_messages_list[@]}" ; do
-      if remarkable_message_one="$(printf '%s\n' "$dmesg_output" | grep -i "$remarkable_kernel_messages_item")" ; then
+      if remarkable_message_one="$(printf '%s\n' "$dmesg_output" | grep -i -- "$remarkable_kernel_messages_item")" ; then
          remarkable_message_list="$remarkable_message_list
 $remarkable_message_one"
       fi
@@ -52,7 +52,7 @@ $remarkable_message_one"
 }
 
 cleanup_temp_dir() {
-  safe-rm -rf '/run/systemcheck/log-checker' || return 1
+  safe-rm -r -f -- '/run/systemcheck/log-checker' || return 1
 }
 
 prep_temp_dir() {
@@ -79,7 +79,7 @@ br_add_to_file() {
 
    local line
    while IFS= read -r line ; do
-      printf '%s\n' "$line<br />" | tee -a "${file_name}_br" >/dev/null
+      printf '%s\n' "$line<br />" | tee -a -- "${file_name}_br" >/dev/null
    done < "${file_name}"
 }
 
