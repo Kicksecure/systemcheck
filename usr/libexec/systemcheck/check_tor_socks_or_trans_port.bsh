@@ -6,7 +6,7 @@
 source /usr/libexec/helper-scripts/strings.bsh
 
 check_tor_socks_or_trans_port() {
-   local CURL_PROXY_SYSTEMCHECK random_user_name
+   local CURL_PROXY_SYSTEMCHECK random_socks_user_name
 
    if [ ! "$leak_tests" = "true" ]; then
       local MSG="\
@@ -51,11 +51,11 @@ check_tor_socks_or_trans_port() {
    if [ "$1" = "SocksPort" ]; then
       local test_name="<code>SocksPort</code> $test_word"
       local checking_msg="$test_name: Testing Tor's <code>SocksPort</code> (SOCKS_PORT_SYSTEMCHECK: <code>$SOCKS_PORT_SYSTEMCHECK</code>)..."
-      random_user_name="$(random_alpha_numeric 43)"
+      random_socks_user_name="$(random_alpha_numeric 43)"
       ## TODO: https://spec.torproject.org/proposals/351-socks-auth-extensions.html
       CURL_PROXY_SYSTEMCHECK=(
          '--proxy' "socks5h://$GATEWAY_IP:$SOCKS_PORT_SYSTEMCHECK"
-         '--proxy-user' "systemcheck_${random_user_name}:password"
+         '--proxy-user' "systemcheck_${random_socks_user_name}:password"
       )
       local CHECK_TOR_OUT_FILE="check_tpo_tor_socksport.html"
       if test -f /run/qubes/this-is-templatevm ; then
