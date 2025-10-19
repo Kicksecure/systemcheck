@@ -1,3 +1,41 @@
+commit abfddaaf1aa7fc8af1d895860cc648860ef58f0c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 19 05:33:06 2025 -0400
+
+    output
+
+commit 5bd2d10b45e224d3806430885f440ef4e42f7121
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 19 05:32:19 2025 -0400
+
+    suggest /etc/apt/sources.list/derivative.list to /etc/apt/sources.list/derivative.sources migration
+    
+    using repository-dist utility
+
+commit c4ef2a0400b9c38fe5892318bacfb51bf9c7d7f5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 19 05:14:38 2025 -0400
+
+    end-of-options
+
+commit 7e6c10af9d43bf4f3e8216ef13bf5d933e56e00b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 19 05:11:20 2025 -0400
+
+    printf
+
+commit 2712edb461c2b2db3d3d1d8ab1d14bd69b222975
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 19 05:10:20 2025 -0400
+
+    fix
+
+commit b668551ca74f2e2d20240aa72f83d76c3d0779e9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Oct 18 09:19:52 2025 +0000
+
+    bumped changelog version
+
 commit 80726bcc519d22a55d041805a73ef6f110a3ca5b
 Merge: 046ca2c 42f122c
 Author: Patrick Schleizer <adrelanos@whonix.org>
