@@ -6,7 +6,12 @@
 #set -x
 set -e
 
-## SHELLOPTS=xtrace systemcheck
+## NOTE: Running "bash -x systemcheck" might be a bad idea as it disables AppArmor.
+##       Better options:
+##       - Use 'SHELLOPTS=xtrace'
+#SHELLOPTS=xtrace systemcheck
+##       - Use '--debug' option.
+#          systemcheck --debug
 
 #source /usr/libexec/helper-scripts/lockfile.sh
 
