@@ -1,0 +1,23 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+check_apparmor() {
+   output="$(/usr/bin/disallowed-test 2>&1)" || true
+
+   if printf '%s\n' "$output" | grep --fixed-strings "/usr/bin/disallowed-test: Permission denied" &>/dev/null; then
+      local MSG="<p>AppArmor Check Result: Success.</p>"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+     return 0
+   fi
+
+   local MSG="<p>AppArmor Check Result: Failed.</p>"
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
+   cleanup "1"
+}

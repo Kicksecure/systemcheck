@@ -6,6 +6,10 @@
 #set -x
 set -e
 
+## SHELLOPTS=xtrace systemcheck
+
+#source /usr/libexec/helper-scripts/lockfile.sh
+
 #safe-rm -f -- /tmp/systemcheck-debug.txt
 #exec 5>&1 1>> /tmp/systemcheck-debug.txt
 #exec 6>&2 2>> /tmp/systemcheck-debug.txt

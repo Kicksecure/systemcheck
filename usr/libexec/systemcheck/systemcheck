@@ -30,8 +30,6 @@ source /usr/libexec/msgcollector/error_handler
 trap "error_handler" ERR ## /usr/libexec/msgcollector/error_handler
 set +e
 
-source /usr/libexec/helper-scripts/lockfile.sh
-
 bash -n /usr/libexec/msgcollector/msgdispatcher_run_check
 source /usr/libexec/msgcollector/msgdispatcher_run_check
 
@@ -78,7 +76,12 @@ systemcheck_main() {
    systemcheck_run_function input_notification ## preparation
 
    ## Does not use the network.
+   systemcheck_run_function check_apparmor ## check_apparmor
+
+   ## Does not use the network.
    systemcheck_run_function check_environment_variables ## check_environment_variables
+
+   check_apparmor
 
    ## Does not use the network.
    systemcheck_run_function check_privilege_escalation_tools ## check_privilege_escalation_tool
