@@ -44,6 +44,7 @@ include <tunables/global>
   ptrace,
 
   deny /etc/fstab r,
+  deny /usr/bin/disallowed-test rix,
 
   / r,
   /dev/ r,
