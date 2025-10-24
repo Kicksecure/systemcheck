@@ -1,3 +1,22 @@
+commit dce0037fe78aee472dfebefab65b974b45c1d1cf
+Merge: c5754e7 91f2729
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Oct 24 00:23:08 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 91f272912d5e35939298c0d075dd711b9597fd03
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Oct 23 19:48:35 2025 -0500
+
+    Fall back to the failed command's exit code in ex_funct if EXIT_CODE is empty or 0
+
+commit c5754e762a55b414707e9205d6b900472fb24133
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 19 11:32:41 2025 +0000
+
+    bumped changelog version
+
 commit ab606bb8e21bbd8e2fdfd1691daaefaece895888
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Oct 19 07:32:19 2025 -0400
