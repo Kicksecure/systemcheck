@@ -135,8 +135,13 @@ ex_funct() {
       fi
    fi
 
-   if [ "$EXIT_CODE" = "" ]; then
-      EXIT_CODE="0"
+   if [ -z "$EXIT_CODE" ] || [ "$EXIT_CODE" = '0' ]; then
+      ## 'exit_code' inherited from error_handler
+      if [ -n "$exit_code" ]; then
+         EXIT_CODE="$exit_code"
+      else
+         EXIT_CODE="0"
+      fi
    fi
 
    exit "$EXIT_CODE"
