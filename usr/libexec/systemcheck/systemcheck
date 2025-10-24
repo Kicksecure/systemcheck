@@ -30,6 +30,8 @@ source /usr/libexec/msgcollector/error_handler
 trap "error_handler" ERR ## /usr/libexec/msgcollector/error_handler
 set +e
 
+source /usr/libexec/helper-scripts/lockfile.sh
+
 bash -n /usr/libexec/msgcollector/msgdispatcher_run_check
 source /usr/libexec/msgcollector/msgdispatcher_run_check
 
