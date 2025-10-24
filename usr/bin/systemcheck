@@ -13,6 +13,8 @@ set -e
 ##       - Use '--debug' option.
 #          systemcheck --debug
 
+## BUG: Results in a duplicate run.
+## sudo genmkfile install && SHELLOPTS=xtrace systemcheck --verbose --function check_apparmor --gui --cli
 #source /usr/libexec/helper-scripts/lockfile.sh
 
 #safe-rm -f -- /tmp/systemcheck-debug.txt
