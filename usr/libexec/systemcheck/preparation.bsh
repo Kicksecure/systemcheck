@@ -135,18 +135,25 @@ virtualizer_detection() {
 }
 
 sysmaint_state_detection() {
-   user_sysmaint_split_installed='false'
-   booted_in_sysmaint_session='false'
+  local kernel_cmdline
 
-   if pkg_installed user-sysmaint-split; then
-      user_sysmaint_split_installed='true'
-   fi
+  user_sysmaint_split_installed='false'
+  booted_in_sysmaint_session='false'
 
-   local kernel_cmdline
-   kernel_cmdline="$(cat -- /proc/cmdline)" || true
-   if [[ "$kernel_cmdline" =~ 'boot-role=sysmaint' ]]; then
-      booted_in_sysmaint_session='true'
-   fi
+  if pkg_installed user-sysmaint-split; then
+    user_sysmaint_split_installed='true'
+  fi
+
+  kernel_cmdline=''
+  if [ -f /proc/cmdline ]; then
+    kernel_cmdline="$(cat -- /proc/cmdline)" || true
+  elif [ -f /proc/1/cmdline ]; then
+    kernel_cmdline="$(cat -- /proc/1/cmdline)" || true
+  fi
+
+  if [[ "$kernel_cmdline" =~ 'boot-role=sysmaint' ]]; then
+    booted_in_sysmaint_session='true'
+  fi
 }
 
 if_you_know_what_you_are_doing_funct() {
