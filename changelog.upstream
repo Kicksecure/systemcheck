@@ -1,3 +1,39 @@
+commit 34e7df85d03151747ee16aefac7f9eb0bf19728a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 27 04:38:49 2025 -0400
+
+    prevent duplicate runs of systemcheck using lockfile
+
+commit e1bad07ee55fb69a0aa57088d60bbdf3ff747585
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 27 04:14:39 2025 -0400
+
+    fix
+
+commit 2fe47a87269bdbccd9f548be950207b5af266685
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 27 04:13:07 2025 -0400
+
+    comments
+
+commit 909dd0cfb8b69ea2b976d6281cc6c339c82135c6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 27 04:13:00 2025 -0400
+
+    apparmor
+
+commit fc8da3da48070d6ac4ca90223151bc7158007b2a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 27 03:44:19 2025 -0400
+
+    aa-logprof
+
+commit 3a0120e176e24bafcd5296cb3445a4d4e2601080
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 26 12:31:14 2025 +0000
+
+    bumped changelog version
+
 commit c7930d6612faa2a5cfd0d9ccd77846d4966d68b8
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Oct 26 08:06:56 2025 -0400
