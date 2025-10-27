@@ -11,14 +11,14 @@ check_tor_running_do() {
 
    ## Only check on Whonix-Gateway.
    if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
-      tor_pid_message="Not running on Whonix-Gateway, ok."
+      tor_pid_message="Not running on Whonix-Gateway, therefore skipping, ok."
       tor_pid_exit_code="0"
       return 0
    fi
 
    ## Skip in Qubes-Whonix-Gateway TemplateVM, because Tor is not running there.
    if test -f /run/qubes/this-is-templatevm ; then
-      tor_pid_message="Not running in Qubes-Whonix-Gateway TemplateVM, ok."
+      tor_pid_message="Running inside a Qubes-Whonix-Gateway TemplateVM, therefore skipping, ok."
       tor_pid_exit_code="0"
       return 0
    fi
