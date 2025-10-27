@@ -308,7 +308,7 @@ include <tunables/global>
   /{,usr/}bin/str_replace rix,
   /{,usr/}bin/sudo rix,
   /{,usr/}bin/sync rix,
-  /{,usr/}bin/systemcheck r,
+  /{,usr/}bin/systemcheck rix,
   /{,usr/}bin/systemctl rix,
   /{,usr/}bin/systemd* rix,
   /{,usr/}bin/systemd-detect-virt rix,
