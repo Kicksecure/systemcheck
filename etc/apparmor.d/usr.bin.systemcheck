@@ -1,4 +1,4 @@
-# Last Modified: Mon May 12 10:39:20 2025
+# Last Modified: Mon Oct 27 03:41:44 2025
 include <tunables/global>
 
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
@@ -12,10 +12,10 @@ include <tunables/global>
   include <abstractions/dbus>
   include <abstractions/fonts>
   include <abstractions/tor-circuit-established-check>
-  include if exists <abstractions/tor>
   include <abstractions/totem>
   include <abstractions/ubuntu-konsole>
   include <local/usr.bin.systemcheck>
+  include if exists <abstractions/tor>
 
   capability audit_write,
   capability chown,
@@ -194,11 +194,11 @@ include <tunables/global>
   /usr/lib/torsocks/* mr,
   /usr/libexec/helper-scripts/ r,
   /usr/libexec/helper-scripts/* rix,
+  /usr/libexec/helper-scripts/apt-get-update rUx,
   /usr/libexec/helper-scripts/curl_exit_codes rix,
   /usr/libexec/helper-scripts/onion-time-pre-script rUx,
   /usr/libexec/msgcollector/ r,
   /usr/libexec/msgcollector/* rix,
-  /usr/libexec/helper-scripts/apt-get-update rUx,
   /usr/libexec/systemcheck/ r,
   /usr/libexec/systemcheck/** rix,
   /usr/libexec/user-sysmaint-split/sysmaint-boot rix,
@@ -207,17 +207,6 @@ include <tunables/global>
   /usr/local/etc/safe-rm.conf r,
   /usr/local/etc/torrc.d/ r,
   /usr/local/etc/torrc.d/* r,
-  /{,usr/}sbin/lsmod rix,
-  /{,usr/}sbin/anondate rix,
-  /{,usr/}sbin/apparmor-info rix,
-  /{,usr/}sbin/autologinchange rix,
-  /{,usr/}sbin/getcap rix,
-  /{,usr/}sbin/ifconfig rix,
-  /{,usr/}sbin/ip rix,
-  /{,usr/}sbin/pam-tmpdir-helper mrix,
-  /{,usr/}sbin/start-stop-daemon rix,
-  /{,usr/}sbin/tor rix,
-  /{,usr/}sbin/unix_chkpwd rix,
   /usr/share/** r,
   /usr/share/distro-info/debian.csv r,
   /usr/share/tor/** r,
@@ -263,10 +252,8 @@ include <tunables/global>
   /{,usr/}bin/dpkg rix,
   /{,usr/}bin/dpkg-query rix,
   /{,usr/}bin/echo rix,
-  /{,usr/}bin/true rix,
   /{,usr/}bin/env rix,
   /{,usr/}bin/flock rix,
-  /{,usr/}bin/systemcheck rix,
   /{,usr/}bin/fuser rix,
   /{,usr/}bin/gawk rix,
   /{,usr/}bin/gdbus rix,
@@ -279,8 +266,8 @@ include <tunables/global>
   /{,usr/}bin/head rix,
   /{,usr/}bin/hostname rix,
   /{,usr/}bin/id rix,
-  /{,usr/}bin/ip rix,
   /{,usr/}bin/install rix,
+  /{,usr/}bin/ip rix,
   /{,usr/}bin/journalctl rix,
   /{,usr/}bin/kmod rix,
   /{,usr/}bin/leaprun rix,
@@ -299,10 +286,10 @@ include <tunables/global>
   /{,usr/}bin/ps rix,
   /{,usr/}bin/pstree rix,
   /{,usr/}bin/python* rix,
-  /{,usr/}bin/realpath rix,
   /{,usr/}bin/qubesdb-cmd rix,
   /{,usr/}bin/qubesdb-read rix,
   /{,usr/}bin/readlink rix,
+  /{,usr/}bin/realpath rix,
   /{,usr/}bin/rm rix,
   /{,usr/}bin/run-parts rix,
   /{,usr/}bin/safe-rm rix,
@@ -336,6 +323,7 @@ include <tunables/global>
   /{,usr/}bin/touch rix,
   /{,usr/}bin/tput rix,
   /{,usr/}bin/tr rix,
+  /{,usr/}bin/true rix,
   /{,usr/}bin/tty rix,
   /{,usr/}bin/uname rix,
   /{,usr/}bin/uuidgen rix,
@@ -346,6 +334,17 @@ include <tunables/global>
   /{,usr/}bin/whoami rix,
   /{,usr/}bin/xz rix,
   /{,usr/}bin/yad rix,
+  /{,usr/}sbin/anondate rix,
+  /{,usr/}sbin/apparmor-info rix,
+  /{,usr/}sbin/autologinchange rix,
+  /{,usr/}sbin/getcap rix,
+  /{,usr/}sbin/ifconfig rix,
+  /{,usr/}sbin/ip rix,
+  /{,usr/}sbin/lsmod rix,
+  /{,usr/}sbin/pam-tmpdir-helper mrix,
+  /{,usr/}sbin/start-stop-daemon rix,
+  /{,usr/}sbin/tor rix,
+  /{,usr/}sbin/unix_chkpwd rix,
   /{,var/}run/tor/** r,
   @{HOME}/ r,
   @{HOME}/.config/safe-rm r,
