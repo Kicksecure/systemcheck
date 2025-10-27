@@ -17,9 +17,7 @@ set -e
 #exec 5>&1 1>> /tmp/systemcheck-debug.txt
 #exec 6>&2 2>> /tmp/systemcheck-debug.txt
 
-## BUG: Does not produce any console output.
-## systemcheck --gui --cli
-#source /usr/libexec/helper-scripts/lockfile.sh
+source /usr/libexec/helper-scripts/lockfile.sh
 
 if [ -o xtrace ]; then
   ## XXX: Might add a superfluous ':xtrace'.
