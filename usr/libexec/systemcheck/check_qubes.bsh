@@ -229,7 +229,7 @@ check_qubes_update_proxy_daemon() {
    local MSG="\
 <p>Qubes Updates Proxy Daemon Check Result: Qubes torified UpdatesProxy not running. Updating Templates using this Qubes-Whonix-Gateway will fail.
 <br></br>To see this for yourself, run:
-<blockquote>sudo systemctl status qubes-updates-proxy.service</blockquote>
+<blockquote>leaprun qubes-updates-proxy-status</blockquote>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
