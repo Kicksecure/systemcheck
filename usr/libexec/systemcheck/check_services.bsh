@@ -146,27 +146,8 @@ check_whonix_firewall_systemd_status() {
       extra_text="Failure file <code>/run/anon-firewall/failed.status</code> does not exist, ok."
    fi
 
-   local i max
-   i="0"
-   max="30"
-   while true ; do
-      systemctl_status_whonix_firewall_exit_code="0"
-      systemctl_status_whonix_firewall_output="$(leaprun whonix-firewall-status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
-      if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ]; then
-         break
-      else
-         local MSG="<p>Whonix firewall systemd unit check Result: Waiting $i of $max.</p>"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      (( i++ )) || true
-      if [ "$i" -ge "$max" ]; then
-         break
-      fi
-      sleep "1" &
-      lastpid="$!"
-      wait "$lastpid" || true
-   done
-
+   systemctl_status_whonix_firewall_exit_code="0"
+   systemctl_status_whonix_firewall_output="$(leaprun whonix-firewall-status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
    systemctl_status_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then

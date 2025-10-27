@@ -1,0 +1,25 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+check_system_ready() {
+   local i max
+   i="0"
+   max="30"
+   while true ; do
+      if leaprun system-ready-check; then
+         break
+      else
+         local MSG="<p>System ready check Result: Waiting $i of $max.</p>"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+      (( i++ )) || true
+      if [ "$i" -ge "$max" ]; then
+         break
+      fi
+      sleep "1" &
+      lastpid="$!"
+      wait "$lastpid" || true
+   done
+}
