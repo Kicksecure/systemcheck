@@ -22,7 +22,8 @@ set -e
 #source /usr/libexec/helper-scripts/lockfile.sh
 
 if [ -o xtrace ]; then
-   bash -x /usr/libexec/systemcheck/systemcheck "$@"
+  ## XXX: Might add a superfluous ':xtrace'.
+  env SHELLOPTS=xtrace /usr/libexec/systemcheck/systemcheck "$@"
 else
-   /usr/libexec/systemcheck/systemcheck "$@"
+  /usr/libexec/systemcheck/systemcheck "$@"
 fi
