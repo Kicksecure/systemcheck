@@ -5,21 +5,52 @@
 
 check_system_ready() {
    local i max
+
    i="0"
-   max="30"
+   max="6"
+
    while true ; do
-      if leaprun system-ready-check; then
+      if [ "$i" -eq 0 ]; then
+         local MSG="<p>System ready check Result: Initial.</p>"
+         if [ "$verbose" -ge "1" ]; then
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+      fi
+
+      timeout_exit_code=0
+      ## variable max: 6 times
+      ## timeout: 5 seconds
+      ## wait maximum: 6 x 5 = 30 seconds
+      timeout --kill-after="1" "2" leaprun system-ready-check &
+      lastpid="$!"
+      wait -- "$lastpid" || { timeout_exit_code="$?"; true; };
+
+      if [ "$timeout_exit_code" = "0" ]; then
+         local MSG="<p>System ready check Result: Success.</p>"
+         if [ "$verbose" -ge "1" ]; then
+            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         fi
+         return 0
+      fi
+
+      if [ "$i" -ge "$max" ]; then
+         local MSG="<p>System ready check Result: Timeout.</p>"
+         #$output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
          break
-      else
+      fi
+
+      (( i++ )) || true
+      if [ "$i" -ge 1 ]; then
          local MSG="<p>System ready check Result: Waiting $i of $max.</p>"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-      (( i++ )) || true
-      if [ "$i" -ge "$max" ]; then
-         break
-      fi
-      sleep "1" &
-      lastpid="$!"
-      wait "$lastpid" || true
+
    done
+
+   local MSG="<p>System ready check Result: Failed.</p>"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+
+   return 0
 }
