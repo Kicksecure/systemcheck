@@ -3,13 +3,16 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## TODO: wait for privleap
+## TODO: output result of system-ready-check
+
 check_system_ready() {
-   local i max
+   local i max leaprun_exit_code
 
    i="0"
    max="6"
 
-   while true ; do
+   while true; do
       if [ "$i" -eq 0 ]; then
          local MSG="<p>System ready check Result: Initial.</p>"
          if [ "$verbose" -ge "1" ]; then
@@ -17,15 +20,15 @@ check_system_ready() {
          fi
       fi
 
-      timeout_exit_code=0
+      leaprun_exit_code=0
       ## variable max: 6 times
       ## timeout: 5 seconds
       ## wait maximum: 6 x 5 = 30 seconds
-      timeout --kill-after="1" "5" leaprun system-ready-check &
+      leaprun system-ready-check &
       lastpid="$!"
-      wait -- "$lastpid" || { timeout_exit_code="$?"; true; };
+      wait -- "$lastpid" || { leaprun_exit_code="$?"; true; };
 
-      if [ "$timeout_exit_code" = "0" ]; then
+      if [ "$leaprun_exit_code" = "0" ]; then
          local MSG="<p>System ready check Result: Success.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
