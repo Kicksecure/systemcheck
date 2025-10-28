@@ -21,7 +21,7 @@ check_system_ready() {
       ## variable max: 6 times
       ## timeout: 5 seconds
       ## wait maximum: 6 x 5 = 30 seconds
-      timeout --kill-after="1" "2" leaprun system-ready-check &
+      timeout --kill-after="1" "5" leaprun system-ready-check &
       lastpid="$!"
       wait -- "$lastpid" || { timeout_exit_code="$?"; true; };
 
