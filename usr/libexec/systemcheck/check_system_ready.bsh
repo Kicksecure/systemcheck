@@ -4,10 +4,9 @@
 ## See the file COPYING for copying conditions.
 
 ## TODO: wait for privleap
-## TODO: output result of system-ready-check
 
 check_system_ready() {
-   local i max leaprun_exit_code
+   local i max leaprun_exit_code result
 
    i="0"
    max="6"
@@ -51,7 +50,11 @@ check_system_ready() {
 
    done
 
-   local MSG="<p>System ready check Result: Failed.</p>"
+   result="$(stcat /run/helper-scripts/system-ready-check)" || true
+
+   local MSG="<p>System ready check Result: Failed.<br/>
+Debugging information:<br/>
+'leaprun system-ready-check' result: '$result'</p>"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
 
