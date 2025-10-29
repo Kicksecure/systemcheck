@@ -1,3 +1,15 @@
+commit 7e8a7979de4e7239fe52dcc490e59f5894647c3b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Oct 29 08:10:55 2025 -0400
+
+    disable lockfile due to bugs
+
+commit 2465169a8ac173cbd1c4d48fd19b0f20b67bd645
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Oct 29 07:37:09 2025 +0000
+
+    bumped changelog version
+
 commit 3e772d48246a53ab06de2e125b017c9487094d06
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Oct 28 04:50:55 2025 -0400
