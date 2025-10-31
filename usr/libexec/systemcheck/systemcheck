@@ -79,6 +79,10 @@ systemcheck_main() {
    systemcheck_run_function check_system_ready ## check_system_ready
 
    ## Does not use the network.
+   ## XXX
+   source /usr/libexec/helper-scripts/wc-test.sh
+
+   ## Does not use the network.
    systemcheck_run_function check_apparmor ## check_apparmor
 
    ## Does not use the network.
