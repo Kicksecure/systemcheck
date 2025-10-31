@@ -126,7 +126,7 @@ update_output_check() {
   ##
   ## Err:4 http://HTTPS///fasttrack.debian.net/debian bullseye-fasttrack InRelease
   ## 500  SSL error: wrong version number [IP: 127.0.0.1 3142]
-  if printf '%s' "$update_output" | grep --quiet --ignore-case -E -- '^Error:|^E:|^Err:'; then
+  if printf '%s' "$update_output" | grep --ignore-case -E -- '^Error:|^E:|^Err:' >/dev/null; then
     printf "%s\n" "$0: WARNING: output of 'leaprun apt-get-update':"
     printf "%s\n" "---------------------------------------------"
     printf "%s\n" "$update_output"
