@@ -75,7 +75,7 @@ br_add_to_file() {
 
    test -f "${file_name}"
    safe-rm -f -- "${file_name}_br"
-   touch "${file_name}_br"
+   touch -- "${file_name}_br"
 
    local line
    while IFS= read -r line ; do
@@ -86,7 +86,7 @@ br_add_to_file() {
 check_service_logs() {
   prep_temp_dir || return 1
 
-  touch "$TMPDIR/journalctl_output.txt"
+  touch -- "$TMPDIR/journalctl_output.txt"
 
   leaprun read-journalctl-logs | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null || true
 
