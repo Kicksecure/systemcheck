@@ -1,3 +1,27 @@
+commit 34deeba3a22629e1f939e898f0bc760682d9bdc4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Oct 31 12:31:15 2025 -0400
+
+    add `wc -l` test
+
+commit fee1049a1f0ca2db176bb1500749684903f8ed42
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Oct 31 12:28:40 2025 -0400
+
+    fix: protect broken pipe
+
+commit 00aa34d6d5d1afbcb8874bd860a2a012bbb00a5c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Oct 31 12:23:01 2025 -0400
+
+    end-of-options
+
+commit 4148910cef5f408b610b9ac5271843bd14064b37
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Oct 29 12:11:42 2025 +0000
+
+    bumped changelog version
+
 commit 7e8a7979de4e7239fe52dcc490e59f5894647c3b
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Oct 29 08:10:55 2025 -0400
