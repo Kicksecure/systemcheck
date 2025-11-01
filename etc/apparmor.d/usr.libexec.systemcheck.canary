@@ -27,6 +27,7 @@ include <tunables/global>
   /etc/resolv.conf r,
   /etc/systemcheck.d/ r,
   /etc/systemcheck.d/** r,
+  /etc/safe-rm.conf r,
   /etc/whonix.d/ r,
   /etc/whonix.d/** r,
   /run/sdwdate/success r,
