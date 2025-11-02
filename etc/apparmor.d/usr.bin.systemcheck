@@ -45,6 +45,7 @@ include <tunables/global>
 
   deny /etc/fstab r,
   deny /usr/bin/disallowed-test rwx,
+  deny @{HOME}/.config/yad.conf rw,
 
   / r,
   /dev/ r,
@@ -140,6 +141,8 @@ include <tunables/global>
   /run/sdwdate/* rw,
   /run/sudo/** rw,
   /run/systemcheck/** mrwcx,
+  /run/helper-scripts/ r,
+  /run/helper-scripts/system-ready-check r,
   /run/tor/control.authcookie r,
   /run/tor/log r,
   /run/tor/tor.pid r,
