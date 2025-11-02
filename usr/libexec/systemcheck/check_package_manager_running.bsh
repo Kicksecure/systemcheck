@@ -4,9 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_package_manager_running() {
-   check_package_manager_running_helper
-
-   if [ "$check_apt_get_exit_code" = "0" ]; then
+   if check_package_manager_running_helper; then
       if [ "$systemcheck_package_manager_waiting" = "1" ]; then
          $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
       fi
