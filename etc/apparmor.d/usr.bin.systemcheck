@@ -45,6 +45,8 @@ include <tunables/global>
 
   deny /etc/fstab r,
   deny /usr/bin/disallowed-test rwx,
+
+  ## AVC apparmor="DENIED" operation="mknod" class="file" profile="/usr/bin/systemcheck" name="/home/sysmaint/.config/yad.conf.BE76E3" comm="yad" requested_mask="c" denied_mask="c"
   deny @{HOME}/.config/yad.conf rw,
 
   / r,
