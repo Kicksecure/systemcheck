@@ -12,6 +12,10 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
+system_ready_check_function(){
+  system_ready_check_output="$(leaprun system-ready-check 2>&1)"
+}
+
 leaprun_availability_test() {
   ## sets: use_leaprun
   #source /usr/libexec/helper-scripts/use_leaprun.sh
@@ -193,6 +197,13 @@ trap "sigterm_trap" SIGTERM SIGINT
 trap "exit_trap" EXIT
 
 who_ami="$(whoami)"
+
+if ! run_with_attempts 3 "${initial_wait_minutes}m" "system ready check" system_ready_check_function; then
+  send_notification_wait_exit "Software updates check failure" "'leaprun system-ready-check' failed.
+
+  Debugging information:
+  - system_ready_check_output: '$system_ready_check_output'"
+fi
 
 if ! run_with_attempts 3 "${initial_wait_minutes}m" "leaprun availability test" leaprun_availability_test; then
   send_notification_wait_exit "Software updates check failure" "privleap issue.
