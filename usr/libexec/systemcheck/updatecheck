@@ -152,7 +152,7 @@ Debugging information:
 fi
 
 if ! leaprun_check_output="$(leaprun --check -- apt-get-update 2>&1)" ; then
-  mkdir --parents ~/.systemcheck/status-files
+  mkdir --parents -- ~/.systemcheck/status-files
   msg="\
 Account '$who_ami' lacks privleap permission. See:
 https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_user"
