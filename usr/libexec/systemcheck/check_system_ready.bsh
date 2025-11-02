@@ -14,7 +14,10 @@ check_system_ready() {
       ## variable max: 6 times
       ## timeout: 5 seconds
       ## wait maximum: 6 x 5 = 30 seconds
-      leaprun system-ready-check &
+
+      ## Discard output of using '&>/dev/null' so we can launch into the background
+      ## and check later by looking at file '/run/helper-scripts/system-ready-check' instead.
+      leaprun system-ready-check &>/dev/null &
       lastpid="$!"
       wait -- "$lastpid" || { leaprun_exit_code="$?"; true; };
 
