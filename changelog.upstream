@@ -1,3 +1,101 @@
+commit b0a71e6a2c24d50d5ac8458040d2f03fe946adb7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 03:57:28 2025 -0500
+
+    update path
+
+commit 65cd2853efd88ddc780e4d9c206cfc6ed7296c1b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 03:56:06 2025 -0500
+
+    new command line tool: `updatecheck`
+    
+    renamed: usr/libexec/systemcheck/updatecheck -> usr/bin/updatecheck
+
+commit 8e43005e8e2c9417905f347b6e67b7a4237fb18d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 03:52:37 2025 -0500
+
+    `updatecheck`: add `leaprun system-ready-check`
+
+commit 6ad977bd77284a915f55c6e7c03da494a9181b87
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 02:45:37 2025 -0500
+
+    debugging
+
+commit 97959e58b2deff2c191e1863b1358f866e07e329
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 02:41:19 2025 -0500
+
+    updatecheck: improved error handling
+
+commit 4cc4f46ea5d1cc5e52f145f361cf792d520134dc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 02:33:01 2025 -0500
+
+    refactoring
+
+commit b75044fa367b12f67066c4b3aab8a7703c08dc3e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 02:21:36 2025 -0500
+
+    refactoring
+
+commit 46430e915c79d7097c727640fc94c445888bcf87
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:29:48 2025 -0500
+
+    end-of-options
+
+commit caafffc5069007204e377f52112d3cf166565429
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:29:02 2025 -0500
+
+    fix
+
+commit 189752da5ef917aabb1585fe98f38b8e2da4445c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:18:00 2025 -0500
+
+    apparmor
+
+commit 55587944e40d1aa2bd15767944f2e169a2b3946a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:17:24 2025 -0500
+
+    apparmor
+
+commit 21bbb4472798143e5e15a416b55cdfb1c823720b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:15:47 2025 -0500
+
+    apparmor
+
+commit f7532946d37d9a33915d3fdae1fac48149afaa84
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:15:03 2025 -0500
+
+    comment
+
+commit 68a4a98e4c13bec56cf446e399545c376eb686df
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:13:42 2025 -0500
+
+    fix
+
+commit d139061cb934a15e806a68bb56b58cfb3941bfac
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 01:01:46 2025 -0500
+
+    apparmor
+
+commit 8845f09a6e632145a32522234eecda576d601d97
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Nov 1 11:12:40 2025 +0000
+
+    bumped changelog version
+
 commit f1ac7277387f0c41c5fc947982ae80d4dc4baf8c
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Nov 1 07:12:21 2025 -0400
