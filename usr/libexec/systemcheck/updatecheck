@@ -17,6 +17,45 @@ set -o pipefail
 ## also does source above script
 source /usr/libexec/helper-scripts/pkg_manager_running_check
 
+sdwdate_ready() {
+  if [ -e /run/sdwdate/success ]; then
+    return 0
+  fi
+  if [ -e /run/sdwdate/first_success ]; then
+    return 0
+  fi
+  return 1
+}
+
+onion_time_pre_script_run() {
+  onion_time_pre_script_output="$(leaprun onion-time-pre-script 2>&1)"
+}
+
+## run_with_attempts <attempts> <sleep> <label> <command...>
+run_with_attempts() {
+  local attempts sleep_amount label
+  attempts="$1"
+  sleep_amount="$2"
+  label="$3"
+  shift 3
+
+  local i
+  for ((i=1; i<=attempts; i++)); do
+    true "$0: INFO: $label iteration: $i"
+    if "$@"; then
+      true "$0: INFO: $label - success. Proceeding."
+      return 0
+    fi
+    if [ "$i" -ge "$attempts" ]; then
+      true "$0: INFO: $label - failed. Giving up after $attempts attempts."
+      return 1
+    fi
+    true "$0: INFO: $label - failed. Sleep and try again."
+    sleep -- "${sleep_amount}" &
+    wait -- "$!"
+  done
+}
+
 close_notification() {
   true "$0: $FUNCNAME: START"
   ## notification_id might be unset if signal sigterm is received very quickly.
@@ -161,81 +200,24 @@ https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_
   exit 0
 fi
 
-check_attempts=10
-for ((i=1; i<=check_attempts; i++)) ; do
-  if /usr/libexec/helper-scripts/check-network-access; then
-    true "$0: INFO: Non-loopback IP address found - success. Proceeding."
-    break
-  fi
-  if [ "$i" -ge "$check_attempts" ]; then
-    true "$0: INFO: Non-loopback IP address not found - failed. Giving up after $check_attempts attempts."
-    # Do not send an error notification in this instance, the user probably
-    # just doesn't have an Internet connection.
-    exit
-  fi
-  true "$0: INFO: Non-loopback IP address not found - failed. Sleep and try again."
-  sleep -- "${initial_wait_minutes}m" &
-  wait -- "$!"
-done
+if ! run_with_attempts 10 "${initial_wait_minutes}m" "non-loopback IP" /usr/libexec/helper-scripts/check-network-access; then
+  true "$0: INFO: No non-loopback address found. Do not send an error notification in this instance, the user probably just doesn't have an Internet connection. Therefore exiting."
+  exit 0
+fi
 
-check_attempts=5
-for ((i=1; i<=check_attempts; i++)) ; do
-  true "$0: INFO: onion-time-pre-script check loop iteration: $i"
-  if onion_time_pre_script_output="$(leaprun onion-time-pre-script)" ; then
-    true "$0: INFO: leaprun onion-time-pre-script - success. Proceeding."
-    break
-  fi
-  if [ "$i" -ge "$check_attempts" ]; then
-    true "$0: INFO: leaprun onion-time-pre-script - failed. Giving up after $check_attempts attempts."
-    printf "%s\n" "$0: INFO: onion_time_pre_script_output: $onion_time_pre_script_output"
-    send_notification_wait_exit "Software updates check failure" "Command 'leaprun onion-time-pre-script' failed. Command output has been logged to journal."
-    ## Avoid indefinite loop. Not really needed. Just in case.
-    break
-  fi
-  true "$0: INFO: leaprun onion-time-pre-script - failed. Sleep and try again."
-  sleep -- "${initial_wait_minutes}m" &
-  wait -- "$!"
-done
+if ! run_with_attempts 5 "${initial_wait_minutes}m" "onion-time-pre-script" onion_time_pre_script_run; then
+  printf "%s\n" "$0: INFO: onion_time_pre_script_output: $onion_time_pre_script_output"
+  send_notification_wait_exit "Software updates check failure" "Command 'leaprun onion-time-pre-script' failed. Command output has been logged to journal."
+fi
 
-check_attempts=3
-for ((i=1; i<=check_attempts; i++)) ; do
-  true "$0: INFO: sdwdate check loop iteration: $i"
-  if [ -e /run/sdwdate/success ]; then
-    true "$0: INFO: sdwdate /run/sdwdate/success OK."
-    break
-  elif [ -e /run/sdwdate/first_success ]; then
-    true "$0: INFO: sdwdate /run/sdwdate/first_success OK."
-    break
-  fi
-  if [ "$i" -ge "$check_attempts" ]; then
-    true "$0: INFO: sdwdate did not complete yet. Giving up after $check_attempts attempts."
-    send_notification_wait_exit "Software updates check failure" "sdwdate did not complete yet."
-    ## Avoid indefinite loop. Not really needed. Just in case.
-    break
-  fi
-  true "$0: INFO: sdwdate check failed. Sleep and try again."
-  sleep -- "${initial_wait_minutes}m" &
-  wait -- "$!"
-done
+if ! run_with_attempts 3 "${initial_wait_minutes}m" "sdwdate ready check" sdwdate_ready; then
+  send_notification_wait_exit "Software updates check failure" "sdwdate did not complete yet."
+fi
 
-check_attempts=10
-for ((i=1; i<=check_attempts; i++)) ; do
-  true "$0: INFO: check_package_manager_running_helper check loop iteration: $i"
-  check_package_manager_running_helper
-  if [ "$check_apt_get_exit_code" = "0" ]; then
-    true "$0: INFO: check_package_manager_running_helper success. No package manager running. Ok."
-    break
-  fi
-  if [ "$i" -ge "$check_attempts" ]; then
-    true "$0: INFO: check_package_manager_running_helper did not complete yet. Giving up after $check_attempts attempts."
-    send_notification_wait_exit "Software updates check failure" "Package update database is locked. Is APT already running?"
-    ## Avoid indefinite loop. Not really needed. Just in case.
-    break
-  fi
-  true "$0: INFO: check_package_manager_running_helper check failed. Sleep and try again."
-  sleep -- "${initial_wait_minutes}m" &
-  wait -- "$!"
-done
+if ! run_with_attempts 3 "${initial_wait_minutes}m" "check package manager running" check_package_manager_running_helper; then
+  true "$0: INFO: check_package_manager_running_helper did not complete yet."
+  send_notification_wait_exit "Software updates check failure" "Package update database is locked. Is APT already running?"
+fi
 
 ## There should be no issue with duplicate pidfile creation in script
 ## /usr/libexec/helper-scripts/apt-get-update by function 'write_pid_file'.
