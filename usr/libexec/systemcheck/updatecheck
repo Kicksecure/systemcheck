@@ -12,10 +12,21 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
-## sets: use_leaprun
-#source /usr/libexec/helper-scripts/use_leaprun.sh
-## also does source above script
-source /usr/libexec/helper-scripts/pkg_manager_running_check
+leaprun_availability_test() {
+  ## sets: use_leaprun
+  #source /usr/libexec/helper-scripts/use_leaprun.sh
+  ## also does source above script
+  source /usr/libexec/helper-scripts/pkg_manager_running_check
+
+  if [ "$use_leaprun" = "no" ]; then
+    return 1
+  fi
+  return 0
+}
+
+leaprun_check_function() {
+  leaprun_check_output="$(leaprun --check -- apt-get-update 2>&1)"
+}
 
 sdwdate_ready() {
   if [ -e /run/sdwdate/success ]; then
@@ -182,15 +193,15 @@ trap "exit_trap" EXIT
 
 who_ami="$(whoami)"
 
-if [ "$use_leaprun" = "no" ]; then
+if ! run_with_attempts 3 "${initial_wait_minutes}m" "leaprun availability test" leaprun_availability_test; then
   send_notification_wait_exit "Software updates check failure" "privleap issue.
 
-Debugging information:
-- use_leaprun: '$use_leaprun'
-- leaprun_useable_result: '$leaprun_useable_result'"
+  Debugging information:
+  - use_leaprun: '$use_leaprun'
+  - leaprun_useable_result: '$leaprun_useable_result'"
 fi
 
-if ! leaprun_check_output="$(leaprun --check -- apt-get-update 2>&1)" ; then
+if ! run_with_attempts 3 "${initial_wait_minutes}m" "leaprun functionality test" leaprun_check_function; then
   mkdir --parents -- ~/.systemcheck/status-files
   msg="\
 Account '$who_ami' lacks privleap permission. See:
