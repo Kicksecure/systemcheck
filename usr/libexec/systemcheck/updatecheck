@@ -136,6 +136,7 @@ Please run systemcheck."
   test -e "/proc/$$/fd/${coproc_stdout_fd}"
   test -e "/proc/$$/fd/${coproc_stderr_fd}"
 
+  true "INFO: read -r notification_id <& ${coproc_stdout_fd}"
   read -r notification_id <& "${coproc_stdout_fd}"
   true "INFO: notification_id: $notification_id"
 
