@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 ## Developer test command:
-#sudo genmkfile install && initial_wait_minutes=0 sleep_seconds=10 bash -x /usr/libexec/systemcheck/updatecheck-daemon
+#sudo genmkfile install && initial_wait_minutes=0 sleep_seconds=10 bash -x /usr/bin/updatecheck-daemon
 
 #set -x
 
@@ -40,9 +40,9 @@ while true; do
    $systemd_notify --pid="$$" WATCHDOG=1
 
    if [ -o xtrace ]; then
-      bash -x /usr/libexec/systemcheck/updatecheck &
+      bash -x /usr/bin/updatecheck &
    else
-      /usr/libexec/systemcheck/updatecheck &
+      /usr/bin/updatecheck &
    fi
 
    updatecheck_pid="$!"
