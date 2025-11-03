@@ -23,7 +23,7 @@ check_qubes_network_interface() {
       local MSG="\
 <p>Qubes qubes-db test Result: qubes-db read failed!
 <br></br>
-<br></br>Reading qubes-db failed to for some reason. This could be due to a broken upgrade, race-condition or other bug. Try restarting the VM to see if this error persists.
+<br></br>Reading qubes-db failed for some reason. This could be due to a broken upgrade, race condition or other bug. Try restarting the VM to see if this error persists.
 <br></br>
 <br></br><code>qubesdb-read /qubes-ip</code> output:
 <br></br><code>$qubes_ip</code>
@@ -217,7 +217,7 @@ check_qubes_update_proxy_daemon() {
    fi
 
    if leaprun qubes-updates-proxy-status >/dev/null 2>/dev/null ; then
-      local MSG="<p>Qubes Updates Proxy Daemon Check Result: qubes-updates-proxy.service runing, ok.</p>"
+      local MSG="<p>Qubes Updates Proxy Daemon Check Result: qubes-updates-proxy.service running, ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"

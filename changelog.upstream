@@ -7805,7 +7805,7 @@ Date:   Sun Jul 21 12:08:52 2019 -0400
     check_journal: reduce message priority to info, do not exit non-zero
     when warning messages are detected
     
-    and reduce false postives by using journalctl with
+    and reduce false positives by using journalctl with
     --priority=0..4 --boot
     ("emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4))
     
@@ -7835,7 +7835,7 @@ Date:   Fri Jul 19 09:56:41 2019 +0000
     
     using sdwdate-gui for that purpose nowadays
     
-    can be reenabled with a config file snippet /etc/whonix.d/50_user.conf
+    can be re-enabled with a config file snippet /etc/whonix.d/50_user.conf
     
     whonixcheck_tor_bootstrap_skip_auto_check="false"
 
@@ -8924,9 +8924,9 @@ Date:   Mon Mar 19 03:30:12 2018 +0000
 
     Improve tor --verify-config report
     
-    Whonix starts Tor using systemd with this command: /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 Therefor, it is important to verify if Tor can work under exactly those parameters.
+    Whonix starts Tor using systemd with this command: /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 Therefore, it is important to verify if Tor can work under exactly those parameters.
     
-    Tor report may be huge, making users feel overwhlemed. Therefore, we introduce Tor concise report which only contains complains with [warn] or [err] tags.
+    Tor report may be huge, making users feel overwhelmed. Therefore, we introduce Tor concise report which only contains complaints with [warn] or [err] tags.
     
     This commit introduces a new bug that should be fixed:
     
@@ -9482,7 +9482,7 @@ commit 45bc01bc4f4d2cc27a2ae2a0bf637487bbbd4679
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 23 11:21:40 2017 +0200
 
-    Revert "reenable whonix news"
+    Revert "re-enable whonix news"
     
     This reverts commit ba54e4498d455bc047621482d71bdd94b508fbb4.
 
@@ -9490,7 +9490,7 @@ commit ba54e4498d455bc047621482d71bdd94b508fbb4
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 7 14:20:28 2017 +0000
 
-    reenable whonix news
+    re-enable whonix news
 
 commit e5664a542e7f148fc9ea30050c56f9ea81706a07
 Author: Patrick Schleizer <adrelanos@riseup.net>
@@ -10112,7 +10112,7 @@ commit 143b26bf5cf112486ab276393eb28c634aab5e18
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 25 16:52:19 2016 +0000
 
-    reenable exit whonixcheck on Tor bootstrap test failure
+    re-enable exit whonixcheck on Tor bootstrap test failure
     
     https://phabricator.whonix.org/T533
 
@@ -11498,7 +11498,7 @@ Date:   Fri Aug 21 14:03:19 2015 +0000
     made whonixcheck more silent, suitable for Qubes AppVM design
     
     1) If running in Qubes, when autostarted (after boot) -> silent=3
-    2) If running in Qubes Qubes, when daemon (planed iteration during run) -> silent=3
+    2) If running in Qubes Qubes, when daemon (planned iteration during run) -> silent=3
     3) If running in Qubes-Whonix-Workstation -> Exit immediately. Otherwise, 5 started AppVMs and the same error everywhere (not bootstrapped, needs upgrade etc.) would result in 5 popups.
     4) Silent only applies to autostart and daemon mode. When manually run, show all messages. Same as Whonix 11.
     5) overview of various silent levels
@@ -12304,7 +12304,7 @@ commit 4425d479ff455973bae1e4e9e7f1e65b1cc35759
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jan 25 18:30:07 2015 +0000
 
-    upate
+    update
 
 commit 614f5dfabd8c4ff23b4ba0ed4ef79b41f2ffddff
 Author: Patrick Schleizer <adrelanos@riseup.net>

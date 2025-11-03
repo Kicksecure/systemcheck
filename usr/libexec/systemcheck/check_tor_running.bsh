@@ -37,14 +37,14 @@ check_tor_running() {
       local MSG="<p>\
 Tor Running Check Result: <b>Tor is not running.</b>
 <br>
-<br>You have to fix this error, before you can use Tor.
+<br>You must fix this error before you can use Tor.
 <br>
-<br>Please restart Tor after fixing this error.
+<br>Restart Tor after you fix this error.
 
 <blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
     or in Terminal: <blockquote><code>sudo service tor@default restart</code></blockquote>
 
-Restart <code>systemcheck</code> after fixing this error.
+Restart <code>systemcheck</code> after you fix this error.
 
 <blockquote>   $start_menu_instructions_system_first_part System Check</blockquote>
    or in Terminal: <code><blockquote>systemcheck</blockquote></code>

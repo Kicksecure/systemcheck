@@ -61,7 +61,7 @@ check_services() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    local MSG
-   MSG="<p>systemd units check Result: $counter systemd units failed loading. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
+   MSG="<p>systemd units check result: $counter systemd units failed to load. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
 <br></br>
 <br></br>########################################
 <br></br>$systemctl_output_with_legend
@@ -108,7 +108,7 @@ check_journal() {
 
    if [ "$log_output" = "" ]; then
       local MSG
-      MSG="<p>systemd journal check Result: OK."
+      MSG="<p>systemd journal check result: OK."
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
@@ -116,7 +116,7 @@ check_journal() {
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
       local MSG
-      MSG="<p>systemd journal check Result:
+      MSG="<p>systemd journal check result:
    <br></br>########################################
    <br></br><code>$log_output</code>
    <br></br>########################################
@@ -151,7 +151,7 @@ check_whonix_firewall_systemd_status() {
    systemctl_status_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then
-      local MSG="<p>Whonix firewall systemd unit check Result: Ok.</p>"
+      local MSG="<p>Whonix firewall systemd unit check result: OK.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -167,7 +167,7 @@ check_whonix_firewall_systemd_status() {
 
    local MSG="<p>whonix_firewall failed to load!
 <br></br>
-<br></br>The whonix_firewall failed to load for some reason. This could be due to the firewall being mis-configured or race-condition. Try restarting the VM to see if this error persists.
+<br></br>The whonix_firewall failed to load for some reason. This could be due to the firewall being misconfigured or a race condition. Try restarting the VM to see if this error persists.
 <br></br>
 <br></br>$extra_text
 <br></br>
