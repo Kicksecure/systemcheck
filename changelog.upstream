@@ -1,3 +1,58 @@
+commit 18cdfaa46ba51767159b722f5834a82d193955bd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 05:29:46 2025 -0500
+
+    refactoring; comments
+
+commit 1f6b30a62f913a1bfb049a8f3749018ee3072bef
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 04:20:07 2025 -0500
+
+    refactoring; comments
+
+commit 01df6ae795346894f251691894756be90d019e54
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 04:13:07 2025 -0500
+
+    comments
+
+commit 42b4c9ea500a51f57da36710e441526e53b7a4bc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 04:10:07 2025 -0500
+
+    shuffle
+
+commit 79f429c0a67d83a5a64fc96a01f3ce1cdd657728
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 04:08:37 2025 -0500
+
+    comments
+
+commit bb41b81ee594340cfeda884d8adcf4ab8612a442
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 04:06:40 2025 -0500
+
+    refactoring
+
+commit 7a8ae836f9bff0a9e1e519e68510fdcc236b81cb
+Merge: cc9e3d6 1ba9baf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 04:01:38 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 1ba9baf28698cbfe1d97ed2d2fa68745a23e5532
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Nov 2 21:15:44 2025 -0600
+
+    Fix some mistakes in the journal ignore lines, add more lines
+
+commit cc9e3d62f05a9230fb467f750777a0a29ec9ca75
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 2 11:42:46 2025 +0000
+
+    bumped changelog version
+
 commit b0a71e6a2c24d50d5ac8458040d2f03fe946adb7
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 2 03:57:28 2025 -0500
