@@ -6,10 +6,6 @@
 #set -x
 
 check_services() {
-   if [ "$verbose" -lt "1" ]; then
-      return 0
-   fi
-
    ## user@host:~$ sudo systemctl --failed --no-legend list-units
    ## apparmor.service        loaded failed failed LSB: AppArmor initialization
    ## whonix-firewall.service loaded failed failed Whonix firewall loader
