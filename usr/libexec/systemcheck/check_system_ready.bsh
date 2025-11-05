@@ -33,6 +33,7 @@ check_system_ready() {
       fi
 
       if [ "$i" -ge "$max" ]; then
+         EXIT_CODE="1"
          local MSG="<p>System ready check Result: Failed.<br/>
       Debugging information:<br/>
       'leaprun system-ready-check' result: '$result'</p>"
