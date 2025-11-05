@@ -48,7 +48,7 @@ check_services() {
 <br></br>$line"
          fi
       fi
-   done < <( leaprun read-systemctl-logs-failed-units)
+   done < <(leaprun read-systemctl-logs-failed-units)
 
    if [ "$counter" = "0" ]; then
       return 0
