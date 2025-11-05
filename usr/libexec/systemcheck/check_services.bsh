@@ -28,13 +28,6 @@ check_services() {
 
    while read -r -d $'\n' line; do
       read -r unit load active sub _ <<< "$line"
-      if [ "apparmor.service" = "$unit" ]; then
-         if [ "$verbose" -lt "2" ]; then
-            if [ "$qubes_detected" = "true" ]; then
-               continue
-            fi
-         fi
-      fi
       if [ "failed" = "$active" ]; then
          counter="$(( counter + 1 ))"
          if [ "$failed_lines" = "" ]; then
