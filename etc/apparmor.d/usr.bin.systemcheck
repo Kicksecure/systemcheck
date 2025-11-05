@@ -235,6 +235,7 @@ include <tunables/global>
   /var/log/journal/ r,
   /var/log/journal/** r,
   /var/log/tor/log r,
+  /{,usr/}bin/man Px,
   /{,usr/}bin/accountctl rix,
   /{,usr/}bin/apt-get rix,
   /{,usr/}bin/awk rix,

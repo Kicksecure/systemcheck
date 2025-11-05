@@ -101,7 +101,7 @@ systemcheck_main() {
    #systemcheck_run_function check_hardened_malloc ## check_hardened_malloc
 
    ## uses network: no
-   #systemcheck_run_function check_man ## check_man
+   systemcheck_run_function check_man ## check_man
 
    ## uses network: no
    systemcheck_run_function check_spectre_meltdown ## check_spectre_meltdown

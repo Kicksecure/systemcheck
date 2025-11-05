@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 check_man() {
-   if man --pager=cat str_replace >/dev/null ; then
+   if man --pager=cat systemcheck >/dev/null ; then
       local MSG="<p>Check manual page (man) Result: Ok.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -13,7 +13,7 @@ check_man() {
       return 0
    fi
 
-   local MSG="<p>Check manual page (man) Result: Broken. Severity: very low. To test for yourself, run: <code>man --pager=cat str_replace</code></p>"
+   local MSG="<p>Check manual page (man) Result: Broken. Severity: very low. To test for yourself, run: <code>man --pager=cat systemcheck</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }
