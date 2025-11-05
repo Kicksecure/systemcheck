@@ -40,6 +40,12 @@ check_services() {
    done < <(leaprun read-systemctl-logs-failed-units)
 
    if [ "$counter" = "0" ]; then
+      local MSG
+      MSG="<p>systemd units check result: OK."
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
       return 0
    fi
 
