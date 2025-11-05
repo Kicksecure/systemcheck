@@ -23,13 +23,17 @@ check_system_ready() {
       result="$(stcat /run/helper-scripts/system-ready-check)" || true
       [ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
 
-      if [ "$leaprun_exit_code" = "0" ]; then
+      if [ "$result" = "running" ]; then
          local MSG="<p>System ready check Result: Success.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          fi
          return 0
+      elif [ "$result" = "degraded" ]; then
+         i="$max"
+      else
+         true "INFO: keep waiting."
       fi
 
       if [ "$i" -ge "$max" ]; then
