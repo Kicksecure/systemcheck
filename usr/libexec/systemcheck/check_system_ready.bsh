@@ -9,7 +9,7 @@ check_system_ready() {
    i="0"
    max="6"
 
-   while true; do
+   while true "INFO: function check_system_ready loop"; do
       leaprun_exit_code=0
       ## variable max: 6 times
       ## timeout: 5 seconds
@@ -20,6 +20,8 @@ check_system_ready() {
       leaprun system-ready-check &>/dev/null &
       lastpid="$!"
       wait -- "$lastpid" || { leaprun_exit_code="$?"; true; };
+      result="$(stcat /run/helper-scripts/system-ready-check)" || true
+      [ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
 
       if [ "$leaprun_exit_code" = "0" ]; then
          local MSG="<p>System ready check Result: Success.</p>"
@@ -31,9 +33,12 @@ check_system_ready() {
       fi
 
       if [ "$i" -ge "$max" ]; then
-         local MSG="<p>System ready check Result: Timeout.</p>"
-         #$output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-         break
+         local MSG="<p>System ready check Result: Failed.<br/>
+      Debugging information:<br/>
+      'leaprun system-ready-check' result: '$result'</p>"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         return 0
       fi
 
       (( i++ )) || true
@@ -41,17 +46,5 @@ check_system_ready() {
          local MSG="<p>System ready check Result: Waiting $i of $max.</p>"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
-
    done
-
-   result="$(stcat /run/helper-scripts/system-ready-check)" || true
-   [ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
-
-   local MSG="<p>System ready check Result: Failed.<br/>
-Debugging information:<br/>
-'leaprun system-ready-check' result: '$result'</p>"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-
-   return 0
 }
