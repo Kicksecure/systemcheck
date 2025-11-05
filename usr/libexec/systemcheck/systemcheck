@@ -90,8 +90,6 @@ systemcheck_main() {
    ## uses network: no
    systemcheck_run_function check_environment_variables ## check_environment_variables
 
-   check_apparmor
-
    ## uses network: no
    systemcheck_run_function check_privilege_escalation_tools ## check_privilege_escalation_tool
 
