@@ -1,3 +1,105 @@
+commit 8a32588c18c0b533cc5298186980c01a755f6e08
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:23:50 2025 -0500
+
+    improve system ready check
+
+commit 3df1c0ab3088af1d36e3c1c94d8248a12ba876cd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:17:59 2025 -0500
+
+    fix
+
+commit d924e196697753f1f2ff91586da4792c28bdbdd5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:17:19 2025 -0500
+
+    refactoring
+
+commit aae10a302afdc43bf432940b12d52e7cce99f37b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:10:19 2025 -0500
+
+    refactoring
+
+commit d398065ba108abd544e2ec6141986396ba05279c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:06:28 2025 -0500
+
+    report if no systemd units failed in verbose mode
+
+commit 754ce77ca9cdff04a23099fc142564ffcbd6bf84
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:04:46 2025 -0500
+
+    fix
+
+commit 4ad70158c845b5383384dbff832d8e08695e4914
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:04:02 2025 -0500
+
+    always check of failed systemd units, not only when using `--verbose`
+
+commit 2ae1269dd77070e9eaa526b1b12073e337b83ced
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:02:40 2025 -0500
+
+    minor
+
+commit bd59527bfcc185ac338ea62b23719d768255cda8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:01:00 2025 -0500
+
+    fix
+
+commit 1e9040d059f10253c39b879fba8ea283bd46e4fb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 06:00:34 2025 -0500
+
+    comments
+
+commit a2bfbebbc7df7abc38cd56d784c48e3f84cf1a6b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 05:59:55 2025 -0500
+
+    cleanup
+
+commit a46ff37cc491a7fde361b95a01cd5988dcb6b03b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 05:57:45 2025 -0500
+
+    check if `man` is functional
+
+commit cb3559f7ca7ffdc2caf8707c780636e42b5134ba
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 05:56:14 2025 -0500
+
+    apparmor
+
+commit 670a031f9b90c6426f35dc187846c4412fda1367
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 05:45:15 2025 -0500
+
+    remove undocumented `--test-connect` feature for code simplification
+
+commit f86e1b0942252dfca64300b3d71c052795131fc0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 05:44:22 2025 -0500
+
+    comments
+
+commit cdd639c7d9877883e407844ac99897c040f53d30
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Nov 5 02:38:26 2025 -0500
+
+    fix
+
+commit 25b865e0dbfc6a2628731d013287f4e396b8362b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 3 11:32:51 2025 +0000
+
+    bumped changelog version
+
 commit 3eb82d8263c188c66a2debd4eb99c54f87fc54cb
 Merge: e9ed306 e81afbf
 Author: Patrick Schleizer <adrelanos@whonix.org>
