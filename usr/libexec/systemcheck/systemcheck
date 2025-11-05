@@ -65,12 +65,14 @@ systemcheck_main() {
    parse_cmd_options "$@" ## parse_cmd
    preparation ## preparation
 
+   ## uses network: no
    systemcheck_run_function source_config ## preparation
 
    ## Conditionally only run the function name that was given by the --function
    ## command line parameter. Then exit.
    systemcheck_run_function function_manual_run ## function_manual_run
 
+   ## uses network: no
    systemcheck_run_function root_check ## root_check
    systemcheck_run_function show_systemcheck_header ## preparation
    systemcheck_run_function input_notification ## preparation
