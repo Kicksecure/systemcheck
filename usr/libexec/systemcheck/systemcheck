@@ -93,15 +93,6 @@ systemcheck_main() {
    ## uses network: no
    systemcheck_run_function check_privilege_escalation_tools ## check_privilege_escalation_tool
 
-   if [ "$test_connect" = "true" ]; then
-      ## Only connects to Whonix-Gateway.
-      systemcheck_run_function check_tor_socks_port_reachability ## check_tor_socks_port_reachability
-      ## uses network: yes
-      systemcheck_run_function check_tor_connectivity ## check_tor_socks_or_trans_port
-      ## uses network: no
-      systemcheck_run_function cleanup ## cleanup
-   fi
-
    ## uses network: no
    systemcheck_run_function show_versions ## show_versions
    systemcheck_run_function show_deprecation_notice ## show_versions
