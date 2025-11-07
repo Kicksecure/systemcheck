@@ -28,14 +28,12 @@ check_services() {
 
    while read -r -d $'\n' line; do
       read -r unit load active sub _ <<< "$line"
-      if [ "failed" = "$active" ]; then
-         counter="$(( counter + 1 ))"
-         if [ "$failed_lines" = "" ]; then
-            failed_lines="$line"
-         else
-            failed_lines="$failed_lines
+      counter="$(( counter + 1 ))"
+      if [ "$failed_lines" = "" ]; then
+         failed_lines="$line"
+      else
+         failed_lines="$failed_lines
 <br></br>$line"
-         fi
       fi
    done < <(leaprun read-systemctl-logs-failed-units)
 
