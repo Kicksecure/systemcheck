@@ -1,0 +1,11 @@
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+## Disable 'apt-daily.timer'?
+## Replaced by 'updatecheck'.
+
+## Debian trixie default setting:
+## apt-config dump | grep -i periodic
+## > APT::Periodic::Enable "0";
+
+#disable apt-daily.timer
