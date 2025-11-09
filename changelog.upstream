@@ -1,3 +1,15 @@
+commit fc67b02b7f9af5eeff979b2ccc85dbf57b03bfae
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 9 05:22:37 2025 -0500
+
+    updatecheck: add comments related to apt-daily
+
+commit e7b2ed711a5a4a143bc57800d8bf039dc2dfc285
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 9 08:13:28 2025 +0000
+
+    bumped changelog version
+
 commit 6b3d6c702d3606cccd45c73d20ab53f763a55c2d
 Merge: c9566c2 4691ce0
 Author: Patrick Schleizer <adrelanos@whonix.org>
