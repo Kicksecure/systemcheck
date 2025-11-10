@@ -1,3 +1,22 @@
+commit 01144b9efe598e2c137ba789e95dab02df992f6c
+Merge: d961a23 ee562d8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 10 02:49:22 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit ee562d872370783fe7abed306ae8d975e5328ba2
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Nov 9 18:13:38 2025 -0600
+
+    Simplify login security table now that the sysmaint account is no longer locked by default
+
+commit d961a239f3d66aaa2e6364700bbc5ef9826af1d5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 9 10:23:09 2025 +0000
+
+    bumped changelog version
+
 commit fc67b02b7f9af5eeff979b2ccc85dbf57b03bfae
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 9 05:22:37 2025 -0500
