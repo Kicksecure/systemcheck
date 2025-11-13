@@ -65,9 +65,9 @@ check_operating_system() {
 
    local debugging_information
    if [ "$apt_get_exit_code" = "124" ] || [ "$apt_get_exit_code" = "137" ]; then
-      debugging_information="(Timeout reached.) (apt-get code: $apt_get_exit_code)"
+      debugging_information="(Timeout reached.) (<code>apt-get</code> code: $apt_get_exit_code)"
    else
-      debugging_information="(apt-get code: $apt_get_exit_code)"
+      debugging_information="(<code>apt-get</code> code: $apt_get_exit_code)"
    fi
 
    if [ ! "$apt_get_exit_code" = "0" ]; then
@@ -194,7 +194,7 @@ $debugging_information</p>"
    ## 55
 
    if [ "$number_upgraded" = "0" ]; then
-      local MSG="<p>$update_documentation_link_x Check Result: No updates found via apt-get.</p>"
+      local MSG="<p>$update_documentation_link_x Check Result: <u>No updates</u> found via <code>apt-get</code>.</p>"
       if [ "$silent" -ge "2" ]; then
          true "silent is $silent. Skipping output."
          return 0
@@ -205,22 +205,22 @@ $debugging_information</p>"
    fi
 
    if [ "$qubes_detected" = "true" ]; then
-      local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
+      local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
 <br></br><b><u>Please update $update_where.</u></b>
 $qubes_update_help</p>"
    else
       if [ "$booted_in_sysmaint_session" = 'true' ]; then
-         local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
+         local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
 <br></br>Please update $update_where:
 <br></br>Click on the System Maintenance Panel, and click \"Install Updates\". Alternatively, click \"Open Terminal\" and run:
 <code><blockquote>$update_command</blockquote></code></p>"
       else
          if [ "$user_sysmaint_split_installed" = 'true' ]; then
-            local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
+            local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
 <br></br>Please update $update_where:
 <br></br>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code> and click \"Install Updates\" in the System Maintenance Panel."
          else
-            local MSG="<p>$update_documentation_link_x Check Result: <b>apt-get reports that packages can be updated.</b>
+            local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
 <br></br>Please update $update_where:
 <br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>$update_command</blockquote></code></p>"
