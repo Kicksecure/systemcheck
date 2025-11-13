@@ -17,11 +17,13 @@ check_system_ready() {
 
       ## Discard output of using '&>/dev/null' so we can launch into the background
       ## and check later by looking at file '/run/helper-scripts/system-ready-check' instead.
-      leaprun system-ready-check &>/dev/null &
-      lastpid="$!"
-      wait -- "$lastpid" || { leaprun_exit_code="$?"; true; };
-      result="$(stcat /run/helper-scripts/system-ready-check)" || true
-      [ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
+      #leaprun system-ready-check &>/dev/null &
+      #lastpid="$!"
+      #wait -- "$lastpid" || { leaprun_exit_code="$?"; true; };
+      #result="$(stcat /run/helper-scripts/system-ready-check)" || true
+      #[ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
+
+      result="$(timeout --kill-after="1" "5" systemctl --user --wait is-system-running)" || true
 
       if [ "$result" = "running" ]; then
          local MSG="<p>System ready check Result: Success.</p>"
