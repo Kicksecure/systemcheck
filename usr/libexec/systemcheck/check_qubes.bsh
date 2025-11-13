@@ -189,7 +189,7 @@ check_qubes_update_proxy_status_files_check() {
          break
       fi
 
-      sleep -- 1
+      light_sleep 1
       counter=$(( counter + 1 ))
    done
 

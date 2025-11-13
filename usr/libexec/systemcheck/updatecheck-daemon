@@ -15,10 +15,14 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
+source /usr/libexec/helper-scripts/light_sleep.bsh
+
 ## 6 hours
 [[ -v sleep_seconds ]] || sleep_seconds="21600"
 [[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
 export sleep_seconds initial_wait_minutes
+
+initial_wait_seconds=$(( initial_wait_minutes * 60 ))
 
 [[ -v NOTIFY_SOCKET ]] || NOTIFY_SOCKET=""
 
@@ -33,7 +37,7 @@ fi
 $systemd_notify --pid="$$" --ready
 
 printf "%s\n" "$0: INFO: First start. Therefore waiting for ${initial_wait_minutes} minutes for first updatecheck."
-sleep -- "${initial_wait_minutes}m"
+light_sleep "$initial_wait_seconds"
 
 while true; do
    printf "%s\n" "$0: INFO: loop start."
@@ -50,7 +54,7 @@ while true; do
    $systemd_notify --pid="$$" WATCHDOG=1
 
    true "$0: INFO: sleep $sleep_seconds... (1/2)"
-   sleep -- "$sleep_seconds"
+   light_sleep "$sleep_seconds"
    true "$0: INFO: Completed sleep $sleep_seconds. (1/2)"
 
    true "$0: INFO: Check if updatecheck is still running. (1/2)"
@@ -60,7 +64,7 @@ while true; do
    fi
 
    true "$0: INFO: sleep 10..."
-   sleep -- 10
+   light_sleep "10"
    true "$0: INFO: Completed sleep 10."
 
    true "$0: INFO: Check if updatecheck is still running. (2/2)"

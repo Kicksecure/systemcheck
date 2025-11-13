@@ -30,6 +30,9 @@ source /usr/libexec/msgcollector/error_handler
 trap "error_handler" ERR ## /usr/libexec/msgcollector/error_handler
 set +e
 
+bash -n /usr/libexec/helper-scripts/light_sleep.bsh
+source source /usr/libexec/helper-scripts/light_sleep.bsh
+
 bash -n /usr/libexec/msgcollector/msgdispatcher_run_check
 source /usr/libexec/msgcollector/msgdispatcher_run_check
 

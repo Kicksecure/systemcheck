@@ -25,7 +25,7 @@ Group=canary
 
 ExecStart=/usr/libexec/systemcheck/canary-daemon
 SuccessExitStatus=143
-## /usr/libexec/systemcheck/canary-daemon uses `sleep 3600`
+## /usr/libexec/systemcheck/canary-daemon uses `light_sleep 3600`
 ## /usr/libexec/systemcheck/canary uses `curl` with `--max-time 180`
 WatchdogSec=4000
 NotifyAccess=all

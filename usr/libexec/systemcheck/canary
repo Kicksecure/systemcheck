@@ -9,6 +9,7 @@ error_handler() {
 }
 
 canary_preparation() {
+   source /usr/libexec/helper-scripts/light_sleep.bsh
    source /usr/libexec/helper-scripts/live-mode.sh
    source /usr/libexec/systemcheck/canary-run-or-not
    if [ "$canary_run" = "false" ]; then
@@ -79,7 +80,7 @@ connectivity_wait() {
 
       $systemd_notify --pid="$PPID" WATCHDOG=1
 
-      sleep 120
+      light_sleep 120
 
       $systemd_notify --pid="$PPID" WATCHDOG=1
    done

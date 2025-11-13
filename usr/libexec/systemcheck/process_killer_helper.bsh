@@ -46,8 +46,7 @@ process_killer_helper() {
       ## Wait up to 5 seconds for the process to terminate.
       i="$(( $i + 1 ))"
       if [ "$i" -lt "5" ]; then
-         sleep 1 &
-         wait "$!"
+         light_sleep 1
          continue
       fi
       break
