@@ -1,3 +1,39 @@
+commit cb7ad5d18fe5ba49353efa30fb920d00c21ead6b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 13 07:00:47 2025 -0500
+
+    fix
+
+commit f286c3fd3403ab81eb30b6ec0fd974a10882fd26
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 13 07:00:27 2025 -0500
+
+    output
+
+commit 0158e36a0e4a337e125b84ea460e47cc6c2b8184
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 13 06:21:36 2025 -0500
+
+    port to light_sleep
+
+commit 8a3d3fe057f5606372005a276d92b73964f48470
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 13 05:53:42 2025 -0500
+
+    fix
+
+commit 8b9b17f014c2442145d87210f1f5cd4c0c69ca3f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 13 05:24:39 2025 -0500
+
+    warning
+
+commit 47bcb0adb8caf5755d1ac30b8890aead906976e5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 10 08:00:51 2025 +0000
+
+    bumped changelog version
+
 commit 01144b9efe598e2c137ba789e95dab02df992f6c
 Merge: d961a23 ee562d8
 Author: Patrick Schleizer <adrelanos@whonix.org>
