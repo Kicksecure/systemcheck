@@ -39,6 +39,7 @@ include <tunables/global>
   /sys/firmware/devicetree/base/hypervisor/compatible r,
   /sys/hypervisor/properties/features r,
   /sys/hypervisor/type r,
+  /usr/libexec/helper-scripts/light_sleep.bsh r,
   /usr/libexec/helper-scripts/live-mode.sh r,
   /usr/libexec/helper-scripts/settings_echo rix,
   /usr/libexec/systemcheck/canary r,
