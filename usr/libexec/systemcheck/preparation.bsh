@@ -5,9 +5,6 @@
 
 source /usr/libexec/systemcheck/uwt_tool.bsh
 
-## provides: pkg_installed
-source /usr/libexec/helper-scripts/package_installed_check.sh
-
 source_config() {
    shopt -s nullglob
    local i
@@ -140,7 +137,7 @@ sysmaint_state_detection() {
   user_sysmaint_split_installed='false'
   booted_in_sysmaint_session='false'
 
-  if pkg_installed user-sysmaint-split; then
+  if package-installed-check user-sysmaint-split; then
     user_sysmaint_split_installed='true'
   fi
 
