@@ -291,6 +291,7 @@ include <tunables/global>
   /{,usr/}bin/od rix,
   /{,usr/}bin/pgrep rix,
   /{,usr/}bin/pkexec rix,
+  /{,usr/}bin/package-installed-check rix,
   /{,usr/}bin/privleapd rix,
   /{,usr/}bin/ps rix,
   /{,usr/}bin/pstree rix,
