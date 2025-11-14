@@ -6,7 +6,7 @@
 source /usr/libexec/systemcheck/uwt_tool.bsh
 
 ## provides: pkg_installed
-source /usr/libexec/helper-scripts/package_installed_check.bsh
+source /usr/libexec/helper-scripts/package_installed_check.sh
 
 source_config() {
    shopt -s nullglob
