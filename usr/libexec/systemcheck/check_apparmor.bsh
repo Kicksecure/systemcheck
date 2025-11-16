@@ -4,7 +4,8 @@
 ## See the file COPYING for copying conditions.
 
 check_apparmor() {
-   output="$(/usr/bin/disallowed-test 2>&1)" || true
+   local output
+   LANG=C output="$(/usr/bin/disallowed-test 2>&1)" || true
 
    if printf '%s\n' "$output" | grep --fixed-strings "/usr/bin/disallowed-test: Permission denied" &>/dev/null; then
       local MSG="<p>AppArmor Check Result: Success.</p>"
@@ -15,7 +16,10 @@ check_apparmor() {
      return 0
    fi
 
-   local MSG="<p>AppArmor Check Result: Failed.</p>"
+   local MSG="<p>AppArmor Check Result: Failed.
+<br/>
+debugging information:<br/>
+output: <code>$output</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
