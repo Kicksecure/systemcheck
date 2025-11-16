@@ -1,3 +1,21 @@
+commit e43eeeb2851b00260ce4c1f55db7a67ccf63f013
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 16 05:25:29 2025 -0500
+
+    fix apparmor test if using non-English system locale
+
+commit 80df305ff2d15d149c64859117a07e8aaaf428ce
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 16 05:05:10 2025 -0500
+
+    apparmor
+
+commit 1216b079ab92faad707179207f5b4a3fdae620ea
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 14 06:22:48 2025 +0000
+
+    bumped changelog version
+
 commit 5bb9fe7716a9ed88600d606a944da6803fed4cb4
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Nov 14 01:18:16 2025 -0500
