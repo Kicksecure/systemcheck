@@ -1,3 +1,41 @@
+commit f661e12b8f943abe119c6ccf9633f01b15f16045
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 18 02:10:42 2025 -0500
+
+    refactoring
+
+commit fc3841693c4dcddb3e88587280528c7f08e15170
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 18 01:55:01 2025 -0500
+
+    wait for both:
+    * `systemctl --wait is-system`
+    * `systemctl --user --wait is-system`
+
+commit 48f0ac91416269eb8735fbdf5cf550bc2e0f66e1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 18 00:22:21 2025 -0500
+
+    local
+
+commit cae23e3048e02d0920d1f25803027f6243a09970
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 18 00:21:24 2025 -0500
+
+    refactoring
+
+commit 2f62d84a18d3cfd94676050a998aa50ef6a7b932
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 18 00:20:29 2025 -0500
+
+    refactoring
+
+commit dbd9b83eac3f9d954f9e07b753d8455133c5111a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 16 10:26:53 2025 +0000
+
+    bumped changelog version
+
 commit e43eeeb2851b00260ce4c1f55db7a67ccf63f013
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 16 05:25:29 2025 -0500
