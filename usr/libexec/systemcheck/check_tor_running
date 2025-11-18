@@ -4,15 +4,15 @@
 ## See the file COPYING for copying conditions.
 
 exit_function() {
-   echo ""
-   echo "output of '/usr/bin/systemctl --no-pager --no-block status tor@default':"
-   echo ""
+   printf '%s\n' ""
+   printf '%s\n' "$0: output of '/usr/bin/systemctl --no-pager --no-block status tor@default':"
+   printf '%s\n' ""
    /usr/bin/systemctl --no-pager --no-block status tor@default
    exit "$exit_code"
 }
 
 if [ ! -f "/run/tor/tor.pid" ]; then
-   echo "Pid file '/run/tor/tor.pid' does not exist."
+   printf '%s\n' "$0: Pid file '/run/tor/tor.pid' does not exist."
    exit_code=1
    exit_function
 fi
@@ -21,15 +21,15 @@ fi
 pid="$(cat -- "/run/tor/tor.pid")" || true
 
 if [ "$pid" = "" ]; then
-   echo "Pid file '/run/tor/tor.pid' is empty."
+   printf '%s\n' "$0: Pid file '/run/tor/tor.pid' is empty."
    exit_code=2
    exit_function
 fi
 
 if ! kill -0 -- "$pid"; then
-   echo "Pid is not running."
+   printf '%s\n' "$0: Pid is not running."
    exit_code=3
    exit_function
 fi
 
-echo "Pid running."
+printf '%s\n' "$0: Pid running."
