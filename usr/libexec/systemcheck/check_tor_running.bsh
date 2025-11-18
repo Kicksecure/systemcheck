@@ -6,6 +6,8 @@
 #set -x
 
 check_tor_running_do() {
+   local tor_pid_output
+
    ## Fallback.
    tor_pid_exit_code="1"
 
