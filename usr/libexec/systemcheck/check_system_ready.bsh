@@ -3,8 +3,19 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-check_system_ready() {
-   local i max leaprun_exit_code result
+check_system_ready_system() {
+   check_system_ready_shared system leaprun system-ready-check
+}
+
+check_system_ready_user() {
+   check_system_ready_shared user timeout --kill-after=1 5 systemctl --user --wait is-system-running
+}
+
+check_system_ready_shared() {
+   local type i max leaprun_exit_code result
+
+   type="$1"
+   shift
 
    i="0"
    max="6"
@@ -17,16 +28,11 @@ check_system_ready() {
 
       ## Discard output of using '&>/dev/null' so we can launch into the background
       ## and check later by looking at file '/run/helper-scripts/system-ready-check' instead.
-      #leaprun system-ready-check &>/dev/null &
-      #lastpid="$!"
-      #wait -- "$lastpid" || { leaprun_exit_code="$?"; true; };
-      #result="$(stcat /run/helper-scripts/system-ready-check)" || true
-      #[ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
-
-      result="$(timeout --kill-after="1" "5" systemctl --user --wait is-system-running)" || true
+      result="$("${@}" 2>&1)"
+      [ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
 
       if [ "$result" = "running" ]; then
-         local MSG="<p>System ready check Result: Success.</p>"
+         local MSG="<p>System ready check ($type) Result: Success.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -40,7 +46,7 @@ check_system_ready() {
 
       if [ "$i" -ge "$max" ]; then
          EXIT_CODE="1"
-         local MSG="<p>System ready check Result: Failed.<br/>
+         local MSG="<p>System ready check ($type) Result: Failed.<br/>
       Debugging information:<br/>
       'leaprun system-ready-check' result: '$result'</p>"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
@@ -50,8 +56,13 @@ check_system_ready() {
 
       (( i++ )) || true
       if [ "$i" -ge 1 ]; then
-         local MSG="<p>System ready check Result: Waiting $i of $max.</p>"
+         local MSG="<p>System ready check ($type) Result: Waiting $i of $max.</p>"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    done
+}
+
+check_system_ready() {
+   check_system_ready_system
+   check_system_ready_user
 }
