@@ -17,22 +17,15 @@ set -o pipefail
 
 source /usr/libexec/helper-scripts/light_sleep.bsh
 
+## sets: systemd_notify
+source /usr/libexec/helper-scripts/systemd-notify.bsh
+
 ## 6 hours
 [[ -v sleep_seconds ]] || sleep_seconds="21600"
 [[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
 export sleep_seconds initial_wait_minutes
 
 initial_wait_seconds=$(( initial_wait_minutes * 60 ))
-
-[[ -v NOTIFY_SOCKET ]] || NOTIFY_SOCKET=""
-
-if [ "$NOTIFY_SOCKET" = "" ]; then
-   ## Support manual run from command line.
-   ## I.e. when run not through systemd unit.
-   systemd_notify="true 'INFO: skip because NOTIFY_SOCKET unset. Probably run manually. SKIP: systemd-notify"
-else
-   systemd_notify=systemd-notify
-fi
 
 $systemd_notify --pid="$$" --ready
 

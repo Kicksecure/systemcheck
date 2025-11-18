@@ -12,6 +12,10 @@ canary_preparation() {
    source /usr/libexec/helper-scripts/light_sleep.bsh
    source /usr/libexec/helper-scripts/live-mode.sh
    source /usr/libexec/systemcheck/canary-run-or-not
+
+   ## sets: systemd_notify
+   source /usr/libexec/helper-scripts/systemd-notify.bsh
+
    if [ "$canary_run" = "false" ]; then
       echo "INFO: Disabled in settings. Doing nothing. Exiting."
       exit 0
@@ -20,14 +24,6 @@ canary_preparation() {
    if [ ! "$(whoami)" = "canary" ]; then
       echo "ERROR: Exiting. Must be run under user 'canary'."
       exit 1
-   fi
-
-   if [ "$NOTIFY_SOCKET" = "" ]; then
-      ## Support manual run from command line.
-      ## I.e. when run not through systemd unit.
-      systemd_notify="true 'INFO: skip because NOTIFY_SOCKET unset. Probably run manually. SKIP: systemd-notify"
-   else
-      systemd_notify=systemd-notify
    fi
 
    if test -d /usr/share/qubes ; then

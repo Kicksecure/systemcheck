@@ -41,6 +41,7 @@ include <tunables/global>
   /sys/hypervisor/type r,
   /usr/libexec/helper-scripts/light_sleep.bsh r,
   /usr/libexec/helper-scripts/live-mode.sh r,
+  /usr/libexec/helper-scripts/systemd-notify.bsh r,
   /usr/libexec/helper-scripts/settings_echo rix,
   /usr/libexec/systemcheck/canary r,
   /usr/libexec/systemcheck/canary-download rix,
