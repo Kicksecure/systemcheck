@@ -18,7 +18,7 @@ if [ ! -f "/run/tor/tor.pid" ]; then
 fi
 
 ## override with || true to avoid race condition.
-pid="$(cat "/run/tor/tor.pid")" || true
+pid="$(cat -- "/run/tor/tor.pid")" || true
 
 if [ "$pid" = "" ]; then
    echo "Pid file '/run/tor/tor.pid' is empty."
@@ -26,10 +26,7 @@ if [ "$pid" = "" ]; then
    exit_function
 fi
 
-ps_p_exit_code="0"
-ps -p "$pid" >/dev/null 2>/dev/null || { ps_p_exit_code="$?" ; true; };
-
-if [ ! "$ps_p_exit_code" = "0" ]; then
+if ! kill -0 -- "$pid"; then
    echo "Pid is not running."
    exit_code=3
    exit_function
