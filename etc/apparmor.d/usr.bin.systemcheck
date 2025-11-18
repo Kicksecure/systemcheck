@@ -371,6 +371,7 @@ include <tunables/global>
   @{PROC}/[0-9]*/comm r,
   @{PROC}/[0-9]*/environ r,
   @{PROC}/[0-9]*/fd/ r,
+  owner @{PROC}/[0-9]*/fd/** rw,
   owner @{PROC}/[0-9]*/fdinfo/* rw,
   @{PROC}/[0-9]*/net/** r,
   @{PROC}/[0-9]*/stat r,
