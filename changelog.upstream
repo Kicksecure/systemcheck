@@ -1,3 +1,28 @@
+commit ba54c576b4c2828a30106a4a358b65b130f8b759
+Merge: f958fac 155719d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 21 04:04:31 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 155719d05d18d1f1d0e1899ab5c380f41d697812
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Nov 20 23:45:09 2025 -0600
+
+    Keep a silenced benign labwc error message from causing systemcheck to fail
+
+commit ce94d6a5a2e83221757760c00f6f92eab17e55d5
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Nov 19 00:01:06 2025 -0600
+
+    Silence another journal warning
+
+commit f958fac7e51f4b235323fb749f5a1af2a9560f34
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 18 09:39:11 2025 +0000
+
+    bumped changelog version
+
 commit e850bafb05cd5819558552181fb8b6e0073318f6
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Nov 18 04:32:19 2025 -0500
