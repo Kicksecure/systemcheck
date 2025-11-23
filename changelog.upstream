@@ -1,3 +1,42 @@
+commit 215e1d37bbe4d723aed4c141311b8da7f7d2c5b7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 06:27:44 2025 -0500
+
+    town down tirdad check in Qubes when using --verbose
+
+commit 72325b5c448a0c3a2d087b1c6ad23cd12d2bf04e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 06:24:13 2025 -0500
+
+    fix
+
+commit 36bc7078abba9d3c64cbbed83a963119ecd70708
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 06:02:08 2025 -0500
+
+    port to shell based `br_add` (helper-scripts, strings.bsh
+    
+    to fix error:
+    /usr/libexec/systemcheck/check_services.bsh: line 51: /usr/libexec/msgcollector/br_add: Argument list too long
+
+commit db21dc8e4879c794d01b00848cbb163339f0a772
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 05:43:08 2025 -0500
+
+    output
+
+commit faed76d0e3c865a81389eb374c3cda73c269ccc5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 05:40:19 2025 -0500
+
+    output
+
+commit 0872dca12c5baef5d4377c7fbdfcd3558e1180f8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 10:27:05 2025 +0000
+
+    bumped changelog version
+
 commit 299fd12e3978b0a1e7031ad586307dce70f9595f
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 23 05:14:16 2025 -0500
