@@ -6,7 +6,7 @@
 source /usr/libexec/helper-scripts/get_colors.sh
 
 check_tirdad_module() {
-   local link_cli link_gui MSG help_msg only_if_verbose
+   local link_cli link_gui MSG help_msg only_if_verbose output_type
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping $FUNCNAME."
       return 0
@@ -67,19 +67,21 @@ For details, see: $link_cli"
       fi
 
       if [ -f '/usr/share/qubes/marker-vm' ]; then
+         output_type="info"
          reason="Qubes detected.<br/>
    Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570
 </a>"
       else
+         output_type="warning"
          reason="Not booted in EFI mode."
          EXIT_CODE="1"
       fi
 
       MSG="<p>$link_gui: <font color=\"orange\">Disabled</font> $help_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "$output_type" --message "$MSG"
 
       MSG="$link_gui: ${yellow}Disabled${nocolor}
 $help_msg"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "$output_type" --message "$MSG"
    fi
 }
