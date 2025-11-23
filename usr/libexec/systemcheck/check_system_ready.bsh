@@ -28,7 +28,7 @@ check_system_ready_shared() {
 
       ## Discard output of using '&>/dev/null' so we can launch into the background
       ## and check later by looking at file '/run/helper-scripts/system-ready-check' instead.
-      result="$("${@}" 2>&1)"
+      result="$("${@}" 2>&1)" || true
       [ -n "$result" ] || result="Empty. Perhaps a race condition, multiple systemcheck running at the same time."
 
       if [ "$result" = "running" ]; then
