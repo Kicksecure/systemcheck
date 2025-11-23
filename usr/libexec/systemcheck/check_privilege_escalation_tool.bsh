@@ -69,7 +69,7 @@ check_privilege_escalation_tool_do() {
 <br><br>
 The following command:
 <blockquote>$privilege_escalation_tool_command ; echo \$?</blockquote>
-did not produce an empty output with an exit code of zero, indicating an unexpected result.
+was expected to produce no output with an exit code of zero. The opposite of that happened, indicating an unexpected result.
 <br><br>
 exit_code: <code>$exit_code</code>
 <br><br>
