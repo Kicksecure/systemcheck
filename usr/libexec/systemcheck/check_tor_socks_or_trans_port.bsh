@@ -3,8 +3,6 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-source /usr/libexec/helper-scripts/strings.bsh
-
 check_tor_socks_or_trans_port() {
    local CURL_PROXY_SYSTEMCHECK random_socks_user_name
 

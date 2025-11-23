@@ -8,7 +8,7 @@ check_non_freedom() {
 
    ## Human readable output.
    vrms_output="$(LC_ALL=C vrms 2>&1)" || true
-   vrms_output="$(/usr/libexec/msgcollector/br_add "$vrms_output")"
+   vrms_output="$(br_add "$vrms_output")"
 
    ## For machine readable output.
    vrms_result="$(LC_ALL=C vrms --quiet --sparse 2>&1)" || true

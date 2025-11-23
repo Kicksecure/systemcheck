@@ -12,6 +12,7 @@ set -o nounset
 set -o errtrace
 set -o pipefail
 
+bash -n /usr/libexec/helper-scripts/strings.bsh
 source /usr/libexec/helper-scripts/strings.bsh
 
 qubes_detected='false'

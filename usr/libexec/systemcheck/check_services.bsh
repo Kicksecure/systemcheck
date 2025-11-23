@@ -48,7 +48,7 @@ check_services() {
    fi
 
    systemctl_output_with_legend="$(leaprun read-systemctl-logs-failed-units-pretty)"
-   systemctl_output_with_legend="$(/usr/libexec/msgcollector/br_add "$systemctl_output_with_legend")"
+   systemctl_output_with_legend="$(br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
@@ -128,7 +128,7 @@ check_whonix_firewall_systemd_status() {
 
    systemctl_status_whonix_firewall_exit_code="0"
    systemctl_status_whonix_firewall_output="$(leaprun whonix-firewall-status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
-   systemctl_status_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$systemctl_status_whonix_firewall_output")"
+   systemctl_status_whonix_firewall_output="$(br_add "$systemctl_status_whonix_firewall_output")"
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then
       local MSG="<p>Whonix firewall systemd unit check result: OK.</p>"
@@ -140,7 +140,7 @@ check_whonix_firewall_systemd_status() {
    fi
 
    journalctl_whonix_firewall_output="$(leaprun read-journalctl-logs-whonix-firewall)" || true
-   journalctl_whonix_firewall_output="$(/usr/libexec/msgcollector/br_add "$journalctl_whonix_firewall_output")"
+   journalctl_whonix_firewall_output="$(br_add "$journalctl_whonix_firewall_output")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"

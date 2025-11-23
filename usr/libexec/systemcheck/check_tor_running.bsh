@@ -27,7 +27,7 @@ check_tor_running_do() {
 
    tor_pid_exit_code="0"
    tor_pid_output="$(leaprun check-tor-running)" || { tor_pid_exit_code="$?" ; true; };
-   tor_pid_message="$(/usr/libexec/msgcollector/br_add "$tor_pid_output")"
+   tor_pid_message="$(br_add "$tor_pid_output")"
    return 0
 }
 

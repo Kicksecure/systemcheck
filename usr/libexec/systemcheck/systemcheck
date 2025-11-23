@@ -41,6 +41,11 @@ source /usr/libexec/helper-scripts/tor_enabled_check
 bash -n /usr/libexec/helper-scripts/pkg_manager_running_check
 source /usr/libexec/helper-scripts/pkg_manager_running_check
 
+## provides: is_whole_number
+## provides: br_add
+bash -n /usr/libexec/helper-scripts/strings.bsh
+source /usr/libexec/helper-scripts/strings.bsh
+
 for i in /usr/libexec/systemcheck/*.bsh; do
    bash -n "$i"
    source "$i"

@@ -29,7 +29,7 @@ check_tor_config_do() {
 
    ## This has a /etc/sudoers.d exception.
    tor_verify_config_output="$(leaprun tor-verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
-   tor_verify_config_output="$(/usr/libexec/msgcollector/br_add "$tor_verify_config_output")"
+   tor_verify_config_output="$(br_add "$tor_verify_config_output")"
 
    ## concise report which only contains complains with [warn] or [err] tags
    tor_verify_config_output_concise="$(grep -E -w -h -i '\[warn\]|\[err\]' <<< "$tor_verify_config_output" 2>&1)" || true
