@@ -4,12 +4,13 @@
 ## See the file COPYING for copying conditions.
 
 check_system_ready_system() {
-   system_ready_check_help_text_cmd="<code>sudo systemctl --user --wait is-system-running</code> (same as <code>leaprun system-ready-check</code>)"
+   system_ready_check_help_text_cmd="'<code>sudo systemctl --wait is-system-running</code>'
+(same as '<code>leaprun system-ready-check</code>')"
    check_system_ready_shared system leaprun system-ready-check
 }
 
 check_system_ready_user() {
-   system_ready_check_help_text_cmd="<code>systemctl --user --wait is-system-running</code>"
+   system_ready_check_help_text_cmd="'<code>systemctl --user --wait is-system-running</code>'"
    check_system_ready_shared user timeout --kill-after=1 5 systemctl --user --wait is-system-running
 }
 
@@ -51,7 +52,9 @@ check_system_ready_shared() {
          local MSG="<p>System ready check ($type) Result: Failed.
 <br/>
 <br/>Debugging information:
-<br/>Command $system_ready_check_help_text_cmd result: <code>$result</code></p>"
+<br/>Command:
+<br/>$system_ready_check_help_text_cmd
+<br/>result: '<code>$result</code>'</p>"
          $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
          $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
          return 0
