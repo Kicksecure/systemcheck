@@ -11,7 +11,7 @@ check_system_ready_system() {
 
 check_system_ready_user() {
    system_ready_check_help_text_cmd="'<code>systemctl --user --wait is-system-running</code>'"
-   check_system_ready_shared user timeout --kill-after=1 5 systemctl --user --wait is-system-running
+   check_system_ready_shared user /usr/libexec/helper-scripts/system-ready-check-user
 }
 
 check_system_ready_shared() {
