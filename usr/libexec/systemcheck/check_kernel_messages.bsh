@@ -19,8 +19,8 @@ check_kernel_messages() {
 
    local MSG="<p>Check Kernel Messages Test Result: Remarkable kernel message found using <code>dmesg</code>.<br />
 <code>$remarkable_message_list</code></p>"
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
 
    ## Messages such as:
    ## Bad RAM detected
