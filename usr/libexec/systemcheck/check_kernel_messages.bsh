@@ -17,7 +17,10 @@ check_kernel_messages() {
       return 0
    fi
 
-   local MSG="<p>Check Kernel Messages Test Result: Remarkable kernel message found using <code>dmesg</code>.
+   local MSG="\
+<p>Check Kernel Messages Test Result: Potential system issue detected. Remarkable kernel message(s) have been found using <code>dmesg</code>.
+<br />
+<br />No need to panic. This is not a severe security issue. However, other tests may be affected due to this. These kind of kernel messages reported by the kernel might indicate severe hardware or software issues.
 <br />
 <br />remarkable_message_list:
 <br /><code>$remarkable_message_list</code></p>"
