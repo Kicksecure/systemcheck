@@ -37,6 +37,7 @@ check_kernel_logs() {
    remarkable_message_list=""
    remarkable_kernel_messages_list=(
       "Bad RAM detected"
+      "self-detected stall on CPU"
    )
 
    dmesg_output="$(leaprun read-dmesg-logs)" || true
