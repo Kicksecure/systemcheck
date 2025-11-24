@@ -9,7 +9,7 @@ check_kernel_messages() {
    remarkable_message_list="$(leaprun log-checker-kernel)"
 
    if [ -z "$remarkable_message_list" ]; then
-      local MSG="<p>Check Kernel Messages Test Result: Found nothing remarkable, ok.</p>"
+      local MSG="<p>Check Kernel Messages Test Result: No issues found in kernel logs, everything looks fine.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -24,11 +24,11 @@ check_kernel_messages() {
    EXIT_CODE="1"
 
    local MSG="\
-<p>Check Kernel Messages Test Result: Potential system issue detected. Remarkable kernel message(s) have been found using <code>dmesg</code>.
+<p>Check Kernel Messages Test Result: Possible system issue found. Some unusual messages were detected in the kernel log using <code>dmesg</code>.
 <br />
-<br />No need to panic. This is not a severe security issue. However, other tests may be affected due to this. These kind of kernel messages reported by the kernel might indicate severe hardware or software issues.
+<br />No need to panic. This is not a serious security issue. But it could affect other system checks. These messages may indicate a hardware or software problem.
 <br />
-<br />remarkable_message_list:
+<br />Detected messages:
 <br /><code>$remarkable_message_list</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
@@ -36,11 +36,11 @@ check_kernel_messages() {
    if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
       if printf '%s\n' "$remarkable_message_list" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
          local MSG="\
-<p>Check Kernel Messages Test Result: <code>dmesg</code> included <code>self-detected stall on CPU</code>.
+<p>Check Kernel Messages Test Result: <code>dmesg</code> shows <code>self-detected stall on CPU</code>.
 <br />
-<br />Virtualizer VirtualBox detected.
+<br />VirtualBox has been detected as your virtualizer (virtual machine software).
 <br />
-<br />Guess: Are you using Windows as a host operating system? If yes, you might be affected by \"VirtualBox green turtle issue\". To find out more and how to fix this, see: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a></p>"
+<br />Guess: Are you running VirtualBox on a Windows host operating system? If so, you might be experiencing the \"VirtualBox green turtle issue.\" To learn more and how to fix it, visit: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a></p>"
          $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       fi
