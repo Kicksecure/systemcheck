@@ -54,7 +54,7 @@ check_services() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    local MSG
-   MSG="<p>systemd units check result: $counter systemd units failed to load. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
+   MSG="<p>systemd units check result: $counter systemd units failed to load. These might be stuck in state failed, activating or deactivating. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
 <br></br>
 <br></br>########################################
 <br></br>$systemctl_output_with_legend
@@ -62,7 +62,7 @@ check_services() {
 <br></br>
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run. <blockquote><code>sudo systemctl --failed list-units</code></blockquote>
+<br></br>2. Run. <blockquote><code>sudo systemctl --state=failed,activating,deactivating list-units</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
