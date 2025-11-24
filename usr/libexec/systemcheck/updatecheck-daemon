@@ -27,14 +27,14 @@ export sleep_seconds initial_wait_minutes
 
 initial_wait_seconds=$(( initial_wait_minutes * 60 ))
 
-$systemd_notify --pid="$$" --ready
+"${systemd_notify[@]}" --pid="$$" --ready
 
 printf "%s\n" "$0: INFO: First start. Therefore waiting for ${initial_wait_minutes} minutes for first updatecheck."
 light_sleep "$initial_wait_seconds"
 
 while true; do
    printf "%s\n" "$0: INFO: loop start."
-   $systemd_notify --pid="$$" WATCHDOG=1
+   "${systemd_notify[@]}" --pid="$$" WATCHDOG=1
 
    if [ -o xtrace ]; then
       bash -x /usr/bin/updatecheck &
@@ -44,7 +44,7 @@ while true; do
 
    updatecheck_pid="$!"
 
-   $systemd_notify --pid="$$" WATCHDOG=1
+   "${systemd_notify[@]}" --pid="$$" WATCHDOG=1
 
    true "$0: INFO: sleep $sleep_seconds... (1/2)"
    light_sleep "$sleep_seconds"

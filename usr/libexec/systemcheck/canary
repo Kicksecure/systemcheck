@@ -68,17 +68,17 @@ canary_preparation() {
 
 connectivity_wait() {
    while true; do
-      $systemd_notify --pid="$PPID" WATCHDOG=1
+      "${systemd_notify[@]}" --pid="$PPID" WATCHDOG=1
 
       if test -f /run/sdwdate/success ; then
          break
       fi
 
-      $systemd_notify --pid="$PPID" WATCHDOG=1
+      "${systemd_notify[@]}" --pid="$PPID" WATCHDOG=1
 
       light_sleep 120
 
-      $systemd_notify --pid="$PPID" WATCHDOG=1
+      "${systemd_notify[@]}" --pid="$PPID" WATCHDOG=1
    done
 }
 

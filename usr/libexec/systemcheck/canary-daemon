@@ -8,15 +8,15 @@ source /usr/libexec/helper-scripts/light_sleep.bsh
 ## sets: systemd_notify
 source /usr/libexec/helper-scripts/systemd-notify.bsh
 
-$systemd_notify --pid="$$" --ready
+"${systemd_notify[@]}" --pid="$$" --ready
 
 while true; do
    echo "$0: INFO: start."
-   $systemd_notify --pid="$$" WATCHDOG=1
+   "${systemd_notify[@]}" --pid="$$" WATCHDOG=1
 
    /usr/libexec/systemcheck/canary
 
-   $systemd_notify --pid="$$" WATCHDOG=1
+   "${systemd_notify[@]}" --pid="$$" WATCHDOG=1
    echo "$0: INFO: end."
 
    ## 1 hour
