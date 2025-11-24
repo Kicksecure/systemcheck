@@ -22,5 +22,9 @@ check_kernel_messages() {
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 
+   ## Messages such as:
+   ## Bad RAM detected
+   ## self-detected stall on CPU
+   ## are considered severe issues that can generate a lot follow-up issues.
    EXIT_CODE="1"
 }
