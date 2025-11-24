@@ -1,3 +1,57 @@
+commit b92c9dcd0dc587694322eadbd2c038147d9db67d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:43:12 2025 -0500
+
+    output
+
+commit 81fcebe9ab77c23ae6d2c1315bf6dd12c9643128
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:37:42 2025 -0500
+
+    detect potential VirtualBox green turtle issue
+
+commit fb3ffcdb2de95abcb608d7ea78e10e21eab23a45
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:20:02 2025 -0500
+
+    output
+
+commit c53522817d784c627aaa910c39ad8403c5717df1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:14:37 2025 -0500
+
+    output
+
+commit 126ec02058cb86b35083017e1f595aeabfd65a97
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:13:58 2025 -0500
+
+    output
+
+commit 033f2e390db0787614151c2aec3c6d59b4ef1810
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:13:41 2025 -0500
+
+    comment
+
+commit 9871920264bf7dd38cbc9dee0acf8d13a0b137cf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:12:30 2025 -0500
+
+    minor
+
+commit ef1996c8107a6dece07dea04b9a0004c15e4a518
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 07:11:58 2025 -0500
+
+    check of `self-detected stall on CPU`
+
+commit 3e048940311eb6f99375ebd880924a75be66a58c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 11:59:53 2025 +0000
+
+    bumped changelog version
+
 commit cef9c596831aab7fd6eb92184d5e2eb3e33257ce
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Nov 24 04:38:13 2025 -0500
