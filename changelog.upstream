@@ -1,3 +1,21 @@
+commit cef9c596831aab7fd6eb92184d5e2eb3e33257ce
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 04:38:13 2025 -0500
+
+    improve system ready check
+
+commit 675a6a9e106932be0a26d736e2f0329cd5e2aec2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 04:35:16 2025 -0500
+
+    output
+
+commit 4db751e6f473a2176ea1bb2607051d4b4a180ff7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 09:28:11 2025 +0000
+
+    bumped changelog version
+
 commit f50a811647c94ce643c12d80e4e658a9479c5b30
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Nov 24 04:27:56 2025 -0500
