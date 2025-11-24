@@ -1,3 +1,16 @@
+commit 432dd372ff6de8bfcded0eda88b77ccfefe37053
+Merge: 4e3dfb6 62ca6c0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 03:20:11 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 4e3dfb6ba02974ff0c0a3b1d240c08834b8988ed
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 08:03:53 2025 +0000
+
+    bumped changelog version
+
 commit 303ab6eb0de352b38b19a2d58f3b9581682f6a79
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Nov 24 03:02:54 2025 -0500
@@ -15,6 +28,12 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Nov 24 02:58:04 2025 -0500
 
     point out both, failed and activating systemd units
+
+commit 62ca6c0b6c6ecfa6cad194c1c4532184a1815a2b
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Nov 23 10:22:18 2025 -0600
+
+    Fix word-splitting in systemd-notify.bsh
 
 commit e13d755d0ffe175ca53dec1fe7ed5c3c599a5df5
 Author: Patrick Schleizer <adrelanos@whonix.org>
