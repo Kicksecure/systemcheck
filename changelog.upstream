@@ -1,3 +1,45 @@
+commit 303ab6eb0de352b38b19a2d58f3b9581682f6a79
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 03:02:54 2025 -0500
+
+    output
+
+commit d585bc52c47af06f08ee02be8557fbc0fca52c13
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 03:00:31 2025 -0500
+
+    also deactivating
+
+commit d435f03823b59277530ecc250cd3c411b7bea965
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 02:58:04 2025 -0500
+
+    point out both, failed and activating systemd units
+
+commit e13d755d0ffe175ca53dec1fe7ed5c3c599a5df5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 07:32:57 2025 -0500
+
+    output
+
+commit bb42e625d2779c80f0263aedbc787918bc239bcf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 07:29:04 2025 -0500
+
+    ignore
+
+commit 3171a3bea12517130af57597bd405d48c52a5f9e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 07:28:06 2025 -0500
+
+    fix
+
+commit d1b83d0ef78fc00492974a30477b3f22a31a3681
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Nov 23 11:57:07 2025 +0000
+
+    bumped changelog version
+
 commit 215e1d37bbe4d723aed4c141311b8da7f7d2c5b7
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 23 06:27:44 2025 -0500
