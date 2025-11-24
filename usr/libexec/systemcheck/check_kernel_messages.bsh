@@ -21,5 +21,6 @@ check_kernel_messages() {
 <code>$remarkable_message_list</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+
    EXIT_CODE="1"
 }
