@@ -17,6 +17,12 @@ check_kernel_messages() {
       return 0
    fi
 
+   ## Messages such as:
+   ## Bad RAM detected
+   ## self-detected stall on CPU
+   ## are considered severe issues that can generate a lot follow-up issues.
+   EXIT_CODE="1"
+
    local MSG="\
 <p>Check Kernel Messages Test Result: Potential system issue detected. Remarkable kernel message(s) have been found using <code>dmesg</code>.
 <br />
@@ -27,9 +33,16 @@ check_kernel_messages() {
    $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
 
-   ## Messages such as:
-   ## Bad RAM detected
-   ## self-detected stall on CPU
-   ## are considered severe issues that can generate a lot follow-up issues.
-   EXIT_CODE="1"
+   if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
+      if printf '%s\n' "$remarkable_message_list" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
+         local MSG="\
+<p>Check Kernel Messages Test Result: <code>dmesg</code> included <code>self-detected stall on CPU</code>.
+<br />
+<br />Virtualizer VirtualBox detected.
+<br />
+<br />Guess: Are you using Windows as a host operating system? If yes, you might be affected by \"VirtualBox green turtle issue\". To find out more and how to fix this, see: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a></p>"
+         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      fi
+   fi
 }
