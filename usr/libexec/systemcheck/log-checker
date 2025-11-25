@@ -31,11 +31,11 @@ source_config() {
 }
 
 check_kernel_logs() {
-   local remarkable_kernel_messages_list dmesg_output
-   local remarkable_message_one remarkable_message_list remarkable_kernel_messages_item
+   local remarkable_kernel_messages_search_pattern_list dmesg_output
+   local remarkable_message_one remarkable_message_list remarkable_kernel_messages_search_pattern_item
 
    remarkable_message_list=""
-   remarkable_kernel_messages_list=(
+   remarkable_kernel_messages_search_pattern_list=(
       "Bad RAM detected"
       "self-detected stall on CPU"
       "BUG:"
@@ -45,8 +45,8 @@ check_kernel_logs() {
 
    OIFS="$IFS"
    IFS=$(printf '%s\n' -en "\n\b")
-   for remarkable_kernel_messages_item in "${remarkable_kernel_messages_list[@]}" ; do
-      if remarkable_message_one="$(printf '%s\n' "$dmesg_output" | grep -i -- "$remarkable_kernel_messages_item")" ; then
+   for remarkable_kernel_messages_search_pattern_item in "${remarkable_kernel_messages_search_pattern_list[@]}" ; do
+      if remarkable_message_one="$(printf '%s\n' "$dmesg_output" | grep -i -- "$remarkable_kernel_messages_search_pattern_item")" ; then
          remarkable_message_list="$remarkable_message_list
 $remarkable_message_one"
       fi
