@@ -4,18 +4,21 @@
 ## See the file COPYING for copying conditions.
 
 ## NOTE: Runs as user `systemcheck`. Can run privleap actions
-## `read-dmesg-logs`, `read-journalctl-logs`, and
+## `read-journalctl-logs`, and
 ## `read-journalctl-logs-whonix-firewall`.
+
+#set -x
 
 set -o errexit
 set -o nounset
 set -o errtrace
-set -o pipefail
+#set -o pipefail
+
+## Redirect all stderr to stdout.
+exec 2>&1
 
 bash -n /usr/libexec/helper-scripts/strings.bsh
 source /usr/libexec/helper-scripts/strings.bsh
-
-qubes_detected='false'
 
 ## Copied from /usr/libexec/systemcheck/preparation.bsh.
 source_config() {
@@ -30,74 +33,35 @@ source_config() {
    done
 }
 
-check_kernel_logs() {
-   local remarkable_kernel_messages_search_pattern_list dmesg_output
-   local remarkable_message_one remarkable_message_list remarkable_kernel_messages_search_pattern_item
-
-   remarkable_message_list=""
-   remarkable_kernel_messages_search_pattern_list=(
-      "Bad RAM detected"
-      "self-detected stall on CPU"
-      "BUG:"
-   )
-
-   dmesg_output="$(leaprun read-dmesg-logs)" || true
-
-   OIFS="$IFS"
-   IFS="$(printf '%s\n' -en "\n\b")"
-   for remarkable_kernel_messages_search_pattern_item in "${remarkable_kernel_messages_search_pattern_list[@]}" ; do
-      if remarkable_message_one="$(printf '%s\n' "$dmesg_output" | grep --ignore-case -- "$remarkable_kernel_messages_search_pattern_item")" ; then
-         remarkable_message_list="$remarkable_message_list
-$remarkable_message_one"
-      fi
-   done
-   IFS="$OIFS"
-
-   printf '%s\n' "${remarkable_message_list}"
+prep_temp_dir() {
+  ## TMPDIR out of space
+  TMPDIR='/var/cache/systemcheck-log-checker'
+  TMP="$TMPDIR"
+  export TMP TMPDIR
+  mkdir --parents -m700 -- "$TMPDIR"
+  test -w "$TMPDIR"
 }
 
-#cleanup_temp_dir() {
-#  safe-rm -r -f -- '/run/systemcheck/log-checker' || return 1
-#}
-
-#prep_temp_dir() {
-#   if ! [ -d '/run/systemcheck' ]; then
-#     return 1
-#   fi
-#   cleanup_temp_dir || return 1
-#   mkdir -m700 /run/systemcheck/log-checker || return 1
-#   ## TMPDIR out of space
-#   TMPDIR='/run/systemcheck/log-checker'
-#   export TMPDIR
-#   TMP='/run/systemcheck/log-checker'
-#   export TMP
-#   test -w "$TMPDIR" || return 1
-#}
-
 check_service_logs() {
-  #prep_temp_dir || return 1
+  local counter patterns grep_ignore_fixed_items_command journal_ignore_fixed_item journal_search_pattern_list
+
+  prep_temp_dir
 
   touch -- "$TMPDIR/journalctl_output.txt"
 
-  leaprun read-journalctl-logs | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null || true
+  leaprun read-journalctl-logs | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null
 
-  local journal_search_pattern_list
   journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|BUG|self-detected stall on CPU"
 
-  if [ "$qubes_detected" = "true" ]; then
+  if test -e /usr/share/qubes/marker-vm; then
     journal_ignore_patterns_list+=( "virtualbox" )
   fi
 
   grep --extended-regexp --ignore-case "$journal_search_pattern_list" -- "$TMPDIR/journalctl_output.txt" \
-    | tee -- "$TMPDIR/journalctl_matched.txt" >/dev/null || true
+    | tee -- "$TMPDIR/journalctl_matched.txt" >/dev/null
 
   ## Output by 'apparmor-info' is already de-duplicated.
-  leaprun read-apparmor-info | tee --append -- "$TMPDIR/journalctl_matched.txt" >/dev/null || true
-
-  local counter patterns
-  counter=0
-
-  local grep_ignore_fixed_items_command
+  leaprun read-apparmor-info | tee --append -- "$TMPDIR/journalctl_matched.txt" >/dev/null
 
   grep_ignore_fixed_items_command=()
   grep_ignore_fixed_items_command+=("grep")
@@ -105,9 +69,9 @@ check_service_logs() {
   grep_ignore_fixed_items_command+=("--fixed-strings")
   grep_ignore_fixed_items_command+=("--ignore-case")
 
-  local journal_ignore_fixed_item
+  #counter=0
   for journal_ignore_fixed_item in "${journal_ignore_fixed_list[@]}"; do
-    (( counter += 1 )) || true
+    #counter=$(( counter + 1 ))
     ## Debugging.
     ## Either this should be commented out when unneeded, or it should
     ## be a `true` if it's meant to show up when `set -x` is enabled.
@@ -118,46 +82,49 @@ check_service_logs() {
     grep_ignore_fixed_items_command+=("$journal_ignore_fixed_item")
   done
 
-  counter=0
-  local journal_ignore_pattern_item
-  for journal_ignore_pattern_item in "${journal_ignore_patterns_list[@]}"; do
-    counter=$(( counter + 1 ))
-    ## Debugging.
-    #printf '%s\n' "$counter: '$journal_ignore_pattern_item'" >/dev/null
-  done
+#   counter=0
+#   local journal_ignore_pattern_item
+#   for journal_ignore_pattern_item in "${journal_ignore_patterns_list[@]}"; do
+#     counter=$(( counter + 1 ))
+#     ## Debugging.
+#     #printf '%s\n' "$counter: '$journal_ignore_pattern_item'" >/dev/null
+#   done
 
   "${grep_ignore_fixed_items_command[@]}" -- "$TMPDIR/journalctl_matched.txt" \
-    | tee -- "$TMPDIR/journalctl_fixed_filtered.txt" >/dev/null || true
+    | tee -- "$TMPDIR/journalctl_fixed_filtered.txt" >/dev/null
+
+  safe-rm --force -- "$TMPDIR/journalctl_matched.txt"
 
   patterns="$(printf '%s|' "${journal_ignore_patterns_list[@]}" | head -c-1)"
+
   grep --invert-match --extended-regexp --ignore-case "$patterns" -- "$TMPDIR/journalctl_fixed_filtered.txt" \
-    | tee -- "$TMPDIR/journalctl_match_filtered.txt" >/dev/null || true
+    | tee -- "$TMPDIR/journalctl_match_filtered.txt" >/dev/null
+
+
 
   br_add_to_file "$TMPDIR/journalctl_match_filtered.txt"
+  safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt"
 
-  cat -- "$TMPDIR/journalctl_match_filtered.txt_br"
+  cat -- "$TMPDIR/journalctl_match_filtered.txt_br" | sort --unique
+}
+
+check_critical_logs() {
+   local critical_pattern
+
+   ## Patterns that are considered "so bad they must be shown" always.
+   critical_pattern='Bad RAM detected|self-detected stall on CPU|BUG:'
+
+   grep --extended-regexp --ignore-case "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" || true
 }
 
 source_config
 
 check_mode="${1:-}"
-if [ "$check_mode" = 'kernel' ]; then
-  if ! check_kernel_logs ; then
-    printf '%s\n' "$0: ERROR: Kernel log check failed!\n"
-    exit 1
-  fi
-elif [ "$check_mode" = 'service' ]; then
-  if ! check_service_logs ; then
-    printf '%s\n' "$0: ERROR: Journal log check failed!\n"
-    exit 1
-  fi
-elif [ "$check_mode" = 'service-onqubes' ]; then
-  qubes_detected='true'
-  if ! check_service_logs ; then
-    printf '%s\n' "$0: ERROR: Journal log check failed!\n"
-    exit 1
-  fi
+if [ "$check_mode" = 'check_service_logs' ]; then
+  check_service_logs
+elif [ "$check_mode" = 'check_critical_logs' ]; then
+  check_critical_logs
 else
-  printf '%s\n' "$0: ERROR: Unrecognized mode '${check_mode}' specified!"
+  printf '%s\n' "$0: ERROR: Unrecognized mode '${check_mode}' specified!" >&2
   exit 1
 fi

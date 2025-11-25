@@ -3,8 +3,6 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-#set -x
-
 check_services() {
    ## user@host:~$ sudo systemctl --failed --no-legend list-units
    ## apparmor.service        loaded failed failed LSB: AppArmor initialization
@@ -74,39 +72,77 @@ $if_you_know_what_you_are_doing_msg</p>"
 }
 
 check_journal() {
-   if [ "$verbose" -lt "1" ]; then
-      return 0
-   fi
+   local log_output critical_output
 
-   local log_output
+   log_output="$(leaprun log-checker-check_service_logs)" || true
 
-   if [ "$qubes_detected" = "true" ]; then
-      log_output="$(leaprun log-checker-service-onqubes)"
-   else
-      log_output="$(leaprun log-checker-service)"
-   fi
-
-   if [ "$log_output" = "" ]; then
+   if [ -n "$log_output" ]; then
       local MSG
       MSG="<p>systemd journal check result: OK."
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   else
-      local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-
-      local MSG
-      MSG="<p>systemd journal check result:
-   <br></br>########################################
-   <br></br><code>$log_output</code>
-   <br></br>########################################
-   <br></br>$if_you_know_what_you_are_doing_msg</p>"
-
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-
-      EXIT_CODE="1"
    fi
+
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   critical_output="$(leaprun log-checker-check_critical_logs)" || true
+
+   if [ -n "$critical_output" ]; then
+      ## Messages such as:
+      ## Bad RAM detected
+      ## self-detected stall on CPU
+      ## are considered severe issues that can generate a lot follow-up issues.
+      EXIT_CODE="1"
+
+      local MSG="\
+<p>Check Critical systemd Journal Messages Test Result: Possible system issue found. Some unusual messages were detected in the kernel log.
+<br />
+<br />No need to panic. This is not a serious security issue. But it could affect other system checks. These messages may indicate a hardware or software problem.
+<br />
+<br />Detected messages:
+<br /><code>$critical_output</code>
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+
+      if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
+         if printf '%s\n' "$critical_output" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
+            local MSG="\
+<p>Check Critical systemd Journal Messages Test Result: systemd journal shows <code>self-detected stall on CPU</code>.
+<br />
+<br />VirtualBox has been detected as your virtualizer (virtual machine software).
+<br />
+<br />Guess: Are you running VirtualBox on a Windows host operating system? If so, you might be experiencing the \"VirtualBox green turtle issue.\" To learn more and how to fix it, visit: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a>
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
+            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         fi
+      fi
+   else
+      local MSG
+      MSG="<p>Check Critical systemd Journal Messages Test Result: OK."
+      if [ "$verbose" -lt "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   fi
+
+   if [ "$verbose" -lt "1" ]; then
+      return 0
+   fi
+
+   EXIT_CODE="1"
+
+   local MSG
+   MSG="<p>systemd journal check result:
+<br></br>########################################
+<br></br><code>$log_output</code>
+<br></br>########################################
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
+
+   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 
    return 0
 }

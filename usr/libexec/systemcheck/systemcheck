@@ -127,9 +127,6 @@ systemcheck_main() {
    systemcheck_run_function check_qubes_settings ## check_qubes
 
    ## uses network: no
-   systemcheck_run_function check_kernel_messages ## check_systemd_clock
-
-   ## uses network: no
    systemcheck_run_function check_whonix_firewall_systemd_status ## check_services
 
    ## uses network: no
