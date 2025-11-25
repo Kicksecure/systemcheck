@@ -79,8 +79,10 @@ check_journal() {
    if [ -n "$log_output" ]; then
       local MSG
       MSG="<p>systemd journal check result: OK."
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      if [ "$verbose" -ge "1" ]; then
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
    fi
 
    local if_you_know_what_you_are_doing_msg
@@ -122,7 +124,7 @@ check_journal() {
    else
       local MSG
       MSG="<p>Check Critical systemd Journal Messages Test Result: OK."
-      if [ "$verbose" -lt "1" ]; then
+      if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
