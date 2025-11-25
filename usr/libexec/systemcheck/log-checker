@@ -105,7 +105,7 @@ check_service_logs() {
   br_add_to_file "$TMPDIR/journalctl_match_filtered.txt"
   safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt"
 
-  cat -- "$TMPDIR/journalctl_match_filtered.txt_br" | sort --unique
+  stcatn "$TMPDIR/journalctl_match_filtered.txt_br" | sort --unique
 }
 
 check_critical_logs() {
@@ -114,7 +114,8 @@ check_critical_logs() {
    ## Patterns that are considered "so bad they must be shown" always.
    critical_pattern='Bad RAM detected|self-detected stall on CPU|BUG:'
 
-   grep --extended-regexp --ignore-case "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" || true
+   grep --extended-regexp --ignore-case "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
+     stcatn >/dev/null
 }
 
 source_config
