@@ -1,3 +1,57 @@
+commit 4196e5f23486b89265fd919e98af916686f1edb1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 14:00:19 2025 -0500
+
+    comments
+
+commit 7c777f970fb916665d48cd1a9b639cab4a36fcae
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 13:34:06 2025 -0500
+
+    stcatn
+
+commit f3ab4eb0080f336bbace9ace9d3af353f0e516ae
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 13:28:07 2025 -0500
+
+    output
+
+commit aa6594e73e3408fa41af8044cc68ec153e1cc5dc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 13:25:55 2025 -0500
+
+    improve notification of critical kernel messages related to hardware errors
+
+commit 2a0804d3114a25303f4edd92f4111e2c69001dc8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 05:51:23 2025 -0500
+
+    fix
+
+commit 769909b67ebb446f4d012281eb6c403c7666faf0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 03:40:50 2025 -0500
+
+    quotes
+
+commit 53b5ad8a98d4662a10a260b053f26a999ee09d26
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 03:40:15 2025 -0500
+
+    refactoring
+
+commit 6341f8807df0dda55ac7c37cfdee456887363450
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 03:38:02 2025 -0500
+
+    remarkable_kernel_messages_list
+
+commit b30903d34c62d8e04de32c06eabf40248e13a63b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 24 12:43:29 2025 +0000
+
+    bumped changelog version
+
 commit b92c9dcd0dc587694322eadbd2c038147d9db67d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Nov 24 07:43:12 2025 -0500
