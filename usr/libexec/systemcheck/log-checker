@@ -123,6 +123,8 @@ check_critical_logs() {
 
    grep --extended-regexp --ignore-case "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
      stcatn >/dev/null
+
+   safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt_br"
 }
 
 source_config
