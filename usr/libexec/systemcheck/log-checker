@@ -46,7 +46,7 @@ check_kernel_logs() {
    OIFS="$IFS"
    IFS="$(printf '%s\n' -en "\n\b")"
    for remarkable_kernel_messages_search_pattern_item in "${remarkable_kernel_messages_search_pattern_list[@]}" ; do
-      if remarkable_message_one="$(printf '%s\n' "$dmesg_output" | grep -i -- "$remarkable_kernel_messages_search_pattern_item")" ; then
+      if remarkable_message_one="$(printf '%s\n' "$dmesg_output" | grep --ignore-case -- "$remarkable_kernel_messages_search_pattern_item")" ; then
          remarkable_message_list="$remarkable_message_list
 $remarkable_message_one"
       fi
@@ -56,40 +56,39 @@ $remarkable_message_one"
    printf '%s\n' "${remarkable_message_list}"
 }
 
-cleanup_temp_dir() {
-  safe-rm -r -f -- '/run/systemcheck/log-checker' || return 1
-}
+#cleanup_temp_dir() {
+#  safe-rm -r -f -- '/run/systemcheck/log-checker' || return 1
+#}
 
-prep_temp_dir() {
-  if ! [ -d '/run/systemcheck' ]; then
-    return 1
-  fi
-
-  cleanup_temp_dir || return 1
-  mkdir -m700 /run/systemcheck/log-checker || return 1
-  TMPDIR='/run/systemcheck/log-checker'
-  export TMPDIR
-  TMP='/run/systemcheck/log-checker'
-  export TMP
-
-  test -w "$TMPDIR" || return 1
-}
+#prep_temp_dir() {
+#   if ! [ -d '/run/systemcheck' ]; then
+#     return 1
+#   fi
+#   cleanup_temp_dir || return 1
+#   mkdir -m700 /run/systemcheck/log-checker || return 1
+#   ## TMPDIR out of space
+#   TMPDIR='/run/systemcheck/log-checker'
+#   export TMPDIR
+#   TMP='/run/systemcheck/log-checker'
+#   export TMP
+#   test -w "$TMPDIR" || return 1
+#}
 
 check_service_logs() {
-  prep_temp_dir || return 1
+  #prep_temp_dir || return 1
 
   touch -- "$TMPDIR/journalctl_output.txt"
 
   leaprun read-journalctl-logs | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null || true
 
   local journal_search_pattern_list
-  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle"
+  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|BUG|self-detected stall on CPU"
 
   if [ "$qubes_detected" = "true" ]; then
     journal_ignore_patterns_list+=( "virtualbox" )
   fi
 
-  grep -Ei "$journal_search_pattern_list" -- "$TMPDIR/journalctl_output.txt" \
+  grep --extended-regexp --ignore-case "$journal_search_pattern_list" -- "$TMPDIR/journalctl_output.txt" \
     | tee -- "$TMPDIR/journalctl_matched.txt" >/dev/null || true
 
   ## Output by 'apparmor-info' is already de-duplicated.
@@ -110,10 +109,10 @@ check_service_logs() {
   for journal_ignore_fixed_item in "${journal_ignore_fixed_list[@]}"; do
     (( counter += 1 )) || true
     ## Debugging.
-    ## TODO: Either this should be commented out when unneeded, or it should
+    ## Either this should be commented out when unneeded, or it should
     ## be a `true` if it's meant to show up when `set -x` is enabled.
     ## Outputting it to /dev/null like this is a needless waste of resources.
-    printf '%s\n' "$counter: '$journal_ignore_fixed_item'" >/dev/null
+    #printf '%s\n' "$counter: '$journal_ignore_fixed_item'" >/dev/null
 
     grep_ignore_fixed_items_command+=("-e")
     grep_ignore_fixed_items_command+=("$journal_ignore_fixed_item")
@@ -124,8 +123,7 @@ check_service_logs() {
   for journal_ignore_pattern_item in "${journal_ignore_patterns_list[@]}"; do
     counter=$(( counter + 1 ))
     ## Debugging.
-    ## TODO: See TODO above.
-    printf '%s\n' "$counter: '$journal_ignore_pattern_item'" >/dev/null
+    #printf '%s\n' "$counter: '$journal_ignore_pattern_item'" >/dev/null
   done
 
   "${grep_ignore_fixed_items_command[@]}" -- "$TMPDIR/journalctl_matched.txt" \
