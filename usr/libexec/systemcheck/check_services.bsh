@@ -74,6 +74,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 check_journal() {
    local log_output critical_output
 
+   ## Already sanitized by 'stcatn'.
    log_output="$(leaprun log-checker-check_service_logs)" || true
 
    if [ -n "$log_output" ]; then
@@ -88,6 +89,7 @@ check_journal() {
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
+   ## Already sanitized by 'stcatn'.
    critical_output="$(leaprun log-checker-check_critical_logs)" || true
 
    if [ -n "$critical_output" ]; then
