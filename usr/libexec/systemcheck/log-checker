@@ -120,7 +120,7 @@ check_critical_logs() {
    critical_pattern='Bad RAM detected|self-detected stall on CPU|BUG:'
 
    grep --extended-regexp --ignore-case "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
-     stcatn >/dev/null
+     stcatn
 
    safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt_br"
 }
