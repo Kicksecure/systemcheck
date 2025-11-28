@@ -382,14 +382,14 @@ preparation() {
             start_menu_instructions_system_first_part="dom0 -> Start Menu -> $qubes_starter_first_part: <code>$qubes_name_of_vm</code> ->"
          fi
       fi
-      TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(date --utc)"
+      TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(LC_ALL=C date --utc)"
    else
       start_menu_instructions_system_first_part="Start Menu -> System ->"
       persistent_changes_start_menu_instructions_first_part="$start_menu_instructions_system_first_part"
       qubes_title_extra=""
       update_where="this machine"
       passive_popup_title="[$IDENTIFIER]"
-      TITLE_CLI="${VM} | $(date --utc)"
+      TITLE_CLI="${VM} | $(LC_ALL=C date --utc)"
    fi
 
    [ -n "$silent" ] || silent="0"
