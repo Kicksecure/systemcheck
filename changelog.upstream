@@ -1,3 +1,46 @@
+commit a587b7020a47f3d0f228e820af5bf50dac45d3c6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 28 04:01:39 2025 -0500
+
+    fix systemcheck first line (header) when running on non-US language
+
+commit e706815dc6d982c75b77a6bd98457292526d7b8f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 28 03:57:52 2025 -0500
+
+    comment
+
+commit e98630360e0fcf6a27c622901a88bdba9308a84f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 28 03:57:18 2025 -0500
+
+    fix
+
+commit 9689599a9950278d5f12b9cf1b8050bf146f4236
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 28 03:55:31 2025 -0500
+
+    fix: no longer matching `debug:` in critical messages
+
+commit 03e7f5fef31fec73efc941387c72543568b09238
+Merge: b633f44 902106c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 28 01:03:11 2025 -0500
+
+    Merge commit '47.2-1-1-g902106c'
+
+commit 902106c62230920c2576f2de76ed8a1c3d67e4cf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 28 00:57:26 2025 -0500
+
+    privleap
+
+commit b633f44ea95985943a0bfb3e90469736f2b9f183
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 25 19:30:11 2025 +0000
+
+    bumped changelog version
+
 commit ced160660b154ce2f91b38d428a0245c7348552d
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Nov 25 14:29:29 2025 -0500
