@@ -21,7 +21,7 @@ $MSG
 $link_raw"
 
    local temp
-   temp="$(/usr/bin/sanitize-string "$derivative_deb_package_version")"
+   temp="$(/usr/bin/sanitize-string -- nolimit "$derivative_deb_package_version")"
 
    local MSG="<p>$derivative_deb_package_name: <code>$temp</code></p>"
    $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"

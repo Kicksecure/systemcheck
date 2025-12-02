@@ -177,7 +177,7 @@ check_tor_socks_or_trans_port() {
    #check_tor_out_file_content_raw='{"IsTor":true,"IP":"0000:0000:0000:0000:0000:ffff:192.168.100.228"}'
 
    local check_tor_out_file_content_sanitized
-   check_tor_out_file_content_sanitized="$(/usr/bin/sanitize-string "$check_tor_out_file_content_raw" "$max_string_length")"
+   check_tor_out_file_content_sanitized="$(/usr/bin/sanitize-string -- "$max_string_length" "$check_tor_out_file_content_raw")"
 
    if [ "$verbose" -ge "2" ]; then
       local MSG="\
@@ -199,7 +199,7 @@ check_tor_socks_or_trans_port() {
 
    max_string_length="5"
    local tor_detected_sanitized
-   tor_detected_sanitized="$(/usr/bin/sanitize-string "$tor_detected_raw" "$max_string_length")"
+   tor_detected_sanitized="$(/usr/bin/sanitize-string -- "$max_string_length" "$tor_detected_raw")"
 
    if [ ! "$tor_detected_sanitized" = "False" ]; then
       if [ ! "$tor_detected_sanitized" = "True" ]; then
@@ -247,7 +247,7 @@ check_tor_socks_or_trans_port() {
    fi
 
    local ip_sanitized
-   ip_sanitized="$(/usr/bin/sanitize-string "$ip_raw" "$max_string_length")"
+   ip_sanitized="$(/usr/bin/sanitize-string -- "$max_string_length" "$ip_raw")"
 
    ## Store IP for later use in memory.
    if [ "$1" = "SocksPort" ]; then
