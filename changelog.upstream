@@ -1,3 +1,28 @@
+commit 20e39b794868d915cb2f1d2dea1cf7687840db12
+Merge: 8d5bf95 ba82919
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Dec 2 06:06:19 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit ba829190a132104f77aff29de36a8c93e72d49cc
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Dec 1 22:10:56 2025 -0600
+
+    Silence SRSO warning when running in VMs or containers
+
+commit 3b2c02eda6210b6bec88ae086af23e610ab86fe5
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Dec 1 20:30:38 2025 -0600
+
+    Adjust to new sanitize-string API
+
+commit 8d5bf95b41a87f46d19fa6a5ded054ba789906ea
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Nov 29 06:11:06 2025 +0000
+
+    bumped changelog version
+
 commit a587b7020a47f3d0f228e820af5bf50dac45d3c6
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Nov 28 04:01:39 2025 -0500
