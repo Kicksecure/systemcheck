@@ -1,3 +1,15 @@
+commit 140aa0afc46eb3bced0acd7ab0882928352d2fca
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Dec 4 04:29:15 2025 -0500
+
+    apparmor
+
+commit a5cbd7d5f99c058ce3f4efcd4c2708d566cd98ef
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Dec 3 08:32:33 2025 +0000
+
+    bumped changelog version
+
 commit 20e39b794868d915cb2f1d2dea1cf7687840db12
 Merge: 8d5bf95 ba82919
 Author: Patrick Schleizer <adrelanos@whonix.org>
