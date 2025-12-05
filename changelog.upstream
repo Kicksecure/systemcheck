@@ -1,3 +1,28 @@
+commit 7cedd3d614e3fbe84c4c9e860eaeaa65bfdc764c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 5 08:51:00 2025 -0500
+
+    check both for both, systemd system and systemd user units,
+    which are hung in state failed,activating,deactivating
+
+commit b9b8fc3a3a93523f6d959b70d1215f60da1b9e5c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 5 08:37:22 2025 -0500
+
+    output
+
+commit d01fafa18f4063e544c77825c5836c399a5e8f43
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 5 08:37:02 2025 -0500
+
+    code simlification
+
+commit ab6c3466b183ba1d92cfe9d2641a6fbc052608d8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Dec 4 09:32:10 2025 +0000
+
+    bumped changelog version
+
 commit 140aa0afc46eb3bced0acd7ab0882928352d2fca
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Dec 4 04:29:15 2025 -0500
