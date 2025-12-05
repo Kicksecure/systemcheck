@@ -26,7 +26,7 @@ check_services_do() {
 
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
-      MSG="<p>systemd <u>$check_type</u> units check result: OK."
+      MSG="<p>systemd '<u>$check_type</u>' units check result: OK."
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -41,7 +41,7 @@ check_services_do() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    local MSG
-   MSG="<p>systemd <u>$check_type</u> units check result: systemd units failed to load. These might be stuck in state failed, activating or deactivating. Output of <code>$machine_command_pretty</code> (equivalent to <code>$manual_check_equivalent</code>):
+   MSG="<p>systemd '<u>$check_type</u>' units check result: Unit(s) failed to load. These might be stuck in state failed, activating or deactivating. Output of '<code>$machine_command_pretty</code>'$manual_check_equivalent:
 <br></br>
 <br></br>########################################
 <br></br><code>$systemctl_output_with_legend</code>
@@ -49,7 +49,8 @@ check_services_do() {
 <br></br>
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run. <blockquote><code>$machine_command_pretty</code></blockquote>
+<br></br>2. Run. <blockquote>
+<code>$machine_command_pretty</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
@@ -62,13 +63,13 @@ $if_you_know_what_you_are_doing_msg</p>"
 
 check_services() {
    check_type="system"
-   manual_check_equivalent="sudo systemctl --state=failed,activating,deactivating list-units"
+   manual_check_equivalent=" (equivalent to <code>sudo systemctl --state=failed,activating,deactivating list-units</code>)"
    machine_command_machine="leaprun read-systemctl-logs-failed-units"
     machine_command_pretty="leaprun read-systemctl-logs-failed-units-pretty"
    check_services_do
 
    check_type="user"
-   manual_check_equivalent="systemctl --user --state=failed,activating,deactivating list-units"
+   manual_check_equivalent=""
    machine_command_machine="systemctl --user --no-legend --no-pager --no-block --state=failed,activating,deactivating list-units"
     machine_command_pretty="systemctl --user --no-pager --no-block --state=failed,activating,deactivating list-units"
    check_services_do
