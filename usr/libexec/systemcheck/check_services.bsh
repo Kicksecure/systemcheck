@@ -41,11 +41,11 @@ systemctl_output_without_legend=x
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    local MSG
-   MSG="<p>systemd '<u>$check_type</u>' units check result: Unit(s) failed to load.
+   MSG="<p>systemd '<u>$check_type</u>' units check result: One or more units failed to load.
 <br />
-<br />Possible system issue found. No need to panic. This is not a serious security issue. But it could affect other system checks.
+<br />A possible system issue was detected. There is no need to panic. This is not a serious security problem. However, it may impact other system checks.
 <br />
-<br />Some systemd '<u>$check_type</u>' units might be stuck in state failed, activating or deactivating.
+<br />Some systemd '<u>$check_type</u>' units may be stuck in a failed, activating, or deactivating state.
 <br />
 Output of '<code>$machine_command_pretty</code>'$manual_check_equivalent:
 <br></br>
@@ -53,9 +53,9 @@ Output of '<code>$machine_command_pretty</code>'$manual_check_equivalent:
 <br></br><code>$systemctl_output_with_legend</code>
 <br></br>########################################
 <br></br>
-<br></br>To see this for yourself...
+<br></br>To check manually:
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run. <blockquote>
+<br></br>2. Run: <blockquote>
 <code>$machine_command_pretty</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
@@ -96,13 +96,13 @@ check_journal() {
       ## Messages such as:
       ## Bad RAM detected
       ## self-detected stall on CPU
-      ## are considered severe issues that can generate a lot follow-up issues.
+      ## are considered severe and can lead to various follow-up issues.
       EXIT_CODE="1"
 
       local MSG="\
-<p>Check Critical systemd Journal Messages Test Result: Possible system issue found. Some unusual messages were detected in the kernel log.
+<p>Check Critical systemd Journal Messages Test Result: Possible system issue detected. Some unusual entries were found in the kernel log.
 <br />
-<br />No need to panic. This is not a serious security issue. But it could affect other system checks. These messages may indicate a hardware or software problem.
+<br />There is no need to panic. This is not a serious security issue. However, it may affect other system checks. These messages might indicate hardware or software problems.
 <br />
 <br />Detected messages:
 <br /><code>$critical_output</code>
@@ -113,11 +113,11 @@ check_journal() {
       if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
          if printf '%s\n' "$critical_output" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
             local MSG="\
-<p>Check Critical systemd Journal Messages Test Result: systemd journal shows <code>self-detected stall on CPU</code>.
+<p>Check Critical systemd Journal Messages Test Result: systemd journal contains <code>self-detected stall on CPU</code>.
 <br />
-<br />VirtualBox has been detected as your virtualizer (virtual machine software).
+<br />VirtualBox has been identified as your virtualizer (virtual machine software).
 <br />
-<br />Guess: Are you running VirtualBox on a Windows host operating system? If so, you might be experiencing the \"VirtualBox green turtle issue.\" To learn more and how to fix it, visit: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a>
+<br />Guess: Are you using VirtualBox on a Windows host operating system? If so, you might be experiencing the \"VirtualBox green turtle issue.\" For more information and how to resolve it, see: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
             $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
             $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
@@ -197,27 +197,30 @@ check_whonix_firewall_systemd_status() {
 
    local MSG="<p>whonix_firewall failed to load!
 <br></br>
-<br></br>The whonix_firewall failed to load for some reason. This could be due to the firewall being misconfigured or a race condition. Try restarting the VM to see if this error persists.
+<br></br>The whonix_firewall failed to load for an unknown reason. This might be due to a misconfiguration or a race condition. Try restarting the VM to see if the issue persists.
 <br></br>
 <br></br>$extra_text
 <br></br>
-<br></br>output of <code>systemctl status whonix-firewall</code>:
+<br></br>Output of <code>systemctl status whonix-firewall</code>:
 <br></br>
 <br></br>########################################
 <br></br>$systemctl_status_whonix_firewall_output
 <br></br>########################################
 <br></br>
-<br></br>output of <code>journalctl --boot -u whonix-firewall</code>:
+<br></br>Output of <code>journalctl --boot -u whonix-firewall</code>:
 <br></br>
 <br></br>########################################
 <br></br>$journalctl_whonix_firewall_output
 <br></br>########################################
 <br></br>
-<br></br>To see this for yourself...
+<br></br>To investigate manually:
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run. <blockquote><code>sudo systemctl status whonix-firewall</code></blockquote>
-<br></br>2. Also see. <blockquote><code>sudo journalctl --boot -u whonix-firewall | cat</code></blockquote>
-<br></br>3. Try to manually start Whonix firewall. <blockquote><code>sudo whonix_firewall</code></blockquote>
+<br></br>2. Run:
+<blockquote><code>sudo systemctl status whonix-firewall</code></blockquote>
+<br></br>2. Also run:
+<blockquote><code>sudo journalctl --boot -u whonix-firewall | cat</code></blockquote>
+<br></br>3. Try to manually start the Whonix firewall:
+<blockquote><code>sudo whonix_firewall</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg
 </p>"
