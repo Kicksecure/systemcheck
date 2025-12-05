@@ -20,22 +20,11 @@ check_services() {
    ## 2 loaded units listed. Pass --all to see loaded but inactive units, too.
    ## To show all installed unit files use 'systemctl list-unit-files'.
 
-   local line unit load active sub counter failed_lines
+   local systemctl_output_without_legend systemctl_output_with_legend
 
-   counter="0"
+   systemctl_output_without_legend="$(leaprun read-systemctl-logs-failed-units)"
 
-   while read -r -d $'\n' line; do
-      read -r unit load active sub _ <<< "$line"
-      counter="$(( counter + 1 ))"
-      if [ "$failed_lines" = "" ]; then
-         failed_lines="$line"
-      else
-         failed_lines="$failed_lines
-<br></br>$line"
-      fi
-   done < <(leaprun read-systemctl-logs-failed-units)
-
-   if [ "$counter" = "0" ]; then
+   if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
       MSG="<p>systemd units check result: OK."
       if [ "$verbose" -ge "1" ]; then
@@ -52,7 +41,7 @@ check_services() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    local MSG
-   MSG="<p>systemd units check result: $counter systemd units failed to load. These might be stuck in state failed, activating or deactivating. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
+   MSG="<p>systemd units check result: systemd units failed to load. These might be stuck in state failed, activating or deactivating. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
 <br></br>
 <br></br>########################################
 <br></br>$systemctl_output_with_legend
