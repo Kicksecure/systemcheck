@@ -204,13 +204,13 @@ check_whonix_firewall_systemd_status() {
 <br></br>Output of <code>systemctl status whonix-firewall</code>:
 <br></br>
 <br></br>########################################
-<br></br>$systemctl_status_whonix_firewall_output
+<br></br><code>$systemctl_status_whonix_firewall_output</code>
 <br></br>########################################
 <br></br>
 <br></br>Output of <code>journalctl --boot -u whonix-firewall</code>:
 <br></br>
 <br></br>########################################
-<br></br>$journalctl_whonix_firewall_output
+<br></br><code>$journalctl_whonix_firewall_output</code>
 <br></br>########################################
 <br></br>
 <br></br>To investigate manually:
