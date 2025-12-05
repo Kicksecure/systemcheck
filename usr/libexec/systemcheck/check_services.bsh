@@ -34,7 +34,7 @@ check_services_do() {
       return 0
    fi
 
-   systemctl_output_with_legend="$(leaprun $machine_command_pretty)"
+   systemctl_output_with_legend="$($machine_command_pretty)"
    systemctl_output_with_legend="$(br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
