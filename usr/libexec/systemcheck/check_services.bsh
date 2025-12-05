@@ -3,7 +3,7 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-check_services() {
+check_services_do() {
    ## user@host:~$ sudo systemctl --failed --no-legend list-units
    ## apparmor.service        loaded failed failed LSB: AppArmor initialization
    ## whonix-firewall.service loaded failed failed Whonix firewall loader
@@ -22,11 +22,11 @@ check_services() {
 
    local systemctl_output_without_legend systemctl_output_with_legend
 
-   systemctl_output_without_legend="$(leaprun read-systemctl-logs-failed-units)"
+   systemctl_output_without_legend="$($machine_command_machine)"
 
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
-      MSG="<p>systemd units check result: OK."
+      MSG="<p>systemd <u>$check_type</u> units check result: OK."
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -34,14 +34,14 @@ check_services() {
       return 0
    fi
 
-   systemctl_output_with_legend="$(leaprun read-systemctl-logs-failed-units-pretty)"
+   systemctl_output_with_legend="$(leaprun $machine_command_pretty)"
    systemctl_output_with_legend="$(br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    local MSG
-   MSG="<p>systemd units check result: systemd units failed to load. These might be stuck in state failed, activating or deactivating. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
+   MSG="<p>systemd <u>$check_type</u> units check result: systemd units failed to load. These might be stuck in state failed, activating or deactivating. Output of <code>$machine_command_pretty</code> (equivalent to <code>$manual_check_equivalent</code>):
 <br></br>
 <br></br>########################################
 <br></br><code>$systemctl_output_with_legend</code>
@@ -49,7 +49,7 @@ check_services() {
 <br></br>
 <br></br>To see this for yourself...
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run. <blockquote><code>sudo systemctl --state=failed,activating,deactivating list-units</code></blockquote>
+<br></br>2. Run. <blockquote><code>$machine_command_pretty</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
@@ -58,6 +58,20 @@ $if_you_know_what_you_are_doing_msg</p>"
    EXIT_CODE="1"
 
    return 0
+}
+
+check_services() {
+   check_type="system"
+   manual_check_equivalent="sudo systemctl --state=failed,activating,deactivating list-units"
+   machine_command_machine="leaprun read-systemctl-logs-failed-units"
+    machine_command_pretty="leaprun read-systemctl-logs-failed-units-pretty"
+   check_services_do
+
+   check_type="user"
+   manual_check_equivalent="systemctl --user --state=failed,activating,deactivating list-units"
+   machine_command_machine="systemctl --user --no-legend --no-pager --no-block --state=failed,activating,deactivating list-units"
+    machine_command_pretty="systemctl --user --no-pager --no-block --state=failed,activating,deactivating list-units"
+   check_services_do
 }
 
 check_journal() {
