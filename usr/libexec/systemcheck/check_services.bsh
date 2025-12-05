@@ -23,7 +23,7 @@ check_services_do() {
    local systemctl_output_without_legend systemctl_output_with_legend
 
    systemctl_output_without_legend="$($machine_command_machine)"
-
+systemctl_output_without_legend=x
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
       MSG="<p>systemd '<u>$check_type</u>' units check result: OK."
@@ -41,7 +41,13 @@ check_services_do() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
 
    local MSG
-   MSG="<p>systemd '<u>$check_type</u>' units check result: Unit(s) failed to load. These might be stuck in state failed, activating or deactivating. Output of '<code>$machine_command_pretty</code>'$manual_check_equivalent:
+   MSG="<p>systemd '<u>$check_type</u>' units check result: Unit(s) failed to load.
+<br />
+<br />Possible system issue found. No need to panic. This is not a serious security issue. But it could affect other system checks.
+<br />
+<br />Some systemd '<u>$check_type</u>' units might be stuck in state failed, activating or deactivating.
+<br />
+Output of '<code>$machine_command_pretty</code>'$manual_check_equivalent:
 <br></br>
 <br></br>########################################
 <br></br><code>$systemctl_output_with_legend</code>
@@ -63,13 +69,13 @@ $if_you_know_what_you_are_doing_msg</p>"
 
 check_services() {
    check_type="system"
-   manual_check_equivalent=" (equivalent to <code>sudo systemctl --state=failed,activating,deactivating list-units</code>)"
+   manual_check_equivalent=":<br /> (equivalent to <code>sudo systemctl --state=failed,activating,deactivating list-units</code>)"
    machine_command_machine="leaprun read-systemctl-logs-failed-units"
     machine_command_pretty="leaprun read-systemctl-logs-failed-units-pretty"
    check_services_do
 
    check_type="user"
-   manual_check_equivalent=""
+   manual_check_equivalent=":"
    machine_command_machine="systemctl --user --no-legend --no-pager --no-block --state=failed,activating,deactivating list-units"
     machine_command_pretty="systemctl --user --no-pager --no-block --state=failed,activating,deactivating list-units"
    check_services_do
