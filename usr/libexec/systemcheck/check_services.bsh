@@ -72,13 +72,13 @@ check_services() {
    manual_check_equivalent=":<br /> (equivalent to <code>sudo systemctl --state=failed,activating,deactivating list-units</code>)"
    machine_command_machine="leaprun read-systemctl-logs-failed-units"
     machine_command_pretty="leaprun read-systemctl-logs-failed-units-pretty"
-   check_services_do
+   systemcheck_run_function check_services_do
 
    check_type="user"
    manual_check_equivalent=":"
    machine_command_machine="systemctl --user --no-legend --no-pager --no-block --state=failed,activating,deactivating list-units"
     machine_command_pretty="systemctl --user --no-pager --no-block --state=failed,activating,deactivating list-units"
-   check_services_do
+   systemcheck_run_function check_services_do
 }
 
 check_journal() {
