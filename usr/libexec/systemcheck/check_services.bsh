@@ -44,7 +44,7 @@ check_services() {
    MSG="<p>systemd units check result: systemd units failed to load. These might be stuck in state failed, activating or deactivating. Output of <code>leaprun read-systemctl-logs-failed-units-pretty</code>:
 <br></br>
 <br></br>########################################
-<br></br>$systemctl_output_with_legend
+<br></br><code>$systemctl_output_with_legend</code>
 <br></br>########################################
 <br></br>
 <br></br>To see this for yourself...
