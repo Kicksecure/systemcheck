@@ -1,0 +1,22 @@
+#!/bin/bash
+
+## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+systemcheck_autostart_functions+=" check_unrestricted_mode_in_template "
+
+check_unrestricted_mode_in_template() {
+  local MSG
+
+  if ! [ -f /run/qubes/this-is-templatevm ]; then
+    return 0
+  fi
+  if [ "$booted_with_remove_sysmaint_qubes" = 'false' ]; then
+    return 0
+  fi
+
+  MSG="<p>Template booted in 'PERSISTENT Mode - UNRESTRICTED Session'. This is not supported. To access 'sudo' in a template, boot into 'PERSISTENT Mode - SYSMAINT Session'.</p>"
+  $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+  MSG="Template booted in 'PERSISTENT Mode - UNRESTRICTED Session'. This is not supported. To access 'sudo' in a template, boot into 'PERSISTENT Mode - SYSMAINT Session'."
+  $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+}

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=System health checker
+Exec=systemctl --user start systemcheck.service
+StartupNotify=false
+NoDisplay=true

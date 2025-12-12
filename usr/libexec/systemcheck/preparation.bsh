@@ -5,6 +5,8 @@
 
 source /usr/libexec/systemcheck/uwt_tool.bsh
 
+systemcheck_autostart_functions+=" source_config input_detection root_check msgdispatcher_init sysmaint_state_detection "
+
 source_config() {
    shopt -s nullglob
    local i
@@ -17,7 +19,71 @@ source_config() {
    done
 }
 
+passive_output_x () {
+  local msg_arg typex_value
+
+  if ! command -v notify-send >/dev/null \
+    || ! command -v strip-markup >/dev/null; then
+     return 1
+  fi
+
+  typex_value=''
+  msg_arg=''
+
+  while [ -n "${1}" ]; do
+    case "${1}" in
+      '--typex')
+        typex_value="${2:-}"
+        shift 2
+        ;;
+      '--progressx'|'--titlex'|'--done')
+        return 0
+        ;;
+      '--')
+        if [ -n "${2:-}" ]; then
+          msg_arg="$(strip-markup "${2}")"
+        fi
+        break
+        ;;
+      *)
+        if [ -z "${2:-}" ]; then
+          msg_arg="$(strip-markup "${1}")"
+          break
+        fi
+        shift
+        ;;
+    esac
+  done
+
+  if [ -z "${msg_arg}" ]; then
+    return 1
+  fi
+  if [ "${msg_arg}" = '--done' ]; then
+    return 0
+  fi
+
+  if [ -n "${typex_value}" ]; then
+    notify-send \
+      --app-name='systemcheck' \
+      'systemcheck notification' \
+      -- \
+      "[${typex_value^^}] ${msg_arg}"
+  else
+    notify-send \
+      --app-name='systemcheck' \
+      'systemcheck notification' \
+      -- \
+      "${msg_arg}"
+  fi
+}
+
 input_detection() {
+   if [ "$systemcheck_autostart_mode" = "true" ]; then
+      output_cli="true"
+      output_x="passive_output_x"
+      return 0
+   fi
+
    if [ "$CLI" = "true" ] && [ "$GUI" = "true" ]; then
       CLI="true"
       GUI="true"
@@ -136,6 +202,7 @@ sysmaint_state_detection() {
 
   user_sysmaint_split_installed='false'
   booted_in_sysmaint_session='false'
+  booted_with_remove_sysmaint_qubes='false'
 
   if package-installed-check user-sysmaint-split; then
     user_sysmaint_split_installed='true'
@@ -150,6 +217,10 @@ sysmaint_state_detection() {
 
   if [[ "$kernel_cmdline" =~ 'boot-role=sysmaint' ]]; then
     booted_in_sysmaint_session='true'
+  fi
+
+  if [[ "$kernel_cmdline" =~ 'remove-sysmaint-qubes' ]]; then
+    booted_with_remove_sysmaint_qubes='true'
   fi
 }
 
@@ -167,7 +238,15 @@ systemcheck_run_function() {
                   return 0
                   ;;
    esac
-   true "INFO: Running $@, because systemcheck_skip_functions does not include it."
+   if [ "$systemcheck_autostart_mode" = 'true' ]; then
+      case $systemcheck_autostart_functions in
+          *"$@"*) true;;
+          *) echo "INFO: Skipping $@, because systemcheck_autostart_mode is 'true' and systemcheck_autostart_functions does not include it."
+                    return 0
+                    ;;
+      esac
+   fi
+   true "INFO: Running $@."
    "$@"
 }
 
@@ -253,8 +332,8 @@ preparation() {
       qubes_detected="false"
    fi
 
-   systemcheck_run_function input_detection
    systemcheck_run_function msgdispatcher_init
+   systemcheck_run_function input_detection
    systemcheck_run_function virtualizer_detection
    systemcheck_run_function sysmaint_state_detection
 
