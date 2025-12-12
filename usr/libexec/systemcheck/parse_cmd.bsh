@@ -79,6 +79,10 @@ parse_cmd_options() {
                leak_tests="true"
                shift
                ;;
+           --autostart)
+               systemcheck_autostart_mode="true"
+               shift
+               ;;
            --)
                shift
                break

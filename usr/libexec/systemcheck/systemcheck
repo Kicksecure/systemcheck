@@ -86,6 +86,9 @@ systemcheck_main() {
    systemcheck_run_function input_notification ## preparation
 
    ## uses network: no
+   systemcheck_run_function check_unrestricted_mode_in_template ## check_unrestricted_mode_in_template
+
+   ## uses network: no
    systemcheck_run_function check_system_ready ## check_system_ready
 
    ## uses network: no

@@ -293,6 +293,7 @@ include <tunables/global>
   /{,usr/}bin/mktemp rix,
   /{,usr/}bin/mokutil rix,
   /{,usr/}bin/mount rix,
+  /{,usr/}bin/notify-send rix,
   /{,usr/}bin/od rix,
   /{,usr/}bin/pgrep rix,
   /{,usr/}bin/pkexec rix,
