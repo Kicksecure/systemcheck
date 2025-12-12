@@ -5,7 +5,11 @@
 
 source /usr/libexec/systemcheck/uwt_tool.bsh
 
-systemcheck_autostart_functions+=" source_config input_detection root_check msgdispatcher_init sysmaint_state_detection "
+systemcheck_autostart_functions+=" source_config "
+systemcheck_autostart_functions+=" input_detection "
+systemcheck_autostart_functions+=" root_check "
+systemcheck_autostart_functions+=" msgdispatcher_init "
+systemcheck_autostart_functions+=" sysmaint_state_detection "
 
 source_config() {
    shopt -s nullglob
