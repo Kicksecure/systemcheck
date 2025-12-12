@@ -1,3 +1,64 @@
+commit 8c204d94233c232a40f0dcc83abf0ab7757504d1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 05:38:19 2025 -0500
+
+    fix
+
+commit a29eadf052c67bab339448175bfdcd05a1c28839
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 05:27:29 2025 -0500
+
+    fix
+
+commit ded49ff9d4833da87004900a495b54efe8db9830
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 05:16:27 2025 -0500
+
+    fix
+
+commit b526264ad1a366a29d2ca7dc182f19dc784714b7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 05:03:09 2025 -0500
+
+    refactoring
+
+commit 6e0cd841a9d86385768cb76da5d5e172ee7b24db
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 05:02:02 2025 -0500
+
+    apparmor
+
+commit 1bad07632d55b75bfb867ed5b9d2ed58d5fbc77b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 04:59:05 2025 -0500
+
+    fix
+
+commit 6bf101c8eca05c21f446af5a41bfe6f7de1d7c38
+Merge: 13ecfbe a37f79b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 04:49:47 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit a37f79b2b14f02e31a696519a0029df3ecd3145f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Fri Dec 12 00:45:21 2025 -0600
+
+    Add autostart functionality with limited functions and passive notifications to systemcheck, add check_unrestricted_mode_in_template test
+
+commit 01d52b6707f95bfdbec1acd66bf53ac6f802d84a
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Dec 11 00:13:22 2025 -0600
+
+    Document most silenced journal warning in /etc/systemcheck.d/30_default.conf
+
+commit 13ecfbea67a29dcaad440a4c27a26544906694d2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Dec 8 12:41:52 2025 +0000
+
+    bumped changelog version
+
 commit 1e3c6681eefc9ee6a9c1d6dff29cb13a4b262ccc
 Merge: 3a6cc8b 1518dd3
 Author: Patrick Schleizer <adrelanos@whonix.org>
