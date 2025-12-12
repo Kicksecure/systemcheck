@@ -10,6 +10,7 @@ systemcheck_autostart_functions+=" input_detection "
 systemcheck_autostart_functions+=" root_check "
 systemcheck_autostart_functions+=" msgdispatcher_init "
 systemcheck_autostart_functions+=" sysmaint_state_detection "
+systemcheck_autostart_functions+=" cleanup "
 
 source_config() {
    shopt -s nullglob
@@ -23,73 +24,9 @@ source_config() {
    done
 }
 
-passive_output_x () {
-  local msg_arg typex_value
-
-  if ! command -v notify-send >/dev/null \
-    || ! command -v strip-markup >/dev/null; then
-     return 1
-  fi
-
-  typex_value=''
-  msg_arg=''
-
-  while [ -n "${1}" ]; do
-    case "${1}" in
-      '--typex')
-        typex_value="${2:-}"
-        shift 2
-        ;;
-      '--progressx'|'--titlex'|'--done')
-        return 0
-        ;;
-      '--')
-        if [ -n "${2:-}" ]; then
-          msg_arg="$(strip-markup "${2}")"
-        fi
-        break
-        ;;
-      *)
-        if [ -z "${2:-}" ]; then
-          msg_arg="$(strip-markup "${1}")"
-          break
-        fi
-        shift
-        ;;
-    esac
-  done
-
-  if [ -z "${msg_arg}" ]; then
-    return 1
-  fi
-  if [ "${msg_arg}" = '--done' ]; then
-    return 0
-  fi
-
-  if [ -n "${typex_value}" ]; then
-    notify-send \
-      --app-name='systemcheck' \
-      'systemcheck notification' \
-      -- \
-      "[${typex_value^^}] ${msg_arg}"
-  else
-    notify-send \
-      --app-name='systemcheck' \
-      'systemcheck notification' \
-      -- \
-      "${msg_arg}"
-  fi
-}
-
 input_detection() {
    ## Variables required by 'msgcollector' function 'msgdispatcher_init':
    ## '$GUI' and '$CLI'.
-
-   if [ "$systemcheck_autostart_mode" = "true" ]; then
-      output_cli="true"
-      output_x="passive_output_x"
-      return 0
-   fi
 
    if [ "$CLI" = "true" ] && [ "$GUI" = "true" ]; then
       CLI="true"
