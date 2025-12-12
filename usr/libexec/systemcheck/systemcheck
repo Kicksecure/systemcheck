@@ -59,14 +59,28 @@ systemcheck_move_progress_bar_to_percent() {
    $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$1"
 }
 
-systemcheck_progress_main() {
+systemcheck_progress_main_increment() {
    if [ "$PROGRESS_MAIN" = "" ]; then
       PROGRESS_MAIN="0"
    fi
    local increment
    increment="$1"
    PROGRESS_MAIN="$(( $PROGRESS_MAIN + $increment ))"
-   systemcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
+   systemcheck_run_function systemcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
+}
+
+systemcheck_progress_main_open() {
+   ## global progressbaridx
+   progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
+
+   local MSG="$NOTIFY_MSG"
+
+   if [ "$silent" -ge "3" ]; then
+      true "silent is $silent. Skipping progress bar."
+      return 0
+   fi
+
+   $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
 }
 
 systemcheck_main() {
@@ -157,128 +171,120 @@ systemcheck_main() {
    ## Own Progress Bar: Yes
    systemcheck_run_function check_tor_bootstrap ## check_tor_bootstrap
 
-   progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-
-   local MSG="$NOTIFY_MSG"
-
-   if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping progress bar."
-   else
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
-   fi
+   systemcheck_run_function systemcheck_progress_main_open
 
    ## uses network: no
-   systemcheck_run_function check_packages ## check_packages
-   systemcheck_progress_main "1"
+    check_packages ## check_packages
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_initializer ## check_initializer
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    ## sets: systemcheck_virtualizer_detected
    systemcheck_run_function check_virtualizer ## check_virtualizer
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    ## requires: systemcheck_virtualizer_detected
    systemcheck_run_function check_pvclock ## check_pvclock
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_timezone ## check_timezone
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## Disabled because of systemd bug.
    ## timedatectl: caches NTP enablement state, better shouldn't
    ## https://github.com/systemd/systemd/issues/1329
    ## uses network: no
    #systemcheck_run_function check_systemd_clock ## check_systemd_clock
-   #systemcheck_progress_main "6"
+   #systemcheck_progress_main_increment "6"
 
    ## uses network: no (Runs only on Whonix-Gateway.)
    systemcheck_run_function check_ip_forwarding_disabled ## check_ip_forwarding_disabled
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function disclaimer ## disclaimer
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_logs ## check_logs
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_hostname ## check_hostname
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_entropy ## check_entropy
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_non_freedom ## check_non_freedom
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_debian_eol ## check_debian_eol
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_user_sysmaint_split ## check_user_sysmaint_split
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_full_disk_encryption ## check_full_disk_encryption
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_grub_security ## check_grub_security
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_login_security ## check_login_security
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_su_access ## check_su_access
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_secure_boot ## check_secure_boot
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_tirdad_module ## check_tirdad_module
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function check_apt_repository ## check_apt_repository
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: yes (local network only)
    systemcheck_run_function check_qubes_update_proxy ## check_qubes
-   systemcheck_progress_main "3"
+   systemcheck_progress_main_increment "3"
 
    ## uses network: yes
    systemcheck_run_function check_tor_connectivity ## check_tor_socks_or_trans_port
-   systemcheck_progress_main "15"
+   systemcheck_progress_main_increment "15"
 
    ## uses network: no
    systemcheck_run_function check_stream_isolation ## check_stream_isolation
-   systemcheck_progress_main "15"
+   systemcheck_progress_main_increment "15"
 
    ## uses network: yes
    systemcheck_run_function check_operating_system ## check_operating_system
-   systemcheck_progress_main "15"
+   systemcheck_progress_main_increment "15"
 
    ## uses network: no
    systemcheck_run_function check_warrant_canary ## check_warrant_canary.bsh
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function donate ## donate
-   systemcheck_progress_main "1"
+   systemcheck_progress_main_increment "1"
 
    ## uses network: no
    systemcheck_run_function cleanup ## cleanup

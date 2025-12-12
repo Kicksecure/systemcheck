@@ -179,15 +179,15 @@ Create a file <code>/etc/systemcheck.d/50_user.conf</code> and add:
 systemcheck_run_function() {
    case $systemcheck_skip_functions in
    *"$@"*) echo "INFO: Skipping $@, because systemcheck_skip_functions includes it."
-                  return 0
-                  ;;
+           return 0
+           ;;
    esac
    if [ "$systemcheck_autostart_mode" = 'true' ]; then
       case $systemcheck_autostart_functions in
           *"$@"*) true;;
-          *) echo "INFO: Skipping $@, because systemcheck_autostart_mode is 'true' and systemcheck_autostart_functions does not include it."
-                    return 0
-                    ;;
+          *) #echo "INFO: Skipping $@, because systemcheck_autostart_mode is 'true' and systemcheck_autostart_functions does not include it."
+             return 0
+             ;;
       esac
    fi
    true "INFO: Running $@."
