@@ -78,6 +78,9 @@ passive_output_x () {
 }
 
 input_detection() {
+   ## Variables required by 'msgcollector' function 'msgdispatcher_init':
+   ## '$GUI' and '$CLI'.
+
    if [ "$systemcheck_autostart_mode" = "true" ]; then
       output_cli="true"
       output_x="passive_output_x"
@@ -322,7 +325,7 @@ get_local_derivative_version() {
 }
 
 preparation() {
-   ## For msgdispatcher_init.
+   ## For package 'msgcollector' function 'msgdispatcher_init'.
    [ -n "$who_ami" ] || who_ami="$(whoami)"
 
    ## required by virtualizer_detection
@@ -332,8 +335,9 @@ preparation() {
       qubes_detected="false"
    fi
 
-   systemcheck_run_function msgdispatcher_init
+   ## 'input_detection' must run first because 'msgdispatcher_init' depends on it.
    systemcheck_run_function input_detection
+   systemcheck_run_function msgdispatcher_init
    systemcheck_run_function virtualizer_detection
    systemcheck_run_function sysmaint_state_detection
 
