@@ -351,6 +351,8 @@ include <tunables/global>
   /{,usr/}bin/whoami rix,
   /{,usr/}bin/xz rix,
   /{,usr/}bin/yad rix,
+  /{,usr/}bin/unicode-show rix,
+  /{,usr/}bin/grep-find-unicode-wrapper rix,
   /{,usr/}sbin/anondate rix,
   /{,usr/}sbin/apparmor-info rix,
   /{,usr/}sbin/autologinchange rix,
