@@ -6,5 +6,5 @@ Description=System health checker (user service)
 
 [Service]
 Type=exec
-ExecStart=/usr/libexec/systemcheck/systemcheck --autostart
+ExecStart=systemcheck --autostart
 RemainAfterExit=true
