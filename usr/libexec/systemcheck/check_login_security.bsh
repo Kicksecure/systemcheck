@@ -23,10 +23,13 @@ XXX_LOGIN_SEC_TABLE_XXX
 in the System Maintenance Panel."
    local base_msg_cli="${base_msg_gui}
 See also: https://www.kicksecure.com/wiki/Login"
+
    user_list_str="$(/usr/libexec/helper-scripts/get-user-list)"
    readarray -t user_list <<< "$user_list_str"
+
    password_status_list_str="$(leaprun get-password-status-list)"
    readarray -t password_status_list <<< "$password_status_list_str"
+
    autologin_status_list=()
    if [ -f '/usr/share/qubes/marker-vm' ]; then
       qubes_default_user="$(qubesdb-read '/default-user')" \
