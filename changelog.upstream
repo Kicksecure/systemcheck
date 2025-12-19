@@ -1,3 +1,15 @@
+commit 537f0a94721073e6df9e43b48d5b23c0d3f8090b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 19 05:16:29 2025 -0500
+
+    fix in case systemctl exits non-zero
+
+commit 764b810a4175a681ef38d22bf6617d104422e6c0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 12 13:18:58 2025 +0000
+
+    bumped changelog version
+
 commit 8c204d94233c232a40f0dcc83abf0ab7757504d1
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Dec 12 05:38:19 2025 -0500
