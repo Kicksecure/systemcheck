@@ -111,9 +111,9 @@ See also: https://www.kicksecure.com/wiki/Login"
    ## belongs to the "Settings" half.) All text is left-justified.
 
    users_column_width=0
-   for user in "${user_list[@]}"; do
-      if (( ${#user} > users_column_width )); then
-         users_column_width="${#user}"
+   for user_entry in "${user_list[@]}"; do
+      if (( ${#user_entry} > users_column_width )); then
+         users_column_width="${#user_entry}"
       fi
    done
    if (( users_column_width < 5 )); then
