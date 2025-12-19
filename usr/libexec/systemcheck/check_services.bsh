@@ -22,7 +22,7 @@ check_services_do() {
 
    local systemctl_output_without_legend systemctl_output_with_legend
 
-   systemctl_output_without_legend="$($machine_command_machine)"
+   systemctl_output_without_legend="$($machine_command_machine 2>&1)" || true
 
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
@@ -34,7 +34,7 @@ check_services_do() {
       return 0
    fi
 
-   systemctl_output_with_legend="$($machine_command_pretty)"
+   systemctl_output_with_legend="$($machine_command_pretty 2>&1)" || true
    systemctl_output_with_legend="$(br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
