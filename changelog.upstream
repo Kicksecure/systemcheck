@@ -1,3 +1,27 @@
+commit 09b690784e69ac039ac45e1a5a24a76e4dae9dac
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Dec 27 05:38:14 2025 -0500
+
+    cleanup
+
+commit 7c65ae81de974f78fd56c06b3ba89a9284739381
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Dec 27 03:38:38 2025 -0500
+
+    add /usr/share/doc/dev_systemcheck.mediawiki
+
+commit ceba3b814a17a2eb36a64ffbab3387afb0017336
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Dec 27 03:34:06 2025 -0500
+
+    add /usr/share/doc/systemcheck.mediawiki
+
+commit 6be746cf94039b44d69fd74f48a86f6d6ca30ea7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 19 11:40:28 2025 +0000
+
+    bumped changelog version
+
 commit 24fb6280555948f352465b534b1770d6722d8559
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Dec 19 06:21:57 2025 -0500
