@@ -33,6 +33,7 @@ include <tunables/global>
   /run/sdwdate/success r,
   /run/desktop-config-dist/livecheck-lsblk r,
   /sys/devices/*/net/*/carrier r,
+  /sys/devices/*/block/*/removable r,
   /sys/devices/virtual/block/dm-0/dm/name r,
   /sys/devices/virtual/block/dm-1/dm/name r,
   /sys/devices/virtual/dmi/id/** r,
