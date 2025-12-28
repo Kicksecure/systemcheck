@@ -1,3 +1,22 @@
+commit 79db263457872952fa95a71079563256e46cea29
+Merge: 75a5a87 0f48e98
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Dec 28 01:31:41 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 0f48e9848875cd5885a3e267511781376f408e4e
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sat Dec 27 21:07:41 2025 -0600
+
+    Fix removable device detection when live-mode.sh is sourced
+
+commit 75a5a8764484ae86e3c8f1a680d252049187912a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Dec 27 12:31:09 2025 +0000
+
+    bumped changelog version
+
 commit 09b690784e69ac039ac45e1a5a24a76e4dae9dac
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Dec 27 05:38:14 2025 -0500
