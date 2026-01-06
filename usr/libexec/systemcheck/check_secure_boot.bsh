@@ -98,7 +98,7 @@ See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   if [ "$qubes_detected" = "true" ] || [ "${verbose}" -gt "1" ]; then
+   if [ "$qubes_detected" = "false" ] || [ "${verbose}" -gt "1" ]; then
       if [ "${mokutil_present}" = 'y' ]; then
          MSG="<p>$mokutil_link_gui: <font color=\"green\">Yes</font></p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
