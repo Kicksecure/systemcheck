@@ -53,8 +53,9 @@ See also: $link_cli"
 
    if [ "${mokutil_present}" = 'y' ] \
       && mokutil_output="$(leaprun mokutil-sb-state 2>&1)"; then
-      secure_boot_status_enabled=true
       if [[ "${mokutil_output}" = *enabled* ]]; then
+         secure_boot_status_enabled=true
+
          MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
