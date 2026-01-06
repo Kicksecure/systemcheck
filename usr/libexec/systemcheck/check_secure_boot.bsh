@@ -90,10 +90,10 @@ mokutil_output: '${mokutil_output}'"
       ## booting without Microsoft's key in the UEFI root of trust.
       #EXIT_CODE="1"
 
-      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font></p>"
+      MSG="<p>$link_gui: <font color=\"orange\">Unknown</font></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="Secure Boot: ${yellow}Disabled${nocolor}
+      MSG="Secure Boot: ${yellow}Unknown${nocolor}
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
