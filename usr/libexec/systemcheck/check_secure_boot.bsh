@@ -6,7 +6,7 @@
 source /usr/libexec/helper-scripts/get_colors.sh
 
 check_secure_boot() {
-   local mokutil_present in_qubes mokutil_output link_cli link_gui \
+   local mokutil_present mokutil_output link_cli link_gui \
       dkms_mok_dir dkms_mok_public_file dkms_mok_private_file shim_mok_dir \
       shim_mok_public_file shim_mok_private_file mokutil_link_cli \
       mokutil_link_gui MSG reason
@@ -21,12 +21,7 @@ check_secure_boot() {
    mokutil_link_cli="https://www.kicksecure.com/wiki/Debian#Install_mokutil"
    mokutil_link_gui="<a href=\"$mokutil_link_cli\">mokutil installed</a>"
 
-   in_qubes='n'
-   if [ -f '/usr/share/qubes/marker-vm' ]; then
-      in_qubes='y'
-   fi
-
-   if [ "${in_qubes}" = 'y' ]; then
+   if [ "$qubes_detected" = "true" ]; then
       reason="Qubes detected.<br/>
 Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/5241>https://github.com/QubesOS/qubes-issues/issues/5241</a>"
    else
@@ -95,7 +90,7 @@ See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   if [ "${in_qubes}" = 'n' ] || [ "${verbose}" -gt "1" ]; then
+   if [ "$qubes_detected" = "true" ] || [ "${verbose}" -gt "1" ]; then
       if [ "${mokutil_present}" = 'y' ]; then
          MSG="<p>$mokutil_link_gui: <font color=\"green\">Yes</font></p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
