@@ -64,6 +64,8 @@ See also: $link_cli"
 See also: $link_cli"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       elif [[ "${mokutil_output}" = *disabled* ]]; then
+         secure_boot_status_enabled=false
+
          MSG="<p>$link_gui: <font color=\"orange\">Disabled</font></p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
@@ -79,6 +81,8 @@ See also: $link_cli"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
+      ## 'mokutil' unavailable. ('mokutil_present=n')
+
       ## Not exiting with non-zero exit code until there is full verified boot and
       ## booting without Microsoft's key in the UEFI root of trust.
       #EXIT_CODE="1"
