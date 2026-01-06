@@ -1,3 +1,100 @@
+commit c6c6b94032ae44e9a618862490de499d8cd7f977
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 07:26:57 2026 -0500
+
+    fix
+
+commit 120d85a94e1e8fadc13024c666cfb158296b5da5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 07:24:40 2026 -0500
+
+    refactoring
+
+commit 786cf5f3952b3726107388bedc5159e8d7c438f3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 07:16:43 2026 -0500
+
+    output
+
+commit 6955bef9c4b883c066d2070954364a65bafa1181
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 07:12:57 2026 -0500
+
+    refactoring
+
+commit 06f70f1df58b6bbaace40acca3d5be9f9ccfdab9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 07:03:00 2026 -0500
+
+    fix
+
+commit afa580d5b02930205fafdf492b8c1084ed7e6222
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 07:02:34 2026 -0500
+
+    fix
+
+commit 3f5261422fc8c1097f6fc687b2739d0f563fb69d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 06:57:00 2026 -0500
+
+    fix
+
+commit d69216c875995e6e6e0ebd2f317b9d170b809752
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 06:46:30 2026 -0500
+
+    refactoring
+
+commit 1ce9bb9c98feda3bd7eab6a8c11334b023ce3ace
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 05:35:52 2026 -0500
+
+    comment
+
+commit 7321ea885e83846350d7e772e3a093ae3e55351f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 05:32:16 2026 -0500
+
+    comment
+
+commit 4ee36407127cd420754e88f220bd9840e887ae8f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 05:31:47 2026 -0500
+
+    fix
+
+commit 43274624612debdada5ab47df0843658c0392434
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 05:30:30 2026 -0500
+
+    fix
+
+commit ec16e1f49f6583173ca6e106df5c713c0b11fd36
+Merge: c5d4fc7 af6d42e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 05:25:47 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit af6d42eb2670c0c57206968b0af0888bd47638d4
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Jan 5 23:15:42 2026 -0600
+
+    Improve disabled journal line documentation, stop ignoring libwayland-client.so and libX11.so load failure warnings from VirtualBox
+
+commit 1b4b81faeaa192f7ff6767fc984fa04fddfd6954
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Jan 5 21:55:51 2026 -0600
+
+    Add checks for mokutil, DKMS MOK key presence, and shim-signed MOK symlink presence
+
+commit c5d4fc7eb64609c711d8a002f160a6f1391be481
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Dec 28 06:38:39 2025 +0000
+
+    bumped changelog version
+
 commit 79db263457872952fa95a71079563256e46cea29
 Merge: 75a5a87 0f48e98
 Author: Patrick Schleizer <adrelanos@whonix.org>
