@@ -365,6 +365,8 @@ include <tunables/global>
   /{,usr/}sbin/start-stop-daemon rix,
   /{,usr/}sbin/tor rix,
   /{,usr/}sbin/unix_chkpwd rix,
+  /{,usr/}sbin/shim-signed-mok-setup r,
+
   @{HOME}/ r,
   @{HOME}/.config/safe-rm r,
   @{HOME}/.msgcollector rwk,

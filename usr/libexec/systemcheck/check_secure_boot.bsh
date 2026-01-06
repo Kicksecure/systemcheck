@@ -4,6 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 source /usr/libexec/helper-scripts/get_colors.sh
+source /usr/sbin/shim-signed-mok-setup
 
 output_if_verbose() {
    if [ "$verbose" -ge "1" ]; then
@@ -118,13 +119,8 @@ See also: $mokutil_link_cli"
       output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   ## Code duplication. Variables copied from usability-misc.postinst.
-   dkms_mok_dir='/var/lib/dkms'
-   dkms_mok_public_file="${dkms_mok_dir}/mok.pub"
-   dkms_mok_private_file="${dkms_mok_dir}/mok.key"
-   shim_mok_dir='/var/lib/shim-signed/mok'
-   shim_mok_public_file="${shim_mok_dir}/MOK.der"
-   shim_mok_private_file="${shim_mok_dir}/MOK.priv"
+   ## sets: 'dkms_mok_*' variables
+   dkms_mok_variables_set
 
    if [ -f "${dkms_mok_public_file}" ] \
          && [ -f "${dkms_mok_private_file}" ]; then
