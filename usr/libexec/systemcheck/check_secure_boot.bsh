@@ -6,16 +6,27 @@
 source /usr/libexec/helper-scripts/get_colors.sh
 
 check_secure_boot() {
-   local mokutil_output link_cli link_gui MSG reason
+   local mokutil_present in_qubes mokutil_output link_cli link_gui \
+      dkms_mok_dir dkms_mok_public_file dkms_mok_private_file shim_mok_dir \
+      shim_mok_public_file shim_mok_private_file mokutil_link_cli \
+      mokutil_link_gui MSG reason
+
    if [ "$silent" -ge "4" ]; then
-      true "silent is $silent. Skipping $FUNCNAME."
+      true "silent is $silent. Skipping ${FUNCNAME[0]}."
       return 0
    fi
 
    link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
    link_gui="<a href=\"$link_cli\">Secure Boot</a>"
+   mokutil_link_cli="https://www.kicksecure.com/wiki/Debian#Install_mokutil"
+   mokutil_link_gui="<a href=\"$link_cli\">mokutil installed</a>"
 
+   in_qubes='n'
    if [ -f '/usr/share/qubes/marker-vm' ]; then
+      in_qubes='y'
+   fi
+
+   if [ "${in_qubes}" = 'y' ]; then
       reason="Qubes detected.<br/>
 Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/5241>https://github.com/QubesOS/qubes-issues/issues/5241</a>"
    else
@@ -35,7 +46,13 @@ See also: $link_cli"
       return 0
    fi
 
-   if mokutil_output="$(leaprun mokutil-sb-state 2>&1)"; then
+   mokutil_present='y'
+   if ! command -v mokutil >/dev/null; then
+      mokutil_present='n'
+   fi
+
+   if [ "${mokutil_present}" = 'y' ] \
+      && mokutil_output="$(leaprun mokutil-sb-state 2>&1)"; then
       secure_boot_status_enabled=true
       if [[ "${mokutil_output}" = *enabled* ]]; then
          MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
@@ -70,5 +87,72 @@ See also: $link_cli"
       MSG="Secure Boot: ${yellow}Disabled${nocolor}
 See also: $link_cli"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
+   if [ "${in_qubes}" = 'n' ] || [ "${verbose}" -gt "1" ]; then
+      if [ "${mokutil_present}" = 'y' ]; then
+         MSG="<p>$mokutil_link_gui: <font color=\"green\">Yes</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="mokutil installed: ${green}Yes${nocolor}
+See also: $mokutil_link_cli"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      else
+         MSG="<p>$mokutil_link_gui: <font color=\"orange\">No</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="mokutil installed: ${yellow}No${nocolor}
+See also: $mokutil_link_cli"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+
+      ## Code duplication. Variables copied from usability-misc.postinst.
+      dkms_mok_dir='/var/lib/dkms'
+      dkms_mok_public_file="${dkms_mok_dir}/mok.pub"
+      dkms_mok_private_file="${dkms_mok_dir}/mok.key"
+      shim_mok_dir='/var/lib/shim-signed/mok'
+      shim_mok_public_file="${shim_mok_dir}/MOK.der"
+      shim_mok_private_file="${shim_mok_dir}/MOK.priv"
+
+      if [ -f "${dkms_mok_public_file}" ] \
+         && [ -f "${dkms_mok_private_file}" ]; then
+         MSG="<p>DKMS module signing keys present: <font color=\"green\">Yes</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="DKMS module signing keys present: ${green}Yes${nocolor}"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      else
+         MSG="<p>DKMS module signing keys present: <font color=\"orange\">No</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="DKMS module signing keys present: ${yellow}No${nocolor}"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+
+      if [ -f "${shim_mok_public_file}" ] \
+        && [ -f "${shim_mok_private_file}" ]; then
+        if [ -L "${shim_mok_public_file}" ] \
+           && [ -L "${shim_mok_private_file}" ] \
+           && [ "$(readlink "${shim_mok_public_file}")" = "${dkms_mok_public_file}" ] \
+           && [ "$(readlink "${shim_mok_private_file}")" = "${dkms_mok_private_file}" ]; then
+           MSG="<p>Shim module signing keys status: <font color=\"green\">Set up</font></p>"
+           $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+           MSG="Shim module signing keys status: ${green}Set up${nocolor}"
+           $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+        else
+           MSG="<p>Shim module signing keys status: <font color=\"orange\">Not symlinked to DKMS keys</font></p>"
+           $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+           MSG="Shim module signing keys status: ${yellow}Not symlinked to DKMS keys${nocolor}"
+           $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+        fi
+      else
+         MSG="<p>Shim module signing keys status: <font color=\"orange\">Absent</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="Shim module signing keys status: ${yellow}Absent${nocolor}"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
    fi
 }
