@@ -104,18 +104,18 @@ See also: $link_cli"
 
    if [ "${mokutil_present}" = 'y' ]; then
       MSG="<p>$mokutil_link_gui: <font color=\"green\">Yes</font></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
       MSG="mokutil installed: ${green}Yes${nocolor}
 See also: $mokutil_link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
       MSG="<p>$mokutil_link_gui: <font color=\"orange\">No</font></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
       MSG="mokutil installed: ${yellow}No${nocolor}
 See also: $mokutil_link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    ## Code duplication. Variables copied from usability-misc.postinst.
@@ -146,10 +146,10 @@ See also: $mokutil_link_cli"
          && [ -L "${shim_mok_private_file}" ] \
          && [ "$(readlink "${shim_mok_public_file}")" = "${dkms_mok_public_file}" ] \
          && [ "$(readlink "${shim_mok_private_file}")" = "${dkms_mok_private_file}" ]; then
-         MSG="<p>Shim module signing keys status: <font color=\"green\">Set up</font></p>"
+         MSG="<p>Shim module signing keys status set up: <font color=\"green\">Yes</font></p>"
          output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="Shim module signing keys status: ${green}Set up${nocolor}"
+         MSG="Shim module signing keys status set up: ${green}Yes${nocolor}"
          output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       else
          MSG="<p>Shim module signing keys status: <font color=\"orange\">Not symlinked to DKMS keys</font></p>"
