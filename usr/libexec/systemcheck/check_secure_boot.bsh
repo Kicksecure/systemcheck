@@ -19,7 +19,7 @@ check_secure_boot() {
    link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
    link_gui="<a href=\"$link_cli\">Secure Boot</a>"
    mokutil_link_cli="https://www.kicksecure.com/wiki/Debian#Install_mokutil"
-   mokutil_link_gui="<a href=\"$link_cli\">mokutil installed</a>"
+   mokutil_link_gui="<a href=\"$mokutil_link_cli\">mokutil installed</a>"
 
    in_qubes='n'
    if [ -f '/usr/share/qubes/marker-vm' ]; then
@@ -81,7 +81,7 @@ See also: $link_cli"
       ## booting without Microsoft's key in the UEFI root of trust.
       #EXIT_CODE="1"
 
-      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font>"
+      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
       MSG="Secure Boot: ${yellow}Disabled${nocolor}
