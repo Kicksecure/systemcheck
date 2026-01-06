@@ -80,13 +80,13 @@ See also: $link_cli"
 <br/>
 <br/>Debugging information:
 <br/>mokutil_output: '${mokutil_output}'</p>"
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
          MSG="Secure Boot: ${yellow}Unknown${nocolor}
 See also: $link_cli
 Debugging information:
 mokutil_output: '${mokutil_output}'"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
       ## 'mokutil' unavailable. ('mokutil_present=n')
