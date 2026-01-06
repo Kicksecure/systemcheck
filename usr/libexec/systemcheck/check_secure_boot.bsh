@@ -46,8 +46,11 @@ See also: $link_cli"
       mokutil_present='n'
    fi
 
-   if [ "${mokutil_present}" = 'y' ] \
-      && mokutil_output="$(leaprun mokutil-sb-state 2>&1)"; then
+   if [ "${mokutil_present}" = 'y' ]; then
+      ## Override with '|| true' because 'mokutil' will exit non-zero for example in
+      ## case it outputs 'EFI variables are not supported on this system'.
+      mokutil_output="$(leaprun mokutil-sb-state 2>&1)" || true
+
       if [[ "${mokutil_output}" = *enabled* ]]; then
          ## Used by 'check_tirdad_module.bsh'.
          secure_boot_status_enabled=true
@@ -68,11 +71,16 @@ See also: $link_cli"
 See also: $link_cli"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       else
-         MSG="<p>$link_gui: <font color=\"orange\">Unknown</font></p>"
+         MSG="<p>$link_gui: <font color=\"orange\">Unknown</font>
+<br/>
+<br/>Debugging information:
+<br/>mokutil_output: '${mokutil_output}'</p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
          MSG="Secure Boot: ${yellow}Unknown${nocolor}
-See also: $link_cli"
+See also: $link_cli
+Debugging information:
+mokutil_output: '${mokutil_output}'"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    else
