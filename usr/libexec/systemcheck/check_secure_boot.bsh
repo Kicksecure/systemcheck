@@ -24,7 +24,7 @@ check_secure_boot() {
 
    if [ "$qubes_detected" = "true" ]; then
       reason="Qubes detected.<br/>
-Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/5241>https://github.com/QubesOS/qubes-issues/issues/5241</a>"
+Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>"
    else
       reason="Not booted in EFI mode."
    fi
