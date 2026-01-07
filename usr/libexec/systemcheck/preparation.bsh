@@ -12,6 +12,20 @@ systemcheck_autostart_functions+=" msgdispatcher_init "
 systemcheck_autostart_functions+=" sysmaint_state_detection "
 systemcheck_autostart_functions+=" cleanup "
 
+output_if_verbose() {
+   if [ "$verbose" -ge "1" ]; then
+      "$@"
+   fi
+}
+
+return_maybe() {
+  if [ "$dev_mode" = "true" ]; then
+    printf '%s\n' "DEVELOPMENT: Ignoring non-zero return code in --dev mode."
+    return 0
+  fi
+  return 1
+}
+
 source_config() {
    shopt -s nullglob
    local i

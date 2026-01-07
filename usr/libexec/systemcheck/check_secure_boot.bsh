@@ -7,12 +7,6 @@ source /usr/libexec/helper-scripts/get_colors.sh
 source /usr/libexec/helper-scripts/secure_boot_enabled_check.bsh
 source /usr/sbin/shim-signed-mok-setup
 
-output_if_verbose() {
-   if [ "$verbose" -ge "1" ]; then
-      "$@"
-   fi
-}
-
 check_secure_boot() {
    local mokutil_present mokutil_output link_cli link_gui \
       mokutil_link_cli mokutil_link_gui MSG reason \
@@ -43,7 +37,7 @@ Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/5241>https:/
       MSG="Secure Boot: ${yellow}Unavailable${nocolor} Reason: $reason
 See also: $link_cli"
       output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      return 0
+      return_maybe 0
    fi
 
    mokutil_present='y'
@@ -51,8 +45,9 @@ See also: $link_cli"
       mokutil_present='n'
    fi
 
+   ## 'check_secure_boot_enabled' internally uses 'mokutil'.
    secure_boot_enabled_check_retcode='0'
-   mokutil_output="$(check_secure_boot_enabled)" || secure_boot_enabled_check_retcode="$?"
+   mokutil_output="$(check_secure_boot_enabled 2>&1)" || secure_boot_enabled_check_retcode="$?"
 
    if [ "${secure_boot_enabled_check_retcode}" = '0' ]; then
       ## Used by 'check_tirdad_module.bsh'.
