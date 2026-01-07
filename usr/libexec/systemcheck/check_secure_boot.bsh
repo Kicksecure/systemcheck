@@ -123,18 +123,18 @@ See also: $mokutil_link_cli"
    dkms_mok_variables_set
 
    if [ -f "${dkms_mok_public_file}" ] \
-         && [ -f "${dkms_mok_private_file}" ]; then
-         MSG="<p>DKMS module signing keys present: <font color=\"green\">Yes</font></p>"
-         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      && [ -f "${dkms_mok_private_file}" ]; then
+      MSG="<p>DKMS module signing keys present: <font color=\"green\">Yes</font></p>"
+      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="DKMS module signing keys present: ${green}Yes${nocolor}"
-         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      MSG="DKMS module signing keys present: ${green}Yes${nocolor}"
+      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
-         MSG="<p>DKMS module signing keys present: <font color=\"orange\">No</font></p>"
-         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      MSG="<p>DKMS module signing keys present: <font color=\"orange\">No</font></p>"
+      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="DKMS module signing keys present: ${yellow}No${nocolor}"
-         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      MSG="DKMS module signing keys present: ${yellow}No${nocolor}"
+      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ -f "${shim_mok_public_file}" ] && [ -f "${shim_mok_private_file}" ]; then
