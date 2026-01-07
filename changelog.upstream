@@ -1,3 +1,46 @@
+commit 5a7ed80640fae4c47324273282b694802d32b8f8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jan 7 05:04:49 2026 -0500
+
+    output
+
+commit 11ee4c48cd76af0da311881f66bd483f958c03a9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jan 7 04:50:22 2026 -0500
+
+    improve
+
+commit 4a38509cc9b954c06e13424ac3b62f6a1712e5b0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jan 7 04:48:35 2026 -0500
+
+    improve
+
+commit 13d135125872d237aa9ef8360fd922194e4b934f
+Merge: fdea86f 1b3b534
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jan 7 04:40:05 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 1b3b534804ba6ff2e17848542fea87b587e47b88
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Jan 6 22:39:14 2026 -0600
+
+    Simplify Secure Boot detection code
+
+commit 66f369fa100a7abe77c23ed92674e390a5abf5e0
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Jan 6 19:52:32 2026 -0600
+
+    minor
+
+commit fdea86f526e5a8decb9558345e5f7221a187b8df
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 6 13:01:13 2026 +0000
+
+    bumped changelog version
+
 commit c6c6b94032ae44e9a618862490de499d8cd7f977
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Jan 6 07:26:57 2026 -0500
