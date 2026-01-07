@@ -26,15 +26,16 @@ check_secure_boot() {
       reason="Qubes detected.<br/>
 Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>"
    else
-      reason="Not booted in EFI mode."
+      reason="Not booted in EFI (UEFI) mode. Secure Boot is only available in EFI (UEFI) mode."
    fi
 
    if ! [ -d /sys/firmware/efi ]; then
       true "Secure Boot test: Unavailable. Reason: $reason"
-      MSG="<p>$link_gui: <font color=\"orange\">Unavailable</font> <br/>Reason: $reason"
+      MSG="<p>$link_gui: <font color=\"orange\">Unavailable</font> <br/>Reason: $reason</p>"
       output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-      MSG="Secure Boot: ${yellow}Unavailable${nocolor} Reason: $reason
+      MSG="Secure Boot: ${yellow}Unavailable${nocolor}
+Reason: $reason
 See also: $link_cli"
       output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return_maybe 0
