@@ -4,6 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 source /usr/libexec/helper-scripts/get_colors.sh
+source /usr/libexec/helper-scripts/secure_boot_enabled_check.bsh
 source /usr/sbin/shim-signed-mok-setup
 
 output_if_verbose() {
@@ -14,9 +15,8 @@ output_if_verbose() {
 
 check_secure_boot() {
    local mokutil_present mokutil_output link_cli link_gui \
-      dkms_mok_dir dkms_mok_public_file dkms_mok_private_file shim_mok_dir \
-      shim_mok_public_file shim_mok_private_file mokutil_link_cli \
-      mokutil_link_gui MSG reason
+      mokutil_link_cli mokutil_link_gui MSG reason \
+      secure_boot_enabled_check_retcode
 
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping ${FUNCNAME[0]}."
@@ -51,56 +51,40 @@ See also: $link_cli"
       mokutil_present='n'
    fi
 
-   if [ "${mokutil_present}" = 'y' ]; then
-      ## Override with '|| true' because 'mokutil' will exit non-zero for example in
-      ## case it outputs 'EFI variables are not supported on this system'.
-      mokutil_output="$(leaprun mokutil-sb-state 2>&1)" || true
+   secure_boot_enabled_check_retcode='0'
+   mokutil_output="$(check_secure_boot_enabled)" || secure_boot_enabled_check_retcode="$?"
 
-      if [[ "${mokutil_output}" = *enabled* ]]; then
-         ## Used by 'check_tirdad_module.bsh'.
-         secure_boot_status_enabled=true
+   if [ "${secure_boot_enabled_check_retcode}" = '0' ]; then
+      ## Used by 'check_tirdad_module.bsh'.
+      secure_boot_status_enabled=true
 
-         MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="Secure Boot: ${green}Enabled${nocolor}
+      MSG="Secure Boot: ${green}Enabled${nocolor}
 See also: $link_cli"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      elif [[ "${mokutil_output}" = *disabled* ]]; then
-         secure_boot_status_enabled=false
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   elif [ "${secure_boot_enabled_check_retcode}" = '1' ]; then
+      secure_boot_status_enabled=false
 
-         MSG="<p>$link_gui: <font color=\"orange\">Disabled</font></p>"
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font></p>"
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="Secure Boot: ${yellow}Disabled${nocolor}
+      MSG="Secure Boot: ${yellow}Disabled${nocolor}
 See also: $link_cli"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      else
-         MSG="<p>$link_gui: <font color=\"orange\">Unknown</font>
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   else
+      MSG="<p>$link_gui: <font color=\"orange\">Unknown</font>
 <br/>
 <br/>Debugging information:
 <br/>mokutil_output: '${mokutil_output}'</p>"
-         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="Secure Boot: ${yellow}Unknown${nocolor}
+      MSG="Secure Boot: ${yellow}Unknown${nocolor}
 See also: $link_cli
 Debugging information:
 mokutil_output: '${mokutil_output}'"
-         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-   else
-      ## 'mokutil' unavailable. ('mokutil_present=n')
-
-      ## Not exiting with non-zero exit code until there is full verified boot and
-      ## booting without Microsoft's key in the UEFI root of trust.
-      #EXIT_CODE="1"
-
-      MSG="<p>$link_gui: <font color=\"orange\">Unknown</font></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="Secure Boot: ${yellow}Unknown${nocolor}
-See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ "${mokutil_present}" = 'y' ]; then
@@ -123,18 +107,18 @@ See also: $mokutil_link_cli"
    dkms_mok_variables_set
 
    if [ -f "${dkms_mok_public_file}" ] \
-         && [ -f "${dkms_mok_private_file}" ]; then
-         MSG="<p>DKMS module signing keys present: <font color=\"green\">Yes</font></p>"
-         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      && [ -f "${dkms_mok_private_file}" ]; then
+      MSG="<p>DKMS module signing keys present: <font color=\"green\">Yes</font></p>"
+      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="DKMS module signing keys present: ${green}Yes${nocolor}"
-         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      MSG="DKMS module signing keys present: ${green}Yes${nocolor}"
+      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    else
-         MSG="<p>DKMS module signing keys present: <font color=\"orange\">No</font></p>"
-         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      MSG="<p>DKMS module signing keys present: <font color=\"orange\">No</font></p>"
+      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="DKMS module signing keys present: ${yellow}No${nocolor}"
-         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      MSG="DKMS module signing keys present: ${yellow}No${nocolor}"
+      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ -f "${shim_mok_public_file}" ] && [ -f "${shim_mok_private_file}" ]; then
