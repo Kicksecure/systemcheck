@@ -18,14 +18,6 @@ output_if_verbose() {
    fi
 }
 
-return_maybe() {
-  if [ "$dev_mode" = "true" ]; then
-    printf '%s\n' "DEVELOPMENT: Ignoring non-zero return code in '--dev' mode."
-    return 0
-  fi
-  return 1
-}
-
 source_config() {
    shopt -s nullglob
    local i

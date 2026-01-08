@@ -38,7 +38,7 @@ Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">htt
 Reason: $reason
 See also: $link_cli"
       output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      return_maybe 0
+      return 0
    fi
 
    mokutil_present='y'
