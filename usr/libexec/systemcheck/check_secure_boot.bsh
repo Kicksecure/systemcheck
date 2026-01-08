@@ -109,6 +109,38 @@ See also: $mokutil_link_cli"
 
       MSG="DKMS module signing keys present: ${green}Yes${nocolor}"
       output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+
+      if [ "${secure_boot_status_enabled}" = 'true' ] \
+         && [ "${mokutil_present}" = 'y' ]; then
+         ## Confusingly, 'mokutil --test-key' returns 1 if the key is already
+         ## enrolled, and 0 if it is not.
+         if ! mokutil_output="$(leaprun mokutil-test-key 2>&1)"; then
+            if [ "${mokutil_output}" = '/var/lib/dkms/mok.pub is already enrolled' ]; then
+               MSG="<p>DKMS module signing keys enrolled in firmware: <font color=\"green\">Yes</font></p>"
+               output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+               MSG="DKMS module signing keys enrolled in firmware: ${green}Yes${nocolor}"
+               output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            else
+               MSG="<p>DKMS module signing keys enrolled in firmware: <font color=\"orange\">Unknown</font>
+<br/>
+<br/>Debugging information:
+<br/>mokutil output: '${mokutil_output}'</p>"
+               output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+               MSG="DKMS module signing keys enrolled in firmware: ${yellow}Unknown${nocolor}
+Debugging information:
+mokutil output: '${mokutil_output}'"
+               output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            fi
+         else
+            MSG="<p>DKMS module signing keys enrolled in firmware: <font color=\"orange\">No</font></p>"
+            output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+            MSG="DKMS module signing keys enrolled in firmware: ${yellow}No${nocolor}"
+            output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         fi
+      fi
    else
       MSG="<p>DKMS module signing keys present: <font color=\"orange\">No</font></p>"
       output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -122,10 +154,10 @@ See also: $mokutil_link_cli"
          && [ -L "${shim_mok_private_file}" ] \
          && [ "$(readlink "${shim_mok_public_file}")" = "${dkms_mok_public_file}" ] \
          && [ "$(readlink "${shim_mok_private_file}")" = "${dkms_mok_private_file}" ]; then
-         MSG="<p>Shim module signing keys status set up: <font color=\"green\">Yes</font></p>"
+         MSG="<p>Shim module signing keys set up: <font color=\"green\">Yes</font></p>"
          output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="Shim module signing keys status set up: ${green}Yes${nocolor}"
+         MSG="Shim module signing keys set up: ${green}Yes${nocolor}"
          output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       else
          MSG="<p>Shim module signing keys status: <font color=\"orange\">Not symlinked to DKMS keys</font></p>"

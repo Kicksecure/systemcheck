@@ -26,7 +26,7 @@ check_tirdad_module() {
       only_if_verbose=false
       help_link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
       help_link_gui="<a href=\"$help_link_cli\">Secure Boot</a>"
-      if live-status-detected ; then
+      if live-status-detected >dev/null; then
          help_msg="\
 <br/>
 - Reason: kernel module 'tirdad' is NOT loaded.<br/>
