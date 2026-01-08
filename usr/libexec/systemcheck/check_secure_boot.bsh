@@ -23,20 +23,25 @@ check_secure_boot() {
    mokutil_link_gui="<a href=\"$mokutil_link_cli\">mokutil installed</a>"
 
    if [ "$qubes_detected" = "true" ]; then
-      reason="Qubes detected.<br/>
-Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>"
+      reason="\
+- Reason: Qubes detected.
+<br/>- Known Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>
+<br/>- No need to report this."
    else
-      reason="Not booted in EFI (UEFI) mode. Secure Boot is only available in EFI (UEFI) mode."
+      reason="\
+- Reason: Not booted in EFI (UEFI) mode. Secure Boot is only available in EFI (UEFI) mode."
    fi
 
    if ! [ -d /sys/firmware/efi ]; then
-      true "Secure Boot test: Unavailable. Reason: $reason"
-      MSG="<p>$link_gui: <font color=\"orange\">Unavailable</font> <br/>Reason: $reason</p>"
+      MSG="<p>$link_gui: <font color=\"orange\">Unavailable</font>
+<br/>
+<br/>$reason</p>"
       output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
       MSG="Secure Boot: ${yellow}Unavailable${nocolor}
-Reason: $reason
-See also: $link_cli"
+
+$reason
+- See also: $link_cli"
       output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
