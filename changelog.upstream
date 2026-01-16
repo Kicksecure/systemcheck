@@ -1,3 +1,22 @@
+commit 23440d458a544a9528718ce46a9acc15cb371cec
+Merge: 73ecc7d 9d76f21
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 16 05:01:31 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 9d76f214a785ed768377b37fbe05fae6fa6f8d94
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Fri Jan 16 00:07:26 2026 -0600
+
+    Allow account tb-updater to run tor-circuit-established-check
+
+commit 73ecc7d326ec3359f80107c1f7094bf18f43d442
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 9 10:34:58 2026 +0000
+
+    bumped changelog version
+
 commit 2e928fc3bee0fcbbcaf9b0024a3a861b3933c60b
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Jan 9 05:02:20 2026 -0500
