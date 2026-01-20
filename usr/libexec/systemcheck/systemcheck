@@ -252,6 +252,7 @@ systemcheck_main() {
 
    ## uses network: no
    systemcheck_run_function check_secure_boot ## check_secure_boot
+   systemcheck_run_function check_build_mok_keys ## check_secure_boot
    systemcheck_progress_main_increment "1"
 
    ## uses network: no
