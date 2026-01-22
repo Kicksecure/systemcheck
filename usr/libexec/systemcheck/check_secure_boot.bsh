@@ -197,7 +197,7 @@ check_build_mok_keys() {
    if [ "${secure_boot_enabled_check_retcode}" = '0' ]; then
       MSG="<p>systemcheck has detected that a Machine Owner Key (MOK) embedded in the installation image is likely enrolled in the firmware. Secure Boot is enabled, but this may allow an attacker with physical or root account access to bypass it. Fixing this requires user intervention.<br/>"
    else
-      MSG="<p>systemcheck has detected that a Machine Owner Key (MOK) embedded in the installation image is likely enrolled in the firmware. Secure Boot is not enabled, but this may allow an attacker with physical or root account access to bypass it if it is enabled in the future. Fixing this requires user intervention.<br/>"
+      MSG="<p>systemcheck has detected that a Machine Owner Key (MOK) embedded in the installation image is likely enrolled in the firmware. Secure Boot is not enabled, but this may allow an attacker with physical or root account access to bypass Secure Boot if it is enabled in the future. Fixing this requires user intervention.<br/>"
    fi
 
    MSG+="<br/>
@@ -211,7 +211,7 @@ To remove the problematic MOK:</p>
     MSG+="<li>Click the Start Menu -> System Tools -> System Maintenance Panel.</li>
 <li>Click 'Reset Secure Boot MOK'.</li>"
   else
-    MSG+="<li>Open a terminal, and run <code>/usr/sbin/shim-reset-mok</code>.</li>"
+    MSG+="<li>Open a terminal and run <code>/usr/sbin/shim-reset-mok</code>.</li>"
   fi
   MSG+="<li>Follow the on-screen instructions.</li>
 </ul>
@@ -252,7 +252,7 @@ To remove the problematic MOK:"
 * Click 'Reset Secure Boot MOK'."
   else
     MSG+="
-* Open a terminal, and run '/usr/sbin/shim-reset-mok'."
+* Open a terminal and run '/usr/sbin/shim-reset-mok'."
   fi
   MSG+="
 * Follow the on-screen instructions.
