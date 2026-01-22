@@ -1,3 +1,28 @@
+commit 48bb4323689bde6c6734566114dcd0dac701fd41
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 22 04:42:19 2026 -0500
+
+    output
+
+commit 79ee7f8ad83d6a08586d01d7a33a59e430d9c707
+Merge: d4068d6 181a683
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 22 04:38:06 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 181a683f1e24a03708e09657c477a329afab3fc1
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Jan 19 20:33:12 2026 -0600
+
+    Add code for suggesting a MOK reset if necessary and removing bad MOKs in the background if possible
+
+commit d4068d647190ede627a2e1f14cde5c580be2c305
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 16 12:09:53 2026 +0000
+
+    bumped changelog version
+
 commit 23440d458a544a9528718ce46a9acc15cb371cec
 Merge: 73ecc7d 9d76f21
 Author: Patrick Schleizer <adrelanos@whonix.org>
