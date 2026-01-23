@@ -183,14 +183,25 @@ mokutil output: '${mokutil_output}'"
 }
 
 check_build_mok_keys() {
-   local MSG secure_boot_enabled_check_retcode
+   local MSG secure_boot_enabled_check_retcode check_image_builtin_mok_retcode
 
-   if [ -f '/var/lib/systemcheck/do_once/cleanup_image_builtin_mok' ]; then
+   check_image_builtin_mok_retcode='0'
+   leaprun check-image-builtin-mok || check_image_builtin_mok_retcode="$?"
+
+   if [ "${check_image_builtin_mok_retcode}" = '0' ]; then
+      return 0
+   elif [ "${check_image_builtin_mok_retcode}" = '1' ]; then
+      MSG="<p>systemcheck has detected that a Machine Owner Key (MOK) embedded in the installation image is present on the disk. It can be automatically deleted, but has not been yet. Most likely this means that you did not upgrade <code>legacy-dist</code>, or did not reboot after upgrading it. Run a full system update and reboot to fix this.</p>"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+
+      MSG="systemcheck has detected that a Machine Owner Key (MOK) embedded in the installation image is present on the disk. It can be automatically deleted, but has not been yet. Most likely this means that you did not upgrade 'legacy-dist', or did not reboot after upgrading it. Run a full system update and reboot to fix this."
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+
       return 0
    fi
-   if leaprun cleanup-image-builtin-mok; then
-      return 0
-   fi
+
+   ## Exit code was 2 or higher, show the warning about user intervention
+   ## being required.
 
    secure_boot_enabled_check_retcode='0'
    check_secure_boot_enabled >/dev/null 2>&1 || secure_boot_enabled_check_retcode="$?"
