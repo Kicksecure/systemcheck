@@ -87,6 +87,19 @@ input_notification() {
    fi
 }
 
+check_login_environment() {
+  if [ "${PROFILE_SCRIPTS_WERE_SOURCED-}" != 'yes' ]; then
+    MSG="<p>You do not appear to be running systemcheck in a 'login environment'. Most tests will likely fail. Please log in as the user you wish to run systemcheck as, then run systemcheck from there.</p>"
+    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+
+    MSG="
+You do not appear to be running systemcheck in a 'login environment'. Most
+tests will likely fail. Please log in as the user you wish to run systemcheck
+as, then run systemcheck from there."
+    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+  fi
+}
+
 show_systemcheck_header() {
    if [ "$verbose" -ge "1" ] || [ "$qubes_detected" = "true" ]; then
       local MSG="$TITLE_CLI"

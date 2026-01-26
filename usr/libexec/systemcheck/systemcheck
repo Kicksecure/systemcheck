@@ -96,6 +96,7 @@ systemcheck_main() {
 
    ## uses network: no
    systemcheck_run_function root_check ## root_check
+   systemcheck_run_function check_login_environment ## preparation
    systemcheck_run_function show_systemcheck_header ## preparation
    systemcheck_run_function input_notification ## preparation
 
