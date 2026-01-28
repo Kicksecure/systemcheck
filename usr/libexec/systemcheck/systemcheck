@@ -117,6 +117,7 @@ systemcheck_main() {
    systemcheck_run_function check_environment_variables ## check_environment_variables
 
    ## uses network: no
+   systemcheck_run_function check_privleap_group_membership ## check_privilege_escalation_tool
    systemcheck_run_function check_privilege_escalation_tools ## check_privilege_escalation_tool
 
    ## uses network: no
