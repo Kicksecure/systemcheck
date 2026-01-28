@@ -13,9 +13,68 @@ source /usr/libexec/helper-scripts/use_sudo.sh
 # shellcheck source=../libexec/helper-scripts/use_pkexec.sh
 source /usr/libexec/helper-scripts/use_pkexec.sh
 
+check_privleap_group_membership() {
+   local group_list group_item in_privleap_group
+
+   if ! [ -S "/run/privleapd/comm/${who_ami}" ]; then
+      in_privleap_group='false'
+      IFS=' ' read -r -a group_list < <(groups)
+      for group_item in "${group_list[@]}"; do
+         if [ "${group_item}" = 'privleap' ]; then
+            in_privleap_group='true'
+            break
+         fi
+      done
+      if [ "${in_privleap_group}" = 'true' ]; then
+         ## privleap access is broken for some reason other than group
+         ## membership. Other tests will inform the user that privleap
+         ## is broken.
+         return
+      fi
+
+      if [ "$user_sysmaint_split_installed" = 'true' ]; then
+         MSG="<p>Account '${who_ami}' cannot use <a href=\"https://www.kicksecure.com/wiki/Privleap\">privleap</a> and is not a member of group 'privleap'. Some applications will not function properly.<br />
+<br />
+Possible fix:<br />
+Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:
+<code><blockquote>sudo adduser $who_ami privleap</blockquote></code>"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+
+         MSG="Account '${who_ami}' cannot use privleap and is not a member of group 'privleap'. Some applications will not function properly.
+
+Possible fix:
+Reboot into 'PERSISTENT Mode | SYSMAINT Session | system maintenance tasks', click \"Open Terminal\" in the System Maintenance Panel, and run:
+
+    sudo adduser $who_ami privleap
+
+See also:
+https://www.kicksecure.com/wiki/Privleap"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      else
+         MSG="<p>Account '${who_ami}' cannot use <a href=\"https://www.kicksecure.com/wiki/Privleap\">privleap</a> and is not a member of group 'privleap'. Some applications will not function properly.<br />
+<br />
+Possible fix:<br />
+Open a terminal ($start_menu_instructions_system_first_part Terminal), and run:
+<code><blockquote>sudo adduser $who_ami privleap</blockquote></code>"
+         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+
+         MSG="Account '${who_ami}' cannot use privleap and is not a member of group 'privleap'. Some applications will not function properly.
+
+Possible fix:
+Open a terminal ($start_menu_instructions_system_first_part Terminal), and run:
+
+    sudo adduser $who_ami privleap
+
+See also:
+https://www.kicksecure.com/wiki/Privleap"
+         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      fi
+   fi
+}
+
 check_privilege_escalation_tools() {
    ## leaprun is mandatory for systemcheck.
-   ## systemcheck has been fully ported to systemcheck.
+   ## systemcheck has been fully ported to privleap.
    ## privleap is a dependency of systemcheck.
    ## Therefore test leaprun in any case.
    check_privilege_escalation_tool_do privleapd --check-config
