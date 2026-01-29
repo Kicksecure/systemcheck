@@ -16,31 +16,51 @@ source /usr/libexec/helper-scripts/use_pkexec.sh
 check_privleap_group_membership() {
    local group_list group_item in_privleap_group
 
-   if ! [ -S "/run/privleapd/comm/${who_ami}" ]; then
-      in_privleap_group='false'
-      IFS=' ' read -r -a group_list < <(groups)
-      for group_item in "${group_list[@]}"; do
-         if [ "${group_item}" = 'privleap' ]; then
-            in_privleap_group='true'
-            break
-         fi
-      done
-      if [ "${in_privleap_group}" = 'true' ]; then
-         ## privleap access is broken for some reason other than group
-         ## membership. Other tests will inform the user that privleap
-         ## is broken.
-         return
+   in_privleap_group='false'
+   IFS=' ' read -r -a group_list < <(groups)
+   for group_item in "${group_list[@]}"; do
+      if [ "${group_item}" = 'privleap' ]; then
+         in_privleap_group='true'
+         break
       fi
+   done
 
-      if [ "$user_sysmaint_split_installed" = 'true' ]; then
-         MSG="<p>Account '${who_ami}' cannot use <a href=\"https://www.kicksecure.com/wiki/Privleap\">privleap</a> and is not a member of group 'privleap'. Some applications will not function properly.<br />
+   if [ "$verbose" -ge "1" ]; then
+      if [ "${in_privleap_group}" = 'true' ]; then
+         MSG="<p>Account '${who_ami}' present in group 'privleap': <font color=\"green\">Yes</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="Account '${who_ami}' present in group 'privleap': ${green}Yes${nocolor}"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      else
+         MSG="<p>Account '${who_ami}' present in group 'privleap': <font color=\"orange\">No</font></p>"
+         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+
+         MSG="Account '${who_ami}' present in group 'privleap': ${yellow}No${nocolor}"
+         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      fi
+   fi
+
+   if [ -S "/run/privleapd/comm/${who_ami}" ]; then
+      return
+   fi
+
+   if [ "${in_privleap_group}" = 'true' ]; then
+      ## privleap access is broken for some reason other than group
+      ## membership. Other tests will inform the user that privleap
+      ## is broken.
+      return
+   fi
+
+   if [ "$user_sysmaint_split_installed" = 'true' ]; then
+      MSG="<p>Account '${who_ami}' cannot use <a href=\"https://www.kicksecure.com/wiki/Privleap\">privleap</a> and is not a member of group 'privleap'. Some applications will not function properly.<br />
 <br />
 Possible fix:<br />
 Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:
 <code><blockquote>sudo adduser $who_ami privleap</blockquote></code>"
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
 
-         MSG="Account '${who_ami}' cannot use privleap and is not a member of group 'privleap'. Some applications will not function properly.
+      MSG="Account '${who_ami}' cannot use privleap and is not a member of group 'privleap'. Some applications will not function properly.
 
 Possible fix:
 Reboot into 'PERSISTENT Mode | SYSMAINT Session | system maintenance tasks', click \"Open Terminal\" in the System Maintenance Panel, and run:
@@ -49,16 +69,16 @@ Reboot into 'PERSISTENT Mode | SYSMAINT Session | system maintenance tasks', cli
 
 See also:
 https://www.kicksecure.com/wiki/Privleap"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-      else
-         MSG="<p>Account '${who_ami}' cannot use <a href=\"https://www.kicksecure.com/wiki/Privleap\">privleap</a> and is not a member of group 'privleap'. Some applications will not function properly.<br />
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   else
+      MSG="<p>Account '${who_ami}' cannot use <a href=\"https://www.kicksecure.com/wiki/Privleap\">privleap</a> and is not a member of group 'privleap'. Some applications will not function properly.<br />
 <br />
 Possible fix:<br />
 Open a terminal ($start_menu_instructions_system_first_part Terminal), and run:
 <code><blockquote>sudo adduser $who_ami privleap</blockquote></code>"
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
 
-         MSG="Account '${who_ami}' cannot use privleap and is not a member of group 'privleap'. Some applications will not function properly.
+      MSG="Account '${who_ami}' cannot use privleap and is not a member of group 'privleap'. Some applications will not function properly.
 
 Possible fix:
 Open a terminal ($start_menu_instructions_system_first_part Terminal), and run:
@@ -67,8 +87,7 @@ Open a terminal ($start_menu_instructions_system_first_part Terminal), and run:
 
 See also:
 https://www.kicksecure.com/wiki/Privleap"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-      fi
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    fi
 }
 
