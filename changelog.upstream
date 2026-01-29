@@ -1,3 +1,22 @@
+commit 4f3c89ef464720675ec0fd3d46b547e3dfe1151c
+Merge: 498e78c ec62697
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 29 05:38:31 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit ec626974c8adf0a947a391a306e6e6e45d3451a8
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Jan 28 05:45:05 2026 -0600
+
+    Refactor, add verbose output for privleap group membership check
+
+commit 498e78cbe8534e032b3b632004256d40c99a8ca3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jan 28 11:32:35 2026 +0000
+
+    bumped changelog version
+
 commit 5fed043cf78dd65a64c1f04daf103f355d2cc50a
 Merge: 570299e 5f994d1
 Author: Patrick Schleizer <adrelanos@whonix.org>
