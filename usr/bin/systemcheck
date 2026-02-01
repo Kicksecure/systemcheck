@@ -6,22 +6,19 @@
 #set -x
 set -e
 
-## NOTE: Running "bash -x systemcheck" might be a bad idea as it disables AppArmor.
-##       Better options:
-##       - Use 'SHELLOPTS=xtrace'
-#SHELLOPTS=xtrace systemcheck
-##       - Use '--debug' option.
-#          systemcheck --debug
-
-#safe-rm -f -- /tmp/systemcheck-debug.txt
-#exec 5>&1 1>> /tmp/systemcheck-debug.txt
-#exec 6>&2 2>> /tmp/systemcheck-debug.txt
+## Useful when xtrace ("set -x") is enabled and running in the background
+## (such as if started as GUI from start menu) to log all xtrace to a log file.
+#[[ -v TMP ]] || TMP="/TMP"
+#safe-rm -f -- "/$TMP/systemcheck-debug.txt"
+#exec 5>&1 1>> "/$TMP/systemcheck-debug.txt"
+#exec 6>&2 2>> "/$TMP/systemcheck-debug.txt"
 
 #source /usr/libexec/helper-scripts/lockfile.sh
 
 if [ -o xtrace ]; then
+  ## NOTE: Not using 'bash -x' as this would disable AppArmor.
   ## XXX: Might add a superfluous ':xtrace'.
-  env SHELLOPTS=xtrace /usr/libexec/systemcheck/systemcheck "$@"
+  env SHELLOPTS="${SHELLOPTS-}:xtrace" /usr/libexec/systemcheck/systemcheck "$@"
 else
   /usr/libexec/systemcheck/systemcheck "$@"
 fi
