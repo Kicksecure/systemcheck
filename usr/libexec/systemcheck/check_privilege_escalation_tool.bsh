@@ -33,10 +33,10 @@ check_privleap_group_membership() {
          MSG="Account '${who_ami}' present in group 'privleap': ${green}Yes${nocolor}"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       else
-         MSG="<p>Account '${who_ami}' present in group 'privleap': <font color=\"orange\">No</font></p>"
+         MSG="<p>Account '${who_ami}' present in group 'privleap': <font color=\"orange\">No</font> (OK)</p>"
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
 
-         MSG="Account '${who_ami}' present in group 'privleap': ${yellow}No${nocolor}"
+         MSG="Account '${who_ami}' present in group 'privleap': ${yellow}No${nocolor} (OK)"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    fi
