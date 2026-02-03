@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/check_runtime.bsh
+source /usr/libexec/helper-scripts/check_runtime.bsh
+
 error_handler() {
    echo "ERROR: BASH_COMMAND: $BASH_COMMAND | exit_code: $?"
    exit 1
@@ -194,7 +197,7 @@ canary_main() {
    canary_do
 }
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if was_executed "${BASH_SOURCE[0]}"; then
    #set -x
    set -e
    set -o pipefail
