@@ -1,3 +1,28 @@
+commit 668f8cc413edee9462ed9b34aa4da431a79ce7df
+Merge: 10d2dc0 9a8f945
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 6 04:55:12 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 9a8f945f7d19d5c196285a5a3311bf2ce5e0cd79
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Fri Feb 6 00:14:22 2026 -0600
+
+    Ignore more journal messages, fix another bug with journal message detection
+
+commit fc412d7c1b0cdc25658622223ead8af379f121a5
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Thu Feb 5 23:28:19 2026 -0600
+
+    Fix log checker (logic was inverted)
+
+commit 10d2dc0d19dfe5e3e0ee5a741aa57c8b746523ca
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Feb 4 10:31:08 2026 +0000
+
+    bumped changelog version
+
 commit 6f8fe965bfe416cec1adbe0dd3475003904b1d2e
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Feb 4 05:21:25 2026 -0500
