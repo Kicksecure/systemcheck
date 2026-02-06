@@ -136,7 +136,7 @@ check_journal() {
       return 0
    fi
 
-   if [ -n "$log_output" ]; then
+   if [ -z "$log_output" ]; then
       local MSG
       MSG="<p>systemd journal check result: OK."
       if [ "$verbose" -ge "1" ]; then
