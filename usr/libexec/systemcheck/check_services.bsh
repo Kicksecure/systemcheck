@@ -71,7 +71,7 @@ check_services() {
    check_type="system"
    manual_check_equivalent="<br /> (equivalent to: <code>sudo systemctl --state=failed,activating,deactivating list-units</code>)"
    machine_command_machine="leaprun read-systemctl-logs-failed-units"
-    machine_command_pretty="leaprun read-systemctl-logs-failed-units-pretty"
+   machine_command_pretty="leaprun read-systemctl-logs-failed-units-pretty"
    systemcheck_run_function check_services_do
 
    check_type="user"
@@ -82,10 +82,12 @@ check_services() {
 }
 
 check_journal() {
-   local log_output critical_output
+   local log_output last_boot_log_output critical_output MSG
 
    ## Already sanitized by 'stcatn'.
-   log_output="$(leaprun log-checker-check_service_logs)" || true
+   log_output="$(leaprun log-checker-check_service_logs_this_boot)" || true
+   ## Already sanitized by 'stcatn'.
+   last_boot_log_output="$(leaprun log-checker-check_service_logs_last_boot)" || true
    ## Already sanitized by 'stcatn'.
    critical_output="$(leaprun log-checker-check_critical_logs)" || true
 
@@ -99,7 +101,7 @@ check_journal() {
       ## are considered severe and can lead to various follow-up issues.
       EXIT_CODE="1"
 
-      local MSG="\
+      MSG="\
 <p>Check Critical systemd Journal Messages Test Result: Possible system issue detected. Some unusual entries were found in the kernel log.
 <br />
 <br />There is no need to panic. This is not a serious security issue. However, it may affect other system checks. These messages might indicate hardware or software problems.
@@ -112,7 +114,7 @@ check_journal() {
 
       if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
          if printf '%s\n' "$critical_output" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
-            local MSG="\
+            MSG="\
 <p>Check Critical systemd Journal Messages Test Result: systemd journal contains <code>self-detected stall on CPU</code>.
 <br />
 <br />VirtualBox has been identified as your virtualizer (virtual machine software).
@@ -124,7 +126,6 @@ check_journal() {
          fi
       fi
    else
-      local MSG
       MSG="<p>Check Critical systemd Journal Messages Test Result: OK."
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
@@ -136,27 +137,39 @@ check_journal() {
       return 0
    fi
 
-   if [ -z "$log_output" ]; then
-      local MSG
-      MSG="<p>systemd journal check result: OK."
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-      return 0
-   fi
+   if [ -n "$log_output" ]; then
+      EXIT_CODE="1"
 
-   EXIT_CODE="1"
-
-   local MSG
-   MSG="<p>systemd journal check result:
+      MSG="<p>systemd journal check result:
 <br></br>########################################
 <br></br><code>$log_output</code>
 <br></br>########################################
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
 
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   else
+      MSG="<p>systemd journal check result: OK."
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
+
+   if [ -n "$last_boot_log_output" ]; then
+      EXIT_CODE="1"
+
+      MSG="<p>systemd last boot journal check result:
+<br></br>########################################
+<br></br><code>$last_boot_log_output</code>
+<br></br>########################################
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
+
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   else
+      MSG="<p>systemd last boot journal check result: OK."
+      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   fi
 
    return 0
 }
