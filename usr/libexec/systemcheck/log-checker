@@ -60,7 +60,7 @@ check_service_logs() {
     return 1
   fi
 
-  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|BUG|self-detected stall on CPU"
+  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|BUG|segfault|killed|(^|[^a-zA-Z])fault($|[^a-zA-Z])|self-detected stall on CPU"
 
   if test -e /usr/share/qubes/marker-vm; then
     journal_ignore_patterns_list+=( "virtualbox" )
