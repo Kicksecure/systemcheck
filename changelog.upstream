@@ -1,3 +1,66 @@
+commit 5dcbe220fa528dbc0a38be73e4422a07d4b15a81
+Merge: 9aba7b8 a76f87d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Feb 10 07:10:23 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit a76f87d5538902c054c9700b1206d542c5a2b4e4
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Mon Feb 9 20:02:04 2026 -0600
+
+    Silence another journal warning, add "segfault", "killed", and "fault" checks to the log checker
+
+commit 810ccb72e636cc83b692ea0bcff1a708a89425ca
+Merge: c30196f 9aba7b8
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Sun Feb 8 16:03:36 2026 -0600
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit 9aba7b81b9a9409a611e4a3d5911cad1a7934df9
+Merge: c2ddaa2 6e3ff9c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 8 13:03:07 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit c30196ffac7e35cddcfa9442dd341b299acce013
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Sun Feb 8 10:48:53 2026 -0600
+
+    Ignore more journal messages
+
+commit 6e3ff9cdb6c6fb9270e1905161ba481e69dc6dfe
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Sun Feb 8 00:10:32 2026 -0600
+
+    Ignore more journal messages
+
+commit 4182c985473976ae1e6fedadac870dd34731ecc5
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Fri Feb 6 17:35:48 2026 -0600
+
+    Ignore more journal messages
+
+commit 2c33d713a2accbafcac840349f8e9fb0b693bc85
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Fri Feb 6 16:48:31 2026 -0600
+
+    Check the previous boot's logs for alerts
+
+commit 2ba3c258d283fcf0dd89116eef8e5630262894b8
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Fri Feb 6 16:43:44 2026 -0600
+
+    Ignore more journal messages
+
+commit c2ddaa20e88e86a59931da2fa429dc4e4acbb810
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 6 10:11:06 2026 +0000
+
+    bumped changelog version
+
 commit 668f8cc413edee9462ed9b34aa4da431a79ce7df
 Merge: 10d2dc0 9a8f945
 Author: Patrick Schleizer <adrelanos@whonix.org>
