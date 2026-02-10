@@ -1,3 +1,15 @@
+commit 06ffaad2621f45633a1171395ba07bb28902aa46
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Feb 10 14:11:07 2026 -0500
+
+    journal_ignore_fixed_list+=( "TSC doesn't count with P0 frequency!" )
+
+commit 083111b11c612865fc055db407ac914f6670ff8a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Feb 10 12:18:55 2026 +0000
+
+    bumped changelog version
+
 commit 5dcbe220fa528dbc0a38be73e4422a07d4b15a81
 Merge: 9aba7b8 a76f87d
 Author: Patrick Schleizer <adrelanos@whonix.org>
