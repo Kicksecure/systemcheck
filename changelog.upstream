@@ -1,3 +1,22 @@
+commit 072276d370977efaeae6fcd7f978d63d36b80670
+Merge: 85db700 00ed75c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 04:52:19 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 00ed75c12471353c0c97784f3e7ce23a02aa3fc9
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Wed Feb 11 20:02:32 2026 -0600
+
+    Fix failure when running 'systemcheck --verbose --leak-tests' on the first boot or in Qubes AppVMs
+
+commit 85db7009661090b0b6c4299fb0957c857e60ee5a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Feb 10 19:11:32 2026 +0000
+
+    bumped changelog version
+
 commit 06ffaad2621f45633a1171395ba07bb28902aa46
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Feb 10 14:11:07 2026 -0500
