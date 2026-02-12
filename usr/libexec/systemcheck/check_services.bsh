@@ -140,7 +140,7 @@ check_journal() {
    if [ -n "$log_output" ]; then
       EXIT_CODE="1"
 
-      MSG="<p>systemd journal check result (current boot):
+      MSG="<p>systemd journal check result (<u>current</u> boot):
 <br></br>########################################
 <br></br><code>$log_output</code>
 <br></br>########################################
@@ -149,7 +149,7 @@ check_journal() {
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
-      MSG="<p>systemd journal check result (current boot): OK.</p>"
+      MSG="<p>systemd journal check result (<u>current</u> boot): OK.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
@@ -157,7 +157,7 @@ check_journal() {
    if [ -n "$last_boot_log_output" ]; then
       EXIT_CODE="1"
 
-      MSG="<p>systemd journal check result (previous boot):
+      MSG="<p>systemd journal check result (<u>previous</u> boot):
 <br></br>########################################
 <br></br><code>$last_boot_log_output</code>
 <br></br>########################################
@@ -166,7 +166,7 @@ check_journal() {
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
-      MSG="<p>systemd journal check result (previous boot): OK.</p>"
+      MSG="<p>systemd journal check result (<u>previous</u> boot): OK.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
