@@ -48,7 +48,7 @@ include <tunables/global>
 
   ## AVC apparmor="DENIED" operation="mknod" class="file" profile="/usr/bin/systemcheck" name="/home/sysmaint/.config/yad.conf.BE76E3" comm="yad" requested_mask="c" denied_mask="c"
   deny @{HOME}/.config/yad.* rwk,
-  deny /run/user/1000/dconf/** rwk,
+  deny /run/user/*/dconf/** rwk,
 
   / r,
   /dev/ r,
