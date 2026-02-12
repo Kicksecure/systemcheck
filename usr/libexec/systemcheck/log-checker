@@ -52,9 +52,9 @@ check_service_logs() {
   touch -- "$TMPDIR/journalctl_output.txt"
 
   if [ "${check_boot}" = 'this_boot' ]; then
-    leaprun read-journalctl-logs-this-boot | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null
+    ( leaprun read-journalctl-logs-this-boot || true ) 2>&1 | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null
   elif [ "${check_boot}" = 'last_boot' ]; then
-    leaprun read-journalctl-logs-last-boot | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null
+    ( leaprun read-journalctl-logs-last-boot || true ) 2>&1 | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null
   else
     printf '%s\n' "$0: ${FUNCNAME[0]}: ERROR: Unrecognized boot identifier '${check_boot}', expected 'this_boot' or 'last_boot'!"
     return 1
