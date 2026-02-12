@@ -1,3 +1,17 @@
+commit 7fec2182239e75fac26798b3ffd4f16dfecd42c2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 08:42:08 2026 -0500
+
+    journal_ignore_fixed_list+=( "mjrkrqnlf26etelsi7zpkqc3dzlrzyurvmd3jksmndarzzbugz5xctid.onion" )
+    
+    sdwdate time source with the string "bug" in its URL.
+
+commit acdbe9533fba58d3b78d0d964e41f545c70514d8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 13:10:00 2026 +0000
+
+    bumped changelog version
+
 commit 1c52695573e7134a045cc8a170ca2c79315e9a0c
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Feb 12 08:06:09 2026 -0500
