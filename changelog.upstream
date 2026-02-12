@@ -1,3 +1,39 @@
+commit 1c52695573e7134a045cc8a170ca2c79315e9a0c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 08:06:09 2026 -0500
+
+    apparmor
+
+commit 2eed4757a303666b2538d2665de9183b8511d8e7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 07:57:21 2026 -0500
+
+    journal_ignore_fixed_list+=( 'WARNING: Unknown X keysym "dead_belowmacron"' )
+
+commit e11bc5538e6cfadda47421fe5e7dc62630f700b9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 07:50:37 2026 -0500
+
+    journal_ignore_fixed_list+=( "Killed VBoxDRMClient" )
+
+commit 3e451e1c781bac793915af3c37657f559714096d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 07:13:42 2026 -0500
+
+    output
+
+commit f598c06982fde3485c7882be5a9df3bd5e23b76f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 06:29:54 2026 -0500
+
+    journal_ignore_fixed_list+=( "/etc/privleap/conf.d/privleap-debugging.conf" )
+
+commit 45a9b45575a3a0ce555a800a3c5322cadeb942f5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 12 09:55:44 2026 +0000
+
+    bumped changelog version
+
 commit 072276d370977efaeae6fcd7f978d63d36b80670
 Merge: 85db700 00ed75c
 Author: Patrick Schleizer <adrelanos@whonix.org>
