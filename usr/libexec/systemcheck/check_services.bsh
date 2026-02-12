@@ -126,7 +126,7 @@ check_journal() {
          fi
       fi
    else
-      MSG="<p>Check Critical systemd Journal Messages Test Result: OK."
+      MSG="<p>Check Critical systemd Journal Messages Test Result: OK.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
@@ -140,7 +140,7 @@ check_journal() {
    if [ -n "$log_output" ]; then
       EXIT_CODE="1"
 
-      MSG="<p>systemd journal check result:
+      MSG="<p>systemd journal check result (current boot):
 <br></br>########################################
 <br></br><code>$log_output</code>
 <br></br>########################################
@@ -149,7 +149,7 @@ check_journal() {
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
-      MSG="<p>systemd journal check result: OK."
+      MSG="<p>systemd journal check result (current boot): OK.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
@@ -157,7 +157,7 @@ check_journal() {
    if [ -n "$last_boot_log_output" ]; then
       EXIT_CODE="1"
 
-      MSG="<p>systemd last boot journal check result:
+      MSG="<p>systemd journal check result (previous boot):
 <br></br>########################################
 <br></br><code>$last_boot_log_output</code>
 <br></br>########################################
@@ -166,7 +166,7 @@ check_journal() {
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
-      MSG="<p>systemd last boot journal check result: OK."
+      MSG="<p>systemd journal check result (previous boot): OK.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
@@ -186,7 +186,7 @@ check_whonix_firewall_systemd_status() {
       extra_text="Failure file <code>/run/anon-firewall/failed.status</code> exists!"
    else
       anon_firewall_failed_file_exists=false
-      extra_text="Failure file <code>/run/anon-firewall/failed.status</code> does not exist, ok."
+      extra_text="Failure file <code>/run/anon-firewall/failed.status</code> does not exist, OK."
    fi
 
    systemctl_status_whonix_firewall_exit_code="0"
