@@ -132,7 +132,7 @@ print_verbose_log_output_message_maybe() {
    log_output="${1:-}"
    chosen_boot="${2:-}"
    if_you_know_what_you_are_doing_msg="${3:-}"
-   
+
    if [ -n "$log_output" ]; then
       EXIT_CODE="1"
 
