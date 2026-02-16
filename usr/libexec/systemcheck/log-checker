@@ -128,9 +128,9 @@ check_critical_logs() {
 
    ## Patterns that are considered "so bad they must be shown" always.
    ## The space before ' BUG:' is important to avoid matching 'debug:'.
-   critical_pattern='Bad RAM detected|self-detected stall on CPU| BUG:'
+   critical_pattern='Bad RAM detected|self-detected stall on CPU| BUG:|nouveau .* channel .* killed!'
 
-   grep --ignore-case --fixed-strings "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
+   grep --ignore-case --extended-regexp "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
      stcatn
 
    safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt_br"

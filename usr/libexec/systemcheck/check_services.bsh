@@ -81,18 +81,11 @@ check_services() {
    systemcheck_run_function check_services_do
 }
 
-check_journal() {
-   local log_output last_boot_log_output critical_output MSG
-
-   ## Already sanitized by 'stcatn'.
-   log_output="$(leaprun log-checker-check_service_logs_this_boot)" || true
-   ## Already sanitized by 'stcatn'.
-   last_boot_log_output="$(leaprun log-checker-check_service_logs_last_boot)" || true
-   ## Already sanitized by 'stcatn'.
-   critical_output="$(leaprun log-checker-check_critical_logs)" || true
-
-   local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+print_critical_output_message_maybe() {
+   local critical_output chosen_boot if_you_know_what_you_are_doing_msg
+   critical_output="${1:-}"
+   chosen_boot="${2:-}"
+   if_you_know_what_you_are_doing_msg="${3:-}"
 
    if [ -n "$critical_output" ]; then
       ## Messages such as:
@@ -102,7 +95,7 @@ check_journal() {
       EXIT_CODE="1"
 
       MSG="\
-<p>Check Critical systemd Journal Messages Test Result: Possible system issue detected. Some unusual entries were found in the kernel log.
+<p>systemd critical journal messages check result (<u>${chosen_boot}</u> boot): Possible system issue detected. Some unusual entries were found in the kernel log.
 <br />
 <br />There is no need to panic. This is not a serious security issue. However, it may affect other system checks. These messages might indicate hardware or software problems.
 <br />
@@ -115,7 +108,7 @@ check_journal() {
       if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
          if printf '%s\n' "$critical_output" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
             MSG="\
-<p>Check Critical systemd Journal Messages Test Result: systemd journal contains <code>self-detected stall on CPU</code>.
+<p>systemd critical journal messages check result (<u>${chosen_boot}</u> boot): systemd journal contains <code>self-detected stall on CPU</code>.
 <br />
 <br />VirtualBox has been identified as your virtualizer (virtual machine software).
 <br />
@@ -126,21 +119,24 @@ check_journal() {
          fi
       fi
    else
-      MSG="<p>Check Critical systemd Journal Messages Test Result: OK.</p>"
+      MSG="<p>systemd critical journal messages check result (<u>${chosen_boot}</u> boot): OK.</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
          $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
       fi
    fi
+}
 
-   if [ "$verbose" -lt "1" ]; then
-      return 0
-   fi
-
+print_verbose_log_output_message_maybe() {
+   local log_output chosen_boot if_you_know_what_you_are_doing_msg
+   log_output="${1:-}"
+   chosen_boot="${2:-}"
+   if_you_know_what_you_are_doing_msg="${3:-}"
+   
    if [ -n "$log_output" ]; then
       EXIT_CODE="1"
 
-      MSG="<p>systemd journal check result (<u>current</u> boot):
+      MSG="<p>systemd journal check result (<u>${chosen_boot}</u> boot):
 <br></br>########################################
 <br></br><code>$log_output</code>
 <br></br>########################################
@@ -149,27 +145,55 @@ check_journal() {
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
    else
-      MSG="<p>systemd journal check result (<u>current</u> boot): OK.</p>"
+      MSG="<p>systemd journal check result (<u>${chosen_boot}</u> boot): OK.</p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
+}
 
-   if [ -n "$last_boot_log_output" ]; then
-      EXIT_CODE="1"
+check_journal() {
+   local log_output last_boot_log_output critical_output \
+      last_boot_critical_output MSG
 
-      MSG="<p>systemd journal check result (<u>previous</u> boot):
-<br></br>########################################
-<br></br><code>$last_boot_log_output</code>
-<br></br>########################################
-<br></br>$if_you_know_what_you_are_doing_msg</p>"
+   ## NOTE: The order of the next for lines of code MUST be preserved.
+   ##
+   ## 'log-checker check_critical_logs' filters log lines from a file written
+   ## by a prior 'log-checker check_service_logs' call. Therefore to get
+   ## critical logs from this boot, we must check critical logs after getting
+   ## logs for the current boot. To get critical logs from the last boot, we
+   ## must check critical logs after getting logs for the last boot.
 
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-   else
-      MSG="<p>systemd journal check result (<u>previous</u> boot): OK.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   ## The contents of these four variables will have been sanitized by
+   ## stcatn already.
+   log_output="$(leaprun log-checker-check_service_logs_this_boot)" || true
+   critical_output="$(leaprun log-checker-check_critical_logs)" || true
+   last_boot_log_output="$(leaprun log-checker-check_service_logs_last_boot)" || true
+   last_boot_critical_output="$(leaprun log-checker-check_critical_logs)" || true
+
+   local if_you_know_what_you_are_doing_msg
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   print_critical_output_message_maybe \
+      "${critical_output}" \
+      'current' \
+      "${if_you_know_what_you_are_doing_msg}"
+   print_critical_output_message_maybe \
+      "${last_boot_critical_output}" \
+      'previous' \
+      "${if_you_know_what_you_are_doing_msg}"
+
+   if [ "$verbose" -lt "1" ]; then
+      return 0
    fi
+
+   print_verbose_log_output_message_maybe \
+      "${log_output}" \
+      'current' \
+      "${if_you_know_what_you_are_doing_msg}"
+   print_verbose_log_output_message_maybe \
+      "${last_boot_log_output}" \
+      'previous' \
+      "${if_you_know_what_you_are_doing_msg}"
 
    return 0
 }
