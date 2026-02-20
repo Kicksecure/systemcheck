@@ -45,8 +45,8 @@ did not show any output<br />
 If this error happens only during upgrading or is transient this error can be safely ignored.
 <br />
 $if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
       return 0
    fi
@@ -99,8 +99,8 @@ failed.<br />
 If this error happens only during upgrading or is transient this error can be safely ignored.
 <br />
 $if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
       return 0
    fi
@@ -120,8 +120,8 @@ Debugging information:
 Command
 <code>cat /sys/class/net/eth1/carrier</code>
 failed.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
       return 0
    fi
