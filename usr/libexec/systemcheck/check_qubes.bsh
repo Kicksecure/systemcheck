@@ -76,10 +76,10 @@ Also refer to the installation instructions of Qubes-Whonix.
 <br></br>(qubes_vm_type: <code>$qubes_vm_type</code>)
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
-      cleanup "1"
+      ## Do not run 'cleanup' here, the qube may lack Internet access on purpose.
       return 0
    fi
 
