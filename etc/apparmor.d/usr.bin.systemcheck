@@ -270,6 +270,7 @@ include <tunables/global>
   /{,usr/}bin/dpkg-query rix,
   /{,usr/}bin/echo rix,
   /{,usr/}bin/env rix,
+  /{,usr/}bin/findmnt rix,
   /{,usr/}bin/flock rix,
   /{,usr/}bin/fuser rix,
   /{,usr/}bin/gawk rix,

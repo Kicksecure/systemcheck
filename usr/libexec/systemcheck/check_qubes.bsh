@@ -140,6 +140,45 @@ check_qubes_vm_type() {
    fi
 }
 
+check_qubes_persistent_mounts() {
+   local should_be_ephemeral_list should_be_ephemeral_path bind_mount_list \
+      bind_mount_path MSG if_you_know_what_you_are_doing_msg
+
+   if ! [ -f /run/qubes/persistent-rw-only ]; then
+      ## Skip, only relevant in AppVMs
+      return 0
+   fi
+
+   ## TODO: What other directories should be listed here? Maybe '/opt'?
+   should_be_ephemeral_list=( '/etc' '/usr' '/var' )
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+
+   for should_be_ephemeral_path in "${should_be_ephemeral_list[@]}"; do
+      ## 'findmnt' outputs information about bind mounts using the format
+      ## /dev/disk[/bind/path]. The sed command extracts only the part between
+      ## the brackets.
+      readarray -t bind_mount_list < <(findmnt --noheadings --output=SOURCE \
+         -- "${should_be_ephemeral_path}" \
+         | sed 's/.*\[\([^]]*\)\].*/\1/' || true)
+      for bind_mount_item in "${bind_mount_list[@]}"; do
+         printf '%s\n' "${bind_mount_item}" >&2
+         if [ -d "/rw/${bind_mount_item}" ]; then
+            MSG="\
+<p>Qubes Persistent Mount Test Result: Directory <code>$should_be_ephemeral_path</code> should be ephemeral, but is bind-mounted from <code>/rw</code>!
+<br></br>This directory's files will be modified by template software updates. This AppVM will not receive those changes due to this configuration.
+<br></br>Remove the directory from Qubes' bind-dirs configuration.
+<br></br>See: https://doc.qubes-os.org/en/latest/user/advanced-topics/bind-dirs.html
+<br></br>
+<br></br>$if_you_know_what_you_are_doing_msg</p>"
+            $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+            $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+            EXIT_CODE="1"
+            break
+         fi
+      done
+   done
+}
+
 check_qubes_settings() {
    if [ ! "$qubes_detected" = "true" ]; then
       local MSG="<p>Qubes Settings Test Result: Skipped, because Qubes not detected.</p>"
@@ -152,6 +191,7 @@ check_qubes_settings() {
 
    systemcheck_run_function check_qubes_network_interface
    systemcheck_run_function check_qubes_vm_type
+   systemcheck_run_function check_qubes_persistent_mounts
 }
 
 check_qubes_update_proxy_status_files_check() {
