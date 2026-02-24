@@ -353,9 +353,15 @@ preparation() {
    ## sets: gateway_control_port
    eval $(/usr/libexec/helper-scripts/settings_echo)
 
+   ## 'uname --machine' is better than 'dpkg --print-architecture'.
    ## ARCH="x86_64"
    ## ARCH="i686"
    ARCH="$(uname --machine)"
+   if [ "$ARCH" = "x86_64" ]; then
+      intel_amd_64_detected=true
+   else
+      intel_amd_64_detected=false
+   fi
 
    if [ "$qubes_detected" = "true" ]; then
       if test -f /usr/lib/qubes-whonix/utility_functions.sh ; then

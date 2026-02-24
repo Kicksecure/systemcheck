@@ -1,3 +1,31 @@
+commit e11dbe191c09e8c1b603451fcd7bc6ffa2ccb210
+Merge: 237fc72 f5eff9e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 22 10:12:04 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 237fc7241f9f0521fde2f4055e4e790791751f33
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 20 06:09:52 2026 -0500
+
+    fix: do not report missing tirdad kernel module on non-Intel/AMD64 as error
+    because it is expected and not actionable by users
+    https://forums.whonix.org/t/often-systemcheck-errors-notifications-whonix-18lxqt/22900
+    https://www.kicksecure.com/wiki/Tirdad#Architecture_Support
+
+commit f5eff9e65ee39a0ba48b213506d28b15b54c5234
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Thu Feb 19 22:13:50 2026 -0500
+
+    Downgrade some network-related errors to warnings, don't exit prematurely if the qube has no NetVM
+
+commit ccd219263b7416c207d3926779e03ce99b7c3c2d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 16 10:30:45 2026 +0000
+
+    bumped changelog version
+
 commit eb20e2253aa838b12e75dfe44c712ed75b86a220
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Feb 16 05:05:30 2026 -0500

@@ -22,6 +22,12 @@ check_tirdad_module() {
 - Known Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a><br/>
 - No need to report this."
    ## Variable 'secure_boot_status_enabled' is set in 'check_secure_boot.bsh'.
+   elif [ "$intel_amd_64_detected" = "false" ]; then
+      only_if_verbose=true
+      help_msg="<br/>
+- Reason: Not using architecture Intel/AMD64. Architecture '<code>$ARCH</code>' is <a href=https://www.kicksecure.com/wiki/Unsupported>unsupported</a>.<br/>
+- Known tirdad issue: <a href=https://www.kicksecure.com/wiki/Tirdad#Architecture_Support>https://www.kicksecure.com/wiki/Tirdad#Architecture_Support</a><br/>
+- No need to report this."
    elif [ "$secure_boot_status_enabled" = "true" ]; then
       only_if_verbose=false
       help_link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
