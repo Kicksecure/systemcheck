@@ -1,3 +1,35 @@
+commit fe62d5893c7be98547b0966c8fb0db64cd3dc4cb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 27 05:25:56 2026 -0500
+
+    output
+
+commit 34d760798e9f4c814e5a2e901b675aafd3a47963
+Merge: 72b30d2 2a58a09
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Feb 27 05:19:24 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 2a58a09f5aea8529448143ffd8fc89ee73cf08da
+Merge: 90dbc43 72b30d2
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Mon Feb 23 19:42:39 2026 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit 72b30d2b877c82aba8e458d16e3224f196598763
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Feb 23 13:35:30 2026 +0000
+
+    bumped changelog version
+
+commit 90dbc43143da03bb257c1c1999c6d0bdeae53c87
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Sun Feb 22 19:51:56 2026 -0500
+
+    Add test for if /etc, /var, and /usr are ephemeral in AppVMs
+
 commit e11dbe191c09e8c1b603451fcd7bc6ffa2ccb210
 Merge: 237fc72 f5eff9e
 Author: Patrick Schleizer <adrelanos@whonix.org>
