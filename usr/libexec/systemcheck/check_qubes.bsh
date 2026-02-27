@@ -165,7 +165,7 @@ check_qubes_persistent_mounts() {
          if [ -d "/rw/${bind_mount_item}" ]; then
             MSG="\
 <p>Qubes Persistent Mount Test Result: Directory <code>$should_be_ephemeral_path</code> should be ephemeral, but is bind-mounted from <code>/rw</code>!
-<br></br>This directory's files will be modified by template software updates. This AppVM will not receive those changes due to this configuration.
+<br></br>This directory's files will be modified by template software updates. This <code>$qubes_vm_type</code> will not receive those changes due to this configuration.
 <br></br>Remove the directory from Qubes' bind-dirs configuration.
 <br></br>See: https://doc.qubes-os.org/en/latest/user/advanced-topics/bind-dirs.html
 <br></br>
