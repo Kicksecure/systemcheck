@@ -36,6 +36,11 @@ check_anondate_do() {
    fi
 
    if [ ! "$tor_consensus_status" = "none" ]; then
+      ## Validate tor_consensus_status before interpolating into leaprun arguments.
+      case "$tor_consensus_status" in
+         verified|unverified) true ;;
+         *) echo "ERROR: Unexpected tor_consensus_status value: '$tor_consensus_status'" >&2 ; return 1 ;;
+      esac
       if leaprun anondate-${tor_consensus_status}-only-current-time-in-valid-range ; then
          current_time_in_valid_range=true
       else

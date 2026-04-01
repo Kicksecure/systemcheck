@@ -52,6 +52,10 @@ See also: $link_cli"
    ## ELTS has very limited security support and is therefore ignored.
    ## Zero-indexed field 5 = EOL, 6 = LTS EOL
    os_eol_date="${os_info_bit_list[5]}"
+   if ! [[ "${os_eol_date}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+      warn_unknown_eol_date
+      return 0
+   fi
    os_eol_timestamp="$(date --date="${os_eol_date}" '+%s')"
    if [ -z "${os_eol_timestamp}" ]; then
       warn_unknown_eol_date
@@ -59,7 +63,12 @@ See also: $link_cli"
    fi
 
    os_lts_eol_date="${os_info_bit_list[6]}"
-   os_lts_eol_timestamp="$(date --date="${os_lts_eol_date}" '+%s')"
+   if ! [[ "${os_lts_eol_date}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+      true "warn: os_lts_eol_date does not match expected YYYY-MM-DD format"
+      os_lts_eol_timestamp="${os_eol_timestamp}"
+   else
+      os_lts_eol_timestamp="$(date --date="${os_lts_eol_date}" '+%s')"
+   fi
    if [ -z "${os_lts_eol_timestamp}" ]; then
       true "warn: could not determine LTS EOL timestamp"
       os_lts_eol_timestamp="${os_eol_timestamp}"

@@ -12,6 +12,17 @@ systemcheck_autostart_functions+=" msgdispatcher_init "
 systemcheck_autostart_functions+=" sysmaint_state_detection "
 systemcheck_autostart_functions+=" cleanup "
 
+## Escape HTML special characters to prevent output injection.
+html_escape() {
+   local str="${1:-}"
+   str="${str//&/&amp;}"
+   str="${str//</&lt;}"
+   str="${str//>/&gt;}"
+   str="${str//\"/&quot;}"
+   str="${str//\'/&#39;}"
+   printf '%s' "$str"
+}
+
 output_if_verbose() {
    if [ "$verbose" -ge "1" ]; then
       "$@"
@@ -20,11 +31,16 @@ output_if_verbose() {
 
 source_config() {
    shopt -s nullglob
-   local i
+   local i file_perms
    for i in \
       /etc/systemcheck.d/*.conf \
       /usr/local/etc/systemcheck.d/*.conf \
       ; do
+         ## Refuse to source world-writable config files.
+         file_perms="$(stat -c '%a' "$i" 2>/dev/null)" || continue
+         case "$file_perms" in
+            *[2367]) echo "WARNING: Skipping world-writable config file: $i" >&2 ; continue ;;
+         esac
          bash -n "$i"
          source "$i"
    done
@@ -334,8 +350,9 @@ preparation() {
    ## returns: derivative_deb_package_version
    get_local_derivative_version
 
-   ## Prepare temporary directory.
-   chmod 700 "$TEMP_DIR"
+   ## mktemp --directory already creates the directory with mode 0700 (via
+   ## umask), so an explicit chmod is unnecessary.
+   #chmod 700 "$TEMP_DIR"
 
    if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
       VM="Whonix-Gateway"

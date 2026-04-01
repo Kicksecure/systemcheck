@@ -14,6 +14,12 @@ function_manual_run() {
    if [ "$FUNCTION" = "" ]; then
       return 0
    fi
+   if ! declare -F "$FUNCTION" >/dev/null 2>&1; then
+      echo "$SCRIPTNAME ERROR: function '$FUNCTION' is not a known bash function. Refusing to execute." >&2
+      EXIT_CODE="1"
+      cleanup
+      return 0
+   fi
    $FUNCTION
    cleanup
    return 0

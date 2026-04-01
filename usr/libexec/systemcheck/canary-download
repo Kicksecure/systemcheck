@@ -73,7 +73,9 @@ def main():
         #data = requests.get(url, proxies=proxies, auth=(username, password))
 
     except Exception as e:
-        print('connect error: {}'.format(e) , file=sys.stderr)
+        ## Sanitize: only print exception type, not full message which may
+        ## leak network/proxy details.
+        print('connect error: {}'.format(type(e).__name__), file=sys.stderr)
         sys.exit(5)
 
     data_content_length = len(data.content)
@@ -98,10 +100,12 @@ def main():
     signify_openbsd_public_key = "/usr/share/keyrings/derivative.pub"
     timeout_seconds = 5
 
-    file_object = open(canary_txt_embed_sig, "w")
-    file_object.write(url_body)
-    #file_object.write("extraneous content test")
-    file_object.close()
+    ## Use O_CREAT|O_WRONLY|O_TRUNC|O_NOFOLLOW to prevent symlink attacks
+    ## and ensure restrictive permissions (0o600) from creation.
+    fd = os.open(canary_txt_embed_sig, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, "w") as file_object:
+        file_object.write(url_body)
+        #file_object.write("extraneous content test")
 
     if not data.status_code == 200:
         msg = "invalid data.status_code: " + str(data.status_code)
@@ -133,8 +137,8 @@ def main():
         process.kill()
         sys.exit(6)
     except BaseException:
-        error_message = str(sys.exc_info()[0])
-        msg = "canary signify-openbsd unknown error. sys.exc_info: " + error_message
+        error_type = type(sys.exc_info()[1]).__name__
+        msg = "canary signify-openbsd unknown error: " + error_type
         print(msg, file=sys.stderr)
         process.kill()
         sys.exit(7)
@@ -142,8 +146,12 @@ def main():
     stdout, stderr = process.communicate(timeout=2)
     stdout = stdout.decode("UTF-8").strip()
     stderr = stderr.decode("UTF-8").strip()
-    print("stdout:", str(stdout), file=sys.stderr)
-    print("stderr:", str(stderr), file=sys.stderr)
+    ## Only log signify-openbsd output at a high level; avoid leaking
+    ## file paths or system details in error output.
+    if process.returncode != 0:
+        print("signify-openbsd: verification failed (exit code {})".format(process.returncode), file=sys.stderr)
+    else:
+        print("signify-openbsd: verification succeeded", file=sys.stderr)
 
     if process.returncode != 0:
         msg = "Could not verify canary using signify-openbsd."
@@ -173,9 +181,9 @@ def main():
     unixtime_str = str(unixtime_digit)
     print("unixtime: " + unixtime_str)
 
-    file_object = open(canary_unixtime, "w")
-    file_object.write(unixtime_str)
-    file_object.close()
+    fd = os.open(canary_unixtime, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, "w") as file_object:
+        file_object.write(unixtime_str)
 
 
 if __name__ == "__main__":

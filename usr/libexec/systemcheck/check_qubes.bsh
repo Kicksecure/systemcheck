@@ -23,7 +23,7 @@ check_qubes_network_interface() {
 <br></br>Reading qubes-db failed for some reason. This could be due to a broken upgrade, race condition or other bug. Try restarting the VM to see if this error persists.
 <br></br>
 <br></br><code>qubesdb-read /qubes-ip</code> output:
-<br></br><code>$qubes_ip</code>
+<br></br><code>$(html_escape "$qubes_ip")</code>
 <br></br>
 <br></br>Check the systemd unit status of qubes-db.
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
@@ -161,6 +161,11 @@ check_qubes_persistent_mounts() {
          -- "${should_be_ephemeral_path}" \
          | sed 's/.*\[\([^]]*\)\].*/\1/' || true)
       for bind_mount_item in "${bind_mount_list[@]}"; do
+         ## Validate: only allow safe path characters (alphanumeric, /, -, _, .).
+         if ! [[ "${bind_mount_item}" =~ ^[a-zA-Z0-9/_.-]+$ ]]; then
+            printf '%s\n' "WARNING: Skipping unexpected findmnt output: '${bind_mount_item}'" >&2
+            continue
+         fi
          printf '%s\n' "${bind_mount_item}" >&2
          if [ -d "/rw/${bind_mount_item}" ]; then
             MSG="\
@@ -333,9 +338,9 @@ This is expected because not running in Template.</p>"
 
    qubes_update_proxy_test_result_torified="false"
    local MSG="<p>Qubes UpdatesProxy Reachability Result: Ok, <u>non</u>-torified update proxy reachable.
-curl_status_message: <blockquote>$curl_status_message</blockquote>
-PROXY_META: <blockquote>${PROXY_META}</blockquote>
-curl_output: <blockquote>$curl_output</blockquote></p>"
+curl_status_message: <blockquote>$(html_escape "$curl_status_message")</blockquote>
+PROXY_META: <blockquote>$(html_escape "${PROXY_META}")</blockquote>
+curl_output: <blockquote>$(html_escape "$curl_output")</blockquote></p>"
    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
 }

@@ -182,12 +182,21 @@ check_tor_socks_or_trans_port() {
    if [ "$verbose" -ge "2" ]; then
       local MSG="\
 <p>$FUNCNAME $1: <code>check_tor_out_file_content_sanitized:</code>
-<blockquote>$check_tor_out_file_content_sanitized</blockquote></p>"
+<blockquote>$(html_escape "$check_tor_out_file_content_sanitized")</blockquote></p>"
       $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
-   tor_detected_raw="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "import sys, json; print(json.load(sys.stdin)['IsTor'])")" || { tor_detected_raw="$?" ; true; };
+   tor_detected_raw="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+except (json.JSONDecodeError, ValueError):
+    print('JSONError', end='')
+    sys.exit(1)
+value = data.get('IsTor', '')
+print(value, end='')
+")" || { tor_detected_raw="$?" ; true; };
    ## example tor_detected_raw:
    # True
    ## example tor_detected_raw:
@@ -214,7 +223,15 @@ check_tor_socks_or_trans_port() {
 
    local json_ip_exit_code ip_raw
    json_ip_exit_code="0"
-   ip_raw="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "import sys, json; print(json.load(sys.stdin)['IP'])")" || { json_ip_exit_code="$?" ; true; };
+   ip_raw="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+except (json.JSONDecodeError, ValueError):
+    sys.exit(1)
+value = data.get('IP', '')
+print(value, end='')
+")" || { json_ip_exit_code="$?" ; true; };
 
    ## example ip_raw:
    ## 94.242.204.74

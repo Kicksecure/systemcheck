@@ -24,11 +24,16 @@ source /usr/libexec/helper-scripts/strings.bsh
 ## Copied from /usr/libexec/systemcheck/preparation.bsh.
 source_config() {
    shopt -s nullglob
-   local i
+   local i file_perms
    for i in \
       /etc/systemcheck.d/*.conf \
       /usr/local/etc/systemcheck.d/*.conf \
       ; do
+         ## Refuse to source world-writable config files.
+         file_perms="$(stat -c '%a' "$i" 2>/dev/null)" || continue
+         case "$file_perms" in
+            *[2367]) echo "WARNING: Skipping world-writable config file: $i" >&2 ; continue ;;
+         esac
          bash -n "$i"
          source "$i"
    done
@@ -66,7 +71,8 @@ check_service_logs() {
     journal_ignore_patterns_list+=( "virtualbox" )
   fi
 
-  grep --extended-regexp --ignore-case "$journal_search_pattern_list" -- "$TMPDIR/journalctl_output.txt" \
+  timeout --kill-after="5" "60" \
+    grep --extended-regexp --ignore-case "$journal_search_pattern_list" -- "$TMPDIR/journalctl_output.txt" \
     | tee -- "$TMPDIR/journalctl_matched.txt" >/dev/null
 
   safe-rm --force -- "$TMPDIR/journalctl_output.txt"
@@ -101,14 +107,16 @@ check_service_logs() {
 #     #printf '%s\n' "$counter: '$journal_ignore_pattern_item'" >/dev/null
 #   done
 
-  "${grep_ignore_fixed_items_command[@]}" -- "$TMPDIR/journalctl_matched.txt" \
+  timeout --kill-after="5" "60" \
+    "${grep_ignore_fixed_items_command[@]}" -- "$TMPDIR/journalctl_matched.txt" \
     | tee -- "$TMPDIR/journalctl_fixed_filtered.txt" >/dev/null
 
   safe-rm --force -- "$TMPDIR/journalctl_matched.txt"
 
   patterns="$(printf '%s|' "${journal_ignore_patterns_list[@]}" | head -c-1)"
 
-  grep --invert-match --extended-regexp --ignore-case "$patterns" -- "$TMPDIR/journalctl_fixed_filtered.txt" \
+  timeout --kill-after="5" "60" \
+    grep --invert-match --extended-regexp --ignore-case "$patterns" -- "$TMPDIR/journalctl_fixed_filtered.txt" \
     | tee -- "$TMPDIR/journalctl_match_filtered.txt" >/dev/null
 
   ## Creates file: '$TMPDIR/journalctl_match_filtered.txt_br'
@@ -130,7 +138,8 @@ check_critical_logs() {
    ## The space before ' BUG:' is important to avoid matching 'debug:'.
    critical_pattern='Bad RAM detected|self-detected stall on CPU| BUG:|nouveau .* channel .* killed!'
 
-   grep --ignore-case --extended-regexp "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
+   timeout --kill-after="5" "60" \
+     grep --ignore-case --extended-regexp "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
      stcatn
 
    safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt_br"
