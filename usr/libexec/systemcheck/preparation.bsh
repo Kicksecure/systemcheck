@@ -20,11 +20,16 @@ output_if_verbose() {
 
 source_config() {
    shopt -s nullglob
-   local i
+   local i file_perms
    for i in \
       /etc/systemcheck.d/*.conf \
       /usr/local/etc/systemcheck.d/*.conf \
       ; do
+         file_perms="$(stat -c '%a' "$i" 2>/dev/null)"
+         if [[ "${file_perms}" == *[2367] ]]; then
+            printf '%s\n' "${FUNCNAME[0]}: ERROR: Configuration file '$i' is world-writable!"
+            return 1;
+         fi
          bash -n "$i"
          source "$i"
    done
