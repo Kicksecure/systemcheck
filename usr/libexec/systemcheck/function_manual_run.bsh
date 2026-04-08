@@ -5,7 +5,7 @@
 
 function_manual_run() {
    if [ "$FUNCTION" = "none" ]; then
-      echo "$SCRIPTNAME no function given. List of functions:" >&2
+      printf '%s\n' "$SCRIPTNAME no function given. List of functions:" >&2
       typeset -f | awk '/ \(\) $/ && !/^main / {print $1}'
       EXIT_CODE="1"
       cleanup
@@ -13,6 +13,12 @@ function_manual_run() {
    fi
    if [ "$FUNCTION" = "" ]; then
       return 0
+   fi
+   if ! declare -F "$FUNCTION" >/dev/null 2>&1; then
+     printf '%s\n' "$SCRIPTNAME ERROR: function '$FUNCTION' could not be found." >&2
+     EXIT_CODE="1"
+     cleanup
+     return 0
    fi
    $FUNCTION
    cleanup

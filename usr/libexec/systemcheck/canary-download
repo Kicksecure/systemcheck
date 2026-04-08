@@ -19,6 +19,7 @@ import os, time, socks, requests
 import signal
 import re
 import shlex
+import traceback
 import subprocess
 from subprocess import Popen, PIPE
 from subprocess import check_output
@@ -133,8 +134,8 @@ def main():
         process.kill()
         sys.exit(6)
     except BaseException:
-        error_message = str(sys.exc_info()[0])
-        msg = "canary signify-openbsd unknown error. sys.exc_info: " + error_message
+        error_message = traceback.format_exc()
+        msg = "canary signify-openbsd unknown error. Traceback:\n" + error_message
         print(msg, file=sys.stderr)
         process.kill()
         sys.exit(7)
