@@ -100,7 +100,7 @@ Also refer to the installation instructions of Qubes-Whonix.
       $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
-      ## Do not run 'cleanup' here, the qube may lack Internet access on purpose.
+      ## Do not run 'cleanup' here, the Qube may lack Internet access on purpose.
       return 0
    fi
 
