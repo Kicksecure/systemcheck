@@ -52,7 +52,8 @@ $if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
-      cleanup "1"
+      ## TODO: review
+      #cleanup "1"
       return 0
    fi
 
@@ -66,10 +67,10 @@ $if_you_know_what_you_are_doing_msg</p>"
       local netvm_to_what
       if [ "$vm_lower_case_short" = "machine" ]; then
          if test -e /var/run/qubes/this-is-netvm; then
-            true "INFO: This could be sys-net. qubesdb-read /qubes-ip outputs qubesdb_read_failed  in case of netvm, ok."
+            true "INFO: This could be sys-net. qubesdb-read /qubes-ip outputs qubesdb_read_failed in case of netvm, ok."
             return 0
          elif test -e /var/run/qubes/this-is-proxyvm; then
-            true "INFO: This could be sys-firewall. qubesdb-read /qubes-ip outputs qubesdb_read_failed  in case of netvm, ok."
+            true "INFO: This could be sys-firewall. qubesdb-read /qubes-ip outputs qubesdb_read_failed in case of netvm, ok."
             netvm_to_what="sys-net"
          else
             netvm_to_what="sys-firewall"
