@@ -13,6 +13,7 @@ check_qubes_network_interface() {
    ## https://doc.qubes-os.org/en/latest/developer/debugging/vm-interface.html
    ## > /qubes-ip - IP address for this VM (only when VM has netvm set)
    qubes_ip="$(qubesdb-read /qubes-ip 2>&1)" || { qubesdb_read_qubes_ip_exit_code="$?" ; true; };
+   qubes_ip="$(sanitize-string -- 255 "$qubes_ip")"
 
    if [ "$qubes_ip" = "Failed connect to local daemon" ]; then
       local if_you_know_what_you_are_doing_msg
@@ -46,7 +47,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 <br></br>Reading qubes-db /qubes-ip returned data that does not match an IPv4 address. This could be due to a software bug or VM compromise. Try restarting the VM to see if this error persists.
 <br></br>
 <br></br><code>qubesdb-read /qubes-ip</code> output (sanitized):
-<br></br><code>$(sanitize-string -- 255 "$qubes_ip")</code>
+<br></br><code>$qubes_ip</code>
 $if_you_know_what_you_are_doing_msg</p>"
       $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
       $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
