@@ -46,6 +46,11 @@ $if_you_know_what_you_are_doing_msg</p>"
 <br></br><code>qubesdb-read /qubes-ip</code> output (sanitized):
 <br></br><code>$(sanitize-string -- 255 "$qubes_ip")</code>
 $if_you_know_what_you_are_doing_msg</p>"
+      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
+      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      cleanup "1"
+      return 0
    fi
 
    local MSG="<p>Qubes qubes-db Test Result: Connection to local qubes-db daemon succeeded, ok.</p>"
