@@ -1,3 +1,28 @@
+commit 64a2d2012ae9eb3c195e5f67d5ccbad41a3d0bbe
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Apr 11 04:26:52 2026 -0400
+
+    code simplification
+
+commit 98970532f311a6238f325d88ccd2cb0e5b66785a
+Merge: a5fab5f 5217b86
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Apr 11 03:41:55 2026 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 5217b866a5296d351589a04ba93a76319fe68abd
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Fri Apr 10 15:44:29 2026 -0400
+
+    Improve signal handling and process cleanup in canary-download (from Claude Code)
+
+commit a5fab5f256d58e052ecff9cac1f1fe0166e48117
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 8 17:52:20 2026 +0000
+
+    bumped changelog version
+
 commit e9ccbb169c14eea14d3331a8caafc86fc0317381
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Apr 8 10:25:55 2026 -0400
