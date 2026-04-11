@@ -38,7 +38,7 @@ def canary_download_signal_handler(sig, frame):
     if signify_process is not None:
         try:
             signify_process.kill()
-            signify_process.wait()
+            signify_process.wait(timeout=2)
         except Exception:
             error_message = traceback.format_exc()
             msg = "canary signify-openbsd unknown error. Traceback:\n" + error_message
@@ -140,22 +140,18 @@ def main():
     )
 
     try:
-        signify_process.wait(timeout_seconds)
-    except subprocess.TimeoutExpired:
-        msg = "canary signify-openbsd verification timeout."
-        print(msg, file=sys.stderr)
-        signify_process.kill()
-        signify_process.wait()
-        sys.exit(6)
-    except BaseException:
+        stdout, stderr = signify_process.communicate(timeout=timeout_seconds)
+    except Exception:
         error_message = traceback.format_exc()
         msg = "canary signify-openbsd unknown error. Traceback:\n" + error_message
         print(msg, file=sys.stderr)
-        signify_process.kill()
-        signify_process.wait()
-        sys.exit(7)
+        try:
+            signify_process.kill()
+            signify_process.wait(timeout=2)
+        except Exception:
+            pass
+        sys.exit(6)
 
-    stdout, stderr = signify_process.communicate(timeout=2)
     stdout = stdout.decode("UTF-8").strip()
     stderr = stderr.decode("UTF-8").strip()
     print("stdout:", str(stdout), file=sys.stderr)
@@ -165,6 +161,8 @@ def main():
         msg = "Could not verify canary using signify-openbsd."
         print(msg, file=sys.stderr)
         sys.exit(8)
+
+    signify_process = None
 
     with open(canary_unembed, 'r') as f:
         last_line = f.readlines()[-1]
