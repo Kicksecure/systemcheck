@@ -1,3 +1,22 @@
+commit c4aea769fe92b6e8c65c4c50b4732b32d1857a78
+Merge: 31ba415 5a1398f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 16 01:54:39 2026 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 5a1398fe8564260cc9b7db5512d2f2493bcf0fc9
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Sun Apr 12 15:00:59 2026 -0400
+
+    Merge "Add AGENTS.md and security review guidelines" from Claude with minor tweaks
+
+commit 31ba41565af767921aed11bb6685edcc088f75bd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Apr 11 08:36:55 2026 +0000
+
+    bumped changelog version
+
 commit 64a2d2012ae9eb3c195e5f67d5ccbad41a3d0bbe
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Apr 11 04:26:52 2026 -0400
@@ -228,7 +247,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Feb 12 08:42:08 2026 -0500
 
     journal_ignore_fixed_list+=( "mjrkrqnlf26etelsi7zpkqc3dzlrzyurvmd3jksmndarzzbugz5xctid.onion" )
-    
+
     sdwdate time source with the string "bug" in its URL.
 
 commit acdbe9533fba58d3b78d0d964e41f545c70514d8
@@ -639,7 +658,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jan 7 06:02:32 2026 -0500
 
     implement `torS0X` stream isolation
-    
+
     https://spec.torproject.org/socks-extensions.html
 
 commit fc4c70e060ac89c51eba3656d36404dc31e46f91
@@ -1376,7 +1395,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 23 06:02:08 2025 -0500
 
     port to shell based `br_add` (helper-scripts, strings.bsh
-    
+
     to fix error:
     /usr/libexec/systemcheck/check_services.bsh: line 51: /usr/libexec/msgcollector/br_add: Argument list too long
 
@@ -1879,7 +1898,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 2 03:56:06 2025 -0500
 
     new command line tool: `updatecheck`
-    
+
     renamed: usr/libexec/systemcheck/updatecheck -> usr/bin/updatecheck
 
 commit 8e43005e8e2c9417905f347b6e67b7a4237fb18d
@@ -2284,7 +2303,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Oct 19 05:32:19 2025 -0400
 
     suggest /etc/apt/sources.list/derivative.list to /etc/apt/sources.list/derivative.sources migration
-    
+
     using repository-dist utility
 
 commit c4ef2a0400b9c38fe5892318bacfb51bf9c7d7f5
@@ -2485,12 +2504,12 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Sep 23 09:57:21 2025 -0400
 
     hide confusing output by `systemctl --global disable updatecheck.service`
-    
+
     ```
     The unit files have no installation config (WantedBy=, RequiredBy=, UpheldBy=,
     Also=, or Alias= settings in the [Install] section, and DefaultInstance= for
     template units). This means they are not meant to be enabled or disabled using systemctl.
-    
+
     Possible reasons for having these kinds of units are:
     • A unit may be statically enabled by being symlinked from another unit's
       .wants/, .requires/, or .upholds/ directory.
@@ -2713,10 +2732,10 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Aug 9 05:49:04 2025 -0400
 
     new unwanted package: `stardict`
-    
+
     privacy concerns associated with stardict
     https://www.kicksecure.com/wiki/Dev/Debian#startdict
-    
+
     https://www.kicksecure.com/wiki/Systemcheck#Unwanted_Packages_Check
 
 commit 983c52e0c5c759b471495f1fc726f229cc2e6b43
@@ -3135,9 +3154,9 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Jun 3 09:02:45 2025 -0400
 
     fix apparmor issue
-    
+
     https://forums.whonix.org/t/systemcheck-gui-fails-with-error-arg-max-exceeded/21715
-    
+
     Thanks to @marmarek for the bug report and fix suggestion!
 
 commit aa9ecbb07ffe39c0f1291c083af30cb5f412f691
@@ -3237,7 +3256,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon May 12 08:02:41 2025 -0400
 
     fix: show GRUB password and FDE enable/disable status
-    
+
     by fixing VM vs bare metal detection
 
 commit 7a97960e62a28d2e13f14b9d99ed978b38b16208
@@ -3323,7 +3342,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 7 13:27:30 2025 -0400
 
     fix: do not report non-networked Qubes Templates as issue
-    
+
     because Qubes Templates are non-networked by default
 
 commit 83ae31e5280b35ccce8bac3df63683ffaf1feef9
@@ -3506,13 +3525,13 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Apr 29 01:14:06 2025 -0400
 
     improve offline support (for example if networking has not been set up yet):
-    
+
     - check if external network interface can be detected
     - this is done by checking the output of command `ip -o addr show scope global`
     - this is only a local command does not connect to any servers on the internet
     - this avoids waiting for a long systemcheck timeout
     - if there is an external network interface but actual internet connectivity is broken (for example due to router issues), this is not detected yet
-    
+
     no longer terminate early if:
     - unsupported virtualizer has been detected
     - control port filter proxy could not be found
@@ -3814,7 +3833,7 @@ Date:   Thu Apr 10 06:15:50 2025 -0400
 
     check if a bootloader password has been set,
     if running on host operating system only (not inside VMs)
-    
+
     https://www.kicksecure.com/wiki/Protection_Against_Physical_Attacks#Bootloader_Password
 
 commit 7c4035de4156d28560f8dde6803c19a88a964a2f
@@ -4708,7 +4727,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Mar 12 12:43:07 2025 -0400
 
     move journal ignore pattern to configuration
-    
+
     https://forums.whonix.org/t/systemcheck-fails-for-unclear-reason/21424/9
 
 commit 22d09ba941c36cd66d562db1b8dbb03a29d30e55
@@ -4735,7 +4754,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 10 04:43:20 2025 -0400
 
     exit non-zero when unexpected non-freedom packages are found
-    
+
     (function `check_non_freedom` only runs when using `--verbose`)
 
 commit e18a8711ff85abf39a8f740c2fc29c930791366e
@@ -4781,7 +4800,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Mar 8 22:08:42 2025 -0500
 
     Merge pull request #2 from marmarek/ignores
-    
+
     Ignore false positive log messages
 
 commit 5129c96f904403e5932d0128c76b442b4740e07e
@@ -4789,7 +4808,7 @@ Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 Date:   Sat Mar 8 21:29:13 2025 +0100
 
     Ignore false positive log messages
-    
+
     https://forums.whonix.org/t/systemcheck-fails-for-unclear-reason/21424/2
 
 commit fb501a9f62210f2485dea83f6b7d27dc783a389f
@@ -5492,11 +5511,11 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Sep 4 07:55:53 2024 -0400
 
     no longer check if setup-dist was done
-    
+
     since no longer required
-    
+
     since auto connecting to public Tor network nowadays
-    
+
     https://forums.whonix.org/t/connect-to-public-tor-network-by-default-avoid-anon-connection-wizard-acw-popup-at-first-boot/17848
 
 commit 8164547ad2f5898319d6552621df8535d35fea9f
@@ -5522,12 +5541,12 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 6 07:05:09 2024 -0400
 
     systemcheck warning against GeoClue
-    
+
     privacy concerns associated with GeoClue
     https://gitlab.freedesktop.org/geoclue/geoclue/-/issues/177
     https://github.com/Kicksecure/developer-meta-files/issues/3
     https://github.com/Whonix/anon-meta-packages/commit/d9c96fcda6e8dd8ed147d57c71843e003d898d47
-    
+
     systemcheck_unwanted_package+=" geoclue-2.0 "
 
 commit db9fd4e9ba20f54528b34a90f8a7906db0697352
@@ -5559,7 +5578,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Jun 2 08:02:58 2024 -0400
 
     Nowadays Qubes UpdatesProxy over qrexec only. Not over network.
-    
+
     https://github.com/QubesOS/qubes-issues/issues/8398#issuecomment-2143573830
 
 commit abbb5725a9c6c25509a62809e91dee03be3d9916
@@ -5652,7 +5671,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Nov 11 13:41:29 2023 -0500
 
     change license to AGPL-3+
-    
+
     https://forums.whonix.org/t/license-change-to-agplv3/17455
 
 commit 59d4677fdd13401cae183e7c10732a62fb6ad440
@@ -5666,7 +5685,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Nov 5 18:17:40 2023 -0500
 
     apparmor
-    
+
     https://github.com/Kicksecure/security-misc/pull/147#issuecomment-1793877727
 
 commit 67a535481fe6fe694cf602d87abf78e638adfbe5
@@ -5758,7 +5777,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Oct 11 05:39:42 2023 -0400
 
     fix killing apt-get background process when pressing ctrl +c (signal sigint)
-    
+
     use `setsid` use `sudo` with `--`
 
 commit 11ac6b8c3114f5365073c75a8ddffd3c1c8976bf
@@ -5880,7 +5899,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Aug 30 05:55:02 2023 -0400
 
     use `tee` instead of bash redirection
-    
+
     for better error handling
 
 commit 7ee2a27b6584ab7a26b0e8fe52e7515393eaaf90
@@ -5906,7 +5925,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 29 16:59:45 2023 -0400
 
     run `apparmor-info` with `--boot`
-    
+
     to avoid showing already fixed apparmor issues from previous boots
 
 commit e84618b6a4de6c05280d9fcf7e9751d351567b35
@@ -6389,7 +6408,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jul 13 08:25:32 2022 -0400
 
     AppArmor actually do not allow /usr/local/lib/python*/
-    
+
     https://forums.whonix.org/t/sdwdate-suddenly-dies/14150
 
 commit 710dcf6a9bdd0d69772604e6e3305a4abc1feaab
@@ -6421,7 +6440,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jul 13 08:10:16 2022 -0400
 
     AppArmor: /usr/local/lib/python*/** mr,
-    
+
     https://forums.whonix.org/t/sdwdate-suddenly-dies/14150/2
 
 commit 6d5b8cda36c0ba02b68a84d9eb6d9732fa93aa1a
@@ -6549,9 +6568,9 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jun 1 11:38:33 2022 -0400
 
     improve message if Tor control connection failed
-    
+
     Thanks to @nurmagoz for the bug report!
-    
+
     https://forums.kicksecure.com/t/make-systemcheck-gui-give-better-message-when-no-tor-connection-detected/61
 
 commit bcdc9eb126c3471dd11eee79be80afa155101ffa
@@ -6715,9 +6734,9 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Dec 4 16:00:57 2021 -0500
 
     use `curl` with `--cert-status`
-    
+
     Thanks for @yodawins for the suggestion!
-    
+
     https://forums.whonix.org/t/scurl-secure-curl-wrapper/7125/8
 
 commit f98033c1891f844166ad4b955a4968df5ccd1fe6
@@ -6947,7 +6966,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Sep 11 18:06:43 2021 -0400
 
     update path APT `signed-by`
-    
+
     https://forums.whonix.org/t/apt-repository-signing-keys-per-apt-sources-list-signed-by/12302
 
 commit e189f883b840abd085cadb0f8946cd02e094d31c
@@ -7225,9 +7244,9 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon May 31 03:09:36 2021 -0400
 
     improved text
-    
+
     Thanks to @torjunkie!
-    
+
     https://forums.whonix.org/t/one-time-popup-notification-of-whonix-15-deprecation-once-whonix-16-was-released/11720/3
 
 commit f3f3f51d1fd14f2eaf04e71899c169a5f70476af
@@ -7265,7 +7284,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 26 06:01:48 2021 -0400
 
     add check for deprecated derivative (Whonix or Kicksecure) versions
-    
+
     https://forums.whonix.org/t/one-time-popup-notification-of-whonix-15-deprecation-once-whonix-16-was-released/11720
 
 commit 453b47e0ff08457eeccc9cb51897b760787a923d
@@ -7393,7 +7412,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon May 24 03:49:27 2021 -0400
 
     Added Package Manager Consistency Check.
-    
+
     Report if output of command `dpkg --audit` is non-empty, which would indicate
     in most cases a previously interrupted upgrade.
 
@@ -7426,9 +7445,9 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Apr 5 09:34:14 2021 -0400
 
     Depends: replace bsdtar with libarchive-tools
-    
+
     Thanks to @JeremyRand!
-    
+
     https://github.com/Whonix/whonixcheck/pull/15
 
 commit 92fb0f7919c038b711b71a605dc46a3748274187
@@ -7610,7 +7629,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Mar 15 06:38:55 2021 -0400
 
     apparmor
-    
+
     AVC apparmor="DENIED" operation="open" profile="/usr/bin/whonixcheck" name="/sys/fs/cgroup/cpuset/cgroup.clone_children" comm="sudo" requested_mask="wc" denied_mask="wc"
     AVC apparmor="DENIED" operation="mkdir" profile="/usr/bin/whonixcheck" name="/sys/fs/cgroup/systemd/user/" comm="sudo" requested_mask="c" denied_mask="c"
 
@@ -7853,7 +7872,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Mar 2 08:20:57 2021 -0500
 
     automated Whonix warrant canary check
-    
+
     https://www.whonix.org/wiki/Whonixcheck#Warrant_Canary_Check
 
 commit 53870fdfb221b12798c9e40ace01cc9a5e042c45
@@ -7867,7 +7886,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Mar 2 05:05:39 2021 -0500
 
     port canary download from curl to python3-requests
-    
+
     openbsd-signify verify canary unixtime
 
 commit aab6f91eb8eb5fee60c2f80baafe273cf60b01f8
@@ -7971,7 +7990,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 3 08:53:03 2021 -0500
 
     systemcheck_unwanted_package+=" python3-pip "
-    
+
     https://forums.whonix.org/t/more-unwanted-packages/2155/20
 
 commit 80d8f9244d0af51148591fa5d89447ffcce14b50
@@ -8435,7 +8454,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jan 14 05:29:17 2021 -0500
 
     no longer required to overwrite dh_installsystemd
-    
+
     dh_installsystemd --no-start --no-restart-after-upgrade --no-stop-on-upgrade --no-restart-on-upgrade
 
 commit 22288f5952628257a50584ff06ec1dd0724fbdd0
@@ -8749,10 +8768,10 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Oct 26 11:07:55 2020 -0400
 
     recommend upgrade-nonroot over apt-get-update-plus
-    
+
     since that is more suitable in combination with apparmor-profile-everything and
     different boot modes
-    
+
     https://www.whonix.org/wiki/Dev/boot_modes
 
 commit 3683d9c09cdabdd0a635bb487bd9935d8e1e6859
@@ -8784,7 +8803,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 13 09:56:00 2020 -0400
 
     warn if `dmesg` contains "Bad RAM detected"
-    
+
     https://forums.whonix.org/t/kernel-built-in-ram-memory-test-parameter-memtest-1-enable-by-default/10394
 
 commit 996cc55684c538dc8206396b9c8f91c4af6715e2
@@ -8846,12 +8865,12 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 16 05:44:51 2020 -0400
 
     add sudo test
-    
+
     would catch error conditions such as the following
-    
+
         sudo hostname wrong-hostname
         sudo test
-    
+
     > sudo: unable to resolve host wrong-hostname: Temporary failure in name resolution
 
 commit 7fa9967a01bfb59a80a47c45faef017a814d0894
@@ -8865,7 +8884,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 16 05:00:11 2020 -0400
 
     Depends: apparmor-profile-dist
-    
+
     to make sure it is installed before whonixcheck
 
 commit 5a89ff4f3aa23c0ebdc0224964d1d7a94eed6763
@@ -9266,7 +9285,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Oct 30 04:15:55 2019 +0000
 
     Merge pull request #14 from madaidan/apparmor
-    
+
     Give access to /dev/pts/[0-9]*
 
 commit c72d21c2050da32043ba7aa1a12bd0ea4072621d
@@ -9322,9 +9341,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Oct 26 08:57:26 2019 -0400
 
     code cleanup
-    
+
     remove no longer required code
-    
+
     since apt will no longer restart whonixcheck during package upgrades, there is
     no need to detect that case.
 
@@ -9441,9 +9460,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Oct 18 04:43:40 2019 -0400
 
     fix "systemd-detect-virt output: /usr/lib/whonixcheck/preparation.bsh: line 79: sudo --non-interactive systemd-detect-virt: command not found"
-    
+
     Thanks to @madaidan for the bug report!
-    
+
     http://forums.whonix.org/t/restrict-hardware-information-to-root/7329/78
 
 commit 00a194750d356bc26d7fdb63d229cc5056131e6f
@@ -9471,7 +9490,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Oct 6 09:18:34 2019 +0000
 
     Merge pull request #13 from madaidan/sudoers-exception
-    
+
     Add sudoers exception for systemd-detect-virt
 
 commit 123a04f92ce3ae76a918ae059adf4b90167f0700
@@ -9505,7 +9524,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Oct 5 08:43:56 2019 +0000
 
     Merge pull request #12 from madaidan/sudoers-exceptions
-    
+
     Use sudo when checking files in /sys
 
 commit 31ccb332d9a0248613db043341cf8c0012b867b5
@@ -9621,7 +9640,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 1 11:10:09 2019 +0000
 
     increase delay in check_package_manager_running to reduce log spam
-    
+
     and not confuse systemd
 
 commit 0e51e26bd11df3fff275de05060c738694f34e01
@@ -9629,7 +9648,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 1 11:07:23 2019 +0000
 
     abort when run in autostart or daemon mode when package manager is running
-    
+
     because this is likely during apt-get upgrades.
 
 commit 38a6dc11fbf5ddbfa58fd0cf989d62f375b8c79e
@@ -9674,13 +9693,13 @@ Date:   Sun Jul 21 12:08:52 2019 -0400
 
     check_journal: reduce message priority to info, do not exit non-zero
     when warning messages are detected
-    
+
     and reduce false postives by using journalctl with
     --priority=0..4 --boot
     ("emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4))
-    
+
     Thanks to @marmarek for the bug report!
-    
+
     https://phabricator.whonix.org/T925
 
 commit 063da3ebea57afcfdb5d9c4ad44138c8345889e1
@@ -9700,13 +9719,13 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 19 09:56:41 2019 +0000
 
     disable Tor bootstrap test by default
-    
+
     i.e. no more "Connecting to Tor...", "Connected to Tor." passive popups by default
-    
+
     using sdwdate-gui for that purpose nowadays
-    
+
     can be reenabled with a config file snippet /etc/whonix.d/50_user.conf
-    
+
     whonixcheck_tor_bootstrap_skip_auto_check="false"
 
 commit aafc18072d7dc681834dcf931ea488e5309bbba5
@@ -9792,7 +9811,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jul 13 20:11:40 2019 +0000
 
     disable systemd hardening since broken
-    
+
     https://forums.whonix.org/t/apply-systemd-sandboxing-by-default-to-some-services/7590/31
 
 commit 731d88922800a38c20ddf96c22be70de87495abe
@@ -9905,7 +9924,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 26 11:33:33 2019 +0000
 
     Merge pull request #10 from madaidan/patch-1
-    
+
     Add systemd sandboxing
 
 commit 2e93a5b7562055d9e5fd92834d0c4f4aa76e7866
@@ -9991,7 +10010,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 20 07:38:41 2019 -0400
 
     compatibility with UsrMerge
-    
+
     https://github.com/QubesOS/qubes-issues/issues/5111
 
 commit 32da48e0f964549dba9cc3939fcc80c9d8c3eee1
@@ -10013,9 +10032,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jun 10 14:51:48 2019 +0000
 
     fix waiting if whonix-firewall check succeeds late
-    
+
     Thanks to @TNTBOMBOM for the bug report!
-    
+
     http://forums.whonix.org/t/whonix-virtualbox-15-0-0-0-7-debian-buster-based-testers-wanted/7131/21
 
 commit 7844fcd14ebe875a5f38b7d3e36c9a337e7ef944
@@ -10065,7 +10084,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri May 24 10:09:05 2019 +0000
 
     better output if virtualizer detection test failed
-    
+
     https://forums.whonix.org/t/error-virtualizer-unsupported-by-whonix-developers/4471
 
 commit 6aa837c495cce147a64a4c4fc3ebf2e074f5b030
@@ -10193,7 +10212,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Apr 12 15:39:57 2019 +0000
 
     whonixcheck grep journal for "fail", "error" and "denied"
-    
+
     https://phabricator.whonix.org/T854
 
 commit f83a4633e703b621794273f28136a4dc2e3fddfd
@@ -10213,7 +10232,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Apr 10 15:38:39 2019 -0400
 
     deprecate KDE
-    
+
     https://forums.whonix.org/t/user-poll-xfce-vs-kde-kde-deprecation-considered/6235
 
 commit ffbdb2e2dfb35810ed3314e4ba6805f4902a4f9b
@@ -10311,18 +10330,18 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Mar 1 14:32:43 2019 +0000
 
     add improved legal protections clauses
-    
+
     The license for software created by Whonix is the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version with additional terms applicable per GNU GPL version 3 section 7.
-    
+
     The additional terms are based on the Doom 3 license which is Debian refers to as `GPL-3+-with-id-software-additional-terms`, which is Debian DFSG [1] (The Debian Free Software Guidelines) approved and which is therefore suitable for Debian `main`. Whonix made applied minimal changes to it:
-    
+
     * Rewrite `The Doom 3 BFG Edition GPL Source Code` to the more common `this program` which is used throughout the GPL.
     * Added a "trump clause" [2], in other words, any conflicts or disputes between the additional terms and the GPLv3 shall be resolved in favor of the GPLv3 by adding `Notwithstanding any other provision of this License` (as mentioned in GPL FAQ [3]) at the beginning of the additional terms.
-    
+
     [1] https://www.debian.org/social_contract#guidelines
     [2] https://www.fsf.org/news/canonical-updated-licensing-terms
     [3] https://www.gnu.org/licenses/gpl-faq.html#v3Notwithstanding
-    
+
     For more considerations, see also:
     https://www.whonix.org/wiki/Dev/Licensing
 
@@ -10343,7 +10362,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Feb 18 02:45:48 2019 -0500
 
     make check_unwanted_packages skippable
-    
+
     by running it from whonixcheck_run_function
 
 commit 2f956d79f75fcc914e658e3dbdb1c375cd9ef154
@@ -10381,7 +10400,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Feb 11 09:43:13 2019 +0000
 
     fix
-    
+
     https://forums.whonix.org/t/whonix-error-script-bug/6814
 
 commit ae7378456da94581cc79a629f693612a4faefa74
@@ -10419,7 +10438,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Dec 12 20:58:45 2018 -0500
 
     show output of "journalctl -u whonix-firewall" in case of whonix-firewall error
-    
+
     https://github.com/QubesOS/qubes-issues/issues/4603
 
 commit 97829dab03e03ac4e6de3c1bde56a8d475ae0b69
@@ -10565,7 +10584,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Sep 13 19:26:31 2018 +0000
 
     Qubes: run spectre meltdown check only in Qubes R4 and above
-    
+
     https://github.com/QubesOS/qubes-issues/issues/4295
 
 commit 117d108d2530822f65a96c03f8fbcce8f6caa891
@@ -10597,9 +10616,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Sep 9 19:54:34 2018 +0000
 
             capability sys_module,
-    
+
     required for ifconfig
-    
+
     https://forums.whonix.org/t/whonix-apparmor-profiles-development-discussion/108/682
 
 commit 4d65231b87b1dbc7827cd47c86f1f4d5476bcda2
@@ -10607,7 +10626,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Sep 9 19:42:14 2018 +0000
 
     add spectre/meltdown test
-    
+
     https://forums.whonix.org/t/whonix-vulerable-due-to-missing-processor-microcode-packages
 
 commit b464e62eed1e2099da6882f7d8990338fc6627c7
@@ -10621,9 +10640,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 29 10:21:26 2018 -0400
 
     show Kernel Messages Test Result only when using --verbose
-    
+
     to avoid the following non-actionable warning
-    
+
     > WARNING: Check Kernel Messages Test Result: Remarkable kernel message found using dmesg.
     > clocksource: timekeeping watchdog on CPU0: Marking clocksource 'tsc' as unstable because the skew is too large:
 
@@ -10662,7 +10681,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 10 18:39:09 2018 +0800
 
     sudoers.d asterix hardening
-    
+
     https://github.com/QubesOS/qubes-issues/issues/2852
 
 commit 6faec5cbcf29cb24e7f92d06fac13ea7d0cf5599
@@ -10720,9 +10739,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 22 09:57:31 2018 +0800
 
     apparmor /usr/lib/uwtexec rix
-    
+
     https://github.com/Whonix/uwt/pull/6
-    
+
     https://phabricator.whonix.org/T797
 
 commit aa3c3707fac2e252a40239288aa48c1313cd5c0e
@@ -10772,7 +10791,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Apr 2 12:29:13 2018 +0000
 
     fix
-    
+
     https://github.com/Whonix/whonixcheck/pull/8
 
 commit c0cd66fd9f6491d896e78dad8c9ba5faca9baaf4
@@ -10793,13 +10812,13 @@ Author: irykoon <irykoon@gmail.com>
 Date:   Mon Mar 19 03:30:12 2018 +0000
 
     Improve tor --verify-config report
-    
+
     Whonix starts Tor using systemd with this command: /usr/bin/tor --defaults-torrc /usr/share/tor/tor-service-defaults-torrc -f /etc/tor/torrc --RunAsDaemon 0 Therefor, it is important to verify if Tor can work under exactly those parameters.
-    
+
     Tor report may be huge, making users feel overwhlemed. Therefore, we introduce Tor concise report which only contains complains with [warn] or [err] tags.
-    
+
     This commit introduces a new bug that should be fixed:
-    
+
     /usr/lib/whonixcheck/cleanup.bsh: line 215: cd: ..: Permission denied
     [ERROR] [whonixcheck] -------------------------------------------------------------------------------
     -- whonixcheck script bug.
@@ -10986,9 +11005,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 7 01:05:24 2018 +0100
 
     fix KVM unsupported virtualizer false positive
-    
+
     https://forums.whonix.org/t/whonix-virtualbox-14-0-0-6-6-testers-wanted/4802/2
-    
+
     Thanks to @HulaHoopWhonix for the bug report!
 
 commit 0679c3dd6e11a28370adabbe206afd3bf989dcf9
@@ -11056,7 +11075,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jan 29 16:08:30 2018 +0000
 
     disable check_systemd_clock
-    
+
     https://github.com/QubesOS/qubes-issues/issues/3469
 
 commit a1e9249052fc1540a3160dbed22982a01d438e5f
@@ -11222,7 +11241,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 16 22:49:04 2017 +0000
 
     fix, set back timeout for leak tests from 1 to 180
-    
+
     (was a leftover from testing)
 
 commit 144c04d03554b21c50b0553049ec92e6441bb509
@@ -11248,12 +11267,12 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Dec 4 10:09:04 2017 +0000
 
     Whonix 14 changes:
-    
+
     Non-Qubes-Whonix:
     - no longer autostart whonixcheck on Whonix-Workstation (changed in Whonix 14)
     - only autostart whonixcheck in `autostart mode` on Whonix-Gateway (to only show the connected to Tor passive popup or active popup on failure) (changed in Whonix 14)
     - by default, exit whonixcheck in daemon mode (do not auto run in randomized regular periods) (these popups interrupted whatever the user was doing, confusing them, click away) (changed in Whonix 14)
-    
+
     Qubes-Whonix
     - no longer autostart whonixcheck on Whonix-Workstation (was already that way in Whonix 13)
     - only autostart whonixcheck in `autostart mode` on Whonix-Gateway (to only show the connected to Tor passive popup or active popup on failure)  (was already that way in Whonix 13)
@@ -11264,7 +11283,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 2 19:50:29 2017 +0000
 
     fix whonixcheck whonix-firewall check race condition
-    
+
     https://phabricator.whonix.org/T675
 
 commit 708534df6ac9cd76c00b4d0c5ece0ef785e43686
@@ -11286,7 +11305,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Nov 30 21:38:18 2017 +0100
 
     Merge pull request #7 from Algernon-01/master
-    
+
     Patches for Whonix live
 
 commit 0dd257cbb25ad8f43a9720a33864d99c9a873368
@@ -11312,18 +11331,18 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 24 23:12:06 2017 +0200
 
     add leak test for Qubes Updates Proxy
-    
+
     (no leak tests are run by default, requires adding --leak-tests (--show-ips))
-    
+
     leak test code refactoring
-    
+
     deprecated configuration values:
     - WHONIXCHECK_DISABLE_SOCKS_PORT_TEST
     - WHONIXCHECK_NO_EXIT_ON_TRANS_PORT_DETECTION_FAILURE
     - WHONIXCHECK_DISABLE_TRANS_PORT_TEST
-    
+
     output
-    
+
     https://phabricator.whonix.org/T724
 
 commit e7bf9224c82d2fe675a2026fb8cb26f76321419d
@@ -11331,7 +11350,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Oct 20 15:04:06 2017 +0000
 
     skip Qubes network interface test in Qubes TemplateVMs
-    
+
     since no longer networked by default in Qubes R4
 
 commit 084522a5a1e39ed854c7c92ee86593c011491eb8
@@ -11345,7 +11364,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Jun 27 20:37:18 2017 +0000
 
     Whonix census
-    
+
     https://phabricator.whonix.org/T689
 
 commit 45bc01bc4f4d2cc27a2ae2a0bf637487bbbd4679
@@ -11353,7 +11372,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 23 11:21:40 2017 +0200
 
     Revert "reenable whonix news"
-    
+
     This reverts commit ba54e4498d455bc047621482d71bdd94b508fbb4.
 
 commit ba54e4498d455bc047621482d71bdd94b508fbb4
@@ -11399,7 +11418,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Mar 16 13:04:49 2017 +0100
 
     Merge pull request #6 from HulaHoopWhonix/patch-3
-    
+
     Update 30_whonixcheck_default.conf
 
 commit 15e5767d88d28cd82ad87cae732bcf76eee77c98
@@ -11485,7 +11504,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Feb 21 22:25:33 2017 +0000
 
     use systemctl --no-pager to prevent blocking due to systemctl interactivity
-    
+
     https://phabricator.whonix.org/T637
 
 commit 004ed26ce9d382f01e5696998098795b7f99ec3b
@@ -11499,7 +11518,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 15 23:22:08 2017 +0000
 
     when Whonix firewall has been reload, continue after Tor bootstrap test
-    
+
     even if time synchronization status is still pending
 
 commit 388918a64cbe2f8af1e149f7f96baa95feab297a
@@ -11507,7 +11526,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 15 22:47:42 2017 +0000
 
     gracefully handle cases where Tor is restarted during Tor bootstrap test
-    
+
     no longer exit with error message "Tor's Control Port could not be reached."
     try a few 5 times, wait 2 seconds between attempts
 
@@ -11516,7 +11535,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 15 21:36:07 2017 +0000
 
     After=tor-controlport-filter.service
-    
+
     because it checks tor-controlport-filter
 
 commit d841780eedf7376d6f6c8a0efdc64094f5ae577c
@@ -11536,7 +11555,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Feb 11 07:10:12 2017 +0100
 
     whonixcheck_unwanted_package+=" kdeconnect "
-    
+
     https://forums.whonix.org/t/kdeconnectd-removal
 
 commit b9b8236bdedad9f920ff895c9e479a0ed730233f
@@ -11544,7 +11563,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Feb 10 15:47:52 2017 +0000
 
     remove faketime from Build-Depends:
-    
+
     since no longer used for reproducible builds
 
 commit 60b808844adda8e6d42e7c0a877a75c4ffc86f12
@@ -11600,7 +11619,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jan 25 12:30:07 2017 +0000
 
     whonixcheck_expected_nonfree_package remove firmware-linux and firmware-linux-nonfree
-    
+
     since these can and should be removed in Qubes-Whonix for upgraded VMs
 
 commit 5811516689509d46f4b81c02bc1b0336fd4f1192
@@ -11632,7 +11651,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jan 18 10:00:10 2017 +0000
 
     port whonixcheck check_tor_socks_port_reachability.bsh to using Tor unix domain socket socks file
-    
+
     https://phabricator.whonix.org/T548
 
 commit c6b0d140656850a3e66728874873ce56fb7ae812
@@ -11658,7 +11677,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jan 12 04:18:19 2017 +0000
 
     apparmor 'sudo umount /proc/xen' compatibility  fix
-    
+
     https://forums.whonix.org/t/tor-browser-sandbox-linux-alpha-coming-soon
 
 commit fa0bf91b84ca65772cdc7ede7362fd9b83e05692
@@ -11696,9 +11715,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Dec 25 01:23:46 2016 +0000
 
     use /usr/lib/anon-shared-helper-scripts/apt-get-update-simulate
-    
+
     instead of directly using apt-get --simulate dist-upgrade
-    
+
     to get timeout protection
 
 commit fec797e26e966785178fb481dfb1290c84f6e137
@@ -11748,7 +11767,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Dec 7 22:59:30 2016 +0000
 
     adjust for tor-controlport-filter
-    
+
     https://phabricator.whonix.org/T573
 
 commit 62d8e9e7b115702164db1b9af86efca889aa6a06
@@ -11756,7 +11775,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Dec 7 22:55:48 2016 +0000
 
     adjust sudoers for tor-controlport-filter
-    
+
     https://phabricator.whonix.org/T573
 
 commit cebcdcb3c4441c0beb7edee8ba02698cd1b706d2
@@ -11764,7 +11783,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Dec 7 22:53:21 2016 +0000
 
     adjust for tor-controlport-filter
-    
+
     https://phabricator.whonix.org/T573
 
 commit 8e2c4cc8af93d96eae014d90ec27376612e5cfcc
@@ -11808,9 +11827,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Oct 30 21:04:55 2016 +0100
 
     fix lastrun check race condition bug
-    
+
     Thanks to hologone for the bug report!
-    
+
     https://forums.whonix.org/t/whonixcheck-error-script-bug
 
 commit e628438a79eff94b6d51ba64e8f01d5c793e4bd4
@@ -11824,9 +11843,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Oct 13 18:43:00 2016 +0000
 
     Fix /var/lib/tor AppArmor permission issue.
-    
+
     Thanks to Temple for the bug report!
-    
+
     https://forums.whonix.org/t/gateway-tor-problem-latest-update
 
 commit 2730ebb073d3b2c4afeb04761a58888704726c88
@@ -11834,7 +11853,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Oct 10 21:41:54 2016 +0000
 
     only show nonfree packages when using --verbose
-    
+
     https://forums.whonix.org/t/nonfree-packages-found-with-virtualbox
 
 commit bc5a004c1bea5d1d019000e0fa0bdfec7887a386
@@ -11854,7 +11873,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Oct 10 15:12:51 2016 +0000
 
     no longer check /var/run/control-port-filter-python/pid
-    
+
     use /bin/service
 
 commit 33c6e783c5e5cdcbfd72e721179e5eec02858665
@@ -11892,7 +11911,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Sep 5 21:46:29 2016 +0200
 
     whonixcheck_expected_nonfree_package+=
-    
+
     https://forums.whonix.org/t/nonfree-packages-found-with-virtualbox
 
 commit c5a5fa621264f5c5fab1a5dde9a64b2ed045c1e7
@@ -11912,9 +11931,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Sep 4 22:08:28 2016 +0200
 
     recommend clock-random-manual-gui rather than manually setting randomizing the clock
-    
+
     in sdwdate permanent failure cases (ddos against enough time providers)
-    
+
     https://phabricator.whonix.org/T533
 
 commit 7ab9126eb76e5ee6fc78971d1e96e40cc5265994
@@ -11925,7 +11944,7 @@ Date:   Mon Aug 29 21:39:49 2016 +0000
     - avoid too technical word "bootstrap"
     - output
     - comments
-    
+
     https://phabricator.whonix.org/T533
 
 commit a6c043c85548d82e232e0c2e0fe1f909305790c2
@@ -11933,7 +11952,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 26 21:37:23 2016 +0000
 
     add sdwdate status to whonixcheck Tor bootstrap test output
-    
+
     https://phabricator.whonix.org/T533
 
 commit 71930e80882bc8d62afe674b4a1108aa60946afb
@@ -11983,7 +12002,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 25 16:52:19 2016 +0000
 
     reenable exit whonixcheck on Tor bootstrap test failure
-    
+
     https://phabricator.whonix.org/T533
 
 commit 95fc9e7a589c8601ddfe2ac5c10fe7fd9136a2cd
@@ -11997,9 +12016,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 25 16:46:08 2016 +0000
 
     add timesync status to cli output
-    
+
     code simplification
-    
+
     https://phabricator.whonix.org/T533
 
 commit 992edf4a227c4f1df6a254755cd7b3c5cadbbdfd
@@ -12007,7 +12026,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 25 16:30:46 2016 +0000
 
     sudo --non-interactive
-    
+
     https://phabricator.whonix.org/T549
 
 commit 44f777e24982c337ec64dcaede9a60d59a047053
@@ -12015,7 +12034,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 25 16:03:33 2016 +0000
 
     compatibility with msgcollector when running under different user account
-    
+
     https://phabricator.whonix.org/T533
 
 commit b04205463492e9da67a851a085597154d7d871fb
@@ -12023,7 +12042,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 25 01:26:03 2016 +0000
 
     add user whonixcheck to group debian-tor for Tor bootstrap test
-    
+
     https://phabricator.whonix.org/T533
 
 commit 0fcc4947ef9d32850f750ab85c69b20ec50ce585
@@ -12037,7 +12056,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 25 01:08:43 2016 +0000
 
     fix sudoers permissions for running as user whonixcheck
-    
+
     https://phabricator.whonix.org/T533
 
 commit fcbe5f1605d436b09fe192c1e80f16d639a161dc
@@ -12057,9 +12076,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 24 23:47:05 2016 +0000
 
     run whonixcheck under user 'whonixcheck'
-    
+
     so it can run Tor bootstrap test even if Whonix firewall is in restricted mode
-    
+
     https://phabricator.whonix.org/T533
 
 commit cdb5408d941fee0bea03aa2b5e2ea5b3236a542b
@@ -12067,10 +12086,10 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 24 23:21:13 2016 +0000
 
     usr/bin/whonixcheck -> usr/lib/whonixcheck/whonixcheck
-    
+
     so /usr/bin/whonixcheck wrapper can be added that will run whonixcheck under
     user 'whonixcheck'
-    
+
     https://phabricator.whonix.org/T533
 
 commit d351e44222dd857d159f0c215d1091bffa057a82
@@ -12084,9 +12103,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 24 19:44:21 2016 +0000
 
     also wait for sdwdate to succeed until Tor bootstrapping is considered done
-    
+
     refactoring Tor bootstrapping code
-    
+
     https://phabricator.whonix.org/T533
 
 commit 9dfb76cd843c346b1583bcfc7407646596bb92fb
@@ -12112,9 +12131,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 18 23:34:28 2016 +0000
 
     disable Whonix News by default, since the UX is to bad to be useful
-    
+
     can still be manually run using whonixcheck --function download_whonix_news
-    
+
     https://forums.whonix.org/t/whonixcheck-whonix-14-ideas
 
 commit 95624483864bca097f112aa4de002caf61c5f6e4
@@ -12122,7 +12141,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 18 23:28:11 2016 +0000
 
     skip Tor leak tests by default for hardening; implement --leak-tests
-    
+
     https://forums.whonix.org/t/whonixcheck-whonix-14-ideas
 
 commit 499d0bdc189fe00b5edee91e984f6303f0c39fd7
@@ -12160,7 +12179,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 18 22:34:35 2016 +0000
 
     show IP during Tor leak test only when using --show-ip
-    
+
     to avoid users posting screenshots with their IPs
 
 commit d5356b734ea7a3b41fd9524e177fc817901955ba
@@ -12192,9 +12211,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Aug 14 22:49:00 2016 +0000
 
     check if Whonix firewall systemd unit was successfully loaded
-    
+
     check for failed systemd units when using --verbose
-    
+
     https://phabricator.whonix.org/T488
 
 commit f5e9de796e01d8c95c7230f1aa77e6baa390286d
@@ -12214,9 +12233,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 10 19:36:40 2016 +0000
 
     fix apparmor /etc/perl/sitecustomize.pl warning
-    
+
     Thanks to massy1 for reporting this bug?
-    
+
     http://forums.whonix.org/t/var-log-kern-log-contains-4-denied-messages-in-the-last-day
 
 commit 270633c131dbf79ef2dc8078a0c734168a787fc6
@@ -12230,11 +12249,11 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 14 19:42:36 2016 +0000
 
     fix apparmor protbuf denied message
-    
+
     Thanks to ramongalaxy for the report!
-    
+
     Thanks to entr0py for instructions for reproduction and suggestions to fix!
-    
+
     https://forums.whonix.org/t/profile-usr-bin-whonixcheck-operation-open-denied-name-usr-local-lib-python2-7-dist-package-protobut-2-6-1-nspkg-pth
 
 commit 983a0ede85fff4d43789362aa57118c523317bea
@@ -12254,7 +12273,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 15 21:57:15 2016 +0000
 
     more modern / common config parser
-    
+
     /etc/default/whonixcheckd.d/*.conf /rw/config/default/whonixcheckd.d/*.conf
 
 commit 599b43e95085b8b741df8d0583ca1e2d554b50bb
@@ -12262,7 +12281,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 8 22:52:48 2016 +0000
 
     --tlsv1.2
-    
+
     https://phabricator.whonix.org/T489
 
 commit 6b27e2b676cc78480731b9cc8b1bd0904192c948
@@ -12278,7 +12297,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 8 21:56:46 2016 +0000
 
     Merge pull request #5 from HulaHoopWhonix/patch-2
-    
+
     Added more banned packages
 
 commit 095686fc57b81bb8a083bac4d638c13f69fd4d0e
@@ -12292,7 +12311,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 2 15:01:18 2016 +0000
 
     fixed pvclock test
-    
+
     https://forums.whonix.org/t/whonix-13-time-sync-issue
 
 commit bf3cec43f9fa46218ac71993d994fc90f397a9bc
@@ -12306,7 +12325,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat May 14 13:40:47 2016 +0000
 
     fixed sudoers permissions for /sbin/ifconfig eth1
-    
+
     required for check_network_interfaces
 
 commit 3e9ce26aa1bc7d1d2db2d26333cde824a105f08f
@@ -12320,7 +12339,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu May 5 01:08:02 2016 +0000
 
     AppArmor profile: Allow running 'apt-get update' unconfined.
-    
+
     So it can also initially create /var/cache/apt/archives/.
 
 commit deeefe960ab93e3a0b62f8c6144db64e27f1b5a6
@@ -12334,7 +12353,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed May 4 19:01:01 2016 +0200
 
     Added '/run/resolvconf/resolv.conf r,' to AppArmor profile.
-    
+
     Required for curl when resolvconf is installed.
 
 commit 275f49ab4830228d747382f5bec1d489cbe22dbd
@@ -12366,9 +12385,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Apr 26 16:10:06 2016 +0000
 
     Fixed qubes vm type check.
-    
+
     Do not complain when running in qubes-vm-type DisposableVM.
-    
+
     https://phabricator.whonix.org/T406
 
 commit 31ed4be6a8b1dd410e419bb5d02a7fdc753c57ee
@@ -12382,7 +12401,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Apr 22 03:31:31 2016 +0000
 
     fix, skip check_network_interfaces in Qubes TemplateVM
-    
+
     Since it does not have eth1 and since TemplateVM will be non-networked in future.
 
 commit ce5c326843f6eb5c21bfa6a50bf40a52815f0e90
@@ -12438,7 +12457,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 7 18:25:00 2016 +0000
 
     check for nonfree packages during
-    
+
     https://phabricator.whonix.org/T461
 
 commit e8d65d4a9b1bbcd6c017e5d2515046c34b921eb1
@@ -12454,7 +12473,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 7 00:59:13 2016 +0000
 
     Merge pull request #4 from HulaHoopWhonix/patch-1
-    
+
     Ban bts and wnpp-check
 
 commit 76158beb9bb36717a7f392539d6654d83e24853e
@@ -12462,9 +12481,9 @@ Author: HulaHoopWhonix <bancfc@openmailbox.org>
 Date:   Thu Apr 7 00:25:37 2016 +0000
 
     Ban bts and wnpp-check
-    
+
     These packages were specifically pointed out as causing privacy leaks. Debian maintainers say this is not a definitive list. Need to ask them what else.
-    
+
     https://lwn.net/Articles/672350/
     https://wiki.debian.org/TorifyDebianServices
 
@@ -12473,7 +12492,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Mar 31 22:00:53 2016 +0000
 
     test if network interfaces are up
-    
+
     https://phabricator.whonix.org/T490
 
 commit dd81a2841948e63e1a30d03038ab458699c2ed31
@@ -12499,9 +12518,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 29 23:20:43 2016 +0000
 
     made --proxy argument to curl configurable
-    
+
     through environment variables
-    
+
     - CURL_PROXY_WHONIXCHECK
     - CURL_PROXY_WHONIX_NEWS
 
@@ -12516,9 +12535,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 29 23:12:53 2016 +0000
 
     only show build version if it is outdated or when running with --verbose
-    
+
     showing the current build version has lead to too much confusion
-    
+
     https://www.whonix.org/wiki/Whonixcheck#Whonix_Build_Version
 
 commit 483ee4785d0d8ff916055f88818426af66cd48dd
@@ -12556,7 +12575,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 22 09:54:04 2016 +0000
 
     work on 'whonixcheck should test for slow / fast clock'
-    
+
     https://phabricator.whonix.org/T482
 
 commit 61be795d764487352e5acbc2544ae903a8bb0d7d
@@ -12594,7 +12613,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 22 09:17:57 2016 +0000
 
     work on 'whonixcheck should test for slow / fast clock'
-    
+
     https://phabricator.whonix.org/T482
 
 commit 1049109a01bcf997a193265abb22e122b324463e
@@ -12602,7 +12621,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Mar 21 14:09:52 2016 +0000
 
     run check_kernel_messages test
-    
+
     https://phabricator.whonix.org/T480
 
 commit acf19620fc68f0b6c7b29cab9669a6cb5e7e9877
@@ -12610,12 +12629,12 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Mar 21 14:04:49 2016 +0000
 
     look out for timekeeping watchdog kernel messages
-    
+
     Kernel messages wrt timekeeping can indicate issues which generate lots of
     confusion, inconvenience and even time related fingerprinting issues. See
     https://github.com/QubesOS/qubes-issues/issues/1779 (new information to be
     added there soon). Which took a while to debug.
-    
+
     https://phabricator.whonix.org/T480
 
 commit 9795c5c5bf59e5eee20d05f6b0cfed1058816afe
@@ -12623,7 +12642,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Mar 21 13:54:49 2016 +0100
 
     Whonix News Download: download from whonix.org rather than mirror.whonix.de
-    
+
     https://phabricator.whonix.org/T475
 
 commit ef6f98d4a3d9e17200cbcf3b73bc2fd50066d77d
@@ -12637,9 +12656,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Feb 13 17:15:39 2016 +0000
 
     Fixed message if unwanted packages are found.
-    
+
     Thanks to @rAntOCauDgb for the report.
-    
+
     Fixes https://github.com/Whonix/whonixcheck/pull/3
 
 commit 88a81ea56cc33f0d97f8caa74a68e53e983faba7
@@ -12665,7 +12684,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Dec 21 23:02:00 2015 +0100
 
     skip kvmclock check on Whonix-Gateway
-    
+
     https://phabricator.whonix.org/T385#7651
 
 commit e0d549265419a4e98132f6ac4fd678148e87a06c
@@ -12691,7 +12710,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 12 04:19:37 2015 +0000
 
     check if Qubes-Whonix-Workstation is running in the right type of VM
-    
+
     AppVM or TemplateVM
 
 commit 2bea94ed309ecc870f72403b08138a89f7bfaf4f
@@ -12729,12 +12748,12 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Dec 11 01:29:40 2015 +0000
 
     Improved Whonix News output.
-    
+
     Improved output in case package whonix-workstation-packages-dependencies or in
     case Whonix build version file does not exist.
-    
+
     Thanks to Vogel123 for the report!
-    
+
     http://forums.whonix.org/t/source-list-error
 
 commit d3394bf315d44043a3c244ebd252aa9ad2a968de
@@ -12748,7 +12767,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Dec 1 21:10:05 2015 +0000
 
     Revert "no need to reintroduce /etc/whonix.d/30_whonixcheck_default.conf"
-    
+
     This reverts commit 23a5a6991055bf8e1e4bf469c9280e3f0f84b635.
 
 commit 23a5a6991055bf8e1e4bf469c9280e3f0f84b635
@@ -12762,9 +12781,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Nov 30 21:28:32 2015 +0000
 
     Only source configuration files that end with the '.conf' extension.
-    
+
     Thanks to @nrgaway for the suggestion!
-    
+
     https://phabricator.whonix.org/T286
 
 commit a52b900bdffe36e9e9dad39d2ac676bef933c100
@@ -12778,9 +12797,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Nov 30 19:46:21 2015 +0000
 
     Only source configuration files that end with the '.conf' extension.
-    
+
     Thanks to @nrgaway for the suggestion!
-    
+
     https://phabricator.whonix.org/T286
 
 commit cb5f82e20b60b0c70ae73a5e36d53811f17573e9
@@ -12795,7 +12814,7 @@ Date:   Wed Nov 25 18:53:40 2015 +0000
     - Only report unsupported pv clock for KVM, since this is not yet implemented for other platforms.
       - Qubes: https://phabricator.whonix.org/T389
       - VirtualBox: https://phabricator.whonix.org/T437
-    
+
     Thanks to Corrupt Correct Pig for reporting this!
     https://forums.whonix.org/t/recurring-time-error-within-gateway-11-under-virtualbox-5-error-unwanted-pvclock-kvm-clock-tsc-acpi-pm-detected/1671
 
@@ -12920,10 +12939,10 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Oct 19 16:59:04 2015 +0000
 
     Qubes Tor bootstrap passive popup text: [Connecting|Connected] to Tor[.|...]
-    
+
      [sys-whonix]
      Connecting to Tor...
-    
+
      [sys-whonix]
      Connected to Tor.
 
@@ -13366,32 +13385,32 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 21 14:03:19 2015 +0000
 
     made whonixcheck more silent, suitable for Qubes AppVM design
-    
+
     1) If running in Qubes, when autostarted (after boot) -> silent=3
     2) If running in Qubes Qubes, when daemon (planed iteration during run) -> silent=3
     3) If running in Qubes-Whonix-Workstation -> Exit immediately. Otherwise, 5 started AppVMs and the same error everywhere (not bootstrapped, needs upgrade etc.) would result in 5 popups.
     4) Silent only applies to autostart and daemon mode. When manually run, show all messages. Same as Whonix 11.
     5) overview of various silent levels
-    
+
     silent -le 0: show SocksPort and TransPort "Test Result: Connected to Tor. IP" messages
-    
+
     silent -ge 1: no "whonixcheck was recently run, no need to run it again, you could still manually start it" message.
-    
+
     silent -ge 2: no "Tor Bootstrap Result: Connected to Tor." message unless bootstrapping took a while and a progress bar was shown
     silent -le 2: do test SocksPort and TransPort but only report errors (no connectivity, Tor not detected and false positives)
     silent -ge 2: do test stream isolation, but only report errors
     silent -ge 2: no Whonix News result if there are no news and debian and build version up to date
     silent -ge 2: no "No updates found via apt-get" message
-    
+
     silent -ge 3: no Tor SocksPort / TransPort test at all
     silent -ge 3: no stream isolation test at all
     silent -ge 3: no Whonix News check at all
     silent -ge 3: no apt-get update check at all
     silent -ge 3: skip to inform if Whonix repository is enabled
     silent -ge 3: no progress bar for the usual tests. Except a progress bar if Tor is not bootstrapped yet.
-    
+
     silent -ge 4: skip test whether Whonix repository enabled/disabled test at all. In other words, do not report disabled Whonix repository.
-    
+
     6) cleanup, deprecated random wait code
 
 commit c827be1b7a7ecc47ee1b917280cf4a027336194b
@@ -14017,7 +14036,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 10 18:19:46 2015 +0000
 
     Revert "KVM is no longer maintained, whonixcheck recommends against it therefore - https://phabricator.whonix.org/T213 - https://www.whonix.org/forum/index.php/topic,982"
-    
+
     This reverts commit b0bdb4a44b6f8ada93d3b586143e68bcef4ece13.
 
 commit 534e9a2df829744f2f2b3d4f1b5841ccded80216
@@ -15324,7 +15343,7 @@ Author: troubadoour <trobador@riseup.net>
 Date:   Mon Jun 23 21:46:57 2014 +0000
 
     Merge remote-tracking branch 'origin'
-    
+
     "rich text"
 
 commit 9d5b23de33f6954e02ee04e59562313b4b5ea3ce
