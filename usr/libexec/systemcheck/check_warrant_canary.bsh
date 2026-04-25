@@ -149,11 +149,11 @@ $canary_recommendation</p>"
       return 0
    fi
 
-   local canary_signature_unixtime_sanetized
-   canary_signature_unixtime_sanetized="$(/usr/bin/sanitize-string -- "$max_string_length" "$canary_signed_unixtime_raw")"
+   local canary_signature_unixtime_sanitized
+   canary_signature_unixtime_sanitized="$(/usr/bin/sanitize-string -- "$max_string_length" "$canary_signed_unixtime_raw")"
 
-   if [[ "$canary_signature_unixtime_sanetized" != *[!0-9]* ]]; then
-      true "$FUNCNAME: canary_signature_unixtime_sanetized is strictly numeric."
+   if [[ "$canary_signature_unixtime_sanitized" != *[!0-9]* ]]; then
+      true "$FUNCNAME: canary_signature_unixtime_sanitized is strictly numeric."
    else
       local MSG="\
 <p>$warrant_canary_check_link: contents of file <code>/var/lib/canary/canary-unixtime.txt</code> are not numeric.
@@ -176,14 +176,14 @@ $canary_recommendation</p>"
    local canary_signature_unixtime_human_readable current_unixtime current_human_readable
    local maximum_age canary_expiration_unixtime canary_expiration_human_readable
 
-   canary_signature_unixtime_human_readable="$(date --utc --date "@${canary_signature_unixtime_sanetized}")"
+   canary_signature_unixtime_human_readable="$(date --utc --date "@${canary_signature_unixtime_sanitized}")"
 
    current_unixtime="$(date --utc "+%s")"
    current_human_readable="$(date --utc --date "@${current_unixtime}")"
 
    ## 4 weeks = 2419200
    maximum_age=2419200
-   canary_expiration_unixtime=$(( $canary_signature_unixtime_sanetized + $maximum_age ))
+   canary_expiration_unixtime=$(( $canary_signature_unixtime_sanitized + $maximum_age ))
 
    canary_expiration_human_readable="$(date --utc --date "@${canary_expiration_unixtime}")"
 

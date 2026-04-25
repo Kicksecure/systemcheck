@@ -24,6 +24,8 @@ parse_cmd_options() {
                return 0
                ;;
            -v | --verbose)
+               ## The main 'systemcheck' script ensures this is an integer
+               ## when we get here.
                verbose="$(( $verbose + 1 ))"
                shift
                ;;
