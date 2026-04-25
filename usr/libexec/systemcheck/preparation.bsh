@@ -306,7 +306,7 @@ preparation() {
    systemcheck_run_function virtualizer_detection
    systemcheck_run_function sysmaint_state_detection
 
-   [ -n "$verbose" ] || verbose="0"
+   ## 'verbose' is initialized by the main systemcheck script.
 
    local my_tty
    local my_tty_exit_code

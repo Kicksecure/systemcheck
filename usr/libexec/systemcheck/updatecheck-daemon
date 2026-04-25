@@ -20,9 +20,14 @@ source /usr/libexec/helper-scripts/light_sleep.bsh
 ## sets: systemd_notify
 source /usr/libexec/helper-scripts/systemd-notify.bsh
 
+## provides: is_whole_number
+source /usr/libexec/helper-scripts/strings.bsh
+
 ## 6 hours
 [[ -v sleep_seconds ]] || sleep_seconds="21600"
-[[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
+if ! [[ -v initial_wait_minutes ]] || ! is_whole_number "$initial_wait_minutes"; then
+  initial_wait_minutes="2"
+fi
 export sleep_seconds initial_wait_minutes
 
 initial_wait_seconds=$(( initial_wait_minutes * 60 ))

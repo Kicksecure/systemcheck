@@ -60,11 +60,14 @@ systemcheck_move_progress_bar_to_percent() {
 }
 
 systemcheck_progress_main_increment() {
-   if [ "$PROGRESS_MAIN" = "" ]; then
+   if ! is_whole_number "$PROGRESS_MAIN"; then
       PROGRESS_MAIN="0"
    fi
    local increment
    increment="$1"
+   if ! is_whole_number "$increment"; then
+     exit 1
+   fi
    PROGRESS_MAIN="$(( $PROGRESS_MAIN + $increment ))"
    systemcheck_run_function systemcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
 }
@@ -84,6 +87,12 @@ systemcheck_progress_main_open() {
 }
 
 systemcheck_main() {
+   ## This MUST be done before parse_cmd_options is called, or systemcheck
+   ## may execute arbitrary Bash commands present in the 'verbose' env var.
+   if ! is_whole_number "$verbose"; then
+     verbose="0"
+   fi
+
    parse_cmd_options "$@" ## parse_cmd
    preparation ## preparation
 

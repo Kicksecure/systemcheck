@@ -46,11 +46,12 @@ check_tor_bootstrap_sleep() {
 }
 
 check_tor_bootstrap_init() {
-   [ -n "$systemcheck_tor_bootstrap_waited_seconds" ] || systemcheck_tor_bootstrap_waited_seconds="0"
-   [ -n "$systemcheck_tor_bootstrap_between_attempts" ] || systemcheck_tor_bootstrap_between_attempts="2"
-   [ -n "$systemcheck_tor_bootstrap_wait_max" ] || systemcheck_tor_bootstrap_wait_max="300"
-   [ -n "$systemcheck_tor_bootstrap_error_counter" ] || systemcheck_tor_bootstrap_error_counter="0"
-   [ -n "$systemcheck_tor_bootstrap_error_max" ] || systemcheck_tor_bootstrap_error_max="5"
+   is_whole_number "$systemcheck_tor_bootstrap_waited_seconds" || systemcheck_tor_bootstrap_waited_seconds="0"
+   is_whole_number "$systemcheck_tor_bootstrap_between_attempts" || systemcheck_tor_bootstrap_between_attempts="2"
+   is_whole_number "$systemcheck_tor_bootstrap_wait_max" || systemcheck_tor_bootstrap_wait_max="300"
+   is_whole_number "$systemcheck_tor_bootstrap_error_counter" || systemcheck_tor_bootstrap_error_counter="0"
+   is_whole_number "$systemcheck_tor_bootstrap_error_max" || systemcheck_tor_bootstrap_error_max="5"
+   is_whole_number "$PROGRESS" || PROGRESS=""
 
    ## sets: check_bootstrap_script
    ## sets: lastpid

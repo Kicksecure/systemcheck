@@ -13,6 +13,7 @@ set -o errtrace
 set -o pipefail
 
 source /usr/libexec/helper-scripts/light_sleep.bsh
+source /usr/libexec/helper-scripts/strings.bsh
 
 system_ready_check_function(){
   system_ready_check_output="$(leaprun system-ready-check 2>&1)"
@@ -55,6 +56,10 @@ run_with_attempts() {
   sleep_amount="$2"
   label="$3"
   shift 3
+
+  if ! is_whole_number "$attempts"; then
+    return 1
+  fi
 
   local i
   for ((i=1; i<=attempts; i++)); do
@@ -187,8 +192,12 @@ update_output_check() {
   fi
 }
 
-[[ -v sleep_seconds ]] || sleep_seconds="21600"
-[[ -v initial_wait_minutes ]] || initial_wait_minutes="2"
+if ! [[ -v sleep_seconds ]] || ! is_whole_number "${sleep_seconds}"; then
+  sleep_seconds="21600"
+fi
+if ! [[ -v initial_wait_minutes ]] || ! is_whole_number "$initial_wait_minutes"; then
+  initial_wait_minutes="2"
+fi
 
 initial_wait_seconds=$(( initial_wait_minutes * 60 ))
 
