@@ -1,3 +1,22 @@
+commit 4a2c536e8a5c9d73205f041edab94a0492241026
+Merge: 82d48b8 3dbc81f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Apr 26 04:49:15 2026 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 3dbc81fe02d1d5723259b2877ebd17eaf12ba022
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Sat Apr 25 23:55:39 2026 -0400
+
+    Add CLI metapackages to check_packages.bsh
+
+commit 82d48b8c8993d42ebfe31f36acdc3e037894e600
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Apr 25 09:27:41 2026 +0000
+
+    bumped changelog version
+
 commit 6b246c0a8a82157a9f6e22f416aee674d2a5af3b
 Merge: f69f05c 839a203
 Author: Patrick Schleizer <adrelanos@whonix.org>
