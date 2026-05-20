@@ -1,3 +1,9 @@
+commit 1517a161661a2f5e9a01acd7c8082abcc1d57715
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat May 2 08:49:02 2026 +0000
+
+    bumped changelog version
+
 commit f8f9a8498c51243189c6f89c458982fdfbbe75e6
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri May 1 16:45:04 2026 -0400
@@ -2567,13 +2573,13 @@ Date:   Tue Sep 23 09:57:21 2025 -0400
     template units). This means they are not meant to be enabled or disabled using systemctl.
 
     Possible reasons for having these kinds of units are:
-    • A unit may be statically enabled by being symlinked from another unit's
+    _ A unit may be statically enabled by being symlinked from another unit's
       .wants/, .requires/, or .upholds/ directory.
-    • A unit's purpose may be to act as a helper for some other unit which has
+    _ A unit's purpose may be to act as a helper for some other unit which has
       a requirement dependency on it.
-    • A unit may be started when needed via activation (socket, path, timer,
+    _ A unit may be started when needed via activation (socket, path, timer,
       D-Bus, udev, scripted systemctl call, ...).
-    • In case of template units, the unit is meant to be enabled with some
+    _ In case of template units, the unit is meant to be enabled with some
       instance name specified.
     ```
 
@@ -4860,7 +4866,7 @@ Date:   Sat Mar 8 22:08:42 2025 -0500
     Ignore false positive log messages
 
 commit 5129c96f904403e5932d0128c76b442b4740e07e
-Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Author: Marek Marczykowski-G_recki <marmarek@invisiblethingslab.com>
 Date:   Sat Mar 8 21:29:13 2025 +0100
 
     Ignore false positive log messages
@@ -14748,7 +14754,7 @@ commit a4a553161c0e0f77f3fbcba3c8dc9f7ae727a119
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Sep 26 03:16:48 2014 +0000
 
-    added modified function displaytime, Thanks to Stéphane Gimenez http://unix.stackexchange.com/a/27014/49297
+    added modified function displaytime, Thanks to St_phane Gimenez http://unix.stackexchange.com/a/27014/49297
 
 commit d96eb614d691e7e88f1c869ba573b12e67f3332b
 Author: Patrick Schleizer <adrelanos@riseup.net>
