@@ -1,3 +1,17 @@
+commit 7a7254339f11f5ef3736deaf65d7adb33a3f9190
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jun 6 13:59:54 2026 -0400
+
+    journal ignore
+
+    faux_driver regulatory: Direct firmware load for regulatory.db failed
+
+commit 168d98d01d9634faf38b8c632c68bc9c1f773599
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun May 24 19:10:37 2026 +0000
+
+    bumped changelog version
+
 commit f65731ce3d8c418adbb70a10b560a6b33ee8c678
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun May 24 14:22:51 2026 -0400
