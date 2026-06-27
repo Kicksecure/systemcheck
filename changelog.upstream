@@ -1,3 +1,36 @@
+commit 78b97f335bf82149ab1747240aae7ca5d9005412
+Merge: a409205 e4c289f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jun 27 10:10:19 2026 -0400
+
+    Merge remote-tracking branch 'org-ai-assisted/master'
+
+commit e4c289ffc609a9a84e293d940dc2ead3d695113b
+Author: claude (dev19 452d6a32-78ae-4574-a7aa-e04eaa9194f2) <noreply@anthropic.com>
+Date:   Sat Jun 27 07:50:49 2026 -0400
+
+    30_default.conf: ignore two more benign journal messages
+
+    Add fixed-string journal_ignore_fixed_list entries for benign log noise:
+
+    - sys-kernel-debug.mount skipped because /sys/kernel/debug is absent
+      (matched via the stable "ConditionPathExists=/sys/kernel/debug"
+      substring, which is wording-version independent).
+    - sdwdate-gui QDBusTrayIcon error when no StatusNotifier host (system
+      tray) provides org.kde.StatusNotifierWatcher.
+
+    The regulatory.db firmware-load message is already ignored by the
+    preceding entry, so it is not duplicated here.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01J4U4YpkvdtZK3nhTLBjC9V
+
+commit a40920579622326c1af22ef2db02dc32dce52764
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jun 6 18:02:12 2026 +0000
+
+    bumped changelog version
+
 commit 7a7254339f11f5ef3736deaf65d7adb33a3f9190
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Jun 6 13:59:54 2026 -0400
