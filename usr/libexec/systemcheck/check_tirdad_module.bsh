@@ -38,21 +38,32 @@ check_tirdad_module() {
 - No need to report this."
    elif [ "$secure_boot_status_enabled" = "true" ]; then
       ## Secure Boot is on but tirdad is not loaded, most likely because its
-      ## DKMS module is unsigned/unenrolled. In live mode this cannot be fixed at
-      ## all; otherwise it is only fixable by an expert during a manual image
-      ## build, and not worthwhile when staying offline during installation as
-      ## recommended. So treat it as benign: info-level, verbose-only, no fail.
+      ## DKMS module is unsigned/unenrolled. Benign: info-level, verbose-only,
+      ## no fail.
       only_if_verbose=true
       output_type="info"
       help_link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
       help_link_gui="$(html_link "$help_link_cli" "Secure Boot")"
-      help_msg="\
+      if live-status-detected >/dev/null; then
+         ## Live mode: DKMS key enrollment cannot be persisted, so this is only
+         ## fixable via a manual image build with the signing key enrolled -- and
+         ## not worthwhile when staying offline during installation as recommended.
+         help_msg="\
 <br/>
 - Reason: kernel module 'tirdad' is NOT loaded.<br/>
 - This only matters if internet connectivity is used.<br/>
-- Secure Boot is enabled; the tirdad DKMS module likely needs signing/enrollment, only practical during a manual image build.<br/>
+- Secure Boot is enabled; in live mode the tirdad DKMS module cannot be enrolled, only practical during a manual image build.<br/>
 - Refer to the Kicksecure wiki: $help_link_gui<br/>
 - No need to report this. Please read the documentation."
+      else
+         help_msg="\
+<br/>
+- Reason: kernel module 'tirdad' is NOT loaded.<br/>
+- This only matters if internet connectivity is used.<br/>
+- Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.<br/>
+- Refer to the Kicksecure wiki: $help_link_gui<br/>
+- No need to report this. Please read the documentation."
+      fi
    else
       only_if_verbose=false
       output_type="warning"
