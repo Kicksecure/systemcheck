@@ -254,6 +254,41 @@ html_link() {
    printf '%s' "<a href=\"$1\">$2</a>"
 }
 
+emit_status_line() {
+   ## Emit a "Label: STATUS" check result to BOTH channels from one message,
+   ## folding the previously separate GUI and CLI messages. The label is a
+   ## clickable link in the GUI and "text (url)" on the CLI (msgcollector
+   ## translates <a href>); the STATUS word is colored (<font color> -> terminal
+   ## color); and any <br> in the trailing body becomes a newline on the CLI.
+   ## $1 - severity: info | warning | error
+   ## $2 - label text (also the link text)
+   ## $3 - URL
+   ## $4 - status color: green | orange | yellow | red
+   ## $5 - status word
+   ## $6 - optional trailing body after the status word. Real newlines in it are
+   ##      translated to <br/>, so you can write a readable multi-line body in
+   ##      the source instead of one long line with literal <br/> (use real
+   ##      newlines only, not a mix). msgcollector turns the <br/> back into a
+   ##      newline on the CLI.
+   ## An empty URL ($3) renders the label as plain text (no link).
+   local sev text url color status trailing label MSG
+   sev="$1"
+   text="$2"
+   url="$3"
+   color="$4"
+   status="$5"
+   trailing="${6:-}"
+   trailing="${trailing//$'\n'/<br/>}"
+   if [ -z "$url" ]; then
+      label="$text"
+   else
+      label="$(html_link "$url" "$text")"
+   fi
+   MSG="<p>${label}: <font color=\"$color\">$status</font>${trailing}</p>"
+   $output_x "${output_opts[@]}" --messagex --typex "$sev" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "$sev" --message "$MSG"
+}
+
 systemcheck_run_function() {
    case $systemcheck_skip_functions in
    *"$@"*) echo "INFO: Skipping $* because systemcheck_skip_functions includes it."

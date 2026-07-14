@@ -9,14 +9,13 @@
 source /usr/libexec/helper-scripts/get_colors.sh
 
 check_tirdad_module() {
-   local link_cli link_gui MSG help_msg only_if_verbose output_type tirdad_failed help_link_cli help_link_gui
+   local link_cli help_msg only_if_verbose output_type tirdad_failed help_link_cli help_link_gui
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping ${FUNCNAME[0]}."
       return 0
    fi
 
    link_cli="https://github.com/Kicksecure/tirdad"
-   link_gui="$(html_link "$link_cli" "tirdad - TCP ISN CPU Information Leak Protection")"
 
    ## Per-case: whether an unloaded tirdad is only shown in verbose mode,
    ## the message severity, and whether it counts as a failure (EXIT_CODE=1).
@@ -24,17 +23,17 @@ check_tirdad_module() {
    if [ -f '/usr/share/qubes/marker-vm' ]; then
       only_if_verbose=true
       output_type="info"
-      help_msg="<br/>
-- Reason: Qubes detected.<br/>
-- Known Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a><br/>
+      help_msg="
+- Reason: Qubes detected.
+- Known Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a>
 - No need to report this."
    ## Variable 'secure_boot_status_enabled' is set in 'check_secure_boot.bsh'.
    elif [ "$intel_amd_64_detected" = "false" ]; then
       only_if_verbose=true
       output_type="info"
-      help_msg="<br/>
-- Reason: Not using architecture Intel/AMD64. Architecture '<code>$ARCH</code>' is <a href=https://www.kicksecure.com/wiki/Unsupported>unsupported</a>.<br/>
-- Known tirdad issue: <a href=https://www.kicksecure.com/wiki/Tirdad#Architecture_Support>https://www.kicksecure.com/wiki/Tirdad#Architecture_Support</a><br/>
+      help_msg="
+- Reason: Not using architecture Intel/AMD64. Architecture '<code>$ARCH</code>' is <a href=https://www.kicksecure.com/wiki/Unsupported>unsupported</a>.
+- Known tirdad issue: <a href=https://www.kicksecure.com/wiki/Tirdad#Architecture_Support>https://www.kicksecure.com/wiki/Tirdad#Architecture_Support</a>
 - No need to report this."
    elif [ "$secure_boot_status_enabled" = "true" ]; then
       ## Secure Boot is on but tirdad is not loaded, most likely because its
@@ -48,37 +47,30 @@ check_tirdad_module() {
          ## Live mode: DKMS key enrollment cannot be persisted, so this is only
          ## fixable via a manual image build with the signing key enrolled -- and
          ## not worthwhile when staying offline during installation as recommended.
-         help_msg="\
-<br/>
-- Reason: kernel module 'tirdad' is NOT loaded.<br/>
-- This only matters if internet connectivity is used.<br/>
-- Secure Boot is enabled; in live mode the tirdad DKMS module cannot be enrolled, only practical during a manual image build.<br/>
-- Refer to the Kicksecure wiki: $help_link_gui<br/>
+         help_msg="
+- Reason: kernel module 'tirdad' is NOT loaded.
+- This only matters if internet connectivity is used.
+- Secure Boot is enabled; in live mode the tirdad DKMS module cannot be enrolled, only practical during a manual image build.
+- Refer to the Kicksecure wiki: $help_link_gui
 - No need to report this. Please read the documentation."
       else
-         help_msg="\
-<br/>
-- Reason: kernel module 'tirdad' is NOT loaded.<br/>
-- This only matters if internet connectivity is used.<br/>
-- Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.<br/>
-- Refer to the Kicksecure wiki: $help_link_gui<br/>
+         help_msg="
+- Reason: kernel module 'tirdad' is NOT loaded.
+- This only matters if internet connectivity is used.
+- Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.
+- Refer to the Kicksecure wiki: $help_link_gui
 - No need to report this. Please read the documentation."
       fi
    else
       only_if_verbose=false
       output_type="warning"
       tirdad_failed=true
-      help_msg="<br />
+      help_msg="
 - Reason: kernel module 'tirdad' is NOT loaded."
    fi
 
    if grep --ignore-case --fixed-strings -- "tirdad" >/dev/null < <(lsmod); then
-      MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-
-      MSG="$link_gui: ${green}Enabled${nocolor}
-For details, see: $link_cli"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_status_line info "tirdad - TCP ISN CPU Information Leak Protection" "$link_cli" green "Enabled"
    else
       ## Benign cases (Qubes, unsupported architecture) are only surfaced in
       ## verbose mode and never fail the overall check.
@@ -91,11 +83,6 @@ For details, see: $link_cli"
          EXIT_CODE="1"
       fi
 
-      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font> $help_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "$output_type" --message "$MSG"
-
-      MSG="$link_gui: ${yellow}Disabled${nocolor}
-$help_msg"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "$output_type" --message "$MSG"
+      emit_status_line "$output_type" "tirdad - TCP ISN CPU Information Leak Protection" "$link_cli" orange "Disabled" " $help_msg"
    fi
 }
