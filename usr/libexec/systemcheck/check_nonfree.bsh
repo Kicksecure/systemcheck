@@ -3,11 +3,15 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_non_freedom() {
    local vrms_output vrms_result line expected_package expected_grep check_non_freedom_result continue
 
    ## Human readable output.
    vrms_output="$(LC_ALL=C vrms 2>&1)" || true
+   vrms_output="$(sanitize-string -- nolimit "$vrms_output")"
    vrms_output="$(br_add "$vrms_output")"
 
    ## For machine readable output.
@@ -32,9 +36,11 @@ check_non_freedom() {
          fi
       done
       check_non_freedom_result=non_freedom
-      local MSG="<p>Check non-freedom Result: non-freedom package found: '$line'</p>"
+      local sanitized_line
+      sanitized_line="$(sanitize-string -- 255 "$line")"
+      local MSG="<p>Check non-freedom Result: non-freedom package found: '$sanitized_line'</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       break
    done
@@ -42,29 +48,29 @@ check_non_freedom() {
    local non_freedomlink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_nonfreedom_software>${PROJECT_HOMEPAGE}/wiki/Avoid_nonfreedom_software</a>"
 
    if [ "$check_non_freedom_result" = "free" ]; then
-      local MSG="<p>Check non-freedom Result: Ok, no non-freedom packages found. For more information, see:
+      local MSG="<p>Check non-freedom Result: $status_ok no non-freedom packages found. For more information, see:
 <br />$non_freedomlink</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
    elif [ "$check_non_freedom_result" = "expected" ]; then
       non_freedom_packages_detected=expected
-      local MSG="<p>Check non-freedom Result: Ok, only expected non-freedom packages found. For more information, see:
+      local MSG="<p>Check non-freedom Result: $status_ok only expected non-freedom packages found. For more information, see:
 <br />$non_freedomlink</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       local MSG="<p><br />vrms_output:
 <br /><code>$vrms_output</code></p>"
       if [ "$verbose" -ge "2" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
    else
       local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
       local MSG="<p>Check non-freedom Result: non-freedom packages found. This is non-ideal but okay if you know what you are doing. For more information, see:
 <br />$non_freedomlink
 <br />
@@ -74,8 +80,8 @@ check_non_freedom() {
 <br />$if_you_know_what_you_are_doing_msg</p>"
       if [ "$verbose" -ge "1" ]; then
          EXIT_CODE="1"
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
       fi
    fi
 }

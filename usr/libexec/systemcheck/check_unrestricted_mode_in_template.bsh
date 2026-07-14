@@ -3,6 +3,9 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 systemcheck_autostart_functions+=" check_unrestricted_mode_in_template "
 
 check_unrestricted_mode_in_template() {
@@ -16,8 +19,8 @@ check_unrestricted_mode_in_template() {
   fi
 
   MSG="<p>Template booted in 'PERSISTENT Mode - UNRESTRICTED Session'. This is unsupported. To access 'sudo' in a Template, boot into 'PERSISTENT Mode - SYSMAINT Session'.</p>"
-  $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "warning" --message "$MSG" --done
+  $output_x "${output_opts[@]}" --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "warning" --message "$MSG" --done
 
   MSG="Template booted in 'PERSISTENT Mode - UNRESTRICTED Session'. This is unsupported. To access 'sudo' in a Template, boot into 'PERSISTENT Mode - SYSMAINT Session'."
-  $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+  $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 }

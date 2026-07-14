@@ -3,38 +3,48 @@
 ## Copyright (C) 2021 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_dpkg() {
    ## dpkg --audit does not return anything, if everything is fine.
    ## Therefore we see if dpkg has to say something, and if yes, the system is
    ## broken and we abort.
    dpkg_audit_output="$(dpkg --audit 2>&1)" || true
+   dpkg_audit_output="$(sanitize-string -- nolimit "$dpkg_audit_output")"
 
    if [ "$dpkg_audit_output" = "" ]; then
-      local MSG="<p>Package Manager Consistency Check Result: Output of command <code>dpkg --audit</code> was empty, ok.</p>"
+      local MSG="<p>Package Manager Consistency Check Result: Output of command <code>dpkg --audit</code> was empty, $status_ok</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
 
+   local remediation
+   remediation="$(remediation_instructions "dpkg --configure -a")"
    local MSG="<p>Package Manager Consistency Check Result: Failed.
 <br />
 <br />Was an <code>apt dist-upgrade</code> interrupted?
 <br />
 <br /><u>Recommendation</u>:
 <br />
-<br />Try to complete the upgrade process. Run the following command:
-<br /><blockquote><code>sudo dpkg --configure -a</code></blockquote>
+<br />Try to complete the upgrade process. ${remediation}
 <br /><u>Debugging information</u>:
 <br />
 <br />Output of command <blockquote><code>dpkg --audit</code></blockquote> was non-empty!
 <br />
 <br />dpkg_audit_output:<blockquote><code>
 $dpkg_audit_output</code></blockquote></p>"
+   ## TODO: both the error output AND EXIT_CODE=1 are gated behind `verbose >= 1`,
+   ## so a broken dpkg state is silent and does NOT fail a normal (non-verbose)
+   ## run. Same pattern in check_nonfree, check_tor_socks_port_reachability,
+   ## check_warrant_canary. Should a real failure fail the run regardless of
+   ## verbosity?
    if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
    fi
 }

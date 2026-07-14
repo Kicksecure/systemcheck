@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_tor_bootstrap() {
    if test -f /run/qubes/this-is-templatevm ; then
       return 0
@@ -10,11 +13,11 @@ check_tor_bootstrap() {
 
    if [ "$systemcheck_external_network_found" = "false" ]; then
       local MSG="<p>Tor Connection Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       local MSG="<p>Time Synchronization Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
@@ -117,6 +120,7 @@ check_tor_bootstrap_init() {
 
    if [ -e /run/sdwdate/msg ]; then
       time_synchronization_msg="$(cat /run/sdwdate/msg)" || true
+      time_synchronization_msg="$(sanitize-string -- 255 "$time_synchronization_msg")"
    fi
 
    if [ "$time_synchronization_msg" = "" ]; then
@@ -137,6 +141,7 @@ check_tor_bootstrap_init() {
    if [ "$onion_time_pre_script_output" = "" ]; then
       onion_time_pre_script_output="onion-time-pre-script did not return any output."
    fi
+   onion_time_pre_script_output="$(sanitize-string -- nolimit "$onion_time_pre_script_output")"
    onion_time_pre_script_output="$(br_add "$onion_time_pre_script_output")"
 
    return 0
@@ -158,7 +163,7 @@ check_tor_bootstrap_grace() {
       local MSG="<p>Tor Connection Result:
 Tor's Control Port could not be reached. Attempt $systemcheck_tor_bootstrap_error_counter of $systemcheck_tor_bootstrap_error_max. Could be temporary due to a Tor restart. Trying again...
 </p>"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG" --done
 
       check_tor_bootstrap_sleep
 
@@ -231,10 +236,10 @@ $multiple_whonix_ws_msg
 <br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
    fi
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -261,10 +266,10 @@ check_tor_bootstrap_unknown_failure_cases() {
 <br></br>(Tor Circuit: $tor_circuit_established_word)
 <br></br>Please report this $PROJECT_NAME usability bug! (Not a security bug.)</p>"
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -291,31 +296,31 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
       return 0
    fi
 
-   local MSG="<p>Tor Connection Result: Ok.
+   local MSG="<p>Tor Connection Result: $status_ok
 <br></br>tor_bootstrap_status: <code>$tor_bootstrap_status</code>
 <br></br>Tor Circuit: <code>$tor_circuit_established_word</code></p>"
    if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    fi
 
-   local MSG="<p>Time Synchronization Result: Ok.
+   local MSG="<p>Time Synchronization Result: $status_ok
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
 <br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
 <br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
    if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    fi
 
    local MSG="<p>Connected to Tor.</p>"
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x ${output_opts[@]} --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
-   $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
+   $output_x "${output_opts[@]}" --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
+   $output_cli "${output_opts[@]}" --waitmessagecli --typecli "info" --message "$MSG" --done
    ## `break` check_tor_bootstrap loop.
    return 1
 }
@@ -337,7 +342,7 @@ check_tor_bootstrap_show_wait_notification_maybe() {
    ## Waited for more than 5 seconds.
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
    local MSG="<p>Tor Bootstrap Test: Waiting for Tor Connection... (Will take up to $systemcheck_tor_bootstrap_wait_max seconds.)</p>"
-   $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
+   $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
    return 0
 }
 
@@ -398,10 +403,10 @@ check_tor_bootstrap_wait_longer_maybe() {
 
    TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
 
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG" --done
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG" --done
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
+      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
    fi
 
    check_tor_bootstrap_sleep
@@ -529,14 +534,14 @@ you will need them for system Tor as well.</p>
 or in Terminal: <code>nyx</code></p>
 $anondate_debugging_information"
    else
-      local MSG="$FUNCNAME: Machine detection failed. Please report this $PROJECT_NAME bug!"
+      local MSG="${FUNCNAME[0]}: Machine detection failed. Please report this $PROJECT_NAME bug!"
    fi
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -576,7 +581,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
    fi
 
    local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
       local MSG="<p>Time Synchronization Result:
@@ -591,9 +596,11 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 <br></br>$sdwdate_wait
 <br></br>- sdwdate time sources might be dysfunctional.
 <br></br>
-<br></br>Apparently you have already reload Whonix-Firewall.
+<br></br>Apparently you have already reloaded Whonix-Firewall.
 </p>"
    else
+      local remediation
+      remediation="$(remediation_instructions "service sdwdate restart")"
       local MSG="<p>Time Synchronization Result:
 <br></br><b>systemcheck gave up waiting.</b>
 <br></br>
@@ -614,8 +621,8 @@ or in Terminal: <code>systemcheck</code>
 <br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code>
 <br></br>
 <br></br><b>B)</b> <u>Restart sdwdate.</u>
-<blockquote>$start_menu_instructions_system_first_part sdwdate-gui -> right click on sdwdate-gui systray -> Restart sdwdate</blockquote>
-or in Terminal: <code>sudo service sdwdate restart</code>
+<blockquote>$start_menu_instructions_system_first_part sdwdate-gui / right click on sdwdate-gui systray / Restart sdwdate</blockquote>
+<br></br>${remediation}
 <br></br>
 <br></br><b>C)</b> <u>Manually set the time.</u>
 <br></br>
@@ -628,10 +635,10 @@ or in Terminal: <code>sudo service sdwdate restart</code>
    fi
 
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
 
    if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
       ## `break` check_tor_bootstrap loop.

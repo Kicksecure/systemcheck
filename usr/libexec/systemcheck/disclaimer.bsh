@@ -3,9 +3,12 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 disclaimer() {
    if [ "$qubes_detected" = "true" ]; then
-      true "INFO: qubes_detected is $qubes_detected, therefore skipping $FUNCNAME."
+      true "INFO: qubes_detected is $qubes_detected, therefore skipping ${FUNCNAME[0]}."
       return 0
    fi
 
@@ -15,6 +18,6 @@ disclaimer() {
       local MSG="<p><a href=$PROJECT_HOMEPAGE>$PROJECT_NAME</a> is produced independently of, with no guarantee from, The Tor Project. $PROJECT_NAME is a research project."
    fi
 
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 }

@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_timezone() {
    if [ "$vm_lower_case_short" = "machine" ]; then
       return 0
@@ -22,11 +25,12 @@ check_timezone() {
 
    if [ -f "$timezone_file_location" ]; then
       timezone_file_actual_content="$(cat "$timezone_file_location" 2>&1)" || { timezone_status_code="$?" ; true; };
+      timezone_file_actual_content="$(sanitize-string -- 255 "$timezone_file_actual_content")"
       if [ "$timezone_file_actual_content" = "$timezone_file_expected_content" ]; then
-         local MSG="<p>Check Timezone Result: <code>$timezone_file_location</code>, <code>$timezone_file_actual_content</code> matches <code>$timezone_file_expected_content</code>, ok.</p>"
+         local MSG="<p>Check Timezone Result: <code>$timezone_file_location</code>, <code>$timezone_file_actual_content</code> matches <code>$timezone_file_expected_content</code>, $status_ok</p>"
          if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
          fi
       else
          timezone_status_code="3"
@@ -34,8 +38,8 @@ check_timezone() {
 <br></br><code>$timezone_file_location</code> settings different from $PROJECT_NAME defaults.
 <br></br>timezone_file_expected_content: <code>$timezone_file_expected_content</code>
 <br></br>timezone_file_actual_content: <code>$timezone_file_actual_content</code></p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
       fi
    else
@@ -50,35 +54,36 @@ check_timezone() {
    if [ -f "$localtime_file_etc" ]; then
       if [ -f "$localtime_file_usr" ]; then
          localtime_result="$(diff "$localtime_file_usr" "$localtime_file_etc" 2>&1)" || { localtime_status_code="$?" ; true; };
+         localtime_result="$(sanitize-string -- nolimit "$localtime_result")"
          if [ "$localtime_status_code" = "0" ]; then
-            local MSG="<p>Check Timezone Result: <code>$localtime_file_usr</code> matches <code>$localtime_file_etc</code>, ok.</p>"
+            local MSG="<p>Check Timezone Result: <code>$localtime_file_usr</code> matches <code>$localtime_file_etc</code>, $status_ok</p>"
             if [ "$verbose" -ge "1" ]; then
-               $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-               $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+               $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+               $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
             fi
          else
             local MSG="<p>Check Timezone Result:
 <br></br>localtime_file_etc <code>$localtime_file_etc</code> settings different from <code>$localtime_file_usr</code>. Different from $PROJECT_NAME defaults.
 <br></br>localtime_status_code: <code>$localtime_status_code</code>
 <br></br>localtime_result: <code>$localtime_result</code></p>"
-            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+            $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
             EXIT_CODE="1"
          fi
       else
          localtime_status_code="2"
          localtime_result="File <code>$localtime_file_usr</code> does not exist."
          local MSG="<p>Check Timezone Result: $localtime_result</p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
          EXIT_CODE="1"
       fi
    else
       localtime_status_code="3"
       localtime_result="File <code>$localtime_file_etc</code> does not exist."
       local MSG="<p>Check Timezone Result: $localtime_result</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
    fi
 
@@ -88,7 +93,7 @@ check_timezone() {
 
    if [ "$timezone_check_result" = "false" ]; then
       local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
       local MSG="<p>Check Timezone Result:
 <br></br><b>Settings different from $PROJECT_NAME defaults. (See above!)</b>
@@ -101,8 +106,8 @@ It is generally recommended to keep the default as per $PROJECT_NAME Design. [1]
 If you did not change timezone related settings, please report this $PROJECT_NAME bug.
 <br></br>$if_you_know_what_you_are_doing_msg
 [1] <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone>${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone</a></p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
    fi
 }

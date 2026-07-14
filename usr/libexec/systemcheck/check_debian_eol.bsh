@@ -3,15 +3,18 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 source /usr/libexec/helper-scripts/get_colors.sh
 
 warn_unknown_eol_date() {
    MSG="<p>$link_gui: <font color=\"orange\">Unknown</font> (could not determine OS end-of-life date)</p>"
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
 
    MSG="Operating system (OS) (Debian) support status: ${yellow}Unknown${nocolor} (could not determine OS end-of-life date)
 See also: $link_cli"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 }
 
 check_debian_eol() {
@@ -28,11 +31,11 @@ check_debian_eol() {
    )"
    if [ -z "${os_version}" ]; then
       MSG="<p>$link_gui: <font color=\"orange\">Unknown</font> (could not determine OS version)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
 
       MSG="Operating system (OS) (Debian) support status: ${yellow}Unknown${nocolor} (could not determine OS version)
 See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
@@ -77,36 +80,40 @@ See also: $link_cli"
    if (( current_timestamp < os_eol_timestamp )); then
       if [ "$verbose" -ge "1" ]; then
          MSG="<p>$link_gui: <font color=\"green\">Supported</font> (until ${os_eol_date})</p>"
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
 
          MSG="Operating system (OS) (Debian) support status: ${green}Supported${nocolor} (until ${os_eol_date})
    See also: $link_cli"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    elif (( current_timestamp < os_lts_eol_timestamp )); then
       EXIT_CODE="1"
 
+      ## TODO: this state renders orange/red body text but is emitted with
+      ## --typex/--typecli "info" (green INFO prefix) -- a color-vs-severity
+      ## mismatch. Same in check_full_disk_encryption (Partial/Absent) and
+      ## check_grub_security (Absent). Consider "warning" for these.
       MSG="<p>$link_gui: <font color=\"orange\">LTS support</font> (until ${os_lts_eol_date})<br>
 You should consider upgrading to a newer version of $PROJECT_NAME soon.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
 
       MSG="Operating system (OS) (Debian) support status: ${yellow}LTS support${nocolor} (until ${os_lts_eol_date})
 You should consider upgrading to a newer version of $PROJECT_NAME soon.
 See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    else
       EXIT_CODE="1"
 
       MSG="<p>$link_gui: <font color=\"red\">Unsupported</font> (as of ${os_lts_eol_date})<br>
 <b>Your system is likely vulnerable to malware infection due to missing security updates.</b><br>
 Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.<br></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
 
       MSG="Operating system (OS) (Debian) support status: ${red}Unsupported${nocolor} (as of ${os_lts_eol_date})
 Your system is likely vulnerable to malware infection due to missing security updates.
 Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.
 See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    fi
 }

@@ -3,6 +3,9 @@
 ## Copyright (C) 2017 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 show_versions() {
    if [ ! "$verbose" -ge "1" ]; then
       return 0
@@ -15,8 +18,8 @@ show_versions() {
    link="<a href=$link_raw>build version</a>"
 
    local MSG="<p>$PROJECT_NAME $link: <code>$derivative_build_version</code></p>"
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "\
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "\
 $MSG
 $link_raw"
 
@@ -24,12 +27,12 @@ $link_raw"
    temp="$(/usr/bin/sanitize-string -- nolimit "$derivative_deb_package_version")"
 
    local MSG="<p>$derivative_deb_package_name: <code>$temp</code></p>"
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 
    local MSG="<p>derivative_major_release_version /etc/${PROJECT_NAME_LOWERCASE}_version: <code>$derivative_major_release_version</code></p>" || true
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 }
 
 ## systemcheck --gui --cli --function show_deprecation_notice
@@ -51,10 +54,10 @@ show_deprecation_notice() {
    #deprecated_derivative=true
 
    if [ ! "$deprecated_derivative" = "true" ]; then
-      local MSG="<p>$PROJECT_NAME Support Status of this Major Version: Ok.</p>"
+      local MSG="<p>$PROJECT_NAME Support Status of this Major Version: $status_ok</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
@@ -75,7 +78,7 @@ show_deprecation_notice() {
 <br />
 <br />It is <a href=${PROJECT_HOMEPAGE}/wiki/Stay_Tuned#Reason>absolutely crucial</a> to subscribe to and read the latest $PROJECT_NAME news category 'important-news' to stay in touch with ongoing developments. This way users benefit from notifications concerning important security advisories, potential upgrade issues and improved releases which address identified issues, like those affecting the updater or other core elements.</p>"
 
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
    EXIT_CODE="1"
 }

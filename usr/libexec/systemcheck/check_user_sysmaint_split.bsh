@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_user_sysmaint_split() {
    check_user_sysmaint_split_package
    check_user_sysmaint_split_boot_mode
@@ -18,20 +21,20 @@ check_user_sysmaint_split_package() {
 
    if ! leaprun user-sysmaint-split-check &>/dev/null ; then
       MSG="<p>$link_gui: <font color=\"orange\">Absent</font></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
       MSG="\
 user-sysmaint-split-check installation check result: ${yellow}Absent${nocolor}
 $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
    MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
    MSG="\
 user-sysmaint-split-check installation check result: ${green}Enabled${nocolor}
 $link_cli"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    return 0
 }
 
@@ -42,6 +45,6 @@ check_user_sysmaint_split_boot_mode() {
       MSG="<p>user-sysmaint-split session detection result: SYSMAINT Session.</p>"
    fi
 
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 }

@@ -3,16 +3,19 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_operating_system() {
    if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping $FUNCNAME."
+      true "silent is $silent. Skipping ${FUNCNAME[0]}."
       return 0
    fi
 
    if [ "$systemcheck_external_network_found" = "false" ]; then
       local MSG="<p>Debian Package Update Check Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
@@ -28,7 +31,7 @@ check_operating_system() {
    ## Depends on exception set in /etc/privleap/conf.d/systemcheck.conf.
    ## Minimal custom script.
    local MSG="Debian Package Update Check: Checking for software updates via apt-get... $update_documentation_link_cli"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    local apt_get_exit_code
    apt_get_exit_code="0"
 
@@ -54,8 +57,8 @@ check_operating_system() {
          ## TemplateBasedVM
          local qubes_update_help="<br></br>1. Open a TemplateVM terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
 <br></br>2. Update. <blockquote><code>$update_command</code></blockquote>
-3. Shutdown your TemplateVM. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_base_template</code>' -> Shutdown VM)
-<br></br>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"
+3. Shutdown your TemplateVM. (dom0 / Qubes VM Manager / right click '<code>$qubes_base_template</code>' / Shutdown VM)
+<br></br>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 / Qubes VM Manager / right click '<code>$qubes_name_of_vm</code>' / Shutdown VM)"
       fi
    fi
 
@@ -95,8 +98,8 @@ $qubes_update_help</p>"
             fi
          fi
       fi
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
       return 0
    fi
 
@@ -104,18 +107,19 @@ $qubes_update_help</p>"
    check_os_exit_code="0"
    ## /usr/libexec/helper-scripts/apt-get-update-simulate is timeout protected.
    check_os_output="$(leaprun apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
-   check_os_output_show="$(br_add "$check_os_output")"
+   check_os_output_show="$(sanitize-string -- nolimit "$check_os_output")"
+   check_os_output_show="$(br_add "$check_os_output_show")"
 
    if [ "$verbose" -ge "1" ]; then
       local MSG="<p><code>apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>$check_os_output_show</blockquote></code></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ ! "$check_os_exit_code" = "0" ]; then
       local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
       local debugging_information resolve_attempt_commands
       debugging_information="<b>Debugging information:</b><br />
@@ -146,7 +150,7 @@ $debugging_information</p>"
             if [ "$user_sysmaint_split_installed" = 'true' ]; then
                local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
 <br/><b><u>To fix, try:</u></b>
-<br/>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Termina\" in the System Maintenance Panel, and run:
+<br/>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:
 $resolve_attempt_commands
 $debugging_information</p>"
             else
@@ -158,8 +162,8 @@ $debugging_information</p>"
             fi
          fi
       fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
       return 0
    fi
 
@@ -199,8 +203,8 @@ $debugging_information</p>"
          true "silent is $silent. Skipping output."
          return 0
       fi
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
@@ -228,6 +232,6 @@ $qubes_update_help</p>"
       fi
    fi
 
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 }

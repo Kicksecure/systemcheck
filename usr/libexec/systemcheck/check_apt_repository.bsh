@@ -3,14 +3,17 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_apt_repository() {
    if [ "$silent" -ge "4" ]; then
-      true "silent is $silent. Skipping $FUNCNAME."
+      true "silent is $silent. Skipping ${FUNCNAME[0]}."
       return 0
    fi
 
    local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    ## Fallback
    derivative_codename="unknown"
@@ -36,8 +39,8 @@ To fix, try run:
          MSG="$permission_issues_msg
          <p>$if_you_know_what_you_are_doing_msg</p>"
 
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 
          return 0
       fi
@@ -81,13 +84,13 @@ If fix this, to update your derivative APT sources list file to the new format, 
     $temp_x_tool
 <p>$if_you_know_what_you_are_doing_msg</p>"
    MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_cli_msg" "")"
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
 
       local MSG="$temp_base_msg_legacy
     $temp_cli_tool
 <p>$if_you_know_what_you_are_doing_msg</p>"
    MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_gui_msg" "")"
-$output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+$output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 
       return 0
    elif test -r "/etc/apt/sources.list.d/derivative.sources" ; then
@@ -99,12 +102,12 @@ $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
       local MSG="$temp_base_msg_enabled
     $temp_x_tool"
       MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_cli_msg" "")"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
 
       local MSG="$temp_base_msg_enabled
     $temp_cli_tool"
       MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_gui_msg" "")"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 
       return 0
    fi
@@ -115,11 +118,11 @@ $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
     $temp_x_tool
 <p>$if_you_know_what_you_are_doing_msg</p>"
    MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_cli_msg" "")"
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
 
    local MSG="$temp_base_msg_disabled
     $temp_cli_tool
 <p>$if_you_know_what_you_are_doing_msg</p>"
    MSG="$(printf "%s\n" "$MSG" | str_replace "$risk_gui_msg" "")"
-$output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+$output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 }
