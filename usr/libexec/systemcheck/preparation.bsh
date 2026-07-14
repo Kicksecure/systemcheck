@@ -255,27 +255,31 @@ html_link() {
 }
 
 emit_status_line() {
-   ## Emit a SINGLE-LINE "Label: STATUS" check result to BOTH channels from one
-   ## message, folding the previously separate GUI and CLI messages. The label
-   ## is a clickable link in the GUI and "text (url)" on the CLI (msgcollector
-   ## translates <a href>); the STATUS word is colored (msgcollector translates
-   ## <font color> to a terminal color on the CLI). Single-line only: the CLI
-   ## renderer drops <br>, so any multi-line body must still build its own CLI
-   ## message with real newlines.
+   ## Emit a "Label: STATUS" check result to BOTH channels from one message,
+   ## folding the previously separate GUI and CLI messages. The label is a
+   ## clickable link in the GUI and "text (url)" on the CLI (msgcollector
+   ## translates <a href>); the STATUS word is colored (<font color> -> terminal
+   ## color); and any <br> in the trailing body becomes a newline on the CLI.
    ## $1 - severity: info | warning | error
    ## $2 - label text (also the link text)
    ## $3 - URL
    ## $4 - status color: green | orange | yellow | red
    ## $5 - status word
-   ## $6 - optional trailing HTML after the status word
-   local sev text url color status trailing MSG
+   ## $6 - optional trailing HTML after the status word (may contain <br>)
+   ## An empty URL ($3) renders the label as plain text (no link).
+   local sev text url color status trailing label MSG
    sev="$1"
    text="$2"
    url="$3"
    color="$4"
    status="$5"
    trailing="${6:-}"
-   MSG="<p>$(html_link "$url" "$text"): <font color=\"$color\">$status</font>${trailing}</p>"
+   if [ -z "$url" ]; then
+      label="$text"
+   else
+      label="$(html_link "$url" "$text")"
+   fi
+   MSG="<p>${label}: <font color=\"$color\">$status</font>${trailing}</p>"
    $output_x "${output_opts[@]}" --messagex --typex "$sev" --message "$MSG"
    $output_cli "${output_opts[@]}" --messagecli --typecli "$sev" --message "$MSG"
 }
