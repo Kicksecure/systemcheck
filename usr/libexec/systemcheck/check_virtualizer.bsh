@@ -23,40 +23,40 @@ check_virtualizer() {
       MSG="<p>Check Virtualizer Result: No virtualizer detected, probably running on <u>bare metal</u>.</p>"
    elif [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
       MSG="<p>Check Virtualizer Result: Supported virtualizer <u>VirtualBox</u> detected.
-<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
+<br/>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
    elif [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
       MSG="<p>Check Virtualizer Result: Supported virtualizer <u>KVM</u> detected.
-<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
+<br/>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
    elif [ "$systemcheck_virtualizer_detected" = "qubes" ]; then
       MSG="<p>Check Virtualizer Result: Supported virtualizer <u>Qubes</u> detected.
-<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
+<br/>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
    else
       if [ "$vm_lower_case_short" = "machine" ]; then
          MSG="\
 <p>Check Virtualizer Result: Supported virtualizer <u>$systemcheck_virtualizer_detected</u> detected.
-<br></br>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
+<br/>$systemcheck_virt_detection_tool result: <code>$systemcheck_virtualizer_detected</code></p>"
       else
          MSG="\
 <p>Virtualizer <code>$systemcheck_virtualizer_detected</code> is unsupported by $PROJECT_NAME developers!
-<br></br>
-<br></br>Using Virtualizer this together with $PROJECT_NAME is recommended against.
-<br></br>
-<br></br><code>$systemcheck_virt_detection_tool</code> output:
+<br/>
+<br/>Using Virtualizer this together with $PROJECT_NAME is recommended against.
+<br/>
+<br/><code>$systemcheck_virt_detection_tool</code> output:
 <blockquote><code>$systemcheck_virtualizer_detected</code></blockquote>
 This might endanger your anonymity. Do not proceed unless you know what you are doing.
-<br></br>
+<br/>
 Recommended action:
-<br></br>- Shut down.
-<br></br>- Read $PROJECT_NAME documentation.
-<br></br>- Use $PROJECT_NAME on a supported platform.
-<br></br>
-<br></br>Links:
-<br></br>
-<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Leak_Tests>Leak Tests</a>
-<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection>Protocol Leak Protection and Fingerprinting Protection</a>
-<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Documentation>Documentation</a>
-<br></br>
-<br></br>$if_you_know_what_you_are_doing_msg</p>"
+<br/>- Shut down.
+<br/>- Read $PROJECT_NAME documentation.
+<br/>- Use $PROJECT_NAME on a supported platform.
+<br/>
+<br/>Links:
+<br/>
+<br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Leak_Tests>Leak Tests</a>
+<br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Protocol-Leak-Protection_and_Fingerprinting-Protection>Protocol Leak Protection and Fingerprinting Protection</a>
+<br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Documentation>Documentation</a>
+<br/>
+<br/>$if_you_know_what_you_are_doing_msg</p>"
          EXIT_CODE="1"
          emit_message error "$MSG"
          return 0

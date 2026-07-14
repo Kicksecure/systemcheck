@@ -57,15 +57,15 @@ check_systemd_clock() {
 
    if [ "$timedatectl_ok_counter_actual" -ge "$timedatectl_ok_counter_expected" ]; then
       local MSG="<p>Systemd Clock Check Result: set to UTC and NTP disabled as expected, $status_ok
-<br></br>timedatectl_output_pretty:
+<br/>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote></p>"
       output_if_verbose emit_message info "$MSG"
    else
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
       local MSG="<p>Systemd Clock Check Result:
-<br></br><b>Unexpected results by timedatectl.</b>
-<br></br>timedatectl_output_pretty:
+<br/><b>Unexpected results by timedatectl.</b>
+<br/>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote>
 It is generally recommended to keep the default as per $PROJECT_NAME Design. [1]
 If you did not change timezone related settings, please report this $PROJECT_NAME bug.

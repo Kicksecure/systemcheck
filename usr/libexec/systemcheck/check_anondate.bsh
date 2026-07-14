@@ -97,13 +97,13 @@ check_anondate_do() {
       if [ ! "$tor_consensus_user_permission" = "$permission_expected" ] || [ ! "$tor_consensus_group_permission" = "$permission_expected" ]; then
 
          local MSG="<p>Tor Folder Test Result: faulty permissions.
-   <br></br>
-   <br></br>user : <code>$tor_consensus_user_permission</code> (expected: <code>$permission_expected</code>)
-   <br></br>group: <code>$tor_consensus_group_permission</code> (expected: <code>$permission_expected</code>)
-   <br></br>
-   <br></br>To fix this.
-   <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-   <br></br>2. Run. <blockquote><code>sudo chown --recursive $permission_expected:$permission_expected /var/lib/tor</code></blockquote></p>"
+   <br/>
+   <br/>user : <code>$tor_consensus_user_permission</code> (expected: <code>$permission_expected</code>)
+   <br/>group: <code>$tor_consensus_group_permission</code> (expected: <code>$permission_expected</code>)
+   <br/>
+   <br/>To fix this.
+   <br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+   <br/>2. Run. <blockquote><code>sudo chown --recursive $permission_expected:$permission_expected /var/lib/tor</code></blockquote></p>"
 
          emit_message error "$MSG"
          EXIT_CODE="1"
@@ -142,13 +142,13 @@ tor_consensus_user_permission : <code>$tor_consensus_user_permission</code><br /
 tor_consensus_group_permission: <code>$tor_consensus_group_permission</code><br /></p>"
    fi
 
-   anondate_issue="<br></br>- Tor needs a reasonable correct time to be able to connect."
+   anondate_issue="<br/>- Tor needs a reasonable correct time to be able to connect."
 
    anondate_recommendation="<p>Please check, that the time inside this virtual machine (<code>$current_time_short</code>) is correct. (A clock that
 is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manually fix it.
-<br></br>
-<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote></p>"
+<br/>
+<br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br/>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote></p>"
 }
 
 check_anondate_show() {

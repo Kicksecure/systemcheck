@@ -34,11 +34,11 @@ check_control_port_filter_running() {
          local remediation
          remediation="$(remediation_instructions "systemctl restart onion-grater")"
          local MSG="<p>Control Port Filter Proxy Test Result: onion-grater service not running.
-<br></br>
-<br></br>Did you disable Control Port Filter Proxy?
-<br></br>
-<br></br>Recommendation: try manually starting onion-grater.
-<br></br>${remediation}
+<br/>
+<br/>Did you disable Control Port Filter Proxy?
+<br/>
+<br/>Recommendation: try manually starting onion-grater.
+<br/>${remediation}
 
 $if_you_know_what_you_are_doing_msg</p>"
          emit_message error "$MSG"

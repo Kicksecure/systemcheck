@@ -12,18 +12,18 @@ pvclock_unwanted_detected() {
 
    local MSG="<p>PVClock Test Result:
 
-<br></br>Unwanted PVClock <code>$available_clocksource</code> detected! \
+<br/>Unwanted PVClock <code>$available_clocksource</code> detected! \
 Using this PVClock together with $PROJECT_NAME is recommended against, because it conflicts with $PROJECT_NAME's TimeSync design [1].</p>
 
 $if_you_know_what_you_are_doing_msg
 
 <p>Recommended action:
-<br></br>- If you are using KVM, you probably did not follow $PROJECT_NAME's KVM instructions. [2]</p>
-<br></br>- Or use a different supported $PROJECT_NAME platform. [3]</p>
+<br/>- If you are using KVM, you probably did not follow $PROJECT_NAME's KVM instructions. [2]</p>
+<br/>- Or use a different supported $PROJECT_NAME platform. [3]</p>
 
 <p>[1] <a href=${PROJECT_HOMEPAGE}/wiki/Dev/TimeSync>${PROJECT_HOMEPAGE}/wiki/Dev/TimeSync</a>
-<br></br>[2] <a href=${PROJECT_HOMEPAGE}/wiki/KVM>${PROJECT_HOMEPAGE}/wiki/KVM</a>
-<br></br>[3] <a href=${PROJECT_HOMEPAGE}/wiki/Supported_Platforms>${PROJECT_HOMEPAGE}/wiki/Supported_Platforms</a>
+<br/>[2] <a href=${PROJECT_HOMEPAGE}/wiki/KVM>${PROJECT_HOMEPAGE}/wiki/KVM</a>
+<br/>[3] <a href=${PROJECT_HOMEPAGE}/wiki/Supported_Platforms>${PROJECT_HOMEPAGE}/wiki/Supported_Platforms</a>
 </p>"
 
    emit_message warning "$MSG"
