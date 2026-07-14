@@ -24,11 +24,12 @@ check_login_security() {
 :</p>
 XXX_LOGIN_SEC_TABLE_XXX
 <p>You can adjust these settings using \"Manage Passwords\" and \"Manage GUI Autologin\"
-in the System Maintenance Panel."
-   local base_msg_cli="${base_msg_gui}
-See also:
-https://www.kicksecure.com/wiki/Login
-https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check"
+in the System Maintenance Panel.
+See also: <a href=\"https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check\">Physical Security</a>.</p>"
+   ## The 'See also' links (Login, Colors, Physical Security) are anchors in
+   ## base_msg_gui, so the CLI path footnotes them; no separate plain-URL list
+   ## is needed (it duplicated the Login link).
+   local base_msg_cli="${base_msg_gui}"
 
    user_list_str="$(/usr/libexec/helper-scripts/get-user-list)"
    readarray -t user_list <<< "$user_list_str"
