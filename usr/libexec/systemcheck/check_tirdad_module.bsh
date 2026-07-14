@@ -23,17 +23,17 @@ check_tirdad_module() {
    if [ -f '/usr/share/qubes/marker-vm' ]; then
       only_if_verbose=true
       output_type="info"
-      help_msg="<br/>
-- Reason: Qubes detected.<br/>
-- Known Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a><br/>
+      help_msg="
+- Reason: Qubes detected.
+- Known Qubes issue: <a href=https://github.com/QubesOS/qubes-issues/issues/9570>https://github.com/QubesOS/qubes-issues/issues/9570</a>
 - No need to report this."
    ## Variable 'secure_boot_status_enabled' is set in 'check_secure_boot.bsh'.
    elif [ "$intel_amd_64_detected" = "false" ]; then
       only_if_verbose=true
       output_type="info"
-      help_msg="<br/>
-- Reason: Not using architecture Intel/AMD64. Architecture '<code>$ARCH</code>' is <a href=https://www.kicksecure.com/wiki/Unsupported>unsupported</a>.<br/>
-- Known tirdad issue: <a href=https://www.kicksecure.com/wiki/Tirdad#Architecture_Support>https://www.kicksecure.com/wiki/Tirdad#Architecture_Support</a><br/>
+      help_msg="
+- Reason: Not using architecture Intel/AMD64. Architecture '<code>$ARCH</code>' is <a href=https://www.kicksecure.com/wiki/Unsupported>unsupported</a>.
+- Known tirdad issue: <a href=https://www.kicksecure.com/wiki/Tirdad#Architecture_Support>https://www.kicksecure.com/wiki/Tirdad#Architecture_Support</a>
 - No need to report this."
    elif [ "$secure_boot_status_enabled" = "true" ]; then
       ## Secure Boot is on but tirdad is not loaded, most likely because its
@@ -47,27 +47,25 @@ check_tirdad_module() {
          ## Live mode: DKMS key enrollment cannot be persisted, so this is only
          ## fixable via a manual image build with the signing key enrolled -- and
          ## not worthwhile when staying offline during installation as recommended.
-         help_msg="\
-<br/>
-- Reason: kernel module 'tirdad' is NOT loaded.<br/>
-- This only matters if internet connectivity is used.<br/>
-- Secure Boot is enabled; in live mode the tirdad DKMS module cannot be enrolled, only practical during a manual image build.<br/>
-- Refer to the Kicksecure wiki: $help_link_gui<br/>
+         help_msg="
+- Reason: kernel module 'tirdad' is NOT loaded.
+- This only matters if internet connectivity is used.
+- Secure Boot is enabled; in live mode the tirdad DKMS module cannot be enrolled, only practical during a manual image build.
+- Refer to the Kicksecure wiki: $help_link_gui
 - No need to report this. Please read the documentation."
       else
-         help_msg="\
-<br/>
-- Reason: kernel module 'tirdad' is NOT loaded.<br/>
-- This only matters if internet connectivity is used.<br/>
-- Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.<br/>
-- Refer to the Kicksecure wiki: $help_link_gui<br/>
+         help_msg="
+- Reason: kernel module 'tirdad' is NOT loaded.
+- This only matters if internet connectivity is used.
+- Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.
+- Refer to the Kicksecure wiki: $help_link_gui
 - No need to report this. Please read the documentation."
       fi
    else
       only_if_verbose=false
       output_type="warning"
       tirdad_failed=true
-      help_msg="<br />
+      help_msg="
 - Reason: kernel module 'tirdad' is NOT loaded."
    fi
 

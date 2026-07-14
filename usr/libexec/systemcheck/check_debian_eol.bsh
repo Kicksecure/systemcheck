@@ -72,9 +72,12 @@ check_debian_eol() {
       return 0
    elif (( current_timestamp < os_lts_eol_timestamp )); then
       EXIT_CODE="1"
-      emit_status_line warning "Operating system (OS) (Debian) support status" "$link_cli" orange "LTS support" " (until ${os_lts_eol_date})<br>You should consider upgrading to a newer version of $PROJECT_NAME soon."
+      emit_status_line warning "Operating system (OS) (Debian) support status" "$link_cli" orange "LTS support" " (until ${os_lts_eol_date})
+You should consider upgrading to a newer version of $PROJECT_NAME soon."
    else
       EXIT_CODE="1"
-      emit_status_line error "Operating system (OS) (Debian) support status" "$link_cli" red "Unsupported" " (as of ${os_lts_eol_date})<br><b>Your system is likely vulnerable to malware infection due to missing security updates.</b><br>Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded."
+      emit_status_line error "Operating system (OS) (Debian) support status" "$link_cli" red "Unsupported" " (as of ${os_lts_eol_date})
+<b>Your system is likely vulnerable to malware infection due to missing security updates.</b>
+Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded."
    fi
 }

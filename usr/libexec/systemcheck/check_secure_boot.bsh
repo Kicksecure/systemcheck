@@ -27,15 +27,17 @@ check_secure_boot() {
    if [ "$qubes_detected" = "true" ]; then
       reason="\
 - Reason: Qubes detected.
-<br/>- Known Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>
-<br/>- No need to report this."
+- Known Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>
+- No need to report this."
    else
       reason="\
 - Reason: Not booted in EFI (UEFI) mode. Secure Boot is only available in EFI (UEFI) mode."
    fi
 
    if ! [ -d /sys/firmware/efi ]; then
-      output_if_verbose emit_status_line info "Secure Boot" "$link_cli" orange "Unavailable" "<br/><br/>$reason"
+      output_if_verbose emit_status_line info "Secure Boot" "$link_cli" orange "Unavailable" "
+
+$reason"
       return 0
    fi
 
@@ -61,7 +63,10 @@ check_secure_boot() {
       ## unset/stale.
       secure_boot_status_enabled=false
       mokutil_output="$(sanitize-string -- 8192 "$mokutil_output")"
-      output_if_verbose emit_status_line info "Secure Boot" "$link_cli" orange "Unknown" "<br/><br/>Debugging information:<br/>mokutil_output: '${mokutil_output}'"
+      output_if_verbose emit_status_line info "Secure Boot" "$link_cli" orange "Unknown" "
+
+Debugging information:
+mokutil_output: '${mokutil_output}'"
    fi
 
    if [ "${mokutil_present}" = 'y' ]; then
@@ -86,7 +91,10 @@ check_secure_boot() {
                output_if_verbose emit_status_line info "DKMS module signing keys enrolled in firmware" "" green "Yes"
             else
                mokutil_output="$(sanitize-string -- 8192 "$mokutil_output")"
-               output_if_verbose emit_status_line info "DKMS module signing keys enrolled in firmware" "" orange "Unknown" "<br/><br/>Debugging information:<br/>mokutil output: '${mokutil_output}'"
+               output_if_verbose emit_status_line info "DKMS module signing keys enrolled in firmware" "" orange "Unknown" "
+
+Debugging information:
+mokutil output: '${mokutil_output}'"
             fi
          else
             output_if_verbose emit_status_line info "DKMS module signing keys enrolled in firmware" "" orange "No"

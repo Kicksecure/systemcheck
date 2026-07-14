@@ -265,7 +265,11 @@ emit_status_line() {
    ## $3 - URL
    ## $4 - status color: green | orange | yellow | red
    ## $5 - status word
-   ## $6 - optional trailing HTML after the status word (may contain <br>)
+   ## $6 - optional trailing body after the status word. Real newlines in it are
+   ##      translated to <br/>, so you can write a readable multi-line body in
+   ##      the source instead of one long line with literal <br/> (use real
+   ##      newlines only, not a mix). msgcollector turns the <br/> back into a
+   ##      newline on the CLI.
    ## An empty URL ($3) renders the label as plain text (no link).
    local sev text url color status trailing label MSG
    sev="$1"
@@ -274,6 +278,7 @@ emit_status_line() {
    color="$4"
    status="$5"
    trailing="${6:-}"
+   trailing="${trailing//$'\n'/<br/>}"
    if [ -z "$url" ]; then
       label="$text"
    else
