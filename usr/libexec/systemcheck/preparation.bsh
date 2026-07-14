@@ -490,7 +490,7 @@ preparation() {
             start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
          else
             qubes_title_extra=" | Unknown Qubes VM Type"
-            update_where="<?> your '<code>$qubes_base_template</code>' TemplateVM </?>"
+            update_where="your '<code>$qubes_base_template</code>' TemplateVM (VM type could not be determined)"
             persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_base_template</code> /"
             start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
          fi

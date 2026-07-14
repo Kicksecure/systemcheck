@@ -15,7 +15,7 @@ disclaimer() {
    if [ "$VM" = "machine" ]; then
       local MSG="<p><a href=$PROJECT_HOMEPAGE>$PROJECT_NAME</a> is a research project.</p>"
    else
-      local MSG="<p><a href=$PROJECT_HOMEPAGE>$PROJECT_NAME</a> is produced independently of, with no guarantee from, The Tor Project. $PROJECT_NAME is a research project."
+      local MSG="<p><a href=$PROJECT_HOMEPAGE>$PROJECT_NAME</a> is produced independently of, with no guarantee from, The Tor Project. $PROJECT_NAME is a research project.</p>"
    fi
 
    $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"

@@ -39,9 +39,7 @@ check_dpkg() {
 $dpkg_audit_output</code></blockquote></p>"
    ## TODO: both the error output AND EXIT_CODE=1 are gated behind `verbose >= 1`,
    ## so a broken dpkg state is silent and does NOT fail a normal (non-verbose)
-   ## run. Same pattern in check_nonfree, check_tor_socks_port_reachability,
-   ## check_warrant_canary. Should a real failure fail the run regardless of
-   ## verbosity?
+   ## run. Should a real failure fail the run regardless of verbosity?
    if [ "$verbose" -ge "1" ]; then
       $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
       $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"

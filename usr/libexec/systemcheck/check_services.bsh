@@ -29,7 +29,7 @@ check_services_do() {
 
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
-      MSG="<p>systemd '<u>$check_type</u>' units check result: $status_ok"
+      MSG="<p>systemd '<u>$check_type</u>' units check result: $status_ok</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
          $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"

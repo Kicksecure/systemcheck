@@ -112,11 +112,10 @@ If this warning happens only after boot or is transient it can be safely ignored
             $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
             $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
             ## TODO: EXIT_CODE is commented out, so a MISSING canary file is only
-            ## a warning and never fails the check. Also note (like check_dpkg,
-            ## check_nonfree, check_tor_socks_port_reachability) the other
-            ## EXIT_CODE=1 branches in this check are inside a `verbose >= 1`
-            ## guard, so in a normal (non-verbose) run a stale/absent canary
-            ## neither prints nor fails. Intended?
+            ## a warning and never fails the check. The other EXIT_CODE=1 branches
+            ## here are also inside a `verbose >= 1` guard, so in a normal
+            ## (non-verbose) run a stale/absent canary neither prints nor fails.
+            ## Intended?
             #EXIT_CODE="1"
         fi
         return 0
