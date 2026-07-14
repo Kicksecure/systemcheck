@@ -82,11 +82,7 @@ This is non-ideal. A known issue. Contributions happily considered. Read more: <
       if [ "$current_clocksource" = "kvm-clock" ]; then
          ## Skip this check on Whonix-Gateway.
          ## https://phabricator.whonix.org/T385#7651
-         if [ "$vm_lower_case_short" = "gateway" ]; then
-            true
-         elif [ "$vm_lower_case_short" = "machine" ]; then
-            true
-         else
+         if [ "$vm_lower_case_short" != "gateway" ] && [ "$vm_lower_case_short" != "machine" ]; then
             systemcheck_run_function pvclock_unwanted_detected
          fi
       fi

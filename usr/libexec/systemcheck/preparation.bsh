@@ -156,24 +156,11 @@ virtualizer_detection() {
       systemcheck_virtualizer_detected="unknown"
    fi
 
-   if [ "$systemcheck_virtualizer_detected" = "none" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "qemu" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "qubes" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "vmware" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
+   case "$systemcheck_virtualizer_detected" in
+      none|oracle|kvm|qemu|qubes|vmware)
+         systemcheck_platform_or_virtualizer_known=true
+         ;;
+   esac
 }
 
 sysmaint_state_detection() {
@@ -330,8 +317,10 @@ get_local_derivative_version() {
    ## Example: derivative_deb_package_version="2:6-debpackage1"
 
    if [ "$derivative_deb_package_version_detection_success" = "true" ]; then
-      ## Remove epoch from derivative_deb_package_version.
-      derivative_deb_package_version="$(echo "$derivative_deb_package_version" | awk -F ":" '{ print $2 }')"
+      ## Remove a leading "epoch:" prefix if present, e.g.
+      ## "2:6-debpackage1" -> "6-debpackage1". Strips only the first colon, so
+      ## a colon elsewhere in the version and a missing epoch are both handled.
+      derivative_deb_package_version="${derivative_deb_package_version#*:}"
    fi
 
    ## Example: derivative_deb_package_version="6-debpackage1"

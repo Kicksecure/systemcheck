@@ -9,7 +9,7 @@
 function_manual_run() {
    if [ "$FUNCTION" = "none" ]; then
       printf '%s\n' "$SCRIPTNAME no function given. List of functions:" >&2
-      typeset -f | awk '/ \(\) $/ && !/^main / {print $1}'
+      compgen -A function | grep --invert-match --line-regexp 'main' || true
       EXIT_CODE="1"
       cleanup
       return 0
