@@ -76,7 +76,7 @@ check_operating_system() {
    if [ ! "$apt_get_exit_code" = "0" ]; then
       if [ "$qubes_detected" = "true" ]; then
          local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
-<br></br><u><b>Please manually check inside $update_where.</u></b>
+<br></br><u><b>Please manually check inside $update_where.</b></u>
 $qubes_update_help</p>"
       else
          if [ "$booted_in_sysmaint_session" = 'true' ]; then

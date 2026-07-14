@@ -32,7 +32,7 @@ check_apt_repository() {
          permission_issues_msg="\
 <p>$PROJECT_NAME APT Repository: File <code>/etc/apt/sources.list.d/derivative.sources</code> exists but is unreadable.
 Permission issues?
-To fix, try run:
+To fix, try running:
 <blockquote><code>sudo chmod o+r /etc/apt/sources.list.d/derivative.sources</code></blockquote></p>"
 
          local MSG
@@ -67,7 +67,7 @@ they will be AUTOMATICALLY installed (when you run <code>apt-get dist-upgrade</c
 along with updated packages from the Debian team. ${risk_cli_msg} ${risk_gui_msg}
 If you want to change this, use:</p>"
    local temp_base_msg_disabled="<p>$PROJECT_NAME APT Repository: <u>Disabled</u>.
-When the $PROJECT_NAME team releases an update, it will be NOT be installed.
+When the $PROJECT_NAME team releases an update, it will NOT be installed.
 ${risk_cli_msg} ${risk_gui_msg}
 You are free to manually update from source code.
 If you want to change this, use:</p>"
@@ -75,7 +75,7 @@ If you want to change this, use:</p>"
 <br />
 Very minor issue: This system is still using derivative APT sources list file <code>/etc/apt/sources.list.d/derivative.list</code> instead of <code>/etc/apt/sources.list.d/derivative.sources</code>.<br />
 <br />
-If fix this, to update your derivative APT sources list file to the new format, use:</p>"
+To update your derivative APT sources list file to the new format, use:</p>"
 
    if test -e "/etc/apt/sources.list.d/derivative.list" ; then
       EXIT_CODE="1"

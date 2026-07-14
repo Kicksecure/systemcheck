@@ -71,7 +71,7 @@ check_non_freedom() {
    else
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
-      local MSG="<p>Check non-freedom Result: non-freedom packages found. This is non-ideal but okay if you know what you are doing. For more information, see:
+      local MSG="<p>Check non-freedom Result: non-freedom packages found. This is not recommended, but acceptable if you understand the implications. For more information, see:
 <br />$non_freedomlink
 <br />
 <br />vrms_output:

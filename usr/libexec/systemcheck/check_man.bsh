@@ -16,7 +16,7 @@ check_man() {
       return 0
    fi
 
-   local MSG="<p>Check manual page (man) Result: Broken. Severity: very low. To test for yourself, run: <code>man --pager=cat systemcheck</code></p>"
+   local MSG="<p>Check manual page (man) Result: Broken. This is a minor issue. To verify, run: <code>man --pager=cat systemcheck</code></p>"
    $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
    $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 }
