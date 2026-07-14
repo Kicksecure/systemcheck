@@ -7,12 +7,22 @@
 ## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
 check_package_manager_running() {
-   local MSG
-   ## TODO: this loop is UNBOUNDED -- it blocks systemcheck indefinitely while a
-   ## dpkg/apt lock is held. Consider a max-wait cap (as check_tor_bootstrap does
-   ## with systemcheck_tor_bootstrap_wait_max) so a stuck package manager cannot
-   ## hang the whole run forever.
+   local MSG waited
+   ## Wait for a running apt/dpkg to finish, but never block the whole run
+   ## forever if a lock is held. Package operations can legitimately be long, so
+   ## the cap is generous and overridable via systemcheck_package_manager_wait_max.
+   [ -v systemcheck_package_manager_wait_max ] || systemcheck_package_manager_wait_max="1200"
+   waited="0"
    while ! check_package_manager_running_helper; do
+      if [ "$waited" -ge "$systemcheck_package_manager_wait_max" ]; then
+         if [ "$systemcheck_package_manager_waiting" = "1" ]; then
+            $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
+         fi
+         MSG="<p>Check Package Manager Running Result: a package manager (apt/dpkg) is still running after ${systemcheck_package_manager_wait_max} seconds; continuing without waiting further.</p>"
+         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         return 0
+      fi
       if [ ! "$systemcheck_package_manager_waiting" = "1" ]; then
          systemcheck_package_manager_waiting="1"
 
@@ -26,6 +36,7 @@ check_package_manager_running() {
 
       sleep "10" &
       wait "$!" || true
+      waited="$(( waited + 10 ))"
    done
 
    if [ "$systemcheck_package_manager_waiting" = "1" ]; then

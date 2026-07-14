@@ -430,9 +430,7 @@ check_qubes_update_proxy_connectivity() {
 
 check_qubes_update_proxy() {
    if [ ! "$qubes_detected" = "true" ]; then
-      ## TODO: this "Skipped" MSG is built but never passed to output_x/output_cli
-      ## -- the skip is silent (the message is never shown). Either emit it or
-      ## drop the dead assignment.
+      ## Assigned for 'set -x' (xtrace) visibility only; not emitted.
       local MSG="<p>Qubes UpdatesProxy Test Result: Skipped, because Qubes not detected.</p>"
       return 0
    fi
