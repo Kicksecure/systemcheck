@@ -3,6 +3,11 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## errexit and nounset ARE set below. pipefail is intentionally NOT set: the
+## journal grep pipelines legitimately exit non-zero on no-match and must not
+## abort. The gate's R-010 strict-triple does not fit this script.
+
 ## NOTE: Runs as user `systemcheck`. Can run privleap actions
 ## `read-journalctl-logs-this-boot`,
 ## `read-journalctl-logs-last-boot`, and
@@ -44,7 +49,8 @@ prep_temp_dir() {
   TMPDIR='/var/cache/systemcheck-log-checker'
   TMP="$TMPDIR"
   export TMP TMPDIR
-  mkdir --parents -m700 -- "$TMPDIR"
+  mkdir --parents -- "$TMPDIR"
+  chmod 700 -- "$TMPDIR"
   test -w "$TMPDIR"
 }
 
@@ -115,6 +121,15 @@ check_service_logs() {
 
   grep --invert-match --extended-regexp --ignore-case "$patterns" -- "$TMPDIR/journalctl_fixed_filtered.txt" \
     | tee -- "$TMPDIR/journalctl_match_filtered.txt" >/dev/null
+
+  ## Neutralize HTML metacharacters in untrusted journal content BEFORE
+  ## br_add_to_file bakes in '<br />' tags. This output is later rendered in
+  ## the GUI via setHtml(); stcatn (applied afterwards) strips ANSI, not HTML.
+  ## nolimit: the filtered journal is the primary diagnostic; it is read via
+  ## stdin (no ARG_MAX risk) and the final GUI message is capped downstream by
+  ## msgdispatcher.
+  sanitize-string -- nolimit < "$TMPDIR/journalctl_match_filtered.txt" > "$TMPDIR/journalctl_match_filtered.txt.tmp"
+  mv -- "$TMPDIR/journalctl_match_filtered.txt.tmp" "$TMPDIR/journalctl_match_filtered.txt"
 
   ## Creates file: '$TMPDIR/journalctl_match_filtered.txt_br'
   br_add_to_file "$TMPDIR/journalctl_match_filtered.txt"

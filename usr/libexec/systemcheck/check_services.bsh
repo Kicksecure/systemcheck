@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_services_do() {
    ## user@host:~$ sudo systemctl --failed --no-legend list-units
    ## apparmor.service        loaded failed failed LSB: AppArmor initialization
@@ -26,19 +29,20 @@ check_services_do() {
 
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
-      MSG="<p>systemd '<u>$check_type</u>' units check result: OK."
+      MSG="<p>systemd '<u>$check_type</u>' units check result: $status_ok</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
 
    systemctl_output_with_legend="$($machine_command_pretty 2>&1)" || true
+   systemctl_output_with_legend="$(sanitize-string -- 8192 "$systemctl_output_with_legend")"
    systemctl_output_with_legend="$(br_add "$systemctl_output_with_legend")"
 
    local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    local MSG
    MSG="<p>systemd '<u>$check_type</u>' units check result: One or more units failed to load.
@@ -47,7 +51,7 @@ check_services_do() {
 <br />
 <br />Some systemd '<u>$check_type</u>' units may be stuck in a failed, activating, or deactivating state.
 <br />
-Output of '<code>$machine_command_pretty</code>':$manual_check_equivalent
+Output of $machine_command_desc:
 <br></br>
 <br></br>########################################
 <br></br><code>$systemctl_output_with_legend</code>
@@ -59,8 +63,8 @@ Output of '<code>$machine_command_pretty</code>':$manual_check_equivalent
 <code>$machine_command_pretty</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 
    EXIT_CODE="1"
 
@@ -69,15 +73,15 @@ $if_you_know_what_you_are_doing_msg</p>"
 
 check_services() {
    check_type="system"
-   manual_check_equivalent="<br /> (equivalent to: <code>sudo systemctl --state=failed,activating,deactivating list-units</code>)"
    machine_command_machine="leaprun read-systemctl-logs-failed-units"
    machine_command_pretty="leaprun read-systemctl-logs-failed-units-pretty"
+   machine_command_desc="$(leaprun_cmd_describe "systemctl --state=failed,activating,deactivating list-units" "read-systemctl-logs-failed-units-pretty")"
    systemcheck_run_function check_services_do
 
    check_type="user"
-   manual_check_equivalent=""
    machine_command_machine="systemctl --user --no-legend --no-pager --no-block --state=failed,activating,deactivating list-units"
-    machine_command_pretty="systemctl --user --no-pager --no-block --state=failed,activating,deactivating list-units"
+   machine_command_pretty="systemctl --user --no-pager --no-block --state=failed,activating,deactivating list-units"
+   machine_command_desc="$(leaprun_cmd_describe "$machine_command_pretty")"
    systemcheck_run_function check_services_do
 }
 
@@ -102,8 +106,8 @@ print_critical_output_message_maybe() {
 <br />Detected messages:
 <br /><code>$critical_output</code>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
 
       if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
          if printf '%s\n' "$critical_output" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
@@ -114,15 +118,15 @@ print_critical_output_message_maybe() {
 <br />
 <br />Guess: Are you using VirtualBox on a Windows host operating system? If so, you might be experiencing the \"VirtualBox green turtle issue.\" For more information and how to resolve it, see: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-            $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+            $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+            $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
          fi
       fi
    else
-      MSG="<p>systemd critical journal messages check result (<u>${chosen_boot}</u> boot): OK.</p>"
+      MSG="<p>systemd critical journal messages check result (<u>${chosen_boot}</u> boot): $status_ok</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
    fi
 }
@@ -142,12 +146,12 @@ print_verbose_log_output_message_maybe() {
 <br></br>########################################
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
 
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
    else
-      MSG="<p>systemd journal check result (<u>${chosen_boot}</u> boot): OK.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      MSG="<p>systemd journal check result (<u>${chosen_boot}</u> boot): $status_ok</p>"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    fi
 }
 
@@ -163,15 +167,16 @@ check_journal() {
    ## logs for the current boot. To get critical logs from the last boot, we
    ## must check critical logs after getting logs for the last boot.
 
-   ## The contents of these four variables will have been sanitized by
-   ## stcatn already.
+   ## The contents of these four variables are HTML-neutralized by log-checker
+   ## (sanitize-string before br_add_to_file) so they are safe to embed in the
+   ## setHtml() GUI path. (stcatn alone only strips ANSI, not HTML.)
    log_output="$(leaprun log-checker-check_service_logs_this_boot)" || true
    critical_output="$(leaprun log-checker-check_critical_logs)" || true
    last_boot_log_output="$(leaprun log-checker-check_service_logs_last_boot)" || true
    last_boot_critical_output="$(leaprun log-checker-check_critical_logs)" || true
 
    local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    print_critical_output_message_maybe \
       "${critical_output}" \
@@ -210,27 +215,29 @@ check_whonix_firewall_systemd_status() {
       extra_text="Failure file <code>/run/anon-firewall/failed.status</code> exists!"
    else
       anon_firewall_failed_file_exists=false
-      extra_text="Failure file <code>/run/anon-firewall/failed.status</code> does not exist, OK."
+      extra_text="Failure file <code>/run/anon-firewall/failed.status</code> does not exist, $status_ok"
    fi
 
    systemctl_status_whonix_firewall_exit_code="0"
    systemctl_status_whonix_firewall_output="$(leaprun whonix-firewall-status 2>&1)" || { systemctl_status_whonix_firewall_exit_code="$?" ; true; }
+   systemctl_status_whonix_firewall_output="$(sanitize-string -- 8192 "$systemctl_status_whonix_firewall_output")"
    systemctl_status_whonix_firewall_output="$(br_add "$systemctl_status_whonix_firewall_output")"
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then
-      local MSG="<p>Whonix firewall systemd unit check result: OK.</p>"
+      local MSG="<p>Whonix firewall systemd unit check result: $status_ok</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       return 0
    fi
 
    journalctl_whonix_firewall_output="$(leaprun read-journalctl-logs-whonix-firewall)" || true
+   journalctl_whonix_firewall_output="$(sanitize-string -- 8192 "$journalctl_whonix_firewall_output")"
    journalctl_whonix_firewall_output="$(br_add "$journalctl_whonix_firewall_output")"
 
    local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    local MSG="<p>whonix_firewall failed to load!
 <br></br>
@@ -262,8 +269,8 @@ check_whonix_firewall_systemd_status() {
 $if_you_know_what_you_are_doing_msg
 </p>"
 
-   $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
 
    EXIT_CODE="1"
    return 0

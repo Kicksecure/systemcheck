@@ -3,15 +3,18 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_virtualizer() {
    local MSG
    local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    if [ "$systemcheck_virtualizer_tool_unavailable" = "true" ]; then
       MSG="<p>Check Virtualizer Result: $systemcheck_virt_detection_tool not available. Skipping test.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
       EXIT_CODE="1"
       return 0
    fi
@@ -56,15 +59,15 @@ Recommended action:
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
          EXIT_CODE="1"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
          return 0
       fi
    fi
 
    if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    fi
    return 0
 }

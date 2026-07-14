@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 #set -x
 
 check_tor_running_do() {
@@ -13,20 +16,21 @@ check_tor_running_do() {
 
    ## Only check on Whonix-Gateway.
    if [ ! -e "/usr/share/anon-gw-base-files/gateway" ]; then
-      tor_pid_message="Not running on Whonix-Gateway, therefore skipping, ok."
+      tor_pid_message="Not running on Whonix-Gateway, therefore skipping, $status_ok"
       tor_pid_exit_code="0"
       return 0
    fi
 
    ## Skip in Qubes-Whonix-Gateway TemplateVM, because Tor is not running there.
    if test -f /run/qubes/this-is-templatevm ; then
-      tor_pid_message="Running inside a Qubes-Whonix-Gateway TemplateVM, therefore skipping, ok."
+      tor_pid_message="Running inside a Qubes-Whonix-Gateway TemplateVM, therefore skipping, $status_ok"
       tor_pid_exit_code="0"
       return 0
    fi
 
    tor_pid_exit_code="0"
    tor_pid_output="$(leaprun check-tor-running)" || { tor_pid_exit_code="$?" ; true; };
+   tor_pid_output="$(sanitize-string -- 8192 "$tor_pid_output")"
    tor_pid_message="$(br_add "$tor_pid_output")"
    return 0
 }
@@ -36,6 +40,8 @@ check_tor_running() {
    check_tor_running_do
 
    if [ ! "$tor_pid_exit_code" = "0" ]; then
+      local remediation
+      remediation="$(remediation_instructions "service tor@default restart")"
       local MSG="<p>\
 Tor Running Check Result: <b>Tor is not running.</b>
 <br>
@@ -43,8 +49,7 @@ Tor Running Check Result: <b>Tor is not running.</b>
 <br>
 <br>Restart Tor after you fix this error.
 
-<blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
-    or in Terminal: <blockquote><code>sudo service tor@default restart</code></blockquote>
+${remediation}
 
 Restart <code>systemcheck</code> after you fix this error.
 
@@ -57,15 +62,15 @@ See also:
 <br>Debugging information:
 <br>
 <br>$tor_pid_message</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
       return 0
    else
       local MSG="<p>Tor Running Check Result: $tor_pid_message</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
    fi
 }
