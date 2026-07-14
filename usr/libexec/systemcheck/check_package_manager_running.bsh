@@ -19,8 +19,7 @@ check_package_manager_running() {
             $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
          fi
          MSG="<p>Check Package Manager Running Result: a package manager (apt/dpkg) is still running after ${systemcheck_package_manager_wait_max} seconds; continuing without waiting further.</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          return 0
       fi
       if [ ! "$systemcheck_package_manager_waiting" = "1" ]; then
@@ -43,9 +42,6 @@ check_package_manager_running() {
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
    MSG="<p>Check Package Manager Running Result: None running, $status_ok</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
    return 0
 }

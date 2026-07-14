@@ -18,6 +18,5 @@ disclaimer() {
       local MSG="<p><a href=$PROJECT_HOMEPAGE>$PROJECT_NAME</a> is produced independently of, with no guarantee from, The Tor Project. $PROJECT_NAME is a research project.</p>"
    fi
 
-   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+   emit_message info "$MSG"
 }

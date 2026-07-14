@@ -42,10 +42,7 @@ check_tor_socks_port_reachability() {
    if [ "$check_socks_port_open_test" = "22" ]; then
       local MSG="<p>Tor SocksPort Reachability Test Result: Reachable. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -55,8 +52,7 @@ Failed to connect to host. Gateway likely reachable, but Tor service likely not 
 Either user has run <code>sudo service tor@default stop</code> or Gateway is still booting and has not started Tor service yet. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          EXIT_CODE="1"
       fi
    elif [ "$check_socks_port_open_test" = "28" ]; then
@@ -69,8 +65,7 @@ Gateway likely powered off. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       fi
       if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          EXIT_CODE="1"
       fi
    else
@@ -78,8 +73,7 @@ Gateway likely powered off. \
 Unexpected error! \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
       fi
    fi

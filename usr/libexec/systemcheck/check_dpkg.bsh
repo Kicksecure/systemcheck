@@ -15,10 +15,7 @@ check_dpkg() {
 
    if [ "$dpkg_audit_output" = "" ]; then
       local MSG="<p>Package Manager Consistency Check Result: Output of command <code>dpkg --audit</code> was empty, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -31,7 +28,7 @@ check_dpkg() {
 <br /><u>Recommendation</u>:
 <br />
 <br />Try to complete the upgrade process. ${remediation}
-<br /><u>Debugging information</u>:
+<br />Debugging information:
 <br />
 <br />Output of command <blockquote><code>dpkg --audit</code></blockquote> was non-empty!
 <br />
@@ -39,7 +36,6 @@ check_dpkg() {
 $dpkg_audit_output</code></blockquote></p>"
    ## A broken dpkg state is a real failure: always show it and fail the run,
    ## regardless of verbosity.
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
 }

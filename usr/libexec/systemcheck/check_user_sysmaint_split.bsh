@@ -16,11 +16,11 @@ check_user_sysmaint_split_package() {
    link_cli="https://www.kicksecure.com/wiki/sysmaint"
 
    if ! leaprun user-sysmaint-split-check &>/dev/null ; then
-      emit_status_line info "user-sysmaint-split installation check" "$link_cli" orange "Absent"
+      emit_status_line info "user-sysmaint-split installation check" "$link_cli" orange "Not installed"
       return 0
    fi
 
-   emit_status_line info "user-sysmaint-split installation check" "$link_cli" green "Enabled"
+   emit_status_line info "user-sysmaint-split installation check" "$link_cli" green "Installed"
    return 0
 }
 
@@ -31,6 +31,5 @@ check_user_sysmaint_split_boot_mode() {
       MSG="<p>user-sysmaint-split session detection result: SYSMAINT Session.</p>"
    fi
 
-   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+   emit_message info "$MSG"
 }

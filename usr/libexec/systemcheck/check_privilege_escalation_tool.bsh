@@ -28,20 +28,10 @@ check_privleap_group_membership() {
       fi
    done
 
-   if [ "$verbose" -ge "1" ]; then
-      if [ "${in_privleap_group}" = 'true' ]; then
-         MSG="<p>Account '${who_ami}' present in group 'privleap': <font color=\"green\">Yes</font></p>"
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-
-         MSG="Account '${who_ami}' present in group 'privleap': ${green}Yes${nocolor}"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      else
-         MSG="<p>Account '${who_ami}' present in group 'privleap': <font color=\"orange\">No</font> (OK)</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-
-         MSG="Account '${who_ami}' present in group 'privleap': ${yellow}No${nocolor} (OK)"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+   if [ "${in_privleap_group}" = 'true' ]; then
+      output_if_verbose emit_status_line info "Account '${who_ami}' present in group 'privleap'" "" green "Yes"
+   else
+      output_if_verbose emit_status_line info "Account '${who_ami}' present in group 'privleap'" "" orange "No" " (OK)"
    fi
 
    if [ -S "/run/privleapd/comm/${who_ami}" ]; then
@@ -118,10 +108,7 @@ check_privilege_escalation_tool_do() {
 
    if [ "$privilege_escalation_tool_ok" = "true" ]; then
       local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' Result: $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -137,8 +124,7 @@ exit_code: <code>$exit_code</code>
 <blockquote><code>$privilege_escalation_tool_output</code></blockquote>
 </p>"
 
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
 
    ## sudo hostname wrong-hostname

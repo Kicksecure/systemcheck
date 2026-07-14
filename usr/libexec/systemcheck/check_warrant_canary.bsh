@@ -11,10 +11,7 @@ source /usr/libexec/helper-scripts/live-mode.sh
 canary_folder_permission_issues() {
    local MSG="\
 <p>$warrant_canary_check_link: Folder <code>/var/lib/canary</code> permissions issue.</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
    return 0
 }
 
@@ -28,50 +25,35 @@ check_warrant_canary() {
    if [ "$canary_run" = "false" ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Disabled in settings. Doing nothing. Skipping.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
          return 0
    fi
 
    if [ "$vm_lower_case_short" = "workstation" ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping on $VM, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
    if [ "$live_status_detected" = 'true' ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in live mode, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
    if test -f /run/qubes/this-is-templatevm ; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in Template, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
    if [ "$qubes_vm_persistence" = "none" ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in DispVM, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -86,10 +68,7 @@ Check system clock. Recommended to check warrant canary manually."
     if ! leaprun -- check-warrant-canary &>/dev/null ; then
         local MSG="\
 <p>$warrant_canary_check_link: systemd unit <code>canary</code> not running.</p>"
-        if [ "$verbose" -ge "1" ]; then
-            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-        fi
+        output_if_verbose emit_message info "$MSG"
         return 0
     fi
 
@@ -109,8 +88,7 @@ $canary_recommendation<br />
 <br />
 If this warning happens only after boot or is transient it can be safely ignored.</p>"
         if [ "$verbose" -ge "1" ]; then
-            $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+            emit_message warning "$MSG"
             ## Intentionally lenient (does not fail the run): the canary fetch
             ## depends on onion services whose reliability issues would otherwise
             ## cause false failures.
@@ -133,8 +111,7 @@ If this warning happens only after boot or is transient it can be safely ignored
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
       fi
       return 0
@@ -149,8 +126,7 @@ $canary_recommendation</p>"
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          EXIT_CODE="1"
       fi
       return 0
@@ -167,8 +143,7 @@ $canary_recommendation</p>"
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          EXIT_CODE="1"
       fi
       return 0
@@ -200,28 +175,21 @@ $canary_recommendation</p>"
 <br />Current Time          : <code>$current_human_readable</code>
 <br />Canary Signature Time : <code>$canary_signature_unixtime_human_readable</code>
 <br />Canary Expiration Time: <code>$canary_expiration_human_readable</code></p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
 
    if [ "$current_unixtime" -gt "$canary_expiration_unixtime" ]; then
       local MSG="<p>$warrant_canary_check_link: Stale.
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          EXIT_CODE="1"
       fi
       return 0
    fi
 
    local MSG="<p>$warrant_canary_check_link: $status_ok</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
 
    return 0
 }

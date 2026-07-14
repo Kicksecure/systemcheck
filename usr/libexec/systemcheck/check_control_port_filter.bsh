@@ -34,15 +34,14 @@ check_control_port_filter_running() {
          local remediation
          remediation="$(remediation_instructions "systemctl restart onion-grater")"
          local MSG="<p>Control Port Filter Proxy Test Result: onion-grater service not running.
-<br></br>
-<br></br>Did you disable Control Port Filter Proxy?
-<br></br>
-<br></br>Recommendation: try manually starting onion-grater.
-<br></br>${remediation}
+<br/>
+<br/>Did you disable Control Port Filter Proxy?
+<br/>
+<br/>Recommendation: try manually starting onion-grater.
+<br/>${remediation}
 
 $if_you_know_what_you_are_doing_msg</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
          return 0
       fi
@@ -51,8 +50,5 @@ $if_you_know_what_you_are_doing_msg</p>"
       wait "$lastpid" || true
    done
    local MSG="<p>Control Port Filter Proxy Test Result: $status_ok</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
 }

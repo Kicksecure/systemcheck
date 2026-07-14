@@ -21,10 +21,7 @@ check_spectre_meltdown() {
 
    if [ "$spectre_meltdown_check" = "false" ]; then
       local MSG="<p>Spectre Meltdown Test: skipping since spectre_meltdown_check=<code>$spectre_meltdown_check</code>, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -36,10 +33,7 @@ check_spectre_meltdown() {
 
    if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
       local MSG="<p>Spectre Meltdown Test Result: not vulnerable, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
    else
       local MSG="<p>Spectre Meltdown Test Result: Vulnerable.<br />
 <br />
@@ -51,8 +45,7 @@ Recommendation:<br />
 See <a href=${PROJECT_HOMEPAGE}/wiki/Spectre_Meltdown>${PROJECT_HOMEPAGE}/wiki/Spectre_Meltdown</a>.<br />
 <br />
 $if_you_know_what_you_are_doing_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+      emit_message warning "$MSG"
       EXIT_CODE="1"
    fi
 }

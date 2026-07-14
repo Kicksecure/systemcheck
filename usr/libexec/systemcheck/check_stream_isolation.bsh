@@ -14,10 +14,7 @@ check_stream_isolation() {
    if [ ! "$leak_tests" = "true" ]; then
       local MSG="\
 <p>${FUNCNAME[0]} $1: Skipped, because not using <code>--leak-tests</code> (<code>--show-ip</code>), $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -29,11 +26,9 @@ check_stream_isolation() {
    ## Check if curl failed.
    if [ ! "$CHECK_TOR_RESULT_SOCKS_PORT" = "True" ]; then
       if test -f /run/qubes/this-is-templatevm ; then
-         local type=info
          local MSG="<p>Stream Isolation Test: Ok, skipped, because SocksPort test failed! Can not test stream isolation. This is expected in default configuration of TemplateVMs in Qubes R4.0 and above.</p>"
          if [ "$verbose" -ge "1" ]; then
-            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+            emit_message info "$MSG"
             return 0
          fi
       else
@@ -42,8 +37,7 @@ check_stream_isolation() {
             true "silent is $silent. Skipping output."
             return 0
          fi
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
       fi
       return 0
@@ -62,8 +56,7 @@ check_stream_isolation() {
          true "silent is $silent. Skipping output."
          return 0
       fi
-      $output_x "${output_opts[@]}" --messagex --typex "$type" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "$type" --message "$MSG"
+      emit_message "$type" "$MSG"
       return 0
    fi
 
@@ -79,22 +72,19 @@ check_stream_isolation() {
          true "silent is $silent. Skipping output."
          return 0
       fi
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    else
       if [ "$NOT_USING_TOR" = "1" ]; then
          local MSG="<p>Stream Isolation Test Result: <b>TransPort and SocksPort IPs differ, but Tor not detected!</b>
          This is normal only if you're using a VPN behind Tor or specifically configured $PROJECT_NAME this way.</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+         emit_message info "$MSG"
       else
          local MSG="<p>Stream Isolation Test Result: Functional.</p>"
          if [ "$silent" -ge "2" ]; then
             true "silent is $silent. Skipping output."
             return 0
          fi
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+         emit_message info "$MSG"
       fi
    fi
 }

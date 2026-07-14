@@ -13,11 +13,9 @@ check_tor_bootstrap() {
 
    if [ "$systemcheck_external_network_found" = "false" ]; then
       local MSG="<p>Tor Connection Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       local MSG="<p>Time Synchronization Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       return 0
    fi
 
@@ -191,55 +189,54 @@ check_tor_bootstrap_known_failure_cases() {
 
    if [ "$VM" = "Whonix-Gateway" ]; then
       local MSG="<p>Tor Connection Result:
-<br></br>Tor's Control Port could not be reached!
-<br></br>
-<br></br>Please report this $PROJECT_NAME bug!
-<br></br>
-<br></br>(Technical information:)
-<br></br>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
-<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
-<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
+<br/>Tor's Control Port could not be reached!
+<br/>
+<br/>Please report this $PROJECT_NAME bug!
+<br/>
+<br/>(Technical information:)
+<br/>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
+<br/>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
+<br/>(tor_bootstrap_status: $tor_bootstrap_status)
+<br/>(check_socks_port_open_test: $check_socks_port_open_test)
+<br/>(Tor Circuit: $tor_circuit_established_word)</p>"
    elif [ "$VM" = "Whonix-Workstation" ]; then
       if [ "$qubes_detected" = "false" ]; then
-         local multiple_whonix_ws_msg="<br></br>- If you're running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations>${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations</a>)."
+         local multiple_whonix_ws_msg="<br/>- If you're running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations>${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations</a>)."
       fi
       local MSG="<p>Tor Connection Result:
-<br></br>Tor's Control Port could not be reached!
-<br></br>
-<br></br>Troubleshooting:
-<br></br>- Confirm that Whonix-Gateway is running.
-<br></br>- Run <code>systemcheck</code> on Whonix-Gateway and confirm success.
+<br/>Tor's Control Port could not be reached!
+<br/>
+<br/>Troubleshooting:
+<br/>- Confirm that Whonix-Gateway is running.
+<br/>- Run <code>systemcheck</code> on Whonix-Gateway and confirm success.
 $multiple_whonix_ws_msg
-<br></br>- Rerun <code>systemcheck</code> here in this Whonix-Workstation.
-<br></br>
-<br></br>(Technical information:)
-<br></br>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
-<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
-<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
+<br/>- Rerun <code>systemcheck</code> here in this Whonix-Workstation.
+<br/>
+<br/>(Technical information:)
+<br/>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
+<br/>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
+<br/>(tor_bootstrap_status: $tor_bootstrap_status)
+<br/>(check_socks_port_open_test: $check_socks_port_open_test)
+<br/>(Tor Circuit: $tor_circuit_established_word)</p>"
    else
       local MSG="<p>Tor Connection Result:
-<br></br>Tor's Control Port could not be reached!
-<br></br>
-<br></br>Troubleshooting:
-<br></br>- Confirm that Tor is running.
-<br></br>- Rerun <code>systemcheck</code>
-<br></br>
-<br></br>(Technical information:)
-<br></br>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
-<br></br>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
-<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>(Tor Circuit: $tor_circuit_established_word)</p>"
+<br/>Tor's Control Port could not be reached!
+<br/>
+<br/>Troubleshooting:
+<br/>- Confirm that Tor is running.
+<br/>- Rerun <code>systemcheck</code>
+<br/>
+<br/>(Technical information:)
+<br/>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
+<br/>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
+<br/>(tor_bootstrap_status: $tor_bootstrap_status)
+<br/>(check_socks_port_open_test: $check_socks_port_open_test)
+<br/>(Tor Circuit: $tor_circuit_established_word)</p>"
    fi
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -259,17 +256,16 @@ check_tor_bootstrap_unknown_failure_cases() {
    fi
 
    local MSG="<p>Tor Connection Result:
-<br></br>$check_bootstrap_script ERROR:
-<br></br>tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code
-<br></br>(tor_bootstrap_status: $tor_bootstrap_status)
-<br></br>(check_socks_port_open_test: $check_socks_port_open_test)
-<br></br>(Tor Circuit: $tor_circuit_established_word)
-<br></br>Please report this $PROJECT_NAME usability bug! (Not a security bug.)</p>"
+<br/>$check_bootstrap_script ERROR:
+<br/>tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code
+<br/>(tor_bootstrap_status: $tor_bootstrap_status)
+<br/>(check_socks_port_open_test: $check_socks_port_open_test)
+<br/>(Tor Circuit: $tor_circuit_established_word)
+<br/>Please report this $PROJECT_NAME usability bug! (Not a security bug.)</p>"
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -297,22 +293,16 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
    fi
 
    local MSG="<p>Tor Connection Result: $status_ok
-<br></br>tor_bootstrap_status: <code>$tor_bootstrap_status</code>
-<br></br>Tor Circuit: <code>$tor_circuit_established_word</code></p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+<br/>tor_bootstrap_status: <code>$tor_bootstrap_status</code>
+<br/>Tor Circuit: <code>$tor_circuit_established_word</code></p>"
+   output_if_verbose emit_message info "$MSG"
 
    local MSG="<p>Time Synchronization Result: $status_ok
-<br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
-<br></br>sdwdate reports: <code>$time_synchronization_msg</code>
-<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
-<br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+<br/>Time synchronization status: <code>$time_synchronization_status_word</code>
+<br/>sdwdate reports: <code>$time_synchronization_msg</code>
+<br/>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
+<br/>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
+   output_if_verbose emit_message info "$MSG"
 
    local MSG="<p>Connected to Tor.</p>"
 
@@ -446,15 +436,15 @@ check_tor_bootstrap_give_up_on_connection_issue_maybe() {
 
    if [ "$VM" = "Whonix-Gateway" ]; then
       local MSG="<p>Tor Connection Result:
-<br></br><b>systemcheck gave up waiting.</b>
-<br></br>Tor Circuit: $tor_circuit_established_word
-<br></br>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
+<br/><b>systemcheck gave up waiting.</b>
+<br/>Tor Circuit: $tor_circuit_established_word
+<br/>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
 
 <p>Possible issues:
-<br></br>- Is the host's internet connection working?
-<br></br>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
-<br></br>- Do you live in a censored area?
-<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
+<br/>- Is the host's internet connection working?
+<br/>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
+<br/>- Do you live in a censored area?
+<br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
 $anondate_issue</p>
 
 <p>Recommendations:</p>
@@ -462,54 +452,54 @@ $anondate_issue</p>
 $anondate_recommendation
 
 <p>1)
-<br></br>Shut down Whonix and try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
+<br/>Shut down Whonix and try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
 working on your host. If you cannot get the Tor Browser Bundle to work, you will most certainly not get Whonix to work either.</p>
 
 <p>The Tor Browser Bundle is great for testing if you live in a censored area. If you need bridges for the Tor Browser Bundle,
 you will need them for Whonix as well.</p>
 
 <p>2)
-<br></br>Try again: $start_menu_instructions_system_first_part systemcheck
-<br></br>or in Terminal: <code>systemcheck</code>
-<br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
+<br/>Try again: $start_menu_instructions_system_first_part systemcheck
+<br/>or in Terminal: <code>systemcheck</code>
+<br/>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>3)
-<br></br>Use Nyx, connection page two, to see if Tor is connected:
+<br/>Use Nyx, connection page two, to see if Tor is connected:
 <blockquote>$start_menu_instructions_system_first_part Nyx</blockquote>
 or in Terminal: <code>nyx</code></p>
 $anondate_debugging_information"
    elif [ "$VM" = "Whonix-Workstation" ]; then
       local MSG="<p>Tor Connection Result:
-<br></br>systemcheck gave up waiting.
-<br></br>Tor Circuit: <code>$tor_circuit_established_word</code></p>
+<br/>systemcheck gave up waiting.
+<br/>Tor Circuit: <code>$tor_circuit_established_word</code></p>
 
 <p>Possible issues:
-<br></br>- Is the host's internet connection working?
-<br></br>- Whonix-Gateway will need a few moments for connecting to the Tor network.
-<br></br>- Did you start Whonix-Gateway beforehand?
-<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a></p>
+<br/>- Is the host's internet connection working?
+<br/>- Whonix-Gateway will need a few moments for connecting to the Tor network.
+<br/>- Did you start Whonix-Gateway beforehand?
+<br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a></p>
 
 <p>Recommendations:</p>
 
 <p>1)
-<br></br>Try again: $start_menu_instructions_system_first_part systemcheck
-<br></br>           or in Terminal: <code>systemcheck</code>
-<br></br>           or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
+<br/>Try again: $start_menu_instructions_system_first_part systemcheck
+<br/>           or in Terminal: <code>systemcheck</code>
+<br/>           or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>2)
-<br></br>Run systemcheck on Whonix-Gateway as well.</p>"
+<br/>Run systemcheck on Whonix-Gateway as well.</p>"
 
    elif [ "$VM" = "machine" ]; then
       local MSG="<p>Tor Connection Result:
-<br></br><b>systemcheck gave up waiting.</b>
-<br></br>Tor Circuit: $tor_circuit_established_word
-<br></br>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
+<br/><b>systemcheck gave up waiting.</b>
+<br/>Tor Circuit: $tor_circuit_established_word
+<br/>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
 
 <p>Possible issues:
-<br></br>- Is the host's internet connection working?
-<br></br>- $VM will need a few moments for bootstrapping the Tor network.
-<br></br>- Do you live in a censored area?
-<br></br>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
+<br/>- Is the host's internet connection working?
+<br/>- $VM will need a few moments for bootstrapping the Tor network.
+<br/>- Do you live in a censored area?
+<br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
 $anondate_issue</p>
 
 <p>Recommendations:</p>
@@ -517,19 +507,19 @@ $anondate_issue</p>
 $anondate_recommendation
 
 <p>1)
-<br></br>Try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
+<br/>Try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
 working on your host. If you cannot get the Tor Browser Bundle to work, you will most certainly not get system Tor to work either.</p>
 
 <p>The Tor Browser Bundle is great for testing if you live in a censored area. If you need bridges for the Tor Browser Bundle,
 you will need them for system Tor as well.</p>
 
 <p>2)
-<br></br>Try again: $start_menu_instructions_system_first_part systemcheck
-<br></br>or in Terminal: <code>systemcheck</code>
-<br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
+<br/>Try again: $start_menu_instructions_system_first_part systemcheck
+<br/>or in Terminal: <code>systemcheck</code>
+<br/>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>3)
-<br></br>Use Nyx, connection page two, to see if Tor is connected:
+<br/>Use Nyx, connection page two, to see if Tor is connected:
 <blockquote>$start_menu_instructions_system_first_part Nyx</blockquote>
 or in Terminal: <code>nyx</code></p>
 $anondate_debugging_information"
@@ -540,8 +530,7 @@ $anondate_debugging_information"
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -585,51 +574,51 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 
    if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
       local MSG="<p>Time Synchronization Result:
-<br></br><b>systemcheck gave up waiting.</b>
-<br></br>
-<br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
-<br></br>sdwdate reports: <code>$time_synchronization_msg</code>
-<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
-<br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
-<br></br>
-<br></br>Possible issues:
-<br></br>$sdwdate_wait
-<br></br>- sdwdate time sources might be dysfunctional.
-<br></br>
-<br></br>Apparently you have already reloaded Whonix-Firewall.
+<br/><b>systemcheck gave up waiting.</b>
+<br/>
+<br/>Time synchronization status: <code>$time_synchronization_status_word</code>
+<br/>sdwdate reports: <code>$time_synchronization_msg</code>
+<br/>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
+<br/>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
+<br/>
+<br/>Possible issues:
+<br/>$sdwdate_wait
+<br/>- sdwdate time sources might be dysfunctional.
+<br/>
+<br/>Apparently you have already reloaded Whonix-Firewall.
 </p>"
    else
       local remediation
       remediation="$(remediation_instructions "service sdwdate restart")"
       local MSG="<p>Time Synchronization Result:
-<br></br><b>systemcheck gave up waiting.</b>
-<br></br>
-<br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
-<br></br>sdwdate reports: <code>$time_synchronization_msg</code>
-<br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
-<br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
-<br></br>
-<br></br>Possible issues:
-<br></br>$sdwdate_wait
-<br></br>- sdwdate time sources might be dysfunctional.
-<br></br>
-<br></br>Recommendations:
-<br></br>
-<br></br><b>A)</b> <u>Rerun systemcheck</u>:
+<br/><b>systemcheck gave up waiting.</b>
+<br/>
+<br/>Time synchronization status: <code>$time_synchronization_status_word</code>
+<br/>sdwdate reports: <code>$time_synchronization_msg</code>
+<br/>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
+<br/>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
+<br/>
+<br/>Possible issues:
+<br/>$sdwdate_wait
+<br/>- sdwdate time sources might be dysfunctional.
+<br/>
+<br/>Recommendations:
+<br/>
+<br/><b>A)</b> <u>Rerun systemcheck</u>:
 <blockquote>$start_menu_instructions_system_first_part systemcheck</blockquote>
 or in Terminal: <code>systemcheck</code>
-<br></br>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code>
-<br></br>
-<br></br><b>B)</b> <u>Restart sdwdate.</u>
+<br/>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code>
+<br/>
+<br/><b>B)</b> <u>Restart sdwdate.</u>
 <blockquote>$start_menu_instructions_system_first_part sdwdate-gui / right click on sdwdate-gui systray / Restart sdwdate</blockquote>
-<br></br>${remediation}
-<br></br>
-<br></br><b>C)</b> <u>Manually set the time.</u>
-<br></br>
-<br></br>As last resort...
-<br></br>
-<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote>
+<br/>${remediation}
+<br/>
+<br/><b>C)</b> <u>Manually set the time.</u>
+<br/>
+<br/>As last resort...
+<br/>
+<br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br/>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote>
 3. Simulate sdwdate success. <blockquote><code>sudo -u sdwdate touch /run/sdwdate/first_success</code></blockquote>
 4. Rerun systemcheck.</p>"
    fi
@@ -637,8 +626,7 @@ or in Terminal: <code>systemcheck</code>
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
 
    if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
       ## `break` check_tor_bootstrap loop.
@@ -653,26 +641,26 @@ or in Terminal: <code>systemcheck</code>
 
 check_tor_bootstrap_script_error() {
    error_handler "<p>(Tor Connection Result:)
-<br></br>(Technical information:)
-<br></br>(tor_bootstrap_percent: <code>$tor_bootstrap_percent</code>)
-<br></br>(tor_circuit_established: <code>$tor_circuit_established</code>)
-<br></br>(tor_circuit_established_word: <code>$tor_circuit_established_word</code>)
-<br></br>(tor_bootstrap_timeout_type: <code>$tor_bootstrap_timeout_type</code>)
-<br></br>(tor_bootstrap_status: <code>$tor_bootstrap_status</code>)
-<br></br>(check_socks_port_open_test: <code>$check_socks_port_open_test</code>)
-<br></br>(systemcheck_tor_bootstrap_waited_seconds: <code>$systemcheck_tor_bootstrap_waited_seconds</code>)
-<br></br>(systemcheck_tor_bootstrap_wait_max: <code>$systemcheck_tor_bootstrap_wait_max</code>)
-<br></br>
-<br></br>(whonix_firewall_status_word: $whonix_firewall_status_word)
-<br></br>(whonix_firewall_status_notification: $whonix_firewall_status_notification)
-<br></br>
-<br></br>(time_synchronization_status_word: <code>$time_synchronization_status_word</code>)
-<br></br>(time_synchronization_msg: <code>$time_synchronization_msg</code>)
-<br></br>
-<br></br>(anondate_issue: $anondate_issue)
-<br></br>(anondate_recommendation: $anondate_recommendation)
-<br></br>
-<br></br>(anondate_debugging_information: $anondate_debugging_information)
+<br/>(Technical information:)
+<br/>(tor_bootstrap_percent: <code>$tor_bootstrap_percent</code>)
+<br/>(tor_circuit_established: <code>$tor_circuit_established</code>)
+<br/>(tor_circuit_established_word: <code>$tor_circuit_established_word</code>)
+<br/>(tor_bootstrap_timeout_type: <code>$tor_bootstrap_timeout_type</code>)
+<br/>(tor_bootstrap_status: <code>$tor_bootstrap_status</code>)
+<br/>(check_socks_port_open_test: <code>$check_socks_port_open_test</code>)
+<br/>(systemcheck_tor_bootstrap_waited_seconds: <code>$systemcheck_tor_bootstrap_waited_seconds</code>)
+<br/>(systemcheck_tor_bootstrap_wait_max: <code>$systemcheck_tor_bootstrap_wait_max</code>)
+<br/>
+<br/>(whonix_firewall_status_word: $whonix_firewall_status_word)
+<br/>(whonix_firewall_status_notification: $whonix_firewall_status_notification)
+<br/>
+<br/>(time_synchronization_status_word: <code>$time_synchronization_status_word</code>)
+<br/>(time_synchronization_msg: <code>$time_synchronization_msg</code>)
+<br/>
+<br/>(anondate_issue: $anondate_issue)
+<br/>(anondate_recommendation: $anondate_recommendation)
+<br/>
+<br/>(anondate_debugging_information: $anondate_debugging_information)
 </p>"
 
    ## `break` check_tor_bootstrap loop.

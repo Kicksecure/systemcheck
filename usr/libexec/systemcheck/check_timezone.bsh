@@ -28,18 +28,14 @@ check_timezone() {
       timezone_file_actual_content="$(sanitize-string -- 255 "$timezone_file_actual_content")"
       if [ "$timezone_file_actual_content" = "$timezone_file_expected_content" ]; then
          local MSG="<p>Check Timezone Result: <code>$timezone_file_location</code>, <code>$timezone_file_actual_content</code> matches <code>$timezone_file_expected_content</code>, $status_ok</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-         fi
+         output_if_verbose emit_message info "$MSG"
       else
          timezone_status_code="3"
          local MSG="<p>Check Timezone Result:
-<br></br><code>$timezone_file_location</code> settings different from $PROJECT_NAME defaults.
-<br></br>timezone_file_expected_content: <code>$timezone_file_expected_content</code>
-<br></br>timezone_file_actual_content: <code>$timezone_file_actual_content</code></p>"
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+<br/><code>$timezone_file_location</code> settings different from $PROJECT_NAME defaults.
+<br/>timezone_file_expected_content: <code>$timezone_file_expected_content</code>
+<br/>timezone_file_actual_content: <code>$timezone_file_actual_content</code></p>"
+         emit_message error "$MSG"
          EXIT_CODE="1"
       fi
    else
@@ -57,33 +53,27 @@ check_timezone() {
          localtime_result="$(sanitize-string -- 8192 "$localtime_result")"
          if [ "$localtime_status_code" = "0" ]; then
             local MSG="<p>Check Timezone Result: <code>$localtime_file_usr</code> matches <code>$localtime_file_etc</code>, $status_ok</p>"
-            if [ "$verbose" -ge "1" ]; then
-               $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-               $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-            fi
+            output_if_verbose emit_message info "$MSG"
          else
             local MSG="<p>Check Timezone Result:
-<br></br>localtime_file_etc <code>$localtime_file_etc</code> settings different from <code>$localtime_file_usr</code>. Different from $PROJECT_NAME defaults.
-<br></br>localtime_status_code: <code>$localtime_status_code</code>
-<br></br>localtime_result: <code>$localtime_result</code></p>"
-            $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+<br/>localtime_file_etc <code>$localtime_file_etc</code> settings different from <code>$localtime_file_usr</code>. Different from $PROJECT_NAME defaults.
+<br/>localtime_status_code: <code>$localtime_status_code</code>
+<br/>localtime_result: <code>$localtime_result</code></p>"
+            emit_message error "$MSG"
             EXIT_CODE="1"
          fi
       else
          localtime_status_code="2"
          localtime_result="File <code>$localtime_file_usr</code> does not exist."
          local MSG="<p>Check Timezone Result: $localtime_result</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
       fi
    else
       localtime_status_code="3"
       localtime_result="File <code>$localtime_file_etc</code> does not exist."
       local MSG="<p>Check Timezone Result: $localtime_result</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
    fi
 
@@ -96,18 +86,17 @@ check_timezone() {
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
       local MSG="<p>Check Timezone Result:
-<br></br><b>Settings different from $PROJECT_NAME defaults. (See above!)</b>
-<br></br>You could try to fix this.
+<br/><b>Settings different from $PROJECT_NAME defaults. (See above!)</b>
+<br/>You could try to fix this.
 <blockquote>    $persistent_changes_start_menu_instructions_first_part Konsole</blockquote>
 <blockquote><code>sudo su
-<br></br>echo \"Etc/UTC\" > /etc/timezone
-<br></br>cp \"$localtime_file_usr\" \"$localtime_file_etc\"</code></blockquote>
+<br/>echo \"Etc/UTC\" > /etc/timezone
+<br/>cp \"$localtime_file_usr\" \"$localtime_file_etc\"</code></blockquote>
 It is generally recommended to keep the default as per $PROJECT_NAME Design. [1]
 If you did not change timezone related settings, please report this $PROJECT_NAME bug.
-<br></br>$if_you_know_what_you_are_doing_msg
+<br/>$if_you_know_what_you_are_doing_msg
 [1] <a href=${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone>${PROJECT_HOMEPAGE}/wiki/Dev/Design-Shared#timezone</a></p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
    fi
 }

@@ -27,12 +27,10 @@ $link_raw"
    temp="$(/usr/bin/sanitize-string -- 255 "$derivative_deb_package_version")"
 
    local MSG="<p>$derivative_deb_package_name: <code>$temp</code></p>"
-   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+   emit_message info "$MSG"
 
-   local MSG="<p>derivative_major_release_version /etc/${PROJECT_NAME_LOWERCASE}_version: <code>$derivative_major_release_version</code></p>" || true
-   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+   local MSG="<p>derivative_major_release_version /etc/${PROJECT_NAME_LOWERCASE}_version: <code>$derivative_major_release_version</code></p>"
+   emit_message info "$MSG"
 }
 
 ## systemcheck --gui --cli --function show_deprecation_notice
@@ -55,10 +53,7 @@ show_deprecation_notice() {
 
    if [ ! "$deprecated_derivative" = "true" ]; then
       local MSG="<p>$PROJECT_NAME Support Status of this Major Version: $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -78,7 +73,6 @@ show_deprecation_notice() {
 <br />
 <br />It is <a href=${PROJECT_HOMEPAGE}/wiki/Stay_Tuned#Reason>absolutely crucial</a> to subscribe to and read the latest $PROJECT_NAME news category 'important-news' to stay in touch with ongoing developments. This way users benefit from notifications concerning important security advisories, potential upgrade issues and improved releases which address identified issues, like those affecting the updater or other core elements.</p>"
 
-   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+   emit_message warning "$MSG"
    EXIT_CODE="1"
 }

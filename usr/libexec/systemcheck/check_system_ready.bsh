@@ -38,10 +38,7 @@ check_system_ready_shared() {
 
       if [ "$result" = "running" ]; then
          local MSG="<p>System ready check ($type) Result: $status_ok</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         fi
+         output_if_verbose emit_message info "$MSG"
          return 0
       elif [ "$result" = "degraded" ]; then
          i="$max"
@@ -57,8 +54,7 @@ check_system_ready_shared() {
 <br/>Command:
 <br/>$system_ready_check_help_text_cmd
 <br/>result: '<code>$result</code>'</p>"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
+         emit_message warning "$MSG"
          return 0
       fi
 

@@ -30,10 +30,7 @@ check_services_do() {
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
       MSG="<p>systemd '<u>$check_type</u>' units check result: $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -52,19 +49,18 @@ check_services_do() {
 <br />Some systemd '<u>$check_type</u>' units may be stuck in a failed, activating, or deactivating state.
 <br />
 Output of $machine_command_desc:
-<br></br>
-<br></br>########################################
-<br></br><code>$systemctl_output_with_legend</code>
-<br></br>########################################
-<br></br>
-<br></br>To check manually:
-<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run: <blockquote>
+<br/>
+<br/>########################################
+<br/><code>$systemctl_output_with_legend</code>
+<br/>########################################
+<br/>
+<br/>To check manually:
+<br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br/>2. Run: <blockquote>
 <code>$machine_command_pretty</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg</p>"
-   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+   emit_message warning "$MSG"
 
    EXIT_CODE="1"
 
@@ -105,9 +101,8 @@ print_critical_output_message_maybe() {
 <br />
 <br />Detected messages:
 <br /><code>$critical_output</code>
-<br></br>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+<br/>$if_you_know_what_you_are_doing_msg</p>"
+      emit_message error "$MSG"
 
       if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
          if printf '%s\n' "$critical_output" | grep --ignore-case --fixed-strings -- "self-detected stall on CPU" >/dev/null; then
@@ -117,17 +112,13 @@ print_critical_output_message_maybe() {
 <br />VirtualBox has been identified as your virtualizer (virtual machine software).
 <br />
 <br />Guess: Are you using VirtualBox on a Windows host operating system? If so, you might be experiencing the \"VirtualBox green turtle issue.\" For more information and how to resolve it, see: <a href=${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue>${PROJECT_HOMEPAGE}/wiki/VirtualBox/Green_Turtle_Issue</a>
-<br></br>$if_you_know_what_you_are_doing_msg</p>"
-            $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+<br/>$if_you_know_what_you_are_doing_msg</p>"
+            emit_message error "$MSG"
          fi
       fi
    else
       MSG="<p>systemd critical journal messages check result (<u>${chosen_boot}</u> boot): $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
    fi
 }
 
@@ -141,17 +132,15 @@ print_verbose_log_output_message_maybe() {
       EXIT_CODE="1"
 
       MSG="<p>systemd journal check result (<u>${chosen_boot}</u> boot):
-<br></br>########################################
-<br></br><code>$log_output</code>
-<br></br>########################################
-<br></br>$if_you_know_what_you_are_doing_msg</p>"
+<br/>########################################
+<br/><code>$log_output</code>
+<br/>########################################
+<br/>$if_you_know_what_you_are_doing_msg</p>"
 
-      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+      emit_message warning "$MSG"
    else
       MSG="<p>systemd journal check result (<u>${chosen_boot}</u> boot): $status_ok</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 }
 
@@ -225,10 +214,7 @@ check_whonix_firewall_systemd_status() {
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then
       local MSG="<p>Whonix firewall systemd unit check result: $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -240,37 +226,36 @@ check_whonix_firewall_systemd_status() {
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    local MSG="<p>whonix_firewall failed to load!
-<br></br>
-<br></br>The whonix_firewall failed to load for an unknown reason. This might be due to a misconfiguration or a race condition. Try restarting the VM to see if the issue persists.
-<br></br>
-<br></br>$extra_text
-<br></br>
-<br></br>Output of <code>systemctl status whonix-firewall</code>:
-<br></br>
-<br></br>########################################
-<br></br><code>$systemctl_status_whonix_firewall_output</code>
-<br></br>########################################
-<br></br>
-<br></br>Output of <code>journalctl --boot -u whonix-firewall</code>:
-<br></br>
-<br></br>########################################
-<br></br><code>$journalctl_whonix_firewall_output</code>
-<br></br>########################################
-<br></br>
-<br></br>To investigate manually:
-<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Run:
+<br/>
+<br/>The whonix_firewall failed to load for an unknown reason. This might be due to a misconfiguration or a race condition. Try restarting the VM to see if the issue persists.
+<br/>
+<br/>$extra_text
+<br/>
+<br/>Output of <code>systemctl status whonix-firewall</code>:
+<br/>
+<br/>########################################
+<br/><code>$systemctl_status_whonix_firewall_output</code>
+<br/>########################################
+<br/>
+<br/>Output of <code>journalctl --boot -u whonix-firewall</code>:
+<br/>
+<br/>########################################
+<br/><code>$journalctl_whonix_firewall_output</code>
+<br/>########################################
+<br/>
+<br/>To investigate manually:
+<br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br/>2. Run:
 <blockquote><code>sudo systemctl status whonix-firewall</code></blockquote>
-<br></br>2. Also run:
+<br/>2. Also run:
 <blockquote><code>sudo journalctl --boot -u whonix-firewall | cat</code></blockquote>
-<br></br>3. Try to manually start the Whonix firewall:
+<br/>3. Try to manually start the Whonix firewall:
 <blockquote><code>sudo whonix_firewall</code></blockquote>
 
 $if_you_know_what_you_are_doing_msg
 </p>"
 
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
 
    EXIT_CODE="1"
    return 0
