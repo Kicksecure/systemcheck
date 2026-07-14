@@ -37,12 +37,9 @@ check_dpkg() {
 <br />
 <br />dpkg_audit_output:<blockquote><code>
 $dpkg_audit_output</code></blockquote></p>"
-   ## TODO: both the error output AND EXIT_CODE=1 are gated behind `verbose >= 1`,
-   ## so a broken dpkg state is silent and does NOT fail a normal (non-verbose)
-   ## run. Should a real failure fail the run regardless of verbosity?
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-   fi
+   ## A broken dpkg state is a real failure: always show it and fail the run,
+   ## regardless of verbosity.
+   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   EXIT_CODE="1"
 }

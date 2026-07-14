@@ -111,11 +111,9 @@ If this warning happens only after boot or is transient it can be safely ignored
         if [ "$verbose" -ge "1" ]; then
             $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
             $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
-            ## TODO: EXIT_CODE is commented out, so a MISSING canary file is only
-            ## a warning and never fails the check. The other EXIT_CODE=1 branches
-            ## here are also inside a `verbose >= 1` guard, so in a normal
-            ## (non-verbose) run a stale/absent canary neither prints nor fails.
-            ## Intended?
+            ## Intentionally lenient (does not fail the run): the canary fetch
+            ## depends on onion services whose reliability issues would otherwise
+            ## cause false failures.
             #EXIT_CODE="1"
         fi
         return 0
