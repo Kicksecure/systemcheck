@@ -238,6 +238,7 @@ $unit_name did not complete after $max_wait_seconds seconds or failed.
 <blockquote>sudo journalctl --boot --output cat -u $unit_name</blockquote>
 </p>"
 
+   EXIT_CODE="1"
    emit_message error "$MSG"
 }
 
@@ -296,6 +297,7 @@ check_qubes_update_proxy_reachability() {
       if test -f /run/qubes/this-is-templatevm ; then
          local MSG="<p>Qubes UpdatesProxy Reachability Result: Failed. (UpdatesProxy not reachable.) \
    (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
+         EXIT_CODE="1"
          emit_message error "$MSG"
          return 0
       fi
@@ -309,6 +311,7 @@ This is expected because not running in Template.</p>"
    if [ ! "$curl_exit_code" = "0" ]; then
       local MSG="<p>Qubes UpdatesProxy Reachability Result: Failed. (Unknown issue.) \
 (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
+      EXIT_CODE="1"
       emit_message error "$MSG"
       return 0
    fi

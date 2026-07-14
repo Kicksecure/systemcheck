@@ -99,6 +99,7 @@ Make sure any of the following meta packages is installed.<br />
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
 
+   EXIT_CODE="1"
    emit_message warning "$MSG"
 }
 
@@ -152,6 +153,7 @@ It is recommended that you remove them from $update_where.
 $packages_help_msg
 <br />See also: $see_also_link
 <br />$if_you_know_what_you_are_doing_msg</p>"
+   EXIT_CODE="1"
    emit_message warning "$MSG"
 }
 

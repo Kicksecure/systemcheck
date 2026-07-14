@@ -159,6 +159,7 @@ $debugging_information</p>"
             fi
          fi
       fi
+      EXIT_CODE="1"
       emit_message error "$MSG"
       return 0
    fi
@@ -227,5 +228,6 @@ $qubes_update_help</p>"
       fi
    fi
 
+   EXIT_CODE="1"
    emit_message warning "$MSG"
 }
