@@ -21,7 +21,7 @@ check_full_disk_encryption() {
 
    local link_cli link_gui MSG
    link_cli="https://www.kicksecure.com/wiki/Full_Disk_Encryption"
-   link_gui="<a href=\"$link_cli\">Full Disk Encryption (FDE)</a>"
+   link_gui="$(html_link "$link_cli" "Full Disk Encryption (FDE)")"
 
    crypt_check_return_code="0"
    crypt_check_output="$(/usr/libexec/systemcheck/crypt-check 2>&1)" || crypt_check_return_code="$?"

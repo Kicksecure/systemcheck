@@ -23,9 +23,9 @@ check_secure_boot() {
    fi
 
    link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
-   link_gui="<a href=\"$link_cli\">Secure Boot</a>"
+   link_gui="$(html_link "$link_cli" "Secure Boot")"
    mokutil_link_cli="https://www.kicksecure.com/wiki/Debian#Install_mokutil"
-   mokutil_link_gui="<a href=\"$mokutil_link_cli\">mokutil installed</a>"
+   mokutil_link_gui="$(html_link "$mokutil_link_cli" "mokutil installed")"
 
    if [ "$qubes_detected" = "true" ]; then
       reason="\

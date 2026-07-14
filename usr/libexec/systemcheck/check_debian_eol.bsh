@@ -23,7 +23,7 @@ check_debian_eol() {
       current_timestamp MSG
 
    link_cli="https://www.kicksecure.com/wiki/Operating_System_Software_and_Updates#End-of-life_Software"
-   link_gui="<a href=\"$link_cli\">Operating system (OS) (Debian) support status</a>"
+   link_gui="$(html_link "$link_cli" "Operating system (OS) (Debian) support status")"
 
    os_version="$(
       cut -d'=' -f2 < <(grep 'VERSION_ID' /etc/os-release) \
@@ -90,30 +90,26 @@ See also: $link_cli"
    elif (( current_timestamp < os_lts_eol_timestamp )); then
       EXIT_CODE="1"
 
-      ## TODO: this state renders orange/red body text but is emitted with
-      ## --typex/--typecli "info" (green INFO prefix) -- a color-vs-severity
-      ## mismatch. Same in check_full_disk_encryption (Partial/Absent) and
-      ## check_grub_security (Absent). Consider "warning" for these.
       MSG="<p>$link_gui: <font color=\"orange\">LTS support</font> (until ${os_lts_eol_date})<br>
 You should consider upgrading to a newer version of $PROJECT_NAME soon.</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
 
       MSG="Operating system (OS) (Debian) support status: ${yellow}LTS support${nocolor} (until ${os_lts_eol_date})
 You should consider upgrading to a newer version of $PROJECT_NAME soon.
 See also: $link_cli"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
    else
       EXIT_CODE="1"
 
       MSG="<p>$link_gui: <font color=\"red\">Unsupported</font> (as of ${os_lts_eol_date})<br>
 <b>Your system is likely vulnerable to malware infection due to missing security updates.</b><br>
 Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.<br></p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
 
       MSG="Operating system (OS) (Debian) support status: ${red}Unsupported${nocolor} (as of ${os_lts_eol_date})
 Your system is likely vulnerable to malware infection due to missing security updates.
 Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded.
 See also: $link_cli"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
    fi
 }

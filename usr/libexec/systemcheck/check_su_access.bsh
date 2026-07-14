@@ -10,7 +10,7 @@ check_su_access() {
   local stat_output MSG link_cli link_gui
 
   link_cli="https://www.kicksecure.com/wiki/Dev/Strong_Linux_User_Account_Isolation#su_restrictions"
-  link_gui="<a href=\"https://www.kicksecure.com/wiki/Dev/Strong_Linux_User_Account_Isolation#su_restrictions\">su access check</a>"
+  link_gui="$(html_link "https://www.kicksecure.com/wiki/Dev/Strong_Linux_User_Account_Isolation#su_restrictions" "su access check")"
 
   stat_output="$(stat --format='%a %u:%g' /usr/bin/su)"
 

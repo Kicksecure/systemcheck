@@ -52,7 +52,7 @@ To fix, try run:
 
    local wiki_trust_link_cli wiki_trust_link_gui
    wiki_trust_link_cli="${PROJECT_HOMEPAGE}/wiki/Trust"
-   wiki_trust_link_gui="<a href=\"$wiki_trust_link_cli\">Trust</a>"
+   wiki_trust_link_gui="$(html_link "$wiki_trust_link_cli" "Trust")"
 
    local risk_cli_msg risk_gui_msg
    risk_cli_msg="Please read $wiki_trust_link_cli to understand the risk."

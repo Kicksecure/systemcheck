@@ -16,7 +16,7 @@ check_tirdad_module() {
    fi
 
    link_cli="https://github.com/Kicksecure/tirdad"
-   link_gui="<a href=\"$link_cli\">tirdad - TCP ISN CPU Information Leak Protection</a>"
+   link_gui="$(html_link "$link_cli" "tirdad - TCP ISN CPU Information Leak Protection")"
 
    ## Per-case: whether an unloaded tirdad is only shown in verbose mode,
    ## the message severity, and whether it counts as a failure (EXIT_CODE=1).
@@ -41,7 +41,7 @@ check_tirdad_module() {
       output_type="warning"
       tirdad_failed=true
       help_link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
-      help_link_gui="<a href=\"$help_link_cli\">Secure Boot</a>"
+      help_link_gui="$(html_link "$help_link_cli" "Secure Boot")"
       help_msg="\
 <br/>
 - Reason: kernel module 'tirdad' is NOT loaded.<br/>

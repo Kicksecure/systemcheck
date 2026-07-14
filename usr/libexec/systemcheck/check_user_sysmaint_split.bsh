@@ -15,7 +15,7 @@ check_user_sysmaint_split_package() {
    local link_cli link_gui
 
    link_cli="https://www.kicksecure.com/wiki/sysmaint"
-   link_gui="<a href=\"$link_cli\">user-sysmaint-split</a>"
+   link_gui="$(html_link "$link_cli" "user-sysmaint-split")"
 
    local MSG
 

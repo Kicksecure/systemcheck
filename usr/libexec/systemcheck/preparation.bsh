@@ -246,6 +246,14 @@ remediation_instructions() {
    fi
 }
 
+html_link() {
+   ## Build a GUI hyperlink (HTML anchor) from a URL + link text, so a check
+   ## keeps one source of truth (the URL, reused verbatim in the CLI message)
+   ## instead of hand-writing the escaped-quote <a href="..."> boilerplate.
+   ## $1 - URL, $2 - link text.
+   printf '%s' "<a href=\"$1\">$2</a>"
+}
+
 systemcheck_run_function() {
    case $systemcheck_skip_functions in
    *"$@"*) echo "INFO: Skipping $* because systemcheck_skip_functions includes it."
