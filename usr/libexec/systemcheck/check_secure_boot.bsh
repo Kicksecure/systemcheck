@@ -84,7 +84,7 @@ See also: $link_cli"
       ## (consumed by check_tirdad_module.bsh) to false rather than leaving it
       ## unset/stale.
       secure_boot_status_enabled=false
-      mokutil_output="$(sanitize-string -- nolimit "$mokutil_output")"
+      mokutil_output="$(sanitize-string -- 8192 "$mokutil_output")"
       MSG="<p>$link_gui: <font color=\"orange\">Unknown</font>
 <br/>
 <br/>Debugging information:
@@ -137,7 +137,7 @@ See also: $mokutil_link_cli"
                MSG="DKMS module signing keys enrolled in firmware: ${green}Yes${nocolor}"
                output_if_verbose $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
             else
-               mokutil_output="$(sanitize-string -- nolimit "$mokutil_output")"
+               mokutil_output="$(sanitize-string -- 8192 "$mokutil_output")"
                MSG="<p>DKMS module signing keys enrolled in firmware: <font color=\"orange\">Unknown</font>
 <br/>
 <br/>Debugging information:

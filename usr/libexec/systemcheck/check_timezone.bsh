@@ -54,7 +54,7 @@ check_timezone() {
    if [ -f "$localtime_file_etc" ]; then
       if [ -f "$localtime_file_usr" ]; then
          localtime_result="$(diff "$localtime_file_usr" "$localtime_file_etc" 2>&1)" || { localtime_status_code="$?" ; true; };
-         localtime_result="$(sanitize-string -- nolimit "$localtime_result")"
+         localtime_result="$(sanitize-string -- 8192 "$localtime_result")"
          if [ "$localtime_status_code" = "0" ]; then
             local MSG="<p>Check Timezone Result: <code>$localtime_file_usr</code> matches <code>$localtime_file_etc</code>, $status_ok</p>"
             if [ "$verbose" -ge "1" ]; then

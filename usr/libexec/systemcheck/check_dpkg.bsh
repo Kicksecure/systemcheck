@@ -11,7 +11,7 @@ check_dpkg() {
    ## Therefore we see if dpkg has to say something, and if yes, the system is
    ## broken and we abort.
    dpkg_audit_output="$(dpkg --audit 2>&1)" || true
-   dpkg_audit_output="$(sanitize-string -- nolimit "$dpkg_audit_output")"
+   dpkg_audit_output="$(sanitize-string -- 8192 "$dpkg_audit_output")"
 
    if [ "$dpkg_audit_output" = "" ]; then
       local MSG="<p>Package Manager Consistency Check Result: Output of command <code>dpkg --audit</code> was empty, $status_ok</p>"

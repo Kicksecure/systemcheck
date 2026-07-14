@@ -125,6 +125,9 @@ check_service_logs() {
   ## Neutralize HTML metacharacters in untrusted journal content BEFORE
   ## br_add_to_file bakes in '<br />' tags. This output is later rendered in
   ## the GUI via setHtml(); stcatn (applied afterwards) strips ANSI, not HTML.
+  ## nolimit: the filtered journal is the primary diagnostic; it is read via
+  ## stdin (no ARG_MAX risk) and the final GUI message is capped downstream by
+  ## msgdispatcher.
   sanitize-string -- nolimit < "$TMPDIR/journalctl_match_filtered.txt" > "$TMPDIR/journalctl_match_filtered.txt.tmp"
   mv -- "$TMPDIR/journalctl_match_filtered.txt.tmp" "$TMPDIR/journalctl_match_filtered.txt"
 

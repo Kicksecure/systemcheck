@@ -40,7 +40,7 @@ See also: $link_cli"
    fi
 
    if [ "$verbose" -ge "1" ]; then
-      grub_password_status_check_output="$(sanitize-string -- nolimit "$grub_password_status_check_output")"
+      grub_password_status_check_output="$(sanitize-string -- 8192 "$grub_password_status_check_output")"
       MSG="<p><code>leaprun grub-password-status-check</code> output:
 <blockquote><code>$grub_password_status_check_output</code></blockquote></p>"
       $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"

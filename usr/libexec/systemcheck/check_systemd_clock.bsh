@@ -39,7 +39,7 @@ check_systemd_clock() {
    ## Not checking for 'Time zone: DST active: n/a'. This is left to check_timezone.
 
    timedatectl_output_original="$(timedatectl)"
-   timedatectl_output_pretty="$(sanitize-string -- nolimit "$timedatectl_output_original")"
+   timedatectl_output_pretty="$(sanitize-string -- 8192 "$timedatectl_output_original")"
    timedatectl_output_pretty="$(br_add "$timedatectl_output_pretty")"
 
    local timedatectl_ok_counter_actual="0"

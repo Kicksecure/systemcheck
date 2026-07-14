@@ -11,7 +11,7 @@ check_non_freedom() {
 
    ## Human readable output.
    vrms_output="$(LC_ALL=C vrms 2>&1)" || true
-   vrms_output="$(sanitize-string -- nolimit "$vrms_output")"
+   vrms_output="$(sanitize-string -- 8192 "$vrms_output")"
    vrms_output="$(br_add "$vrms_output")"
 
    ## For machine readable output.
