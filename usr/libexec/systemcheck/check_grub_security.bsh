@@ -32,7 +32,6 @@ check_grub_security() {
       grub_password_status_check_output="$(sanitize-string -- 8192 "$grub_password_status_check_output")"
       MSG="<p><code>leaprun grub-password-status-check</code> output:
 <blockquote><code>$grub_password_status_check_output</code></blockquote></p>"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 }

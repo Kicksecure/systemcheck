@@ -10,13 +10,11 @@ check_logs_do() {
    if [ -f "$check_log_file_name" ]; then
       local MSG="<p>Check Logs Result: <b>$check_log_file_name exists.</b> Please consider reporting any bugs inside this log.
 (Be careful not to copy and paste personal information). You may delete this file now.</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+      emit_message warning "$MSG"
       EXIT_CODE="1"
    else
       local MSG="<p>Check Logs Result: $check_log_file_name does not exist, $status_ok</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
    return 0
 }

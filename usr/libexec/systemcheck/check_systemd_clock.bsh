@@ -9,10 +9,7 @@
 check_systemd_clock() {
    if ! command -v timedatectl >/dev/null 2>&1 ; then
       local MSG="<p>Systemd Clock Check Result: <code>timedatectl</code> not available, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -62,10 +59,7 @@ check_systemd_clock() {
       local MSG="<p>Systemd Clock Check Result: set to UTC and NTP disabled as expected, $status_ok
 <br></br>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote></p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
    else
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
@@ -79,8 +73,7 @@ If you know what you are doing and changed this on purpose, feel free to
 disable this check. [2]
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       return 0
    fi

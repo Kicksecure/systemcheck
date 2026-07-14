@@ -31,6 +31,5 @@ check_user_sysmaint_split_boot_mode() {
       MSG="<p>user-sysmaint-split session detection result: SYSMAINT Session.</p>"
    fi
 
-   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+   emit_message info "$MSG"
 }

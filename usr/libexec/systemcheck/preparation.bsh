@@ -98,8 +98,7 @@ input_notification() {
    local MSG
    MSG="$input_msg"
    if [ "$verbose" -ge "2" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 }
 
@@ -274,6 +273,18 @@ emit_status_line() {
    MSG="<p>${label}: <font color=\"$color\">$status</font>${trailing}</p>"
    $output_x "${output_opts[@]}" --messagex --typex "$sev" --message "$MSG"
    $output_cli "${output_opts[@]}" --messagecli --typecli "$sev" --message "$MSG"
+}
+
+emit_message() {
+   ## Send the SAME message to both output channels (GUI and CLI) at one
+   ## severity, folding the previously duplicated $output_x / $output_cli pair.
+   ## Use this for free-form message bodies; use emit_status_line for the
+   ## "Label: STATUS" check-result shape. Wrap the call in output_if_verbose to
+   ## emit only in verbose mode.
+   ## $1 - severity: info | warning | error
+   ## $2 - message (HTML; the CLI channel renders it via msgcollector)
+   $output_x "${output_opts[@]}" --messagex --typex "$1" --message "$2"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "$1" --message "$2"
 }
 
 systemcheck_run_function() {

@@ -33,8 +33,7 @@ check_qubes_network_interface() {
 <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
 <br></br>2. Run. <blockquote><code>sudo systemctl status qubes-db</code></blockquote>
 $if_you_know_what_you_are_doing_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0
@@ -52,8 +51,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 <br></br><code>qubesdb-read /qubes-ip</code> output (sanitized):
 <br></br><code>$qubes_ip</code>
 $if_you_know_what_you_are_doing_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       ## TODO: review
       #cleanup "1"
@@ -61,10 +59,7 @@ $if_you_know_what_you_are_doing_msg</p>"
    fi
 
    local MSG="<p>Qubes qubes-db Test Result: Connection to local qubes-db daemon succeeded, $status_ok</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
 
    if [ "$GATEWAY_IP" = "qubesdb_read_failed" ] || [ ! "$qubesdb_read_qubes_ip_exit_code" = "0" ] ; then
       local netvm_to_what
@@ -100,28 +95,21 @@ Also refer to the installation instructions of Qubes-Whonix.
 <br></br>(qubes_vm_type: <code>$qubes_vm_type</code>)
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+      emit_message warning "$MSG"
       EXIT_CODE="1"
       ## Do not run 'cleanup' here, the Qube may lack Internet access on purpose.
       return 0
    fi
 
    local MSG="<p>Qubes Settings Test Result: $status_ok (GATEWAY_IP: <code>$GATEWAY_IP</code>)</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
 }
 
 check_qubes_vm_type() {
    if [ "$vm_lower_case_short" = "gateway" ]; then
       if [ -f /run/qubes/this-is-netvm ] || [ -f /run/qubes/this-is-proxyvm ] || [ -f /run/qubes/this-is-templatevm ] ; then
          local MSG="<p>Qubes Settings Test Result: $status_ok qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-         fi
+         output_if_verbose emit_message info "$MSG"
       else
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
@@ -131,8 +119,7 @@ check_qubes_vm_type() {
 <br></br>Also refer to the installation instructions of Qubes-Whonix.</p>
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          return 0
@@ -142,10 +129,7 @@ check_qubes_vm_type() {
    if [ "$vm_lower_case_short" = "workstation" ]; then
       if [ -f /run/qubes/this-is-appvm ] || [ -f /run/qubes/this-is-templatevm ] ; then
          local MSG="<p>Qubes Settings Test Result: $status_ok qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-         fi
+         output_if_verbose emit_message info "$MSG"
       else
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
@@ -155,8 +139,7 @@ check_qubes_vm_type() {
 <br></br>Also refer to the installation instructions of Qubes-Whonix.</p>
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+         emit_message warning "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          return 0
@@ -194,8 +177,7 @@ check_qubes_persistent_mounts() {
 <br></br>See: https://doc.qubes-os.org/en/latest/user/advanced-topics/bind-dirs.html
 <br></br>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-            $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+            emit_message warning "$MSG"
             EXIT_CODE="1"
             break
          fi
@@ -206,10 +188,7 @@ check_qubes_persistent_mounts() {
 check_qubes_settings() {
    if [ ! "$qubes_detected" = "true" ]; then
       local MSG="<p>Qubes Settings Test Result: Skipped, because Qubes not detected.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -241,10 +220,7 @@ check_qubes_update_proxy_status_files_check() {
          true
       elif [ "$exit_code" = 0 ]; then
          local MSG="<p>Qubes UpdatesProxy Status Files Check: $status_ok</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-            $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-         fi
+         output_if_verbose emit_message info "$MSG"
          return 0
       else
          break
@@ -262,8 +238,7 @@ $unit_name did not complete after $max_wait_seconds seconds or failed.
 <blockquote>sudo journalctl --boot --output cat -u $unit_name</blockquote>
 </p>"
 
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
 }
 
 check_qubes_update_proxy_daemon() {
@@ -279,10 +254,7 @@ check_qubes_update_proxy_daemon() {
 
    if leaprun qubes-updates-proxy-status >/dev/null 2>/dev/null ; then
       local MSG="<p>Qubes Updates Proxy Daemon Check Result: qubes-updates-proxy.service running, $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
    local if_you_know_what_you_are_doing_msg
@@ -292,8 +264,7 @@ check_qubes_update_proxy_daemon() {
 <br></br>To see this for yourself, run:
 <blockquote>leaprun qubes-updates-proxy-status</blockquote>
 <br></br>$if_you_know_what_you_are_doing_msg</p>"
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
 }
 
@@ -325,8 +296,7 @@ check_qubes_update_proxy_reachability() {
       if test -f /run/qubes/this-is-templatevm ; then
          local MSG="<p>Qubes UpdatesProxy Reachability Result: Failed. (UpdatesProxy not reachable.) \
    (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          return 0
       fi
       local MSG="<p>Qubes UpdatesProxy Reachability Result: $status_ok UpdatesProxy was not reachable.
@@ -339,8 +309,7 @@ This is expected because not running in Template.</p>"
    if [ ! "$curl_exit_code" = "0" ]; then
       local MSG="<p>Qubes UpdatesProxy Reachability Result: Failed. (Unknown issue.) \
 (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       return 0
    fi
 
@@ -361,8 +330,7 @@ This is expected because not running in Template.</p>"
 curl_status_message: <blockquote>$curl_status_message</blockquote>
 PROXY_META: <blockquote>$(sanitize-string -- 255 "${PROXY_META}")</blockquote>
 curl_output: <blockquote>$(sanitize-string -- 255 "$curl_output")</blockquote></p>"
-   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+   emit_message warning "$MSG"
 }
 
 check_qubes_update_proxy_connectivity() {
@@ -375,8 +343,7 @@ check_qubes_update_proxy_connectivity() {
 
    if [ ! "$qubes_update_proxy_test_result_torified" = "true" ]; then
       local MSG="<p>Qubes UpdatesProxy Connectivity Test: Skipped.</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       return 0
    fi
 
@@ -410,22 +377,19 @@ check_qubes_update_proxy_connectivity() {
    if [ "$curl_exit_code" = "22" ]; then
       local MSG="<p>Qubes UpdatesProxy Connectivity Result: Failed. (Filtered.) \
 (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       return 0
    fi
 
    if [ ! "$curl_exit_code" = "0" ]; then
       local MSG="<p>Qubes UpdatesProxy Connectivity Result: Unknown issue. \
 (curl exit code: $curl_exit_code | curl status message: $curl_status_message)</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       return 0
    fi
 
    local MSG="<p>Qubes UpdatesProxy Connectivity Result: $status_ok functional.</p>"
-   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+   emit_message info "$MSG"
 }
 
 check_qubes_update_proxy() {

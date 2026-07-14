@@ -80,16 +80,12 @@ $start_menu_instructions_system_first_part Terminal
     <br></br>or in Terminal: <code>systemcheck</code></p>
 
 <p>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0
    else
       local MSG="<p>Tor Config Check Result: $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
    fi
 }

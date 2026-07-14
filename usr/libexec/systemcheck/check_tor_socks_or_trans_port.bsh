@@ -12,10 +12,7 @@ check_tor_socks_or_trans_port() {
    if [ ! "$leak_tests" = "true" ]; then
       local MSG="\
 <p>${FUNCNAME[0]} $1: Skipped, because not using <code>--leak-tests</code> (<code>--show-ip</code>), $status_ok</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -113,8 +110,7 @@ check_tor_socks_or_trans_port() {
       fi
    else
       local MSG="<p><code>TransPort</code>/<code>SocksPort</code>/<code>UpdatesProxy</code> Test Error: <b>\<code>$1</code> is neither <code>TransPort</code> nor <code>SocksPort</code> nor <code>UpdatesProxy</code>.</b> Please report this bug to the $PROJECT_NAME developers!</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       return 0
    fi
@@ -152,8 +148,7 @@ check_tor_socks_or_trans_port() {
          type=error
          EXIT_CODE="1"
       fi
-      $output_x "${output_opts[@]}" --messagex --typex "$type" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "$type" --message "$MSG"
+      emit_message "$type" "$MSG"
       return 0
    fi
 
@@ -186,8 +181,7 @@ check_tor_socks_or_trans_port() {
       local MSG="\
 <p>${FUNCNAME[0]} $1: <code>check_tor_out_file_content_sanitized:</code>
 <blockquote>$check_tor_out_file_content_sanitized</blockquote></p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 
    tor_detected_raw="$(printf "%s" "$check_tor_out_file_content_sanitized" | python3 -c "import sys, json; print(json.load(sys.stdin)['IsTor'])")" || { tor_detected_raw="$?" ; true; };
@@ -208,8 +202,7 @@ check_tor_socks_or_trans_port() {
       if [ ! "$tor_detected_sanitized" = "True" ]; then
          ## an error occurred
          local MSG="<p>$test_name Result: tor_detected_sanitized is neither True nor False. $bug_maybe_msg</p>"
-         $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
          return 0
       fi
@@ -225,8 +218,7 @@ check_tor_socks_or_trans_port() {
    if [ ! "$json_ip_exit_code" = "0" ]; then
       ## an error occurred
       local MSG="<p>$test_name Result: <b>json_ip_exit_code: $json_ip_exit_code.</b> $bug_maybe_msg</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       return 0
    fi
@@ -243,8 +235,7 @@ check_tor_socks_or_trans_port() {
 
    if [ "$actual_string_length" -gt "$max_string_length" ]; then
       local MSG="<p><b>$1 Test: Excessive string length of ip_raw variable</b> (<code>$actual_string_length</code> characters).</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+      emit_message warning "$MSG"
       EXIT_CODE="1"
       return 0
    fi
@@ -283,8 +274,7 @@ check_tor_socks_or_trans_port() {
 
       local MSG="<p>$test_name: Connected to Tor. $ip_show_maybe_text</p>"
       if [ "$silent" -le "0" ]; then
-         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+         emit_message info "$MSG"
       fi
       return 0
    fi
@@ -332,8 +322,7 @@ $ip_show_maybe_text</p>
 
    local MSG="$not_using_msg_tor"
 
-   $output_x "${output_opts[@]}" --messagex --typex "$type" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "$type" --message "$MSG"
+   emit_message "$type" "$MSG"
 
    if [ "$VM" = "machine" ]; then
       true

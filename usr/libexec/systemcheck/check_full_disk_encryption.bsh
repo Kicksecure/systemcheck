@@ -37,7 +37,6 @@ check_full_disk_encryption() {
    if [ "$verbose" -ge "1" ]; then
       MSG="<p><code>leaprun crypt-check</code> output:
 <blockquote><code>$crypt_check_output</code></blockquote></p>"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 }

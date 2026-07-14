@@ -13,11 +13,9 @@ check_tor_bootstrap() {
 
    if [ "$systemcheck_external_network_found" = "false" ]; then
       local MSG="<p>Tor Connection Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       local MSG="<p>Time Synchronization Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       return 0
    fi
 
@@ -238,8 +236,7 @@ $multiple_whonix_ws_msg
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -268,8 +265,7 @@ check_tor_bootstrap_unknown_failure_cases() {
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -299,20 +295,14 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
    local MSG="<p>Tor Connection Result: $status_ok
 <br></br>tor_bootstrap_status: <code>$tor_bootstrap_status</code>
 <br></br>Tor Circuit: <code>$tor_circuit_established_word</code></p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
 
    local MSG="<p>Time Synchronization Result: $status_ok
 <br></br>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br></br>sdwdate reports: <code>$time_synchronization_msg</code>
 <br></br>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
 <br></br>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
-   fi
+   output_if_verbose emit_message info "$MSG"
 
    local MSG="<p>Connected to Tor.</p>"
 
@@ -540,8 +530,7 @@ $anondate_debugging_information"
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -637,8 +626,7 @@ or in Terminal: <code>systemcheck</code>
    if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
       $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"
+   emit_message error "$MSG"
 
    if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
       ## `break` check_tor_bootstrap loop.
