@@ -254,6 +254,32 @@ html_link() {
    printf '%s' "<a href=\"$1\">$2</a>"
 }
 
+emit_status_line() {
+   ## Emit a SINGLE-LINE "Label: STATUS" check result to BOTH channels from one
+   ## message, folding the previously separate GUI and CLI messages. The label
+   ## is a clickable link in the GUI and "text (url)" on the CLI (msgcollector
+   ## translates <a href>); the STATUS word is colored (msgcollector translates
+   ## <font color> to a terminal color on the CLI). Single-line only: the CLI
+   ## renderer drops <br>, so any multi-line body must still build its own CLI
+   ## message with real newlines.
+   ## $1 - severity: info | warning | error
+   ## $2 - label text (also the link text)
+   ## $3 - URL
+   ## $4 - status color: green | orange | yellow | red
+   ## $5 - status word
+   ## $6 - optional trailing HTML after the status word
+   local sev text url color status trailing MSG
+   sev="$1"
+   text="$2"
+   url="$3"
+   color="$4"
+   status="$5"
+   trailing="${6:-}"
+   MSG="<p>$(html_link "$url" "$text"): <font color=\"$color\">$status</font>${trailing}</p>"
+   $output_x "${output_opts[@]}" --messagex --typex "$sev" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "$sev" --message "$MSG"
+}
+
 systemcheck_run_function() {
    case $systemcheck_skip_functions in
    *"$@"*) echo "INFO: Skipping $* because systemcheck_skip_functions includes it."
