@@ -96,7 +96,7 @@ check_anondate_do() {
       permission_expected="debian-tor"
       if [ ! "$tor_consensus_user_permission" = "$permission_expected" ] || [ ! "$tor_consensus_group_permission" = "$permission_expected" ]; then
 
-         local MSG="<p>Tor folder test result: faulty permissions.
+         local MSG="<p>Tor Folder Test Result: faulty permissions.
    <br></br>
    <br></br>user : <code>$tor_consensus_user_permission</code> (expected: <code>$permission_expected</code>)
    <br></br>group: <code>$tor_consensus_group_permission</code> (expected: <code>$permission_expected</code>)
@@ -125,7 +125,7 @@ check_anondate_do() {
    fi
 
    if [ "$verbose" -ge "1" ]; then
-      anondate_debugging_information="<p>${FUNCNAME[0]} debugging information:<br />
+      anondate_debugging_information="<p>${FUNCNAME[0]} Debugging information:<br />
 <br />
 tor_consensus_status       : <code>$tor_consensus_status</code><br />
 current_time_in_valid_range: <code>$current_time_in_valid_range</code><br />

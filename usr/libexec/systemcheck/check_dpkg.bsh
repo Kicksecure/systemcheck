@@ -31,7 +31,7 @@ check_dpkg() {
 <br /><u>Recommendation</u>:
 <br />
 <br />Try to complete the upgrade process. ${remediation}
-<br /><u>Debugging information</u>:
+<br />Debugging information:
 <br />
 <br />Output of command <blockquote><code>dpkg --audit</code></blockquote> was non-empty!
 <br />

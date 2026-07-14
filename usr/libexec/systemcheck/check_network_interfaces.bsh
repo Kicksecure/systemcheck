@@ -25,7 +25,7 @@ check_network_interfaces() {
    if [ "$vm_lower_case_short" = "machine" ]; then
       if /usr/libexec/helper-scripts/check-network-access; then
          systemcheck_external_network_found=true
-         local MSG="<p>check network interfaces Result: External network interface found.</p>"
+         local MSG="<p>Network Interfaces Check Result: External network interface found.</p>"
          if [ "$verbose" -ge "1" ]; then
             $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
             $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
@@ -35,7 +35,7 @@ check_network_interfaces() {
 
       systemcheck_external_network_found=false
       local MSG="\
-<p>check network interfaces Result: No external network interface found.<br />
+<p>Network Interfaces Check Result: No external network interface found.<br />
 <br />
 Recommendation:<br />
 https://www.kicksecure.com/wiki/Troubleshooting<br />
@@ -75,7 +75,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 
    if [ "$failed" = "false" ]; then
       systemcheck_external_network_found=true
-      local MSG="<p>check network interfaces Result: $status_ok</p>"
+      local MSG="<p>Network Interfaces Check Result: $status_ok</p>"
       if [ "$verbose" -ge "1" ]; then
          $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
          $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
@@ -87,7 +87,7 @@ $if_you_know_what_you_are_doing_msg</p>"
       systemcheck_external_network_found=false
       local remediation
       remediation="$(remediation_instructions "systemctl restart networking")"
-      local MSG="<p>check network interfaces Result: network interface <code>eth0</code> not up!<br />
+      local MSG="<p>Network Interfaces Check Result: network interface <code>eth0</code> not up!<br />
 <br />
 Recommendation: try to manually start $PROJECT_NAME networking.
 <br />${remediation}
@@ -112,7 +112,7 @@ $if_you_know_what_you_are_doing_msg</p>"
          local qubes_extra_message="This might happen because you did not check mark the 'provides network' box for this VM?"
       fi
 
-      local MSG="<p>check network interfaces Result: network interface <code>eth1</code> not up!
+      local MSG="<p>Network Interfaces Check Result: network interface <code>eth1</code> not up!
 
 $qubes_extra_message
 

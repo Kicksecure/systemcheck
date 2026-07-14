@@ -31,7 +31,7 @@ check_full_disk_encryption() {
    elif [ "${crypt_check_return_code}" = '1' ]; then
       emit_status_line info "Full Disk Encryption (FDE)" "$link_cli" orange "Partial"
    else
-      emit_status_line info "Full Disk Encryption (FDE)" "$link_cli" orange "Absent"
+      emit_status_line info "Full Disk Encryption (FDE)" "$link_cli" orange "Disabled"
    fi
 
    if [ "$verbose" -ge "1" ]; then

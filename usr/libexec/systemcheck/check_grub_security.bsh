@@ -25,7 +25,7 @@ check_grub_security() {
    if grub_password_status_check_output="$(leaprun grub-password-status-check 2>&1)"; then
       emit_status_line info "GRUB Bootloader Password" "$link_cli" green "Enabled"
    else
-      emit_status_line info "GRUB Bootloader Password" "$link_cli" orange "Absent"
+      emit_status_line info "GRUB Bootloader Password" "$link_cli" orange "Disabled"
    fi
 
    if [ "$verbose" -ge "1" ]; then

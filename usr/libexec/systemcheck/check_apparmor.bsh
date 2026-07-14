@@ -21,7 +21,7 @@ check_apparmor() {
 
    local MSG="<p>AppArmor Check Result: Failed.
 <br/>
-debugging information:<br/>
+Debugging information:<br/>
 output: <code>$output</code></p>"
    $output_x "${output_opts[@]}" --messagex --typex "error" --message "$MSG"
    $output_cli "${output_opts[@]}" --messagecli --typecli "error" --message "$MSG"

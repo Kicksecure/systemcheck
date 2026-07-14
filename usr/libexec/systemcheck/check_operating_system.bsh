@@ -122,7 +122,7 @@ $qubes_update_help</p>"
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
       local debugging_information resolve_attempt_commands
-      debugging_information="<b>Debugging information:</b><br />
+      debugging_information="Debugging information:<br />
 <code>apt-get dist-upgrade --simulate</code> exit code: <code>$check_os_exit_code</code><br />
 <code>apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>

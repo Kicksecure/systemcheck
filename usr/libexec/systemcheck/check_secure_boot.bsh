@@ -80,7 +80,7 @@ mokutil_output: '${mokutil_output}'"
 
    if [ -f "${dkms_mok_public_file}" ] \
       && [ -f "${dkms_mok_private_file}" ]; then
-      output_if_verbose emit_status_line info "DKMS module signing keys present" "" green "Yes"
+      output_if_verbose emit_status_line info "DKMS module signing keys" "" green "Yes"
 
       if [ "${secure_boot_status_enabled}" = 'true' ] \
          && [ "${mokutil_present}" = 'y' ]; then
@@ -101,7 +101,7 @@ mokutil output: '${mokutil_output}'"
          fi
       fi
    else
-      output_if_verbose emit_status_line info "DKMS module signing keys present" "" orange "No"
+      output_if_verbose emit_status_line info "DKMS module signing keys" "" orange "No"
    fi
 
    if [ -f "${shim_mok_public_file}" ] && [ -f "${shim_mok_private_file}" ]; then
@@ -109,12 +109,12 @@ mokutil output: '${mokutil_output}'"
          && [ -L "${shim_mok_private_file}" ] \
          && [ "$(readlink "${shim_mok_public_file}")" = "${dkms_mok_public_file}" ] \
          && [ "$(readlink "${shim_mok_private_file}")" = "${dkms_mok_private_file}" ]; then
-         output_if_verbose emit_status_line info "Shim module signing keys set up" "" green "Yes"
+         output_if_verbose emit_status_line info "Shim module signing keys" "" green "Yes"
       else
-         output_if_verbose emit_status_line info "Shim module signing keys status" "" orange "Not symlinked to DKMS keys"
+         output_if_verbose emit_status_line info "Shim module signing keys" "" orange "Not symlinked to DKMS keys"
       fi
    else
-      output_if_verbose emit_status_line info "Shim module signing keys status" "" orange "Absent"
+      output_if_verbose emit_status_line info "Shim module signing keys" "" orange "Absent"
    fi
 }
 

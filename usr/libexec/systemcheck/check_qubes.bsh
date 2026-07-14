@@ -22,7 +22,7 @@ check_qubes_network_interface() {
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
       local MSG="\
-<p>Qubes qubes-db test Result: qubes-db read failed!
+<p>Qubes qubes-db Test Result: qubes-db read failed!
 <br></br>
 <br></br>Reading qubes-db failed for some reason. This could be due to a broken upgrade, race condition or other bug. Try restarting the VM to see if this error persists.
 <br></br>
@@ -45,7 +45,7 @@ $if_you_know_what_you_are_doing_msg</p>"
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
      local MSG="\
-<p>Qubes qubes-db test Result: qubes-db read of /qubes-ip returned invalid data!
+<p>Qubes qubes-db Test Result: qubes-db read of /qubes-ip returned invalid data!
 <br></br>
 <br></br>Reading qubes-db /qubes-ip returned data that does not match an IPv4 address. This could be due to a software bug or VM compromise. Try restarting the VM to see if this error persists.
 <br></br>
@@ -94,7 +94,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 <br></br>2. dom0 / Qubes VM Manager / right click '<code>$qubes_name_of_vm</code>' / VM Settings / NetVM
 <br></br>3. Restart this VM.</blockquote>
 Also refer to the installation instructions of Qubes-Whonix.
-<br></br>(Debugging information:)
+<br></br>Debugging information:
 <br></br>(GATEWAY_IP: <code>$GATEWAY_IP</code>)
 <br></br>(qubes_ip: <code>$qubes_ip</code>)
 <br></br>(qubes_vm_type: <code>$qubes_vm_type</code>)

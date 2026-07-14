@@ -9,7 +9,7 @@
 check_environment_variables() {
       if [ "$vm_lower_case_short" = "gateway" ] || [ "$vm_lower_case_short" = "workstation" ]; then
          if [ ! "$WHONIX" = "1" ]; then
-            local MSG="<p>Environment variables test result: Missing environment variable WHONIX=1. This indicates that other environment variables might be missing as well.</p>"
+            local MSG="<p>Environment Variables Test Result: Missing environment variable WHONIX=1. This indicates that other environment variables might be missing as well.</p>"
             $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
             $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
             EXIT_CODE="1"
@@ -17,7 +17,7 @@ check_environment_variables() {
          fi
       elif [ "$vm_lower_case_short" = "machine" ]; then
          if [ ! "$KICKSECURE" = "1" ]; then
-            local MSG="<p>Environment variables test result: Missing environment variable KICKSECURE=1. This indicates that other environment variables might be missing as well.</p>"
+            local MSG="<p>Environment Variables Test Result: Missing environment variable KICKSECURE=1. This indicates that other environment variables might be missing as well.</p>"
             $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
             $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
             EXIT_CODE="1"
@@ -25,7 +25,7 @@ check_environment_variables() {
          fi
       fi
 
-   local MSG="<p>Environment variables test result: $status_ok</p>"
+   local MSG="<p>Environment Variables Test Result: $status_ok</p>"
    if [ "$verbose" -ge "1" ]; then
       $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
       $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
