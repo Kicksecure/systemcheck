@@ -227,7 +227,7 @@ if ! run_with_attempts 3 "${initial_wait_seconds}" "leaprun functionality test" 
 Account '$who_ami' lacks privleap permission. See:
 https://www.kicksecure.com/wiki/Systemcheck#updatecheck_for_accounts_other_than_user"
   printf "%s\n" "$0: ERROR: $msg"
-  /usr/libexec/msgcollector/one-time-popup ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "$msg"
+  /usr/libexec/msgcollector/one-time-popup.py ~/.systemcheck/status-files/leap-run-missing-permission "Software updates check failure" "$msg"
   exit 0
 fi
 
