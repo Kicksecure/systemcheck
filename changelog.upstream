@@ -1,3 +1,511 @@
+commit eaff9ffd44dc3822b954a609623ecedd90aba8fb
+Merge: bb35ec3 7064c93
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jul 21 05:57:15 2026 -0400
+
+    Merge remote-tracking branch 'org-ai-assisted/master'
+
+commit 7064c93d9d758dfbc0fd3291d7df3a0fc7d6997e
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Sun Jul 19 04:13:35 2026 -0400
+
+    systemcheck: use .py names for msgcollector/tb-updater libexec scripts (#6)
+
+    The Python libexec scripts now ship only under their <name>.py names (compat
+    symlinks removed upstream in msgcollector/tb-updater); update the
+    /usr/libexec/... call sites here to match.
+
+    AI-Assisted
+
+    Co-authored-by: claude (dev95 d7769525-599d-4781-9f2c-f21aa34d292d) <noreply@anthropic.com>
+
+commit be10eed450f7b26f8daf645bf7a3f86b60b90a6a
+Merge: cf7bda2 17dc024
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Tue Jul 14 15:56:44 2026 -0400
+
+    Merge pull request #5 from org-ai-assisted/ai/audit-cleanup
+
+    systemcheck: ignore benign RCU rcu_sched_clock_irq WARN under VirtualBox
+
+commit 17dc02414576e9da5088697973ed602992c13c4e
+Author: claude (dev82 13ecad4f-9f71-461c-b277-1865244586cd) <noreply@anthropic.com>
+Date:   Tue Jul 14 15:12:19 2026 -0400
+
+    systemcheck: ignore benign RCU rcu_sched_clock_irq WARN under VirtualBox
+
+    WARN_ON_ONCE in RCU's scheduler-clock IRQ handler, tripped by the guest
+    vCPU time discontinuity that is normal under virtualization. Fires once,
+    kernel continues, harmless. Matched by pattern (not fixed string) because
+    the tree_plugin.h line number and stack offsets vary by kernel version,
+    and keyed on tree_plugin.h + rcu_sched_clock_irq so it never masks the
+    serious 'self-detected stall on CPU' message.
+
+    https://www.virtualbox.org/ticket/22218
+    https://www.virtualbox.org/ticket/22222
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit cf7bda2c46820d035079c2f2ca5ed868124d7dcf
+Merge: 8301068 7dee445
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Tue Jul 14 14:37:56 2026 -0400
+
+    Merge pull request #4 from org-ai-assisted/ai/audit-cleanup
+
+    Audit cleanup: message wording, standardization, simplification, emit_message fold
+
+commit 7dee44561c454331dfca31cb5d09bf20cefc493b
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 13:50:52 2026 -0400
+
+    CI: check out helper-scripts for the dist-ai systemcheck suite
+
+    The dist-ai systemcheck scenario harness runs the real check_*.bsh fragments,
+    several of which sanitize untrusted output with the bare `sanitize-string`
+    helper-scripts tool (check_dpkg, check_hostname, check_operating_system, ...).
+    Without it on PATH the trixie-slim CI container failed with
+    "sanitize-string: command not found" and the severity assertions saw nothing.
+    Set helper-scripts: true so the consumer workflow checks that repo out; the
+    dist-ai systemcheck wiring puts its usr/bin on PATH and dist-packages on
+    PYTHONPATH. The default apt stack already covers the suite.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 58894770d34e15780b3dbc0a429b96b92a4fac96
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 12:48:31 2026 -0400
+
+    CI: opt in to Bandit + CodeQL (Actions) scanners
+
+    Add the byte-identical consumer-bandit.yml and consumer-codeql-actions.yml
+    managed templates so systemcheck's Python (any) is Bandit-scanned and its GitHub
+    Actions workflows are CodeQL-scanned on each PR.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit ded4c8e620dc04c6a364a67a929366641cf9a33a
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 12:46:04 2026 -0400
+
+    check_login_security: dedup See also into link footnotes
+
+    Make the Physical Security 'See also' link an anchor in the shared message and
+    drop the manual plain-URL 'See also' block from the CLI variant. The Login and
+    Colors links were already anchors, so msgcollector now footnotes all three on
+    the CLI; the manual list only duplicated the Login URL. GUI is unchanged
+    (clickable links); CLI shows one unified Links footer.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 8e02c7e7975759eabb71a3e8d7d4061eee4013fb
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 12:33:26 2026 -0400
+
+    Fail the run on genuine error/warning states (severity/EXIT_CODE alignment)
+
+    Several checks emitted error/warning severity but never set EXIT_CODE=1, so
+    systemcheck still exited 0 on a real problem. Per maintainer decision, add
+    EXIT_CODE="1" to the genuine-failure and advisory branches (severity kept as-is):
+
+    - check_operating_system: "Upgrade simulation failed!" (error), "packages can be
+      updated" (warning).
+    - check_qubes: UpdatesProxy status-files-check Failed (error), UpdatesProxy
+      reachability Failed x2 (error).
+    - check_packages: no meta package installed (warning), unwanted packages
+      installed (warning).
+
+    Deliberately left non-failing (benign / transient, keep warning as a visual
+    flag only): check_man "minor issue", check_package_manager_running "still
+    running", check_operating_system "could not check for updates", and the
+    check_qubes reachability line that reports $status_ok.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit b318ec1d402d32f593902f87bee948488193193b
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 11:06:44 2026 -0400
+
+    Replace invalid <br></br> with <br/> (fixes CLI rendering)
+
+    The closing </br> is invalid HTML (br is a void element). It also renders as
+    literal garbage on the CLI now: msgcollector converts an opening <br>/<br/> to a
+    newline (regex <br ?/?>), but that pattern does not match the closing </br>, so
+    </br> survives to strip-markup and becomes "_/br_". Replace all 316 occurrences
+    of <br></br> across 15 check fragments with <br/>. GUI line breaks are
+    unchanged; the CLI no longer prints stray "_/br_".
+
+    Standalone <br> / <br/> / <br /> are left as-is; only the invalid closing tag is
+    removed.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 2da4b2920f0b545752b4d5921981241bd8a17f56
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 06:24:07 2026 -0400
+
+    Add emit_message helper and fold duplicated dual-channel message pairs
+
+    Nearly every check emitted the same message to the GUI and CLI channels with
+    an identical, duplicated pair:
+
+        $output_x   "${output_opts[@]}" --messagex   --typex   SEV --message "$MSG"
+        $output_cli "${output_opts[@]}" --messagecli --typecli SEV --message "$MSG"
+
+    Add a small emit_message helper (preparation.bsh, next to emit_status_line) that
+    sends one message to both channels at a given severity, and fold the ~90
+    identical pairs into it. Verbose-only pairs that were the sole content of an
+    `if [ "$verbose" -ge "1" ]` block collapse further to
+    `output_if_verbose emit_message SEV "$MSG"`.
+
+    Also refactor check_hostname: its four near-identical field checks (fqdn,
+    hostname, ip-address, domain) become one check_hostname_field helper, and the
+    per-field error wording is normalized to a single consistent form.
+
+    Not folded (left as raw pairs, by design): sites where the GUI and CLI bodies
+    differ (check_apt_repository enabled/disabled/legacy, check_secure_boot
+    check_build_mok_keys, check_login_security, show_versions build-version), the
+    intentional single-channel emits (donate, several check_qubes cases with the
+    GUI line commented out, cleanup), and the helper definitions themselves.
+
+    Behavior-preserving: same messages, same severities, same verbose gating. GUI
+    and CLI are independent output streams, so pairs that were written CLI-first
+    fold to the same observable result. shellcheck --severity=warning clean;
+    bash -n clean for every fragment and script; dist-ai systemcheck suite green.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit f3be3a6a034f6ce4d6e24c1cd7ef682d31b33bc3
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 06:11:53 2026 -0400
+
+    Simplify: dead code, redundant conditionals, awk->bash
+
+    - cleanup.bsh: drop two if-blocks assigning TITLE, a variable never read
+      (the title output uses TITLE_X / TITLE_CLI).
+    - check_stream_isolation.bsh: drop dead 'local type=info' in the Qubes
+      TemplateVM branch (that branch hardcodes --typex info; only the later
+      TransPort branch uses $type).
+    - check_pvclock.bsh: collapse the gateway/machine "true" no-op branches into
+      a single negative condition around pvclock_unwanted_detected.
+    - show_versions.bsh: drop an inert '|| true' on a plain string assignment.
+    - function_manual_run.bsh: list functions with 'compgen -A function' instead
+      of 'typeset -f | awk ...'.
+    - preparation.bsh: replace the six repeated virtualizer-known if-checks with a
+      single case; strip the epoch with parameter expansion (${v#*:}) instead of
+      'echo | awk -F:'. The expansion also fixes two latent edge cases the awk had:
+      a version without an epoch is kept intact (awk blanked it), and only the
+      first colon is stripped (awk dropped everything after a second colon).
+    - check_privilege_escalation_tool.bsh: route the privleap-group-membership
+      Yes/No line through emit_status_line (verbose-gated) instead of hand-writing
+      the GUI <font> and CLI ANSI variants; removes the duplicated block.
+
+    Behavior-preserving except the two documented preparation.bsh epoch edge cases.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 3ea4b00201cd797910b677f2b9c6a24c0d141f2e
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 06:07:47 2026 -0400
+
+    Standardize status words, labels, and headings
+
+    Status words now use matched antonyms per concept:
+    - Full Disk Encryption and GRUB Bootloader Password: "Absent" -> "Disabled"
+      (pairs with "Enabled"; FDE keeps the "Partial" middle state).
+    - user-sysmaint-split installation check: "Enabled"/"Absent" ->
+      "Installed"/"Not installed" (matches the "installation check" label).
+
+    Stable per-check labels (label no longer changes between branches):
+    - check_secure_boot: "DKMS module signing keys present" -> "DKMS module
+      signing keys"; "Shim module signing keys set up"/"...status" ->
+      "Shim module signing keys". The Yes/No/etc. status word carries the state.
+
+    Title-Case result headings that were lowercase mid-label:
+    - "check network interfaces Result:" -> "Network Interfaces Check Result:"
+    - "Environment variables test result:" -> "Environment Variables Test Result:"
+    - "Tor folder test result:" -> "Tor Folder Test Result:"
+    - "Qubes qubes-db test Result:" -> "Qubes qubes-db Test Result:"
+
+    One "Debugging information:" form (capital D, no markup, no parentheses):
+    - check_dpkg (drop <u>), check_operating_system (drop <b>),
+      check_apparmor and check_anondate (capitalize), check_qubes (drop parens).
+
+    Wording/labels only; no behavior change.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit ec4ead85a569356b61bccbb532cf2cd92ab3215e
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 06:05:05 2026 -0400
+
+    Fix broken grammar and malformed HTML in user-facing messages
+
+    - check_apt_repository.bsh: "To fix, try run:" -> "try running:";
+      "it will be NOT be installed." -> "it will NOT be installed.";
+      "If fix this, to update ... use:" -> "To update ... use:".
+    - check_operating_system.bsh: mis-nested <u><b>...</u></b> -> </b></u>
+      (matches the correctly-nested form used elsewhere in the file).
+    - check_nonfree.bsh: "non-ideal but okay if you know what you are doing"
+      -> "not recommended, but acceptable if you understand the implications".
+    - check_man.bsh: drop the "Severity: very low" / "test for yourself" phrasing
+      for "This is a minor issue. To verify, run:".
+
+    Wording only; no behavior change.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 8301068a82124e38c52e82ca7e4c34bbcef67f64
+Merge: 37fef63 e8ca7e7
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Tue Jul 14 05:13:45 2026 -0400
+
+    Merge pull request #3 from org-ai-assisted/ai/status-line-helper
+
+    Add emit_status_line helper; fold single-line status checks
+
+commit e8ca7e75b5152a682da1b0e31b3ab8d05f5fa3fa
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 05:08:31 2026 -0400
+
+    emit_status_line: translate real newlines to <br/> in trailing bodies
+
+    Let callers write multi-line status bodies with real newlines instead of
+    one long source line studded with literal <br/>. emit_status_line now
+    converts each newline in its optional trailing body ($6) to <br/>;
+    msgcollector turns those back into newlines on the CLI, and the GUI
+    renders them as line breaks. Result is identical output from far more
+    readable source.
+
+    Rewrite the mixed-newline-and-<br/> bodies that would otherwise
+    double-break under the new conversion:
+    - check_debian_eol.bsh: LTS and Unsupported bodies.
+    - check_secure_boot.bsh: the Qubes reason plus the Unavailable, Secure
+      Boot Unknown, and DKMS-keys Unknown debugging bodies.
+    - check_tirdad_module.bsh: all help_msg branches (Qubes, unsupported
+      architecture, Secure-Boot live and non-live, and the default).
+
+    Bodies now use real newlines only (no literal <br/>), per the helper's
+    documented convention. Behavior unchanged; shellcheck clean; dist-ai
+    systemcheck suite 15/15.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit ac47306dc2fc7ef5a8ab8fa8410a8cda5fd26898
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 04:57:36 2026 -0400
+
+    Fold all remaining status checks via emit_status_line
+
+    Fold user_sysmaint_split (reworded to the consistent "user-sysmaint-split
+    installation check" label), debian_eol (all states, including the multi-line
+    LTS/Unsupported via the trailing param), tirdad (Enabled + Disabled), and
+    secure_boot (all status lines) into single emit_status_line calls, dropping
+    link_gui and the duplicate CLI strings. The helper now renders multi-line
+    trailing bodies (msgcollector translates <br> to a newline on the CLI) and
+    accepts an empty URL for the no-link lines (DKMS/shim keys).
+
+    Depends on the msgcollector <br>-to-newline change for correct multi-line CLI
+    rendering. apt_repository is left as-is (an inline prose link, not a status
+    line); tirdad keeps help_link_gui inside its multi-line help text.
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 9db4a579109c9ce0a39234b2e4e03b28260a24b0
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 04:42:13 2026 -0400
+
+    Add emit_status_line helper; fold single-line status checks
+
+    Introduce emit_status_line, which emits a single-line "Label: STATUS" result to
+    both channels from ONE message: the label is a clickable link in the GUI and
+    "text (url)" on the CLI (via msgcollector's <a href> translation), and the
+    status word is colored (via <font color> to a terminal color). This folds the
+    previously separate GUI and CLI message branches into one call. Single-line
+    only -- strip-markup drops <br>, so multi-line bodies keep their own CLI
+    message with real newlines.
+
+    Applied to the clean-fit checks: check_full_disk_encryption, check_grub_security,
+    check_su_access. Drops link_gui and the duplicate CLI strings; the link now
+    renders inline as "text (url)" on the CLI instead of a separate "See also:"
+    line. Checks whose GUI and CLI labels differ (e.g. check_user_sysmaint_split) or
+    that are multi-line are intentionally left as-is.
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 37fef63b196733c548abcebc1ad148c7bfb58698
+Merge: bb35ec3 e053bd7
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Tue Jul 14 04:36:16 2026 -0400
+
+    Merge pull request #2 from org-ai-assisted/ai/harden-messages-and-sanitize
+
+    Harden systemcheck messages: sanitize GUI sinks, standardize output, fix bugs
+
+commit e053bd76ffcc3f378a7b0f1210158ed950ee7b98
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 04:27:25 2026 -0400
+
+    tirdad: restore the live / non-live split for the Secure-Boot help text
+
+    The "only practical during a manual image build" note applies only to live mode,
+    where DKMS key enrollment cannot be persisted. On an installed system the key
+    can be enrolled normally, so restore the `if live-status-detected` / else split
+    with distinct messages per branch. Severity stays info-level and verbose-only.
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 13717da8994c9ad62c7c907ab3819ccd01d4862d
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 04:20:39 2026 -0400
+
+    dpkg fails regardless of verbosity; tirdad Secure-Boot benign; warrant terse
+
+    check_dpkg: a broken dpkg state now always shows and sets EXIT_CODE=1, not only
+    in verbose mode -- a real failure should fail the run regardless of verbosity.
+
+    check_tirdad_module: Secure-Boot-enabled-but-tirdad-not-loaded is now info-level
+    and verbose-only (no failure). It cannot be fixed in live mode and is otherwise
+    only addressable by an expert during a manual image build, and not worthwhile
+    when installing offline as recommended.
+
+    check_warrant_canary: replace the TODO with a terse note that the leniency is
+    intentional -- the canary fetch depends on onion services whose reliability
+    issues would otherwise cause false failures.
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit ebb1f9008cc533be74470e75574a49abbd1b3624
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 04:11:40 2026 -0400
+
+    check_package_manager_running: cap the wait; xtrace comment for the qubes skip
+
+    Bound the previously-unbounded wait loop with an overridable
+    systemcheck_package_manager_wait_max (default 1200s): if a package manager
+    (apt/dpkg) is still running after the cap, emit a warning and continue instead
+    of hanging the whole run forever.
+
+    check_qubes_update_proxy: the unemitted "Skipped" MSG is intentional xtrace
+    (set -x) documentation, not a dead assignment; replace the TODO with a terse
+    note.
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit dfda3089d6d0d65c993e42508b974f891053cb5a
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 03:54:50 2026 -0400
+
+    Address CodeRabbit review + de-cross-reference TODO comments
+
+    Sanitize FDE crypt-check output and the login-security password/autologin table
+    cells before they reach the GUI setHtml() path (HTML injection). Close unclosed
+    <p> tags (systemd units-check, network-interfaces success, disclaimer else
+    branch). Append the $status_ok token to the "no unwanted packages" success.
+    Add the missing <br></br> before step 3 in the check_packages and
+    check_operating_system TemplateVM instructions. Replace the invalid <?> markers
+    in the unknown-Qubes-VM-type update_where with plain text.
+
+    TODO comments: drop the "same pattern in <other functions>" cross-references so
+    each TODO describes only its own function's local issue.
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 102b5e45746fd61ce4cb46d00f385ec0f4683225
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 03:41:11 2026 -0400
+
+    Add html_link helper; fix check_debian_eol severity; terse AGENTS.md Tests
+
+    check_debian_eol: the LTS-support and Unsupported states set EXIT_CODE=1 but
+    were emitted as "info" (green INFO prefix). Give them the matching severity --
+    "warning" for LTS, "error" for Unsupported (red body, "vulnerable to malware")
+    -- so the prefix matches the body color and the actual failure. (FDE and grub
+    use orange/red too but set no EXIT_CODE, so their "info" is left as-is.)
+
+    html_link(url, text): build a GUI anchor from a URL + link text, so a check
+    keeps one source of truth (the URL, reused verbatim in the CLI message) instead
+    of hand-writing the escaped-quote <a href="..."> boilerplate. Applied to all
+    nine link_gui sites.
+
+    AGENTS.md Tests section reduced to a bare pointer to dist-ai (no test details or
+    invocation, which drift out of sync with the suite).
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 976878ecc1c63bd5fa386046a70680f15ddae935
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 03:32:52 2026 -0400
+
+    Bound sanitize-string length: cap command output, comment the one nolimit
+
+    Replace the arbitrary-length (nolimit) sanitize-string calls with an 8192-char
+    cap for multi-line command/log output (well under msgdispatcher's 32768 GUI
+    message cap, still generous for a heads-up dialog) and 255 for the short
+    package-version string. The only remaining nolimit is log-checker's
+    filtered-journal read: it is the primary diagnostic, read via stdin (no ARG_MAX)
+    and capped downstream by msgdispatcher; a terse comment now explains it.
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit e6bcee39700b4d845dcb6ab1449b79cecb6eb491
+Author: claude (dev78 241d086f-2b6c-4ada-883a-370b92c49a9a) <noreply@anthropic.com>
+Date:   Tue Jul 14 03:00:05 2026 -0400
+
+    Harden systemcheck messages: sanitize GUI sinks, standardize output, fix bugs
+
+    Security (GUI HTML-injection): route untrusted command/log/file output through
+    sanitize-string before it reaches the msgcollector setHtml() GUI path. Root fix
+    in log-checker (sanitize journal content before br_add_to_file, covering both
+    the critical- and service-log paths) plus per-sink fixes across the checks;
+    correct the false "sanitized by stcatn already" comment.
+
+    Logic bugs: parse_cmd -f no longer shadows --mode; check_tor_socks_or_trans_port
+    excessive-IP-length guard uses ip_raw (was a dead ${#ip}); check_apparmor LANG=C
+    -> LC_ALL=C; check_package_manager_running tail-recursion -> bounded loop;
+    check_entropy unreadable value now warns (was a false "ok"); check_warrant_canary
+    read-timeout no longer cascades into a second warning; check_tirdad_module no
+    longer sets a spurious EXIT_CODE=1 with a wrong reason on unsupported arch, and
+    its dead identical branches are collapsed; hostname/warrant labels and the
+    "Open Termina" / "reload" / "Whonix-Gatway" typos fixed.
+
+    Cleanup + UX: shared green $status_ok success token (rendered green in the GUI
+    and, via msgcollector's new font-color-to-ANSI translation, in the CLI); ASCII
+    menu breadcrumbs (the old "->" rendered as "-_" through strip-markup);
+    leaprun_cmd_describe and remediation_instructions helpers (the latter gives
+    session-aware, sysmaint-correct fix instructions); full shellcheck-clean pass
+    with the sanctioned no-strict waiver on the sourced fragments. TODO comments
+    mark five latent behavioral issues for a maintainer decision.
+
+    Adds the ## Tests section and the dist-ai consumer workflow (the suite lives in
+    org-ai-assisted/dist-ai under usr/share/systemcheck-tests/).
+
+    ## AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit bb35ec33b04c7912cedfec2d2080fb3fe50b08c9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jun 27 14:12:59 2026 +0000
+
+    bumped changelog version
+
 commit 78b97f335bf82149ab1747240aae7ca5d9005412
 Merge: a409205 e4c289f
 Author: Patrick Schleizer <adrelanos@whonix.org>
