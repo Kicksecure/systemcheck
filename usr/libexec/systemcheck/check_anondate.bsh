@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 ## Used by check_tor_bootstrap and check_anondate_show and check_anondate_show.
 check_anondate_do() {
    local type tor_consensus_status current_time_in_valid_range
@@ -58,10 +61,15 @@ check_anondate_do() {
    ## verified or unverified Tor consensus.
    if [ ! "$tor_consensus_status" = "none" ]; then
       tor_consensus_valid_after="$(leaprun anondate-${tor_consensus_status}-only-show-valid-after)" || true
+      tor_consensus_valid_after="$(sanitize-string -- 255 "$tor_consensus_valid_after")"
       tor_consensus_valid_until="$(leaprun anondate-${tor_consensus_status}-only-show-valid-until)" || true
+      tor_consensus_valid_until="$(sanitize-string -- 255 "$tor_consensus_valid_until")"
       tor_consensus_middle_range="$(leaprun anondate-${tor_consensus_status}-only-show-middle-range)" || true
+      tor_consensus_middle_range="$(sanitize-string -- 255 "$tor_consensus_middle_range")"
       tor_consensus_user_permission="$(leaprun anondate-${tor_consensus_status}-only-user-permission)" || true
+      tor_consensus_user_permission="$(sanitize-string -- 255 "$tor_consensus_user_permission")"
       tor_consensus_group_permission="$(leaprun anondate-${tor_consensus_status}-only-group-permission)" || true
+      tor_consensus_group_permission="$(sanitize-string -- 255 "$tor_consensus_group_permission")"
    fi
 
    if tor_cert_lifetime_output="$(leaprun anondate-tor-cert-lifetime-valid)" ; then
@@ -88,17 +96,16 @@ check_anondate_do() {
       permission_expected="debian-tor"
       if [ ! "$tor_consensus_user_permission" = "$permission_expected" ] || [ ! "$tor_consensus_group_permission" = "$permission_expected" ]; then
 
-         local MSG="<p>Tor folder test result: faulty permissions.
-   <br></br>
-   <br></br>user : <code>$tor_consensus_user_permission</code> (expected: <code>$permission_expected</code>)
-   <br></br>group: <code>$tor_consensus_group_permission</code> (expected: <code>$permission_expected</code>)
-   <br></br>
-   <br></br>To fix this.
-   <br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-   <br></br>2. Run. <blockquote><code>sudo chown --recursive $permission_expected:$permission_expected /var/lib/tor</code></blockquote></p>"
+         local MSG="<p>Tor Folder Test Result: faulty permissions.
+   <br/>
+   <br/>user : <code>$tor_consensus_user_permission</code> (expected: <code>$permission_expected</code>)
+   <br/>group: <code>$tor_consensus_group_permission</code> (expected: <code>$permission_expected</code>)
+   <br/>
+   <br/>To fix this.
+   <br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+   <br/>2. Run. <blockquote><code>sudo chown --recursive $permission_expected:$permission_expected /var/lib/tor</code></blockquote></p>"
 
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          return 0
@@ -117,7 +124,7 @@ check_anondate_do() {
    fi
 
    if [ "$verbose" -ge "1" ]; then
-      anondate_debugging_information="<p>$FUNCNAME debugging information:<br />
+      anondate_debugging_information="<p>${FUNCNAME[0]} Debugging information:<br />
 <br />
 tor_consensus_status       : <code>$tor_consensus_status</code><br />
 current_time_in_valid_range: <code>$current_time_in_valid_range</code><br />
@@ -135,13 +142,13 @@ tor_consensus_user_permission : <code>$tor_consensus_user_permission</code><br /
 tor_consensus_group_permission: <code>$tor_consensus_group_permission</code><br /></p>"
    fi
 
-   anondate_issue="<br></br>- Tor needs a reasonable correct time to be able to connect."
+   anondate_issue="<br/>- Tor needs a reasonable correct time to be able to connect."
 
    anondate_recommendation="<p>Please check, that the time inside this virtual machine (<code>$current_time_short</code>) is correct. (A clock that
 is slow or fast up to 30 minutes is okay.) If the time is incorrect, please manually fix it.
-<br></br>
-<br></br>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
-<br></br>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote></p>"
+<br/>
+<br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br/>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote></p>"
 }
 
 check_anondate_show() {
@@ -160,7 +167,6 @@ check_anondate_show() {
       ## sets: anondate_recommendation
       ## sets: anondate_debugging_information
       local MSG="$anondate_debugging_information"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 }

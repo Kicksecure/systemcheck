@@ -3,14 +3,16 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_system_ready_system() {
-   system_ready_check_help_text_cmd="'<code>sudo systemctl --wait is-system-running</code>'
-(same as '<code>leaprun system-ready-check</code>')"
+   system_ready_check_help_text_cmd="$(leaprun_cmd_describe "systemctl --wait is-system-running" "system-ready-check")"
    check_system_ready_shared system leaprun system-ready-check
 }
 
 check_system_ready_user() {
-   system_ready_check_help_text_cmd="'<code>systemctl --user --wait is-system-running</code>'"
+   system_ready_check_help_text_cmd="$(leaprun_cmd_describe "systemctl --user --wait is-system-running")"
    check_system_ready_shared user /usr/libexec/helper-scripts/system-ready-check-user
 }
 
@@ -35,11 +37,8 @@ check_system_ready_shared() {
       [ -n "$result" ] || result="Empty."
 
       if [ "$result" = "running" ]; then
-         local MSG="<p>System ready check ($type) Result: Success.</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         fi
+         local MSG="<p>System ready check ($type) Result: $status_ok</p>"
+         output_if_verbose emit_message info "$MSG"
          return 0
       elif [ "$result" = "degraded" ]; then
          i="$max"
@@ -55,15 +54,14 @@ check_system_ready_shared() {
 <br/>Command:
 <br/>$system_ready_check_help_text_cmd
 <br/>result: '<code>$result</code>'</p>"
-         $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-         $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+         emit_message warning "$MSG"
          return 0
       fi
 
       (( i++ )) || true
       if [ "$i" -ge 1 ]; then
          local MSG="<p>System ready check ($type) Result: Waiting $i of $max.</p>"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
    done
 }

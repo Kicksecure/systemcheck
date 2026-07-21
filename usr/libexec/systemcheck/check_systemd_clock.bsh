@@ -3,13 +3,13 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_systemd_clock() {
    if ! command -v timedatectl >/dev/null 2>&1 ; then
-      local MSG="<p>Systemd Clock Check Result: <code>timedatectl</code> not available, ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>Systemd Clock Check Result: <code>timedatectl</code> not available, $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -36,7 +36,8 @@ check_systemd_clock() {
    ## Not checking for 'Time zone: DST active: n/a'. This is left to check_timezone.
 
    timedatectl_output_original="$(timedatectl)"
-   timedatectl_output_pretty="$(br_add "$timedatectl_output_original")"
+   timedatectl_output_pretty="$(sanitize-string -- 8192 "$timedatectl_output_original")"
+   timedatectl_output_pretty="$(br_add "$timedatectl_output_pretty")"
 
    local timedatectl_ok_counter_actual="0"
    local timedatectl_ok_counter_expected="3"
@@ -55,19 +56,16 @@ check_systemd_clock() {
    done < <( echo "$timedatectl_output_original" )
 
    if [ "$timedatectl_ok_counter_actual" -ge "$timedatectl_ok_counter_expected" ]; then
-      local MSG="<p>Systemd Clock Check Result: set to UTC and NTP disabled as expected, ok.
-<br></br>timedatectl_output_pretty:
+      local MSG="<p>Systemd Clock Check Result: set to UTC and NTP disabled as expected, $status_ok
+<br/>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote></p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      output_if_verbose emit_message info "$MSG"
    else
       local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
       local MSG="<p>Systemd Clock Check Result:
-<br></br><b>Unexpected results by timedatectl.</b>
-<br></br>timedatectl_output_pretty:
+<br/><b>Unexpected results by timedatectl.</b>
+<br/>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote>
 It is generally recommended to keep the default as per $PROJECT_NAME Design. [1]
 If you did not change timezone related settings, please report this $PROJECT_NAME bug.
@@ -75,8 +73,7 @@ If you know what you are doing and changed this on purpose, feel free to
 disable this check. [2]
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       return 0
    fi

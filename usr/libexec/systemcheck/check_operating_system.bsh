@@ -3,16 +3,18 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_operating_system() {
    if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping $FUNCNAME."
+      true "silent is $silent. Skipping ${FUNCNAME[0]}."
       return 0
    fi
 
    if [ "$systemcheck_external_network_found" = "false" ]; then
       local MSG="<p>Debian Package Update Check Result: Skipped. (Because no external network interface detected.)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       return 0
    fi
 
@@ -28,7 +30,7 @@ check_operating_system() {
    ## Depends on exception set in /etc/privleap/conf.d/systemcheck.conf.
    ## Minimal custom script.
    local MSG="Debian Package Update Check: Checking for software updates via apt-get... $update_documentation_link_cli"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    local apt_get_exit_code
    apt_get_exit_code="0"
 
@@ -48,14 +50,14 @@ check_operating_system() {
    if [ "$qubes_detected" = "true" ]; then
       if [ "$qubes_vm_persistence" = "full" ]; then
          ## Running in either StandaloneVM or TemplateVM.
-         local qubes_update_help="<br></br>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
-<br></br>2. Update. <blockquote><code>$update_command</code></blockquote>"
+         local qubes_update_help="<br/>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
+<br/>2. Update. <blockquote><code>$update_command</code></blockquote>"
       else
          ## TemplateBasedVM
-         local qubes_update_help="<br></br>1. Open a TemplateVM terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
-<br></br>2. Update. <blockquote><code>$update_command</code></blockquote>
-3. Shutdown your TemplateVM. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_base_template</code>' -> Shutdown VM)
-<br></br>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"
+         local qubes_update_help="<br/>1. Open a TemplateVM terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
+<br/>2. Update. <blockquote><code>$update_command</code></blockquote>
+<br/>3. Shutdown your TemplateVM. (dom0 / Qubes VM Manager / right click '<code>$qubes_base_template</code>' / Shutdown VM)
+<br/>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 / Qubes VM Manager / right click '<code>$qubes_name_of_vm</code>' / Shutdown VM)"
       fi
    fi
 
@@ -73,30 +75,29 @@ check_operating_system() {
    if [ ! "$apt_get_exit_code" = "0" ]; then
       if [ "$qubes_detected" = "true" ]; then
          local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
-<br></br><u><b>Please manually check inside $update_where.</u></b>
+<br/><u><b>Please manually check inside $update_where.</b></u>
 $qubes_update_help</p>"
       else
          if [ "$booted_in_sysmaint_session" = 'true' ]; then
             local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
-<br></br>Please manually check:
-<br></br>Click on the System Maintenance Panel, then click \"Open Terminal\", then run:
+<br/>Please manually check:
+<br/>Click on the System Maintenance Panel, then click \"Open Terminal\", then run:
 <code><blockquote>$update_command</blockquote></code></p>"
          else
             if [ "$user_sysmaint_split_installed" = 'true' ]; then
                local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
-<br></br>Please manually check:
-<br></br>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:
+<br/>Please manually check:
+<br/>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:
 <code><blockquote>$update_command</blockquote></code></p>"
             else
                local MSG="<p>$update_documentation_link_x Check Result: <b>Could not check for software updates!</b> $debugging_information
-<br></br>Please manually check:
-<br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
+<br/>Please manually check:
+<br/>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>$update_command</blockquote></code></p>"
             fi
          fi
       fi
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      emit_message warning "$MSG"
       return 0
    fi
 
@@ -104,21 +105,21 @@ $qubes_update_help</p>"
    check_os_exit_code="0"
    ## /usr/libexec/helper-scripts/apt-get-update-simulate is timeout protected.
    check_os_output="$(leaprun apt-get-update-simulate 2>&1)" || { check_os_exit_code="$?" ; true; };
-   check_os_output_show="$(br_add "$check_os_output")"
+   check_os_output_show="$(sanitize-string -- 8192 "$check_os_output")"
+   check_os_output_show="$(br_add "$check_os_output_show")"
 
    if [ "$verbose" -ge "1" ]; then
       local MSG="<p><code>apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>$check_os_output_show</blockquote></code></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 
    if [ ! "$check_os_exit_code" = "0" ]; then
       local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
       local debugging_information resolve_attempt_commands
-      debugging_information="<b>Debugging information:</b><br />
+      debugging_information="Debugging information:<br />
 <code>apt-get dist-upgrade --simulate</code> exit code: <code>$check_os_exit_code</code><br />
 <code>apt-get dist-upgrade --simulate</code> output:
 <code><blockquote>
@@ -146,7 +147,7 @@ $debugging_information</p>"
             if [ "$user_sysmaint_split_installed" = 'true' ]; then
                local MSG="<p>$update_documentation_link_x Check Result: Upgrade simulation failed!<br />
 <br/><b><u>To fix, try:</u></b>
-<br/>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Termina\" in the System Maintenance Panel, and run:
+<br/>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:
 $resolve_attempt_commands
 $debugging_information</p>"
             else
@@ -158,8 +159,8 @@ $debugging_information</p>"
             fi
          fi
       fi
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+      emit_message error "$MSG"
       return 0
    fi
 
@@ -199,35 +200,34 @@ $debugging_information</p>"
          true "silent is $silent. Skipping output."
          return 0
       fi
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
       return 0
    fi
 
    if [ "$qubes_detected" = "true" ]; then
       local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
-<br></br><b><u>Please update $update_where.</u></b>
+<br/><b><u>Please update $update_where.</u></b>
 $qubes_update_help</p>"
    else
       if [ "$booted_in_sysmaint_session" = 'true' ]; then
          local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
-<br></br>Please update $update_where:
-<br></br>Click on the System Maintenance Panel, and click \"Install Updates\". Alternatively, click \"Open Terminal\" and run:
+<br/>Please update $update_where:
+<br/>Click on the System Maintenance Panel, and click \"Install Updates\". Alternatively, click \"Open Terminal\" and run:
 <code><blockquote>$update_command</blockquote></code></p>"
       else
          if [ "$user_sysmaint_split_installed" = 'true' ]; then
             local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
-<br></br>Please update $update_where:
-<br></br>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code> and click \"Install Updates\" in the System Maintenance Panel."
+<br/>Please update $update_where:
+<br/>Reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code> and click \"Install Updates\" in the System Maintenance Panel."
          else
             local MSG="<p>$update_documentation_link_x Check Result: <b><code>apt-get</code> reports that packages <u>can be updated</u>.</b>
-<br></br>Please update $update_where:
-<br></br>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
+<br/>Please update $update_where:
+<br/>(Open a terminal, $start_menu_instructions_system_first_part Terminal.)
 <code><blockquote>$update_command</blockquote></code></p>"
          fi
       fi
    fi
 
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   EXIT_CODE="1"
+   emit_message warning "$MSG"
 }

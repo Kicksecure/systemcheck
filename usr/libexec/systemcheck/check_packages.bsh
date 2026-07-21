@@ -3,11 +3,14 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_meta_packages() {
    local meta_package_wanted_list meta_package_installed
 
    local if_you_know_what_you_are_doing_msg see_also_link
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
    see_also_link="<a href=${PROJECT_HOMEPAGE}/wiki/Debian_Packages>${PROJECT_HOMEPAGE}/wiki/Debian_Packages</a>"
 
    if [ "$qubes_detected" = "true" ]; then
@@ -76,11 +79,8 @@ whonix-workstation-baremetal-cli"
    for meta_package_wanted_item in $meta_package_wanted_list ; do
       if dpkg --status "$meta_package_wanted_item" &> /dev/null ; then
          meta_package_installed="$meta_package_wanted_item"
-         local MSG="<p>$PROJECT_NAME Meta Packages Test Result: Meta package <code>$meta_package_installed</code> installed, ok.</p>"
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
+         local MSG="<p>$PROJECT_NAME Meta Packages Test Result: Meta package <code>$meta_package_installed</code> installed, $status_ok</p>"
+         output_if_verbose emit_message info "$MSG"
       fi
    done
 
@@ -99,8 +99,8 @@ Make sure any of the following meta packages is installed.<br />
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
 
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   EXIT_CODE="1"
+   emit_message warning "$MSG"
 }
 
 check_unwanted_packages() {
@@ -121,21 +121,18 @@ check_unwanted_packages() {
    done
 
    if [ "$unwanted_packages_counter" = "0" ]; then
-      local MSG="<p>$PROJECT_NAME Unwanted Packages Test Result: None found.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>$PROJECT_NAME Unwanted Packages Test Result: None found, $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
    local if_you_know_what_you_are_doing_msg see_also_link
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
    see_also_link="<a href=${PROJECT_HOMEPAGE}/wiki/Debian_Packages>${PROJECT_HOMEPAGE}/wiki/Debian_Packages</a>"
 
    local packages_help_msg
-   packages_help_msg="<br></br>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
-<br></br>2. Purge. <blockquote><code>sudo apt-get purge $unwanted_packages_list</code></blockquote>"
+   packages_help_msg="<br/>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
+<br/>2. Purge. <blockquote><code>sudo apt-get purge $unwanted_packages_list</code></blockquote>"
 
    if [ "$qubes_detected" = "true" ]; then
       if [ "$qubes_vm_persistence" = "full" ]; then
@@ -144,10 +141,10 @@ check_unwanted_packages() {
          true
       else
          ## TemplateBasedVM
-         packages_help_msg="<br></br>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
-<br></br>2. Purge. <blockquote><code>sudo apt-get purge $unwanted_packages_list</code></blockquote>
-3. Shutdown your TemplateVM. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_base_template</code>' -> Shutdown VM)
-<br></br>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 -> Qubes VM Manager -> right click '<code>$qubes_name_of_vm</code>' -> Shutdown VM)"
+         packages_help_msg="<br/>1. Open a terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
+<br/>2. Purge. <blockquote><code>sudo apt-get purge $unwanted_packages_list</code></blockquote>
+<br/>3. Shutdown your TemplateVM. (dom0 / Qubes VM Manager / right click '<code>$qubes_base_template</code>' / Shutdown VM)
+<br/>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 / Qubes VM Manager / right click '<code>$qubes_name_of_vm</code>' / Shutdown VM)"
       fi
    fi
 
@@ -156,8 +153,8 @@ It is recommended that you remove them from $update_where.
 $packages_help_msg
 <br />See also: $see_also_link
 <br />$if_you_know_what_you_are_doing_msg</p>"
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   EXIT_CODE="1"
+   emit_message warning "$MSG"
 }
 
 check_packages() {

@@ -5,6 +5,11 @@
 systemcheck is a system health check tool for Kicksecure and Whonix.
 It runs a series of diagnostic functions and reports results via CLI and GUI (msgcollector).
 
+## Tests
+
+Comprehensive tests live in the AI-maintained dist-ai repo, not here:
+https://github.com/org-ai-assisted/dist-ai
+
 ## Architecture
 
 - Shell scripts in `usr/libexec/systemcheck/` with a `.bsh` file name

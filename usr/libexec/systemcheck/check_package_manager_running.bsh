@@ -3,31 +3,45 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_package_manager_running() {
-   if check_package_manager_running_helper; then
-      if [ "$systemcheck_package_manager_waiting" = "1" ]; then
-         $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+   local MSG waited
+   ## Wait for a running apt/dpkg to finish, but never block the whole run
+   ## forever if a lock is held. Package operations can legitimately be long, so
+   ## the cap is generous and overridable via systemcheck_package_manager_wait_max.
+   [ -v systemcheck_package_manager_wait_max ] || systemcheck_package_manager_wait_max="1200"
+   waited="0"
+   while ! check_package_manager_running_helper; do
+      if [ "$waited" -ge "$systemcheck_package_manager_wait_max" ]; then
+         if [ "$systemcheck_package_manager_waiting" = "1" ]; then
+            $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
+         fi
+         MSG="<p>Check Package Manager Running Result: a package manager (apt/dpkg) is still running after ${systemcheck_package_manager_wait_max} seconds; continuing without waiting further.</p>"
+         emit_message warning "$MSG"
+         return 0
       fi
-      local MSG="<p>Check Package Manager Running Result: None running, ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      if [ ! "$systemcheck_package_manager_waiting" = "1" ]; then
+         systemcheck_package_manager_waiting="1"
+
+         progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
+
+         MSG="$package_manager_waiting_msg_x"
+         $output_cli "${output_opts[@]}" --waitmessagecli --typecli "info" --message "$MSG" --done
+         ## Start progress bar to show we are waiting.
+         $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
       fi
-      return 0
+
+      sleep "10" &
+      wait "$!" || true
+      waited="$(( waited + 10 ))"
+   done
+
+   if [ "$systemcheck_package_manager_waiting" = "1" ]; then
+      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
    fi
-
-   if [ ! "$systemcheck_package_manager_waiting" = "1" ]; then
-      systemcheck_package_manager_waiting="1"
-
-      progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-
-      local MSG="$package_manager_waiting_msg_x"
-      $output_cli ${output_opts[@]} --waitmessagecli --typecli "info" --message "$MSG" --done
-      ## Start progress bar to show we are waiting.
-      $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
-   fi
-
-   sleep "10" &
-   wait "$!" || true
-   check_package_manager_running
+   MSG="<p>Check Package Manager Running Result: None running, $status_ok</p>"
+   output_if_verbose emit_message info "$MSG"
+   return 0
 }

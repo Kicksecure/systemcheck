@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_control_port_filter_running() {
    ## Small check if Control Port Filter Proxy is functional.
 
@@ -22,25 +25,23 @@ check_control_port_filter_running() {
    while ! leaprun onion-grater-status >/dev/null 2>&1 ; do
       local MSG="<p>Control Port Filter Proxy test: The onion-grater service is not running. Waiting up to 30 seconds.</p>"
       if [ "$silent" -le "2" ]; then
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       fi
       i="$(( $i + 1 ))"
       if [ "$i" -ge "30" ]; then
          local if_you_know_what_you_are_doing_msg
-         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
+         local remediation
+         remediation="$(remediation_instructions "systemctl restart onion-grater")"
          local MSG="<p>Control Port Filter Proxy Test Result: onion-grater service not running.
-<br></br>
-<br></br>Did you disable Control Port Filter Proxy?
-<br></br>
-<br></br>Recommendation:
-Try manually starting onion-grater.
-<blockquote>
-<code>sudo systemctl restart onion-grater</code>
-</blockquote>
+<br/>
+<br/>Did you disable Control Port Filter Proxy?
+<br/>
+<br/>Recommendation: try manually starting onion-grater.
+<br/>${remediation}
 
 $if_you_know_what_you_are_doing_msg</p>"
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
          return 0
       fi
@@ -48,9 +49,6 @@ $if_you_know_what_you_are_doing_msg</p>"
       lastpid="$!"
       wait "$lastpid" || true
    done
-   local MSG="<p>Control Port Filter Proxy Test Result: OK</p>"
-   if [ "$verbose" -ge "1" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-   fi
+   local MSG="<p>Control Port Filter Proxy Test Result: $status_ok</p>"
+   output_if_verbose emit_message info "$MSG"
 }

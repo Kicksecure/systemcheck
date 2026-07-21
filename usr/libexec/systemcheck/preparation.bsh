@@ -3,6 +3,12 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## This file is a sourced fragment, not a standalone script. It is sourced
+## into 'systemcheck', which owns the strict-mode preamble. Setting
+## 'set -o nounset' etc. here would leak into the sourcing shell and break
+## systemcheck's reliance on unset variables.
+
 source /usr/libexec/systemcheck/uwt_tool.bsh
 
 systemcheck_autostart_functions+=" source_config "
@@ -11,6 +17,11 @@ systemcheck_autostart_functions+=" root_check "
 systemcheck_autostart_functions+=" msgdispatcher_init "
 systemcheck_autostart_functions+=" sysmaint_state_detection "
 systemcheck_autostart_functions+=" cleanup "
+
+## Standard success token: a green "OK." rendered in BOTH the GUI (<font>) and
+## the CLI (msgcollector translates <font color> to ANSI). Use for check
+## success/result lines so users get one unmistakable, consistent indicator.
+status_ok='<font color="green">OK.</font>'
 
 output_if_verbose() {
    if [ "$verbose" -ge "1" ]; then
@@ -71,7 +82,7 @@ you could add to command line: --gui</p>"
       GUI="true"
       input_auto="true"
       input_msg="<p>Input Detection: INPUT_AUTO=$input_auto CLI=$CLI GUI=$GUI
-stdin not connected to terminal, probably run in graphical environment, ok.</p>"
+stdin not connected to terminal, probably run in graphical environment, $status_ok</p>"
    fi
    if [ "$CLI" = "false" ]; then
       ## Set output_cli to bash built-in 'true' so it will be ignored.
@@ -87,28 +98,27 @@ input_notification() {
    local MSG
    MSG="$input_msg"
    if [ "$verbose" -ge "2" ]; then
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      emit_message info "$MSG"
    fi
 }
 
 check_login_environment() {
   if [ "${PROFILE_SCRIPTS_WERE_SOURCED-}" != 'yes' ]; then
     MSG="<p>You do not appear to be running systemcheck in a 'login environment'. Most tests will likely fail. Please log in as the user you wish to run systemcheck as, then run systemcheck from there.</p>"
-    $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+    $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
 
     MSG="
 You do not appear to be running systemcheck in a 'login environment'. Most
 tests will likely fail. Please log in as the user you wish to run systemcheck
 as, then run systemcheck from there."
-    $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+    $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
   fi
 }
 
 show_systemcheck_header() {
    if [ "$verbose" -ge "1" ] || [ "$qubes_detected" = "true" ]; then
       local MSG="$TITLE_CLI"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
    fi
 }
 
@@ -145,24 +155,11 @@ virtualizer_detection() {
       systemcheck_virtualizer_detected="unknown"
    fi
 
-   if [ "$systemcheck_virtualizer_detected" = "none" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "oracle" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "kvm" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "qemu" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "qubes" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
-   if [ "$systemcheck_virtualizer_detected" = "vmware" ]; then
-      systemcheck_platform_or_virtualizer_known=true
-   fi
+   case "$systemcheck_virtualizer_detected" in
+      none|oracle|kvm|qemu|qubes|vmware)
+         systemcheck_platform_or_virtualizer_known=true
+         ;;
+   esac
 }
 
 sysmaint_state_detection() {
@@ -193,16 +190,106 @@ sysmaint_state_detection() {
 }
 
 if_you_know_what_you_are_doing_funct() {
-   ## $1 - $FUNCNAME
+   ## $1 - ${FUNCNAME[0]}
    echo "\
 If you know what you are doing, feel free to disable this check.
 Create a file <code>/etc/systemcheck.d/50_user.conf</code> and add:
 <code><blockquote>systemcheck_skip_functions+=\" $1 \"</blockquote></code>"
 }
 
+leaprun_cmd_describe() {
+   ## Describe a command shown in systemcheck output, decoupling what RAN from
+   ## how it reads, so a privleap action is never mislabelled as sudo.
+   ## $1 - underlying, human-familiar command, e.g. "systemctl --wait is-system-running"
+   ## $2 - optional leaprun action name; if set, $1 was run as root via privleap
+   local underlying action
+   underlying="$1"
+   action="${2:-}"
+   if [ -z "$action" ]; then
+      ## User session: ran unprivileged, as the current user.
+      printf '%s' "<code>${underlying}</code>"
+      return 0
+   fi
+   ## Privileged: leaprun ran a fixed action as root via privleap (PAM), not sudo.
+   printf '%s' "<code>leaprun ${action}</code> (runs '<code>${underlying}</code>' as root via privleap, not sudo)"
+}
+
+remediation_instructions() {
+   ## Render a session-aware "how to fix" instruction for a privileged command.
+   ## In a user session sudo is unavailable, so root fixes must run in a System
+   ## Maintenance (sysmaint) session. The sysmaint session is itself a
+   ## sudo-capable session (not a root shell), so sudo is shown in every case;
+   ## only WHERE to run it changes.
+   ## $1 - the fix command to run, WITHOUT a leading 'sudo' (added here).
+   local fix_command
+   fix_command="$1"
+   if [ "$booted_in_sysmaint_session" = "true" ]; then
+      printf '%s' "To fix, click \"Open Terminal\" in the System Maintenance Panel, then run:<blockquote><code>sudo ${fix_command}</code></blockquote>"
+   elif [ "$user_sysmaint_split_installed" = "true" ]; then
+      printf '%s' "To fix, reboot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>, click \"Open Terminal\" in the System Maintenance Panel, and run:<blockquote><code>sudo ${fix_command}</code></blockquote>"
+   else
+      printf '%s' "To fix, open a terminal (${start_menu_instructions_system_first_part} Terminal) and run:<blockquote><code>sudo ${fix_command}</code></blockquote>"
+   fi
+}
+
+html_link() {
+   ## Build a GUI hyperlink (HTML anchor) from a URL + link text, so a check
+   ## keeps one source of truth (the URL, reused verbatim in the CLI message)
+   ## instead of hand-writing the escaped-quote <a href="..."> boilerplate.
+   ## $1 - URL, $2 - link text.
+   printf '%s' "<a href=\"$1\">$2</a>"
+}
+
+emit_status_line() {
+   ## Emit a "Label: STATUS" check result to BOTH channels from one message,
+   ## folding the previously separate GUI and CLI messages. The label is a
+   ## clickable link in the GUI and "text (url)" on the CLI (msgcollector
+   ## translates <a href>); the STATUS word is colored (<font color> -> terminal
+   ## color); and any <br> in the trailing body becomes a newline on the CLI.
+   ## $1 - severity: info | warning | error
+   ## $2 - label text (also the link text)
+   ## $3 - URL
+   ## $4 - status color: green | orange | yellow | red
+   ## $5 - status word
+   ## $6 - optional trailing body after the status word. Real newlines in it are
+   ##      translated to <br/>, so you can write a readable multi-line body in
+   ##      the source instead of one long line with literal <br/> (use real
+   ##      newlines only, not a mix). msgcollector turns the <br/> back into a
+   ##      newline on the CLI.
+   ## An empty URL ($3) renders the label as plain text (no link).
+   local sev text url color status trailing label MSG
+   sev="$1"
+   text="$2"
+   url="$3"
+   color="$4"
+   status="$5"
+   trailing="${6:-}"
+   trailing="${trailing//$'\n'/<br/>}"
+   if [ -z "$url" ]; then
+      label="$text"
+   else
+      label="$(html_link "$url" "$text")"
+   fi
+   MSG="<p>${label}: <font color=\"$color\">$status</font>${trailing}</p>"
+   $output_x "${output_opts[@]}" --messagex --typex "$sev" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "$sev" --message "$MSG"
+}
+
+emit_message() {
+   ## Send the SAME message to both output channels (GUI and CLI) at one
+   ## severity, folding the previously duplicated $output_x / $output_cli pair.
+   ## Use this for free-form message bodies; use emit_status_line for the
+   ## "Label: STATUS" check-result shape. Wrap the call in output_if_verbose to
+   ## emit only in verbose mode.
+   ## $1 - severity: info | warning | error
+   ## $2 - message (HTML; the CLI channel renders it via msgcollector)
+   $output_x "${output_opts[@]}" --messagex --typex "$1" --message "$2"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "$1" --message "$2"
+}
+
 systemcheck_run_function() {
    case $systemcheck_skip_functions in
-   *"$@"*) echo "INFO: Skipping $@, because systemcheck_skip_functions includes it."
+   *"$@"*) echo "INFO: Skipping $* because systemcheck_skip_functions includes it."
            return 0
            ;;
    esac
@@ -214,7 +301,7 @@ systemcheck_run_function() {
              ;;
       esac
    fi
-   true "INFO: Running $@."
+   true "INFO: Running $*."
    "$@"
 }
 
@@ -241,8 +328,10 @@ get_local_derivative_version() {
    ## Example: derivative_deb_package_version="2:6-debpackage1"
 
    if [ "$derivative_deb_package_version_detection_success" = "true" ]; then
-      ## Remove epoch from derivative_deb_package_version.
-      derivative_deb_package_version="$(echo "$derivative_deb_package_version" | awk -F ":" '{ print $2 }')"
+      ## Remove a leading "epoch:" prefix if present, e.g.
+      ## "2:6-debpackage1" -> "6-debpackage1". Strips only the first colon, so
+      ## a colon elsewhere in the version and a missing epoch are both handled.
+      derivative_deb_package_version="${derivative_deb_package_version#*:}"
    fi
 
    ## Example: derivative_deb_package_version="6-debpackage1"
@@ -356,7 +445,9 @@ preparation() {
    ## sets: GATEWAY_IP
    ## sets: GATEWAY_IP6
    ## sets: gateway_control_port
-   eval $(/usr/libexec/helper-scripts/settings_echo)
+   local settings_echo_output
+   settings_echo_output="$(/usr/libexec/helper-scripts/settings_echo)"
+   eval "$settings_echo_output"
 
    ## 'uname --machine' is better than 'dpkg --print-architecture'.
    ## ARCH="x86_64"
@@ -383,6 +474,7 @@ preparation() {
       ## sys-whonix
       ## whonix
       qubes_name_of_vm="$(qubesdb-read /name)" || true
+      qubes_name_of_vm="$(sanitize-string -- 255 "$qubes_name_of_vm")"
 
       passive_popup_title="[${qubes_name_of_vm}]"
 
@@ -396,6 +488,7 @@ preparation() {
 
       ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
       qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
+      qubes_vm_type="$(sanitize-string -- 255 "$qubes_vm_type")"
 
       ## '/qubes-vm-persistence' outputs:
       ## - 'full' (TemplateVM or Standalone),
@@ -407,38 +500,39 @@ preparation() {
       ## whonix-gw-14
       ## whonix-ws-14
       qubes_base_template="$(qubesdb-read /qubes-base-template)" || true
+      qubes_base_template="$(sanitize-string -- 255 "$qubes_base_template")"
 
       if test -f /run/qubes/this-is-templatevm ; then
          qubes_title_extra=" | TemplateVM"
          update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
-         persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_name_of_vm</code> ->"
+         persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_name_of_vm</code> /"
          start_menu_instructions_system_first_part="$persistent_changes_start_menu_instructions_first_part"
       else
          if [ "$qubes_vm_persistence" = "full" ]; then
             qubes_title_extra=" | Standalone $qubes_vm_type"
             update_where="this StandaloneVM ('<code>$qubes_name_of_vm</code>')"
-            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Domain: <code>$qubes_name_of_vm</code> ->"
+            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Domain: <code>$qubes_name_of_vm</code> /"
             start_menu_instructions_system_first_part="$persistent_changes_start_menu_instructions_first_part"
          elif [ "$qubes_vm_persistence" = "rw-only" ]; then
             qubes_title_extra=" | $qubes_base_template TemplateBased $qubes_vm_type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM"
-            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_base_template</code> ->"
-            start_menu_instructions_system_first_part="dom0 -> Start Menu -> $qubes_starter_first_part: <code>$qubes_name_of_vm</code> ->"
+            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_base_template</code> /"
+            start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
          elif [ "$qubes_vm_persistence" = "none" ]; then
             qubes_title_extra=" | $qubes_base_template DispVM $qubes_vm_type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM"
-            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_base_template</code> ->"
-            start_menu_instructions_system_first_part="dom0 -> Start Menu -> $qubes_starter_first_part: <code>$qubes_name_of_vm</code> ->"
+            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_base_template</code> /"
+            start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
          else
             qubes_title_extra=" | Unknown Qubes VM Type"
-            update_where="<?> your '<code>$qubes_base_template</code>' TemplateVM </?>"
-            persistent_changes_start_menu_instructions_first_part="dom0 -> Start Menu -> Template: <code>$qubes_base_template</code> ->"
-            start_menu_instructions_system_first_part="dom0 -> Start Menu -> $qubes_starter_first_part: <code>$qubes_name_of_vm</code> ->"
+            update_where="your '<code>$qubes_base_template</code>' TemplateVM (VM type could not be determined)"
+            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_base_template</code> /"
+            start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
          fi
       fi
       TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(LC_ALL=C date --utc)"
    else
-      start_menu_instructions_system_first_part="Start Menu -> System ->"
+      start_menu_instructions_system_first_part="Start Menu / System /"
       persistent_changes_start_menu_instructions_first_part="$start_menu_instructions_system_first_part"
       qubes_title_extra=""
       update_where="this machine"
