@@ -3,6 +3,15 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## style-ok: allow-errexit-toggle
+## Does not use the full strict-mode block by design: it enables errexit only
+## to source the msgcollector error_handler, installs an ERR trap, then runs
+## with 'set +e' so a failing check reports via the trap instead of aborting
+## the whole run (the deliberate global mode switch R-011's waiver exists for).
+## nounset is likewise unsafe here -- many optional flag variables are read
+## before being set.
+
 ## If anyone adds a VPN or something similar to Whonix-Workstation
 ## (i.e. connection scheme: Whonix-Workstation -> Tor -> VPN), he would wonder
 ## why it is not detected.
