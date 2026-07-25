@@ -48,6 +48,13 @@ parse_cmd_options() {
                   shift 2
                fi
                ;;
+           --skip)
+               ## Skip a specific check function (repeatable). Kept in a separate
+               ## variable from systemcheck_skip_functions because source_config
+               ## (run after this) resets the latter from the config files.
+               systemcheck_skip_functions_cli="${systemcheck_skip_functions_cli:-} $2 "
+               shift 2
+               ;;
            --mode)
                MODE="$2"
                shift 2
