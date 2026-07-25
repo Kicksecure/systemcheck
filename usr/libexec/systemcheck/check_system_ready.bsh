@@ -57,12 +57,26 @@ check_system_ready_shared() {
 
       if [ "$i" -ge "$max" ]; then
          EXIT_CODE="1"
-         local MSG="<p>System ready check ($type) Result: Failed.
+         ## Name the offending units: 'degraded'/is-system-running only reports the
+         ## aggregate state, so list the actually-failed units to make the failure
+         ## actionable without a separate 'systemctl --failed'.
+         local failed_units_list
+         if [ "$type" = "user" ]; then
+            failed_units_list="$(systemctl --user --failed --no-legend --plain --no-pager list-units 2>/dev/null)" || true
+         else
+            failed_units_list="$(systemctl --failed --no-legend --plain --no-pager list-units 2>/dev/null)" || true
+         fi
+         [ -n "$failed_units_list" ] || failed_units_list="(no failed units reported)"
+         local failed_units_html MSG
+         failed_units_html="$(br_add "$failed_units_list")"
+         MSG="<p>System ready check ($type) Result: Failed.
 <br/>
 <br/>Debugging information:
 <br/>Command:
 <br/>$system_ready_check_help_text_cmd
-<br/>result: '<code>$result</code>'</p>"
+<br/>result: '<code>$result</code>'
+<br/>failed units:
+<br/><code>$failed_units_html</code></p>"
          emit_message warning "$MSG"
          return 0
       fi
