@@ -71,7 +71,10 @@ check_service_logs() {
     return 1
   fi
 
-  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|BUG|segfault|killed|(^|[^a-zA-Z])fault($|[^a-zA-Z])|self-detected stall on CPU"
+  ## 'BUG' is word-boundary anchored (like 'fault' below) so it matches real
+  ## kernel reports ('BUG:', 'kernel BUG at') but NOT the substring in words like
+  ## 'debugging' (e.g. the debug-shell.service 'FOR DEBUGGING ONLY' message).
+  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|(^|[^a-zA-Z])BUG([^a-zA-Z]|$)|segfault|killed|(^|[^a-zA-Z])fault($|[^a-zA-Z])|self-detected stall on CPU"
 
   if test -e /usr/share/qubes/marker-vm; then
     journal_ignore_patterns_list+=( "virtualbox" )
