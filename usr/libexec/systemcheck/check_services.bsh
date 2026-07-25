@@ -27,6 +27,20 @@ check_services_do() {
 
    systemctl_output_without_legend="$($machine_command_machine 2>&1)" || true
 
+   ## Drop CLI-ignored units (--ignore-failed-unit) from the failed-units list --
+   ## for expected, environment-specific failures such as systemd-modules-load
+   ## under Secure Boot, where an unsigned out-of-tree module (tirdad) cannot load.
+   if [ -n "${systemcheck_ignore_failed_units_cli:-}" ]; then
+      local _ignore_unit
+      for _ignore_unit in $systemcheck_ignore_failed_units_cli; do
+         systemctl_output_without_legend="$(printf '%s\n' "$systemctl_output_without_legend" | grep -vF -- "$_ignore_unit" || true)"
+      done
+      ## After filtering, treat a whitespace-only result as "no failed units".
+      if ! printf '%s' "$systemctl_output_without_legend" | grep -qE '[^[:space:]]'; then
+         systemctl_output_without_legend=""
+      fi
+   fi
+
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
       MSG="<p>systemd '<u>$check_type</u>' units check result: $status_ok</p>"
