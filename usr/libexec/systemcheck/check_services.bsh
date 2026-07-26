@@ -158,6 +158,47 @@ print_verbose_log_output_message_maybe() {
    fi
 }
 
+apply_journal_ignore_cli() {
+   ## Drop journal lines matching any --journal-ignore-fixed (fixed string) or
+   ## --journal-ignore-match (extended regexp), so an expected / environment-
+   ## specific warning does not fail check_journal (e.g. privleapd skipping a tor
+   ## action whose 'debian-tor' TargetUser is absent on a no-tor build). These are
+   ## the CLI counterparts of the config-file journal_ignore_fixed_list /
+   ## journal_ignore_patterns_list and are applied ON TOP of them, so nothing
+   ## existing is weakened. Returns the input unchanged when neither CLI list is
+   ## set, and empty when only '<br />'/whitespace survives (so
+   ## print_verbose_log_output_message_maybe reads it as OK). log-checker br_add's
+   ## one journal entry per line, so a line filter matches per entry.
+   local input result journal_ignore_pattern grep_ignore_cli_command
+   input="${1:-}"
+   if [ -z "${systemcheck_journal_ignore_fixed_cli:-}" ] \
+      && [ -z "${systemcheck_journal_ignore_match_cli:-}" ]; then
+      printf '%s' "$input"
+      return 0
+   fi
+   result="$input"
+   if [ -n "${systemcheck_journal_ignore_fixed_cli:-}" ]; then
+      grep_ignore_cli_command=(grep --invert-match --fixed-strings --ignore-case)
+      while IFS= read -r journal_ignore_pattern; do
+         [ -n "$journal_ignore_pattern" ] || continue
+         grep_ignore_cli_command+=(-e "$journal_ignore_pattern")
+      done <<< "$systemcheck_journal_ignore_fixed_cli"
+      result="$(printf '%s\n' "$result" | "${grep_ignore_cli_command[@]}")" || true
+   fi
+   if [ -n "${systemcheck_journal_ignore_match_cli:-}" ]; then
+      grep_ignore_cli_command=(grep --invert-match --extended-regexp --ignore-case)
+      while IFS= read -r journal_ignore_pattern; do
+         [ -n "$journal_ignore_pattern" ] || continue
+         grep_ignore_cli_command+=(-e "$journal_ignore_pattern")
+      done <<< "$systemcheck_journal_ignore_match_cli"
+      result="$(printf '%s\n' "$result" | "${grep_ignore_cli_command[@]}")" || true
+   fi
+   if ! printf '%s' "${result//<br \/>/}" | grep --quiet -- '[^[:space:]]'; then
+      return 0
+   fi
+   printf '%s' "$result"
+}
+
 check_journal() {
    local log_output last_boot_log_output critical_output \
       last_boot_critical_output MSG
@@ -177,6 +218,13 @@ check_journal() {
    critical_output="$(leaprun log-checker-check_critical_logs)" || true
    last_boot_log_output="$(leaprun log-checker-check_service_logs_last_boot)" || true
    last_boot_critical_output="$(leaprun log-checker-check_critical_logs)" || true
+
+   ## Drop journal lines matching any --journal-ignore fixed string (CLI, on top
+   ## of log-checker's config-file ignores) before deciding pass/fail. Only the
+   ## general 'warn/fail/error' output is filtered; the critical_output path is
+   ## left intact so genuinely critical entries are never suppressed by the CLI.
+   log_output="$(apply_journal_ignore_cli "$log_output")"
+   last_boot_log_output="$(apply_journal_ignore_cli "$last_boot_log_output")"
 
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
