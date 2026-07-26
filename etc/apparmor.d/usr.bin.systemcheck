@@ -12,7 +12,7 @@ include <tunables/global>
   include <abstractions/dbus>
   include <abstractions/fonts>
   include <abstractions/tor-circuit-established-check>
-  include <abstractions/totem>
+  include if exists <abstractions/totem>
   include <abstractions/ubuntu-konsole>
   include <local/usr.bin.systemcheck>
   include if exists <abstractions/tor>

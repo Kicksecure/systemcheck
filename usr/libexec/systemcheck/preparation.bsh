@@ -293,6 +293,11 @@ systemcheck_run_function() {
            return 0
            ;;
    esac
+   case ${systemcheck_skip_functions_cli:-} in
+   *"$@"*) echo "INFO: Skipping $* because it was passed to --skip."
+           return 0
+           ;;
+   esac
    if [ "$systemcheck_autostart_mode" = 'true' ]; then
       case $systemcheck_autostart_functions in
           *"$@"*) true;;
