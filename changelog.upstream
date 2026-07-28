@@ -1,3 +1,191 @@
+commit 7c8f76b9fd4c343a81cb14eb62887d2bf8e6a871
+Merge: 8290070 48fa41f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jul 28 08:19:12 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/org-ai-assisted/master'
+
+commit 48fa41fde8ddcd333fab17e2b61da5c650ce1d7b
+Merge: 1bdbae6 16dfb47
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Sun Jul 26 11:42:26 2026 -0400
+
+    Merge pull request #10 from org-ai-assisted/ai-systemcheck-iproute2
+
+    boot-test: iproute2 dep + --journal-ignore CLI
+
+commit 16dfb47e2b4a586d05f38a49c4f26fd5676765bc
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@anthropic.com>
+Date:   Sun Jul 26 09:15:49 2026 -0400
+
+    check_journal: --journal-ignore-fixed / --journal-ignore-match CLI exceptions
+
+    Add CLI counterparts of the config-file journal_ignore_fixed_list /
+    journal_ignore_patterns_list so a caller can whitelist expected,
+    environment-specific journal warnings without editing systemcheck.d:
+    - --journal-ignore-fixed <str>   : fixed-string (grep --fixed-strings)
+    - --journal-ignore-match <regexp>: extended regexp (grep --extended-regexp)
+
+    check_journal drops matching lines from log_output on top of log-checker's
+    config-file ignores (nothing existing weakened); critical_output is untouched,
+    so genuinely critical entries can never be suppressed. For expected warnings
+    like privleapd skipping a tor action whose 'debian-tor' TargetUser is absent on
+    a no-tor build.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 829007065cca7b23836f588ead68efa3fce85498
+Merge: 6c74d70 1bdbae6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 26 08:11:25 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/org-ai-assisted/master'
+
+commit f5f78bfde3f0950aaaacd498b643414af1bd4e75
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@anthropic.com>
+Date:   Sat Jul 25 20:28:50 2026 -0400
+
+    depend on iproute2 (check_network_interfaces uses 'ip')
+
+    check_network_interfaces runs 'ip -o addr show scope global'; without iproute2
+    the 'ip' command is absent (net-tools does not provide it), so the check errors
+    "No external network interface found" and sets EXIT_CODE=1. Add iproute2.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 1bdbae6493abe95554f54f6782ed9e7c4e1d2500
+Merge: b0e0a86 14786c6
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Sat Jul 25 14:36:50 2026 -0400
+
+    Merge pull request #9 from org-ai-assisted/ai-boot-test-minimal-fixes
+
+    systemcheck: boot-test fixes (skip flag, degraded-unit naming, apparmor include-if-exists)
+
+commit 14786c66405a38f15198fb2b0fc48f46ef950314
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@anthropic.com>
+Date:   Sat Jul 25 14:08:24 2026 -0400
+
+    apparmor: make optional totem abstraction include-if-exists
+
+    usr.bin.systemcheck hard-included <abstractions/totem>, which is absent on a
+    no-GUI install. apparmor_parser then failed to load the profile, so
+    apparmor.service failed entirely and disallowed-test stayed unconfined -- the
+    systemcheck AppArmor check then reports Failed. Use 'include if exists', the
+    idiom the same profile already uses for <abstractions/tor>.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 3b53d69b11a5efa1f485f8e76587d529a7d9514c
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@anthropic.com>
+Date:   Sat Jul 25 12:52:32 2026 -0400
+
+    check_system_ready: list the failed units when degraded
+
+    is-system-running only reports the aggregate degraded state; list the actually-
+    failed units in the failure message so the culprit is named without a separate
+    systemctl --failed.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 6d0512089f6330bccd695622189d383e3f85ce91
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@anthropic.com>
+Date:   Sat Jul 25 07:20:19 2026 -0400
+
+    check_journal: ignore benign spice-vdagentd 'active session' message
+
+    spice-vdagentd logs "Error getting active session: No data available" when
+    no logind session is present -- a maintenance (sysmaint) boot has no
+    graphical session, and a VM with no SPICE channel has no agent to serve.
+    Add it beside the existing spice-vdagent ignores.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 7f0c667246ba3f9925a1715e5506088450460100
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@anthropic.com>
+Date:   Sat Jul 25 07:20:18 2026 -0400
+
+    check_system_ready: honor --ignore-failed-unit in the degraded branch
+
+    A 'degraded' is-system-running result fails the check even when the only
+    failed unit is one the caller told systemcheck to ignore (e.g.
+    systemd-modules-load under Secure Boot, where unsigned out-of-tree tirdad
+    cannot load). Treat degraded as ready when every failed unit is on the
+    --ignore-failed-unit list, mirroring check_services.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 040ed27dfcb21898fe8a63da77592f2d82403675
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@example.com>
+Date:   Sat Jul 25 05:35:55 2026 -0400
+
+    log-checker: word-boundary 'BUG'; add --ignore-failed-unit CLI option
+
+    - log-checker: the journal search pattern matched a bare 'BUG', so the
+      debug-shell.service "FOR DEBUGGING ONLY" message was flagged as a kernel BUG
+      (a false substring match on "DEBUGGING"). Anchor 'BUG' to word boundaries like
+      the neighbouring 'fault' pattern -- real 'BUG:' / 'kernel BUG at' still match,
+      'debugging' no longer does. Root fix; no journal-ignore or check skip needed.
+    - Add '--ignore-failed-unit <unit>' (repeatable): the units check drops the named
+      unit from the failed list. For expected environment failures such as
+      systemd-modules-load under Secure Boot, where an unsigned out-of-tree module
+      (tirdad) cannot load. Other failed units are still reported.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 6cca22fe11d4e919c947842259df4de41c858741
+Author: claude (dev74 3cdbae8e-30ec-412d-8ce2-ba63d1c9b6af) <noreply@example.com>
+Date:   Sat Jul 25 05:10:31 2026 -0400
+
+    Add --skip CLI flag to skip a check function (repeatable)
+
+    systemcheck could only skip functions via the systemcheck_skip_functions config
+    variable (a systemcheck.d drop-in). Add a first-class '--skip <function>' command
+    line option so callers (e.g. an image boot-test) can skip environment/timing
+    checks without editing config files. Kept in a separate variable
+    (systemcheck_skip_functions_cli) because source_config -- which runs after
+    parse_cmd -- resets systemcheck_skip_functions from the config files;
+    systemcheck_run_function now honours both lists.
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 6c74d708f2977554b58d6a4b88969ad3a51e9597
+Merge: 8146332 b0e0a86
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jul 23 08:18:53 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/org-ai-assisted/master'
+
+commit b0e0a86509323cf5451e7582e5c0cb8645dbffb9
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Tue Jul 21 07:56:26 2026 -0400
+
+    systemcheck: mark the worker no-strict / allow-errexit-toggle (intentional design) (#8)
+
+    The worker enables errexit only to install msgcollector's ERR trap, then runs with 'set +e' (the deliberate mode switch R-011's waiver exists for); nounset is unsafe too. Add the two documented gate waivers so the full-tree static gate passes.
+
+    AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 6d7dcd727bf1a7c72c70cd2fc3d861acf8f0dd4c
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Tue Jul 21 07:23:44 2026 -0400
+
+    Fix duplicated build-version URL in CLI output; harden unset-var reads (#7)
+
+    The build-version line embedded its URL in the anchor (rendered into the CLI Links: footnote) and also appended the bare URL, printing it twice. Fold the block into emit_message so the URL is emitted once. Also default verbose/CLI/GUI/BUG/deprecated_derivative at init so the normal path never reads them unset, and clear touched-line shellcheck findings in the worker.
+
+    AI-Assisted
+
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+commit 8146332e137c74d5e0ef8a488ba9af692b07b711
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jul 21 11:09:52 2026 +0000
+
+    bumped changelog version
+
 commit eaff9ffd44dc3822b954a609623ecedd90aba8fb
 Merge: bb35ec3 7064c93
 Author: Patrick Schleizer <adrelanos@whonix.org>
