@@ -105,6 +105,8 @@ systemcheck_main() {
    [ -v deprecated_derivative ] || deprecated_derivative=""
    [ -v systemcheck_skip_functions_cli ] || systemcheck_skip_functions_cli=""
    [ -v systemcheck_ignore_failed_units_cli ] || systemcheck_ignore_failed_units_cli=""
+   [ -v systemcheck_journal_ignore_fixed_cli ] || systemcheck_journal_ignore_fixed_cli=""
+   [ -v systemcheck_journal_ignore_match_cli ] || systemcheck_journal_ignore_match_cli=""
 
    ## This MUST be done before parse_cmd_options is called, or systemcheck
    ## may execute arbitrary Bash commands present in the 'verbose' env var.
