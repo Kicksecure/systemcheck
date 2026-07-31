@@ -73,16 +73,18 @@ run_with_attempts() {
       return 1
     fi
     true "$0: INFO: $label - failed. Sleep and try again."
-    light_sleep "${sleep_amount}" &
+    ## Foreground (no '&'): backgrounding would let every retry fire back to
+    ## back with no delay, defeating the whole point of sleep_amount.
+    light_sleep "${sleep_amount}"
   done
 }
 
 close_notification() {
-  true "$0: $FUNCNAME: START"
+  true "$0: ${FUNCNAME[0]}: START"
   ## notification_id might be unset if signal sigterm is received very quickly.
   [[ -v notification_id ]] || notification_id=""
   if [ "$notification_id" = "" ]; then
-    true "$0: $FUNCNAME: notification_id is unset. return 0"
+    true "$0: ${FUNCNAME[0]}: notification_id is unset. return 0"
     return 0
   fi
 
@@ -92,7 +94,7 @@ close_notification() {
     org.freedesktop.Notifications.CloseNotification \
     "$notification_id"
 
-  true "$0: $FUNCNAME: END"
+  true "$0: ${FUNCNAME[0]}: END"
 }
 
 send_notification_wait_exit() {
@@ -165,14 +167,14 @@ Please run systemcheck."
 }
 
 sigterm_trap() {
-  true "$0: $FUNCNAME: START"
+  true "$0: ${FUNCNAME[0]}: START"
   close_notification
-  true "$0: $FUNCNAME: END"
+  true "$0: ${FUNCNAME[0]}: END"
   exit 0
 }
 
 exit_trap() {
-  true "$0: $FUNCNAME: end of script: END"
+  true "$0: ${FUNCNAME[0]}: end of script: END"
   exit 0
 }
 
