@@ -1,3 +1,39 @@
+commit 2b989c73c907cd4a78fd4519216eac1a16485d8f
+Merge: c65d2db bde12b5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Aug 1 04:26:01 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/org-ai-assisted/master'
+
+commit bde12b5ee18519d5d7099a31c36f67e0ebc14078
+Merge: c65d2db 5f50310
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Fri Jul 31 16:00:29 2026 -0400
+
+    Merge pull request #11: updatecheck retry sleep runs in foreground
+
+    run_with_attempts no longer backgrounds the inter-attempt light_sleep, so retries actually wait. Reviewed: codex + coderabbit clean; agy's signal-deferral concern empirically refuted (light_sleep is read -t, trap fires at ~0s).
+
+commit 5f50310c6c9bbc1aa7b89aa1959fbdabf5d9fabc
+Author: claude (dev151 507e82a0-84a2-48fe-acb4-cafebe93d017) <noreply@anthropic.com>
+Date:   Fri Jul 31 14:19:36 2026 -0400
+
+    updatecheck: run retry sleep in foreground so retries actually wait
+
+    run_with_attempts ran the inter-attempt delay as `light_sleep ... &`:
+    backgrounded and never waited on, so every retry fired back to back and
+    sleep_amount had no effect. Drop the `&` so light_sleep blocks.
+
+    Also quiet shellcheck SC2128 in the same file: $FUNCNAME -> ${FUNCNAME[0]}.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit c65d2db2d43346cbb7731798f6e1a804c55bcd89
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jul 28 13:21:27 2026 +0000
+
+    bumped changelog version
+
 commit 7c8f76b9fd4c343a81cb14eb62887d2bf8e6a871
 Merge: 8290070 48fa41f
 Author: Patrick Schleizer <adrelanos@whonix.org>
