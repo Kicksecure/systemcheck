@@ -3,21 +3,30 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/light_sleep.bsh
 source /usr/libexec/helper-scripts/light_sleep.bsh
 
 ## sets: systemd_notify
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/systemd-notify.bsh
 source /usr/libexec/helper-scripts/systemd-notify.bsh
 
 "${systemd_notify[@]}" --pid="$$" --ready
 
 while true; do
-   echo "$0: INFO: start."
+   printf '%s\n' "$0: INFO: start."
    "${systemd_notify[@]}" --pid="$$" WATCHDOG=1
 
    /usr/libexec/systemcheck/canary
 
    "${systemd_notify[@]}" --pid="$$" WATCHDOG=1
-   echo "$0: INFO: end."
+   printf '%s\n' "$0: INFO: end."
 
    ## 1 hour
    light_sleep 3600
