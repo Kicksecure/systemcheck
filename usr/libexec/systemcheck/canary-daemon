@@ -11,12 +11,21 @@ shopt -s inherit_errexit
 shopt -s shift_verbose
 
 # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/light_sleep.bsh
+## Sibling repo: absent in an isolated CI checkout, so shellcheck cannot
+## follow it there. The source= path above still documents where it lives.
+# shellcheck disable=SC1091
 source /usr/libexec/helper-scripts/light_sleep.bsh
 
 ## sets: systemd_notify
 # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/systemd-notify.bsh
+## Sibling repo: absent in an isolated CI checkout, so shellcheck cannot
+## follow it there. The source= path above still documents where it lives.
+# shellcheck disable=SC1091
 source /usr/libexec/helper-scripts/systemd-notify.bsh
 
+## Assigned by the sourced systemd-notify.bsh above, which shellcheck
+## cannot follow in an isolated checkout.
+# shellcheck disable=SC2154
 "${systemd_notify[@]}" --pid="$$" --ready
 
 while true; do
