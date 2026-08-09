@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 parse_cmd_options() {
    ## If systemcheck is run without command line arguments,
    ## $1 will not exist.
@@ -45,7 +48,38 @@ parse_cmd_options() {
                   shift 2
                fi
                ;;
-           -f | --mode)
+           --skip)
+               ## Skip a specific check function (repeatable). Kept in a separate
+               ## variable from systemcheck_skip_functions because source_config
+               ## (run after this) resets the latter from the config files.
+               systemcheck_skip_functions_cli="${systemcheck_skip_functions_cli:-} $2 "
+               shift 2
+               ;;
+           --ignore-failed-unit)
+               ## Do not let the named systemd unit fail the units check
+               ## (repeatable). For expected, environment-specific failures --
+               ## e.g. systemd-modules-load under Secure Boot, where an unsigned
+               ## out-of-tree module (tirdad) cannot load.
+               systemcheck_ignore_failed_units_cli="${systemcheck_ignore_failed_units_cli:-} $2 "
+               shift 2
+               ;;
+           --journal-ignore-fixed)
+               ## Do not let a journal line CONTAINING this FIXED STRING fail
+               ## check_journal (repeatable). CLI counterpart of the config-file
+               ## 'journal_ignore_fixed_list'; applied on top of it, nothing existing
+               ## is weakened. For expected, environment-specific warnings -- e.g.
+               ## privleapd skipping a tor action whose 'debian-tor' TargetUser is
+               ## absent on a no-tor build. Newline-delimited (may contain spaces).
+               systemcheck_journal_ignore_fixed_cli="${systemcheck_journal_ignore_fixed_cli:-}${2}"$'\n'
+               shift 2
+               ;;
+           --journal-ignore-match)
+               ## As --journal-ignore-fixed, but the argument is an EXTENDED REGEXP.
+               ## CLI counterpart of the config-file 'journal_ignore_patterns_list'.
+               systemcheck_journal_ignore_match_cli="${systemcheck_journal_ignore_match_cli:-}${2}"$'\n'
+               shift 2
+               ;;
+           --mode)
                MODE="$2"
                shift 2
                ;;

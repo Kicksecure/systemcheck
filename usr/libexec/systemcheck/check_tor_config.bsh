@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 #set -x
 
 check_tor_config_do() {
@@ -29,6 +32,7 @@ check_tor_config_do() {
 
    ## This has a /etc/sudoers.d exception.
    tor_verify_config_output="$(leaprun tor-verify-config 2>&1)" || { tor_verify_config_exit_code="$?" ; true; };
+   tor_verify_config_output="$(sanitize-string -- 8192 "$tor_verify_config_output")"
    tor_verify_config_output="$(br_add "$tor_verify_config_output")"
 
    ## concise report which only contains complains with [warn] or [err] tags
@@ -42,18 +46,19 @@ check_tor_config() {
    check_tor_config_do
 
    if [ ! "$tor_verify_config_exit_code" = "0" ]; then
-      local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+      local if_you_know_what_you_are_doing_msg remediation
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
+      remediation="$(remediation_instructions "service tor@default restart")"
       local MSG="<p>Tor Config Check Result:
-<br></br><b>Your Tor config file contains at least one error.</b></p>
+<br/><b>Your Tor config file contains at least one error.</b></p>
 
 <p>(Tor exit code: $tor_verify_config_exit_code)</p>
 
 <p><u><b>Tor concise reports (below warns and errors must be fixed before you can use Tor)</b></u>:
-<br></br><code>$tor_verify_config_output_concise</code></p>
+<br/><code>$tor_verify_config_output_concise</code></p>
 
 <p><u>Tor full reports</u>:
-<br></br><code>$tor_verify_config_output</code></p>
+<br/><code>$tor_verify_config_output</code></p>
 
 Try to look at this report yourself by running.
 
@@ -64,29 +69,23 @@ $start_menu_instructions_system_first_part Terminal
 <p>To try to fix this, please open your Tor config file.
 
 <blockquote>    $start_menu_instructions_system_first_part Torrc</blockquote>
-    <br></br>or in Terminal: <code>sudo nano /usr/local/etc/torrc.d/50_user.conf</code></p>
+    <br/>or in Terminal: <code>sudo nano /usr/local/etc/torrc.d/50_user.conf</code></p>
 
 <p>Please restart Tor after fixing this error.
-
-<blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
-    <br></br>or in Terminal: <code>sudo service tor@default restart</code></p>
+<br/>${remediation}</p>
 
 <p>Restart <code>systemcheck</code> after fixing this error.
 
 <blockquote>    $start_menu_instructions_system_first_part System Check</blockquote>
-    <br></br>or in Terminal: <code>systemcheck</code></p>
+    <br/>or in Terminal: <code>systemcheck</code></p>
 
 <p>$if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      emit_message error "$MSG"
       EXIT_CODE="1"
       cleanup "1"
       return 0
    else
-      local MSG="<p>Tor Config Check Result: Tor config ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>Tor Config Check Result: $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
    fi
 }

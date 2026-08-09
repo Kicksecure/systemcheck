@@ -3,12 +3,15 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_spectre_meltdown() {
    local spectre_meltdown_checker_output spectre_meltdown_checker_exit_code
    local file_name timeout_after kill_after
 
    local if_you_know_what_you_are_doing_msg
-   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+   if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
    if [ "$verbose" -ge "2" ]; then
       [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="true"
@@ -17,11 +20,8 @@ check_spectre_meltdown() {
    [ -n "$spectre_meltdown_check" ] || spectre_meltdown_check="false"
 
    if [ "$spectre_meltdown_check" = "false" ]; then
-      local MSG="<p>Spectre Meltdown Test: skipping since spectre_meltdown_check=<code>$spectre_meltdown_check</code>, ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>Spectre Meltdown Test: skipping since spectre_meltdown_check=<code>$spectre_meltdown_check</code>, $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -32,11 +32,8 @@ check_spectre_meltdown() {
    spectre_meltdown_checker_output="$(timeout --kill-after="$kill_after" "$timeout_after" leaprun spectre-meltdown-checker 2>&1)" || { spectre_meltdown_checker_exit_code="$?"; };
 
    if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
-      local MSG="<p>Spectre Meltdown Test Result: not vulnerable, ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>Spectre Meltdown Test Result: not vulnerable, $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
    else
       local MSG="<p>Spectre Meltdown Test Result: Vulnerable.<br />
 <br />
@@ -48,8 +45,7 @@ Recommendation:<br />
 See <a href=${PROJECT_HOMEPAGE}/wiki/Spectre_Meltdown>${PROJECT_HOMEPAGE}/wiki/Spectre_Meltdown</a>.<br />
 <br />
 $if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      emit_message warning "$MSG"
       EXIT_CODE="1"
    fi
 }

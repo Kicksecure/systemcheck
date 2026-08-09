@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 source /usr/libexec/helper-scripts/get_colors.sh
 
 check_login_security() {
@@ -13,7 +16,7 @@ check_login_security() {
       table_settings_cli_entry table_str_gui table_str_cli user_list_str \
       password_status_list_str qubes_default_user
    if [ "$silent" -ge "4" ]; then
-      true "silent is $silent. Skipping $FUNCNAME."
+      true "silent is $silent. Skipping ${FUNCNAME[0]}."
       return 0
    fi
 
@@ -21,11 +24,12 @@ check_login_security() {
 :</p>
 XXX_LOGIN_SEC_TABLE_XXX
 <p>You can adjust these settings using \"Manage Passwords\" and \"Manage GUI Autologin\"
-in the System Maintenance Panel."
-   local base_msg_cli="${base_msg_gui}
-See also:
-https://www.kicksecure.com/wiki/Login
-https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check"
+in the System Maintenance Panel.
+See also: <a href=\"https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check\">Physical Security</a>.</p>"
+   ## The 'See also' links (Login, Colors, Physical Security) are anchors in
+   ## base_msg_gui, so the CLI path footnotes them; no separate plain-URL list
+   ## is needed (it duplicated the Login link).
+   local base_msg_cli="${base_msg_gui}"
 
    user_list_str="$(/usr/libexec/helper-scripts/get-user-list)"
    readarray -t user_list <<< "$user_list_str"
@@ -140,21 +144,26 @@ https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check"
    )
    table_settings_cli=( "${table_settings_gui[@]}" )
    for (( counter=0; counter < ${#user_list[@]}; counter++ )); do
-      printf -v table_users_entry "| %-${users_column_width}s " "${user_list[counter]}"
+      local sanitized_user
+      sanitized_user="$(sanitize-string -- 255 "${user_list[counter]}")"
+      printf -v table_users_entry "| %-${users_column_width}s " "$sanitized_user"
       table_users+=( "${table_users_entry}" )
-      printf -v table_settings_gui_entry "| %-20s   %-13s |" "${password_status_list[counter]}" "${autologin_status_list[counter]}"
+      local sanitized_pw sanitized_autologin
+      sanitized_pw="$(sanitize-string -- 255 "${password_status_list[counter]}")"
+      sanitized_autologin="$(sanitize-string -- 255 "${autologin_status_list[counter]}")"
+      printf -v table_settings_gui_entry "| %-20s   %-13s |" "$sanitized_pw" "$sanitized_autologin"
       table_settings_cli_entry="${table_settings_gui_entry}"
-      if [[ "${table_settings_gui_entry}" =~ 'Locked (Present)' ]]; then
+      if [[ "${table_settings_gui_entry}" == *'Locked (Present)'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Locked (Present)'/'<font color="green">Locked (Present)</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Restricted (Present)' ]]; then
+      elif [[ "${table_settings_gui_entry}" == *'Restricted (Present)'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Restricted (Present)'/'<font color="green">Restricted (Present)</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Locked (Absent)' ]]; then
+      elif [[ "${table_settings_gui_entry}" == *'Locked (Absent)'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Locked (Absent)'/'<font color="green">Locked (Absent)</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Restricted (Absent)' ]]; then
+      elif [[ "${table_settings_gui_entry}" == *'Restricted (Absent)'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Restricted (Absent)'/'<font color="green">Restricted (Absent)</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Present' ]]; then
+      elif [[ "${table_settings_gui_entry}" == *'Present'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Present'/'<font color="green">Present</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Absent' ]]; then
+      elif [[ "${table_settings_gui_entry}" == *'Absent'* ]]; then
         if [ "${user_list[counter]}" = "root" ]; then
           table_settings_gui_entry="${table_settings_gui_entry//'Absent'/'<font color="red">Absent</font>'}"
         else
@@ -162,29 +171,29 @@ https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check"
         fi
       fi
 
-      if [[ "${table_settings_gui_entry}" =~ 'Disabled' ]]; then
+      if [[ "${table_settings_gui_entry}" == *'Disabled'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Disabled'/'<font color="green">Disabled</font>'}"
-      elif [[ "${table_settings_gui_entry}" =~ 'Enabled' ]]; then
+      elif [[ "${table_settings_gui_entry}" == *'Enabled'* ]]; then
         if [ "${user_list[counter]}" = "root" ]; then
           table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="red">Enabled</font>'}"
         else
           table_settings_gui_entry="${table_settings_gui_entry//'Enabled'/'<font color="orange">Enabled</font>'}"
         fi
-      elif [[ "${table_settings_gui_entry}" =~ 'Error' ]]; then
+      elif [[ "${table_settings_gui_entry}" == *'Error'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Error'/'<font color="red">Error</font>'}"
       fi
 
-      if [[ "${table_settings_cli_entry}" =~ 'Locked (Present)' ]]; then
+      if [[ "${table_settings_cli_entry}" == *'Locked (Present)'* ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Locked (Present)'/"${green}Locked (Present)${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Restricted (Present)' ]]; then
+      elif [[ "${table_settings_cli_entry}" == *'Restricted (Present)'* ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Restricted (Present)'/"${green}Restricted (Present)${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Locked (Absent)' ]]; then
+      elif [[ "${table_settings_cli_entry}" == *'Locked (Absent)'* ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Locked (Absent)'/"${green}Locked (Absent)${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Restricted (Absent)' ]]; then
+      elif [[ "${table_settings_cli_entry}" == *'Restricted (Absent)'* ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Restricted (Absent)'/"${green}Restricted (Absent)${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Present' ]]; then
+      elif [[ "${table_settings_cli_entry}" == *'Present'* ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Present'/"${green}Present${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Absent' ]]; then
+      elif [[ "${table_settings_cli_entry}" == *'Absent'* ]]; then
         if [ "${user_list[counter]}" = "root" ]; then
           table_settings_cli_entry="${table_settings_cli_entry//'Absent'/"${red}Absent${nocolor}"}"
         else
@@ -192,15 +201,15 @@ https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check"
         fi
       fi
 
-      if [[ "${table_settings_cli_entry}" =~ 'Disabled' ]]; then
+      if [[ "${table_settings_cli_entry}" == *'Disabled'* ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Disabled'/"${green}Disabled${nocolor}"}"
-      elif [[ "${table_settings_cli_entry}" =~ 'Enabled' ]]; then
+      elif [[ "${table_settings_cli_entry}" == *'Enabled'* ]]; then
         if [ "${user_list[counter]}" = "root" ]; then
           table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${red}Enabled${nocolor}"}"
         else
           table_settings_cli_entry="${table_settings_cli_entry//'Enabled'/"${yellow}Enabled${nocolor}"}"
         fi
-      elif [[ "${table_settings_cli_entry}" =~ 'Error' ]]; then
+      elif [[ "${table_settings_cli_entry}" == *'Error'* ]]; then
         table_settings_cli_entry="${table_settings_cli_entry//'Error'/"${red}Error${nocolor}"}"
       fi
 
@@ -222,7 +231,7 @@ https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check"
 
    local MSG
    MSG="${base_msg_gui}"
-   $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
    MSG="${base_msg_cli}"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 }

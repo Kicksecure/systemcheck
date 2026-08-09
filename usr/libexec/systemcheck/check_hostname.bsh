@@ -3,113 +3,66 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_hostname() {
    if [ "$vm_lower_case_short" = "machine" ]; then
       return 0
    fi
 
-   ## Initialize local variables and fallbacks.
+   ## Accumulators shared with check_hostname_field via bash dynamic scope.
    local hostname_exit_code_was_non_zero="false"
    local hostname_discouraged_setting_detected="false"
 
-   local hostname_exit_code="0"
-   hostname_fqdn_output="$(hostname --fqdn 2>&1)" || { hostname_exit_code="$?" ; true; };
-   if [ ! "$hostname_exit_code" = "0" ]; then
-      hostname_exit_code_was_non_zero="true"
-   fi
-   if [ "$hostname_fqdn_output" = "host.localdomain" ]; then
-      local MSG="<p>Check Hostname Result: \"hostname --fqdn\" output is \"host.localdomain\", ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-   else
-      hostname_discouraged_setting_detected="true"
-      local MSG="<p>Check Hostname Result: <b>\"hostname --fqdn\" output is not \
-\"host.localdomain\", it is \"$hostname_fqdn_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-   fi
-
-   local hostname_exit_code="0"
-   hostname_output="$(hostname 2>&1)" || { hostname_exit_code="$?" ; true; };
-   if [ ! "$hostname_exit_code" = "0" ]; then
-      hostname_exit_code_was_non_zero="true"
-   fi
-   if [ "$hostname_output" = "host" ]; then
-      local MSG="<p>Check Hostname Result: \"hostname\" output is \"host\", ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-   else
-      hostname_discouraged_setting_detected="true"
-      local MSG="<p>Check Hostname Result: <b>\"hostname\" output is not \"host\", \
-it is \"$hostname_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-   fi
-
-   local hostname_exit_code="0"
-   hostname_ip_address_output="$(hostname --ip-address 2>&1)" || { hostname_exit_code="$?" ; true; };
-   if [ ! "$hostname_exit_code" = "0" ]; then
-      hostname_exit_code_was_non_zero="true"
-   fi
-   if [ "$hostname_ip_address_output" = "127.0.0.1" ]; then
-      local MSG="<p>Check Hostname Result: \"hostname --ip-address\" output is \"127.0.0.1\", ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-   else
-      hostname_discouraged_setting_detected="true"
-      local MSG="<p>Check Hostname Result: <b>\"hostname --ip-address\" is not \
-\"127.0.0.1\", it is \"$hostname_ip_address_output\".</b> (hostname_exit_code: $hostname_exit_code)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-   fi
-
-   local hostname_exit_code="0"
-   hostname_domain_output="$(hostname --domain 2>&1)" || { hostname_exit_code="$?" ; true; };
-   if [ ! "$hostname_exit_code" = "0" ]; then
-      hostname_exit_code_was_non_zero="true"
-   fi
-   if [ "$hostname_domain_output" = "localdomain" ]; then
-      local MSG="<p>Check Hostname Result: \"hostname --ip-address\" output is \"localdomain\", ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
-   else
-      hostname_discouraged_setting_detected="true"
-      local MSG="<p>Check Hostname Result: <b>\"hostname --domain\" is not \
-\"localdomain\"</b>, it is \"$hostname_domain_output\". (hostname_exit_code: $hostname_exit_code)</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
-      EXIT_CODE="1"
-   fi
+   check_hostname_field "--fqdn"       "host.localdomain"
+   check_hostname_field ""             "host"
+   check_hostname_field "--ip-address" "127.0.0.1"
+   check_hostname_field "--domain"     "localdomain"
 
    if [ "$hostname_exit_code_was_non_zero" = "true" ]; then
       hostname_discouraged_setting_detected="true"
-      local MSG="<p>Check Hostname Result: <b>\"hostname\" exited at least once with \
+      emit_message error "<p>Check Hostname Result: <b>\"hostname\" exited at least once with \
 a non-zero exit code.</b> This is probably a network misconfiguration. See above.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
       EXIT_CODE="1"
    fi
 
    if [ "$hostname_discouraged_setting_detected" = "true" ]; then
       local if_you_know_what_you_are_doing_msg
-      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
-      local MSG="<p>Check Hostname Result:
-<br></br><b>Hostname settings different from $PROJECT_NAME defaults.</b> (See above.)
+      if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
+      emit_message error "<p>Check Hostname Result:
+<br/><b>Hostname settings different from $PROJECT_NAME defaults.</b> (See above.)
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
-      $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-      $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+      EXIT_CODE="1"
+   fi
+}
+
+check_hostname_field() {
+   ## Run 'hostname $1', compare to the expected value $2, and emit an OK line
+   ## (verbose-only) or an error line. Reads and sets check_hostname's locals
+   ## hostname_exit_code_was_non_zero / hostname_discouraged_setting_detected
+   ## plus EXIT_CODE via bash dynamic scope.
+   ## $1 - extra 'hostname' flags ("" for the bare hostname)
+   ## $2 - expected output
+   local field_flags field_expected field_label field_output field_exit_code
+   field_flags="$1"
+   field_expected="$2"
+   field_label="hostname${field_flags:+ $field_flags}"
+
+   field_exit_code="0"
+   # shellcheck disable=SC2086
+   field_output="$(hostname $field_flags 2>&1)" || { field_exit_code="$?" ; true; }
+   field_output="$(sanitize-string -- 255 "$field_output")"
+   if [ ! "$field_exit_code" = "0" ]; then
+      hostname_exit_code_was_non_zero="true"
+   fi
+
+   if [ "$field_output" = "$field_expected" ]; then
+      output_if_verbose emit_message info "<p>Check Hostname Result: \"$field_label\" output is \"$field_expected\", $status_ok</p>"
+   else
+      hostname_discouraged_setting_detected="true"
+      emit_message error "<p>Check Hostname Result: <b>\"$field_label\" output is not \"$field_expected\", it is \"$field_output\".</b> (hostname_exit_code: $field_exit_code)</p>"
       EXIT_CODE="1"
    fi
 }

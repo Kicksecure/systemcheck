@@ -3,12 +3,19 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
 exit_function() {
    printf '%s\n' ""
    printf '%s\n' "$0: output of '/usr/bin/systemctl --no-pager --no-block status tor@default':"
    printf '%s\n' ""
    /usr/bin/systemctl --no-pager --no-block status tor@default
-   exit "$exit_code"
+   exit "${exit_code}"
 }
 
 if [ ! -f "/run/tor/tor.pid" ]; then
@@ -20,13 +27,13 @@ fi
 ## override with || true to avoid race condition.
 pid="$(cat -- "/run/tor/tor.pid")" || true
 
-if [ "$pid" = "" ]; then
+if [ "${pid}" = "" ]; then
    printf '%s\n' "$0: Pid file '/run/tor/tor.pid' is empty."
    exit_code=2
    exit_function
 fi
 
-if ! kill -0 -- "$pid"; then
+if ! kill -0 -- "${pid}"; then
    printf '%s\n' "$0: Pid is not running."
    exit_code=3
    exit_function

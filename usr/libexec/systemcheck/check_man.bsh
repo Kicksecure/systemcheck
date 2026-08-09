@@ -3,17 +3,16 @@
 ## Copyright (C) 2021 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_man() {
    if man --pager=cat systemcheck >/dev/null ; then
-      local MSG="<p>Check manual page (man) Result: Ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>Check manual page (man) Result: $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
-   local MSG="<p>Check manual page (man) Result: Broken. Severity: very low. To test for yourself, run: <code>man --pager=cat systemcheck</code></p>"
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
-   $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+   local MSG="<p>Check manual page (man) Result: Broken. This is a minor issue. To verify, run: <code>man --pager=cat systemcheck</code></p>"
+   emit_message warning "$MSG"
 }

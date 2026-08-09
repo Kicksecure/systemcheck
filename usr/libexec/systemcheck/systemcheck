@@ -3,6 +3,15 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## style-ok: allow-errexit-toggle
+## Does not use the full strict-mode block by design: it enables errexit only
+## to source the msgcollector error_handler, installs an ERR trap, then runs
+## with 'set +e' so a failing check reports via the trap instead of aborting
+## the whole run (the deliberate global mode switch R-011's waiver exists for).
+## nounset is likewise unsafe here -- many optional flag variables are read
+## before being set.
+
 ## If anyone adds a VPN or something similar to Whonix-Workstation
 ## (i.e. connection scheme: Whonix-Workstation -> Tor -> VPN), he would wonder
 ## why it is not detected.
@@ -19,7 +28,7 @@ This will happen in the background and will take approximately three minutes..."
 
 ICON="/usr/share/icons/gnome/24x24/status/info.png"
 
-SCRIPTNAME="$(basename "$BASH_SOURCE")"
+SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 IDENTIFIER="$SCRIPTNAME"
 
 ## Debugging with bashdb.
@@ -53,10 +62,10 @@ done
 
 systemcheck_move_progress_bar_to_percent() {
    if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping $FUNCNAME $1."
+      true "silent is $silent. Skipping ${FUNCNAME[0]} $1."
       return 0
    fi
-   $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "$1"
+   $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "$1"
 }
 
 systemcheck_progress_main_increment() {
@@ -68,7 +77,7 @@ systemcheck_progress_main_increment() {
    if ! is_whole_number "$increment"; then
      exit 1
    fi
-   PROGRESS_MAIN="$(( $PROGRESS_MAIN + $increment ))"
+   PROGRESS_MAIN="$(( PROGRESS_MAIN + increment ))"
    systemcheck_run_function systemcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
 }
 
@@ -83,10 +92,22 @@ systemcheck_progress_main_open() {
       return 0
    fi
 
-   $output_x ${output_opts[@]} --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
+   $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
 }
 
 systemcheck_main() {
+   ## Default optional flag vars (set only conditionally elsewhere) so the
+   ## normal path never reads them while unset.
+   [ -v verbose ] || verbose=""
+   [ -v CLI ] || CLI=""
+   [ -v GUI ] || GUI=""
+   [ -v BUG ] || BUG=""
+   [ -v deprecated_derivative ] || deprecated_derivative=""
+   [ -v systemcheck_skip_functions_cli ] || systemcheck_skip_functions_cli=""
+   [ -v systemcheck_ignore_failed_units_cli ] || systemcheck_ignore_failed_units_cli=""
+   [ -v systemcheck_journal_ignore_fixed_cli ] || systemcheck_journal_ignore_fixed_cli=""
+   [ -v systemcheck_journal_ignore_match_cli ] || systemcheck_journal_ignore_match_cli=""
+
    ## This MUST be done before parse_cmd_options is called, or systemcheck
    ## may execute arbitrary Bash commands present in the 'verbose' env var.
    if ! is_whole_number "$verbose"; then

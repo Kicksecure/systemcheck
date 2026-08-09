@@ -3,6 +3,9 @@
 ## Copyright (C) 2025 - 2026 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 source /usr/libexec/helper-scripts/get_colors.sh
 source /usr/libexec/helper-scripts/secure_boot_enabled_check.bsh
 source /usr/sbin/shim-signed-mok-setup
@@ -10,8 +13,7 @@ source /usr/sbin/shim-signed-mok-setup
 systemcheck_autostart_functions+=" check_build_mok_keys "
 
 check_secure_boot() {
-   local mokutil_present mokutil_output link_cli link_gui \
-      mokutil_link_cli mokutil_link_gui MSG reason \
+   local mokutil_present mokutil_output link_cli mokutil_link_cli reason \
       secure_boot_enabled_check_retcode
 
    if [ "$silent" -ge "4" ]; then
@@ -20,31 +22,22 @@ check_secure_boot() {
    fi
 
    link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
-   link_gui="<a href=\"$link_cli\">Secure Boot</a>"
    mokutil_link_cli="https://www.kicksecure.com/wiki/Debian#Install_mokutil"
-   mokutil_link_gui="<a href=\"$mokutil_link_cli\">mokutil installed</a>"
 
    if [ "$qubes_detected" = "true" ]; then
       reason="\
 - Reason: Qubes detected.
-<br/>- Known Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>
-<br/>- No need to report this."
+- Known Qubes issue: <a href=\"https://github.com/QubesOS/qubes-issues/issues/5241\">https://github.com/QubesOS/qubes-issues/issues/5241</a>
+- No need to report this."
    else
       reason="\
 - Reason: Not booted in EFI (UEFI) mode. Secure Boot is only available in EFI (UEFI) mode."
    fi
 
    if ! [ -d /sys/firmware/efi ]; then
-      MSG="<p>$link_gui: <font color=\"orange\">Unavailable</font>
-<br/>
-<br/>$reason</p>"
-      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      output_if_verbose emit_status_line info "Secure Boot" "$link_cli" orange "Unavailable" "
 
-      MSG="Secure Boot: ${yellow}Unavailable${nocolor}
-
-$reason
-- See also: $link_cli"
-      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+$reason"
       return 0
    fi
 
@@ -60,50 +53,26 @@ $reason
    if [ "${secure_boot_enabled_check_retcode}" = '0' ]; then
       ## Used by 'check_tirdad_module.bsh'.
       secure_boot_status_enabled=true
-
-      MSG="<p>$link_gui: <font color=\"green\">Enabled</font></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="Secure Boot: ${green}Enabled${nocolor}
-See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      emit_status_line info "Secure Boot" "$link_cli" green "Enabled"
    elif [ "${secure_boot_enabled_check_retcode}" = '1' ]; then
       secure_boot_status_enabled=false
-
-      MSG="<p>$link_gui: <font color=\"orange\">Disabled</font></p>"
-      $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="Secure Boot: ${yellow}Disabled${nocolor}
-See also: $link_cli"
-      $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      emit_status_line info "Secure Boot" "$link_cli" orange "Disabled"
    else
-      MSG="<p>$link_gui: <font color=\"orange\">Unknown</font>
-<br/>
-<br/>Debugging information:
-<br/>mokutil_output: '${mokutil_output}'</p>"
-      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+      ## Secure Boot state could not be determined. Default the shared flag
+      ## (consumed by check_tirdad_module.bsh) to false rather than leaving it
+      ## unset/stale.
+      secure_boot_status_enabled=false
+      mokutil_output="$(sanitize-string -- 8192 "$mokutil_output")"
+      output_if_verbose emit_status_line info "Secure Boot" "$link_cli" orange "Unknown" "
 
-      MSG="Secure Boot: ${yellow}Unknown${nocolor}
-See also: $link_cli
 Debugging information:
 mokutil_output: '${mokutil_output}'"
-      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
    fi
 
    if [ "${mokutil_present}" = 'y' ]; then
-      MSG="<p>$mokutil_link_gui: <font color=\"green\">Yes</font></p>"
-      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="mokutil installed: ${green}Yes${nocolor}
-See also: $mokutil_link_cli"
-      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose emit_status_line info "mokutil installed" "$mokutil_link_cli" green "Yes"
    else
-      MSG="<p>$mokutil_link_gui: <font color=\"orange\">No</font></p>"
-      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="mokutil installed: ${yellow}No${nocolor}
-See also: $mokutil_link_cli"
-      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose emit_status_line info "mokutil installed" "$mokutil_link_cli" orange "No"
    fi
 
    ## sets: 'dkms_mok_*' variables
@@ -111,11 +80,7 @@ See also: $mokutil_link_cli"
 
    if [ -f "${dkms_mok_public_file}" ] \
       && [ -f "${dkms_mok_private_file}" ]; then
-      MSG="<p>DKMS module signing keys present: <font color=\"green\">Yes</font></p>"
-      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="DKMS module signing keys present: ${green}Yes${nocolor}"
-      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose emit_status_line info "DKMS module signing keys" "" green "Yes"
 
       if [ "${secure_boot_status_enabled}" = 'true' ] \
          && [ "${mokutil_present}" = 'y' ]; then
@@ -123,37 +88,20 @@ See also: $mokutil_link_cli"
          ## enrolled, and 0 if it is not.
          if ! mokutil_output="$(leaprun mokutil-test-key 2>&1)"; then
             if [ "${mokutil_output}" = '/var/lib/dkms/mok.pub is already enrolled' ]; then
-               MSG="<p>DKMS module signing keys enrolled in firmware: <font color=\"green\">Yes</font></p>"
-               output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-               MSG="DKMS module signing keys enrolled in firmware: ${green}Yes${nocolor}"
-               output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+               output_if_verbose emit_status_line info "DKMS module signing keys enrolled in firmware" "" green "Yes"
             else
-               MSG="<p>DKMS module signing keys enrolled in firmware: <font color=\"orange\">Unknown</font>
-<br/>
-<br/>Debugging information:
-<br/>mokutil output: '${mokutil_output}'</p>"
-               output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+               mokutil_output="$(sanitize-string -- 8192 "$mokutil_output")"
+               output_if_verbose emit_status_line info "DKMS module signing keys enrolled in firmware" "" orange "Unknown" "
 
-               MSG="DKMS module signing keys enrolled in firmware: ${yellow}Unknown${nocolor}
 Debugging information:
 mokutil output: '${mokutil_output}'"
-               output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
             fi
          else
-            MSG="<p>DKMS module signing keys enrolled in firmware: <font color=\"orange\">No</font></p>"
-            output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-            MSG="DKMS module signing keys enrolled in firmware: ${yellow}No${nocolor}"
-            output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+            output_if_verbose emit_status_line info "DKMS module signing keys enrolled in firmware" "" orange "No"
          fi
       fi
    else
-      MSG="<p>DKMS module signing keys present: <font color=\"orange\">No</font></p>"
-      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="DKMS module signing keys present: ${yellow}No${nocolor}"
-      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose emit_status_line info "DKMS module signing keys" "" orange "No"
    fi
 
    if [ -f "${shim_mok_public_file}" ] && [ -f "${shim_mok_private_file}" ]; then
@@ -161,24 +109,12 @@ mokutil output: '${mokutil_output}'"
          && [ -L "${shim_mok_private_file}" ] \
          && [ "$(readlink "${shim_mok_public_file}")" = "${dkms_mok_public_file}" ] \
          && [ "$(readlink "${shim_mok_private_file}")" = "${dkms_mok_private_file}" ]; then
-         MSG="<p>Shim module signing keys set up: <font color=\"green\">Yes</font></p>"
-         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-         MSG="Shim module signing keys set up: ${green}Yes${nocolor}"
-         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         output_if_verbose emit_status_line info "Shim module signing keys" "" green "Yes"
       else
-         MSG="<p>Shim module signing keys status: <font color=\"orange\">Not symlinked to DKMS keys</font></p>"
-         output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-         MSG="Shim module signing keys status: ${yellow}Not symlinked to DKMS keys${nocolor}"
-         output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         output_if_verbose emit_status_line info "Shim module signing keys" "" orange "Not symlinked to DKMS keys"
       fi
    else
-      MSG="<p>Shim module signing keys status: <font color=\"orange\">Absent</font></p>"
-      output_if_verbose $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-
-      MSG="Shim module signing keys status: ${yellow}Absent${nocolor}"
-      output_if_verbose $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+      output_if_verbose emit_status_line info "Shim module signing keys" "" orange "Absent"
    fi
 }
 
@@ -192,10 +128,10 @@ check_build_mok_keys() {
       return 0
    elif [ "${check_image_builtin_mok_retcode}" = '1' ]; then
       MSG="<p>systemcheck has detected that a Machine Owner Key (MOK) embedded in the installation image is present on the disk. It can be automatically deleted, but has not been yet. Most likely this means that you did not upgrade <code>legacy-dist</code>, or did not reboot after upgrading it. Run a full system update and reboot to fix this.</p>"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
 
       MSG="systemcheck has detected that a Machine Owner Key (MOK) embedded in the installation image is present on the disk. It can be automatically deleted, but has not been yet. Most likely this means that you did not upgrade 'legacy-dist', or did not reboot after upgrading it. Run a full system update and reboot to fix this."
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+      $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 
       return 0
    fi
@@ -219,7 +155,7 @@ To remove the problematic MOK:</p>
     MSG+="<li>Boot into <code>PERSISTENT Mode | SYSMAINT Session | system maintenance tasks</code>.</li>
 <li>Click 'Reset Secure Boot MOK'.</li>"
   elif package-installed-check sysmaint-panel; then
-    MSG+="<li>Click the Start Menu -> System Tools -> System Maintenance Panel.</li>
+    MSG+="<li>Click the Start Menu / System Tools / System Maintenance Panel.</li>
 <li>Click 'Reset Secure Boot MOK'.</li>"
   else
     MSG+="<li>Open a terminal and run <code>/usr/sbin/shim-reset-mok</code>.</li>"
@@ -231,7 +167,7 @@ To remove the problematic MOK:</p>
 For more information, see <a href=\"https://kicksecure.com/wiki/Secure_Boot#Regnerate_MOK_Keys\">https://kicksecure.com/wiki/Secure_Boot#Regnerate_MOK_Keys</a>.<br/>
 <br/>
 Note that this message is not an indicator of compromise. See <a href=\"https://kicksecure.com/wiki/Malware_and_Firmware_Trojans#Valid_Compromise_Indicators_versus_Invalid_Compromise_Indicators\">https://kicksecure.com/wiki/Malware_and_Firmware_Trojans#Valid_Compromise_Indicators_versus_Invalid_Compromise_Indicators</a>."
-   $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
 
    if [ "${secure_boot_enabled_check_retcode}" = '0' ]; then
       MSG="
@@ -259,7 +195,7 @@ To remove the problematic MOK:"
   elif package-installed-check sysmaint-panel; then
     MSG+="
 
-* Click the 'Start Menu -> System Tools -> System Maintenance Panel'.
+* Click the 'Start Menu / System Tools / System Maintenance Panel'.
 * Click 'Reset Secure Boot MOK'."
   else
     MSG+="
@@ -276,5 +212,5 @@ https://kicksecure.com/wiki/Secure_Boot#Regnerate_MOK_Keys
 
 Note that this message is not an indicator of compromise. See:
 https://kicksecure.com/wiki/Malware_and_Firmware_Trojans#Valid_Compromise_Indicators_versus_Invalid_Compromise_Indicators"
-  $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
+  $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
 }

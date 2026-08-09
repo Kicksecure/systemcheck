@@ -3,13 +3,13 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_ip_forwarding_disabled() {
    if [ ! -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      local MSG="<p>IP Forwarding Result: not running on Whonix-Gatway, skipping, ok.</p>"
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>IP Forwarding Result: not running on Whonix-Gateway, skipping, $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -33,13 +33,11 @@ check_ip_forwarding_disabled() {
          fi
       else
          ip_forwarding="$(cat "$file_name")"
+         ip_forwarding="$(sanitize-string -- 255 "$ip_forwarding")"
 
          if [ "$ip_forwarding" = "0" ]; then
-            local MSG="<p>IP Forwarding Result: $file_name is 0, ok.</p>"
-            if [ "$verbose" -ge "1" ]; then
-               $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-               $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-            fi
+            local MSG="<p>IP Forwarding Result: $file_name is 0, $status_ok</p>"
+            output_if_verbose emit_message info "$MSG"
             continue
          else
             local temp="$file_name is $ip_forwarding."
@@ -49,21 +47,19 @@ check_ip_forwarding_disabled() {
       if [ "$NO_EXIT_ON_IP_FORWARDING_DETECTION" = "1" ]; then
          local MSG="IP Forwarding Result: $temp"
 
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+         emit_message info "$MSG"
          continue
       else
          local if_you_know_what_you_are_doing_msg
-         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "$FUNCNAME")"
+         if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
          ## "IP Forwarding Result:$temp    ## was in MSG below
          local MSG="<p><b>IP Forwarding enabled! This is unsupported by $PROJECT_NAME developers! systemcheck aborted!</b>
-<br></br>Using IP Forwarding on Whonix-Gateway is recommended against, due to risks of leaks.
-<br></br>This might endanger your anonymity.
+<br/>Using IP Forwarding on Whonix-Gateway is recommended against, due to risks of leaks.
+<br/>This might endanger your anonymity.
 <br />
 <br />$if_you_know_what_you_are_doing_msg</p>"
 
-         $output_x ${output_opts[@]} --messagex --typex "error" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "error" --message "$MSG"
+         emit_message error "$MSG"
          EXIT_CODE="1"
          cleanup "1"
          continue

@@ -3,6 +3,9 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 donate() {
    ## Do not ask for donations if a bug occurred. More important things have to be sorted out.
    if [ "$BUG" = "1" ]; then
@@ -11,20 +14,20 @@ donate() {
 
    local MSG="<p>Please donate!
    See: <a href=${PROJECT_HOMEPAGE}/wiki/Donate>${PROJECT_HOMEPAGE}/wiki/Donate</a></p>"
-   $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
+   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
 
    ## Do not ask for donations if the user has something important to do.
 
    local TYPE output_status_exit_code
 
    output_status_exit_code="0"
-   $output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --messagex || { output_status_exit_code="$?" ; true; };
+   $output_general "${output_opts[@]}" --identifier "$IDENTIFIER" --status --messagex || { output_status_exit_code="$?" ; true; };
 
    if [ "$output_status_exit_code" = "0" ]; then
-      TYPE="$($output_general ${output_opts[@]} --identifier "$IDENTIFIER" --status --typexstatus)"
+      TYPE="$($output_general "${output_opts[@]}" --identifier "$IDENTIFIER" --status --typexstatus)"
       if [ "$TYPE" = "info" ]; then
          local MSG="<p>Please <a href=${PROJECT_HOMEPAGE}/wiki/Donate>donate</a>!</p>"
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
+         $output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
       fi
    else
       true "No messages for --messagex in the queue. Not adding donation message."

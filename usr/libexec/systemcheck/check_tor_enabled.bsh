@@ -3,13 +3,13 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+
 check_tor_enabled() {
    if test -f /run/qubes/this-is-templatevm ; then
-      local MSG='<p>Tor Check Result: Skipped, because running in TemplateVM, ok.</p>'
-      if [ "$verbose" -ge "1" ]; then
-         $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-         $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-      fi
+      local MSG="<p>Tor Check Result: Skipped, because running in TemplateVM, $status_ok</p>"
+      output_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -34,25 +34,18 @@ or manually (If you know about the public Tor network!) and open <code>/usr/loca
 <blockquote><code>DisableNetwork 0</code></blockquote>
 Then run <code>systemcheck</code> again.</p>"
 
-      $output_cli ${output_opts[@]} --messagecli --typecli "warning" --message "$MSG"
-      $output_x ${output_opts[@]} --messagex --typex "warning" --message "$MSG"
+      emit_message warning "$MSG"
 
       EXIT_CODE="1"
       cleanup "1"
       return 0
    else
       if [ -e "/usr/share/anon-gw-base-files/gateway" ]; then
-         local MSG='<p>Tor Check Result: "DisableNetwork 1" not active, ok.</p>'
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
+         local MSG="<p>Tor Check Result: \"DisableNetwork 1\" not active, $status_ok</p>"
+         output_if_verbose emit_message info "$MSG"
       else
-         local MSG='<p>Tor Check Result: Not running on Whonix-Gateway, ok.</p>'
-         if [ "$verbose" -ge "1" ]; then
-            $output_x ${output_opts[@]} --messagex --typex "info" --message "$MSG"
-            $output_cli ${output_opts[@]} --messagecli --typecli "info" --message "$MSG"
-         fi
+         local MSG="<p>Tor Check Result: Not running on Whonix-Gateway, $status_ok</p>"
+         output_if_verbose emit_message info "$MSG"
       fi
    fi
 }

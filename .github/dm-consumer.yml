@@ -1,0 +1,14 @@
+## Copyright (C) 2026 - 2026 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+## AI-Assisted
+
+## Per-repo parameters for developer-meta-files consumer workflows, read at
+## workflow runtime. The dist-ai systemcheck scenario harness runs the real
+## check_*.bsh fragments, several of which sanitize untrusted output with the
+## bare `sanitize-string` helper-scripts tool (check_dpkg, check_hostname,
+## check_operating_system, ...); helper-scripts: true checks that repo out so
+## the tool resolves in the CI container. The default apt stack (python3
+## python3-pytest python3-hypothesis) already covers the suite.
+dist-ai-tests:
+  helper-scripts: true
