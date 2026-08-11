@@ -59,7 +59,7 @@ $if_you_know_what_you_are_doing_msg</p>"
    fi
 
    local MSG="<p>Qubes qubes-db Test Result: Connection to local qubes-db daemon succeeded, $status_ok</p>"
-   output_if_verbose emit_message info "$MSG"
+   run_if_verbose emit_message info "$MSG"
 
    if [ "$GATEWAY_IP" = "qubesdb_read_failed" ] || [ ! "$qubesdb_read_qubes_ip_exit_code" = "0" ] ; then
       local netvm_to_what
@@ -86,7 +86,7 @@ $if_you_know_what_you_are_doing_msg</p>"
 <p>Qubes Settings Test Result: Networking will probably not work. Is the 'netvm' of this VM set to <code>none</code>?
 <br/>Usually you want to set the 'netvm' of this VM to '<code>$netvm_to_what</code>'.
 <blockquote>1. Shutdown this VM.
-<br/>2. dom0 / Qubes VM Manager / right click '<code>$qubes_name_of_vm</code>' / VM Settings / NetVM
+<br/>2. dom0 - Qubes VM Manager - right click '<code>$qubes_name_of_vm</code>' - VM Settings - NetVM
 <br/>3. Restart this VM.</blockquote>
 Also refer to the installation instructions of Qubes-Whonix.
 <br/>Debugging information:
@@ -102,14 +102,14 @@ Also refer to the installation instructions of Qubes-Whonix.
    fi
 
    local MSG="<p>Qubes Settings Test Result: $status_ok (GATEWAY_IP: <code>$GATEWAY_IP</code>)</p>"
-   output_if_verbose emit_message info "$MSG"
+   run_if_verbose emit_message info "$MSG"
 }
 
 check_qubes_vm_type() {
    if [ "$vm_lower_case_short" = "gateway" ]; then
       if [ -f /run/qubes/this-is-netvm ] || [ -f /run/qubes/this-is-proxyvm ] || [ -f /run/qubes/this-is-templatevm ] ; then
          local MSG="<p>Qubes Settings Test Result: $status_ok qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
-         output_if_verbose emit_message info "$MSG"
+         run_if_verbose emit_message info "$MSG"
       else
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
@@ -119,6 +119,7 @@ check_qubes_vm_type() {
 <br/>Also refer to the installation instructions of Qubes-Whonix.</p>
 <br/>
 <br/>$if_you_know_what_you_are_doing_msg</p>"
+         ## TODO: Should this be an error instead?
          emit_message warning "$MSG"
          EXIT_CODE="1"
          cleanup "1"
@@ -129,7 +130,7 @@ check_qubes_vm_type() {
    if [ "$vm_lower_case_short" = "workstation" ]; then
       if [ -f /run/qubes/this-is-appvm ] || [ -f /run/qubes/this-is-templatevm ] ; then
          local MSG="<p>Qubes Settings Test Result: $status_ok qubes_vm_type is <code>$qubes_vm_type</code>.</p>"
-         output_if_verbose emit_message info "$MSG"
+         run_if_verbose emit_message info "$MSG"
       else
          local if_you_know_what_you_are_doing_msg
          if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
@@ -139,6 +140,7 @@ check_qubes_vm_type() {
 <br/>Also refer to the installation instructions of Qubes-Whonix.</p>
 <br/>
 <br/>$if_you_know_what_you_are_doing_msg</p>"
+         ## TODO: Should this be an error instead?
          emit_message warning "$MSG"
          EXIT_CODE="1"
          cleanup "1"
@@ -188,7 +190,7 @@ check_qubes_persistent_mounts() {
 check_qubes_settings() {
    if [ ! "$qubes_detected" = "true" ]; then
       local MSG="<p>Qubes Settings Test Result: Skipped, because Qubes not detected.</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -220,7 +222,7 @@ check_qubes_update_proxy_status_files_check() {
          true
       elif [ "$exit_code" = 0 ]; then
          local MSG="<p>Qubes UpdatesProxy Status Files Check: $status_ok</p>"
-         output_if_verbose emit_message info "$MSG"
+         run_if_verbose emit_message info "$MSG"
          return 0
       else
          break
@@ -255,7 +257,7 @@ check_qubes_update_proxy_daemon() {
 
    if leaprun qubes-updates-proxy-status >/dev/null 2>/dev/null ; then
       local MSG="<p>Qubes Updates Proxy Daemon Check Result: qubes-updates-proxy.service running, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
    local if_you_know_what_you_are_doing_msg
@@ -321,15 +323,14 @@ This is expected because not running in Template.</p>"
 
    if printf '%s\n' "$curl_output" | grep -q -- "${PROXY_META}" ; then
       qubes_update_proxy_test_result_torified="true"
-      local MSG="<p>Qubes UpdatesProxy Reachability Result: $status_ok torified update proxy reachable.</p>"
+      local MSG="<p>Qubes UpdatesProxy Reachability Result: $status_ok Torified update proxy reachable.</p>"
       #$output_x "${output_opts[@]}" --messagex --typex "info" --message "$MSG"
       $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG"
       return 0
    fi
 
    qubes_update_proxy_test_result_torified="false"
-   local MSG
-   MSG="<p>Qubes UpdatesProxy Reachability Result: $status_ok <u>non</u>-torified update proxy reachable.
+   local MSG="<p>Qubes UpdatesProxy Reachability Result: $status_ok <u>Non</u>-torified update proxy reachable.
 curl_status_message: <blockquote>$curl_status_message</blockquote>
 PROXY_META: <blockquote>$(sanitize-string -- 255 "${PROXY_META}")</blockquote>
 curl_output: <blockquote>$(sanitize-string -- 255 "$curl_output")</blockquote></p>"
@@ -391,13 +392,14 @@ check_qubes_update_proxy_connectivity() {
       return 0
    fi
 
-   local MSG="<p>Qubes UpdatesProxy Connectivity Result: $status_ok functional.</p>"
+   local MSG="<p>Qubes UpdatesProxy Connectivity Result: Functional, $status_ok</p>"
    emit_message info "$MSG"
 }
 
 check_qubes_update_proxy() {
    if [ ! "$qubes_detected" = "true" ]; then
       ## Assigned for 'set -x' (xtrace) visibility only; not emitted.
+      ## FIXME: Don't we usually use 'true' for this?
       local MSG="<p>Qubes UpdatesProxy Test Result: Skipped, because Qubes not detected.</p>"
       return 0
    fi

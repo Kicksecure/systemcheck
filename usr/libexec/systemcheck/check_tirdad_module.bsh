@@ -6,20 +6,18 @@
 ## style-ok: no-strict
 ## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
-source /usr/libexec/helper-scripts/get_colors.sh
-
 check_tirdad_module() {
-   local link_cli help_msg only_if_verbose output_type tirdad_failed help_link_cli help_link_gui
+   local link_tirdad help_msg only_if_verbose output_type crit_issue \
+      help_link_sb status_text
    if [ "$silent" -ge "4" ]; then
       true "silent is $silent. Skipping ${FUNCNAME[0]}."
       return 0
    fi
 
-   link_cli="https://github.com/Kicksecure/tirdad"
+   link_tirdad="https://github.com/Kicksecure/tirdad"
+   status_text="tirdad - TCP ISN CPU Information Leak Protection"
 
-   ## Per-case: whether an unloaded tirdad is only shown in verbose mode,
-   ## the message severity, and whether it counts as a failure (EXIT_CODE=1).
-   tirdad_failed=false
+   crit_issue=false
    if [ -f '/usr/share/qubes/marker-vm' ]; then
       only_if_verbose=true
       output_type="info"
@@ -36,53 +34,47 @@ check_tirdad_module() {
 - Known tirdad issue: <a href=https://www.kicksecure.com/wiki/Tirdad#Architecture_Support>https://www.kicksecure.com/wiki/Tirdad#Architecture_Support</a>
 - No need to report this."
    elif [ "$secure_boot_status_enabled" = "true" ]; then
-      ## Secure Boot is on but tirdad is not loaded, most likely because its
-      ## DKMS module is unsigned/unenrolled. Benign: info-level, verbose-only,
-      ## no fail.
-      only_if_verbose=true
-      output_type="info"
-      help_link_cli="https://www.kicksecure.com/wiki/Secure_Boot"
-      help_link_gui="$(html_link "$help_link_cli" "Secure Boot")"
+      ## This must be reported even if verbose mode is off, the absence of
+      ## tirdad is a notable security reduction that the user probably can
+      ## resolve.
+      only_if_verbose=false
+      output_type="warning"
+      help_link_sb="$(html_link "https://www.kicksecure.com/wiki/Secure_Boot" "Secure Boot")"
       if live-status-detected >/dev/null; then
-         ## Live mode: DKMS key enrollment cannot be persisted, so this is only
-         ## fixable via a manual image build with the signing key enrolled -- and
-         ## not worthwhile when staying offline during installation as recommended.
          help_msg="
 - Reason: kernel module 'tirdad' is NOT loaded.
 - This only matters if internet connectivity is used.
-- Secure Boot is enabled; in live mode the tirdad DKMS module cannot be enrolled, only practical during a manual image build.
-- Refer to the Kicksecure wiki: $help_link_gui
+- Secure Boot is enabled; in live mode a Secure Boot DKMS Signing Key cannot be enrolled.
+- Refer to the Kicksecure wiki: $help_link_sb
 - No need to report this. Please read the documentation."
       else
          help_msg="
 - Reason: kernel module 'tirdad' is NOT loaded.
 - This only matters if internet connectivity is used.
 - Secure Boot is enabled. Secure Boot DKMS Signing Key Enrollment may be required.
-- Refer to the Kicksecure wiki: $help_link_gui
+- Refer to the Kicksecure wiki: $help_link_sb
 - No need to report this. Please read the documentation."
       fi
    else
       only_if_verbose=false
       output_type="warning"
-      tirdad_failed=true
+      crit_issue=true
       help_msg="
 - Reason: kernel module 'tirdad' is NOT loaded."
    fi
 
    if grep --ignore-case --fixed-strings -- "tirdad" >/dev/null < <(lsmod); then
-      emit_status_line info "tirdad - TCP ISN CPU Information Leak Protection" "$link_cli" green "Enabled"
+      emit_status_line info "$status_text" "$link_tirdad" green "Enabled"
    else
-      ## Benign cases (Qubes, unsupported architecture) are only surfaced in
-      ## verbose mode and never fail the overall check.
       if [ "$only_if_verbose" = "true" ] && [ "$verbose" -lt "1" ]; then
          true "Skipping tirdad warning: benign case and not in verbose mode."
          return 0
       fi
 
-      if [ "$tirdad_failed" = "true" ]; then
+      if [ "$crit_issue" = "true" ]; then
          EXIT_CODE="1"
       fi
 
-      emit_status_line "$output_type" "tirdad - TCP ISN CPU Information Leak Protection" "$link_cli" orange "Disabled" " $help_msg"
+      emit_status_line "$output_type" "$status_text" "$link_tirdad" orange "Disabled" "$help_msg"
    fi
 }

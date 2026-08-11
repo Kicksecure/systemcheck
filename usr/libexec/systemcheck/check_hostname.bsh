@@ -11,7 +11,6 @@ check_hostname() {
       return 0
    fi
 
-   ## Accumulators shared with check_hostname_field via bash dynamic scope.
    local hostname_exit_code_was_non_zero="false"
    local hostname_discouraged_setting_detected="false"
 
@@ -52,14 +51,14 @@ check_hostname_field() {
 
    field_exit_code="0"
    # shellcheck disable=SC2086
-   field_output="$(hostname $field_flags 2>&1)" || { field_exit_code="$?" ; true; }
+   field_output="$(hostname $field_flags 2>&1)" || field_exit_code="$?"
    field_output="$(sanitize-string -- 255 "$field_output")"
    if [ ! "$field_exit_code" = "0" ]; then
       hostname_exit_code_was_non_zero="true"
    fi
 
    if [ "$field_output" = "$field_expected" ]; then
-      output_if_verbose emit_message info "<p>Check Hostname Result: \"$field_label\" output is \"$field_expected\", $status_ok</p>"
+      run_if_verbose emit_message info "<p>Check Hostname Result: \"$field_label\" output is \"$field_expected\", $status_ok</p>"
    else
       hostname_discouraged_setting_detected="true"
       emit_message error "<p>Check Hostname Result: <b>\"$field_label\" output is not \"$field_expected\", it is \"$field_output\".</b> (hostname_exit_code: $field_exit_code)</p>"

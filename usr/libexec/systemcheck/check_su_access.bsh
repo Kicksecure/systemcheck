@@ -7,17 +7,18 @@
 ## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
 check_su_access() {
-  local stat_output link_cli
+  local stat_output link_su status_text
 
-  link_cli="https://www.kicksecure.com/wiki/Dev/Strong_Linux_User_Account_Isolation#su_restrictions"
+  link_su="https://www.kicksecure.com/wiki/Dev/Strong_Linux_User_Account_Isolation#su_restrictions"
+  status_text="su access check"
 
   stat_output="$(stat --format='%a %u:%g' /usr/bin/su)"
 
   if [ "${stat_output}" = '744 0:0' ]; then
-    output_if_verbose emit_status_line info "su access check" "$link_cli" green "Locked down" " - only account <code>root</code> can use <code>su</code>."
+    run_if_verbose emit_status_line info "$status_text" "$link_su" green "Locked down" "- only account <code>root</code> can use <code>su</code>."
     return 0
   fi
 
-  emit_status_line info "su access check" "$link_cli" orange "Not locked down" " - accounts other than <code>root</code> may be able to use <code>su</code>."
+  emit_status_line info "$status_text" "$link_su" orange "Not locked down" "- accounts other than <code>root</code> may be able to use <code>su</code>."
   return 0
 }

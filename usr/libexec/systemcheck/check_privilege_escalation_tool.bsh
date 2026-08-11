@@ -29,9 +29,9 @@ check_privleap_group_membership() {
    done
 
    if [ "${in_privleap_group}" = 'true' ]; then
-      output_if_verbose emit_status_line info "Account '${who_ami}' present in group 'privleap'" "" green "Yes"
+      run_if_verbose emit_status_line info "Account '${who_ami}' present in group 'privleap'" "" green "Yes"
    else
-      output_if_verbose emit_status_line info "Account '${who_ami}' present in group 'privleap'" "" orange "No" " (OK)"
+      run_if_verbose emit_status_line info "Account '${who_ami}' present in group 'privleap'" "" orange "No" "(OK)"
    fi
 
    if [ -S "/run/privleapd/comm/${who_ami}" ]; then
@@ -51,16 +51,7 @@ check_privleap_group_membership() {
 <br />
 Possible fix:<br />
 ${remediation}</p>"
-   $output_x "${output_opts[@]}" --messagex --typex "warning" --message "$MSG"
-
-   MSG="Account '${who_ami}' cannot use privleap and is not a member of group 'privleap'. Some applications will not function properly.
-
-Possible fix:
-${remediation}
-
-See also:
-https://www.kicksecure.com/wiki/Privleap"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "warning" --message "$MSG"
+   emit_message warning "$MSG"
 }
 
 check_privilege_escalation_tools() {
@@ -108,7 +99,7 @@ check_privilege_escalation_tool_do() {
 
    if [ "$privilege_escalation_tool_ok" = "true" ]; then
       local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' Result: $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 

@@ -9,7 +9,7 @@
 check_ip_forwarding_disabled() {
    if [ ! -f "/usr/share/anon-gw-base-files/gateway" ]; then
       local MSG="<p>IP Forwarding Result: not running on Whonix-Gateway, skipping, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -37,7 +37,7 @@ check_ip_forwarding_disabled() {
 
          if [ "$ip_forwarding" = "0" ]; then
             local MSG="<p>IP Forwarding Result: $file_name is 0, $status_ok</p>"
-            output_if_verbose emit_message info "$MSG"
+            run_if_verbose emit_message info "$MSG"
             continue
          else
             local temp="$file_name is $ip_forwarding."

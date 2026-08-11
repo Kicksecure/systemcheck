@@ -16,9 +16,6 @@ shopt -s shift_verbose
 
 true "$0: START."
 
-## TMP and TMPDIR are exactly what is under test, so they must be read
-## nounset-safely: an unset variable is a reportable failure here, not a reason
-## to abort with 'unbound variable'.
 if [ ! "$(id -u)" = "0" ]; then
    printf '%s\n' "$0: ERROR: Must be run as root!" >&2
    exit 1

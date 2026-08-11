@@ -6,8 +6,6 @@
 ## style-ok: no-strict
 ## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
-source /usr/libexec/helper-scripts/get_colors.sh
-
 check_grub_security() {
    if [ -f '/usr/share/qubes/marker-vm' ]; then
       true "Qubes VM detected. Skipping ${FUNCNAME[0]}."
@@ -19,13 +17,14 @@ check_grub_security() {
       return 0
    fi
 
-   local link_cli MSG
-   link_cli="https://www.kicksecure.com/wiki/Protection_Against_Physical_Attacks#Bootloader_Password"
+   local link_bootpass status_text MSG
+   link_bootpass="https://www.kicksecure.com/wiki/Protection_Against_Physical_Attacks#Bootloader_Password"
+   status_text="GRUB Bootloader Password"
 
    if grub_password_status_check_output="$(leaprun grub-password-status-check 2>&1)"; then
-      emit_status_line info "GRUB Bootloader Password" "$link_cli" green "Enabled"
+      emit_status_line info "$status_text" "$link_bootpass" green "Enabled"
    else
-      emit_status_line info "GRUB Bootloader Password" "$link_cli" orange "Disabled"
+      emit_status_line info "$status_text" "$link_bootpass" orange "Disabled"
    fi
 
    if [ "$verbose" -ge "1" ]; then

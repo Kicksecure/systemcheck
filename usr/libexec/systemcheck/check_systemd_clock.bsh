@@ -9,7 +9,7 @@
 check_systemd_clock() {
    if ! command -v timedatectl >/dev/null 2>&1 ; then
       local MSG="<p>Systemd Clock Check Result: <code>timedatectl</code> not available, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -59,7 +59,7 @@ check_systemd_clock() {
       local MSG="<p>Systemd Clock Check Result: set to UTC and NTP disabled as expected, $status_ok
 <br/>timedatectl_output_pretty:
 <blockquote><code>$timedatectl_output_pretty</code></blockquote></p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
    else
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"

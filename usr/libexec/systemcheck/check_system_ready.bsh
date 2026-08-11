@@ -38,16 +38,15 @@ check_system_ready_shared() {
 
       if [ "$result" = "running" ]; then
          local MSG="<p>System ready check ($type) Result: $status_ok</p>"
-         output_if_verbose emit_message info "$MSG"
+         run_if_verbose emit_message info "$MSG"
          return 0
       elif [ "$result" = "degraded" ]; then
-         ## 'degraded' means one or more units failed. If every failed unit is on
-         ## the --ignore-failed-unit list (e.g. systemd-modules-load under Secure
-         ## Boot, where unsigned out-of-tree tirdad cannot load), the system is
-         ## healthy for our purposes -- treat it as ready.
+         ## 'degraded' means one or more units failed. If every failed unit is
+         ## on the --ignore-failed-unit list, the system is healthy for our
+         ## purposes.
          if check_system_ready_only_ignored_failed "$type"; then
             local MSG="<p>System ready check ($type) Result: $status_ok</p>"
-            output_if_verbose emit_message info "$MSG"
+            run_if_verbose emit_message info "$MSG"
             return 0
          fi
          i="$max"
@@ -57,26 +56,14 @@ check_system_ready_shared() {
 
       if [ "$i" -ge "$max" ]; then
          EXIT_CODE="1"
-         ## Name the offending units: 'degraded'/is-system-running only reports the
-         ## aggregate state, so list the actually-failed units to make the failure
-         ## actionable without a separate 'systemctl --failed'.
-         local failed_units_list
-         if [ "$type" = "user" ]; then
-            failed_units_list="$(systemctl --user --failed --no-legend --plain --no-pager list-units 2>/dev/null)" || true
-         else
-            failed_units_list="$(systemctl --failed --no-legend --plain --no-pager list-units 2>/dev/null)" || true
-         fi
-         [ -n "$failed_units_list" ] || failed_units_list="(no failed units reported)"
-         local failed_units_html MSG
-         failed_units_html="$(br_add "$failed_units_list")"
-         MSG="<p>System ready check ($type) Result: Failed.
+         ## No need to list the offending units here, check_services.bsh does
+         ## that already.
+         local MSG="<p>System ready check ($type) Result: Failed.
 <br/>
 <br/>Debugging information:
 <br/>Command:
 <br/>$system_ready_check_help_text_cmd
-<br/>result: '<code>$result</code>'
-<br/>failed units:
-<br/><code>$failed_units_html</code></p>"
+<br/>result: '<code>$result</code>'</p>"
          emit_message warning "$MSG"
          return 0
       fi
@@ -92,24 +79,28 @@ check_system_ready_shared() {
 ## True only when --ignore-failed-unit is set AND every currently-failed unit is
 ## on that ignore list, so a 'degraded' state caused solely by expected,
 ## environment-specific failures does not fail the system-ready check.
+##
+## FIXME: Refactor this and the corresponding chunk of code in
+## check_services.bsh into a single function in preparation.bsh. The code that
+## reads the lists of failed units will need to move out of this function.
 check_system_ready_only_ignored_failed() {
-   local type failed_units _ignore_unit
+   local type failed_units ignore_unit
    type="$1"
 
    [ -n "${systemcheck_ignore_failed_units_cli:-}" ] || return 1
 
    if [ "$type" = "user" ]; then
-      failed_units="$(systemctl --user --failed --no-legend --no-pager --plain list-units 2>/dev/null)" || true
+      failed_units="$(systemctl --user --failed --legend=false --no-pager --plain list-units 2>/dev/null)" || true
    else
-      failed_units="$(systemctl --failed --no-legend --no-pager --plain list-units 2>/dev/null)" || true
+      failed_units="$(systemctl --failed --legend=false --no-pager --plain list-units 2>/dev/null)" || true
    fi
 
-   for _ignore_unit in $systemcheck_ignore_failed_units_cli; do
-      failed_units="$(printf '%s\n' "$failed_units" | grep -vF -- "$_ignore_unit" || true)"
+   for ignore_unit in $systemcheck_ignore_failed_units_cli; do
+      failed_units="$(printf '%s\n' "$failed_units" | grep --invert-match --fixed-strings -- "$ignore_unit" || true)"
    done
 
    ## Any non-whitespace remaining means a non-ignored unit failed.
-   if printf '%s' "$failed_units" | grep -qE '[^[:space:]]'; then
+   if [[ "$failed_units" =~ [^[:space:]] ]]; then
       return 1
    fi
    return 0

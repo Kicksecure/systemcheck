@@ -13,6 +13,8 @@ shopt -s shift_verbose
 # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/light_sleep.bsh
 ## Sibling repo: absent in an isolated CI checkout, so shellcheck cannot
 ## follow it there. The source= path above still documents where it lives.
+##
+## TODO: Only shellcheck in a full derivative-maker source tree.
 # shellcheck disable=SC1091
 source /usr/libexec/helper-scripts/light_sleep.bsh
 
@@ -20,11 +22,15 @@ source /usr/libexec/helper-scripts/light_sleep.bsh
 # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/systemd-notify.bsh
 ## Sibling repo: absent in an isolated CI checkout, so shellcheck cannot
 ## follow it there. The source= path above still documents where it lives.
+##
+## TODO: See above TODO.
 # shellcheck disable=SC1091
 source /usr/libexec/helper-scripts/systemd-notify.bsh
 
 ## Assigned by the sourced systemd-notify.bsh above, which shellcheck
 ## cannot follow in an isolated checkout.
+##
+## TODO: See above TODO.
 # shellcheck disable=SC2154
 "${systemd_notify[@]}" --pid="$$" --ready
 

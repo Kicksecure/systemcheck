@@ -18,9 +18,6 @@ show_versions() {
    link="<a href=$link_raw>build version</a>"
 
    local MSG="<p>$PROJECT_NAME $link: <code>$derivative_build_version</code></p>"
-   ## The anchor in $link already carries $link_raw into the CLI "Links:"
-   ## footnote section, so it must not be appended again as a bare line -- that
-   ## printed the URL twice.
    emit_message info "$MSG"
 
    local temp
@@ -53,7 +50,7 @@ show_deprecation_notice() {
 
    if [ ! "$deprecated_derivative" = "true" ]; then
       local MSG="<p>$PROJECT_NAME Support Status of this Major Version: $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 

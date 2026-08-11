@@ -48,14 +48,14 @@ check_non_freedom() {
    local non_freedomlink="<a href=${PROJECT_HOMEPAGE}/wiki/Avoid_nonfreedom_software>${PROJECT_HOMEPAGE}/wiki/Avoid_nonfreedom_software</a>"
 
    if [ "$check_non_freedom_result" = "free" ]; then
-      local MSG="<p>Check non-freedom Result: $status_ok no non-freedom packages found. For more information, see:
+      local MSG="<p>Check non-freedom Result: $status_ok No non-freedom packages found. For more information, see:
 <br />$non_freedomlink</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
    elif [ "$check_non_freedom_result" = "expected" ]; then
       non_freedom_packages_detected=expected
-      local MSG="<p>Check non-freedom Result: $status_ok only expected non-freedom packages found. For more information, see:
+      local MSG="<p>Check non-freedom Result: $status_ok Only expected non-freedom packages found. For more information, see:
 <br />$non_freedomlink</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       local MSG="<p><br />vrms_output:
 <br /><code>$vrms_output</code></p>"
       if [ "$verbose" -ge "2" ]; then

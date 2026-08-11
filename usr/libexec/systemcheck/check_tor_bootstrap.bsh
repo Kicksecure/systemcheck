@@ -295,14 +295,14 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
    local MSG="<p>Tor Connection Result: $status_ok
 <br/>tor_bootstrap_status: <code>$tor_bootstrap_status</code>
 <br/>Tor Circuit: <code>$tor_circuit_established_word</code></p>"
-   output_if_verbose emit_message info "$MSG"
+   run_if_verbose emit_message info "$MSG"
 
    local MSG="<p>Time Synchronization Result: $status_ok
 <br/>Time synchronization status: <code>$time_synchronization_status_word</code>
 <br/>sdwdate reports: <code>$time_synchronization_msg</code>
 <br/>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
 <br/>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
-   output_if_verbose emit_message info "$MSG"
+   run_if_verbose emit_message info "$MSG"
 
    local MSG="<p>Connected to Tor.</p>"
 
@@ -589,7 +589,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
 </p>"
    else
       local remediation
-      remediation="$(remediation_instructions "service sdwdate restart")"
+      remediation="$(remediation_instructions "systemctl restart sdwdate")"
       local MSG="<p>Time Synchronization Result:
 <br/><b>systemcheck gave up waiting.</b>
 <br/>
@@ -610,7 +610,8 @@ or in Terminal: <code>systemcheck</code>
 <br/>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code>
 <br/>
 <br/><b>B)</b> <u>Restart sdwdate.</u>
-<blockquote>$start_menu_instructions_system_first_part sdwdate-gui / right click on sdwdate-gui systray / Restart sdwdate</blockquote>
+<blockquote>$start_menu_instructions_system_first_part sdwdate-gui - right click on sdwdate-gui systray - Restart sdwdate</blockquote>
+<br/>Or alternatively:
 <br/>${remediation}
 <br/>
 <br/><b>C)</b> <u>Manually set the time.</u>

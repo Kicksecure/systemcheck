@@ -28,7 +28,7 @@ check_timezone() {
       timezone_file_actual_content="$(sanitize-string -- 255 "$timezone_file_actual_content")"
       if [ "$timezone_file_actual_content" = "$timezone_file_expected_content" ]; then
          local MSG="<p>Check Timezone Result: <code>$timezone_file_location</code>, <code>$timezone_file_actual_content</code> matches <code>$timezone_file_expected_content</code>, $status_ok</p>"
-         output_if_verbose emit_message info "$MSG"
+         run_if_verbose emit_message info "$MSG"
       else
          timezone_status_code="3"
          local MSG="<p>Check Timezone Result:
@@ -53,7 +53,7 @@ check_timezone() {
          localtime_result="$(sanitize-string -- 8192 "$localtime_result")"
          if [ "$localtime_status_code" = "0" ]; then
             local MSG="<p>Check Timezone Result: <code>$localtime_file_usr</code> matches <code>$localtime_file_etc</code>, $status_ok</p>"
-            output_if_verbose emit_message info "$MSG"
+            run_if_verbose emit_message info "$MSG"
          else
             local MSG="<p>Check Timezone Result:
 <br/>localtime_file_etc <code>$localtime_file_etc</code> settings different from <code>$localtime_file_usr</code>. Different from $PROJECT_NAME defaults.
@@ -85,6 +85,8 @@ check_timezone() {
       local if_you_know_what_you_are_doing_msg
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
+      ## FIXME: This refers to Konsole, which is from the days when we used to
+      ## use the KDE Plasma desktop.
       local MSG="<p>Check Timezone Result:
 <br/><b>Settings different from $PROJECT_NAME defaults. (See above!)</b>
 <br/>You could try to fix this.
