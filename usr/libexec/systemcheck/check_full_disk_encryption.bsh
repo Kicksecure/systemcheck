@@ -6,8 +6,6 @@
 ## style-ok: no-strict
 ## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
-source /usr/libexec/helper-scripts/get_colors.sh
-
 check_full_disk_encryption() {
    if [ -f '/usr/share/qubes/marker-vm' ]; then
       true "Qubes VM detected. Skipping ${FUNCNAME[0]}."
@@ -19,19 +17,20 @@ check_full_disk_encryption() {
       return 0
    fi
 
-   local link_cli MSG
-   link_cli="https://www.kicksecure.com/wiki/Full_Disk_Encryption"
+   local link_fde status_text MSG
+   link_fde="https://www.kicksecure.com/wiki/Full_Disk_Encryption"
+   status_text="Full Disk Encryption (FDE)"
 
    crypt_check_return_code="0"
    crypt_check_output="$(/usr/libexec/systemcheck/crypt-check 2>&1)" || crypt_check_return_code="$?"
    crypt_check_output="$(sanitize-string -- 8192 "$crypt_check_output")"
 
    if [ "${crypt_check_return_code}" = '0' ]; then
-      emit_status_line info "Full Disk Encryption (FDE)" "$link_cli" green "Enabled"
+      emit_status_line info "$status_text" "$link_fde" green "Enabled"
    elif [ "${crypt_check_return_code}" = '1' ]; then
-      emit_status_line info "Full Disk Encryption (FDE)" "$link_cli" orange "Partial"
+      emit_status_line info "$status_text" "$link_fde" orange "Partial"
    else
-      emit_status_line info "Full Disk Encryption (FDE)" "$link_cli" orange "Disabled"
+      emit_status_line info "$status_text" "$link_fde" orange "Disabled"
    fi
 
    if [ "$verbose" -ge "1" ]; then

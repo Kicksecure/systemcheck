@@ -3,11 +3,40 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
 # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/check_runtime.bsh
+## Sibling repo: absent in an isolated CI checkout, so shellcheck cannot
+## follow it there. The source= path above still documents where it lives.
+##
+## TODO: Let's just not run shellcheck unless we have a full derivative-maker
+## source tree.
+# shellcheck disable=SC1091
 source /usr/libexec/helper-scripts/check_runtime.bsh
 
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/has.sh
+## Sibling repo: absent in an isolated CI checkout, so shellcheck cannot
+## follow it there. The source= path above still documents where it lives.
+##
+## TODO: See above TODO.
+# shellcheck disable=SC1091
+source /usr/libexec/helper-scripts/has.sh
+
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/strings.bsh
+## Sibling repo: absent in an isolated CI checkout, so shellcheck cannot
+## follow it there. The source= path above still documents where it lives.
+##
+## TODO: See above TODO.
+# shellcheck disable=SC1091
+source /usr/libexec/helper-scripts/strings.bsh
+
 error_handler() {
-   echo "ERROR: BASH_COMMAND: $BASH_COMMAND | exit_code: $?"
+   printf '%s\n' "ERROR: BASH_COMMAND: ${BASH_COMMAND} | exit_code: $?"
    exit 1
 }
 
@@ -19,48 +48,57 @@ canary_preparation() {
    ## sets: systemd_notify
    source /usr/libexec/helper-scripts/systemd-notify.bsh
 
-   if [ "$canary_run" = "false" ]; then
-      echo "INFO: Disabled in settings. Doing nothing. Exiting."
+   ## canary-run-or-not only ever assigns canary_run=false, in the enabled
+   ## case it leaves the name unset, so it needs a default.
+   default_if_empty canary_run true
+
+   if [ "${canary_run}" = "false" ]; then
+      printf '%s\n' "INFO: Disabled in settings. Doing nothing. Exiting."
       exit 0
    fi
 
    if [ ! "$(whoami)" = "canary" ]; then
-      echo "ERROR: Exiting. Must be run under user 'canary'."
+      printf '%s\n' "ERROR: Exiting. Must be run under user 'canary'."
       exit 1
    fi
 
+   known_virtualizer="false"
+
    if test -d /usr/share/qubes ; then
       virtualizer=qubes
-      known_virtualizer=yes
+      known_virtualizer="true"
    else
       virtualizer="$(systemd-detect-virt)" || true
-      if [ "$virtualizer" = "oracle" ]; then
-         known_virtualizer=yes
-      elif [ "$virtualizer" = "kvm" ]; then
-         known_virtualizer=yes
-      elif [ "$virtualizer" = "qemu" ]; then
-         known_virtualizer=yes
+      if [ "${virtualizer}" = "oracle" ]; then
+         known_virtualizer="true"
+      elif [ "${virtualizer}" = "kvm" ]; then
+         known_virtualizer="true"
+      elif [ "${virtualizer}" = "qemu" ]; then
+         known_virtualizer="true"
       fi
    fi
 
-   if [ ! "$known_virtualizer" = "yes" ]; then
+   if [ "${known_virtualizer}" = "false" ]; then
       virtualizer=unknown
    fi
+
+   ## Overridable from the environment.
+   default_if_empty canary_base_api_link ""
 
    ## Dedicated onion different from homepage.
    if test -f /usr/share/whonix/marker ; then
       true "INFO: Whonix detected."
-      [ -n "$canary_base_api_link" ] || canary_base_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
+      [ -n "${canary_base_api_link}" ] || canary_base_api_link="http://api.vel76jfvbl6rlq7qrgewrxpkzhulutx5tl4me4lwpzfje4sv6qgrckad.onion"
    else
       true "INFO: Kicksecure detected."
-      [ -n "$canary_base_api_link" ] || canary_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
+      [ -n "${canary_base_api_link}" ] || canary_base_api_link="http://api.ost5p5ju2eojz4ukhb7iib7pxvwrkm7yzeezamnzmxwidhnrtgad7yad.onion"
    fi
 
    ## Testing.
    #virtualizer=apitest
 
    canary_api_link=""
-   canary_api_link+="$canary_base_api_link"
+   canary_api_link+="${canary_base_api_link}"
    canary_api_link+="/"
    canary_api_link+="canary"
    canary_api_link+="?virtualizer=${virtualizer}"
@@ -71,17 +109,17 @@ canary_preparation() {
 
 connectivity_wait() {
    while true; do
-      "${systemd_notify[@]}" --pid="$PPID" WATCHDOG=1
+      "${systemd_notify[@]}" --pid="${PPID}" WATCHDOG=1
 
       if test -f /run/sdwdate/success ; then
          break
       fi
 
-      "${systemd_notify[@]}" --pid="$PPID" WATCHDOG=1
+      "${systemd_notify[@]}" --pid="${PPID}" WATCHDOG=1
 
       light_sleep 120
 
-      "${systemd_notify[@]}" --pid="$PPID" WATCHDOG=1
+      "${systemd_notify[@]}" --pid="${PPID}" WATCHDOG=1
    done
 }
 
@@ -89,16 +127,18 @@ check_canary_lastrun() {
    ## One hour has 3600 seconds.
    ## A day has 86400 seconds.
    local MAX="86400"
+   local LASTRUN
+
+   default_if_empty LASTRUN "0"
 
    if [ -f /var/lib/canary/canary_last_done ]; then
       LASTRUN="$(cat /var/lib/canary/canary_last_done)" || true
    fi
 
-   if [[ "$LASTRUN" != *[!0-9]* ]]; then
-      true "INFO: $FUNCNAME: LASTRUN is strictly numeric."
+   if is_whole_number "${LASTRUN}"; then
+      true "INFO: ${FUNCNAME[0]}: LASTRUN is a whole number."
    else
-      echo "ERROR: $FUNCNAME: LASTRUN not strictly numeric. LASTRUN: $LASTRUN"
-      ## Not strictly numeric.
+      printf '%s\n' "ERROR: ${FUNCNAME[0]}: LASTRUN is not a whole number. LASTRUN: ${LASTRUN}"
       ## the canary_completed function does almost the same
       LASTRUN="0"
    fi
@@ -109,53 +149,55 @@ check_canary_lastrun() {
    expected_string_length="10"
    actual_string_length="${#LASTRUN}"
 
-   if [ ! "$actual_string_length" = "$expected_string_length" ]; then
+   if [ ! "${actual_string_length}" = "${expected_string_length}" ]; then
       LASTRUN="0"
    fi
 
    local CURRENTTIME
    CURRENTTIME="$(date --utc +%s)"
 
-   DIFFERENCE="$(( $CURRENTTIME - $LASTRUN ))"
+   DIFFERENCE="$(( CURRENTTIME - LASTRUN ))"
 
-   if [ "$DIFFERENCE" -le "$MAX" ]; then
-      echo "LASTRUN: date --utc --date \"@${LASTRUN}\""
-      echo "INFO: No need."
+   if [ "${DIFFERENCE}" -le "${MAX}" ]; then
+      printf '%s\n' "LASTRUN: date --utc --date \"@${LASTRUN}\""
+      printf '%s\n' "INFO: No need."
       exit 0
    fi
 
-   echo "INFO: Attempting to download..."
+   printf '%s\n' "INFO: Attempting to download..."
 }
 
 canary_completed() {
    local LASTRUN
    LASTRUN="$(date --utc +%s)"
-   echo "$LASTRUN" | tee /var/lib/canary/canary_last_done > /dev/null
+   printf '%s\n' "${LASTRUN}" | tee /var/lib/canary/canary_last_done > /dev/null
 }
 
 canary_count_or_not() {
-   if [ "$live_status_detected" = "true" ]; then
-      echo "INFO: Skip in live mode."
+   if [ "${live_status_detected}" = "true" ]; then
+      printf '%s\n' "INFO: Skip in live mode."
       exit 0
    fi
 
    if test -f /run/qubes/this-is-templatevm ; then
-      echo "INFO: Skip in Qubes TemplateVM."
+      printf '%s\n' "INFO: Skip in Qubes TemplateVM."
       exit 0
    fi
 
-   if command -v qubesdb-read &>/dev/null ; then
+   default_if_empty qubes_vm_persistence ""
+
+   if has qubesdb-read ; then
       qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)"
    fi
 
-   if [ "$qubes_vm_persistence" = "none" ]; then
-      echo "INFO: Skip in Qubes DispVM."
+   if [ "${qubes_vm_persistence}" = "none" ]; then
+      printf '%s\n' "INFO: Skip in Qubes DispVM."
       exit 0
    fi
 
    ## Count Whonix-Gateway and Kicksecure.
    if test -f /usr/share/anon-ws-base-files/workstation ; then
-      echo "INFO: Skip. Not counting workstation. Only gateway only."
+      printf '%s\n' "INFO: Skip. Not counting workstation. Only gateway only."
       exit 0
    fi
 }
@@ -174,17 +216,17 @@ canary_do() {
 
    timeout --kill-after="5" "180" \
       /usr/libexec/systemcheck/canary-download \
-      "$canary_api_link" 2>&1 \
+      "${canary_api_link}" 2>&1 \
       | tee "/var/lib/canary/canary-download-output.txt" > /dev/null \
       || { canary_download_exit_code="$?" ; true; };
 
-   if [ ! "$canary_download_exit_code" = "0" ]; then
-      echo "ERROR: Failure."
-      echo "See: https://www.kicksecure.com/wiki/Systemcheck#Warrant_Canary_Check"
+   if [ ! "${canary_download_exit_code}" = "0" ]; then
+      printf '%s\n' "ERROR: Failure."
+      printf '%s\n' "See: https://www.kicksecure.com/wiki/Systemcheck#Warrant_Canary_Check"
       exit 0
    fi
 
-   echo "INFO: Success."
+   printf '%s\n' "INFO: Success."
 
    canary_completed
 }

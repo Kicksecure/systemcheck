@@ -56,8 +56,8 @@ check_operating_system() {
          ## TemplateBasedVM
          local qubes_update_help="<br/>1. Open a TemplateVM terminal. ($persistent_changes_start_menu_instructions_first_part Terminal)
 <br/>2. Update. <blockquote><code>$update_command</code></blockquote>
-<br/>3. Shutdown your TemplateVM. (dom0 / Qubes VM Manager / right click '<code>$qubes_base_template</code>' / Shutdown VM)
-<br/>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 / Qubes VM Manager / right click '<code>$qubes_name_of_vm</code>' / Shutdown VM)"
+<br/>3. Shutdown your TemplateVM. (dom0 - Qubes VM Manager - right click '<code>$qubes_base_template</code>' - Shutdown VM)
+<br/>4. Shutdown and restart this TemplateBased <code>$qubes_vm_type</code>. (dom0 - Qubes VM Manager - right click '<code>$qubes_name_of_vm</code>' - Shutdown VM)"
       fi
    fi
 
@@ -228,6 +228,8 @@ $qubes_update_help</p>"
       fi
    fi
 
+   ## TODO: Does it really make sense to make systemcheck error out because of
+   ## a "warning"?
    EXIT_CODE="1"
    emit_message warning "$MSG"
 }

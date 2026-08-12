@@ -3,22 +3,31 @@
 ## Copyright (C) 2025 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-set -e
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
+## The '/tmp/user/0' literals below are the EXPECTED VALUE this script exists to
+## assert, not a temporary path it writes to.
+## style-ok: no-tmp-hardcode
 
 true "$0: START."
 
 if [ ! "$(id -u)" = "0" ]; then
-   echo "$0: ERROR: Must be run as root!" >&2
+   printf '%s\n' "$0: ERROR: Must be run as root!" >&2
    exit 1
 fi
 
-if [ ! "$TMP" = "/tmp/user/0" ]; then
-   echo "$0: ERROR: Variable 'TMP' is not set to '/tmp/user/0'!" >&2
+if [ ! "${TMP:-}" = "/tmp/user/0" ]; then
+   printf '%s\n' "$0: ERROR: Variable 'TMP' is not set to '/tmp/user/0'!" >&2
    exit 1
 fi
 
-if [ ! "$TMPDIR" = "/tmp/user/0" ]; then
-   echo "$0: ERROR: Variable 'TMPDIR' is not set to '/tmp/user/0'!" >&2
+if [ ! "${TMPDIR:-}" = "/tmp/user/0" ]; then
+   printf '%s\n' "$0: ERROR: Variable 'TMPDIR' is not set to '/tmp/user/0'!" >&2
    exit 1
 fi
 

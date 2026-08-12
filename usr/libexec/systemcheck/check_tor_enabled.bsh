@@ -9,7 +9,7 @@
 check_tor_enabled() {
    if test -f /run/qubes/this-is-templatevm ; then
       local MSG="<p>Tor Check Result: Skipped, because running in TemplateVM, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -42,10 +42,10 @@ Then run <code>systemcheck</code> again.</p>"
    else
       if [ -e "/usr/share/anon-gw-base-files/gateway" ]; then
          local MSG="<p>Tor Check Result: \"DisableNetwork 1\" not active, $status_ok</p>"
-         output_if_verbose emit_message info "$MSG"
+         run_if_verbose emit_message info "$MSG"
       else
          local MSG="<p>Tor Check Result: Not running on Whonix-Gateway, $status_ok</p>"
-         output_if_verbose emit_message info "$MSG"
+         run_if_verbose emit_message info "$MSG"
       fi
    fi
 }

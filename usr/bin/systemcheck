@@ -4,7 +4,12 @@
 ## See the file COPYING for copying conditions.
 
 #set -x
-set -e
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
 
 ## Useful when xtrace ("set -x") is enabled and running in the background
 ## (such as if started as GUI from start menu) to log all xtrace to a log file.

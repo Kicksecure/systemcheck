@@ -42,7 +42,7 @@ check_tor_socks_port_reachability() {
    if [ "$check_socks_port_open_test" = "22" ]; then
       local MSG="<p>Tor SocksPort Reachability Test Result: Reachable. \
 (curl exit code: $check_socks_port_open_test | curl status message: $curl_status_message)</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 

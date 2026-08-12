@@ -11,7 +11,7 @@ source /usr/libexec/helper-scripts/live-mode.sh
 canary_folder_permission_issues() {
    local MSG="\
 <p>$warrant_canary_check_link: Folder <code>/var/lib/canary</code> permissions issue.</p>"
-   output_if_verbose emit_message info "$MSG"
+   run_if_verbose emit_message info "$MSG"
    return 0
 }
 
@@ -25,35 +25,35 @@ check_warrant_canary() {
    if [ "$canary_run" = "false" ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Disabled in settings. Doing nothing. Skipping.</p>"
-      output_if_verbose emit_message info "$MSG"
-         return 0
+      run_if_verbose emit_message info "$MSG"
+      return 0
    fi
 
    if [ "$vm_lower_case_short" = "workstation" ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping on $VM, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
    if [ "$live_status_detected" = 'true' ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in live mode, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
    if test -f /run/qubes/this-is-templatevm ; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in Template, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
    if [ "$qubes_vm_persistence" = "none" ]; then
       local MSG="\
 <p>$warrant_canary_check_link: Skipping in DispVM, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -68,7 +68,7 @@ Check system clock. Recommended to check warrant canary manually."
     if ! leaprun -- check-warrant-canary &>/dev/null ; then
         local MSG="\
 <p>$warrant_canary_check_link: systemd unit <code>canary</code> not running.</p>"
-        output_if_verbose emit_message info "$MSG"
+        run_if_verbose emit_message info "$MSG"
         return 0
     fi
 
@@ -87,13 +87,10 @@ Check system clock. Recommended to check warrant canary manually."
 $canary_recommendation<br />
 <br />
 If this warning happens only after boot or is transient it can be safely ignored.</p>"
-        if [ "$verbose" -ge "1" ]; then
-            emit_message warning "$MSG"
-            ## Intentionally lenient (does not fail the run): the canary fetch
-            ## depends on onion services whose reliability issues would otherwise
-            ## cause false failures.
-            #EXIT_CODE="1"
-        fi
+        ## Intentionally does not fail the run. The canary fetch depends on
+        ## onion services whose reliability issues would otherwise cause false
+        ## failures.
+        run_if_verbose emit_message warning "$MSG"
         return 0
     fi
 
@@ -118,11 +115,11 @@ $canary_recommendation</p>"
    fi
 
    local actual_string_length
-   local max_string_length=10
+   local exp_string_length=10
    actual_string_length="${#canary_signed_unixtime_raw}"
 
-   if [ ! "$actual_string_length" = "$max_string_length" ]; then
-      local MSG="<p><b>$warrant_canary_check_link: Unexpected string length of <code>canary_signed_unixtime_raw</code> variable</b> (expected: <code>$max_string_length</code> actual: <code>$actual_string_length</code>).
+   if [ ! "$actual_string_length" = "$exp_string_length" ]; then
+      local MSG="<p><b>$warrant_canary_check_link: Unexpected string length of <code>canary_signed_unixtime_raw</code> variable</b> (expected: <code>$exp_string_length</code> actual: <code>$actual_string_length</code>).
 <br />
 $canary_recommendation</p>"
       if [ "$verbose" -ge "1" ]; then
@@ -133,7 +130,7 @@ $canary_recommendation</p>"
    fi
 
    local canary_signature_unixtime_sanitized
-   canary_signature_unixtime_sanitized="$(/usr/bin/sanitize-string -- "$max_string_length" "$canary_signed_unixtime_raw")"
+   canary_signature_unixtime_sanitized="$(/usr/bin/sanitize-string -- "$exp_string_length" "$canary_signed_unixtime_raw")"
 
    if [[ "$canary_signature_unixtime_sanitized" != *[!0-9]* ]]; then
       true "${FUNCNAME[0]}: canary_signature_unixtime_sanitized is strictly numeric."
@@ -175,7 +172,7 @@ $canary_recommendation</p>"
 <br />Current Time          : <code>$current_human_readable</code>
 <br />Canary Signature Time : <code>$canary_signature_unixtime_human_readable</code>
 <br />Canary Expiration Time: <code>$canary_expiration_human_readable</code></p>"
-   output_if_verbose emit_message info "$MSG"
+   run_if_verbose emit_message info "$MSG"
 
    if [ "$current_unixtime" -gt "$canary_expiration_unixtime" ]; then
       local MSG="<p>$warrant_canary_check_link: Stale.
@@ -189,7 +186,7 @@ $canary_recommendation</p>"
    fi
 
    local MSG="<p>$warrant_canary_check_link: $status_ok</p>"
-   output_if_verbose emit_message info "$MSG"
+   run_if_verbose emit_message info "$MSG"
 
    return 0
 }
