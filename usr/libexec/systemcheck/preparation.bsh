@@ -478,17 +478,17 @@ preparation() {
 
       passive_popup_title="[${qubes_name_of_vm}]"
 
-      qubes_starter_first_part="ServiceVM"
-      if [ "$qubes_name_of_vm" = "AppVM" ]; then
-         qubes_starter_first_part="Domain"
-      fi
-      if [ "$qubes_name_of_vm" = "TemplateVM" ]; then
-         qubes_starter_first_part="Template"
-      fi
-
       ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
       qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
       qubes_vm_type="$(sanitize-string -- 255 "$qubes_vm_type")"
+
+      qubes_starter_first_part="ServiceVM"
+      if [ "$qubes_vm_type" = "AppVM" ]; then
+         qubes_starter_first_part="Domain"
+      fi
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+         qubes_starter_first_part="Template"
+      fi
 
       ## '/qubes-vm-persistence' outputs:
       ## - 'full' (TemplateVM or Standalone),
