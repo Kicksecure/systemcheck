@@ -55,7 +55,7 @@ prep_temp_dir() {
   ## The directory creation and permission assignment MUST be done atomically,
   ## otherwise a TOCTOU vuln may allow arbitrary processes to leak the full
   ## contents of the journal.
-  mkdir --parents -m700 -- "$TMPDIR"
+  mkdir --parents --mode=700 -- "$TMPDIR"
   test -w "$TMPDIR"
 }
 
