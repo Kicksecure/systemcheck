@@ -51,7 +51,10 @@ prep_temp_dir() {
   ## TMPDIR out of space
   TMPDIR='/var/cache/systemcheck-log-checker'
   TMP="$TMPDIR"
-  export TMP TMPDIR
+  ## TEMP TEMPDIR set for consistency only.
+  TEMP="$TMPDIR"
+  TEMPDIR="$TMPDIR"
+  export TMP TMPDIR TEMP TEMPDIR
   ## The directory creation and permission assignment MUST be done atomically,
   ## otherwise a TOCTOU vuln may allow arbitrary processes to leak the full
   ## contents of the journal.
