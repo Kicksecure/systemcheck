@@ -11,11 +11,11 @@ check_tor_bootstrap() {
       return 0
    fi
 
-   if [ "$systemcheck_external_network_found" = "false" ]; then
+   if [ "${systemcheck_external_network_found}" = "false" ]; then
       local MSG="<p>Tor Connection Result: Skipped. (Because no external network interface detected.)</p>"
-      emit_message info "$MSG"
+      emit_message info "${MSG}"
       local MSG="<p>Time Synchronization Result: Skipped. (Because no external network interface detected.)</p>"
-      emit_message info "$MSG"
+      emit_message info "${MSG}"
       return 0
    fi
 
@@ -40,19 +40,19 @@ check_tor_bootstrap() {
 }
 
 check_tor_bootstrap_sleep() {
-   sleep "$systemcheck_tor_bootstrap_between_attempts" &
+   sleep "${systemcheck_tor_bootstrap_between_attempts}" &
    lastpid="$!"
-   wait "$lastpid" || true
-   systemcheck_tor_bootstrap_waited_seconds="$(( "$systemcheck_tor_bootstrap_waited_seconds" + "$systemcheck_tor_bootstrap_between_attempts" ))"
+   wait "${lastpid}" || true
+   systemcheck_tor_bootstrap_waited_seconds="$(( systemcheck_tor_bootstrap_waited_seconds + systemcheck_tor_bootstrap_between_attempts ))"
 }
 
 check_tor_bootstrap_init() {
-   is_whole_number "$systemcheck_tor_bootstrap_waited_seconds" || systemcheck_tor_bootstrap_waited_seconds="0"
-   is_whole_number "$systemcheck_tor_bootstrap_between_attempts" || systemcheck_tor_bootstrap_between_attempts="2"
-   is_whole_number "$systemcheck_tor_bootstrap_wait_max" || systemcheck_tor_bootstrap_wait_max="300"
-   is_whole_number "$systemcheck_tor_bootstrap_error_counter" || systemcheck_tor_bootstrap_error_counter="0"
-   is_whole_number "$systemcheck_tor_bootstrap_error_max" || systemcheck_tor_bootstrap_error_max="5"
-   is_whole_number "$PROGRESS" || PROGRESS=""
+   is_whole_number "${systemcheck_tor_bootstrap_waited_seconds}" || systemcheck_tor_bootstrap_waited_seconds="0"
+   is_whole_number "${systemcheck_tor_bootstrap_between_attempts}" || systemcheck_tor_bootstrap_between_attempts="2"
+   is_whole_number "${systemcheck_tor_bootstrap_wait_max}" || systemcheck_tor_bootstrap_wait_max="300"
+   is_whole_number "${systemcheck_tor_bootstrap_error_counter}" || systemcheck_tor_bootstrap_error_counter="0"
+   is_whole_number "${systemcheck_tor_bootstrap_error_max}" || systemcheck_tor_bootstrap_error_max="5"
+   is_whole_number "${PROGRESS}" || PROGRESS=""
 
    ## sets: check_bootstrap_script
    ## sets: lastpid
@@ -64,17 +64,17 @@ check_tor_bootstrap_init() {
    ## sets: tor_circuit_established_word
    source /usr/libexec/helper-scripts/tor_bootstrap_check.bsh
 
-   if [ "$vm_lower_case_short" = "gateway" ] || [ "$vm_lower_case_short" = "machine" ]; then
+   if [ "${vm_lower_case_short}" = "gateway" ] || [ "${vm_lower_case_short}" = "machine" ]; then
       check_tor_bootstrap_status
    fi
 
    check_tor_circuit_established
 
-   true "tor_bootstrap_percent: $tor_bootstrap_percent"
-   true "tor_bootstrap_status: $tor_bootstrap_status"
-   true "tor_circuit_established: $tor_circuit_established"
-   true "tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code"
-   true "tor_circuit_established_word: $tor_circuit_established_word"
+   true "tor_bootstrap_percent: ${tor_bootstrap_percent}"
+   true "tor_bootstrap_status: ${tor_bootstrap_status}"
+   true "tor_circuit_established: ${tor_circuit_established}"
+   true "tor_circuit_established_check_exit_code: ${tor_circuit_established_check_exit_code}"
+   true "tor_circuit_established_word: ${tor_circuit_established_word}"
 
    ## Debugging.
    ## Simulating cases where tor_bootstrap_percent is 100 while
@@ -92,8 +92,8 @@ check_tor_bootstrap_init() {
    ## check_socks_port_open_test gets set by check_tor_socks_port_reachability,
    ## which runs earlier.
 
-   if [ "$VM" = "Whonix-Workstation" ]; then
-      if [ "$tor_circuit_established" = "1" ]; then
+   if [ "${VM}" = "Whonix-Workstation" ]; then
+      if [ "${tor_circuit_established}" = "1" ]; then
          ## On the workstation we do not have access to tor_bootstrap_percent,
          ## so assume it is 100 for code simplification purposes.
          tor_bootstrap_percent="100"
@@ -118,10 +118,10 @@ check_tor_bootstrap_init() {
 
    if [ -e /run/sdwdate/msg ]; then
       time_synchronization_msg="$(cat /run/sdwdate/msg)" || true
-      time_synchronization_msg="$(sanitize-string -- 255 "$time_synchronization_msg")"
+      time_synchronization_msg="$(sanitize-string -- 255 "${time_synchronization_msg}")"
    fi
 
-   if [ "$time_synchronization_msg" = "" ]; then
+   if [ "${time_synchronization_msg}" = "" ]; then
       time_synchronization_msg="nothing yet."
    fi
 
@@ -133,35 +133,38 @@ check_tor_bootstrap_init() {
       whonix_firewall_status_notification="first run after boot"
    else
       whonix_firewall_status_word="pending"
+      ## Every emitted "whonix_firewall status:" line needs a value; without
+      ## this the pending branch renders a dangling empty label.
+      whonix_firewall_status_notification="pending (no run recorded yet)"
    fi
 
    onion_time_pre_script_output=$(timeout --kill-after="5" "5" leaprun onion-time-pre-script 2>&1) || true
-   if [ "$onion_time_pre_script_output" = "" ]; then
+   if [ "${onion_time_pre_script_output}" = "" ]; then
       onion_time_pre_script_output="onion-time-pre-script did not return any output."
    fi
-   onion_time_pre_script_output="$(sanitize-string -- 8192 "$onion_time_pre_script_output")"
-   onion_time_pre_script_output="$(br_add "$onion_time_pre_script_output")"
+   onion_time_pre_script_output="$(sanitize-string -- 8192 "${onion_time_pre_script_output}")"
+   onion_time_pre_script_output="$(br_add "${onion_time_pre_script_output}")"
 
    return 0
 }
 
 check_tor_bootstrap_grace() {
-   if [ "$tor_circuit_established_check_exit_code" = "255" ] || [ "$tor_circuit_established_check_exit_code" = "124" ] || [ "$tor_circuit_established_check_exit_code" = "137" ]; then
+   if [ "${tor_circuit_established_check_exit_code}" = "255" ] || [ "${tor_circuit_established_check_exit_code}" = "124" ] || [ "${tor_circuit_established_check_exit_code}" = "137" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   systemcheck_tor_bootstrap_error_counter="$(( $systemcheck_tor_bootstrap_error_counter + 1 ))"
-   if [ "$systemcheck_tor_bootstrap_error_counter" -ge "$systemcheck_tor_bootstrap_error_max" ]; then
+   systemcheck_tor_bootstrap_error_counter="$(( systemcheck_tor_bootstrap_error_counter + 1 ))"
+   if [ "${systemcheck_tor_bootstrap_error_counter}" -ge "${systemcheck_tor_bootstrap_error_max}" ]; then
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    else
       local MSG="<p>Tor Connection Result:
-Tor's Control Port could not be reached. Attempt $systemcheck_tor_bootstrap_error_counter of $systemcheck_tor_bootstrap_error_max. Could be temporary due to a Tor restart. Trying again...
+Tor's Control Port could not be reached. Attempt ${systemcheck_tor_bootstrap_error_counter} of ${systemcheck_tor_bootstrap_error_max}. Could be temporary due to a Tor restart. Trying again...
 </p>"
-      $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG" --done
+      ${output_cli} "${output_opts[@]}" --messagecli --typecli "info" --message "${MSG}" --done
 
       check_tor_bootstrap_sleep
 
@@ -176,31 +179,31 @@ check_tor_bootstrap_known_failure_cases() {
    ## 124 if sigterm was sufficient.
    ## 137 if needed to use kill.
    if \
-   [ "$tor_circuit_established_check_exit_code" = "255" ] || \
-   [ "$tor_circuit_established_check_exit_code" = "277" ] || \
-   [ "$tor_circuit_established_check_exit_code" = "124" ] || \
-   [ "$tor_circuit_established_check_exit_code" = "137" ]
+   [ "${tor_circuit_established_check_exit_code}" = "255" ] || \
+   [ "${tor_circuit_established_check_exit_code}" = "277" ] || \
+   [ "${tor_circuit_established_check_exit_code}" = "124" ] || \
+   [ "${tor_circuit_established_check_exit_code}" = "137" ]
    then
-      true "tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code"
+      true "tor_circuit_established_check_exit_code: ${tor_circuit_established_check_exit_code}"
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   if [ "$VM" = "Whonix-Gateway" ]; then
+   if [ "${VM}" = "Whonix-Gateway" ]; then
       local MSG="<p>Tor Connection Result:
 <br/>Tor's Control Port could not be reached!
 <br/>
-<br/>Please report this $PROJECT_NAME bug!
+<br/>Please report this ${PROJECT_NAME} bug!
 <br/>
 <br/>(Technical information:)
-<br/>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
-<br/>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-<br/>(tor_bootstrap_status: $tor_bootstrap_status)
-<br/>(check_socks_port_open_test: $check_socks_port_open_test)
-<br/>(Tor Circuit: $tor_circuit_established_word)</p>"
-   elif [ "$VM" = "Whonix-Workstation" ]; then
-      if [ "$qubes_detected" = "false" ]; then
+<br/>(tor_circuit_established_check_exit_code: ${tor_circuit_established_check_exit_code})
+<br/>(tor_bootstrap_timeout_type: ${tor_bootstrap_timeout_type})
+<br/>(tor_bootstrap_status: ${tor_bootstrap_status})
+<br/>(check_socks_port_open_test: ${check_socks_port_open_test})
+<br/>(Tor Circuit: ${tor_circuit_established_word})</p>"
+   elif [ "${VM}" = "Whonix-Workstation" ]; then
+      if [ "${qubes_detected}" = "false" ]; then
          local multiple_whonix_ws_msg="<br/>- If you're running multiple Whonix-Workstations simultaneously, confirm that separate IP addresses are configured (see <a href=${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations>${PROJECT_HOMEPAGE}/wiki/Multiple_Whonix-Workstations</a>)."
       fi
       local MSG="<p>Tor Connection Result:
@@ -209,15 +212,15 @@ check_tor_bootstrap_known_failure_cases() {
 <br/>Troubleshooting:
 <br/>- Confirm that Whonix-Gateway is running.
 <br/>- Run <code>systemcheck</code> on Whonix-Gateway and confirm success.
-$multiple_whonix_ws_msg
+${multiple_whonix_ws_msg}
 <br/>- Rerun <code>systemcheck</code> here in this Whonix-Workstation.
 <br/>
 <br/>(Technical information:)
-<br/>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
-<br/>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-<br/>(tor_bootstrap_status: $tor_bootstrap_status)
-<br/>(check_socks_port_open_test: $check_socks_port_open_test)
-<br/>(Tor Circuit: $tor_circuit_established_word)</p>"
+<br/>(tor_circuit_established_check_exit_code: ${tor_circuit_established_check_exit_code})
+<br/>(tor_bootstrap_timeout_type: ${tor_bootstrap_timeout_type})
+<br/>(tor_bootstrap_status: ${tor_bootstrap_status})
+<br/>(check_socks_port_open_test: ${check_socks_port_open_test})
+<br/>(Tor Circuit: ${tor_circuit_established_word})</p>"
    else
       local MSG="<p>Tor Connection Result:
 <br/>Tor's Control Port could not be reached!
@@ -227,16 +230,16 @@ $multiple_whonix_ws_msg
 <br/>- Rerun <code>systemcheck</code>
 <br/>
 <br/>(Technical information:)
-<br/>(tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code)
-<br/>(tor_bootstrap_timeout_type: $tor_bootstrap_timeout_type)
-<br/>(tor_bootstrap_status: $tor_bootstrap_status)
-<br/>(check_socks_port_open_test: $check_socks_port_open_test)
-<br/>(Tor Circuit: $tor_circuit_established_word)</p>"
+<br/>(tor_circuit_established_check_exit_code: ${tor_circuit_established_check_exit_code})
+<br/>(tor_bootstrap_timeout_type: ${tor_bootstrap_timeout_type})
+<br/>(tor_bootstrap_status: ${tor_bootstrap_status})
+<br/>(check_socks_port_open_test: ${check_socks_port_open_test})
+<br/>(Tor Circuit: ${tor_circuit_established_word})</p>"
    fi
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
+   if [ "${started_tor_bootstrap_progress_bar}" = "1" ]; then
+      ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "100"
    fi
-   emit_message error "$MSG"
+   emit_message error "${MSG}"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -245,9 +248,9 @@ $multiple_whonix_ws_msg
 
 check_tor_bootstrap_unknown_failure_cases() {
    if \
-   [ "$tor_circuit_established_check_exit_code" = "" ] || \
-   [ "$tor_circuit_established_check_exit_code" -gt "100" ] || \
-   [ "$tor_circuit_established_check_exit_code" -lt "0" ]
+   [ "${tor_circuit_established_check_exit_code}" = "" ] || \
+   [ "${tor_circuit_established_check_exit_code}" -gt "100" ] || \
+   [ "${tor_circuit_established_check_exit_code}" -lt "0" ]
    then
       true
    else
@@ -256,16 +259,16 @@ check_tor_bootstrap_unknown_failure_cases() {
    fi
 
    local MSG="<p>Tor Connection Result:
-<br/>$check_bootstrap_script ERROR:
-<br/>tor_circuit_established_check_exit_code: $tor_circuit_established_check_exit_code
-<br/>(tor_bootstrap_status: $tor_bootstrap_status)
-<br/>(check_socks_port_open_test: $check_socks_port_open_test)
-<br/>(Tor Circuit: $tor_circuit_established_word)
-<br/>Please report this $PROJECT_NAME usability bug! (Not a security bug.)</p>"
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
+<br/>${check_bootstrap_script} ERROR:
+<br/>tor_circuit_established_check_exit_code: ${tor_circuit_established_check_exit_code}
+<br/>(tor_bootstrap_status: ${tor_bootstrap_status})
+<br/>(check_socks_port_open_test: ${check_socks_port_open_test})
+<br/>(Tor Circuit: ${tor_circuit_established_word})
+<br/>Please report this ${PROJECT_NAME} usability bug! (Not a security bug.)</p>"
+   if [ "${started_tor_bootstrap_progress_bar}" = "1" ]; then
+      ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "100"
    fi
-   emit_message error "$MSG"
+   emit_message error "${MSG}"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -278,125 +281,125 @@ check_tor_bootstrap_stop_when_bootstrap_done() {
       #tor_bootstrap_percent="$(( 5 + ${#RANDOM} ))"
    #fi
 
-   if [ "$tor_bootstrap_percent" = "100" ] && [ "$tor_circuit_established" = "1" ]; then
+   if [ "${tor_bootstrap_percent}" = "100" ] && [ "${tor_circuit_established}" = "1" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   if [ "$time_synchronization_status_word" = "first_success" ] || [ "$time_synchronization_status_word" = "success" ]; then
+   if [ "${time_synchronization_status_word}" = "first_success" ] || [ "${time_synchronization_status_word}" = "success" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   local MSG="<p>Tor Connection Result: $status_ok
-<br/>tor_bootstrap_status: <code>$tor_bootstrap_status</code>
-<br/>Tor Circuit: <code>$tor_circuit_established_word</code></p>"
-   run_if_verbose emit_message info "$MSG"
+   local MSG="<p>Tor Connection Result: ${status_ok}
+<br/>tor_bootstrap_status: <code>${tor_bootstrap_status}</code>
+<br/>Tor Circuit: <code>${tor_circuit_established_word}</code></p>"
+   run_if_verbose emit_message info "${MSG}"
 
-   local MSG="<p>Time Synchronization Result: $status_ok
-<br/>Time synchronization status: <code>$time_synchronization_status_word</code>
-<br/>sdwdate reports: <code>$time_synchronization_msg</code>
-<br/>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
-<br/>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
-   run_if_verbose emit_message info "$MSG"
+   local MSG="<p>Time Synchronization Result: ${status_ok}
+<br/>Time synchronization status: <code>${time_synchronization_status_word}</code>
+<br/>sdwdate reports: <code>${time_synchronization_msg}</code>
+<br/>whonix_firewall status: <code>${whonix_firewall_status_notification}</code>
+<br/>onion-time-pre-script reports: <code>${onion_time_pre_script_output}</code></p>"
+   run_if_verbose emit_message info "${MSG}"
 
    local MSG="<p>Connected to Tor.</p>"
 
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
+   if [ "${started_tor_bootstrap_progress_bar}" = "1" ]; then
+      ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "100"
    fi
-   $output_x "${output_opts[@]}" --passivepopupqueuex --passivepopupqueuextitle "$passive_popup_title" --typex "info" --message "$MSG" --done
-   $output_cli "${output_opts[@]}" --waitmessagecli --typecli "info" --message "$MSG" --done
+   ${output_x} "${output_opts[@]}" --passivepopupqueuex --passivepopupqueuextitle "${passive_popup_title}" --typex "info" --message "${MSG}" --done
+   ${output_cli} "${output_opts[@]}" --waitmessagecli --typecli "info" --message "${MSG}" --done
    ## `break` check_tor_bootstrap loop.
    return 1
 }
 
 check_tor_bootstrap_show_wait_notification_maybe() {
-   if [ "$systemcheck_tor_bootstrap_waited_seconds" -lt "1" ]; then
+   if [ "${systemcheck_tor_bootstrap_waited_seconds}" -lt "1" ]; then
       return 0
    fi
 
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
+   if [ "${started_tor_bootstrap_progress_bar}" = "1" ]; then
       return 0
    fi
 
-   if [ "$tor_bootstrap_in_progress_passive_popup_shown" = "true" ]; then
+   if [ "${tor_bootstrap_in_progress_passive_popup_shown}" = "true" ]; then
       return 0
    fi
 
    started_tor_bootstrap_progress_bar="1"
    ## Waited for more than 5 seconds.
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
-   local MSG="<p>Tor Bootstrap Test: Waiting for Tor Connection... (Will take up to $systemcheck_tor_bootstrap_wait_max seconds.)</p>"
-   $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
+   local MSG="<p>Tor Bootstrap Test: Waiting for Tor Connection... (Will take up to ${systemcheck_tor_bootstrap_wait_max} seconds.)</p>"
+   ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressbarx --parentpid "$$" --progressbartitlex "${TITLE_X}" --message "${MSG}" --done
    return 0
 }
 
 check_tor_bootstrap_wait_longer_maybe() {
-   if [ "$systemcheck_tor_bootstrap_waited_seconds" -lt "$systemcheck_tor_bootstrap_wait_max" ]; then
+   if [ "${systemcheck_tor_bootstrap_waited_seconds}" -lt "${systemcheck_tor_bootstrap_wait_max}" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
    if \
-      [ "$tor_bootstrap_percent" -lt "100" ] || \
-      [ "$tor_circuit_established" = "0" ] || \
-      [ "$time_synchronization_status_word" = "timeout" ] || \
-      [ "$time_synchronization_status_word" = "pending" ]; then
+      [ "${tor_bootstrap_percent}" -lt "100" ] || \
+      [ "${tor_circuit_established}" = "0" ] || \
+      [ "${time_synchronization_status_word}" = "timeout" ] || \
+      [ "${time_synchronization_status_word}" = "pending" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   if [ "$PROGRESS" = "" ]; then
+   if [ "${PROGRESS}" = "" ]; then
       PROGRESS="5"
    fi
-   PROGRESS="$(( $PROGRESS + 1 ))"
-   if [ "$PROGRESS" -ge "100" ]; then
+   PROGRESS="$(( PROGRESS + 1 ))"
+   if [ "${PROGRESS}" -ge "100" ]; then
       PROGRESS="6"
    fi
 
-   if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "" ]; then
-      TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
+   if [ "${TOR_BOOTSTRAP_PERCENT_OLD}" = "" ]; then
+      TOR_BOOTSTRAP_PERCENT_OLD="${tor_bootstrap_percent}"
    fi
 
    local progress_made_text
-   if [ "$TOR_BOOTSTRAP_PERCENT_OLD" = "$tor_bootstrap_percent" ]; then
+   if [ "${TOR_BOOTSTRAP_PERCENT_OLD}" = "${tor_bootstrap_percent}" ]; then
       ## no progress has been made
       progress_made_text=""
    else
       progress_made_text="| Progress has been made."
    fi
 
-   if [ "$VM" = "Whonix-Gateway" ]; then
+   if [ "${VM}" = "Whonix-Gateway" ]; then
       local MSG="<p>Tor Connection Result:
-- Connecting for $systemcheck_tor_bootstrap_waited_seconds seconds. | $tor_bootstrap_percent % done. $progress_made_text
-- Tor Circuit: $tor_circuit_established_word.
-- Tor reports: $tor_bootstrap_status
-- Timesync status: $time_synchronization_status_notification.
-- sdwdate reports: $time_synchronization_msg
-- onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
+- Connecting for ${systemcheck_tor_bootstrap_waited_seconds} seconds. | ${tor_bootstrap_percent} % done. ${progress_made_text}
+- Tor Circuit: ${tor_circuit_established_word}.
+- Tor reports: ${tor_bootstrap_status}
+- Timesync status: ${time_synchronization_status_notification}.
+- sdwdate reports: ${time_synchronization_msg}
+- onion-time-pre-script reports: <code>${onion_time_pre_script_output}</code></p>"
    else
       local MSG="<p>Tor Connection Result:
-- Connecting for $systemcheck_tor_bootstrap_waited_seconds seconds.
-- Tor Circuit: $tor_circuit_established_word.
-- Timesync status: $time_synchronization_status_notification.
-- sdwdate reports: $time_synchronization_msg
-- onion-time-pre-script reports: <code>$onion_time_pre_script_output</code></p>"
+- Connecting for ${systemcheck_tor_bootstrap_waited_seconds} seconds.
+- Tor Circuit: ${tor_circuit_established_word}.
+- Timesync status: ${time_synchronization_status_notification}.
+- sdwdate reports: ${time_synchronization_msg}
+- onion-time-pre-script reports: <code>${onion_time_pre_script_output}</code></p>"
    fi
 
-   TOR_BOOTSTRAP_PERCENT_OLD="$tor_bootstrap_percent"
+   TOR_BOOTSTRAP_PERCENT_OLD="${tor_bootstrap_percent}"
 
-   $output_cli "${output_opts[@]}" --messagecli --typecli "info" --message "$MSG" --done
+   ${output_cli} "${output_opts[@]}" --messagecli --typecli "info" --message "${MSG}" --done
 
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "$PROGRESS"
+   if [ "${started_tor_bootstrap_progress_bar}" = "1" ]; then
+      ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "${PROGRESS}"
    fi
 
    check_tor_bootstrap_sleep
@@ -406,50 +409,50 @@ check_tor_bootstrap_wait_longer_maybe() {
 }
 
 check_tor_bootstrap_give_up_on_connection_issue_maybe() {
-   if [ "$systemcheck_tor_bootstrap_waited_seconds" -ge "$systemcheck_tor_bootstrap_wait_max" ]; then
+   if [ "${systemcheck_tor_bootstrap_waited_seconds}" -ge "${systemcheck_tor_bootstrap_wait_max}" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   if [ "$tor_circuit_established" = "0" ]; then
+   if [ "${tor_circuit_established}" = "0" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   if [ "$tor_circuit_established" = "0" ]; then
+   if [ "${tor_circuit_established}" = "0" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   if [ "$VM" = "Whonix-Gateway" ]; then
+   if [ "${VM}" = "Whonix-Gateway" ]; then
       check_anondate_do
       ## sets: anondate_issue
       ## sets: anondate_recommendation
       ## sets: anondate_debugging_information
    fi
 
-   if [ "$VM" = "Whonix-Gateway" ]; then
+   if [ "${VM}" = "Whonix-Gateway" ]; then
       local MSG="<p>Tor Connection Result:
 <br/><b>systemcheck gave up waiting.</b>
-<br/>Tor Circuit: $tor_circuit_established_word
-<br/>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
+<br/>Tor Circuit: ${tor_circuit_established_word}
+<br/>Connection ${tor_bootstrap_percent} % done. Tor reports: <code>${tor_bootstrap_status}</code></p>
 
 <p>Possible issues:
 <br/>- Is the host's internet connection working?
 <br/>- Whonix-Gateway will need a few moments for bootstrapping the Tor network.
 <br/>- Do you live in a censored area?
 <br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
-$anondate_issue</p>
+${anondate_issue}</p>
 
 <p>Recommendations:</p>
 
-$anondate_recommendation
+${anondate_recommendation}
 
 <p>1)
 <br/>Shut down Whonix and try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
@@ -459,19 +462,19 @@ working on your host. If you cannot get the Tor Browser Bundle to work, you will
 you will need them for Whonix as well.</p>
 
 <p>2)
-<br/>Try again: $start_menu_instructions_system_first_part systemcheck
+<br/>Try again: ${start_menu_instructions_system_first_part} systemcheck
 <br/>or in Terminal: <code>systemcheck</code>
 <br/>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>3)
 <br/>Use Nyx, connection page two, to see if Tor is connected:
-<blockquote>$start_menu_instructions_system_first_part Nyx</blockquote>
+<blockquote>${start_menu_instructions_system_first_part} Nyx</blockquote>
 or in Terminal: <code>nyx</code></p>
-$anondate_debugging_information"
-   elif [ "$VM" = "Whonix-Workstation" ]; then
+${anondate_debugging_information}"
+   elif [ "${VM}" = "Whonix-Workstation" ]; then
       local MSG="<p>Tor Connection Result:
 <br/>systemcheck gave up waiting.
-<br/>Tor Circuit: <code>$tor_circuit_established_word</code></p>
+<br/>Tor Circuit: <code>${tor_circuit_established_word}</code></p>
 
 <p>Possible issues:
 <br/>- Is the host's internet connection working?
@@ -482,29 +485,29 @@ $anondate_debugging_information"
 <p>Recommendations:</p>
 
 <p>1)
-<br/>Try again: $start_menu_instructions_system_first_part systemcheck
+<br/>Try again: ${start_menu_instructions_system_first_part} systemcheck
 <br/>           or in Terminal: <code>systemcheck</code>
 <br/>           or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>2)
 <br/>Run systemcheck on Whonix-Gateway as well.</p>"
 
-   elif [ "$VM" = "machine" ]; then
+   elif [ "${VM}" = "machine" ]; then
       local MSG="<p>Tor Connection Result:
 <br/><b>systemcheck gave up waiting.</b>
-<br/>Tor Circuit: $tor_circuit_established_word
-<br/>Connection $tor_bootstrap_percent % done. Tor reports: <code>$tor_bootstrap_status</code></p>
+<br/>Tor Circuit: ${tor_circuit_established_word}
+<br/>Connection ${tor_bootstrap_percent} % done. Tor reports: <code>${tor_bootstrap_status}</code></p>
 
 <p>Possible issues:
 <br/>- Is the host's internet connection working?
-<br/>- $VM will need a few moments for bootstrapping the Tor network.
+<br/>- ${VM} will need a few moments for bootstrapping the Tor network.
 <br/>- Do you live in a censored area?
 <br/>- <a href=${PROJECT_HOMEPAGE}/wiki/Network_Obstacle>${PROJECT_HOMEPAGE}/wiki/Network_Obstacle</a>
-$anondate_issue</p>
+${anondate_issue}</p>
 
 <p>Recommendations:</p>
 
-$anondate_recommendation
+${anondate_recommendation}
 
 <p>1)
 <br/>Try to get the Tor Browser Bundle from <a href=https://www.torproject.org>https://www.torproject.org</a>
@@ -514,23 +517,23 @@ working on your host. If you cannot get the Tor Browser Bundle to work, you will
 you will need them for system Tor as well.</p>
 
 <p>2)
-<br/>Try again: $start_menu_instructions_system_first_part systemcheck
+<br/>Try again: ${start_menu_instructions_system_first_part} systemcheck
 <br/>or in Terminal: <code>systemcheck</code>
 <br/>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code></p>
 
 <p>3)
 <br/>Use Nyx, connection page two, to see if Tor is connected:
-<blockquote>$start_menu_instructions_system_first_part Nyx</blockquote>
+<blockquote>${start_menu_instructions_system_first_part} Nyx</blockquote>
 or in Terminal: <code>nyx</code></p>
-$anondate_debugging_information"
+${anondate_debugging_information}"
    else
-      local MSG="${FUNCNAME[0]}: Machine detection failed. Please report this $PROJECT_NAME bug!"
+      local MSG="${FUNCNAME[0]}: Machine detection failed. Please report this ${PROJECT_NAME} bug!"
    fi
 
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
+   if [ "${started_tor_bootstrap_progress_bar}" = "1" ]; then
+      ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "100"
    fi
-   emit_message error "$MSG"
+   emit_message error "${MSG}"
    EXIT_CODE="1"
    cleanup "1"
    ## `break` check_tor_bootstrap loop.
@@ -540,18 +543,18 @@ $anondate_debugging_information"
 check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
    local sdwdate_wait
 
-   if [ ! "$tor_circuit_established" = "1" ]; then
+   if [ ! "${tor_circuit_established}" = "1" ]; then
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
       return 0
    fi
 
-   if [ "$time_synchronization_status_word" = "fail" ]; then
+   if [ "${time_synchronization_status_word}" = "fail" ]; then
       true
       sdwdate_wait=""
       ## No need to wait if time_synchronization_status_word is already set to 'fail'.
    else
       ## Wait maybe.
-      if [ "$systemcheck_tor_bootstrap_waited_seconds" -ge "$systemcheck_tor_bootstrap_wait_max" ]; then
+      if [ "${systemcheck_tor_bootstrap_waited_seconds}" -ge "${systemcheck_tor_bootstrap_wait_max}" ]; then
          ## Waited long enough. Go on with this function.
          true
          sdwdate_wait="- sdwdate will need a few more moments for fetching the time."
@@ -562,7 +565,7 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
       fi
    fi
 
-   if [ "$time_synchronization_status_word" = "pending" ] || [ "$time_synchronization_status_word" = "fail" ]; then
+   if [ "${time_synchronization_status_word}" = "pending" ] || [ "${time_synchronization_status_word}" = "fail" ]; then
       true
    else
       ## Keep check_tor_bootstrap loop running. Go to next function in loop.
@@ -572,17 +575,17 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
    local if_you_know_what_you_are_doing_msg
    if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
 
-   if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
+   if [ "${whonix_firewall_status_word}" = "consecutive_run" ]; then
       local MSG="<p>Time Synchronization Result:
 <br/><b>systemcheck gave up waiting.</b>
 <br/>
-<br/>Time synchronization status: <code>$time_synchronization_status_word</code>
-<br/>sdwdate reports: <code>$time_synchronization_msg</code>
-<br/>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
-<br/>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
+<br/>Time synchronization status: <code>${time_synchronization_status_word}</code>
+<br/>sdwdate reports: <code>${time_synchronization_msg}</code>
+<br/>whonix_firewall status: <code>${whonix_firewall_status_notification}</code>
+<br/>onion-time-pre-script reports: <code>${onion_time_pre_script_output}</code>
 <br/>
 <br/>Possible issues:
-<br/>$sdwdate_wait
+<br/>${sdwdate_wait}
 <br/>- sdwdate time sources might be dysfunctional.
 <br/>
 <br/>Apparently you have already reloaded Whonix-Firewall.
@@ -593,24 +596,24 @@ check_tor_bootstrap_give_up_on_timesync_issue_maybe() {
       local MSG="<p>Time Synchronization Result:
 <br/><b>systemcheck gave up waiting.</b>
 <br/>
-<br/>Time synchronization status: <code>$time_synchronization_status_word</code>
-<br/>sdwdate reports: <code>$time_synchronization_msg</code>
-<br/>whonix_firewall status: <code>$whonix_firewall_status_notification</code>
-<br/>onion-time-pre-script reports: <code>$onion_time_pre_script_output</code>
+<br/>Time synchronization status: <code>${time_synchronization_status_word}</code>
+<br/>sdwdate reports: <code>${time_synchronization_msg}</code>
+<br/>whonix_firewall status: <code>${whonix_firewall_status_notification}</code>
+<br/>onion-time-pre-script reports: <code>${onion_time_pre_script_output}</code>
 <br/>
 <br/>Possible issues:
-<br/>$sdwdate_wait
+<br/>${sdwdate_wait}
 <br/>- sdwdate time sources might be dysfunctional.
 <br/>
 <br/>Recommendations:
 <br/>
 <br/><b>A)</b> <u>Rerun systemcheck</u>:
-<blockquote>$start_menu_instructions_system_first_part systemcheck</blockquote>
+<blockquote>${start_menu_instructions_system_first_part} systemcheck</blockquote>
 or in Terminal: <code>systemcheck</code>
 <br/>or more verbose in Terminal: <code>systemcheck --verbose --gui --cli</code>
 <br/>
 <br/><b>B)</b> <u>Restart sdwdate.</u>
-<blockquote>$start_menu_instructions_system_first_part sdwdate-gui - right click on sdwdate-gui systray - Restart sdwdate</blockquote>
+<blockquote>${start_menu_instructions_system_first_part} sdwdate-gui - right click on sdwdate-gui systray - Restart sdwdate</blockquote>
 <br/>Or alternatively:
 <br/>${remediation}
 <br/>
@@ -618,18 +621,18 @@ or in Terminal: <code>systemcheck</code>
 <br/>
 <br/>As last resort...
 <br/>
-<br/>1. Open a terminal. ($start_menu_instructions_system_first_part Terminal)
+<br/>1. Open a terminal. (${start_menu_instructions_system_first_part} Terminal)
 <br/>2. Use the manual clock setting tool. <blockquote><code>sudo --set-home clock-random-manual-gui</code></blockquote>
 3. Simulate sdwdate success. <blockquote><code>sudo -u sdwdate touch /run/sdwdate/first_success</code></blockquote>
 4. Rerun systemcheck.</p>"
    fi
 
-   if [ "$started_tor_bootstrap_progress_bar" = "1" ]; then
-      $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "100"
+   if [ "${started_tor_bootstrap_progress_bar}" = "1" ]; then
+      ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "100"
    fi
-   emit_message error "$MSG"
+   emit_message error "${MSG}"
 
-   if [ "$whonix_firewall_status_word" = "consecutive_run" ]; then
+   if [ "${whonix_firewall_status_word}" = "consecutive_run" ]; then
       ## `break` check_tor_bootstrap loop.
       return 1
    else
@@ -643,25 +646,25 @@ or in Terminal: <code>systemcheck</code>
 check_tor_bootstrap_script_error() {
    error_handler "<p>(Tor Connection Result:)
 <br/>(Technical information:)
-<br/>(tor_bootstrap_percent: <code>$tor_bootstrap_percent</code>)
-<br/>(tor_circuit_established: <code>$tor_circuit_established</code>)
-<br/>(tor_circuit_established_word: <code>$tor_circuit_established_word</code>)
-<br/>(tor_bootstrap_timeout_type: <code>$tor_bootstrap_timeout_type</code>)
-<br/>(tor_bootstrap_status: <code>$tor_bootstrap_status</code>)
-<br/>(check_socks_port_open_test: <code>$check_socks_port_open_test</code>)
-<br/>(systemcheck_tor_bootstrap_waited_seconds: <code>$systemcheck_tor_bootstrap_waited_seconds</code>)
-<br/>(systemcheck_tor_bootstrap_wait_max: <code>$systemcheck_tor_bootstrap_wait_max</code>)
+<br/>(tor_bootstrap_percent: <code>${tor_bootstrap_percent}</code>)
+<br/>(tor_circuit_established: <code>${tor_circuit_established}</code>)
+<br/>(tor_circuit_established_word: <code>${tor_circuit_established_word}</code>)
+<br/>(tor_bootstrap_timeout_type: <code>${tor_bootstrap_timeout_type}</code>)
+<br/>(tor_bootstrap_status: <code>${tor_bootstrap_status}</code>)
+<br/>(check_socks_port_open_test: <code>${check_socks_port_open_test}</code>)
+<br/>(systemcheck_tor_bootstrap_waited_seconds: <code>${systemcheck_tor_bootstrap_waited_seconds}</code>)
+<br/>(systemcheck_tor_bootstrap_wait_max: <code>${systemcheck_tor_bootstrap_wait_max}</code>)
 <br/>
-<br/>(whonix_firewall_status_word: $whonix_firewall_status_word)
-<br/>(whonix_firewall_status_notification: $whonix_firewall_status_notification)
+<br/>(whonix_firewall_status_word: ${whonix_firewall_status_word})
+<br/>(whonix_firewall_status_notification: ${whonix_firewall_status_notification})
 <br/>
-<br/>(time_synchronization_status_word: <code>$time_synchronization_status_word</code>)
-<br/>(time_synchronization_msg: <code>$time_synchronization_msg</code>)
+<br/>(time_synchronization_status_word: <code>${time_synchronization_status_word}</code>)
+<br/>(time_synchronization_msg: <code>${time_synchronization_msg}</code>)
 <br/>
-<br/>(anondate_issue: $anondate_issue)
-<br/>(anondate_recommendation: $anondate_recommendation)
+<br/>(anondate_issue: ${anondate_issue})
+<br/>(anondate_recommendation: ${anondate_recommendation})
 <br/>
-<br/>(anondate_debugging_information: $anondate_debugging_information)
+<br/>(anondate_debugging_information: ${anondate_debugging_information})
 </p>"
 
    ## `break` check_tor_bootstrap loop.
