@@ -17,7 +17,7 @@
 ## why it is not detected.
 
 #set -x
-set -e
+set -o errexit
 set -o pipefail
 set -o errtrace
 
@@ -29,7 +29,7 @@ This will happen in the background and will take approximately three minutes..."
 ICON="/usr/share/icons/gnome/24x24/status/info.png"
 
 SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
-IDENTIFIER="$SCRIPTNAME"
+IDENTIFIER="${SCRIPTNAME}"
 
 ## Debugging with bashdb.
 #IDENTIFIER="systemcheck"
@@ -56,43 +56,43 @@ bash -n /usr/libexec/helper-scripts/strings.bsh
 source /usr/libexec/helper-scripts/strings.bsh
 
 for i in /usr/libexec/systemcheck/*.bsh; do
-   bash -n "$i"
-   source "$i"
+   bash -n "${i}"
+   source "${i}"
 done
 
 systemcheck_move_progress_bar_to_percent() {
-   if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping ${FUNCNAME[0]} $1."
+   if [ "${silent}" -ge "3" ]; then
+      true "silent is ${silent}. Skipping ${FUNCNAME[0]} $1."
       return 0
    fi
-   $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressx "$1"
+   ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "$1"
 }
 
 systemcheck_progress_main_increment() {
-   if ! is_whole_number "$PROGRESS_MAIN"; then
+   if ! is_whole_number "${PROGRESS_MAIN}"; then
       PROGRESS_MAIN="0"
    fi
    local increment
    increment="$1"
-   if ! is_whole_number "$increment"; then
+   if ! is_whole_number "${increment}"; then
      exit 1
    fi
    PROGRESS_MAIN="$(( PROGRESS_MAIN + increment ))"
-   systemcheck_run_function systemcheck_move_progress_bar_to_percent "$PROGRESS_MAIN"
+   systemcheck_run_function systemcheck_move_progress_bar_to_percent "${PROGRESS_MAIN}"
 }
 
 systemcheck_progress_main_open() {
    ## global progressbaridx
    progressbaridx="$(cat "/proc/sys/kernel/random/uuid")"
 
-   local MSG="$NOTIFY_MSG"
+   local MSG="${NOTIFY_MSG}"
 
-   if [ "$silent" -ge "3" ]; then
-      true "silent is $silent. Skipping progress bar."
+   if [ "${silent}" -ge "3" ]; then
+      true "silent is ${silent}. Skipping progress bar."
       return 0
    fi
 
-   $output_x "${output_opts[@]}" --progressbaridx "$progressbaridx" --progressbarx --parentpid "$$" --progressbartitlex "$TITLE_X" --message "$MSG" --done
+   ${output_x} "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressbarx --parentpid "$$" --progressbartitlex "${TITLE_X}" --message "${MSG}" --done
 }
 
 systemcheck_main() {
@@ -110,7 +110,7 @@ systemcheck_main() {
 
    ## This MUST be done before parse_cmd_options is called, or systemcheck
    ## may execute arbitrary Bash commands present in the 'verbose' env var.
-   if ! is_whole_number "$verbose"; then
+   if ! is_whole_number "${verbose}"; then
      verbose="0"
    fi
 
@@ -252,6 +252,10 @@ systemcheck_main() {
 
    ## uses network: no
    systemcheck_run_function check_entropy ## check_entropy
+   systemcheck_progress_main_increment "1"
+
+   ## uses network: no
+   systemcheck_run_function check_audio ## check_audio
    systemcheck_progress_main_increment "1"
 
    ## uses network: no
