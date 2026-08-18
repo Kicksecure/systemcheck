@@ -9,7 +9,7 @@
 check_man() {
    if man --pager=cat systemcheck >/dev/null ; then
       local MSG="<p>Check manual page (man) Result: $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 

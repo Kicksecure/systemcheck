@@ -4,10 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 ## style-ok: no-strict
-## This file is a sourced fragment, not a standalone script. It is sourced
-## into 'systemcheck', which owns the strict-mode preamble. Setting
-## 'set -o nounset' etc. here would leak into the sourcing shell and break
-## systemcheck's reliance on unset variables.
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
 source /usr/libexec/systemcheck/uwt_tool.bsh
 
@@ -23,7 +20,7 @@ systemcheck_autostart_functions+=" cleanup "
 ## success/result lines so users get one unmistakable, consistent indicator.
 status_ok='<font color="green">OK.</font>'
 
-output_if_verbose() {
+run_if_verbose() {
    if [ "$verbose" -ge "1" ]; then
       "$@"
    fi
@@ -202,6 +199,13 @@ leaprun_cmd_describe() {
    ## how it reads, so a privleap action is never mislabelled as sudo.
    ## $1 - underlying, human-familiar command, e.g. "systemctl --wait is-system-running"
    ## $2 - optional leaprun action name; if set, $1 was run as root via privleap
+   ##
+   ## TODO: This is good for UX, but it also means that the same commands are
+   ## being written down twice; once in a privleap action, once in a
+   ## human-readable string. Thus we do not have a single source of truth.
+   ## Maybe we should get rid of this function, and just print whatever
+   ## command we actually ran? Curious users can investigate how privleap
+   ## works and determine what command was run by a particular action.
    local underlying action
    underlying="$1"
    action="${2:-}"
@@ -210,8 +214,8 @@ leaprun_cmd_describe() {
       printf '%s' "<code>${underlying}</code>"
       return 0
    fi
-   ## Privileged: leaprun ran a fixed action as root via privleap (PAM), not sudo.
-   printf '%s' "<code>leaprun ${action}</code> (runs '<code>${underlying}</code>' as root via privleap, not sudo)"
+   ## Privileged: leaprun ran a fixed action as root via privleap.
+   printf '%s' "<code>leaprun ${action}</code> (runs '<code>${underlying}</code>' as root via privleap)"
 }
 
 remediation_instructions() {
@@ -221,6 +225,10 @@ remediation_instructions() {
    ## sudo-capable session (not a root shell), so sudo is shown in every case;
    ## only WHERE to run it changes.
    ## $1 - the fix command to run, WITHOUT a leading 'sudo' (added here).
+   ##
+   ## TODO: Make this GUI- vs. CLI-aware too? Then we can tell the user to
+   ## just execute "${fix_command}" in the terminal they already have open.
+   ## Will also make the message make sense on GUI-less servers.
    local fix_command
    fix_command="$1"
    if [ "$booted_in_sysmaint_session" = "true" ]; then
@@ -233,29 +241,23 @@ remediation_instructions() {
 }
 
 html_link() {
-   ## Build a GUI hyperlink (HTML anchor) from a URL + link text, so a check
-   ## keeps one source of truth (the URL, reused verbatim in the CLI message)
-   ## instead of hand-writing the escaped-quote <a href="..."> boilerplate.
-   ## $1 - URL, $2 - link text.
    printf '%s' "<a href=\"$1\">$2</a>"
 }
 
 emit_status_line() {
-   ## Emit a "Label: STATUS" check result to BOTH channels from one message,
-   ## folding the previously separate GUI and CLI messages. The label is a
-   ## clickable link in the GUI and "text (url)" on the CLI (msgcollector
-   ## translates <a href>); the STATUS word is colored (<font color> -> terminal
-   ## color); and any <br> in the trailing body becomes a newline on the CLI.
+   ## Emit a "Label: STATUS" check result to BOTH channels from one message.
+   ## The label is a clickable link in the GUI and "text (url)" on the CLI
+   ## (msgcollector translates <a href>); the STATUS word is colored (<font
+   ## color> -> terminal color); and any newline in the trailing body becomes
+   ## a <br/> on the CLI.
+   ##
    ## $1 - severity: info | warning | error
    ## $2 - label text (also the link text)
    ## $3 - URL
    ## $4 - status color: green | orange | yellow | red
    ## $5 - status word
-   ## $6 - optional trailing body after the status word. Real newlines in it are
-   ##      translated to <br/>, so you can write a readable multi-line body in
-   ##      the source instead of one long line with literal <br/> (use real
-   ##      newlines only, not a mix). msgcollector turns the <br/> back into a
-   ##      newline on the CLI.
+   ## $6 - optional trailing body after the status word.
+   ##
    ## An empty URL ($3) renders the label as plain text (no link).
    local sev text url color status trailing label MSG
    sev="$1"
@@ -270,17 +272,14 @@ emit_status_line() {
    else
       label="$(html_link "$url" "$text")"
    fi
-   MSG="<p>${label}: <font color=\"$color\">$status</font>${trailing}</p>"
-   $output_x "${output_opts[@]}" --messagex --typex "$sev" --message "$MSG"
-   $output_cli "${output_opts[@]}" --messagecli --typecli "$sev" --message "$MSG"
+   MSG="<p>${label}: <font color=\"$color\">$status</font>${trailing+" ${trailing}"}</p>"
+   emit_message "$sev" "$MSG"
 }
 
 emit_message() {
    ## Send the SAME message to both output channels (GUI and CLI) at one
-   ## severity, folding the previously duplicated $output_x / $output_cli pair.
-   ## Use this for free-form message bodies; use emit_status_line for the
-   ## "Label: STATUS" check-result shape. Wrap the call in output_if_verbose to
-   ## emit only in verbose mode.
+   ## severity.
+   ##
    ## $1 - severity: info | warning | error
    ## $2 - message (HTML; the CLI channel renders it via msgcollector)
    $output_x "${output_opts[@]}" --messagex --typex "$1" --message "$2"
@@ -289,12 +288,12 @@ emit_message() {
 
 systemcheck_run_function() {
    case $systemcheck_skip_functions in
-   *"$@"*) echo "INFO: Skipping $* because systemcheck_skip_functions includes it."
+   *"$@"*) printf '%s\n' "INFO: Skipping $* because systemcheck_skip_functions includes it."
            return 0
            ;;
    esac
    case ${systemcheck_skip_functions_cli:-} in
-   *"$@"*) echo "INFO: Skipping $* because it was passed to --skip."
+   *"$@"*) printf '%s\n' "INFO: Skipping $* because it was passed to --skip."
            return 0
            ;;
    esac
@@ -333,9 +332,7 @@ get_local_derivative_version() {
    ## Example: derivative_deb_package_version="2:6-debpackage1"
 
    if [ "$derivative_deb_package_version_detection_success" = "true" ]; then
-      ## Remove a leading "epoch:" prefix if present, e.g.
-      ## "2:6-debpackage1" -> "6-debpackage1". Strips only the first colon, so
-      ## a colon elsewhere in the version and a missing epoch are both handled.
+      ## Remove a leading "epoch:" prefix if present.
       derivative_deb_package_version="${derivative_deb_package_version#*:}"
    fi
 
@@ -450,9 +447,7 @@ preparation() {
    ## sets: GATEWAY_IP
    ## sets: GATEWAY_IP6
    ## sets: gateway_control_port
-   local settings_echo_output
-   settings_echo_output="$(/usr/libexec/helper-scripts/settings_echo)"
-   eval "$settings_echo_output"
+   eval "$(/usr/libexec/helper-scripts/settings_echo)"
 
    ## 'uname --machine' is better than 'dpkg --print-architecture'.
    ## ARCH="x86_64"
@@ -483,17 +478,17 @@ preparation() {
 
       passive_popup_title="[${qubes_name_of_vm}]"
 
-      qubes_starter_first_part="ServiceVM"
-      if [ "$qubes_name_of_vm" = "AppVM" ]; then
-         qubes_starter_first_part="Domain"
-      fi
-      if [ "$qubes_name_of_vm" = "TemplateVM" ]; then
-         qubes_starter_first_part="Template"
-      fi
-
       ## '/qubes-vm-type' is either 'AppVM', 'ProxyVM', 'NetVM' or 'TemplateVM'
       qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
       qubes_vm_type="$(sanitize-string -- 255 "$qubes_vm_type")"
+
+      qubes_starter_first_part="ServiceVM"
+      if [ "$qubes_vm_type" = "AppVM" ]; then
+         qubes_starter_first_part="Domain"
+      fi
+      if [ "$qubes_vm_type" = "TemplateVM" ]; then
+         qubes_starter_first_part="Template"
+      fi
 
       ## '/qubes-vm-persistence' outputs:
       ## - 'full' (TemplateVM or Standalone),
@@ -510,34 +505,34 @@ preparation() {
       if test -f /run/qubes/this-is-templatevm ; then
          qubes_title_extra=" | TemplateVM"
          update_where="this TemplateVM ('<code>$qubes_name_of_vm</code>')"
-         persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_name_of_vm</code> /"
+         persistent_changes_start_menu_instructions_first_part="dom0 - Start Menu - Template: <code>$qubes_name_of_vm</code> -"
          start_menu_instructions_system_first_part="$persistent_changes_start_menu_instructions_first_part"
       else
          if [ "$qubes_vm_persistence" = "full" ]; then
             qubes_title_extra=" | Standalone $qubes_vm_type"
             update_where="this StandaloneVM ('<code>$qubes_name_of_vm</code>')"
-            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Domain: <code>$qubes_name_of_vm</code> /"
+            persistent_changes_start_menu_instructions_first_part="dom0 - Start Menu - Domain: <code>$qubes_name_of_vm</code> -"
             start_menu_instructions_system_first_part="$persistent_changes_start_menu_instructions_first_part"
          elif [ "$qubes_vm_persistence" = "rw-only" ]; then
             qubes_title_extra=" | $qubes_base_template TemplateBased $qubes_vm_type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM"
-            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_base_template</code> /"
-            start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
+            persistent_changes_start_menu_instructions_first_part="dom0 - Start Menu - Template: <code>$qubes_base_template</code> -"
+            start_menu_instructions_system_first_part="dom0 - Start Menu - $qubes_starter_first_part: <code>$qubes_name_of_vm</code> -"
          elif [ "$qubes_vm_persistence" = "none" ]; then
             qubes_title_extra=" | $qubes_base_template DispVM $qubes_vm_type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM"
-            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_base_template</code> /"
-            start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
+            persistent_changes_start_menu_instructions_first_part="dom0 - Start Menu - Template: <code>$qubes_base_template</code> -"
+            start_menu_instructions_system_first_part="dom0 - Start Menu - $qubes_starter_first_part: <code>$qubes_name_of_vm</code> -"
          else
             qubes_title_extra=" | Unknown Qubes VM Type"
             update_where="your '<code>$qubes_base_template</code>' TemplateVM (VM type could not be determined)"
-            persistent_changes_start_menu_instructions_first_part="dom0 / Start Menu / Template: <code>$qubes_base_template</code> /"
-            start_menu_instructions_system_first_part="dom0 / Start Menu / $qubes_starter_first_part: <code>$qubes_name_of_vm</code> /"
+            persistent_changes_start_menu_instructions_first_part="dom0 - Start Menu - Template: <code>$qubes_base_template</code> -"
+            start_menu_instructions_system_first_part="dom0 - Start Menu - $qubes_starter_first_part: <code>$qubes_name_of_vm</code> -"
          fi
       fi
       TITLE_CLI="$qubes_name_of_vm | ${VM}${qubes_title_extra} | $(LC_ALL=C date --utc)"
    else
-      start_menu_instructions_system_first_part="Start Menu / System /"
+      start_menu_instructions_system_first_part="Start Menu - System -"
       persistent_changes_start_menu_instructions_first_part="$start_menu_instructions_system_first_part"
       qubes_title_extra=""
       update_where="this machine"

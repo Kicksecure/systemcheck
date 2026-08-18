@@ -15,7 +15,7 @@ check_dpkg() {
 
    if [ "$dpkg_audit_output" = "" ]; then
       local MSG="<p>Package Manager Consistency Check Result: Output of command <code>dpkg --audit</code> was empty, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 

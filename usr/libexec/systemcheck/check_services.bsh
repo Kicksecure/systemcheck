@@ -27,16 +27,16 @@ check_services_do() {
 
    systemctl_output_without_legend="$($machine_command_machine 2>&1)" || true
 
-   ## Drop CLI-ignored units (--ignore-failed-unit) from the failed-units list --
-   ## for expected, environment-specific failures such as systemd-modules-load
-   ## under Secure Boot, where an unsigned out-of-tree module (tirdad) cannot load.
+   ## Drop CLI-ignored units (--ignore-failed-unit) from the failed-units list.
+   ## Mostly useful for CI testing.
    if [ -n "${systemcheck_ignore_failed_units_cli:-}" ]; then
-      local _ignore_unit
-      for _ignore_unit in $systemcheck_ignore_failed_units_cli; do
-         systemctl_output_without_legend="$(printf '%s\n' "$systemctl_output_without_legend" | grep -vF -- "$_ignore_unit" || true)"
+      local ignore_unit
+      # shellcheck disable=SC2086
+      for ignore_unit in $systemcheck_ignore_failed_units_cli; do
+         systemctl_output_without_legend="$(printf '%s\n' "$systemctl_output_without_legend" | grep --invert-match --fixed-strings -- "$ignore_unit" || true)"
       done
       ## After filtering, treat a whitespace-only result as "no failed units".
-      if ! printf '%s' "$systemctl_output_without_legend" | grep -qE '[^[:space:]]'; then
+      if [[ "$systemctl_output_without_legend" =~ ^[[:space:]]*$ ]]; then
          systemctl_output_without_legend=""
       fi
    fi
@@ -44,7 +44,7 @@ check_services_do() {
    if [ "$systemctl_output_without_legend" = "" ]; then
       local MSG
       MSG="<p>systemd '<u>$check_type</u>' units check result: $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -132,7 +132,7 @@ print_critical_output_message_maybe() {
       fi
    else
       MSG="<p>systemd critical journal messages check result (<u>${chosen_boot}</u> boot): $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
    fi
 }
 
@@ -160,15 +160,9 @@ print_verbose_log_output_message_maybe() {
 
 apply_journal_ignore_cli() {
    ## Drop journal lines matching any --journal-ignore-fixed (fixed string) or
-   ## --journal-ignore-match (extended regexp), so an expected / environment-
-   ## specific warning does not fail check_journal (e.g. privleapd skipping a tor
-   ## action whose 'debian-tor' TargetUser is absent on a no-tor build). These are
-   ## the CLI counterparts of the config-file journal_ignore_fixed_list /
-   ## journal_ignore_patterns_list and are applied ON TOP of them, so nothing
-   ## existing is weakened. Returns the input unchanged when neither CLI list is
-   ## set, and empty when only '<br />'/whitespace survives (so
-   ## print_verbose_log_output_message_maybe reads it as OK). log-checker br_add's
-   ## one journal entry per line, so a line filter matches per entry.
+   ## --journal-ignore-match (extended regexp). Returns the input unchanged
+   ## when neither CLI list is set, and empty when only '<br />'/whitespace
+   ## survives.
    local input result journal_ignore_pattern grep_ignore_cli_command
    input="${1:-}"
    if [ -z "${systemcheck_journal_ignore_fixed_cli:-}" ] \
@@ -178,7 +172,11 @@ apply_journal_ignore_cli() {
    fi
    result="$input"
    if [ -n "${systemcheck_journal_ignore_fixed_cli:-}" ]; then
+      ## TODO: Should we remove --ignore-case? systemd unit names are
+      ## case-sensitive.
       grep_ignore_cli_command=(grep --invert-match --fixed-strings --ignore-case)
+      ## TODO: Is there some way to make
+      ## systemcheck_journal_ignore_{fixed,match}_cli into arrays?
       while IFS= read -r journal_ignore_pattern; do
          [ -n "$journal_ignore_pattern" ] || continue
          grep_ignore_cli_command+=(-e "$journal_ignore_pattern")
@@ -193,7 +191,7 @@ apply_journal_ignore_cli() {
       done <<< "$systemcheck_journal_ignore_match_cli"
       result="$(printf '%s\n' "$result" | "${grep_ignore_cli_command[@]}")" || true
    fi
-   if ! printf '%s' "${result//<br \/>/}" | grep --quiet -- '[^[:space:]]'; then
+   if [[ "${result//<br \/>/}" =~ ^[[:space:]]*$ ]]; then
       return 0
    fi
    printf '%s' "$result"
@@ -211,18 +209,14 @@ check_journal() {
    ## logs for the current boot. To get critical logs from the last boot, we
    ## must check critical logs after getting logs for the last boot.
 
-   ## The contents of these four variables are HTML-neutralized by log-checker
-   ## (sanitize-string before br_add_to_file) so they are safe to embed in the
-   ## setHtml() GUI path. (stcatn alone only strips ANSI, not HTML.)
+   ## The contents of these four variables are sanitize-string'd by
+   ## log-checker.
    log_output="$(leaprun log-checker-check_service_logs_this_boot)" || true
    critical_output="$(leaprun log-checker-check_critical_logs)" || true
    last_boot_log_output="$(leaprun log-checker-check_service_logs_last_boot)" || true
    last_boot_critical_output="$(leaprun log-checker-check_critical_logs)" || true
 
-   ## Drop journal lines matching any --journal-ignore fixed string (CLI, on top
-   ## of log-checker's config-file ignores) before deciding pass/fail. Only the
-   ## general 'warn/fail/error' output is filtered; the critical_output path is
-   ## left intact so genuinely critical entries are never suppressed by the CLI.
+   ## We intentionally do not filter the *_critical_output vars.
    log_output="$(apply_journal_ignore_cli "$log_output")"
    last_boot_log_output="$(apply_journal_ignore_cli "$last_boot_log_output")"
 
@@ -276,7 +270,7 @@ check_whonix_firewall_systemd_status() {
 
    if [ "$systemctl_status_whonix_firewall_exit_code" = "0" ] && [ "$anon_firewall_failed_file_exists" = "false" ]; then
       local MSG="<p>Whonix firewall systemd unit check result: $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 

@@ -48,7 +48,7 @@ check_tor_config() {
    if [ ! "$tor_verify_config_exit_code" = "0" ]; then
       local if_you_know_what_you_are_doing_msg remediation
       if_you_know_what_you_are_doing_msg="$(if_you_know_what_you_are_doing_funct "${FUNCNAME[0]}")"
-      remediation="$(remediation_instructions "service tor@default restart")"
+      remediation="$(remediation_instructions "systemctl restart tor@default")"
       local MSG="<p>Tor Config Check Result:
 <br/><b>Your Tor config file contains at least one error.</b></p>
 
@@ -72,6 +72,9 @@ $start_menu_instructions_system_first_part Terminal
     <br/>or in Terminal: <code>sudo nano /usr/local/etc/torrc.d/50_user.conf</code></p>
 
 <p>Please restart Tor after fixing this error.
+
+<blockquote>    $start_menu_instructions_system_first_part Restart Tor</blockquote>
+<br/>Or alternatively:
 <br/>${remediation}</p>
 
 <p>Restart <code>systemcheck</code> after fixing this error.
@@ -86,6 +89,6 @@ $start_menu_instructions_system_first_part Terminal
       return 0
    else
       local MSG="<p>Tor Config Check Result: $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
    fi
 }

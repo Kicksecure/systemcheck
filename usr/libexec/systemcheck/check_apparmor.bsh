@@ -12,7 +12,7 @@ check_apparmor() {
 
    if printf '%s\n' "$output" | grep --fixed-strings "/usr/bin/disallowed-test: Permission denied" &>/dev/null; then
       local MSG="<p>AppArmor Check Result: $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
      return 0
    fi
 

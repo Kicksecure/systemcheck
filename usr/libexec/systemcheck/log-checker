@@ -7,6 +7,9 @@
 ## errexit and nounset ARE set below. pipefail is intentionally NOT set: the
 ## journal grep pipelines legitimately exit non-zero on no-match and must not
 ## abort. The gate's R-010 strict-triple does not fit this script.
+##
+## TODO: Can we adjust this script so that we can use a standard strict
+## preamble?
 
 ## NOTE: Runs as user `systemcheck`. Can run privleap actions
 ## `read-journalctl-logs-this-boot`,
@@ -48,9 +51,14 @@ prep_temp_dir() {
   ## TMPDIR out of space
   TMPDIR='/var/cache/systemcheck-log-checker'
   TMP="$TMPDIR"
-  export TMP TMPDIR
-  mkdir --parents -- "$TMPDIR"
-  chmod 700 -- "$TMPDIR"
+  ## TEMP TEMPDIR set for consistency only.
+  TEMP="$TMPDIR"
+  TEMPDIR="$TMPDIR"
+  export TMP TMPDIR TEMP TEMPDIR
+  ## The directory creation and permission assignment MUST be done atomically,
+  ## otherwise a TOCTOU vuln may allow arbitrary processes to leak the full
+  ## contents of the journal.
+  mkdir --parents --mode=700 -- "$TMPDIR"
   test -w "$TMPDIR"
 }
 
@@ -73,8 +81,8 @@ check_service_logs() {
 
   ## 'BUG' is word-boundary anchored (like 'fault' below) so it matches real
   ## kernel reports ('BUG:', 'kernel BUG at') but NOT the substring in words like
-  ## 'debugging' (e.g. the debug-shell.service 'FOR DEBUGGING ONLY' message).
-  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|(^|[^a-zA-Z])BUG([^a-zA-Z]|$)|segfault|killed|(^|[^a-zA-Z])fault($|[^a-zA-Z])|self-detected stall on CPU"
+  ## 'debugging'.
+  journal_search_pattern_list="SECCOMP.*syscall=|warn|fail|error|ordering cycle|(^|[^a-zA-Z])BUG($|[^a-zA-Z])|segfault|killed|(^|[^a-zA-Z])fault($|[^a-zA-Z])|self-detected stall on CPU"
 
   if test -e /usr/share/qubes/marker-vm; then
     journal_ignore_patterns_list+=( "virtualbox" )
@@ -127,10 +135,11 @@ check_service_logs() {
 
   ## Neutralize HTML metacharacters in untrusted journal content BEFORE
   ## br_add_to_file bakes in '<br />' tags. This output is later rendered in
-  ## the GUI via setHtml(); stcatn (applied afterwards) strips ANSI, not HTML.
-  ## nolimit: the filtered journal is the primary diagnostic; it is read via
-  ## stdin (no ARG_MAX risk) and the final GUI message is capped downstream by
-  ## msgdispatcher.
+  ## the GUI; stcatn (applied afterwards) strips ANSI, not HTML.
+  ##
+  ## Not piping to 'sponge' because that would cause errors in
+  ## sanitize-string to not terminate the script, because pipefail is not
+  ## enabled.
   sanitize-string -- nolimit < "$TMPDIR/journalctl_match_filtered.txt" > "$TMPDIR/journalctl_match_filtered.txt.tmp"
   mv -- "$TMPDIR/journalctl_match_filtered.txt.tmp" "$TMPDIR/journalctl_match_filtered.txt"
 

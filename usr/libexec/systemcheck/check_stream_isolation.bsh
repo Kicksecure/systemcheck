@@ -14,7 +14,7 @@ check_stream_isolation() {
    if [ ! "$leak_tests" = "true" ]; then
       local MSG="\
 <p>${FUNCNAME[0]} $1: Skipped, because not using <code>--leak-tests</code> (<code>--show-ip</code>), $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 

@@ -26,9 +26,8 @@ XXX_LOGIN_SEC_TABLE_XXX
 <p>You can adjust these settings using \"Manage Passwords\" and \"Manage GUI Autologin\"
 in the System Maintenance Panel.
 See also: <a href=\"https://www.kicksecure.com/wiki/Systemcheck#Physical_Security_Check\">Physical Security</a>.</p>"
-   ## The 'See also' links (Login, Colors, Physical Security) are anchors in
-   ## base_msg_gui, so the CLI path footnotes them; no separate plain-URL list
-   ## is needed (it duplicated the Login link).
+   ## We fill in a different table for CLI vs. GUI, so we need a separate CLI
+   ## base message var.
    local base_msg_cli="${base_msg_gui}"
 
    user_list_str="$(/usr/libexec/helper-scripts/get-user-list)"
@@ -144,14 +143,11 @@ See also: <a href=\"https://www.kicksecure.com/wiki/Systemcheck#Physical_Securit
    )
    table_settings_cli=( "${table_settings_gui[@]}" )
    for (( counter=0; counter < ${#user_list[@]}; counter++ )); do
-      local sanitized_user
-      sanitized_user="$(sanitize-string -- 255 "${user_list[counter]}")"
-      printf -v table_users_entry "| %-${users_column_width}s " "$sanitized_user"
+      ## Usernames, password status, and autologin status all come from
+      ## trusted data sources and do not need sanitization.
+      printf -v table_users_entry "| %-${users_column_width}s " "${user_list[counter]}"
       table_users+=( "${table_users_entry}" )
-      local sanitized_pw sanitized_autologin
-      sanitized_pw="$(sanitize-string -- 255 "${password_status_list[counter]}")"
-      sanitized_autologin="$(sanitize-string -- 255 "${autologin_status_list[counter]}")"
-      printf -v table_settings_gui_entry "| %-20s   %-13s |" "$sanitized_pw" "$sanitized_autologin"
+      printf -v table_settings_gui_entry "| %-20s   %-13s |" "${password_status_list[counter]}" "${autologin_status_list[counter]}"
       table_settings_cli_entry="${table_settings_gui_entry}"
       if [[ "${table_settings_gui_entry}" == *'Locked (Present)'* ]]; then
         table_settings_gui_entry="${table_settings_gui_entry//'Locked (Present)'/'<font color="green">Locked (Present)</font>'}"

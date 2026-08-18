@@ -73,8 +73,6 @@ run_with_attempts() {
       return 1
     fi
     true "$0: INFO: $label - failed. Sleep and try again."
-    ## Foreground (no '&'): backgrounding would let every retry fire back to
-    ## back with no delay, defeating the whole point of sleep_amount.
     light_sleep "${sleep_amount}"
   done
 }

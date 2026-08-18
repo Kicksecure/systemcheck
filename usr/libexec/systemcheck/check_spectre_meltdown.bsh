@@ -21,7 +21,7 @@ check_spectre_meltdown() {
 
    if [ "$spectre_meltdown_check" = "false" ]; then
       local MSG="<p>Spectre Meltdown Test: skipping since spectre_meltdown_check=<code>$spectre_meltdown_check</code>, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
       return 0
    fi
 
@@ -33,7 +33,7 @@ check_spectre_meltdown() {
 
    if [ "$spectre_meltdown_checker_exit_code" = "0" ]; then
       local MSG="<p>Spectre Meltdown Test Result: not vulnerable, $status_ok</p>"
-      output_if_verbose emit_message info "$MSG"
+      run_if_verbose emit_message info "$MSG"
    else
       local MSG="<p>Spectre Meltdown Test Result: Vulnerable.<br />
 <br />

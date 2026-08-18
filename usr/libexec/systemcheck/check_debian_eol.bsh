@@ -6,26 +6,25 @@
 ## style-ok: no-strict
 ## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
-source /usr/libexec/helper-scripts/get_colors.sh
-
 warn_unknown_eol_date() {
-   ## link_cli is a local of the calling check_debian_eol (bash dynamic scope).
-   emit_status_line info "Operating system (OS) (Debian) support status" "$link_cli" orange "Unknown" " (could not determine OS end-of-life date)"
+   ## link_eol is a local of the calling check_debian_eol (bash dynamic scope).
+   emit_status_line info "Operating system (OS) (Debian) support status" "${link_eol}" orange "Unknown" "(could not determine OS end-of-life date)"
 }
 
 check_debian_eol() {
-   local link_cli os_version os_info_line os_info_bit_list \
+   local status_text link_eol os_version os_info_line os_info_bit_list \
       os_eol_date os_lts_eol_date os_eol_timestamp os_lts_eol_timestamp \
       current_timestamp
 
-   link_cli="https://www.kicksecure.com/wiki/Operating_System_Software_and_Updates#End-of-life_Software"
+   status_text="Operating system (OS) (Debian) support status"
+   link_eol="https://www.kicksecure.com/wiki/Operating_System_Software_and_Updates#End-of-life_Software"
 
    os_version="$(
       cut -d'=' -f2 < <(grep 'VERSION_ID' /etc/os-release) \
          | sed 's/\"//g'
    )"
    if [ -z "${os_version}" ]; then
-      emit_status_line info "Operating system (OS) (Debian) support status" "$link_cli" orange "Unknown" " (could not determine OS version)"
+      emit_status_line info "${status_text}" "${link_eol}" orange "Unknown" "(could not determine OS version)"
       return 0
    fi
 
@@ -68,16 +67,16 @@ check_debian_eol() {
 
    current_timestamp="$(date '+%s')"
    if (( current_timestamp < os_eol_timestamp )); then
-      output_if_verbose emit_status_line info "Operating system (OS) (Debian) support status" "$link_cli" green "Supported" " (until ${os_eol_date})"
+      run_if_verbose emit_status_line info "${status_text}" "${link_eol}" green "Supported" "(until ${os_eol_date})"
       return 0
    elif (( current_timestamp < os_lts_eol_timestamp )); then
       EXIT_CODE="1"
-      emit_status_line warning "Operating system (OS) (Debian) support status" "$link_cli" orange "LTS support" " (until ${os_lts_eol_date})
-You should consider upgrading to a newer version of $PROJECT_NAME soon."
+      emit_status_line warning "${status_text}" "${link_eol}" orange "LTS support" "(until ${os_lts_eol_date})
+You should consider upgrading to a newer version of ${PROJECT_NAME} soon."
    else
       EXIT_CODE="1"
-      emit_status_line error "Operating system (OS) (Debian) support status" "$link_cli" red "Unsupported" " (as of ${os_lts_eol_date})
+      emit_status_line error "${status_text}" "${link_eol}" red "Unsupported" "(as of ${os_lts_eol_date})
 <b>Your system is likely vulnerable to malware infection due to missing security updates.</b>
-Upgrade to a newer version of $PROJECT_NAME as soon as possible. You should limit continued online use of this machine until it is upgraded."
+Upgrade to a newer version of ${PROJECT_NAME} as soon as possible. You should limit continued online use of this machine until it is upgraded."
    fi
 }
