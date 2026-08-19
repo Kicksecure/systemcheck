@@ -1,0 +1,58 @@
+#!/bin/bash
+
+## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+## style-ok: no-strict
+## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
+## style-ok: no-has
+## Matches this package's idiom: every systemcheck fragment probes command
+## availability with 'command -v', not helper-scripts' has (which the fragments
+## do not source).
+
+check_audio() {
+   ## Verbose-only audio self-test: play a short sound so the user can confirm
+   ## audio output is working. Runs only under --verbose because it is audible
+   ## and purely diagnostic.
+   ##
+   ## pw-play (PipeWire) is the only supported player: PipeWire is the audio
+   ## stack on the -gui variants (pw-play ships with pipewire-bin, pulled by
+   ## kicksecure-general-gui-all). On non-gui variants (cli / server / gateway)
+   ## pw-play is absent -- that is an info-skip, not a failure. The test sound
+   ## file is provided by sound-theme-freedesktop (a Depends, so normally
+   ## present); the file check is a defensive info-skip, not an expected path.
+   if [ "${verbose}" -lt "1" ]; then
+      return 0
+   fi
+
+   local audio_file
+   audio_file="/usr/share/sounds/freedesktop/stereo/audio-test-signal.oga"
+
+   if ! command -v pw-play >/dev/null 2>&1 ; then
+      local MSG="<p>Audio Test: Skipped. <code>pw-play</code> (PipeWire) is not installed.</p>"
+      emit_message info "${MSG}"
+      return 0
+   fi
+
+   if [ ! -r "${audio_file}" ]; then
+      local MSG="<p>Audio Test: Skipped. Test sound file <code>${audio_file}</code> is missing. It is normally provided by <code>sound-theme-freedesktop</code> (a dependency).</p>"
+      emit_message info "${MSG}"
+      return 0
+   fi
+
+   ## Bound the playback so a stuck audio backend cannot stall systemcheck.
+   local pw_play_exit_code
+   pw_play_exit_code="0"
+   timeout --kill-after="5" "10" pw-play -- "${audio_file}" >/dev/null 2>&1 \
+      || { pw_play_exit_code="$?" ; true; }
+
+   if [ "${pw_play_exit_code}" = "0" ]; then
+      local MSG="<p>Audio Test: A short test sound was played via <code>pw-play</code>. ${status_ok} If you did not hear it, audio output may not be working.</p>"
+      emit_message info "${MSG}"
+   else
+      ## Audio output is not a system-integrity property, so EXIT_CODE stays as
+      ## is; a nonzero player exit is surfaced as a warning, not a check failure.
+      local MSG="<p>Audio Test: <code>pw-play</code> could not play the test sound (exit code: <code>${pw_play_exit_code}</code>). Audio output may not be working.</p>"
+      emit_message warning "${MSG}"
+   fi
+}

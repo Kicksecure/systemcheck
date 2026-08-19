@@ -18,7 +18,7 @@ Depends: dist-base-files, helper-scripts, python3, signify-openbsd, curl,
  ca-certificates, msgcollector, psmisc, vrms,
  libarchive-tools, net-tools, iproute2, privleap,
  adduser, security-misc-shared, spectre-meltdown-checker,
- apparmor-profile-dist, safe-rm, ${misc:Depends}
+ apparmor-profile-dist, safe-rm, sound-theme-freedesktop, ${misc:Depends}
 Replaces: apparmor-profile-whonixcheck, whonixcheck
 Conflicts: apparmor-profile-whonixcheck, whonixcheck
 Recommends: icon-pack-dist, msgcollector-gui

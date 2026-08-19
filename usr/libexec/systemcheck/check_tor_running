@@ -14,7 +14,7 @@ exit_function() {
    printf '%s\n' ""
    printf '%s\n' "$0: output of '/usr/bin/systemctl --no-pager --no-block status tor@default':"
    printf '%s\n' ""
-   /usr/bin/systemctl --no-pager --no-block status tor@default
+   /usr/bin/systemctl --no-pager --no-block status tor@default || true
    exit "${exit_code}"
 }
 

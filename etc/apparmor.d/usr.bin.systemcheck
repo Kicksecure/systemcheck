@@ -360,6 +360,17 @@ include <tunables/global>
   /{,usr/}bin/yad rix,
   /{,usr/}bin/unicode-show rix,
   /{,usr/}bin/grep-find-unicode-wrapper rix,
+
+  ## check_audio (verbose-only audio self-test) plays a short sound via pw-play,
+  ## a symlink to pw-cat. Exec it UNCONFINED: a PipeWire client's socket / shm /
+  ## config access is broad and version-specific, and enumerating it here would
+  ## be fragile -- same treatment the profile gives other external helpers
+  ## (onion-time-pre-script, apt-get-update). The fragment reads the sound file
+  ## itself (its '-r' test), so the profile needs read on it.
+  /{,usr/}bin/pw-play rUx,
+  /{,usr/}bin/pw-cat rUx,
+  /usr/share/sounds/freedesktop/stereo/audio-test-signal.oga r,
+
   /{,usr/}sbin/anondate rix,
   /{,usr/}sbin/apparmor-info rix,
   /{,usr/}sbin/autologinchange rix,
