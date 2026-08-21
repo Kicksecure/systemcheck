@@ -1,3 +1,72 @@
+commit a093d92ae10dc89db33ed9f9ba1df2afdfd2ff8b
+Merge: 17dce61 3f03558
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 18 23:55:38 2026 -0400
+
+    Merge remote-tracking branch 'org-ai-assisted/ai'
+
+commit 3f03558c1adc2c66c1398a790927e7e829c2ad4c
+Author: claude (dev226 179d234f-88ec-4eaa-993f-32d2ac59580e) <noreply@anthropic.com>
+Date:   Tue Aug 18 12:39:59 2026 -0400
+
+    apparmor: permit check_audio to run pw-play under the systemcheck profile
+
+    check_audio (the verbose audio self-test) execs pw-play (a symlink to pw-cat)
+    under the enforced /usr/bin/systemcheck profile, which did not allow it -- so
+    AppArmor DENIED the exec (AVC name=/usr/bin/pw-cat, exit 126) and the test
+    false-warned "could not play the test sound" on every enforced system. Allow
+    pw-play/pw-cat (rUx -- unconfined, as PipeWire client access is broad and
+    version-specific; same treatment as the other external helpers) and read on the
+    test sound file. Verified in the sandbox: the AVC is gone and the test now
+    reports OK.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit 0a0a151934b1d986f189649beb1be1656add94bf
+Author: claude (dev226 179d234f-88ec-4eaa-993f-32d2ac59580e) <noreply@anthropic.com>
+Date:   Tue Aug 18 01:34:55 2026 -0400
+
+    check_tor_bootstrap: fill empty whonix_firewall status label
+
+    - The pending branch set whonix_firewall_status_word but left
+      whonix_firewall_status_notification empty, so the emitted
+      "whonix_firewall status:" line rendered a dangling empty value on
+      non-gateway systems. Give it a value.
+    - R-020/R-013 brace + arithmetic-$ cleanup across the touched file.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit 9b05596c9d401abe7e8bc281e49d8a49dbc0ddf9
+Author: claude (dev226 179d234f-88ec-4eaa-993f-32d2ac59580e) <noreply@anthropic.com>
+Date:   Tue Aug 18 01:34:52 2026 -0400
+
+    check_audio: verbose-only PipeWire audio self-test
+
+    - New check_audio fragment: under --verbose, play a short test sound so the
+      user can confirm audio output works.
+    - pw-play (PipeWire) only; PipeWire is the -gui variants' audio stack. Absent
+      pw-play (cli/server/gateway) or a missing sound file is an info-skip, not a
+      failure. Playback bounded by timeout so a stuck backend cannot stall the run.
+    - Sound file: /usr/share/sounds/freedesktop/stereo/audio-test-signal.oga from
+      sound-theme-freedesktop, added to Depends.
+    - Wire check_audio into the main run; R-020/R-013 brace + long-set cleanup on
+      the touched driver lines.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit 7ee9cc77ec2cfcfc4faf7858b3ef8a2505385301
+Merge: 0375cab 17dce61
+Author: claude (dev226 179d234f-88ec-4eaa-993f-32d2ac59580e) <noreply@anthropic.com>
+Date:   Tue Aug 18 00:31:07 2026 -0400
+
+    Merge branch 'master' into ai
+
+commit 17dce61115073c0267f53bca66bbe0c5c2c61a14
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 17 04:26:32 2026 +0000
+
+    bumped changelog version
+
 commit 2609626b084d66d4b2caec2f139745b0536af59b
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Aug 16 01:42:48 2026 -0400
@@ -47,6 +116,19 @@ Author: Aaron Rainbolt <arraybolt3@gmail.com>
 Date:   Mon Aug 10 23:45:01 2026 -0400
 
     Overhaul the AI-generated overhaul
+
+commit 0375cab604cf98a2ef542b6ccd53f9f62f184dde
+Author: claude (dev182 e09ec5cf-4ebf-4e1b-88e5-55fbac6ef1d3) <noreply@anthropic.com>
+Date:   Mon Aug 10 13:56:16 2026 -0400
+
+    check_tor_running: keep exit_code across systemctl status
+
+    systemctl status returns non-zero when tor@default is not active.
+    Under errexit that aborted exit_function before it could return the
+    preserved exit_code, masking the real status code. Tolerate the
+    non-zero status with || true so the intended exit_code is returned.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 commit 12e2f9ee68b0ef29744eabb087c77562609e1f50
 Merge: bb35ec3 04b3390
