@@ -7,14 +7,14 @@
 ## Sourced fragment; 'systemcheck' owns the strict-mode preamble.
 
 ## Not actually used. But useful as a test.
-# shellcheck source=../libexec/helper-scripts/use_leaprun.sh
-source /usr/libexec/helper-scripts/use_leaprun.sh
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/use_leaprun.sh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/use_leaprun.sh
 
-# shellcheck source=../libexec/helper-scripts/use_sudo.sh
-source /usr/libexec/helper-scripts/use_sudo.sh
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/use_sudo.sh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/use_sudo.sh
 
-# shellcheck source=../libexec/helper-scripts/use_pkexec.sh
-source /usr/libexec/helper-scripts/use_pkexec.sh
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/use_pkexec.sh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/use_pkexec.sh
 
 check_privleap_group_membership() {
    local group_list group_item in_privleap_group
@@ -46,12 +46,12 @@ check_privleap_group_membership() {
    fi
 
    local remediation
-   remediation="$(remediation_instructions "adduser $who_ami privleap")"
+   remediation="$(remediation_instructions "adduser ${who_ami} privleap")"
    MSG="<p>Account '${who_ami}' cannot use <a href=\"https://www.kicksecure.com/wiki/Privleap\">privleap</a> and is not a member of group 'privleap'. Some applications will not function properly.<br />
 <br />
 Possible fix:<br />
 ${remediation}</p>"
-   emit_message warning "$MSG"
+   emit_message warning "${MSG}"
 }
 
 check_privilege_escalation_tools() {
@@ -64,11 +64,11 @@ check_privilege_escalation_tools() {
    check_privilege_escalation_tool_do leaprun check-privleap-environment-variables
    check_privilege_escalation_tool_do leaprun check-sudo
 
-   if [ "$use_sudo" = "yes" ]; then
+   if [ "${use_sudo}" = "yes" ]; then
       check_privilege_escalation_tool_do sudo --non-interactive -- /usr/bin/test -x /usr/bin/test
    fi
 
-   if [ "$use_pkexec" = "yes" ]; then
+   if [ "${use_pkexec}" = "yes" ]; then
       ## sudo systemctl restart polkit.service
       ## /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
       check_privilege_escalation_tool_do pkexec /usr/libexec/systemcheck/pkexec-test
@@ -79,43 +79,46 @@ check_privilege_escalation_tool_do() {
    local privilege_escalation_tool_first_argument privilege_escalation_tool_command exit_code privilege_escalation_tool_output
 
    privilege_escalation_tool_first_argument="$1"
-   if [ ! "$privilege_escalation_tool_first_argument" = "sudo" ]; then
+   if [ ! "${privilege_escalation_tool_first_argument}" = "sudo" ]; then
       privilege_escalation_tool_first_argument="$1 $2"
    fi
    privilege_escalation_tool_command="$*"
 
    exit_code=0
-   privilege_escalation_tool_output="$($privilege_escalation_tool_command 2>&1)" || { exit_code="$?" ; true; };
+   privilege_escalation_tool_output="$(${privilege_escalation_tool_command} 2>&1)" || { exit_code="$?" ; true; };
 
-   if [ "$exit_code" = "0" ] ; then
+   if [ "${exit_code}" = "0" ] ; then
       privilege_escalation_tool_ok=true
    else
       privilege_escalation_tool_ok=false
    fi
 
-   if [ ! "$privilege_escalation_tool_output" = "" ]; then
+   if [ ! "${privilege_escalation_tool_output}" = "" ]; then
       privilege_escalation_tool_ok=false
    fi
 
-   if [ "$privilege_escalation_tool_ok" = "true" ]; then
-      local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' Result: $status_ok</p>"
-      run_if_verbose emit_message info "$MSG"
+   if [ "${privilege_escalation_tool_ok}" = "true" ]; then
+      local MSG="<p>Check '<code>${privilege_escalation_tool_first_argument}</code>' Result: ${status_ok}</p>"
+      run_if_verbose emit_message info "${MSG}"
       return 0
    fi
 
-   local MSG="<p>Check '<code>$privilege_escalation_tool_first_argument</code>' result: System misconfiguration detected. No need to panic. This is not a severe issue. However, other tests may be affected due to this.
+   ## style-ok: allow-echo
+   ## 'echo $?' below is literal text inside an HTML <blockquote>, shown to the
+   ## user as the command to run -- not a shell command in this script.
+   local MSG="<p>Check '<code>${privilege_escalation_tool_first_argument}</code>' result: System misconfiguration detected. No need to panic. This is not a severe issue. However, other tests may be affected due to this.
 <br><br>
 The following command:
-<blockquote>$privilege_escalation_tool_command ; echo \$?</blockquote>
+<blockquote>${privilege_escalation_tool_command} ; echo \$?</blockquote>
 was expected to produce no output with an exit code of zero. The opposite of that happened, indicating an unexpected result.
 <br><br>
-exit_code: <code>$exit_code</code>
+exit_code: <code>${exit_code}</code>
 <br><br>
 <code>privilege_escalation_tool_output</code>:
-<blockquote><code>$privilege_escalation_tool_output</code></blockquote>
+<blockquote><code>${privilege_escalation_tool_output}</code></blockquote>
 </p>"
 
-   emit_message error "$MSG"
+   emit_message error "${MSG}"
    EXIT_CODE="1"
 
    ## sudo hostname wrong-hostname
