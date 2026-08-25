@@ -1,3 +1,70 @@
+commit 59fae9d5db0d81afcced034084a6d1675f311fee
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 24 03:17:37 2026 -0400
+
+    end-of-options
+
+commit c83699c62ebf217383c16b4476f8c12bec492490
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 24 03:14:57 2026 -0400
+
+    fix
+
+commit da284e5fa05c960a11c19a1b30168216016454a4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 24 03:14:27 2026 -0400
+
+    fix
+
+commit fedfb0a3cc137bc1ff0192487396825cc885cf8a
+Merge: a8d9f4c 8a2d568
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 24 03:13:24 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/org-ai-assisted/ai'
+
+commit 8a2d5686a0351d37aa658534bbdb0a133a8b84d5
+Author: claude (dev272 e8b76afb-795c-4739-8ebd-023de854021e) <noreply@anthropic.com>
+Date:   Fri Aug 21 05:04:30 2026 -0400
+
+    systemcheck: source helper-scripts via HELPER_SCRIPTS_PATH + clear whole-file gate debt
+
+    check_privilege_escalation_tool.bsh:
+    - use_leaprun.sh, use_sudo.sh, use_pkexec.sh: source via
+      source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/<f>;
+      fix the stale '# shellcheck source=' directives to the R-080 sibling
+      path (../../../../helper-scripts/usr/libexec/helper-scripts/<f>) so
+      shellcheck -x follows them (no SC1091). No SC1091 disable was present.
+    - SC2250: brace all 17 flagged unbraced ${var} references (16 lines).
+    - R-034: false positive at the '<blockquote>... ; echo $?</blockquote>'
+      HTML literal -- 'echo $?' is displayed text shown to the user as the
+      command to run, not a shell command; added '## style-ok: allow-echo'
+      waiver, displayed text left unchanged.
+    - R-010: not applicable; sourced fragment carries the existing
+      '## style-ok: no-strict' waiver (systemcheck owns the strict preamble).
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit a8d9f4c4137b3bdbb6741b3eab9728840f8f5d6b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Aug 21 09:02:07 2026 +0000
+
+    bumped changelog version
+
+commit b0030497dcc22cfbc081d97002079d8a1deebf06
+Author: claude (dev272 e8b76afb-795c-4739-8ebd-023de854021e) <noreply@anthropic.com>
+Date:   Fri Aug 21 04:41:28 2026 -0400
+
+    systemcheck: source helper-scripts via HELPER_SCRIPTS_PATH, drop SC1091 disable
+
+    - canary, canary-daemon: use
+      source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/<f>;
+      drop the dead '# shellcheck disable=SC1091' and the stale sibling note.
+    - completed pre-existing whole-file style debt: R-010 (export LC_ALL=C),
+      R-013 (set -e -> set -o errexit).
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
 commit a093d92ae10dc89db33ed9f9ba1df2afdfd2ff8b
 Merge: 17dce61 3f03558
 Author: Patrick Schleizer <adrelanos@whonix.org>
