@@ -37,43 +37,45 @@ source_config() {
       /etc/systemcheck.d/*.conf \
       /usr/local/etc/systemcheck.d/*.conf \
       ; do
-         file_perms="$(stat -c '%a' "$i" 2>/dev/null)"
+         file_perms="$(stat -c '%a' "${i}" 2>/dev/null)"
          if [[ "${file_perms}" == *[2367] ]]; then
-            printf '%s\n' "${FUNCNAME[0]}: ERROR: Configuration file '$i' is world-writable!"
+            printf '%s\n' "${FUNCNAME[0]}: ERROR: Configuration file '${i}' is world-writable!"
             return 1;
          fi
-         bash -n "$i"
-         source "$i"
+         bash -n "${i}"
+         # shellcheck disable=SC1090  # dynamic per-config-file path
+         source "${i}"
    done
 }
 
 prep_temp_dir() {
   ## TMPDIR out of space
   TMPDIR='/var/cache/systemcheck-log-checker'
-  TMP="$TMPDIR"
+  TMP="${TMPDIR}"
   ## TEMP TEMPDIR set for consistency only.
-  TEMP="$TMPDIR"
-  TEMPDIR="$TMPDIR"
+  TEMP="${TMPDIR}"
+  TEMPDIR="${TMPDIR}"
   export TMP TMPDIR TEMP TEMPDIR
   ## The directory creation and permission assignment MUST be done atomically,
   ## otherwise a TOCTOU vuln may allow arbitrary processes to leak the full
   ## contents of the journal.
-  mkdir --parents --mode=700 -- "$TMPDIR"
-  test -w "$TMPDIR"
+  # shellcheck disable=SC2174
+  mkdir --parents --mode=700 -- "${TMPDIR}"
+  test -w "${TMPDIR}"
 }
 
 check_service_logs() {
-  local counter patterns grep_ignore_fixed_items_command journal_ignore_fixed_item journal_search_pattern_list check_boot
+  local patterns grep_ignore_fixed_items_command journal_ignore_fixed_item journal_search_pattern_list check_boot
 
   check_boot="${1:-}"
 
-  safe-rm --force -- "$TMPDIR/journalctl_output.txt"
-  touch -- "$TMPDIR/journalctl_output.txt"
+  safe-rm --force -- "${TMPDIR}/journalctl_output.txt"
+  touch -- "${TMPDIR}/journalctl_output.txt"
 
   if [ "${check_boot}" = 'this_boot' ]; then
-    ( leaprun read-journalctl-logs-this-boot || true ) 2>&1 | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null
+    ( leaprun read-journalctl-logs-this-boot || true ) 2>&1 | tee --append -- "${TMPDIR}/journalctl_output.txt" >/dev/null
   elif [ "${check_boot}" = 'last_boot' ]; then
-    ( leaprun read-journalctl-logs-last-boot || true ) 2>&1 | tee --append -- "$TMPDIR/journalctl_output.txt" >/dev/null
+    ( leaprun read-journalctl-logs-last-boot || true ) 2>&1 | tee --append -- "${TMPDIR}/journalctl_output.txt" >/dev/null
   else
     printf '%s\n' "$0: ${FUNCNAME[0]}: ERROR: Unrecognized boot identifier '${check_boot}', expected 'this_boot' or 'last_boot'!"
     return 1
@@ -88,13 +90,13 @@ check_service_logs() {
     journal_ignore_patterns_list+=( "virtualbox" )
   fi
 
-  grep --extended-regexp --ignore-case "$journal_search_pattern_list" -- "$TMPDIR/journalctl_output.txt" \
-    | tee -- "$TMPDIR/journalctl_matched.txt" >/dev/null
+  grep --extended-regexp --ignore-case "${journal_search_pattern_list}" -- "${TMPDIR}/journalctl_output.txt" \
+    | tee -- "${TMPDIR}/journalctl_matched.txt" >/dev/null
 
-  safe-rm --force -- "$TMPDIR/journalctl_output.txt"
+  safe-rm --force -- "${TMPDIR}/journalctl_output.txt"
 
   ## Output by 'apparmor-info' is already de-duplicated.
-  leaprun read-apparmor-info | tee --append -- "$TMPDIR/journalctl_matched.txt" >/dev/null
+  leaprun read-apparmor-info | tee --append -- "${TMPDIR}/journalctl_matched.txt" >/dev/null
 
   grep_ignore_fixed_items_command=()
   grep_ignore_fixed_items_command+=("grep")
@@ -103,6 +105,11 @@ check_service_logs() {
   grep_ignore_fixed_items_command+=("--ignore-case")
 
   #counter=0
+  ## Provided by source_config; default to empty so nounset does not abort and
+  ## the reference is assigned.
+  if ! declare -p journal_ignore_fixed_list >/dev/null 2>&1; then
+    journal_ignore_fixed_list=()
+  fi
   for journal_ignore_fixed_item in "${journal_ignore_fixed_list[@]}"; do
     #counter=$(( counter + 1 ))
     ## Debugging.
@@ -112,7 +119,7 @@ check_service_logs() {
     #printf '%s\n' "$counter: '$journal_ignore_fixed_item'" >/dev/null
 
     grep_ignore_fixed_items_command+=("-e")
-    grep_ignore_fixed_items_command+=("$journal_ignore_fixed_item")
+    grep_ignore_fixed_items_command+=("${journal_ignore_fixed_item}")
   done
 
 #   counter=0
@@ -123,15 +130,15 @@ check_service_logs() {
 #     #printf '%s\n' "$counter: '$journal_ignore_pattern_item'" >/dev/null
 #   done
 
-  "${grep_ignore_fixed_items_command[@]}" -- "$TMPDIR/journalctl_matched.txt" \
-    | tee -- "$TMPDIR/journalctl_fixed_filtered.txt" >/dev/null
+  "${grep_ignore_fixed_items_command[@]}" -- "${TMPDIR}/journalctl_matched.txt" \
+    | tee -- "${TMPDIR}/journalctl_fixed_filtered.txt" >/dev/null
 
-  safe-rm --force -- "$TMPDIR/journalctl_matched.txt"
+  safe-rm --force -- "${TMPDIR}/journalctl_matched.txt"
 
   patterns="$(printf '%s|' "${journal_ignore_patterns_list[@]}" | head -c-1)"
 
-  grep --invert-match --extended-regexp --ignore-case "$patterns" -- "$TMPDIR/journalctl_fixed_filtered.txt" \
-    | tee -- "$TMPDIR/journalctl_match_filtered.txt" >/dev/null
+  grep --invert-match --extended-regexp --ignore-case "${patterns}" -- "${TMPDIR}/journalctl_fixed_filtered.txt" \
+    | tee -- "${TMPDIR}/journalctl_match_filtered.txt" >/dev/null
 
   ## Neutralize HTML metacharacters in untrusted journal content BEFORE
   ## br_add_to_file bakes in '<br />' tags. This output is later rendered in
@@ -140,21 +147,21 @@ check_service_logs() {
   ## Not piping to 'sponge' because that would cause errors in
   ## sanitize-string to not terminate the script, because pipefail is not
   ## enabled.
-  sanitize-string -- nolimit < "$TMPDIR/journalctl_match_filtered.txt" > "$TMPDIR/journalctl_match_filtered.txt.tmp"
-  mv -- "$TMPDIR/journalctl_match_filtered.txt.tmp" "$TMPDIR/journalctl_match_filtered.txt"
+  sanitize-string -- nolimit < "${TMPDIR}/journalctl_match_filtered.txt" > "${TMPDIR}/journalctl_match_filtered.txt.tmp"
+  mv -- "${TMPDIR}/journalctl_match_filtered.txt.tmp" "${TMPDIR}/journalctl_match_filtered.txt"
 
   ## Creates file: '$TMPDIR/journalctl_match_filtered.txt_br'
-  br_add_to_file "$TMPDIR/journalctl_match_filtered.txt"
+  br_add_to_file "${TMPDIR}/journalctl_match_filtered.txt"
 
-  safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt"
+  safe-rm --force -- "${TMPDIR}/journalctl_match_filtered.txt"
 
-  stcatn "$TMPDIR/journalctl_match_filtered.txt_br" | sort --unique
+  stcatn "${TMPDIR}/journalctl_match_filtered.txt_br" | sort --unique
 }
 
 check_critical_logs() {
    local critical_pattern
 
-   if ! test -e "$TMPDIR/journalctl_match_filtered.txt_br"; then
+   if ! test -e "${TMPDIR}/journalctl_match_filtered.txt_br"; then
       return 0
    fi
 
@@ -162,19 +169,19 @@ check_critical_logs() {
    ## The space before ' BUG:' is important to avoid matching 'debug:'.
    critical_pattern='Bad RAM detected|self-detected stall on CPU| BUG:|nouveau .* channel .* killed!'
 
-   grep --ignore-case --extended-regexp "$critical_pattern" -- "$TMPDIR/journalctl_match_filtered.txt_br" | \
+   grep --ignore-case --extended-regexp "${critical_pattern}" -- "${TMPDIR}/journalctl_match_filtered.txt_br" | \
      stcatn
 
-   safe-rm --force -- "$TMPDIR/journalctl_match_filtered.txt_br"
+   safe-rm --force -- "${TMPDIR}/journalctl_match_filtered.txt_br"
 }
 
 source_config
 prep_temp_dir
 
 check_mode="${1:-}"
-if [ "$check_mode" = 'check_service_logs' ]; then
+if [ "${check_mode}" = 'check_service_logs' ]; then
   check_service_logs "${2:-}"
-elif [ "$check_mode" = 'check_critical_logs' ]; then
+elif [ "${check_mode}" = 'check_critical_logs' ]; then
   check_critical_logs
 else
   printf '%s\n' "$0: ERROR: Unrecognized mode '${check_mode}' specified!" >&2
