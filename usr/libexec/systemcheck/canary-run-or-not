@@ -3,25 +3,24 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-## style-ok: no-strict -- sourced fragment; the sourcing script (canary,
-## check_warrant_canary.bsh) owns errexit/nounset and reads canary_run.
+## style-ok: no-strict -- sourced fragment.
 
-## canary_run is the interface: assigned here, read by the sourcing script.
+## canary_run is read by the sourcing script.
 # shellcheck disable=SC2034
 
 canary_config_folders=(/etc/systemcheck.d /usr/local/etc/systemcheck.d /usr/local/etc/whonix.d /etc/whonix.d)
 
-if grep -r --quiet '^whonixcheck_skip_functions+=" download_whonix_news "' -- "${canary_config_folders[@]}" 2>/dev/null ; then
+if grep -r '^whonixcheck_skip_functions+=" download_whonix_news "' -- "${canary_config_folders[@]}" >/dev/null 2>&1 ; then
     true "INFO: Legacy disabled in settings. Doing nothing. Exiting."
     canary_run=false
 fi
 
-if grep -r --quiet '^systemcheck_skip_functions+=" download_whonix_news "' -- "${canary_config_folders[@]}" 2>/dev/null ; then
+if grep -r '^systemcheck_skip_functions+=" download_whonix_news "' -- "${canary_config_folders[@]}" >/dev/null 2>&1 ; then
     true "INFO: Legacy disabled in settings. Doing nothing. Exiting."
     canary_run=false
 fi
 
-if grep -r --quiet 'canary=false' -- "${canary_config_folders[@]}" 2>/dev/null ; then
+if grep -r 'canary=false' -- "${canary_config_folders[@]}" >/dev/null 2>&1 ; then
     true "INFO: Disabled in settings. Doing nothing. Exiting."
     canary_run=false
 fi

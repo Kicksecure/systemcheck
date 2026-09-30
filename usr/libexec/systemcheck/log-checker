@@ -43,7 +43,7 @@ source_config() {
             return 1;
          fi
          bash -n "${i}"
-         # shellcheck disable=SC1090  # dynamic per-config-file path
+         # shellcheck disable=SC1090
          source "${i}"
    done
 }
@@ -66,6 +66,7 @@ prep_temp_dir() {
 
 check_service_logs() {
   local patterns grep_ignore_fixed_items_command journal_ignore_fixed_item journal_search_pattern_list check_boot
+  # local counter
 
   check_boot="${1:-}"
 
@@ -105,11 +106,6 @@ check_service_logs() {
   grep_ignore_fixed_items_command+=("--ignore-case")
 
   #counter=0
-  ## Provided by source_config; default to empty so nounset does not abort and
-  ## the reference is assigned.
-  if ! declare -p journal_ignore_fixed_list >/dev/null 2>&1; then
-    journal_ignore_fixed_list=()
-  fi
   for journal_ignore_fixed_item in "${journal_ignore_fixed_list[@]}"; do
     #counter=$(( counter + 1 ))
     ## Debugging.
@@ -175,6 +171,8 @@ check_critical_logs() {
    safe-rm --force -- "${TMPDIR}/journalctl_match_filtered.txt_br"
 }
 
+journal_ignore_patterns_list=()
+journal_ignore_fixed_list=()
 source_config
 prep_temp_dir
 
