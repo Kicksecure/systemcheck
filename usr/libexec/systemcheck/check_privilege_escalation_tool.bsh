@@ -17,7 +17,7 @@ source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/use_sudo.sh
 source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/use_pkexec.sh
 
 check_privleap_group_membership() {
-   local group_list group_item in_privleap_group
+   local group_list group_item in_privleap_group who_ami_uid
 
    in_privleap_group='false'
    IFS=' ' read -r -a group_list < <(groups)
@@ -34,7 +34,8 @@ check_privleap_group_membership() {
       run_if_verbose emit_status_line info "Account '${who_ami}' present in group 'privleap'" "" orange "No" "(OK)"
    fi
 
-   if [ -S "/run/privleapd/comm/${who_ami}" ]; then
+   who_ami_uid="$(id -u "${who_ami}")" || who_ami_uid="NO_UID"
+   if [ -S "/run/privleapd/comm/${who_ami_uid}" ]; then
       return
    fi
 
