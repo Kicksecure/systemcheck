@@ -1,3 +1,55 @@
+commit 8989107dac4df323fc5aaac1fd80198d7452950b
+Merge: 4bf6d3d4 784a8bdc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Sep 30 04:22:56 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/ArrayBolt3/arraybolt3/trixie'
+
+commit 784a8bdcfc405cbcb96d286d60eb31dbea0b7627
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Tue Sep 29 23:48:28 2026 -0400
+
+    Unbreak privleap comm socket check
+
+commit 738500f08f2123940e79362f438398e639abca32
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Tue Sep 29 23:40:57 2026 -0400
+
+    Polish
+
+commit d46c1d05f459806bcba02e144239617645fa4378
+Merge: 4bf6d3d4 32bb61ee
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Tue Sep 29 22:58:39 2026 -0400
+
+    Merge branch 'ai' into arraybolt3/trixie
+
+commit 32bb61ee875e7c7462c570d0d0e9a9bebc91e4bd
+Author: claude (dev735 a9815679-58af-4230-b97a-27a9e8ef15e8) <noreply@anthropic.com>
+Date:   Tue Sep 29 11:36:36 2026 -0400
+
+    Shellcheck/style pass on canary + log-checker
+
+    - canary-download: python3 -Bsu (skip bytecode writes)
+    - canary-run-or-not: grep --quiet; config folders as an array (SC2086);
+      no-strict waiver (sourced fragment); canary_run SC2034 waiver
+    - log-checker: brace variable refs (SC2250); SC1090 waiver on dynamic source;
+      drop unused counter (SC2034); default journal_ignore_fixed_list so nounset
+      cannot abort and it is assigned (SC2154); waive SC2174 on the atomic mkdir
+
+commit cc3ac5b24a6b9bfa41ae1fc0e09e6798187810d6
+Merge: d057796d 4bf6d3d4
+Author: claude (dev626 2694adad-9457-4275-9dcf-e16e11e65327) <noreply@anthropic.com>
+Date:   Mon Sep 21 23:51:49 2026 -0400
+
+    Merge master (kicksecure upstream, incl. arraybolt3/trixie) into ai
+
+commit 4bf6d3d43ea530f3418576052614dc782512c051
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 22 03:12:36 2026 +0000
+
+    bumped changelog version
+
 commit 85491b4380dbccf3164a17a0ccdb1c212108848a
 Merge: f94f40e2 26dd1f0f
 Author: Patrick Schleizer <adrelanos@whonix.org>
