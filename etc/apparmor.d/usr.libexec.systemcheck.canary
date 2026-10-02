@@ -29,6 +29,7 @@ include <tunables/global>
   /etc/systemcheck.d/ r,
   /etc/systemcheck.d/** r,
   /etc/safe-rm.conf r,
+  /etc/ssl/certs/ca-certificates.crt r,
   /etc/whonix.d/ r,
   /etc/whonix.d/** r,
   /run/sdwdate/success r,
