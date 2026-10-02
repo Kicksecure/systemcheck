@@ -1,3 +1,22 @@
+commit d94b4c53e58707e2e758c8fc65bd1f84864608ae
+Merge: 0ce53e32 fd24b5ec
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Oct 2 04:15:43 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/ArrayBolt3/arraybolt3/trixie'
+
+commit fd24b5ecaa4692fec3fc30dfd2c649d9ccc1aef4
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Thu Oct 1 23:07:03 2026 -0400
+
+    Allow canary-download to read the SSL cert store
+
+commit 0ce53e327472a6fa20e88f9a1188018e3a0bcdb7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Sep 30 08:35:45 2026 +0000
+
+    bumped changelog version
+
 commit 8989107dac4df323fc5aaac1fd80198d7452950b
 Merge: 4bf6d3d4 784a8bdc
 Author: Patrick Schleizer <adrelanos@whonix.org>
